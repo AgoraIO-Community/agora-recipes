@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.1450 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1450 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1450 0 0);
+  --primary: #0099CC;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9700 0 0);
+  --secondary-foreground: oklch(0.2050 0 0);
+  --muted: oklch(0.9700 0 0);
+  --muted-foreground: oklch(0.5000 0 0);
+  --accent: oklch(0.9700 0 0);
+  --accent-foreground: oklch(0.2050 0 0);
+  --destructive: oklch(0.5770 0.2450 27.3250);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9220 0 0);
+  --input: oklch(0.9220 0 0);
+  --ring: #00C2FF;
+  --radius: 0.625rem;
+  --shadow-x: 0px;
+  --shadow-y: 1px;
+  --shadow-blur: 2px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.05;
+  --shadow-color: #000000;
+}
+
+.dark {
+  --background: oklch(0.1300 0 0);
+  --foreground: oklch(0.9850 0 0);
+  --card: oklch(0.1750 0 0);
+  --card-foreground: oklch(0.9850 0 0);
+  --popover: oklch(0.1750 0 0);
+  --popover-foreground: oklch(0.9850 0 0);
+  --primary: #00C2FF;
+  --primary-foreground: oklch(0.1300 0 0);
+  --secondary: oklch(0.2200 0 0);
+  --secondary-foreground: oklch(0.9850 0 0);
+  --muted: oklch(0.2200 0 0);
+  --muted-foreground: oklch(0.6800 0 0);
+  --accent: oklch(0.2400 0 0);
+  --accent-foreground: oklch(0.9850 0 0);
+  --destructive: oklch(0.7040 0.1910 22.2160);
+  --destructive-foreground: oklch(0.9850 0 0);
+  --border: oklch(0.2400 0 0);
+  --input: oklch(0.2700 0 0);
+  --ring: #00C2FF;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans), 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), 'Geist Mono', ui-monospace, monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --shadow-2xs: var(--shadow-x) var(--shadow-y) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-sm: var(--shadow-x) var(--shadow-y) calc(var(--shadow-blur) * 1.5) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-md: calc(var(--shadow-x) * 2) calc(var(--shadow-y) * 2) calc(var(--shadow-blur) * 3) calc(var(--shadow-spread) - 1px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-lg: calc(var(--shadow-x) * 4) calc(var(--shadow-y) * 4) calc(var(--shadow-blur) * 5) calc(var(--shadow-spread) - 3px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-xl: calc(var(--shadow-x) * 6) calc(var(--shadow-y) * 6) calc(var(--shadow-blur) * 7) calc(var(--shadow-spread) - 5px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-2xl: calc(var(--shadow-x) * 8) calc(var(--shadow-y) * 8) calc(max(0px, var(--shadow-blur) * 9 - 8px)) calc(var(--shadow-spread) - 12px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 250%), transparent);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background-color: color-mix(in srgb, var(--primary) 30%, transparent);
+    color: var(--foreground);
+  }
+}
+
+/* Subtle grid background used on hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.bg-grid-fade {
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 30%, black 40%, transparent 80%);
+}
+
+/* Markdown prose styling, theme-aware */
+.prose-recipe {
+  --tw-prose-body: var(--foreground);
+  color: var(--foreground);
+  font-size: 0.975rem;
+  line-height: 1.7;
+}
+.prose-recipe h1,
+.prose-recipe h2,
+.prose-recipe h3,
+.prose-recipe h4 {
+  color: var(--foreground);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 6rem;
+}
+.prose-recipe h1 { font-size: 1.875rem; margin: 2rem 0 1rem; }
+.prose-recipe h2 { font-size: 1.375rem; margin: 2.25rem 0 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.prose-recipe h3 { font-size: 1.125rem; margin: 1.75rem 0 0.5rem; }
+.prose-recipe p { margin: 0.75rem 0; color: color-mix(in srgb, var(--foreground) 85%, transparent); }
+.prose-recipe a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.prose-recipe a:hover { text-decoration-thickness: 2px; }
+.prose-recipe ul,
+.prose-recipe ol { margin: 0.75rem 0 0.75rem 1.25rem; }
+.prose-recipe ul { list-style: disc; }
+.prose-recipe ol { list-style: decimal; }
+.prose-recipe li { margin: 0.25rem 0; color: color-mix(in srgb, var(--foreground) 85%, transparent); }
+.prose-recipe li::marker { color: var(--muted-foreground); }
+.prose-recipe code {
+  background: var(--muted);
+  color: var(--foreground);
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  border: 1px solid var(--border);
+}
+.prose-recipe pre {
+  background: color-mix(in srgb, var(--muted) 70%, var(--background));
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.125rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.prose-recipe pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+.prose-recipe blockquote {
+  border-left: 3px solid var(--primary);
+  padding: 0.25rem 0 0.25rem 1rem;
+  margin: 1rem 0;
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.prose-recipe table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.prose-recipe th,
+.prose-recipe td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose-recipe th {
+  background: var(--muted);
+  font-weight: 600;
+}
+.prose-recipe hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+.prose-recipe input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--primary);
+}
+
+/* Animated soft glow accent for hero */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 6s ease-in-out infinite;
+}
+
+/* Audio waveform bars */
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+.wave-bar {
+  animation: wave 1.2s ease-in-out infinite;
+  transform-origin: center;
+}
