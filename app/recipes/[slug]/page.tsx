@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button"
 import { Markdown } from "@/components/markdown"
 import { CopyPrompt } from "@/components/copy-prompt"
 import { PlatformBadge } from "@/components/platform-badge"
-import { Waveform } from "@/components/waveform"
 
 type Params = { slug: string }
 
@@ -108,11 +107,6 @@ export default async function RecipePage({
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
             </Button>
-          </div>
-
-          {/* Animated waveform accent */}
-          <div className="mt-8 h-10 max-w-md" aria-hidden="true">
-            <Waveform bars={40} />
           </div>
         </div>
       </header>
