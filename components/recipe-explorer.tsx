@@ -80,8 +80,8 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
           Browse the cookbook
         </h2>
         <p className="text-muted-foreground text-pretty max-w-2xl">
-          {recipes.length} recipes for building production voice AI on the
-          Agora real-time network. Filter by platform, use case, or capability.
+          Recipes for building production voice AI on the Agora real-time
+          network. Filter by platform, use case, or capability.
         </p>
       </div>
 
