@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import { Markdown } from "@/components/markdown"
 import { CopyPrompt } from "@/components/copy-prompt"
 import { PlatformBadge } from "@/components/platform-badge"
+import { AgentMdActions } from "@/components/agent-md-actions"
 
 type Params = { slug: string }
 
@@ -126,15 +127,7 @@ export default async function RecipePage({
                 >
                   Agent.md
                 </h2>
-                <Link
-                  href={recipe.agentMdRawUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  view raw
-                  <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
-                </Link>
+                <AgentMdActions content={recipe.agentMd} />
               </div>
               <div className="rounded-xl border border-border bg-card px-5 sm:px-7 py-6">
                 <Markdown source={recipe.agentMd} />
