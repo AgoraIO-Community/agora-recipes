@@ -8,11 +8,7 @@ export default function HomePage() {
 
   return (
     <main>
-      <Hero
-        recipeCount={recipes.length}
-        platformCount={filterOptions.platforms.length}
-        capabilityCount={filterOptions.capabilities.length}
-      />
+      <Hero />
       <RecipeExplorer recipes={recipes} filterOptions={filterOptions} />
     </main>
   )

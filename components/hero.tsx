@@ -3,13 +3,7 @@ import { ArrowRight, Github, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Waveform } from "@/components/waveform"
 
-type HeroProps = {
-  recipeCount: number
-  platformCount: number
-  capabilityCount: number
-}
-
-export function Hero({ recipeCount, platformCount, capabilityCount }: HeroProps) {
+export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-border/60">
       {/* Background grid */}
@@ -74,39 +68,7 @@ export function Hero({ recipeCount, platformCount, capabilityCount }: HeroProps)
           </div>
         </div>
 
-        {/* Stats strip */}
-        <dl className="mt-12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
-          <Stat label="Recipes" value={recipeCount} />
-          <Stat label="Platforms" value={platformCount} suffix=" supported" />
-          <Stat label="Capabilities" value={capabilityCount} />
-        </dl>
       </div>
     </section>
-  )
-}
-
-function Stat({
-  label,
-  value,
-  suffix,
-}: {
-  label: string
-  value: number
-  suffix?: string
-}) {
-  return (
-    <div className="flex flex-col items-center text-center gap-1 border-l border-border/60 first:border-l-0 sm:first:border-l sm:border-border/40 px-2">
-      <dt className="text-xs uppercase tracking-wider text-muted-foreground/80">
-        {label}
-      </dt>
-      <dd className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums">
-        {value}
-        {suffix && (
-          <span className="text-sm font-normal text-muted-foreground ml-1">
-            {suffix}
-          </span>
-        )}
-      </dd>
-    </div>
   )
 }
