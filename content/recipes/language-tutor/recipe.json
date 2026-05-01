@@ -1,0 +1,20 @@
+{
+  "title": "AI Language Tutor",
+  "tagline": "Conversational language practice with grammar feedback and pronunciation scoring.",
+  "description": "An AI tutor you can actually speak with. Holds open-ended conversations at your level, scores pronunciation in real time, and tracks vocabulary acquisition over sessions.",
+  "platforms": ["Web", "iOS", "Android"],
+  "useCases": ["Education"],
+  "capabilities": [
+    "Conversational AI",
+    "Multi-lingual",
+    "Real-time STT",
+    "Real-time TTS",
+    "Streaming"
+  ],
+  "demoUrl": "https://tutor.agora.io/demo",
+  "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/language-tutor",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/language-tutor/Agent.md",
+  "author": "Agora Devrel",
+  "updated": "2026-03-11",
+  "difficulty": "Intermediate"
+}

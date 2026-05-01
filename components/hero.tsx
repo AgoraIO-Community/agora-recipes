@@ -2,12 +2,14 @@ import Link from "next/link"
 import { ArrowRight, Github, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Waveform } from "@/components/waveform"
-import { recipes } from "@/lib/recipes"
 
-export function Hero() {
-  const platformCount = new Set(recipes.flatMap((r) => r.platforms)).size
-  const featureCount = new Set(recipes.flatMap((r) => r.features)).size
+type HeroProps = {
+  recipeCount: number
+  platformCount: number
+  capabilityCount: number
+}
 
+export function Hero({ recipeCount, platformCount, capabilityCount }: HeroProps) {
   return (
     <section className="relative overflow-hidden border-b border-border/60">
       {/* Background grid */}
@@ -74,9 +76,9 @@ export function Hero() {
 
         {/* Stats strip */}
         <dl className="mt-12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
-          <Stat label="Recipes" value={recipes.length} />
+          <Stat label="Recipes" value={recipeCount} />
           <Stat label="Platforms" value={platformCount} suffix=" supported" />
-          <Stat label="Capabilities" value={featureCount} />
+          <Stat label="Capabilities" value={capabilityCount} />
         </dl>
       </div>
     </section>

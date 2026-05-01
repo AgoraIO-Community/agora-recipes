@@ -3,15 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { Search, X, SlidersHorizontal } from "lucide-react"
-import {
-  recipes,
-  allPlatforms,
-  allUseCases,
-  allFeatures,
-  type Platform,
-  type UseCase,
-  type Feature,
-} from "@/lib/recipes"
+import type { Recipe, FilterOptions } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
 import { RecipeCard } from "@/components/recipe-card"
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
@@ -19,23 +11,28 @@ import { cn } from "@/lib/utils"
 
 type Filters = {
   query: string
-  platforms: Platform[]
-  useCases: UseCase[]
-  features: Feature[]
+  platforms: string[]
+  useCases: string[]
+  capabilities: string[]
 }
 
 const EMPTY_FILTERS: Filters = {
   query: "",
   platforms: [],
   useCases: [],
-  features: [],
+  capabilities: [],
 }
 
 function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
 }
 
-export function RecipeExplorer() {
+type Props = {
+  recipes: Recipe[]
+  filterOptions: FilterOptions
+}
+
+export function RecipeExplorer({ recipes, filterOptions }: Props) {
   const [filters, setFilters] = React.useState<Filters>(EMPTY_FILTERS)
   const [showAdvanced, setShowAdvanced] = React.useState(false)
 
@@ -43,7 +40,8 @@ export function RecipeExplorer() {
     const q = filters.query.trim().toLowerCase()
     return recipes.filter((r) => {
       if (q) {
-        const haystack = `${r.title} ${r.tagline} ${r.description} ${r.features.join(" ")} ${r.useCases.join(" ")}`.toLowerCase()
+        const haystack =
+          `${r.title} ${r.tagline} ${r.description} ${r.capabilities.join(" ")} ${r.useCases.join(" ")}`.toLowerCase()
         if (!haystack.includes(q)) return false
       }
       if (filters.platforms.length && !filters.platforms.some((p) => r.platforms.includes(p))) {
@@ -52,17 +50,20 @@ export function RecipeExplorer() {
       if (filters.useCases.length && !filters.useCases.some((u) => r.useCases.includes(u))) {
         return false
       }
-      if (filters.features.length && !filters.features.every((f) => r.features.includes(f))) {
+      if (
+        filters.capabilities.length &&
+        !filters.capabilities.every((c) => r.capabilities.includes(c))
+      ) {
         return false
       }
       return true
     })
-  }, [filters])
+  }, [filters, recipes])
 
   const totalActive =
     filters.platforms.length +
     filters.useCases.length +
-    filters.features.length +
+    filters.capabilities.length +
     (filters.query ? 1 : 0)
 
   return (
@@ -112,7 +113,7 @@ export function RecipeExplorer() {
               aria-label="Filter by platform"
               className="inline-flex h-10 items-center rounded-lg border border-border bg-background p-0.5"
             >
-              {allPlatforms.map((p) => {
+              {filterOptions.platforms.map((p) => {
                 const active = filters.platforms.includes(p)
                 return (
                   <button
@@ -158,7 +159,7 @@ export function RecipeExplorer() {
           <div className="rounded-xl border border-border bg-card/50 p-4 flex flex-col gap-4">
             <FilterGroup
               label="Use case"
-              options={allUseCases}
+              options={filterOptions.useCases}
               selected={filters.useCases}
               onToggle={(v) =>
                 setFilters((f) => ({ ...f, useCases: toggle(f.useCases, v) }))
@@ -167,10 +168,10 @@ export function RecipeExplorer() {
             <FilterGroup
               label="Capability"
               hint="Recipes must include all selected capabilities"
-              options={allFeatures}
-              selected={filters.features}
+              options={filterOptions.capabilities}
+              selected={filters.capabilities}
               onToggle={(v) =>
-                setFilters((f) => ({ ...f, features: toggle(f.features, v) }))
+                setFilters((f) => ({ ...f, capabilities: toggle(f.capabilities, v) }))
               }
             />
             {totalActive > 0 && (
@@ -242,7 +243,7 @@ export function RecipeExplorer() {
   )
 }
 
-function FilterGroup<T extends string>({
+function FilterGroup({
   label,
   hint,
   options,
@@ -251,9 +252,9 @@ function FilterGroup<T extends string>({
 }: {
   label: string
   hint?: string
-  options: readonly T[]
-  selected: T[]
-  onToggle: (value: T) => void
+  options: string[]
+  selected: string[]
+  onToggle: (value: string) => void
 }) {
   return (
     <div className="flex flex-col gap-2">

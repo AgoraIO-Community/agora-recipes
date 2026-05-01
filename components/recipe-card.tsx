@@ -42,19 +42,19 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           {recipe.tagline}
         </p>
 
-        {/* Features */}
+        {/* Capabilities */}
         <div className="mt-auto pt-3 border-t border-border/60 flex flex-wrap gap-1.5">
-          {recipe.features.slice(0, 3).map((f) => (
+          {recipe.capabilities.slice(0, 3).map((c) => (
             <span
-              key={f}
+              key={c}
               className="inline-flex items-center rounded-md border border-border bg-background px-1.5 py-0.5 text-[11px] text-muted-foreground"
             >
-              {f}
+              {c}
             </span>
           ))}
-          {recipe.features.length > 3 && (
+          {recipe.capabilities.length > 3 && (
             <span className="inline-flex items-center rounded-md px-1.5 py-0.5 text-[11px] text-muted-foreground">
-              +{recipe.features.length - 3}
+              +{recipe.capabilities.length - 3}
             </span>
           )}
         </div>

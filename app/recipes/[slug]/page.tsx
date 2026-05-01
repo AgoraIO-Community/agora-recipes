@@ -12,7 +12,11 @@ import {
   Layers,
 } from "lucide-react"
 
-import { recipes, getRecipe } from "@/lib/recipes"
+import {
+  getAllRecipes,
+  getRecipe,
+  getRelatedRecipes,
+} from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
 import { Markdown } from "@/components/markdown"
 import { CopyPrompt } from "@/components/copy-prompt"
@@ -22,7 +26,7 @@ import { AgentMdActions } from "@/components/agent-md-actions"
 type Params = { slug: string }
 
 export function generateStaticParams(): Params[] {
-  return recipes.map((r) => ({ slug: r.slug }))
+  return getAllRecipes().map((r) => ({ slug: r.slug }))
 }
 
 export async function generateMetadata({
@@ -52,6 +56,8 @@ export default async function RecipePage({
   const { slug } = await params
   const recipe = getRecipe(slug)
   if (!recipe) notFound()
+
+  const related = getRelatedRecipes(recipe.slug, 3)
 
   return (
     <article>
@@ -166,18 +172,37 @@ export default async function RecipePage({
 
             <SidebarSection title="Capabilities">
               <div className="flex flex-wrap gap-1.5">
-                {recipe.features.map((f) => (
+                {recipe.capabilities.map((c) => (
                   <span
-                    key={f}
+                    key={c}
                     className="inline-flex items-center rounded-full border border-primary/30 bg-primary/5 px-2.5 py-0.5 text-xs text-primary"
                   >
-                    {f}
+                    {c}
                   </span>
                 ))}
               </div>
             </SidebarSection>
 
-            <RelatedRecipes currentSlug={recipe.slug} />
+            {related.length > 0 && (
+              <SidebarSection title="Related recipes">
+                <ul className="flex flex-col gap-1.5">
+                  {related.map((r) => (
+                    <li key={r.slug}>
+                      <Link
+                        href={`/recipes/${r.slug}`}
+                        className="group flex items-start justify-between gap-2 rounded-md px-2 -mx-2 py-1.5 hover:bg-muted/60 transition-colors"
+                      >
+                        <span className="text-sm leading-snug">{r.title}</span>
+                        <ArrowUpRight
+                          className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors"
+                          aria-hidden="true"
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </SidebarSection>
+            )}
           </aside>
         </div>
       </div>
@@ -235,45 +260,6 @@ function SidebarRow({
       </span>
       <span className="text-foreground">{value}</span>
     </div>
-  )
-}
-
-function RelatedRecipes({ currentSlug }: { currentSlug: string }) {
-  const current = getRecipe(currentSlug)
-  if (!current) return null
-
-  const scored = recipes
-    .filter((r) => r.slug !== currentSlug)
-    .map((r) => {
-      const featureOverlap = r.features.filter((f) => current.features.includes(f)).length
-      const useCaseOverlap = r.useCases.filter((u) => current.useCases.includes(u)).length
-      return { recipe: r, score: featureOverlap * 2 + useCaseOverlap * 3 }
-    })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
-    .map((s) => s.recipe)
-
-  if (scored.length === 0) return null
-
-  return (
-    <SidebarSection title="Related recipes">
-      <ul className="flex flex-col gap-1.5">
-        {scored.map((r) => (
-          <li key={r.slug}>
-            <Link
-              href={`/recipes/${r.slug}`}
-              className="group flex items-start justify-between gap-2 rounded-md px-2 -mx-2 py-1.5 hover:bg-muted/60 transition-colors"
-            >
-              <span className="text-sm leading-snug">{r.title}</span>
-              <ArrowUpRight
-                className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors"
-                aria-hidden="true"
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </SidebarSection>
   )
 }
 
