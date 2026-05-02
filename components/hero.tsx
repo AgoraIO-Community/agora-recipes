@@ -36,11 +36,11 @@ export function Hero() {
           <p className="text-base sm:text-lg text-muted-foreground text-pretty max-w-2xl leading-relaxed">
             Open-source samples for real-time voice agents, transcription,
             translation, and more — running on Agora's global low-latency
-            network. Fork an{" "}
+            network. Drop an{" "}
             <code className="font-mono text-sm rounded bg-muted px-1.5 py-0.5 border border-border">
               Agent.md
             </code>{" "}
-            and have a working demo in minutes.
+            into your project — or fork the repo — and ship in minutes.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
