@@ -1,7 +1,6 @@
 import { ArrowUpRight } from "lucide-react"
 import type { Recipe } from "@/lib/recipes"
 import { PlatformBadgeList } from "@/components/platform-badge"
-import { Waveform } from "@/components/waveform"
 import { cn } from "@/lib/utils"
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
@@ -13,30 +12,28 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         "group-focus-visible:border-foreground/30",
       )}
     >
-      {/* Top visual */}
-      <div className="relative h-28 border-b border-border bg-gradient-to-br from-muted/30 via-muted/10 to-background overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-40" aria-hidden="true" />
-        <div className="absolute inset-0 flex items-center px-6">
-          <Waveform bars={28} className="h-12 opacity-70 group-hover:opacity-100 transition-opacity" />
-        </div>
-        <div className="absolute top-3 right-3">
+      {/* Accent rail — animates in on hover, replaces the heavy top visual */}
+      <span
+        aria-hidden="true"
+        className="absolute left-0 top-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
+      />
+
+      <div className="flex-1 p-5 flex flex-col gap-4">
+        {/* Top row: platforms + difficulty */}
+        <div className="flex items-center justify-between gap-3">
           <PlatformBadgeList platforms={recipe.platforms} />
-        </div>
-        <div className="absolute bottom-3 left-3">
-          <span className="inline-flex items-center rounded-md bg-background/90 backdrop-blur px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted-foreground border border-border">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
             {recipe.difficulty}
           </span>
         </div>
-      </div>
 
-      {/* Body */}
-      <div className="flex-1 p-5 flex flex-col gap-3">
+        {/* Title + arrow */}
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-base font-semibold leading-snug tracking-tight text-balance">
             {recipe.title}
           </h3>
           <ArrowUpRight
-            className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
+            className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
             aria-hidden="true"
           />
         </div>
@@ -45,18 +42,19 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           {recipe.tagline}
         </p>
 
-        <div className="mt-auto pt-3 flex flex-wrap gap-1.5">
-          {recipe.features.slice(0, 3).map((f) => (
+        {/* Capabilities */}
+        <div className="mt-auto pt-3 border-t border-border/60 flex flex-wrap gap-1.5">
+          {recipe.capabilities.slice(0, 3).map((c) => (
             <span
-              key={f}
+              key={c}
               className="inline-flex items-center rounded-md border border-border bg-background px-1.5 py-0.5 text-[11px] text-muted-foreground"
             >
-              {f}
+              {c}
             </span>
           ))}
-          {recipe.features.length > 3 && (
+          {recipe.capabilities.length > 3 && (
             <span className="inline-flex items-center rounded-md px-1.5 py-0.5 text-[11px] text-muted-foreground">
-              +{recipe.features.length - 3}
+              +{recipe.capabilities.length - 3}
             </span>
           )}
         </div>

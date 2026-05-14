@@ -1,0 +1,20 @@
+{
+  "title": "AI Customer Support Line",
+  "tagline": "A 24/7 voice support agent with handoff to a human when needed.",
+  "description": "A voice IVR replacement that authenticates the caller, answers from your knowledge base via RAG, and escalates to a human agent on the same Agora channel when confidence drops.",
+  "platforms": ["Web"],
+  "useCases": ["Customer Support"],
+  "capabilities": [
+    "Conversational AI",
+    "RAG",
+    "Function Calling",
+    "Multi-lingual",
+    "Low Latency"
+  ],
+  "demoUrl": "https://support.agora.io/demo",
+  "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/ai-customer-support",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/ai-customer-support/Agent.md",
+  "author": "Agora Devrel",
+  "updated": "2026-04-20",
+  "difficulty": "Advanced"
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Telehealth Voice Intake",
+  "tagline": "HIPAA-aligned voice intake that captures symptoms before the doctor joins.",
+  "description": "A pre-visit voice agent that walks patients through structured symptom intake, summarizes the conversation into a SOAP note, and posts it to the EHR before the clinician joins the call.",
+  "platforms": ["Web", "iOS"],
+  "useCases": ["Healthcare"],
+  "capabilities": [
+    "Conversational AI",
+    "RAG",
+    "Function Calling",
+    "Multi-lingual",
+    "Noise Suppression"
+  ],
+  "demoUrl": "https://telehealth.agora.io/demo",
+  "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/telehealth-intake",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/telehealth-intake/Agent.md",
+  "author": "Agora Devrel",
+  "updated": "2026-04-25",
+  "difficulty": "Advanced"
+}

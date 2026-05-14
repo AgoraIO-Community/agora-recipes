@@ -1,8 +1,7 @@
-import { Globe, Smartphone } from "lucide-react"
-import type { Platform } from "@/lib/recipes"
+import { Globe, Smartphone, Tag } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const ICONS: Record<Platform, React.ComponentType<{ className?: string }>> = {
+const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Web: Globe,
   iOS: Smartphone,
   Android: Smartphone,
@@ -12,10 +11,10 @@ export function PlatformBadge({
   platform,
   className,
 }: {
-  platform: Platform
+  platform: string
   className?: string
 }) {
-  const Icon = ICONS[platform]
+  const Icon = ICONS[platform] ?? Tag
   return (
     <span
       className={cn(
@@ -29,7 +28,7 @@ export function PlatformBadge({
   )
 }
 
-export function PlatformBadgeList({ platforms }: { platforms: Platform[] }) {
+export function PlatformBadgeList({ platforms }: { platforms: string[] }) {
   return (
     <div className="flex flex-wrap gap-1">
       {platforms.map((p) => (

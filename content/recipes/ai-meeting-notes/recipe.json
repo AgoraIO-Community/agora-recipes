@@ -1,0 +1,14 @@
+{
+  "title": "AI Meeting Notes",
+  "tagline": "Live transcription, speaker diarization, and AI-generated summaries.",
+  "description": "Drop-in meeting assistant that joins an Agora call as a silent participant, transcribes every speaker in real time, and produces a structured summary with action items when the call ends.",
+  "platforms": ["Web"],
+  "useCases": ["Productivity"],
+  "capabilities": ["Real-time STT", "Streaming", "Multi-lingual", "RAG"],
+  "demoUrl": "https://meeting-notes.agora.io/demo",
+  "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/ai-meeting-notes",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/ai-meeting-notes/Agent.md",
+  "author": "Agora Devrel",
+  "updated": "2026-03-28",
+  "difficulty": "Intermediate"
+}

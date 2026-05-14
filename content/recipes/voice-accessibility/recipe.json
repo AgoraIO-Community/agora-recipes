@@ -1,0 +1,20 @@
+{
+  "title": "Voice-first Accessibility Reader",
+  "tagline": "Turn any web page into a navigable, voice-controlled reading experience.",
+  "description": "An accessibility layer that lets users navigate, summarize, and ask questions about any web page using only their voice. Designed with screen-reader users in mind.",
+  "platforms": ["Web"],
+  "useCases": ["Accessibility"],
+  "capabilities": [
+    "Conversational AI",
+    "Real-time STT",
+    "Real-time TTS",
+    "Function Calling",
+    "RAG"
+  ],
+  "demoUrl": "https://reader.agora.io/demo",
+  "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/voice-accessibility",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/voice-accessibility/Agent.md",
+  "author": "Agora Devrel",
+  "updated": "2026-02-08",
+  "difficulty": "Beginner"
+}

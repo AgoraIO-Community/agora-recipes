@@ -2,12 +2,8 @@ import Link from "next/link"
 import { ArrowRight, Github, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Waveform } from "@/components/waveform"
-import { recipes } from "@/lib/recipes"
 
 export function Hero() {
-  const platformCount = new Set(recipes.flatMap((r) => r.platforms)).size
-  const featureCount = new Set(recipes.flatMap((r) => r.features)).size
-
   return (
     <section className="relative overflow-hidden border-b border-border/60">
       {/* Background grid */}
@@ -40,11 +36,11 @@ export function Hero() {
           <p className="text-base sm:text-lg text-muted-foreground text-pretty max-w-2xl leading-relaxed">
             Open-source samples for real-time voice agents, transcription,
             translation, and more — running on Agora's global low-latency
-            network. Fork an{" "}
+            network. Drop an{" "}
             <code className="font-mono text-sm rounded bg-muted px-1.5 py-0.5 border border-border">
               Agent.md
             </code>{" "}
-            and have a working demo in minutes.
+            into your project — or fork the repo — and ship in minutes.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
@@ -72,39 +68,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Stats strip */}
-        <dl className="mt-12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
-          <Stat label="Recipes" value={recipes.length} />
-          <Stat label="Platforms" value={platformCount} suffix=" supported" />
-          <Stat label="Capabilities" value={featureCount} />
-        </dl>
       </div>
     </section>
-  )
-}
-
-function Stat({
-  label,
-  value,
-  suffix,
-}: {
-  label: string
-  value: number
-  suffix?: string
-}) {
-  return (
-    <div className="flex flex-col items-center text-center gap-1 border-l border-border/60 first:border-l-0 sm:first:border-l sm:border-border/40 px-2">
-      <dt className="text-xs uppercase tracking-wider text-muted-foreground/80">
-        {label}
-      </dt>
-      <dd className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums">
-        {value}
-        {suffix && (
-          <span className="text-sm font-normal text-muted-foreground ml-1">
-            {suffix}
-          </span>
-        )}
-      </dd>
-    </div>
   )
 }
