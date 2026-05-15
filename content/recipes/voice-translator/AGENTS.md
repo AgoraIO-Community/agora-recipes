@@ -1,6 +1,6 @@
 # Live Voice Translator
 
-Real-time, bidirectional speech translation between any two participants.
+Real-time speech translation between two participants.
 
 ## How it sounds
 
@@ -18,7 +18,7 @@ Malay, Filipino, Ukrainian, Romanian, Hungarian, Bulgarian.
 ## Setup
 
 1. Pick your source and target language pair in the app.
-2. Speak normally — the agent re-publishes a translated audio track on a
+2. Speak normally. The agent publishes a translated audio track on a
    secondary uid.
 3. Mute the original on the receiving side or use spatial audio to place it
    behind the listener.

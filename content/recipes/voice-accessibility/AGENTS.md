@@ -1,7 +1,6 @@
 # Voice-first Accessibility Reader
 
-A browser extension that lets anyone — but especially screen-reader users —
-navigate the web by voice.
+A browser extension that helps screen-reader users navigate the web by voice.
 
 ## Commands
 
@@ -19,5 +18,5 @@ navigate the web by voice.
 
 ## Architecture
 
-The extension runs entirely in the user's browser and only sends the
-selected text to the model — never the full page or any personal data.
+The extension runs in the user's browser and sends only selected text to the
+model. It does not send the full page or personal data.

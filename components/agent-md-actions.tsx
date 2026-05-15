@@ -8,7 +8,7 @@ type Props = {
   filename?: string
 }
 
-export function AgentMdActions({ content, filename = "Agent.md" }: Props) {
+export function AgentMdActions({ content, filename = "AGENTS.md" }: Props) {
   const [copied, setCopied] = useState(false)
 
   async function handleCopy() {
@@ -17,7 +17,7 @@ export function AgentMdActions({ content, filename = "Agent.md" }: Props) {
       setCopied(true)
       window.setTimeout(() => setCopied(false), 2000)
     } catch (err) {
-      console.error("[v0] Failed to copy Agent.md:", err)
+      console.error("[v0] Failed to copy AGENTS.md:", err)
     }
   }
 
@@ -38,7 +38,7 @@ export function AgentMdActions({ content, filename = "Agent.md" }: Props) {
       <button
         type="button"
         onClick={handleCopy}
-        aria-label={copied ? "Agent.md copied to clipboard" : "Copy Agent.md to clipboard"}
+        aria-label={copied ? "AGENTS.md copied to clipboard" : "Copy AGENTS.md to clipboard"}
         className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1 text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
       >
         {copied ? (
@@ -56,7 +56,7 @@ export function AgentMdActions({ content, filename = "Agent.md" }: Props) {
       <button
         type="button"
         onClick={handleDownload}
-        aria-label="Download Agent.md file"
+        aria-label="Download AGENTS.md file"
         className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1 text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
       >
         <Download className="h-3 w-3" aria-hidden="true" />

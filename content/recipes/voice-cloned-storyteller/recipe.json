@@ -1,7 +1,7 @@
 {
   "title": "Voice-cloned Storyteller",
-  "tagline": "Clone a narrator's voice once, then stream interactive bedtime stories.",
-  "description": "Record a 30-second sample, then have an AI agent narrate any prompt-driven story in that voice. Designed for parents who can't be home for storytime.",
+  "tagline": "Clone a narrator's voice and stream bedtime stories.",
+  "description": "Record a 30-second sample, then let an AI agent narrate a prompt-driven story in that voice. Designed for parents who miss storytime.",
   "platforms": ["iOS", "Android"],
   "useCases": ["Entertainment", "Education"],
   "capabilities": [
@@ -12,7 +12,7 @@
   ],
   "demoUrl": "https://storyteller.agora.io/demo",
   "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/voice-cloned-storyteller",
-  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/voice-cloned-storyteller/Agent.md",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/voice-cloned-storyteller/AGENTS.md",
   "author": "Agora Devrel",
   "updated": "2026-01-30",
   "difficulty": "Beginner"

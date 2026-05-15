@@ -87,7 +87,7 @@ export default async function RecipePage({
             </span>
           </div>
 
-          <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-balance leading-tight">
+          <h1 className="font-brand mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-balance leading-tight">
             {recipe.title}
           </h1>
           <p className="mt-3 text-base sm:text-lg text-muted-foreground max-w-2xl text-pretty leading-relaxed">
@@ -110,7 +110,7 @@ export default async function RecipePage({
             <Button asChild size="lg" variant="ghost" className="gap-2 h-11">
               <Link href={recipe.agentMdRawUrl} target="_blank" rel="noreferrer">
                 <FileText className="h-4 w-4" aria-hidden="true" />
-                Raw Agent.md
+                Raw AGENTS.md
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
             </Button>
@@ -129,14 +129,14 @@ export default async function RecipePage({
               <div className="flex items-center justify-between mb-4">
                 <h2
                   id="agent-md-heading"
-                  className="text-xl font-semibold tracking-tight"
+                  className="font-brand text-xl font-semibold tracking-tight"
                 >
-                  Agent.md
+                  AGENTS.md
                 </h2>
                 <AgentMdActions content={recipe.agentMd} />
               </div>
               <div className="rounded-xl border border-border bg-card px-5 sm:px-7 py-6">
-                <Markdown source={recipe.agentMd} />
+                <Markdown source={recipe.agentMd} headingOffset={2} />
               </div>
             </section>
           </div>
@@ -214,11 +214,11 @@ function CopyPromptSection({ rawUrl }: { rawUrl: string }) {
   return (
     <section aria-labelledby="prompt-heading" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
-        <h2 id="prompt-heading" className="text-xl font-semibold tracking-tight">
+        <h2 id="prompt-heading" className="font-brand text-xl font-semibold tracking-tight">
           One-line prompt
         </h2>
         <span className="text-xs text-muted-foreground">
-          Paste into Cursor, Claude Code, v0, or any AI coding agent
+          Paste into Cursor, Claude Code, v0, or your coding agent
         </span>
       </div>
       <CopyPrompt rawUrl={rawUrl} />

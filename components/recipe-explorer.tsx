@@ -75,13 +75,12 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
       <div className="flex flex-col gap-1.5 mb-6">
         <h2
           id="recipes-heading"
-          className="text-2xl sm:text-3xl font-semibold tracking-tight text-balance"
+          className="font-brand text-2xl sm:text-3xl font-semibold tracking-tight text-balance"
         >
-          Browse the cookbook
+          Browse voice AI recipes
         </h2>
         <p className="text-muted-foreground text-pretty max-w-2xl">
-          Recipes for building production voice AI on the Agora real-time
-          network. Filter by platform, use case, or capability.
+          Find working samples by platform, use case, or capability.
         </p>
       </div>
 

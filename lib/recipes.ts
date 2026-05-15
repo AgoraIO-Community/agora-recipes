@@ -11,11 +11,12 @@ import path from "node:path"
  *   content/recipes/
  *     realtime-voice-agent/
  *       recipe.json   ← metadata (hand-edited / CI-stable)
- *       Agent.md      ← markdown body, pulled from source repo by CI/CD
+ *       AGENTS.md      ← markdown body, pulled from source repo by CI/CD
  *
  * The folder name is the slug. The slug is the URL: /recipes/<slug>.
  *
- * To add a new recipe: drop in a new folder with these two files.
+ * To add a new recipe: drop in a new folder with recipe.json.
+ * AGENTS.md is fetched from the source repo during the build pipeline.
  * No code changes required — filter taxonomies (platforms, use cases,
  * capabilities) are derived dynamically from the loaded recipes.
  * ─────────────────────────────────────────────────────────────────
@@ -49,7 +50,7 @@ export type RecipeMeta = {
 export type Recipe = RecipeMeta & {
   /** Folder name. Used as URL segment and stable identifier. */
   slug: string
-  /** Markdown body of Agent.md (loaded from disk). */
+  /** Markdown body of AGENTS.md (loaded from disk). */
   agentMd: string
 }
 
@@ -135,7 +136,7 @@ function loadRecipesFromDisk(): Recipe[] {
   const recipes: Recipe[] = slugs.map((slug) => {
     const dir = path.join(CONTENT_DIR, slug)
     const metaPath = path.join(dir, "recipe.json")
-    const mdPath = path.join(dir, "Agent.md")
+    const mdPath = path.join(dir, "AGENTS.md")
 
     if (!fs.existsSync(metaPath)) {
       throw new Error(`[recipes] ${slug}/recipe.json not found`)
@@ -152,11 +153,11 @@ function loadRecipesFromDisk(): Recipe[] {
     }
     assertValidMeta(slug, meta)
 
-    // Agent.md is fetched by CI/CD. Render a friendly placeholder if it's
+    // AGENTS.md is fetched by CI/CD. Render a friendly placeholder if it's
     // missing locally so the build doesn't fail mid-pipeline.
     const agentMd = fs.existsSync(mdPath)
       ? fs.readFileSync(mdPath, "utf8")
-      : `# ${meta.title}\n\n> _Agent.md is fetched from the source repo by CI/CD and was not present at build time._\n\nView the live document at [${meta.agentMdRawUrl}](${meta.agentMdRawUrl}).\n`
+      : `# ${meta.title}\n\n> _AGENTS.md is fetched from the source repo by CI/CD and was not present at build time._\n\nView the live document at [${meta.agentMdRawUrl}](${meta.agentMdRawUrl}).\n`
 
     return { slug, agentMd, ...meta }
   })

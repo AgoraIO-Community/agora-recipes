@@ -29,7 +29,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
 
         {/* Title + arrow */}
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold leading-snug tracking-tight text-balance">
+          <h3 className="font-brand text-base font-semibold leading-snug tracking-tight text-balance">
             {recipe.title}
           </h3>
           <ArrowUpRight

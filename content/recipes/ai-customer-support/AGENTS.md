@@ -13,7 +13,7 @@ and hands off to humans without a transfer.
 
 ## Knowledge base
 
-Point the agent at any HTTPS source and it will index nightly:
+Point the agent at an HTTPS source, and it indexes nightly:
 
 ```yaml
 sources:

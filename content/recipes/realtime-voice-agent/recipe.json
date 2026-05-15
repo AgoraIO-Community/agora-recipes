@@ -1,7 +1,7 @@
 {
   "title": "Real-time Voice Agent",
-  "tagline": "Sub-500ms conversational AI agent powered by Agora and OpenAI Realtime.",
-  "description": "A production-ready voice agent that streams microphone audio to OpenAI's Realtime API over Agora's global low-latency network. Includes interruption handling, turn detection, and noise suppression.",
+  "tagline": "Sub-500ms conversations with Agora and OpenAI Realtime.",
+  "description": "A voice agent streams microphone audio to OpenAI Realtime over Agora. Includes interruption handling, turn detection, and noise suppression.",
   "platforms": ["Web", "iOS", "Android"],
   "useCases": ["Customer Support", "Productivity"],
   "capabilities": [
@@ -14,7 +14,7 @@
   ],
   "demoUrl": "https://voice-agent.agora.io/demo",
   "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/realtime-voice-agent",
-  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/realtime-voice-agent/Agent.md",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/realtime-voice-agent/AGENTS.md",
   "author": "Agora Devrel",
   "updated": "2026-04-12",
   "difficulty": "Intermediate"

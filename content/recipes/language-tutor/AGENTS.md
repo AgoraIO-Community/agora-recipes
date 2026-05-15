@@ -1,6 +1,6 @@
 # AI Language Tutor
 
-Practice a new language by actually speaking it.
+Practice a new language by speaking it.
 
 ## Why it works
 

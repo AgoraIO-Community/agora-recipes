@@ -58,9 +58,9 @@ pnpm dev
 ## Customization
 
 - Swap the system prompt in `agent/prompt.ts`.
-- Add tools via `agent/tools/*.ts` — they are forwarded to the model with
+- Add tools via `agent/tools/*.ts`; the agent forwards them to the model with
   function calling.
-- Replace OpenAI with any Realtime-compatible provider by implementing the
+- Replace OpenAI with a Realtime-compatible provider by implementing the
   `AgentBridge` interface.
 
 ## Production checklist

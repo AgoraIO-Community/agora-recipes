@@ -55,8 +55,9 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), 'Geist Mono', ui-monospace, monospace;
+  --font-sans: var(--font-sans), 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-brand: var(--font-brand), 'Jokker', var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), 'Space Mono', ui-monospace, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -93,6 +94,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    color-scheme: light dark;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -126,6 +130,7 @@
 .prose-recipe h2,
 .prose-recipe h3,
 .prose-recipe h4 {
+  font-family: var(--font-brand);
   color: var(--foreground);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -218,4 +223,25 @@
 .wave-bar {
   animation: wave 1.2s ease-in-out infinite;
   transform-origin: center;
+}
+
+.skip-link {
+  @apply fixed left-4 top-4 z-50 -translate-y-20 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground shadow-md transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse-soft,
+  .wave-bar {
+    animation: none !important;
+  }
+
+  .wave-bar {
+    transform: scaleY(0.65);
+  }
 }

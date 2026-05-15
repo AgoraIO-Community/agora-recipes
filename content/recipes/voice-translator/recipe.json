@@ -1,7 +1,7 @@
 {
   "title": "Live Voice Translator",
-  "tagline": "Bidirectional, real-time speech translation across 30+ languages.",
-  "description": "Two participants speak their native language and hear the other translated in their own ear. Built on Agora Spatial Audio so original and translated streams can coexist.",
+  "tagline": "Two-way speech translation across 30+ languages.",
+  "description": "Two participants speak in their own languages and hear translated audio in their ear. Agora Spatial Audio keeps original and translated streams separate.",
   "platforms": ["iOS", "Android", "Web"],
   "useCases": ["Translation", "Accessibility"],
   "capabilities": [
@@ -13,7 +13,7 @@
   ],
   "demoUrl": "https://translator.agora.io/demo",
   "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/voice-translator",
-  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/voice-translator/Agent.md",
+  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/voice-translator/AGENTS.md",
   "author": "Agora Devrel",
   "updated": "2026-04-02",
   "difficulty": "Advanced"

@@ -10,11 +10,14 @@ export function SiteFooter() {
             <AgoraLogo className="h-5 w-5 text-primary" />
             <span className="font-medium">Agora Voice AI Recipes</span>
             <span className="text-muted-foreground">
-              · Built on the Agora real-time network
+              · Built with Agora
             </span>
           </div>
 
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+          <nav
+            aria-label="Footer navigation"
+            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
+          >
             <Link
               href="https://docs.agora.io"
               target="_blank"

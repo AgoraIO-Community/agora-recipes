@@ -17,11 +17,11 @@ pnpm install
 pnpm dev
 ```
 
-Then join the demo channel and start talking — the bot will appear as
+Join the demo channel and start talking. The bot appears as
 `Notes Bot` in the participant list.
 
 ## Architecture
 
 The bot is a headless web client built on the **Agora Web SDK NG**. Each
 remote audio track is piped into a streaming STT provider; partials are
-broadcast back to the channel as a data stream so any client can render them.
+broadcast back to the channel as a data stream so clients can render them.
