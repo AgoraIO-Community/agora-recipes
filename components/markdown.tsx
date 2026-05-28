@@ -2,7 +2,7 @@ import * as React from "react"
 
 /**
  * Lightweight, dependency-free Markdown renderer tailored to the subset used
- * in our AGENTS.md files: headings, paragraphs, ordered/unordered lists,
+ * in our recipe markdown files: headings, paragraphs, ordered/unordered lists,
  * blockquotes, fenced code, inline code, links, bold/italic, tables, hr,
  * and task list checkboxes.
  *

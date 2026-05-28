@@ -1,0 +1,13 @@
+{
+  "title": "Wellness Coach",
+  "tagline": "Build an advanced wellness coaching voice AI sample.",
+  "description": "Use the therapist sample recipe as a starting point for a guided wellness coach experience.",
+  "platforms": ["Python"],
+  "useCases": ["Wellness", "Voice AI"],
+  "capabilities": ["Conversational AI", "Coaching", "Python"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-samples",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-samples/blob/main/recipes/therapist.md",
+  "author": "Agora",
+  "updated": "2026-05-28",
+  "difficulty": "Advanced"
+}

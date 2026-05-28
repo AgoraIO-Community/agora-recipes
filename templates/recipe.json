@@ -2,14 +2,12 @@
   "title": "TODO: Recipe title",
   "tagline": "TODO: Short one-line tagline.",
   "description": "TODO: One or two sentences explaining what the recipe does and who it helps.",
-  "platforms": ["Web"],
+  "platforms": ["TypeScript"],
   "useCases": ["TODO: Use case"],
   "capabilities": ["TODO: Capability"],
-  "demoUrl": "https://example.com/demo",
-  "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/TODO-slug",
-  "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/TODO-slug/AGENTS.md",
-  "docsBaseRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/TODO-slug/",
+  "mainRepoUrl": "https://github.com/OWNER/REPO",
+  "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
   "author": "TODO: Author or team",
-  "updated": "2026-05-14",
+  "updated": "2026-05-28",
   "difficulty": "Beginner"
 }

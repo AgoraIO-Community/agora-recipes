@@ -1,0 +1,13 @@
+{
+  "title": "Custom Modalities",
+  "tagline": "Customize audio modalities in an Agora Python voice agent.",
+  "description": "Use the audio modalities recipe to adapt how the agent handles non-standard audio workflows.",
+  "platforms": ["Python"],
+  "useCases": ["Audio", "Voice AI"],
+  "capabilities": ["Conversational AI", "Audio Modalities", "Python"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-recipes-python",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-recipes-python/blob/main/audio-modalities/README.md",
+  "author": "Agora",
+  "updated": "2026-05-28",
+  "difficulty": "Beginner"
+}
