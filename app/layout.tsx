@@ -1,21 +1,53 @@
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Instrument_Sans, Space_Mono } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
-const geistSans = Geist({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-const geistMono = Geist_Mono({
+const spaceMono = Space_Mono({
   subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-mono",
 })
+
+const jokker = localFont({
+  src: [
+    {
+      path: "../public/font/Jokker-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/font/Jokker-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/font/Jokker-Semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/font/Jokker-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-brand",
+  display: "swap",
+})
+
+const shouldLoadAnalytics =
+  process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
 
 export const metadata: Metadata = {
   title: {
@@ -23,12 +55,20 @@ export const metadata: Metadata = {
     template: "%s · Agora Voice AI Recipes",
   },
   description:
-    "Production-ready recipes and samples for building real-time voice AI experiences with Agora. Filter by platform, use case, and feature — then ship.",
-  generator: "v0.app",
+    "Open-source recipes for building voice agents, transcription, translation, and accessibility workflows with Agora.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/agora-icon-rgb-blue.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/agora-icon-rgb-blue.svg",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Agora Voice AI Recipes",
     description:
-      "Production-ready recipes and samples for building real-time voice AI experiences with Agora.",
+      "Build voice agents, transcription, translation, and accessibility workflows with Agora.",
     type: "website",
   },
 }
@@ -50,21 +90,27 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} bg-background`}
+      className={`${instrumentSans.variable} ${spaceMono.variable} ${jokker.variable} bg-background`}
       suppressHydrationWarning
     >
       <body className="font-sans antialiased min-h-svh flex flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
+          forcedTheme="system"
           disableTransitionOnChange
         >
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
           <SiteFooter />
         </ThemeProvider>
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        {shouldLoadAnalytics && <Analytics />}
       </body>
     </html>
   )

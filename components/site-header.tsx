@@ -20,7 +20,10 @@ export function SiteHeader() {
           <span className="sm:hidden text-foreground">Voice AI</span>
         </Link>
 
-        <nav className="ml-auto flex items-center gap-1 sm:gap-2">
+        <nav
+          aria-label="Main navigation"
+          className="ml-auto flex items-center gap-1 sm:gap-2"
+        >
           <Link
             href="/#recipes"
             className="hidden sm:inline-flex h-8 items-center px-3 text-sm text-muted-foreground hover:text-foreground transition-colors"

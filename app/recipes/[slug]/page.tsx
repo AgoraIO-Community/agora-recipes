@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+import type * as React from "react"
 import {
   ArrowLeft,
   ArrowUpRight,
-  ExternalLink,
   Github,
   FileText,
   Calendar,
@@ -18,10 +18,10 @@ import {
   getRelatedRecipes,
 } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
-import { Markdown } from "@/components/markdown"
 import { CopyPrompt } from "@/components/copy-prompt"
+import { CopyMarkdownButton } from "@/components/copy-markdown-button"
+import { Markdown } from "@/components/markdown"
 import { PlatformBadge } from "@/components/platform-badge"
-import { AgentMdActions } from "@/components/agent-md-actions"
 
 type Params = { slug: string }
 
@@ -87,7 +87,7 @@ export default async function RecipePage({
             </span>
           </div>
 
-          <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-balance leading-tight">
+          <h1 className="font-brand mt-4 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-balance leading-tight">
             {recipe.title}
           </h1>
           <p className="mt-3 text-base sm:text-lg text-muted-foreground max-w-2xl text-pretty leading-relaxed">
@@ -96,21 +96,19 @@ export default async function RecipePage({
 
           <div className="mt-7 flex flex-col sm:flex-row gap-3">
             <Button asChild size="lg" className="gap-2 h-11">
-              <Link href={recipe.demoUrl} target="_blank" rel="noreferrer">
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                Open live demo
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="gap-2 h-11">
-              <Link href={recipe.githubUrl} target="_blank" rel="noreferrer">
+              <Link href={recipe.mainRepoUrl} target="_blank" rel="noreferrer">
                 <Github className="h-4 w-4" aria-hidden="true" />
                 Source on GitHub
               </Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="gap-2 h-11">
-              <Link href={recipe.agentMdRawUrl} target="_blank" rel="noreferrer">
+            <Button asChild size="lg" variant="outline" className="gap-2 h-11">
+              <Link
+                href={recipe.recipeDocument.rawUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FileText className="h-4 w-4" aria-hidden="true" />
-                Raw Agent.md
+                View raw recipe
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
             </Button>
@@ -123,22 +121,15 @@ export default async function RecipePage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14">
           {/* Main column */}
           <div className="min-w-0 flex flex-col gap-8">
-            <CopyPromptSection rawUrl={recipe.agentMdRawUrl} />
+            <CopyPromptSection
+              prompt={recipe.primaryPrompt}
+            />
 
-            <section aria-labelledby="agent-md-heading">
-              <div className="flex items-center justify-between mb-4">
-                <h2
-                  id="agent-md-heading"
-                  className="text-xl font-semibold tracking-tight"
-                >
-                  Agent.md
-                </h2>
-                <AgentMdActions content={recipe.agentMd} />
-              </div>
-              <div className="rounded-xl border border-border bg-card px-5 sm:px-7 py-6">
-                <Markdown source={recipe.agentMd} />
-              </div>
-            </section>
+            <RecipeMarkdownSection
+              markdown={recipe.recipeDocument.markdown}
+              rawUrl={recipe.recipeDocument.rawUrl}
+              fetchError={recipe.recipeDocument.fetchError}
+            />
           </div>
 
           {/* Sidebar */}
@@ -210,18 +201,74 @@ export default async function RecipePage({
   )
 }
 
-function CopyPromptSection({ rawUrl }: { rawUrl: string }) {
+function RecipeMarkdownSection({
+  markdown,
+  rawUrl,
+  fetchError,
+}: {
+  markdown: string
+  rawUrl: string
+  fetchError?: string
+}) {
+  return (
+    <section aria-labelledby="recipe-markdown-heading" className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-1">
+          <h2
+            id="recipe-markdown-heading"
+            className="font-brand text-xl font-semibold tracking-tight"
+          >
+            Recipe
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Rendered from the configured recipe markdown.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild size="sm" variant="outline" className="gap-2">
+            <Link href={rawUrl} target="_blank" rel="noreferrer">
+              <FileText className="h-4 w-4" aria-hidden="true" />
+              Raw
+            </Link>
+          </Button>
+          <CopyMarkdownButton markdown={markdown} />
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border bg-card px-5 py-5">
+        {markdown ? (
+          <Markdown source={markdown} />
+        ) : (
+          <div className="text-sm text-muted-foreground">
+            <p>Recipe markdown is not available in the generated artifact.</p>
+            {fetchError && (
+              <p className="mt-2 font-mono text-xs text-destructive break-words">
+                {fetchError}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function CopyPromptSection({
+  prompt,
+}: {
+  prompt: string
+}) {
   return (
     <section aria-labelledby="prompt-heading" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
-        <h2 id="prompt-heading" className="text-xl font-semibold tracking-tight">
-          One-line prompt
+        <h2 id="prompt-heading" className="font-brand text-xl font-semibold tracking-tight">
+          Recipe prompt
         </h2>
         <span className="text-xs text-muted-foreground">
-          Paste into Cursor, Claude Code, v0, or any AI coding agent
+          Paste into Cursor, Claude Code, v0, or your coding agent
         </span>
       </div>
-      <CopyPrompt rawUrl={rawUrl} />
+      <CopyPrompt prompt={prompt} />
     </section>
   )
 }

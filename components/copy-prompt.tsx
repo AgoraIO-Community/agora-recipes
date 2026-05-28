@@ -5,9 +5,13 @@ import { Check, Copy, Wand2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-export function CopyPrompt({ rawUrl }: { rawUrl: string }) {
-  const prompt = `Read the Agent.md at ${rawUrl} and follow it to scaffold this recipe in my project.`
+type CopyPromptProps = {
+  prompt: string
+}
+
+export function CopyPrompt({ prompt }: CopyPromptProps) {
   const [copied, setCopied] = React.useState(false)
+  const promptId = React.useId()
 
   const onCopy = async () => {
     try {
@@ -24,7 +28,7 @@ export function CopyPrompt({ rawUrl }: { rawUrl: string }) {
       <div className="flex items-center justify-between gap-2 px-4 py-2.5 border-b border-border bg-muted/40">
         <div className="flex items-center gap-2 text-xs font-medium">
           <Wand2 className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
-          <span>Use with any AI agent</span>
+          <span id={promptId}>Use with your coding agent</span>
         </div>
         <Button
           type="button"
@@ -48,6 +52,7 @@ export function CopyPrompt({ rawUrl }: { rawUrl: string }) {
         </Button>
       </div>
       <pre
+        aria-labelledby={promptId}
         className={cn(
           "px-4 py-3 text-xs sm:text-sm font-mono leading-relaxed",
           "text-foreground/90 whitespace-pre-wrap break-words",

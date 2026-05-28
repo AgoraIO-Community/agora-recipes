@@ -1,0 +1,13 @@
+{
+  "title": "Golang Quickstart",
+  "tagline": "Build a basic Agora Conversational AI agent in Go.",
+  "description": "Set up the Go quickstart agent, configure credentials, and run a minimal voice AI workflow.",
+  "platforms": ["Go"],
+  "useCases": ["Quickstart", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Go"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-go",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-go/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-05-28",
+  "difficulty": "Beginner"
+}

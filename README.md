@@ -1,35 +1,65 @@
-# v0-voice-ai-recipes
+# Voice AI Recipes Catalog
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+This is a Next.js catalog site for Agora Voice AI recipes. Recipe implementations live in separate GitHub repositories; this repo stores catalog metadata, fetches each recipe's markdown during build, and renders static recipe pages.
 
-## Built with v0
-
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
-
-[Continue working on v0 →](https://v0.app/chat/projects/prj_985Sa3I9z2OpbwWH24IzmrhEcwSN)
-
-## Getting Started
-
-First, run the development server:
+## Local Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding Recipes
 
-## Learn More
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full submission flow. In short:
 
-To learn more, take a look at the following resources:
+1. Fork this repo and create a branch from `staging`.
+2. Create `content/recipes/<slug>/recipe.json`.
+3. Use `templates/recipe.json` as the starting point.
+4. Set `mainRepoUrl` to the implementation repository.
+5. Set `recipeUrl` to the GitHub `blob` URL for the markdown recipe file.
+6. Run:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+```bash
+npm run build
+```
 
-<a href="https://v0.app/chat/api/kiro/clone/AgoraIO-Community/v0-voice-ai-recipes" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+The build runs `npm run recipes:build`, which fetches the configured markdown, expands relative markdown links to absolute GitHub links, and writes generated artifacts under `content/generated/recipes/`.
+
+## Recipe Config
+
+```json
+{
+  "title": "Python Quickstart",
+  "tagline": "Build a basic Agora Conversational AI agent in Python.",
+  "description": "Set up the Python quickstart agent, configure credentials, and run a minimal voice AI workflow.",
+  "platforms": ["Python"],
+  "useCases": ["Quickstart", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Python"],
+  "mainRepoUrl": "https://github.com/OWNER/REPO",
+  "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-05-28",
+  "difficulty": "Beginner"
+}
+```
+
+`difficulty` must be `Beginner`, `Intermediate`, or `Advanced`.
+
+## Verification
+
+For content-only changes:
+
+```bash
+npm run build
+```
+
+For TypeScript, React, styling, or routing changes:
+
+```bash
+npm run lint
+npm run build
+```
+
+Private recipe repositories cannot be fetched by the unauthenticated build script. Make the repo public or expect the generated artifact to contain a fetch error for that recipe's markdown.

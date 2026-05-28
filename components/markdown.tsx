@@ -2,19 +2,25 @@ import * as React from "react"
 
 /**
  * Lightweight, dependency-free Markdown renderer tailored to the subset used
- * in our Agent.md files: headings, paragraphs, ordered/unordered lists,
+ * in our recipe markdown files: headings, paragraphs, ordered/unordered lists,
  * blockquotes, fenced code, inline code, links, bold/italic, tables, hr,
  * and task list checkboxes.
  *
  * It intentionally renders untrusted HTML as plain text — every output node
  * is a React element, so no `dangerouslySetInnerHTML` is used.
  */
-export function Markdown({ source }: { source: string }) {
+export function Markdown({
+  source,
+  headingOffset = 0,
+}: {
+  source: string
+  headingOffset?: number
+}) {
   const blocks = parseBlocks(source)
   return (
     <div className="prose-recipe">
       {blocks.map((block, i) => (
-        <BlockNode key={i} block={block} />
+        <BlockNode key={i} block={block} headingOffset={headingOffset} />
       ))}
     </div>
   )
@@ -232,10 +238,17 @@ function renderInline(text: string): React.ReactNode[] {
 // Block rendering
 // ---------------------------------------------------------------------------
 
-function BlockNode({ block }: { block: Block }) {
+function BlockNode({
+  block,
+  headingOffset,
+}: {
+  block: Block
+  headingOffset: number
+}) {
   switch (block.type) {
     case "heading": {
-      const Tag = `h${block.level}` as keyof React.JSX.IntrinsicElements
+      const level = Math.min(block.level + headingOffset, 6)
+      const Tag = `h${level}` as keyof React.JSX.IntrinsicElements
       const id = slugify(block.text)
       return <Tag id={id}>{renderInline(block.text)}</Tag>
     }
@@ -298,14 +311,31 @@ function renderListItem(text: string): React.ReactNode {
   const m = text.match(/^\[( |x|X)\]\s+(.*)$/)
   if (m) {
     const checked = m[1].toLowerCase() === "x"
+    const label = stripInlineMarkdown(m[2])
     return (
       <>
-        <input type="checkbox" checked={checked} readOnly />
+        <input
+          type="checkbox"
+          checked={checked}
+          readOnly
+          aria-label={`${checked ? "Completed" : "Not completed"}: ${label}`}
+        />
         {renderInline(m[2])}
       </>
     )
   }
   return renderInline(text)
+}
+
+function stripInlineMarkdown(text: string): string {
+  return text
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .replace(/&nbsp;/g, " ")
+    .trim()
 }
 
 function slugify(s: string): string {
