@@ -12,11 +12,14 @@ Open http://localhost:3000.
 
 ## Adding Recipes
 
-1. Create `content/recipes/<slug>/recipe.json`.
-2. Use `templates/recipe.json` as the starting point.
-3. Set `mainRepoUrl` to the implementation repository.
-4. Set `recipeUrl` to the GitHub `blob` URL for the markdown recipe file.
-5. Run:
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full submission flow. In short:
+
+1. Fork this repo and create a branch from `staging`.
+2. Create `content/recipes/<slug>/recipe.json`.
+3. Use `templates/recipe.json` as the starting point.
+4. Set `mainRepoUrl` to the implementation repository.
+5. Set `recipeUrl` to the GitHub `blob` URL for the markdown recipe file.
+6. Run:
 
 ```bash
 npm run build

@@ -23,10 +23,10 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 ## Contributing Flow
 
 1. Fork the upstream repository.
-2. Create a branch from `dev`.
+2. Create a branch from `staging`.
 3. Make the smallest change that solves the task.
 4. Run the relevant verification commands.
-5. Open a pull request back to the upstream `dev` branch.
+5. Open a pull request back to the upstream `staging` branch.
 
 Do not target `main` unless a maintainer explicitly asks you to. PR descriptions should explain what changed, link the related recipe implementation, and include the commands you ran.
 
@@ -53,7 +53,7 @@ Only immediate subdirectories are loaded. Directory names beginning with `.` are
 5. Set `mainRepoUrl` to the implementation repository root, for example `https://github.com/OWNER/REPO`.
 6. Set `recipeUrl` to the GitHub `blob` URL for the markdown file to render, for example `https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md`.
 7. Run `npm run build` from the `v0-voice-ai-recipes` directory.
-8. Open a PR from your fork to the upstream `dev` branch.
+8. Open a PR from your fork to the upstream `staging` branch.
 
 Do not add local markdown content for a new catalog entry. Recipe pages render the fetched markdown from `recipeUrl`, plus buttons to view the raw markdown and copy the markdown to the clipboard.
 
