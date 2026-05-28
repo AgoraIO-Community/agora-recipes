@@ -1,0 +1,13 @@
+{
+  "title": "TODO: Recipe title",
+  "tagline": "TODO: Short one-line tagline.",
+  "description": "TODO: One or two sentences explaining what the recipe does and who it helps.",
+  "platforms": ["TypeScript"],
+  "useCases": ["TODO: Use case"],
+  "capabilities": ["TODO: Capability"],
+  "mainRepoUrl": "https://github.com/OWNER/REPO",
+  "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
+  "author": "TODO: Author or team",
+  "updated": "2026-05-28",
+  "difficulty": "Beginner"
+}

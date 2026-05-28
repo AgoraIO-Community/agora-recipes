@@ -2,33 +2,33 @@ import "server-only"
 import fs from "node:fs"
 import path from "node:path"
 
-/**
- * ─────────────────────────────────────────────────────────────────
- * Recipe content loader
- *
- * Each recipe is a folder under `content/recipes/<slug>/`:
- *
- *   content/recipes/
- *     realtime-voice-agent/
- *       recipe.json   ← metadata (hand-edited / CI-stable)
- *       Agent.md      ← markdown body, pulled from source repo by CI/CD
- *
- * The folder name is the slug. The slug is the URL: /recipes/<slug>.
- *
- * To add a new recipe: drop in a new folder with these two files.
- * No code changes required — filter taxonomies (platforms, use cases,
- * capabilities) are derived dynamically from the loaded recipes.
- * ─────────────────────────────────────────────────────────────────
- */
-
 const CONTENT_DIR = path.join(process.cwd(), "content", "recipes")
+const GENERATED_DIR = path.join(process.cwd(), "content", "generated", "recipes")
 
-/** Canonical ordering for platforms when surfaced to the UI. */
 const PLATFORM_ORDER = ["Web", "iOS", "Android"] as const
 
 export type Difficulty = "Beginner" | "Intermediate" | "Advanced"
 
-/** Shape of recipe.json — kept loose so CI/CD can extend it freely. */
+export type RecipeDocument = {
+  rawUrl: string
+  viewUrl: string
+  markdown: string
+  fetchError?: string
+}
+
+type GeneratedRecipeArtifact = {
+  schemaVersion: number
+  slug: string
+  generatedAt: string
+  source: {
+    mainRepoUrl: string
+    recipeUrl: string
+    recipeRawUrl: string
+  }
+  recipeDocument: RecipeDocument
+  primaryPrompt: string
+}
+
 export type RecipeMeta = {
   title: string
   tagline: string
@@ -36,21 +36,18 @@ export type RecipeMeta = {
   platforms: string[]
   useCases: string[]
   capabilities: string[]
-  demoUrl: string
-  githubUrl: string
-  agentMdRawUrl: string
+  mainRepoUrl: string
+  recipeUrl: string
   author: string
-  /** ISO 8601 date string, YYYY-MM-DD. */
   updated: string
   difficulty: Difficulty
 }
 
-/** A fully-hydrated recipe ready to render. */
 export type Recipe = RecipeMeta & {
-  /** Folder name. Used as URL segment and stable identifier. */
   slug: string
-  /** Markdown body of Agent.md (loaded from disk). */
-  agentMd: string
+  generatedAt?: string
+  recipeDocument: RecipeDocument
+  primaryPrompt: string
 }
 
 export type FilterOptions = {
@@ -59,15 +56,12 @@ export type FilterOptions = {
   capabilities: string[]
 }
 
-/* ───────────────────── Schema validation ───────────────────── */
-
 const REQUIRED_STRING_FIELDS: (keyof RecipeMeta)[] = [
   "title",
   "tagline",
   "description",
-  "demoUrl",
-  "githubUrl",
-  "agentMdRawUrl",
+  "mainRepoUrl",
+  "recipeUrl",
   "author",
   "updated",
   "difficulty",
@@ -89,6 +83,7 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
   if (!meta || typeof meta !== "object") {
     throw new Error(`[recipes] ${slug}/recipe.json is not a JSON object`)
   }
+
   const m = meta as Record<string, unknown>
 
   for (const field of REQUIRED_STRING_FIELDS) {
@@ -98,6 +93,7 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
       )
     }
   }
+
   for (const field of REQUIRED_ARRAY_FIELDS) {
     if (!Array.isArray(m[field])) {
       throw new Error(
@@ -105,6 +101,7 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
       )
     }
   }
+
   if (!VALID_DIFFICULTIES.includes(m.difficulty as Difficulty)) {
     throw new Error(
       `[recipes] ${slug}/recipe.json difficulty must be one of ${VALID_DIFFICULTIES.join(
@@ -114,13 +111,64 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
   }
 }
 
-/* ───────────────────── Loader (cached) ───────────────────── */
+function githubViewUrlToRawUrl(viewUrl: string): string {
+  const match = viewUrl.match(
+    /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+)$/,
+  )
+  if (!match) return viewUrl
+
+  const [, org, repo, branch, filePath] = match
+  return `https://raw.githubusercontent.com/${org}/${repo}/${branch}/${filePath}`
+}
+
+function rawGithubUrlToViewUrl(rawUrl: string): string {
+  const match = rawUrl.match(
+    /^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/,
+  )
+  if (!match) return rawUrl
+
+  const [, org, repo, branch, filePath] = match
+  return `https://github.com/${org}/${repo}/blob/${branch}/${filePath}`
+}
+
+function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument): string {
+  return `You are implementing the "${meta.title}" recipe in this project.
+
+Read the recipe markdown first:
+${document.rawUrl}
+
+Use the source repository for cross-reference:
+${meta.mainRepoUrl}
+
+Build this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies.`
+}
+
+function loadGeneratedArtifact(slug: string): GeneratedRecipeArtifact | null {
+  const artifactPath = path.join(GENERATED_DIR, `${slug}.json`)
+  if (!fs.existsSync(artifactPath)) return null
+
+  const rawArtifact = fs.readFileSync(artifactPath, "utf8")
+  try {
+    const artifact = JSON.parse(rawArtifact) as GeneratedRecipeArtifact
+    if (
+      artifact.slug !== slug ||
+      !artifact.recipeDocument ||
+      typeof artifact.recipeDocument.markdown !== "string"
+    ) {
+      throw new Error("artifact slug or recipeDocument is invalid")
+    }
+    return artifact
+  } catch (err) {
+    throw new Error(
+      `[recipes] generated artifact ${slug}.json is invalid: ${(err as Error).message}`,
+    )
+  }
+}
 
 let _cache: Recipe[] | null = null
 
 function loadRecipesFromDisk(): Recipe[] {
   if (!fs.existsSync(CONTENT_DIR)) {
-    // Fail loudly during build; an empty content dir is almost always a bug.
     throw new Error(
       `[recipes] content directory not found at ${CONTENT_DIR}. ` +
         `Did you forget to commit content/recipes/?`,
@@ -133,18 +181,15 @@ function loadRecipesFromDisk(): Recipe[] {
     .map((entry) => entry.name)
 
   const recipes: Recipe[] = slugs.map((slug) => {
-    const dir = path.join(CONTENT_DIR, slug)
-    const metaPath = path.join(dir, "recipe.json")
-    const mdPath = path.join(dir, "Agent.md")
+    const metaPath = path.join(CONTENT_DIR, slug, "recipe.json")
 
     if (!fs.existsSync(metaPath)) {
       throw new Error(`[recipes] ${slug}/recipe.json not found`)
     }
 
-    const rawMeta = fs.readFileSync(metaPath, "utf8")
     let meta: unknown
     try {
-      meta = JSON.parse(rawMeta)
+      meta = JSON.parse(fs.readFileSync(metaPath, "utf8"))
     } catch (err) {
       throw new Error(
         `[recipes] ${slug}/recipe.json is not valid JSON: ${(err as Error).message}`,
@@ -152,16 +197,25 @@ function loadRecipesFromDisk(): Recipe[] {
     }
     assertValidMeta(slug, meta)
 
-    // Agent.md is fetched by CI/CD. Render a friendly placeholder if it's
-    // missing locally so the build doesn't fail mid-pipeline.
-    const agentMd = fs.existsSync(mdPath)
-      ? fs.readFileSync(mdPath, "utf8")
-      : `# ${meta.title}\n\n> _Agent.md is fetched from the source repo by CI/CD and was not present at build time._\n\nView the live document at [${meta.agentMdRawUrl}](${meta.agentMdRawUrl}).\n`
+    const generated = loadGeneratedArtifact(slug)
+    const fallbackDocument = {
+      rawUrl: githubViewUrlToRawUrl(meta.recipeUrl),
+      viewUrl: rawGithubUrlToViewUrl(githubViewUrlToRawUrl(meta.recipeUrl)),
+      markdown: "",
+      fetchError: "Run npm run recipes:build to fetch this recipe.",
+    }
+    const recipeDocument = generated?.recipeDocument ?? fallbackDocument
 
-    return { slug, agentMd, ...meta }
+    return {
+      slug,
+      generatedAt: generated?.generatedAt,
+      recipeDocument,
+      primaryPrompt:
+        generated?.primaryPrompt ?? buildPrimaryPrompt(meta, recipeDocument),
+      ...meta,
+    }
   })
 
-  // Newest first — predictable ordering for the home page.
   recipes.sort((a, b) => (a.updated < b.updated ? 1 : -1))
   return recipes
 }
@@ -174,8 +228,6 @@ export function getAllRecipes(): Recipe[] {
 export function getRecipe(slug: string): Recipe | undefined {
   return getAllRecipes().find((r) => r.slug === slug)
 }
-
-/* ───────────────────── Derived helpers ───────────────────── */
 
 function uniqueSorted(values: string[], order?: readonly string[]): string[] {
   const set = new Set(values)
@@ -199,10 +251,6 @@ export function getFilterOptions(): FilterOptions {
   }
 }
 
-/**
- * Related recipes are computed by tag overlap. Use cases weigh slightly
- * more than capabilities since they describe what the recipe is *for*.
- */
 export function getRelatedRecipes(slug: string, limit = 3): Recipe[] {
   const current = getRecipe(slug)
   if (!current) return []

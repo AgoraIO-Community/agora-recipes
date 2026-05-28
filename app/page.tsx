@@ -7,9 +7,9 @@ export default function HomePage() {
   const filterOptions = getFilterOptions()
 
   return (
-    <main>
+    <>
       <Hero />
       <RecipeExplorer recipes={recipes} filterOptions={filterOptions} />
-    </main>
+    </>
   )
 }

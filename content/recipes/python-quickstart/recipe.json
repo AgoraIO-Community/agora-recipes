@@ -1,0 +1,13 @@
+{
+  "title": "Python Quickstart",
+  "tagline": "Build a basic Agora Conversational AI agent in Python.",
+  "description": "Set up the Python quickstart agent, configure credentials, and run a minimal voice AI workflow.",
+  "platforms": ["Python"],
+  "useCases": ["Quickstart", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Python"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-python",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-python/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-05-28",
+  "difficulty": "Beginner"
+}

@@ -8,12 +8,11 @@ export default function NotFound() {
       <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
         404
       </p>
-      <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
+      <h1 className="font-brand text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
         We couldn&apos;t find that recipe.
       </h1>
       <p className="text-muted-foreground max-w-md text-pretty">
-        The recipe you&apos;re looking for may have been renamed or moved.
-        Browse the cookbook to find what you need.
+        This recipe may have moved. Browse the list to find the right sample.
       </p>
       <Button asChild className="mt-3 gap-2">
         <Link href="/#recipes">

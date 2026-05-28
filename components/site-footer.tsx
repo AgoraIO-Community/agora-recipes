@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { AgoraLogo } from "@/components/agora-logo"
+import Link from 'next/link';
+import { AgoraLogo } from '@/components/agora-logo';
 
 export function SiteFooter() {
   return (
@@ -9,12 +9,21 @@ export function SiteFooter() {
           <div className="flex items-center gap-2.5 text-sm">
             <AgoraLogo className="h-5 w-5 text-primary" />
             <span className="font-medium">Agora Voice AI Recipes</span>
-            <span className="text-muted-foreground">
-              · Built on the Agora real-time network
-            </span>
+            <span className="text-muted-foreground">· Built with Agora</span>
           </div>
 
-          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+          <nav
+            aria-label="Footer navigation"
+            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
+          >
+            <Link
+              href="https://github.com/AgoraIO-Community/v0-voice-ai-recipes/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              Submit a recipe
+            </Link>
             <Link
               href="https://docs.agora.io"
               target="_blank"
@@ -24,7 +33,7 @@ export function SiteFooter() {
               Docs
             </Link>
             <Link
-              href="https://github.com/AgoraIO-Community/voice-ai-recipes"
+              href="https://github.com/AgoraIO-Community/v0-voice-ai-recipes"
               target="_blank"
               rel="noreferrer"
               className="hover:text-foreground transition-colors"
@@ -51,9 +60,13 @@ export function SiteFooter() {
         </div>
 
         <p className="mt-8 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Agora, Inc. All recipes MIT licensed.
+          © {new Date().getFullYear()}{' '}
+          <a href="https://www.agora.io" target="_blank">
+            Agora
+          </a>
+          . All recipes MIT licensed.
         </p>
       </div>
     </footer>
-  )
+  );
 }

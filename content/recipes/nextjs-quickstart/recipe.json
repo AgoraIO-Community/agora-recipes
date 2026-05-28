@@ -1,0 +1,13 @@
+{
+  "title": "NextJS Quickstart",
+  "tagline": "Build a basic Agora Conversational AI agent with Next.js.",
+  "description": "Set up the Next.js quickstart, configure the required environment, and run a browser-based voice AI workflow.",
+  "platforms": ["TypeScript"],
+  "useCases": ["Quickstart", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Next.js"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-05-28",
+  "difficulty": "Beginner"
+}
