@@ -18,10 +18,9 @@ import {
   getRelatedRecipes,
 } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
-import { Markdown } from "@/components/markdown"
 import { CopyPrompt } from "@/components/copy-prompt"
+import { RecipeDocs } from "@/components/recipe-docs"
 import { PlatformBadge } from "@/components/platform-badge"
-import { AgentMdActions } from "@/components/agent-md-actions"
 
 type Params = { slug: string }
 
@@ -108,9 +107,17 @@ export default async function RecipePage({
               </Link>
             </Button>
             <Button asChild size="lg" variant="ghost" className="gap-2 h-11">
-              <Link href={recipe.agentMdRawUrl} target="_blank" rel="noreferrer">
+              <Link
+                href={
+                  recipe.progressiveDisclosure
+                    ? recipe.progressiveDisclosure.baseViewUrl
+                    : recipe.agentMdRawUrl
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FileText className="h-4 w-4" aria-hidden="true" />
-                Raw AGENTS.md
+                {recipe.progressiveDisclosure ? "View on GitHub" : "Raw AGENTS.md"}
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
             </Button>
@@ -123,22 +130,16 @@ export default async function RecipePage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14">
           {/* Main column */}
           <div className="min-w-0 flex flex-col gap-8">
-            <CopyPromptSection rawUrl={recipe.agentMdRawUrl} />
+            <CopyPromptSection
+              prompt={recipe.primaryPrompt}
+            />
 
-            <section aria-labelledby="agent-md-heading">
-              <div className="flex items-center justify-between mb-4">
-                <h2
-                  id="agent-md-heading"
-                  className="font-brand text-xl font-semibold tracking-tight"
-                >
-                  AGENTS.md
-                </h2>
-                <AgentMdActions content={recipe.agentMd} />
-              </div>
-              <div className="rounded-xl border border-border bg-card px-5 sm:px-7 py-6">
-                <Markdown source={recipe.agentMd} headingOffset={2} />
-              </div>
-            </section>
+            <RecipeDocs
+              progressiveDisclosure={recipe.progressiveDisclosure}
+              featurePrompts={recipe.featurePrompts}
+              agentMdRawUrl={recipe.agentMdRawUrl}
+              githubUrl={recipe.githubUrl}
+            />
           </div>
 
           {/* Sidebar */}
@@ -210,18 +211,22 @@ export default async function RecipePage({
   )
 }
 
-function CopyPromptSection({ rawUrl }: { rawUrl: string }) {
+function CopyPromptSection({
+  prompt,
+}: {
+  prompt: string
+}) {
   return (
     <section aria-labelledby="prompt-heading" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
         <h2 id="prompt-heading" className="font-brand text-xl font-semibold tracking-tight">
-          One-line prompt
+          Recipe prompt
         </h2>
         <span className="text-xs text-muted-foreground">
           Paste into Cursor, Claude Code, v0, or your coding agent
         </span>
       </div>
-      <CopyPrompt rawUrl={rawUrl} />
+      <CopyPrompt prompt={prompt} />
     </section>
   )
 }

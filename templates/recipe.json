@@ -8,6 +8,7 @@
   "demoUrl": "https://example.com/demo",
   "githubUrl": "https://github.com/AgoraIO-Community/voice-ai-recipes/tree/main/TODO-slug",
   "agentMdRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/TODO-slug/AGENTS.md",
+  "docsBaseRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/voice-ai-recipes/main/TODO-slug/",
   "author": "TODO: Author or team",
   "updated": "2026-05-14",
   "difficulty": "Beginner"

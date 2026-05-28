@@ -5,8 +5,11 @@ import { Check, Copy, Wand2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-export function CopyPrompt({ rawUrl }: { rawUrl: string }) {
-  const prompt = `Read the AGENTS.md at ${rawUrl} and follow it to scaffold this recipe in my project.`
+type CopyPromptProps = {
+  prompt: string
+}
+
+export function CopyPrompt({ prompt }: CopyPromptProps) {
   const [copied, setCopied] = React.useState(false)
   const promptId = React.useId()
 

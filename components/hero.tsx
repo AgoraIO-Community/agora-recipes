@@ -35,11 +35,8 @@ export function Hero() {
 
           <p className="text-base sm:text-lg text-muted-foreground text-pretty max-w-2xl leading-relaxed">
             Build voice agents, transcription, and translation workflows on
-            Agora&apos;s low-latency network. Add an{" "}
-            <code className="font-mono text-sm rounded bg-muted px-1.5 py-0.5 border border-border">
-              AGENTS.md
-            </code>{" "}
-            to your project or fork the repo to start from working code.
+            Agora&apos;s low-latency network. Drop a recipe prompt into your
+            coding agent or fork the repo to start from working code.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
