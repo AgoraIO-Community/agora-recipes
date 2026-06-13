@@ -1,0 +1,25 @@
+{
+  "title": "MCP Tools",
+  "tagline": "Let Agora orchestrate tools on a Model Context Protocol server.",
+  "description": "Expose tools over a streamable-HTTP MCP server that Agora's managed LLM invokes during the conversation.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Tool Use",
+    "MCP",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "MCP",
+    "Function Calling"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-mcp",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-mcp/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate"
+}

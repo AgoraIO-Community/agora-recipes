@@ -1,0 +1,24 @@
+{
+  "title": "Interruption Handling",
+  "tagline": "Tune how the agent yields when the user barges in.",
+  "description": "Configure VAD-based interruption handling so the agent stops and listens when the user speaks over it.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Conversation Design",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Turn Detection",
+    "Interruptions"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-interruptions",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-interruptions/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Beginner"
+}

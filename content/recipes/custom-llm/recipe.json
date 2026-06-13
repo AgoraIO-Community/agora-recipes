@@ -1,13 +1,24 @@
 {
   "title": "Custom LLM",
-  "tagline": "Connect an Agora voice agent to a custom language model.",
-  "description": "Use the Python recipe to swap in a custom LLM backend while keeping the voice agent flow intact.",
-  "platforms": ["Python"],
-  "useCases": ["Model Integration", "Voice AI"],
-  "capabilities": ["Conversational AI", "Custom LLM", "Python"],
-  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-recipes-python",
-  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-recipes-python/blob/main/custom-llm/README.md",
+  "tagline": "Bring your own OpenAI-compatible LLM endpoint.",
+  "description": "Drive the voice agent with a custom OpenAI-compatible LLM you host, keeping the full voice flow intact.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Model Integration",
+    "Custom LLM",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Custom LLM"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm/blob/main/README.md",
   "author": "Agora",
-  "updated": "2026-05-28",
-  "difficulty": "Beginner"
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate"
 }

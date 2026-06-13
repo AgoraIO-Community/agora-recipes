@@ -1,13 +1,25 @@
 {
   "title": "Custom Modalities",
-  "tagline": "Customize audio modalities in an Agora Python voice agent.",
-  "description": "Use the audio modalities recipe to adapt how the agent handles non-standard audio workflows.",
-  "platforms": ["Python"],
-  "useCases": ["Audio", "Voice AI"],
-  "capabilities": ["Conversational AI", "Audio Modalities", "Python"],
-  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-recipes-python",
-  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-recipes-python/blob/main/audio-modalities/README.md",
+  "tagline": "Bring your own LLM and a custom TTS voice.",
+  "description": "Customize both the reasoning (LLM) and the spoken output (TTS) of the voice agent with your own providers.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Model Integration",
+    "Audio",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Custom LLM",
+    "Custom TTS"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm-tts",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm-tts/blob/main/README.md",
   "author": "Agora",
-  "updated": "2026-05-28",
-  "difficulty": "Beginner"
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate"
 }
