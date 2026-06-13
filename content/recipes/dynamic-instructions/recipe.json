@@ -1,0 +1,23 @@
+{
+  "title": "Dynamic Instructions",
+  "tagline": "Update the agent's system prompt mid-session.",
+  "description": "Use template variables and a live update endpoint to change the agent's instructions without restarting.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Conversation Design",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Prompt Management"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-instructions",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-instructions/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Beginner"
+}

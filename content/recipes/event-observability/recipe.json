@@ -1,0 +1,24 @@
+{
+  "title": "Event Observability",
+  "tagline": "Surface the agent's real-time events in a live timeline.",
+  "description": "Consume the built-in RTM event surface (state, metrics, errors, transcript) into a unified web timeline.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Observability",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Observability",
+    "RTM"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-events",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-events/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Beginner"
+}
