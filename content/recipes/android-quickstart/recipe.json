@@ -1,0 +1,23 @@
+{
+  "title": "Android Quickstart",
+  "tagline": "Build a native Android voice AI client with Jetpack Compose.",
+  "description": "A Kotlin and Jetpack Compose voice-agent client for Agora Conversational AI. The app owns the RTC/RTM lifecycle and renders live transcript via Agora's official Android ConversationalAI toolkit, talking to a bundled keyless Python backend.",
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "Quickstart",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Android",
+    "Jetpack Compose"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-client-android-quickstart",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-client-android-quickstart/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-14",
+  "difficulty": "Intermediate"
+}

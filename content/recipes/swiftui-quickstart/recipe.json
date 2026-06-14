@@ -1,0 +1,23 @@
+{
+  "title": "SwiftUI Quickstart",
+  "tagline": "Build a native iOS voice AI client with SwiftUI.",
+  "description": "A SwiftUI voice-agent client for Agora Conversational AI. The app owns the RTC/RTM lifecycle and renders live transcript via Agora's official iOS ConversationalAI toolkit, talking to a bundled keyless Python backend.",
+  "platforms": [
+    "iOS"
+  ],
+  "useCases": [
+    "Quickstart",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "iOS",
+    "SwiftUI"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-client-swiftui-quickstart",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-client-swiftui-quickstart/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-14",
+  "difficulty": "Intermediate"
+}
