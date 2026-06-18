@@ -1,0 +1,25 @@
+{
+  "title": "Vision (Camera Input)",
+  "tagline": "Let the agent see the user's camera.",
+  "description": "Publish camera frames so a managed multimodal LLM can answer questions about what it sees.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Multimodal",
+    "Vision",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Vision",
+    "Multimodal"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-vision",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-vision/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate"
+}

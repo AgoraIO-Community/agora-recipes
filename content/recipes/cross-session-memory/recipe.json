@@ -1,0 +1,25 @@
+{
+  "title": "Cross-Session Memory",
+  "tagline": "Remember returning users across separate calls.",
+  "description": "Capture conversation history before the agent stops and re-inject it next time so it remembers a returning user.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Personalization",
+    "Memory",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Memory",
+    "SQLite"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-memory",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-memory/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate"
+}

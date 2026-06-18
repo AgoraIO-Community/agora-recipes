@@ -1,0 +1,24 @@
+{
+  "title": "Speaker Lock",
+  "tagline": "Lock onto the primary speaker and ignore other voices.",
+  "description": "Use Agora Speaker Lock so the agent focuses on the first clear speaker and suppresses background voices.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Noise Robustness",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Speaker Lock",
+    "Audio"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-voiceprint",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-voiceprint/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate"
+}

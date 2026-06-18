@@ -1,0 +1,24 @@
+{
+  "title": "Filler Words & Graceful Exit",
+  "tagline": "Smooth latency with filler phrases and a polite goodbye.",
+  "description": "Configure static filler words to cover thinking latency and a graceful farewell before the agent leaves.",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Conversation Design",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Latency Smoothing",
+    "Filler Words"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-filler-words",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-filler-words/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Beginner"
+}

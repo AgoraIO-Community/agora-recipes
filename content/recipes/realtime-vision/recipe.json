@@ -1,0 +1,27 @@
+{
+  "title": "Real-time Vision (MLLM)",
+  "tagline": "Realtime voice that can also see your camera.",
+  "description": "A realtime multimodal model with voice and camera input so you can ask it what it sees (bring your own OpenAI key).",
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Realtime",
+    "Multimodal",
+    "Vision",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Realtime",
+    "Vision",
+    "MLLM"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime-vision",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime-vision/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Advanced"
+}
