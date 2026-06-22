@@ -1,0 +1,13 @@
+{
+  "title": "Pause with Agora",
+  "tagline": "Build a Chrome extension for short, voice-guided workday resets.",
+  "description": "Use the Pause with Agora recipe to create a compact meditation-style browser extension backed by a small API service and Agora Conversational AI.",
+  "platforms": ["TypeScript"],
+  "useCases": ["Wellness", "Voice AI"],
+  "capabilities": ["Conversational AI", "Chrome Extension", "React"],
+  "mainRepoUrl": "https://github.com/anandwana001/Agora-Meditation-Plugin",
+  "recipeUrl": "https://github.com/anandwana001/Agora-Meditation-Plugin/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-06-22",
+  "difficulty": "Advanced"
+}
