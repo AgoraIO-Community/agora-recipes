@@ -1,0 +1,13 @@
+{
+  "title": "Daily Mandir AI",
+  "tagline": "Build a devotional assistant for daily temple guidance.",
+  "description": "Use this recipe to create a voice AI companion that helps with daily mandir routines, devotional guidance, and prayer-oriented conversations.",
+  "platforms": ["TypeScript"],
+  "useCases": ["Devotional", "Voice AI"],
+  "capabilities": ["Conversational AI", "Daily Rituals", "Guidance"],
+  "mainRepoUrl": "https://github.com/anandwana001/daily-mandir-ai",
+  "recipeUrl": "https://github.com/anandwana001/daily-mandir-ai/blob/main/docs/ai/RECIPE.md",
+  "author": "anandwana001",
+  "updated": "2026-06-25",
+  "difficulty": "Beginner"
+}
