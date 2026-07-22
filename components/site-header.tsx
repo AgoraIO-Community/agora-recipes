@@ -179,12 +179,6 @@ export function SiteHeader() {
           className="ml-auto flex items-center gap-1 sm:gap-2"
         >
           <Link
-            href="/#recipes"
-            className="hidden sm:inline-flex h-8 items-center px-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Recipes
-          </Link>
-          <Link
             href="https://docs.agora.io"
             target="_blank"
             rel="noreferrer"
