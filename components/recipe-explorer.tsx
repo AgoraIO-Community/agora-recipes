@@ -56,6 +56,8 @@ type Props = {
 }
 
 export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
+  const sectionRef = React.useRef<HTMLElement>(null)
+  const resultsRef = React.useRef<HTMLDivElement>(null)
   const [activeTag, setActiveTag] = React.useState<RecipeTag>("voice-ai")
   const [filters, setFilters] = React.useState<Filters>(EMPTY_FILTERS)
   const [showAdvanced, setShowAdvanced] = React.useState(false)
@@ -69,8 +71,28 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
   const hasAdvancedFilterOptions =
     filterOptions.useCases.length > 0 || filterOptions.capabilities.length > 0
 
+  function preserveDockedScrollRange() {
+    const section = sectionRef.current
+    if (
+      !section ||
+      !document.documentElement.hasAttribute("data-recipe-nav-active")
+    ) {
+      return
+    }
+
+    const lockedHeight = Number.parseFloat(section.style.minHeight) || 0
+    section.style.minHeight = `${Math.max(lockedHeight, section.offsetHeight)}px`
+    section.setAttribute("data-scroll-range-locked", "")
+  }
+
+  function updateFilters(next: React.SetStateAction<Filters>) {
+    preserveDockedScrollRange()
+    setFilters(next)
+  }
+
   function selectRecipeType(tag: RecipeTag) {
     if (tag === activeTag) return
+    preserveDockedScrollRange()
     setActiveTag(tag)
     setFilters(EMPTY_FILTERS)
     setShowAdvanced(false)
@@ -106,8 +128,29 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
     filters.capabilities.length +
     (filters.query ? 1 : 0)
 
+  React.useLayoutEffect(() => {
+    const section = sectionRef.current
+    const results = resultsRef.current
+    if (!section) return
+
+    if (activeTag === "voice-ai" && totalActive === 0) {
+      section.style.removeProperty("min-height")
+      section.removeAttribute("data-scroll-range-locked")
+      section.removeAttribute("data-pin-results")
+      return
+    }
+
+    if (section.hasAttribute("data-scroll-range-locked") && results) {
+      section.toggleAttribute(
+        "data-pin-results",
+        results.offsetHeight < window.innerHeight - 72,
+      )
+    }
+  }, [activeTag, filtered.length, totalActive])
+
   return (
     <section
+      ref={sectionRef}
       id="recipes"
       aria-labelledby="recipes-heading"
       className="mx-auto max-w-7xl scroll-mt-16 px-4 pb-16 sm:scroll-mt-20 sm:px-6 lg:px-8"
@@ -236,7 +279,9 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
             <input
               type="search"
               value={filters.query}
-              onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
+              onChange={(e) =>
+                updateFilters((f) => ({ ...f, query: e.target.value }))
+              }
               placeholder="Search recipes"
               className={cn(
                 "h-10 w-full rounded-lg border border-border bg-background pl-9 pr-3 text-sm",
@@ -261,7 +306,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                           key={p}
                           type="button"
                           onClick={() =>
-                            setFilters((f) => ({
+                            updateFilters((f) => ({
                               ...f,
                               platforms: toggle(f.platforms, p),
                             }))
@@ -317,7 +362,10 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                 options={filterOptions.useCases}
                 selected={filters.useCases}
                 onToggle={(v) =>
-                  setFilters((f) => ({ ...f, useCases: toggle(f.useCases, v) }))
+                  updateFilters((f) => ({
+                    ...f,
+                    useCases: toggle(f.useCases, v),
+                  }))
                 }
               />
             )}
@@ -328,7 +376,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                 options={filterOptions.capabilities}
                 selected={filters.capabilities}
                 onToggle={(v) =>
-                  setFilters((f) => ({
+                  updateFilters((f) => ({
                     ...f,
                     capabilities: toggle(f.capabilities, v),
                   }))
@@ -342,7 +390,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                   variant="ghost"
                   size="sm"
                   className="gap-1.5"
-                  onClick={() => setFilters(EMPTY_FILTERS)}
+                  onClick={() => updateFilters(EMPTY_FILTERS)}
                 >
                   <X className="h-3.5 w-3.5" aria-hidden="true" />
                   Clear all
@@ -355,62 +403,64 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
         </div>
       </header>
 
-      {/* Result meta */}
-      <div className="flex items-center justify-between mb-5 text-sm text-muted-foreground">
-        <p aria-live="polite">
-          Showing <span className="text-foreground font-medium">{filtered.length}</span>{" "}
-          of {taggedRecipes.length} recipes
-        </p>
-        {totalActive > 0 && !showAdvanced && (
-          <button
-            type="button"
-            onClick={() => setFilters(EMPTY_FILTERS)}
-            className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
-          >
-            <X className="h-3 w-3" aria-hidden="true" />
-            Reset filters
-          </button>
+      <div ref={resultsRef} className="recipe-results">
+        {/* Result meta */}
+        <div className="flex items-center justify-between mb-5 text-sm text-muted-foreground">
+          <p aria-live="polite">
+            Showing <span className="text-foreground font-medium">{filtered.length}</span>{" "}
+            of {taggedRecipes.length} recipes
+          </p>
+          {totalActive > 0 && !showAdvanced && (
+            <button
+              type="button"
+              onClick={() => updateFilters(EMPTY_FILTERS)}
+              className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+            >
+              <X className="h-3 w-3" aria-hidden="true" />
+              Reset filters
+            </button>
+          )}
+        </div>
+
+        {taggedRecipes.length === 0 ? (
+          <Empty className="border border-dashed rounded-xl">
+            <EmptyHeader>
+              <EmptyTitle>No {activeRecipeType.label} recipes yet</EmptyTitle>
+              <EmptyDescription>
+                {activeRecipeType.label} recipes will appear here as they are added.
+              </EmptyDescription>
+            </EmptyHeader>
+          </Empty>
+        ) : filtered.length === 0 ? (
+          <Empty className="border border-dashed rounded-xl">
+            <EmptyHeader>
+              <EmptyTitle>No recipes match your filters</EmptyTitle>
+              <EmptyDescription>
+                Try removing a capability or broadening your search.
+              </EmptyDescription>
+            </EmptyHeader>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => updateFilters(EMPTY_FILTERS)}
+            >
+              Clear filters
+            </Button>
+          </Empty>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.map((recipe) => (
+              <Link
+                key={recipe.slug}
+                href={`/recipes/${recipe.slug}`}
+                className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl"
+              >
+                <RecipeCard recipe={recipe} />
+              </Link>
+            ))}
+          </div>
         )}
       </div>
-
-      {taggedRecipes.length === 0 ? (
-        <Empty className="border border-dashed rounded-xl">
-          <EmptyHeader>
-            <EmptyTitle>No {activeRecipeType.label} recipes yet</EmptyTitle>
-            <EmptyDescription>
-              {activeRecipeType.label} recipes will appear here as they are added.
-            </EmptyDescription>
-          </EmptyHeader>
-        </Empty>
-      ) : filtered.length === 0 ? (
-        <Empty className="border border-dashed rounded-xl">
-          <EmptyHeader>
-            <EmptyTitle>No recipes match your filters</EmptyTitle>
-            <EmptyDescription>
-              Try removing a capability or broadening your search.
-            </EmptyDescription>
-          </EmptyHeader>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setFilters(EMPTY_FILTERS)}
-          >
-            Clear filters
-          </Button>
-        </Empty>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((recipe) => (
-            <Link
-              key={recipe.slug}
-              href={`/recipes/${recipe.slug}`}
-              className="group focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl"
-            >
-              <RecipeCard recipe={recipe} />
-            </Link>
-          ))}
-        </div>
-      )}
     </section>
   )
 }

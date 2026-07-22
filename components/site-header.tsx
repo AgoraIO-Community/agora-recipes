@@ -46,17 +46,27 @@ export function SiteHeader() {
       }
     }
 
+    const handleScroll = () => {
+      // Once the recipe controls merge into the header, keep them latched there.
+      // Search and filter updates can change the document geometry, but they
+      // cannot release the latch. Only returning to the top of the page can.
+      if (activeState && window.scrollY <= 1) updateNavigation(false)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         const active = !entry.isIntersecting && entry.boundingClientRect.top < 0
-        updateNavigation(active)
+        if (active) updateNavigation(true)
       },
       { rootMargin: "-1px 0px 0px" },
     )
 
     observer.observe(sentinel)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
     return () => {
       observer.disconnect()
+      window.removeEventListener("scroll", handleScroll)
       document.documentElement.removeAttribute("data-recipe-nav-active")
       document.documentElement.removeAttribute("data-recipe-nav-ready")
     }
