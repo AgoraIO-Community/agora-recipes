@@ -58,6 +58,8 @@ export type FilterOptions = {
   capabilities: string[]
 }
 
+export type FilterOptionsByTag = Record<RecipeTag, FilterOptions>
+
 const REQUIRED_STRING_FIELDS: (keyof RecipeMeta)[] = [
   "title",
   "tagline",
@@ -256,15 +258,26 @@ function uniqueSorted(values: string[], order?: readonly string[]): string[] {
   return [...set].sort((a, b) => a.localeCompare(b))
 }
 
-export function getFilterOptions(): FilterOptions {
-  const all = getAllRecipes()
+function buildFilterOptions(recipes: Recipe[]): FilterOptions {
   return {
     platforms: uniqueSorted(
-      all.flatMap((r) => r.platforms),
+      recipes.flatMap((r) => r.platforms),
       PLATFORM_ORDER,
     ),
-    useCases: uniqueSorted(all.flatMap((r) => r.useCases)),
-    capabilities: uniqueSorted(all.flatMap((r) => r.capabilities)),
+    useCases: uniqueSorted(recipes.flatMap((r) => r.useCases)),
+    capabilities: uniqueSorted(recipes.flatMap((r) => r.capabilities)),
+  }
+}
+
+export function getFilterOptionsByTag(): FilterOptionsByTag {
+  const recipes = getAllRecipes()
+  return {
+    "voice-ai": buildFilterOptions(
+      recipes.filter((recipe) => recipe.tags.includes("voice-ai")),
+    ),
+    rtc: buildFilterOptions(
+      recipes.filter((recipe) => recipe.tags.includes("rtc")),
+    ),
   }
 }
 

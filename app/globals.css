@@ -206,6 +206,169 @@
   accent-color: var(--primary);
 }
 
+/* Recipe controls replace the site navigation at the viewport edge without scroll listeners. */
+.recipe-toolbar {
+  interpolate-size: allow-keywords;
+  overflow-anchor: none;
+}
+
+#recipes {
+  overflow-anchor: none;
+}
+
+.recipe-toolbar__brand {
+  display: none;
+}
+
+.recipe-toolbar__shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  view-transition-name: recipe-toolbar;
+}
+
+.site-header__content {
+  view-transition-name: site-header-content;
+}
+
+.site-header[data-recipe-active="true"] .site-header__content {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+}
+
+html[data-recipe-nav-ready] .recipe-toolbar {
+  top: 0;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__shell {
+  display: grid;
+  grid-template-areas: "brand types search more";
+  grid-template-columns: auto auto minmax(12rem, 1fr) auto;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 0.75rem;
+  height: 3.5rem;
+  padding-block: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  background-color: color-mix(in srgb, var(--background) 94%, transparent);
+  box-shadow: 0 12px 28px -22px color-mix(in srgb, var(--foreground) 45%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__brand {
+  display: flex;
+  grid-area: brand;
+  min-width: 0;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__panel,
+html[data-recipe-nav-active] .recipe-toolbar__layout,
+html[data-recipe-nav-active] .recipe-toolbar__filters,
+html[data-recipe-nav-active] .recipe-toolbar__primary,
+html[data-recipe-nav-active] .recipe-toolbar__facet-controls {
+  display: contents;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__decoration,
+html[data-recipe-nav-active] .recipe-toolbar__eyebrow,
+html[data-recipe-nav-active] .recipe-toolbar__description,
+html[data-recipe-nav-active] .recipe-toolbar__quick-filters,
+html[data-recipe-nav-active] .recipe-toolbar__type-description,
+html[data-recipe-nav-active] .recipe-toolbar__type-count,
+html[data-recipe-nav-active] .recipe-toolbar__intro {
+  display: none;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__types {
+  grid-area: types;
+  grid-template-columns: repeat(2, auto);
+  width: max-content;
+  gap: 0.25rem;
+  padding: 0.125rem;
+  border-radius: 0.75rem;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__type-button {
+  min-width: 0;
+  gap: 0.5rem;
+  padding: 0.125rem 0.625rem 0.125rem 0.125rem;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__type-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__search {
+  grid-area: search;
+  min-width: 0;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__more-filters {
+  grid-area: more;
+}
+
+html[data-recipe-nav-active] .recipe-toolbar__advanced {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 2rem;
+  left: 2rem;
+  max-height: calc(100vh - 4.5rem);
+  overflow-y: auto;
+  box-shadow: 0 18px 50px -24px color-mix(in srgb, var(--foreground) 55%, transparent);
+}
+
+@media (max-width: 639px) {
+  html[data-recipe-nav-active] .recipe-toolbar__shell {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    column-gap: 0.5rem;
+  }
+
+  html[data-recipe-nav-active] .recipe-toolbar__type-copy,
+  html[data-recipe-nav-active] .recipe-toolbar__filters-label {
+    display: none;
+  }
+
+  html[data-recipe-nav-active] .recipe-toolbar__type-button {
+    padding: 0.125rem;
+  }
+
+  html[data-recipe-nav-active] .recipe-toolbar__more-filters {
+    width: 2.5rem;
+    padding-inline: 0;
+  }
+
+  html[data-recipe-nav-active] .recipe-toolbar__advanced {
+    right: 1rem;
+    left: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(recipe-toolbar) {
+    animation-duration: 360ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::view-transition-group(site-header-content) {
+    animation-duration: 220ms;
+    animation-timing-function: ease-out;
+  }
+
+  ::view-transition-old(recipe-toolbar),
+  ::view-transition-new(recipe-toolbar),
+  ::view-transition-old(site-header-content),
+  ::view-transition-new(site-header-content) {
+    mix-blend-mode: normal;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
 /* Animated soft glow accent for hero */
 @keyframes pulse-soft {
   0%, 100% { opacity: 0.55; transform: scale(1); }
@@ -227,6 +390,7 @@
 
 .skip-link {
   @apply fixed left-4 top-4 z-50 -translate-y-20 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground shadow-md transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+  z-index: 60;
 }
 
 @media (prefers-reduced-motion: reduce) {
