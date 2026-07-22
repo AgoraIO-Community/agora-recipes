@@ -24,9 +24,9 @@ export function SiteHeader() {
     if (pathname !== "/") return
 
     const sentinel = document.querySelector(".recipe-toolbar__sentinel")
-    const heroDescription = document.querySelector(".page-hero__description")
+    const heroTitle = document.querySelector(".page-hero__title")
     const siteHeader = document.querySelector(".site-header")
-    if (!sentinel || !heroDescription) return
+    if (!sentinel || !heroTitle) return
     document.documentElement.setAttribute("data-recipe-nav-ready", "")
     let currentStage: RecipeNavStage = "expanded"
     let pendingStage: RecipeNavStage | undefined
@@ -120,13 +120,12 @@ export function SiteHeader() {
       lastEvaluationTime = now
 
       const sentinelTop = sentinel.getBoundingClientRect().top
-      const heroDescriptionBottom =
-        heroDescription.getBoundingClientRect().bottom
+      const heroTitleBottom = heroTitle.getBoundingClientRect().bottom
       const foldBoundary = siteHeader?.getBoundingClientRect().bottom ?? 56
       const nextStage: RecipeNavStage =
         sentinelTop <= 0
           ? "merged"
-          : heroDescriptionBottom <= foldBoundary
+          : heroTitleBottom <= foldBoundary
             ? "folded"
             : "expanded"
       requestNavigation(nextStage, isFastScroll)

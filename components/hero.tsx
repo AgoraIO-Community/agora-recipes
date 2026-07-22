@@ -27,12 +27,12 @@ export function Hero() {
             <ArrowRight className="h-3 w-3" aria-hidden="true" />
           </Link>
 
-          <h1 className="font-brand text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-balance leading-[1.05]">
+          <h1 className="page-hero__title font-brand text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-balance leading-[1.05]">
             Voice AI recipes,{" "}
             <span className="text-primary">ready to ship.</span>
           </h1>
 
-          <p className="page-hero__description text-base sm:text-lg text-muted-foreground text-pretty max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg text-muted-foreground text-pretty max-w-2xl leading-relaxed">
             Build voice agents, transcription, and translation workflows on
             Agora&apos;s low-latency network. Drop a recipe prompt into your
             coding agent or fork the repo to start from working code.
