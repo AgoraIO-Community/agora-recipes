@@ -24,6 +24,8 @@ type Filters = {
   capabilities: string[]
 }
 
+type AdvancedFilterTab = "useCases" | "capabilities"
+
 const EMPTY_FILTERS: Filters = {
   query: "",
   platforms: [],
@@ -58,9 +60,13 @@ type Props = {
 export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
   const sectionRef = React.useRef<HTMLElement>(null)
   const resultsRef = React.useRef<HTMLDivElement>(null)
+  const advancedFiltersRef = React.useRef<HTMLDivElement>(null)
+  const filtersButtonRef = React.useRef<HTMLButtonElement>(null)
   const [activeTag, setActiveTag] = React.useState<RecipeTag>("voice-ai")
   const [filters, setFilters] = React.useState<Filters>(EMPTY_FILTERS)
   const [showAdvanced, setShowAdvanced] = React.useState(false)
+  const [advancedFilterTab, setAdvancedFilterTab] =
+    React.useState<AdvancedFilterTab>("useCases")
 
   const activeRecipeType = RECIPE_TYPES.find(({ tag }) => tag === activeTag)!
   const taggedRecipes = React.useMemo(
@@ -96,6 +102,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
     setActiveTag(tag)
     setFilters(EMPTY_FILTERS)
     setShowAdvanced(false)
+    setAdvancedFilterTab("useCases")
   }
 
   const filtered = React.useMemo(() => {
@@ -127,6 +134,62 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
     filters.useCases.length +
     filters.capabilities.length +
     (filters.query ? 1 : 0)
+  const activeFacetCount =
+    filters.platforms.length +
+    filters.useCases.length +
+    filters.capabilities.length
+
+  React.useEffect(() => {
+    if (!showAdvanced) return
+
+    function handlePointerDown(event: PointerEvent) {
+      const target = event.target
+      if (!(target instanceof Node)) return
+      if (
+        filtersButtonRef.current?.contains(target) ||
+        advancedFiltersRef.current?.contains(target)
+      ) {
+        return
+      }
+      setShowAdvanced(false)
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return
+      setShowAdvanced(false)
+      filtersButtonRef.current?.focus()
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown)
+    document.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [showAdvanced])
+
+  function toggleAdvancedFilters() {
+    if (!showAdvanced) setAdvancedFilterTab("useCases")
+    setShowAdvanced((open) => !open)
+  }
+
+  function handleFilterTabKeyDown(
+    event: React.KeyboardEvent<HTMLButtonElement>,
+  ) {
+    let nextTab: AdvancedFilterTab | undefined
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      nextTab = advancedFilterTab === "useCases" ? "capabilities" : "useCases"
+    } else if (event.key === "Home") {
+      nextTab = "useCases"
+    } else if (event.key === "End") {
+      nextTab = "capabilities"
+    }
+
+    if (!nextTab) return
+    event.preventDefault()
+    setAdvancedFilterTab(nextTab)
+    document.getElementById(`recipe-filter-tab-${nextTab}`)?.focus()
+  }
 
   React.useLayoutEffect(() => {
     const section = sectionRef.current
@@ -195,8 +258,8 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
               Browse Recipes:
             </h2>
             <p className="recipe-toolbar__description mt-1.5 overflow-hidden text-sm text-muted-foreground text-pretty sm:text-base">
-              Choose a product, then find a working sample by platform, use case,
-              or capability.
+              Choose between building for Human-to-AI or Human-to-Human, and
+              filter by use case or features.
             </p>
           </div>
 
@@ -328,20 +391,55 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
               )}
               {hasAdvancedFilterOptions && (
                 <Button
+                  ref={filtersButtonRef}
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="recipe-toolbar__more-filters h-10 shrink-0 gap-1.5"
-                  aria-label="Filters"
+                  className={cn(
+                    "recipe-toolbar__more-filters h-10 shrink-0 gap-1.5 overflow-hidden transition-colors",
+                    showAdvanced && "border-primary/40 bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
+                  )}
+                  aria-label={showAdvanced ? "Close filters" : "Open filters"}
                   aria-expanded={showAdvanced}
                   aria-controls="advanced-recipe-filters"
-                  onClick={() => setShowAdvanced((v) => !v)}
+                  onClick={toggleAdvancedFilters}
                 >
-                  <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
-                  <span className="recipe-toolbar__filters-label">Filters</span>
-                  {totalActive > 0 && (
+                  <span className="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+                    <SlidersHorizontal
+                      className={cn(
+                        "absolute inset-0 h-3.5 w-3.5 transition-opacity duration-200 motion-reduce:transition-none",
+                        showAdvanced ? "opacity-0" : "opacity-100",
+                      )}
+                    />
+                    <X
+                      className={cn(
+                        "absolute inset-0 h-3.5 w-3.5 transition-opacity duration-200 motion-reduce:transition-none",
+                        showAdvanced ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                  </span>
+                  <span className="recipe-toolbar__filters-label grid text-left">
+                    <span
+                      className={cn(
+                        "[grid-area:1/1] transition-opacity duration-200 motion-reduce:transition-none",
+                        showAdvanced ? "opacity-0" : "opacity-100",
+                      )}
+                    >
+                      Filters
+                    </span>
+                    <span
+                      aria-hidden={!showAdvanced}
+                      className={cn(
+                        "[grid-area:1/1] transition-opacity duration-200 motion-reduce:transition-none",
+                        showAdvanced ? "opacity-100" : "opacity-0",
+                      )}
+                    >
+                      Close
+                    </span>
+                  </span>
+                  {activeFacetCount > 0 && !showAdvanced && (
                     <span className="ml-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-semibold text-primary-foreground">
-                      {totalActive}
+                      {activeFacetCount}
                     </span>
                   )}
                 </Button>
@@ -353,10 +451,70 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
         {/* Advanced filter row */}
         {showAdvanced && hasAdvancedFilterOptions && (
           <div
+            ref={advancedFiltersRef}
             id="advanced-recipe-filters"
-            className="recipe-toolbar__advanced rounded-xl border border-border bg-card/95 p-4 flex flex-col gap-4"
+            className="recipe-toolbar__advanced flex max-h-[min(24rem,calc(100vh-6rem))] flex-col gap-3 overflow-y-auto rounded-xl border border-border bg-card/95 p-4 shadow-lg shadow-foreground/5"
           >
-            {filterOptions.useCases.length > 0 && (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="shrink-0 text-sm font-medium text-muted-foreground">
+                  Filter by:
+                </span>
+                <div
+                  role="tablist"
+                  aria-label="Recipe filter category"
+                  className="inline-flex rounded-lg border border-border bg-background p-1"
+                >
+                  <FilterTab
+                    id="recipe-filter-tab-useCases"
+                    controls="recipe-filter-panel-useCases"
+                    selected={advancedFilterTab === "useCases"}
+                    count={filters.useCases.length}
+                    onClick={() => setAdvancedFilterTab("useCases")}
+                    onKeyDown={handleFilterTabKeyDown}
+                  >
+                    Use case
+                  </FilterTab>
+                  <FilterTab
+                    id="recipe-filter-tab-capabilities"
+                    controls="recipe-filter-panel-capabilities"
+                    selected={advancedFilterTab === "capabilities"}
+                    count={filters.capabilities.length}
+                    onClick={() => setAdvancedFilterTab("capabilities")}
+                    onKeyDown={handleFilterTabKeyDown}
+                  >
+                    Capabilities
+                  </FilterTab>
+                </div>
+              </div>
+
+              {activeFacetCount > 0 && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="gap-1.5"
+                  onClick={() =>
+                    updateFilters((current) => ({
+                      ...current,
+                      platforms: [],
+                      useCases: [],
+                      capabilities: [],
+                    }))
+                  }
+                >
+                  <X className="h-3.5 w-3.5" aria-hidden="true" />
+                  Clear filters
+                </Button>
+              )}
+            </div>
+
+            <div
+              id="recipe-filter-panel-useCases"
+              role="tabpanel"
+              aria-labelledby="recipe-filter-tab-useCases"
+              hidden={advancedFilterTab !== "useCases"}
+            >
               <FilterGroup
                 label="Use case"
                 options={filterOptions.useCases}
@@ -368,11 +526,16 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                   }))
                 }
               />
-            )}
-            {filterOptions.capabilities.length > 0 && (
+            </div>
+            <div
+              id="recipe-filter-panel-capabilities"
+              role="tabpanel"
+              aria-labelledby="recipe-filter-tab-capabilities"
+              hidden={advancedFilterTab !== "capabilities"}
+            >
               <FilterGroup
                 label="Capability"
-                hint="Recipes must include all selected capabilities"
+                hint="Recipes must match every selected capability."
                 options={filterOptions.capabilities}
                 selected={filters.capabilities}
                 onToggle={(v) =>
@@ -382,21 +545,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                   }))
                 }
               />
-            )}
-            {totalActive > 0 && (
-              <div className="flex justify-end">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="gap-1.5"
-                  onClick={() => updateFilters(EMPTY_FILTERS)}
-                >
-                  <X className="h-3.5 w-3.5" aria-hidden="true" />
-                  Clear all
-                </Button>
-              </div>
-            )}
+            </div>
           </div>
         )}
           </form>
@@ -465,6 +614,57 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
   )
 }
 
+function FilterTab({
+  id,
+  controls,
+  selected,
+  count,
+  onClick,
+  onKeyDown,
+  children,
+}: {
+  id: string
+  controls: string
+  selected: boolean
+  count: number
+  onClick: () => void
+  onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void
+  children: React.ReactNode
+}) {
+  return (
+    <button
+      id={id}
+      type="button"
+      role="tab"
+      aria-selected={selected}
+      aria-controls={controls}
+      tabIndex={selected ? 0 : -1}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      className={cn(
+        "inline-flex h-8 items-center gap-1.5 rounded-md px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+        selected
+          ? "bg-foreground text-background shadow-sm"
+          : "text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {children}
+      {count > 0 && (
+        <span
+          className={cn(
+            "inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px]",
+            selected
+              ? "bg-background/20 text-background"
+              : "bg-primary/10 text-primary",
+          )}
+        >
+          {count}
+        </span>
+      )}
+    </button>
+  )
+}
+
 function FilterGroup({
   label,
   hint,
@@ -479,12 +679,10 @@ function FilterGroup({
   onToggle: (value: string) => void
 }) {
   return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        {label}
-      </legend>
-      {hint && <p className="-mt-1 text-xs text-muted-foreground/80">{hint}</p>}
-      <div className="flex flex-wrap gap-1.5">
+    <fieldset>
+      <legend className="sr-only">Filter by {label.toLowerCase()}</legend>
+      {hint && <p className="mb-2 text-xs text-muted-foreground">{hint}</p>}
+      <div className="flex max-h-56 flex-wrap gap-1.5 overflow-y-auto pr-1">
         {options.map((opt) => {
           const active = selected.includes(opt)
           return (
@@ -497,7 +695,7 @@ function FilterGroup({
                 "inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium transition-colors",
                 active
                   ? "border-primary bg-primary/10 text-primary"
-                  : "border-border bg-background text-muted-foreground hover:text-foreground hover:border-foreground/30",
+                  : "border-border bg-background text-muted-foreground hover:border-foreground/30 hover:text-foreground",
               )}
             >
               {opt}
