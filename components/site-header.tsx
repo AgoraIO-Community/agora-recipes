@@ -8,31 +8,60 @@ import { Button } from "@/components/ui/button"
 import { AgoraLogo } from "@/components/agora-logo"
 import { Github } from "lucide-react"
 
+type RecipeNavStage = "expanded" | "folded" | "merged"
+const FOLD_SETTLE_DELAY_MS = 80
+
 export function SiteHeader() {
   const pathname = usePathname()
-  const [recipeNavActive, setRecipeNavActive] = React.useState(false)
+  const [recipeNavStage, setRecipeNavStage] =
+    React.useState<RecipeNavStage>("expanded")
 
   React.useEffect(() => {
-    setRecipeNavActive(false)
+    setRecipeNavStage("expanded")
     document.documentElement.removeAttribute("data-recipe-nav-active")
+    document.documentElement.removeAttribute("data-recipe-nav-folded")
     document.documentElement.removeAttribute("data-recipe-nav-ready")
-    if (pathname !== "/" || !("IntersectionObserver" in window)) return
+    if (pathname !== "/") return
 
     const sentinel = document.querySelector(".recipe-toolbar__sentinel")
-    if (!sentinel) return
+    const heroDescription = document.querySelector(".page-hero__description")
+    const siteHeader = document.querySelector(".site-header")
+    if (!sentinel || !heroDescription) return
     document.documentElement.setAttribute("data-recipe-nav-ready", "")
-    let activeState = false
+    let currentStage: RecipeNavStage = "expanded"
+    let pendingStage: RecipeNavStage | undefined
+    let transitionRunning = false
+    let skipActiveTransition: (() => void) | undefined
+    let animationFrame = 0
+    let foldTimer = 0
+    let disposed = false
+    let lastScrollY = window.scrollY
+    let lastEvaluationTime = performance.now()
 
-    const updateNavigation = (active: boolean) => {
-      if (active === activeState) return
-      activeState = active
+    const updateNavigation = (
+      nextStage: RecipeNavStage,
+      skipCurrentTransition = false,
+    ) => {
+      if (transitionRunning) {
+        pendingStage = nextStage
+        if (skipCurrentTransition && nextStage !== currentStage) {
+          skipActiveTransition?.()
+        }
+        return
+      }
+      if (nextStage === currentStage) return
 
       const commit = () => {
+        currentStage = nextStage
         document.documentElement.toggleAttribute(
           "data-recipe-nav-active",
-          active,
+          nextStage === "merged",
         )
-        flushSync(() => setRecipeNavActive(active))
+        document.documentElement.toggleAttribute(
+          "data-recipe-nav-folded",
+          nextStage === "folded",
+        )
+        flushSync(() => setRecipeNavStage(nextStage))
       }
 
       const reduceMotion = window.matchMedia(
@@ -40,37 +69,89 @@ export function SiteHeader() {
       ).matches
 
       if (!reduceMotion && "startViewTransition" in document) {
-        document.startViewTransition(commit)
+        transitionRunning = true
+        const transition = document.startViewTransition(commit)
+        const skipTransition = () => transition.skipTransition()
+        skipActiveTransition = skipTransition
+        transition.finished.finally(() => {
+          if (disposed) return
+          if (skipActiveTransition === skipTransition) {
+            skipActiveTransition = undefined
+          }
+          transitionRunning = false
+          const queuedStage = pendingStage
+          pendingStage = undefined
+          if (queuedStage) updateNavigation(queuedStage)
+        })
       } else {
         commit()
       }
     }
 
-    const handleScroll = () => {
-      // Once the recipe controls merge into the header, keep them latched there.
-      // Search and filter updates can change the document geometry, but they
-      // cannot release the latch. Only returning to the top of the page can.
-      if (activeState && window.scrollY <= 1) updateNavigation(false)
+    const requestNavigation = (
+      nextStage: RecipeNavStage,
+      isFastScroll: boolean,
+    ) => {
+      if (nextStage !== "folded" && foldTimer) {
+        window.clearTimeout(foldTimer)
+        foldTimer = 0
+      }
+
+      if (nextStage === "folded" && currentStage !== "folded") {
+        if (foldTimer) return
+        foldTimer = window.setTimeout(() => {
+          foldTimer = 0
+          updateNavigation("folded")
+        }, FOLD_SETTLE_DELAY_MS)
+        return
+      }
+
+      updateNavigation(nextStage, isFastScroll)
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const active = !entry.isIntersecting && entry.boundingClientRect.top < 0
-        if (active) updateNavigation(true)
-      },
-      { rootMargin: "-1px 0px 0px" },
-    )
+    const evaluateNavigation = () => {
+      animationFrame = 0
+      const now = performance.now()
+      const scrollY = window.scrollY
+      const scrollDistance = Math.abs(scrollY - lastScrollY)
+      const elapsed = Math.max(now - lastEvaluationTime, 1)
+      const isFastScroll = scrollDistance >= 96 || scrollDistance / elapsed >= 1.5
+      lastScrollY = scrollY
+      lastEvaluationTime = now
 
-    observer.observe(sentinel)
+      const sentinelTop = sentinel.getBoundingClientRect().top
+      const heroDescriptionBottom =
+        heroDescription.getBoundingClientRect().bottom
+      const foldBoundary = siteHeader?.getBoundingClientRect().bottom ?? 56
+      const nextStage: RecipeNavStage =
+        sentinelTop <= 0
+          ? "merged"
+          : heroDescriptionBottom <= foldBoundary
+            ? "folded"
+            : "expanded"
+      requestNavigation(nextStage, isFastScroll)
+    }
+
+    const handleScroll = () => {
+      if (animationFrame) return
+      animationFrame = window.requestAnimationFrame(evaluateNavigation)
+    }
+
     window.addEventListener("scroll", handleScroll, { passive: true })
+    evaluateNavigation()
 
     return () => {
-      observer.disconnect()
+      disposed = true
+      if (animationFrame) window.cancelAnimationFrame(animationFrame)
+      if (foldTimer) window.clearTimeout(foldTimer)
       window.removeEventListener("scroll", handleScroll)
       document.documentElement.removeAttribute("data-recipe-nav-active")
+      document.documentElement.removeAttribute("data-recipe-nav-folded")
       document.documentElement.removeAttribute("data-recipe-nav-ready")
     }
   }, [pathname])
+
+  const recipeNavActive = recipeNavStage === "merged"
 
   return (
     <header
