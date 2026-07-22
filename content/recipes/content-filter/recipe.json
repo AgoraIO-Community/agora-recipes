@@ -2,6 +2,7 @@
   "title": "Content Filtering",
   "tagline": "Redact unsafe or sensitive content in the agent's responses.",
   "description": "Filter and redact the agent's output through a custom LLM endpoint before it reaches the user.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

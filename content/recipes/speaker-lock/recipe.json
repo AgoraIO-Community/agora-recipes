@@ -2,6 +2,7 @@
   "title": "Speaker Lock",
   "tagline": "Lock onto the primary speaker and ignore other voices.",
   "description": "Use Agora Speaker Lock so the agent focuses on the first clear speaker and suppresses background voices.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

@@ -82,6 +82,7 @@ If the recipe repository is private or the configured file path is wrong, unauth
   "title": "TODO: Recipe title",
   "tagline": "TODO: Short one-line tagline.",
   "description": "TODO: One or two sentences explaining what the recipe does and who it helps.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["TODO: Use case"],
   "capabilities": ["TODO: Capability"],
@@ -106,6 +107,7 @@ Required string fields must be non-empty:
 
 Required array fields must be JSON arrays:
 
+- `tags`
 - `platforms`
 - `useCases`
 - `capabilities`
@@ -116,6 +118,11 @@ Required array fields must be JSON arrays:
 - `Intermediate`
 - `Advanced`
 
+`tags` must contain at least one of:
+
+- `voice-ai`
+- `rtc`
+
 `updated` should use `YYYY-MM-DD` format. `platforms` should use clear language or runtime labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`; reuse existing labels when possible so filters stay useful.
 
 ## Recipe Quality Checklist
@@ -123,6 +130,7 @@ Required array fields must be JSON arrays:
 - The slug is kebab-case and matches the implementation repo path where practical.
 - The title and tagline are concise and user-facing.
 - The description explains the workflow, not just the technologies.
+- `tags` places the recipe in the correct landing-page selection.
 - `platforms`, `useCases`, and `capabilities` use existing labels when appropriate.
 - `mainRepoUrl` points to the implementation repository root.
 - `recipeUrl` points to a public GitHub markdown `blob` URL.

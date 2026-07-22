@@ -2,6 +2,7 @@
   "title": "Event Observability",
   "tagline": "Surface the agent's real-time events in a live timeline.",
   "description": "Consume the built-in RTM event surface (state, metrics, errors, transcript) into a unified web timeline.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

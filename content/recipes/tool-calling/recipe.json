@@ -2,6 +2,7 @@
   "title": "Tool Calling",
   "tagline": "Give your voice agent callable tools backed by SQLite recall.",
   "description": "A voice agent that invokes internal function tools and persists results to SQLite, then recalls them in later turns.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

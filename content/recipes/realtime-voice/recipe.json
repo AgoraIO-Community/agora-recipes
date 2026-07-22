@@ -2,6 +2,7 @@
   "title": "Real-time Voice (MLLM)",
   "tagline": "Voice-to-voice with a realtime multimodal model.",
   "description": "Replace the STT to LLM to TTS pipeline with a single realtime speech model (bring your own OpenAI key).",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

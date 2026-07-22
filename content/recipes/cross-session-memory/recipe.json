@@ -2,6 +2,7 @@
   "title": "Cross-Session Memory",
   "tagline": "Remember returning users across separate calls.",
   "description": "Capture conversation history before the agent stops and re-inject it next time so it remembers a returning user.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

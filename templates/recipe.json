@@ -2,6 +2,7 @@
   "title": "TODO: Recipe title",
   "tagline": "TODO: Short one-line tagline.",
   "description": "TODO: One or two sentences explaining what the recipe does and who it helps.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["TODO: Use case"],
   "capabilities": ["TODO: Capability"],

@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { Search, X, SlidersHorizontal } from "lucide-react"
-import type { Recipe, FilterOptions } from "@/lib/recipes"
+import type { Recipe, FilterOptions, RecipeTag } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
 import { RecipeCard } from "@/components/recipe-card"
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
@@ -23,6 +23,11 @@ const EMPTY_FILTERS: Filters = {
   capabilities: [],
 }
 
+const RECIPE_TYPES = [
+  { tag: "voice-ai", label: "Voice AI" },
+  { tag: "rtc", label: "RTC" },
+] as const satisfies ReadonlyArray<{ tag: RecipeTag; label: string }>
+
 function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
 }
@@ -33,12 +38,19 @@ type Props = {
 }
 
 export function RecipeExplorer({ recipes, filterOptions }: Props) {
+  const [activeTag, setActiveTag] = React.useState<RecipeTag>("voice-ai")
   const [filters, setFilters] = React.useState<Filters>(EMPTY_FILTERS)
   const [showAdvanced, setShowAdvanced] = React.useState(false)
 
+  const activeRecipeType = RECIPE_TYPES.find(({ tag }) => tag === activeTag)!
+  const taggedRecipes = React.useMemo(
+    () => recipes.filter((recipe) => recipe.tags.includes(activeTag)),
+    [activeTag, recipes],
+  )
+
   const filtered = React.useMemo(() => {
     const q = filters.query.trim().toLowerCase()
-    return recipes.filter((r) => {
+    return taggedRecipes.filter((r) => {
       if (q) {
         const haystack =
           `${r.title} ${r.tagline} ${r.description} ${r.capabilities.join(" ")} ${r.useCases.join(" ")}`.toLowerCase()
@@ -58,7 +70,7 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
       }
       return true
     })
-  }, [filters, recipes])
+  }, [filters, taggedRecipes])
 
   const totalActive =
     filters.platforms.length +
@@ -72,13 +84,40 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
       aria-labelledby="recipes-heading"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16"
     >
-      <div className="flex flex-col gap-1.5 mb-6">
-        <h2
-          id="recipes-heading"
-          className="font-brand text-2xl sm:text-3xl font-semibold tracking-tight text-balance"
-        >
-          Browse voice AI recipes
-        </h2>
+      <div className="flex flex-col gap-2 mb-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <h2
+            id="recipes-heading"
+            className="font-brand text-2xl sm:text-3xl font-semibold tracking-tight text-balance"
+          >
+            Browse Recipes:
+          </h2>
+          <div
+            role="group"
+            aria-label="Recipe type"
+            className="inline-flex h-9 items-center rounded-lg border border-border bg-muted/50 p-0.5"
+          >
+            {RECIPE_TYPES.map(({ tag, label }) => {
+              const active = tag === activeTag
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => setActiveTag(tag)}
+                  aria-pressed={active}
+                  className={cn(
+                    "h-full rounded-md px-3 text-sm transition-colors",
+                    active
+                      ? "bg-foreground text-background font-medium shadow-sm"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
         <p className="text-muted-foreground text-pretty max-w-2xl">
           Find working samples by platform, use case, or capability.
         </p>
@@ -195,7 +234,7 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
       <div className="flex items-center justify-between mb-5 text-sm text-muted-foreground">
         <p aria-live="polite">
           Showing <span className="text-foreground font-medium">{filtered.length}</span>{" "}
-          of {recipes.length} recipes
+          of {taggedRecipes.length} recipes
         </p>
         {totalActive > 0 && !showAdvanced && (
           <button
@@ -209,7 +248,16 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
         )}
       </div>
 
-      {filtered.length === 0 ? (
+      {taggedRecipes.length === 0 ? (
+        <Empty className="border border-dashed rounded-xl">
+          <EmptyHeader>
+            <EmptyTitle>No {activeRecipeType.label} recipes yet</EmptyTitle>
+            <EmptyDescription>
+              {activeRecipeType.label} recipes will appear here as they are added.
+            </EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      ) : filtered.length === 0 ? (
         <Empty className="border border-dashed rounded-xl">
           <EmptyHeader>
             <EmptyTitle>No recipes match your filters</EmptyTitle>

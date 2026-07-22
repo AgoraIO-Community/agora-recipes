@@ -2,6 +2,7 @@
   "title": "Server-side Webhooks",
   "tagline": "Receive Agora NCS lifecycle events on your server.",
   "description": "A receiver for Agora's server-side notification callbacks with a live SSE timeline of agent lifecycle events.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

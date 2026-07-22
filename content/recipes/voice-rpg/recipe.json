@@ -2,6 +2,7 @@
   "title": "Voice RPG",
   "tagline": "Play a voice-driven tabletop RPG with an AI dungeon master.",
   "description": "A managed-LLM dungeon master backed by a stateful MCP game server with character, combat, and dice tools.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

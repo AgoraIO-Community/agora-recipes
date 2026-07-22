@@ -8,6 +8,7 @@ const GENERATED_DIR = path.join(process.cwd(), "content", "generated", "recipes"
 const PLATFORM_ORDER = ["Web", "iOS", "Android"] as const
 
 export type Difficulty = "Beginner" | "Intermediate" | "Advanced"
+export type RecipeTag = "voice-ai" | "rtc"
 
 export type RecipeDocument = {
   rawUrl: string
@@ -33,6 +34,7 @@ export type RecipeMeta = {
   title: string
   tagline: string
   description: string
+  tags: RecipeTag[]
   platforms: string[]
   useCases: string[]
   capabilities: string[]
@@ -68,6 +70,7 @@ const REQUIRED_STRING_FIELDS: (keyof RecipeMeta)[] = [
 ]
 
 const REQUIRED_ARRAY_FIELDS: (keyof RecipeMeta)[] = [
+  "tags",
   "platforms",
   "useCases",
   "capabilities",
@@ -78,6 +81,8 @@ const VALID_DIFFICULTIES: Difficulty[] = [
   "Intermediate",
   "Advanced",
 ]
+
+const VALID_RECIPE_TAGS: RecipeTag[] = ["voice-ai", "rtc"]
 
 function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMeta {
   if (!meta || typeof meta !== "object") {
@@ -100,6 +105,18 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
         `[recipes] ${slug}/recipe.json field "${field}" must be an array`,
       )
     }
+  }
+
+  const tags = m.tags as unknown[]
+  if (
+    tags.length === 0 ||
+    !tags.every((tag) => VALID_RECIPE_TAGS.includes(tag as RecipeTag))
+  ) {
+    throw new Error(
+      `[recipes] ${slug}/recipe.json tags must be a non-empty array containing only ${VALID_RECIPE_TAGS.join(
+        ", ",
+      )}`,
+    )
   }
 
   if (!VALID_DIFFICULTIES.includes(m.difficulty as Difficulty)) {
