@@ -81,7 +81,9 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
     const section = sectionRef.current
     if (
       !section ||
-      !document.documentElement.hasAttribute("data-recipe-nav-active")
+      !document.documentElement.matches(
+        "[data-recipe-nav-folded], [data-recipe-nav-active]",
+      )
     ) {
       return
     }
