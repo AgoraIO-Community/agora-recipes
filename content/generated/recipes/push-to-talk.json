@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "slug": "push-to-talk",
+  "generatedAt": "2026-08-02T07:35:48.863Z",
+  "source": {
+    "mainRepoUrl": "https://github.com/Therealratoshen/recipe-push-to-talk",
+    "recipeUrl": "https://github.com/Therealratoshen/recipe-push-to-talk/blob/main/docs/ai/RECIPE.md",
+    "recipeRawUrl": "https://raw.githubusercontent.com/Therealratoshen/recipe-push-to-talk/main/docs/ai/RECIPE.md"
+  },
+  "recipeDocument": {
+    "rawUrl": "https://raw.githubusercontent.com/Therealratoshen/recipe-push-to-talk/main/docs/ai/RECIPE.md",
+    "viewUrl": "https://github.com/Therealratoshen/recipe-push-to-talk/blob/main/docs/ai/RECIPE.md",
+    "markdown": "# Push-to-Talk Voice Agent\n\n> **Copyable prompt for coding agents**\n>\n> Build and run the Agora Conversational AI push-to-talk recipe in this repo. Read AGENTS.md and docs/ai/RECIPE.md fully. Copy .env.example to .env.local and fill Agora + LLM + TTS credentials. Run npm install --legacy-peer-deps && npm run dev. Open localhost:3000, start a conversation, and verify the agent only hears you while Push-to-Talk is engaged (hold or toggle). Do not remove the mic publish gate in lib/ptt.ts.\n\n## What you build\n\nA browser ConvoAI client where microphone uplink is gated by push-to-talk (hold-to-talk or latch toggle). Use this in noisy rooms or when deliberate turns beat full-duplex barge-in.\n\n## Prerequisites\n\n- Node.js 20+\n- Agora App ID + App Certificate\n- LLM API key + TTS vendor credentials (see `.env.example`)\n\n## Run\n\n```bash\ncp .env.example .env.local\nnpm install --legacy-peer-deps\nnpm run dev\n```\n\nOpen http://localhost:3000 → start conversation.\n\n## Verification\n\n1. Join/start agent with PTT idle — speaking should **not** elicit an agent reply.\n2. Hold (or latch) Push-to-Talk, speak a short question — agent should answer.\n3. Release PTT — further speech should not be heard by the agent.\n4. `npm test` passes.\n\n## Non-goals\n\n- SIP / phone calling\n- Multi-agent handoff (see Agora `agent-handoff` recipe instead)\n- Custom LLM gateway unless required by your starter\n"
+  },
+  "primaryPrompt": "You are implementing the \"Push-to-Talk\" recipe in this project.\n\nRead the recipe markdown first:\nhttps://raw.githubusercontent.com/Therealratoshen/recipe-push-to-talk/main/docs/ai/RECIPE.md\n\nUse the source repository for cross-reference:\nhttps://github.com/Therealratoshen/recipe-push-to-talk\n\nBuild this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies."
+}
