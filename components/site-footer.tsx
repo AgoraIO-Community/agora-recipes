@@ -17,7 +17,7 @@ export function SiteFooter() {
             className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
           >
             <Link
-              href="https://github.com/AgoraIO-Community/v0-voice-ai-recipes/blob/main/CONTRIBUTING.md"
+              href="https://github.com/AgoraIO-Community/agora-recipes/blob/main/CONTRIBUTING.md"
               target="_blank"
               rel="noreferrer"
               className="font-medium text-primary hover:text-primary/80 transition-colors"
@@ -33,7 +33,7 @@ export function SiteFooter() {
               Docs
             </Link>
             <Link
-              href="https://github.com/AgoraIO-Community/v0-voice-ai-recipes"
+              href="https://github.com/AgoraIO-Community/agora-recipes"
               target="_blank"
               rel="noreferrer"
               className="hover:text-foreground transition-colors"

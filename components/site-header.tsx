@@ -187,7 +187,7 @@ export function SiteHeader() {
           </Link>
           <Button asChild variant="outline" size="sm" className="gap-1.5 h-8">
             <Link
-              href="https://github.com/AgoraIO-Community/voice-ai-recipes"
+              href="https://github.com/AgoraIO-Community/agora-recipes"
               target="_blank"
               rel="noreferrer"
             >

@@ -4,7 +4,7 @@ This repo is the catalog site for Voice AI recipes. Recipe implementations live 
 
 ## Submission Flow
 
-1. Fork `AgoraIO-Community/v0-voice-ai-recipes`.
+1. Fork `AgoraIO-Community/agora-recipes`.
 2. Create a branch in your fork from `staging`.
 3. Add one recipe metadata file under `content/recipes/<slug>/recipe.json`.
 4. Run `npm run build` to fetch the recipe markdown and generate static artifacts.

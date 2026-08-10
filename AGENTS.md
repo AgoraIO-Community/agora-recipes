@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This file guides AI agents and human contributors working in `v0-voice-ai-recipes`.
+This file guides AI agents and human contributors working in `agora-recipes`.
 
 ## Scope
 
@@ -52,7 +52,7 @@ Only immediate subdirectories are loaded. Directory names beginning with `.` are
 4. Replace every `TODO` and placeholder URL with real metadata.
 5. Set `mainRepoUrl` to the implementation repository root, for example `https://github.com/OWNER/REPO`.
 6. Set `recipeUrl` to the GitHub `blob` URL for the markdown file to render, for example `https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md`.
-7. Run `npm run build` from the `v0-voice-ai-recipes` directory.
+7. Run `npm run build` from the `agora-recipes` directory.
 8. Open a PR from your fork to the upstream `staging` branch.
 
 Do not add local markdown content for a new catalog entry. Recipe pages render the fetched markdown from `recipeUrl`, plus buttons to view the raw markdown and copy the markdown to the clipboard.
