@@ -1,0 +1,24 @@
+{
+  "title": "WatchWise AI",
+  "tagline": "Build a Next.js voice agent for movie and TV discovery.",
+  "description": "Set up the WatchWise quickstart, connect Agora and TMDB credentials, and run a browser-based voice assistant that can surface movie and TV rows.",
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Quickstart",
+    "Voice AI",
+    "Entertainment"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Next.js",
+    "TMDB"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/watchwise-ai",
+  "recipeUrl": "https://github.com/anandwana001/watchwise-ai/blob/main/docs/ai/RECIPE.md",
+  "author": "anandwana001",
+  "updated": "2026-06-26",
+  "difficulty": "Beginner"
+}
