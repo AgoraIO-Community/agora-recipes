@@ -1,0 +1,13 @@
+{
+  "title": "Push-to-Talk",
+  "tagline": "Gate the microphone with press-to-talk for deliberate voice turns.",
+  "description": "Build an Agora Conversational AI web client where uplink audio publishes only while push-to-talk is engaged, using hold or toggle modes.",
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Client UX"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Push to Talk"],
+  "mainRepoUrl": "https://github.com/Therealratoshen/recipe-push-to-talk",
+  "recipeUrl": "https://github.com/Therealratoshen/recipe-push-to-talk/blob/main/docs/ai/RECIPE.md",
+  "author": "Therealratoshen",
+  "updated": "2026-08-02",
+  "difficulty": "Intermediate"
+}
