@@ -1,0 +1,13 @@
+{
+  "title": "Agora x Gemma Voice Coach",
+  "tagline": "Pair Agora voice sessions with a local Gemma reasoning layer.",
+  "description": "Set up a Next.js voice demo that joins an Agora Conversational AI session, streams transcripts and call state, and routes reasoning through a local Gemma endpoint.",
+  "platforms": ["TypeScript"],
+  "useCases": ["Realtime", "Model Integration", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Next.js", "Custom LLM"],
+  "mainRepoUrl": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach",
+  "recipeUrl": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-07-03",
+  "difficulty": "Advanced"
+}
