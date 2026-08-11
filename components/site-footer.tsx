@@ -17,14 +17,6 @@ export function SiteFooter() {
             className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
           >
             <Link
-              href="https://github.com/AgoraIO-Community/v0-voice-ai-recipes/blob/main/CONTRIBUTING.md"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium text-primary hover:text-primary/80 transition-colors"
-            >
-              Submit a recipe
-            </Link>
-            <Link
               href="https://docs.agora.io"
               target="_blank"
               rel="noreferrer"
