@@ -1,0 +1,13 @@
+{
+  "title": "Gemini Agora Voice Agents for Next.js",
+  "tagline": "Build a Gemini-powered voice agent with Next.js and Agora.",
+  "description": "Create a browser-based voice AI experience that uses Gemini for conversational intelligence and Agora for real-time voice interactions.",
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Gemini", "Next.js"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-08-26",
+  "difficulty": "Intermediate"
+}

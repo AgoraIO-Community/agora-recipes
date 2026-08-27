@@ -1,0 +1,13 @@
+{
+  "title": "Gemini Agora Voice Agents for Python",
+  "tagline": "Build a Gemini-powered voice agent with Python and Agora.",
+  "description": "Create a Python voice AI agent that uses Gemini for conversational intelligence and Agora for real-time voice interactions.",
+  "platforms": ["Python"],
+  "useCases": ["Voice AI", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Gemini"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Python",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Python/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-08-26",
+  "difficulty": "Intermediate"
+}
