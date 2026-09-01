@@ -10,6 +10,12 @@ import {
   Calendar,
   User,
   Layers,
+  LinkIcon,
+  Linkedin,
+  MessageSquare,
+  Play,
+  Twitter,
+  Youtube,
 } from "lucide-react"
 
 import {
@@ -17,6 +23,7 @@ import {
   getRecipe,
   getRelatedRecipes,
 } from "@/lib/recipes"
+import type { RecipePreviewLink } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
 import { CopyPrompt } from "@/components/copy-prompt"
 import { CopyMarkdownButton } from "@/components/copy-markdown-button"
@@ -130,6 +137,8 @@ export default async function RecipePage({
               rawUrl={recipe.recipeDocument.rawUrl}
               fetchError={recipe.recipeDocument.fetchError}
             />
+
+            <PreviewLinksSection links={recipe.previewLinks ?? []} />
           </div>
 
           {/* Sidebar */}
@@ -198,6 +207,116 @@ export default async function RecipePage({
         </div>
       </div>
     </article>
+  )
+}
+
+function PreviewLinksSection({ links }: { links: RecipePreviewLink[] }) {
+  if (links.length === 0) return null
+
+  return (
+    <section aria-labelledby="preview-links-heading" className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <h2
+          id="preview-links-heading"
+          className="font-brand text-xl font-semibold tracking-tight"
+        >
+          Demos and posts
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Videos, launches, and community discussions for this recipe.
+        </p>
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {links.map((link) => (
+          <PreviewLinkCard key={`${link.url}-${link.title}`} link={link} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function PreviewLinkCard({ link }: { link: RecipePreviewLink }) {
+  const embedUrl = getYoutubeEmbedUrl(link.url)
+  const host = getHostName(link.url)
+  const label = getPreviewLinkLabel(link)
+
+  if (embedUrl) {
+    return (
+      <div className="overflow-hidden rounded-xl border border-border bg-card sm:col-span-2">
+        <div className="aspect-video bg-muted">
+          <iframe
+            className="h-full w-full"
+            src={embedUrl}
+            title={link.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium">{link.title}</p>
+            <p className="mt-0.5 text-xs text-muted-foreground">{host}</p>
+          </div>
+          <Button asChild size="sm" variant="outline" className="gap-2">
+            <Link href={link.url} target="_blank" rel="noreferrer">
+              Open
+              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  const Icon = getPreviewLinkIcon(link)
+
+  return (
+    <Link
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className="group overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-foreground/20 hover:bg-muted/30"
+    >
+      {link.imageUrl && (
+        <span className="block aspect-video overflow-hidden border-b border-border bg-muted">
+          <img
+            src={link.imageUrl}
+            alt=""
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+          />
+        </span>
+      )}
+      <span className="flex min-h-28 items-start gap-3 p-4">
+        <span className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-background text-muted-foreground group-hover:text-foreground">
+          <Icon className="h-4 w-4" aria-hidden="true" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="flex items-start justify-between gap-3">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {label}
+            </span>
+            <ArrowUpRight
+              className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+              aria-hidden="true"
+            />
+          </span>
+          <span className="mt-2 block text-sm font-medium leading-snug text-foreground">
+            {link.title}
+          </span>
+          {link.description && (
+            <span className="mt-2 line-clamp-2 block text-xs leading-relaxed text-muted-foreground">
+              {link.description}
+            </span>
+          )}
+          <span className="mt-2 block break-all text-xs text-muted-foreground">
+            {host}
+          </span>
+        </span>
+      </span>
+    </Link>
   )
 }
 
@@ -317,4 +436,98 @@ function formatDate(iso: string) {
     month: "short",
     day: "numeric",
   })
+}
+
+function getYoutubeEmbedUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url)
+    const hostname = parsed.hostname.replace(/^www\./, "").replace(/^m\./, "")
+    let videoId: string | null = null
+
+    if (hostname === "youtu.be") {
+      videoId = parsed.pathname.split("/").filter(Boolean)[0] ?? null
+    }
+
+    if (
+      hostname === "youtube.com" ||
+      hostname === "youtube-nocookie.com"
+    ) {
+      if (parsed.pathname === "/watch") {
+        videoId = parsed.searchParams.get("v")
+      } else if (
+        parsed.pathname.startsWith("/shorts/") ||
+        parsed.pathname.startsWith("/embed/")
+      ) {
+        videoId = parsed.pathname.split("/").filter(Boolean)[1] ?? null
+      }
+    }
+
+    if (!videoId || !/^[a-zA-Z0-9_-]+$/.test(videoId)) return null
+    return `https://www.youtube-nocookie.com/embed/${videoId}`
+  } catch {
+    return null
+  }
+}
+
+function getHostName(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "")
+  } catch {
+    return url
+  }
+}
+
+function getPreviewLinkLabel(link: RecipePreviewLink): string {
+  const type = getPreviewLinkType(link)
+  const labels: Record<NonNullable<RecipePreviewLink["type"]>, string> = {
+    youtube: "YouTube",
+    linkedin: "LinkedIn",
+    x: "X",
+    reddit: "Reddit",
+    demo: "Demo",
+    article: "Article",
+    other: "Link",
+  }
+
+  return labels[type]
+}
+
+function getPreviewLinkIcon(
+  link: RecipePreviewLink,
+): React.ComponentType<{ className?: string }> {
+  const type = getPreviewLinkType(link)
+  const icons: Record<
+    NonNullable<RecipePreviewLink["type"]>,
+    React.ComponentType<{ className?: string }>
+  > = {
+    youtube: Youtube,
+    linkedin: Linkedin,
+    x: Twitter,
+    reddit: MessageSquare,
+    demo: Play,
+    article: FileText,
+    other: LinkIcon,
+  }
+
+  return icons[type]
+}
+
+function getPreviewLinkType(
+  link: RecipePreviewLink,
+): NonNullable<RecipePreviewLink["type"]> {
+  if (link.type) return link.type
+
+  try {
+    const hostname = new URL(link.url).hostname.replace(/^www\./, "")
+    if (hostname === "youtu.be" || hostname.endsWith("youtube.com")) {
+      return "youtube"
+    }
+    if (hostname.endsWith("linkedin.com")) return "linkedin"
+    if (hostname === "x.com" || hostname === "twitter.com") return "x"
+    if (hostname.endsWith("reddit.com")) return "reddit"
+  } catch {
+    return "other"
+  }
+
+  return "other"
 }

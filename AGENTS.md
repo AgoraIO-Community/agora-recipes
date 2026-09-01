@@ -87,6 +87,13 @@ If the recipe repository is private or the configured file path is wrong, unauth
   "capabilities": ["TODO: Capability"],
   "mainRepoUrl": "https://github.com/OWNER/REPO",
   "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
+  "previewLinks": [
+    {
+      "title": "TODO: Demo video",
+      "url": "https://www.youtube.com/watch?v=TODO",
+      "type": "youtube"
+    }
+  ],
   "author": "TODO: Author or team",
   "updated": "2026-05-28",
   "difficulty": "Beginner"
@@ -118,6 +125,8 @@ Required array fields must be JSON arrays:
 
 `updated` should use `YYYY-MM-DD` format. `platforms` should use clear language or runtime labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`; reuse existing labels when possible so filters stay useful.
 
+`previewLinks` is optional. Use it for demos, launch posts, or community discussions. Entries must include `title` and `url`; `type` can be `youtube`, `linkedin`, `x`, `reddit`, `demo`, `article`, or `other`. Add `description` or `imageUrl` to control the card copy or thumbnail.
+
 ## Recipe Quality Checklist
 
 - The slug is kebab-case and matches the implementation repo path where practical.
@@ -126,6 +135,7 @@ Required array fields must be JSON arrays:
 - `platforms`, `useCases`, and `capabilities` use existing labels when appropriate.
 - `mainRepoUrl` points to the implementation repository root.
 - `recipeUrl` points to a public GitHub markdown `blob` URL.
+- Optional `previewLinks` point to public demo, post, or article URLs.
 - Relative links inside the recipe markdown make sense when resolved from the recipe file's GitHub folder.
 - `updated` reflects the date of the recipe metadata change.
 - `npm run build` succeeds.
