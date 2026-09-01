@@ -1,0 +1,13 @@
+{
+  "title": "React Native RTC Quickstart",
+  "tagline": "Build a cross-platform mobile video call with Agora RTC.",
+  "description": "A React Native quickstart for joining Agora RTC channels, rendering local and remote video, and cleaning up the native RTC engine.",
+  "platforms": ["React Native", "iOS", "Android"],
+  "useCases": ["Quickstart", "Video Calling"],
+  "capabilities": ["Agora RTC", "React Native", "Mobile", "Video Calling"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-RN-Quickstart",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-RN-Quickstart/blob/master/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Beginner"
+}
