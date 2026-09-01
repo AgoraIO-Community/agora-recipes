@@ -1,0 +1,25 @@
+{
+  "title": "Agora MatchCast",
+  "tagline": "Add real-time Gemini captions to live sports and esports streams.",
+  "description": "Build a live captioning pipeline that sends Agora RTC audio to Gemini 3.5 Transcribe and publishes the resulting captions back to viewers over an Agora data stream.",
+  "platforms": [
+    "TypeScript",
+    "Python"
+  ],
+  "useCases": [
+    "Voice AI",
+    "Realtime",
+    "Accessibility"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "STT",
+    "Gemini",
+    "Live Captions"
+  ],
+  "mainRepoUrl": "https://github.com/zicojiao/agora-matchcast",
+  "recipeUrl": "https://github.com/zicojiao/agora-matchcast/blob/main/README.md",
+  "author": "zicojiao",
+  "updated": "2026-09-01",
+  "difficulty": "Advanced"
+}
