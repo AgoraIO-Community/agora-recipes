@@ -27,6 +27,36 @@ function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
 }
 
+function getGithubOwner(repoUrl: string): string | null {
+  try {
+    const url = new URL(repoUrl)
+    if (url.hostname !== "github.com") return null
+
+    return url.pathname.split("/").filter(Boolean)[0] ?? null
+  } catch {
+    return null
+  }
+}
+
+function getSearchText(recipe: Recipe): string {
+  const githubOwner = getGithubOwner(recipe.mainRepoUrl)
+  const githubHandle = githubOwner ? `@${githubOwner}` : ""
+
+  return [
+    recipe.title,
+    recipe.tagline,
+    recipe.description,
+    recipe.author,
+    githubOwner,
+    githubHandle,
+    ...recipe.capabilities,
+    ...recipe.useCases,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase()
+}
+
 type Props = {
   recipes: Recipe[]
   filterOptions: FilterOptions
@@ -40,8 +70,7 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
     const q = filters.query.trim().toLowerCase()
     return recipes.filter((r) => {
       if (q) {
-        const haystack =
-          `${r.title} ${r.tagline} ${r.description} ${r.capabilities.join(" ")} ${r.useCases.join(" ")}`.toLowerCase()
+        const haystack = getSearchText(r)
         if (!haystack.includes(q)) return false
       }
       if (filters.platforms.length && !filters.platforms.some((p) => r.platforms.includes(p))) {
@@ -97,7 +126,7 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
               type="search"
               value={filters.query}
               onChange={(e) => setFilters((f) => ({ ...f, query: e.target.value }))}
-              placeholder="Search recipes, e.g. 'translation' or 'function calling'"
+              placeholder="Search recipes, authors, or GitHub handles"
               className={cn(
                 "h-10 w-full rounded-lg border border-border bg-background pl-9 pr-3 text-sm",
                 "placeholder:text-muted-foreground",
