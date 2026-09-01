@@ -16,6 +16,14 @@ export type RecipeDocument = {
   fetchError?: string
 }
 
+export type RecipePreviewLink = {
+  title: string
+  url: string
+  type?: "youtube" | "linkedin" | "x" | "reddit" | "demo" | "article" | "other"
+  description?: string
+  imageUrl?: string
+}
+
 type GeneratedRecipeArtifact = {
   schemaVersion: number
   slug: string
@@ -24,6 +32,7 @@ type GeneratedRecipeArtifact = {
     mainRepoUrl: string
     recipeUrl: string
     recipeRawUrl: string
+    previewLinks?: RecipePreviewLink[]
   }
   recipeDocument: RecipeDocument
   primaryPrompt: string
@@ -41,6 +50,7 @@ export type RecipeMeta = {
   author: string
   updated: string
   difficulty: Difficulty
+  previewLinks?: RecipePreviewLink[]
 }
 
 export type Recipe = RecipeMeta & {
@@ -79,6 +89,16 @@ const VALID_DIFFICULTIES: Difficulty[] = [
   "Advanced",
 ]
 
+const VALID_PREVIEW_LINK_TYPES: NonNullable<RecipePreviewLink["type"]>[] = [
+  "youtube",
+  "linkedin",
+  "x",
+  "reddit",
+  "demo",
+  "article",
+  "other",
+]
+
 function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMeta {
   if (!meta || typeof meta !== "object") {
     throw new Error(`[recipes] ${slug}/recipe.json is not a JSON object`)
@@ -108,6 +128,58 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
         ", ",
       )}`,
     )
+  }
+
+  if (m.previewLinks !== undefined) {
+    if (!Array.isArray(m.previewLinks)) {
+      throw new Error(
+        `[recipes] ${slug}/recipe.json field "previewLinks" must be an array`,
+      )
+    }
+
+    for (const [index, link] of m.previewLinks.entries()) {
+      if (!link || typeof link !== "object") {
+        throw new Error(
+          `[recipes] ${slug}/recipe.json previewLinks[${index}] must be an object`,
+        )
+      }
+
+      const previewLink = link as Record<string, unknown>
+      if (
+        typeof previewLink.title !== "string" ||
+        previewLink.title.length === 0 ||
+        typeof previewLink.url !== "string" ||
+        previewLink.url.length === 0
+      ) {
+        throw new Error(
+          `[recipes] ${slug}/recipe.json previewLinks[${index}] must include non-empty "title" and "url" strings`,
+        )
+      }
+
+      if (
+        previewLink.type !== undefined &&
+        !VALID_PREVIEW_LINK_TYPES.includes(
+          previewLink.type as NonNullable<RecipePreviewLink["type"]>,
+        )
+      ) {
+        throw new Error(
+          `[recipes] ${slug}/recipe.json previewLinks[${index}].type must be one of ${VALID_PREVIEW_LINK_TYPES.join(
+            ", ",
+          )}`,
+        )
+      }
+
+      for (const field of ["description", "imageUrl"]) {
+        if (
+          previewLink[field] !== undefined &&
+          typeof previewLink[field] !== "string"
+        ) {
+          throw new Error(
+            `[recipes] ${slug}/recipe.json previewLinks[${index}].${field} must be a string`,
+          )
+        }
+      }
+    }
   }
 }
 
@@ -205,6 +277,7 @@ function loadRecipesFromDisk(): Recipe[] {
       fetchError: "Run npm run recipes:build to fetch this recipe.",
     }
     const recipeDocument = generated?.recipeDocument ?? fallbackDocument
+    const previewLinks = generated?.source.previewLinks ?? meta.previewLinks
 
     return {
       slug,
@@ -213,6 +286,7 @@ function loadRecipesFromDisk(): Recipe[] {
       primaryPrompt:
         generated?.primaryPrompt ?? buildPrimaryPrompt(meta, recipeDocument),
       ...meta,
+      previewLinks,
     }
   })
 

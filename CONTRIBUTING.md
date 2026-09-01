@@ -34,6 +34,13 @@ Start from `templates/recipe.json`:
   "capabilities": ["Conversational AI", "Voice Agent", "Python"],
   "mainRepoUrl": "https://github.com/OWNER/REPO",
   "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
+  "previewLinks": [
+    {
+      "title": "Demo video",
+      "url": "https://www.youtube.com/watch?v=VIDEO_ID",
+      "type": "youtube"
+    }
+  ],
   "author": "Agora",
   "updated": "2026-05-28",
   "difficulty": "Beginner"
@@ -60,6 +67,8 @@ Required array fields:
 `difficulty` must be `Beginner`, `Intermediate`, or `Advanced`.
 
 Use clear platform labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`. Reuse existing `useCases` and `capabilities` where practical so filters stay useful.
+
+Optional `previewLinks` entries can point to demos, launch posts, or community discussions. Each entry must include `title` and `url`; `type` can be `youtube`, `linkedin`, `x`, `reddit`, `demo`, `article`, or `other`. YouTube links render as embedded videos on the recipe page, while other providers render as outbound preview cards. Add `description` or `imageUrl` to control the card copy or thumbnail.
 
 ## Recipe URL Requirements
 
@@ -103,6 +112,7 @@ Generated artifacts include the source links, fetched markdown, and the copyable
 - The slug is kebab-case.
 - `mainRepoUrl` opens the implementation repo.
 - `recipeUrl` opens a public GitHub markdown file.
+- Any `previewLinks` open public URLs.
 - The recipe markdown's relative links resolve correctly from that markdown file's folder.
 - `updated` uses `YYYY-MM-DD`.
 - `npm run build` succeeds.

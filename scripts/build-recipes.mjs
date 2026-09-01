@@ -64,6 +64,7 @@ async function buildRecipeArtifact({ slug, contentDir }) {
   const normalizedMarkdown = markdown
     ? expandMarkdownLinks(markdown, recipeViewUrl)
     : ""
+  const previewLinks = await normalizePreviewLinks(meta.previewLinks)
   const recipeDocument = {
     rawUrl: recipeRawUrl,
     viewUrl: recipeViewUrl,
@@ -79,10 +80,37 @@ async function buildRecipeArtifact({ slug, contentDir }) {
       mainRepoUrl: meta.mainRepoUrl,
       recipeUrl: meta.recipeUrl,
       recipeRawUrl,
+      ...(previewLinks ? { previewLinks } : {}),
     },
     recipeDocument,
     primaryPrompt: buildPrimaryPrompt({ meta, recipeDocument }),
   }
+}
+
+async function normalizePreviewLinks(links) {
+  if (!Array.isArray(links)) return null
+
+  const normalized = []
+  for (const link of links) {
+    if (!link || typeof link !== "object") {
+      normalized.push(link)
+      continue
+    }
+
+    const metadata = await fetchPreviewMetadata(link.url)
+    normalized.push({
+      ...link,
+      ...(metadata.title && !link.title ? { title: metadata.title } : {}),
+      ...(metadata.description && !link.description
+        ? { description: metadata.description }
+        : {}),
+      ...(metadata.imageUrl && !link.imageUrl
+        ? { imageUrl: metadata.imageUrl }
+        : {}),
+    })
+  }
+
+  return normalized
 }
 
 function buildPrimaryPrompt({ meta, recipeDocument }) {
@@ -149,6 +177,68 @@ async function fetchRecipeMarkdown(url) {
       fetchError: err instanceof Error ? err.message : String(err),
     }
   }
+}
+
+async function fetchPreviewMetadata(url) {
+  if (typeof url !== "string" || !url.startsWith("http")) return {}
+
+  try {
+    const html = await fetchRequiredText(url, "preview")
+    return extractPreviewMetadata(html, url)
+  } catch {
+    return {}
+  }
+}
+
+function extractPreviewMetadata(html, pageUrl) {
+  const title =
+    getMetaContent(html, "property", "og:title") ??
+    getMetaContent(html, "name", "twitter:title")
+  const description =
+    getMetaContent(html, "property", "og:description") ??
+    getMetaContent(html, "name", "description") ??
+    getMetaContent(html, "name", "twitter:description")
+  const imageUrl =
+    getMetaContent(html, "property", "og:image") ??
+    getMetaContent(html, "name", "twitter:image")
+
+  return {
+    ...(title ? { title: decodeHtmlEntities(title) } : {}),
+    ...(description ? { description: decodeHtmlEntities(description) } : {}),
+    ...(imageUrl ? { imageUrl: new URL(imageUrl, pageUrl).toString() } : {}),
+  }
+}
+
+function getMetaContent(html, attributeName, attributeValue) {
+  const escapedName = escapeRegExp(attributeName)
+  const escapedValue = escapeRegExp(attributeValue)
+  const metaPattern = new RegExp(
+    `<meta\\s+[^>]*${escapedName}=["']${escapedValue}["'][^>]*>`,
+    "i",
+  )
+  const metaTag = html.match(metaPattern)?.[0]
+  if (!metaTag) return null
+
+  return getAttributeValue(metaTag, "content")
+}
+
+function getAttributeValue(tag, attributeName) {
+  const escapedName = escapeRegExp(attributeName)
+  const attrPattern = new RegExp(`${escapedName}=["']([^"']+)["']`, "i")
+  return tag.match(attrPattern)?.[1] ?? null
+}
+
+function decodeHtmlEntities(value) {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 
 function githubViewUrlToRawUrl(viewUrl) {

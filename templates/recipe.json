@@ -7,6 +7,13 @@
   "capabilities": ["TODO: Capability"],
   "mainRepoUrl": "https://github.com/OWNER/REPO",
   "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
+  "previewLinks": [
+    {
+      "title": "TODO: Demo video",
+      "url": "https://www.youtube.com/watch?v=TODO",
+      "type": "youtube"
+    }
+  ],
   "author": "TODO: Author or team",
   "updated": "2026-05-28",
   "difficulty": "Beginner"

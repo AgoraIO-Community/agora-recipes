@@ -7,6 +7,15 @@
   "capabilities": ["Conversational AI", "Voice Agent", "Next.js", "Custom LLM"],
   "mainRepoUrl": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach",
   "recipeUrl": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach/blob/main/README.md",
+  "previewLinks": [
+    {
+      "title": "Building a Real-Time Voice Coach with Agora, Custom LLM, and Local Gemma",
+      "url": "https://medium.com/agora-io/building-a-real-time-voice-coach-with-agora-custom-llm-and-local-gemma-5092915b5f27",
+      "type": "article",
+      "description": "A walkthrough of the Agora voice session, local Gemma reasoning layer, and Custom LLM proxy architecture.",
+      "imageUrl": "https://miro.medium.com/v2/resize:fit:1400/1*2KvuUWxcYzVWPLOh73jiaw.png"
+    }
+  ],
   "author": "anandwana001",
   "updated": "2026-07-03",
   "difficulty": "Advanced"
