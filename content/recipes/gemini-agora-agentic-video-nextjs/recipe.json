@@ -1,0 +1,27 @@
+{
+  "title": "Gemini Agora Agentic Video for Next.js",
+  "tagline": "Talk to a video with Gemini Agentic Video Understanding and Agora voice AI.",
+  "description": "Build a Next.js app where users upload or record a video, Gemini extracts timestamped moments, and an Agora Conversational AI voice agent talks about what happened.",
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Quickstart",
+    "Voice AI",
+    "Vision",
+    "Multimodal"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Gemini",
+    "Next.js",
+    "Vision",
+    "Multimodal"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Agentic-Video-NextJS",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Agentic-Video-NextJS/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-02",
+  "difficulty": "Intermediate"
+}
