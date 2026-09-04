@@ -196,6 +196,28 @@
   background: var(--muted);
   font-weight: 600;
 }
+.prose-recipe .recipe-frontmatter {
+  margin-top: 0;
+  min-width: 36rem;
+}
+.prose-recipe .recipe-frontmatter th[scope="row"] {
+  width: 12rem;
+  vertical-align: top;
+}
+.prose-recipe .recipe-frontmatter td ul {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.prose-recipe .recipe-frontmatter td li {
+  margin: 0;
+}
+.prose-recipe .recipe-frontmatter td code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 .prose-recipe hr {
   border: 0;
   border-top: 1px solid var(--border);
