@@ -2,6 +2,7 @@
   "title": "WorldCupVoice",
   "tagline": "Add visually grounded AI voice commentary to live sports streams.",
   "description": "Build an AI commentator that watches an Agora RTC video feed, generates play-by-play from sampled frames, and publishes synthesized speech and synchronized transcripts back into the live channel.",
+  "tags": ["voice-ai"],
   "platforms": [
     "TypeScript",
     "Python"

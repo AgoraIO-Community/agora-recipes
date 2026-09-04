@@ -2,6 +2,7 @@
   "title": "Agora Rotary Dial Phone",
   "tagline": "Call a real-time AI character from an interactive 3D rotary telephone.",
   "description": "Create a tactile Three.js rotary phone that starts an Agora Conversational AI call after the user dials, with RTC audio, optional RTM status updates, signed call tickets, and resilient cleanup.",
+  "tags": ["voice-ai"],
   "platforms": [
     "TypeScript"
   ],
