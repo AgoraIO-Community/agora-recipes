@@ -2,12 +2,13 @@
   "title": "recipe-agent-langchain",
   "tagline": "Use LangChain as the tool and orchestration layer inside an Agora voice agent.",
   "description": "Connect LangChain-based tool orchestration to an Agora real-time voice runtime through an OpenAI-compatible custom LLM bridge.",
+  "tags": ["voice-ai"],
   "platforms": ["Python", "TypeScript"],
   "useCases": ["Tool Use", "Model Integration", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Custom LLM", "Function Calling"],
   "mainRepoUrl": "https://github.com/bluemotional/recipe-agent-langchain",
   "recipeUrl": "https://github.com/bluemotional/recipe-agent-langchain/blob/fix/session-isolation-stability-latency/docs/ai/RECIPE.md",
-  "author": "Agora",
+  "author": "Jingyi",
   "updated": "2026-06-24",
   "difficulty": "Intermediate"
 }

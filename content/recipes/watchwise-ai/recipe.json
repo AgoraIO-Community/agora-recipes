@@ -2,6 +2,7 @@
   "title": "WatchWise AI",
   "tagline": "Build a Next.js voice agent for movie and TV discovery.",
   "description": "Set up the WatchWise quickstart, connect Agora and TMDB credentials, and run a browser-based voice assistant that can surface movie and TV rows.",
+  "tags": ["voice-ai"],
   "platforms": [
     "TypeScript"
   ],

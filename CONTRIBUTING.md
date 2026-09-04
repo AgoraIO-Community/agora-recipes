@@ -4,7 +4,7 @@ This repo is the catalog site for Voice AI recipes. Recipe implementations live 
 
 ## Submission Flow
 
-1. Fork `AgoraIO-Community/v0-voice-ai-recipes`.
+1. Fork `AgoraIO-Community/agora-recipes`.
 2. Create a branch in your fork from `staging`.
 3. Add one recipe metadata file under `content/recipes/<slug>/recipe.json`.
 4. Run `npm run build` to fetch the recipe markdown and generate static artifacts.
@@ -29,6 +29,7 @@ Start from `templates/recipe.json`:
   "title": "Python Quickstart",
   "tagline": "Build a basic Agora Conversational AI agent in Python.",
   "description": "Set up the Python quickstart agent, configure credentials, and run a minimal voice AI workflow.",
+  "tags": ["voice-ai"],
   "platforms": ["Python"],
   "useCases": ["Quickstart", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Python"],
@@ -53,11 +54,13 @@ Required string fields:
 
 Required array fields:
 
+- `tags`
 - `platforms`
 - `useCases`
 - `capabilities`
 
 `difficulty` must be `Beginner`, `Intermediate`, or `Advanced`.
+`tags` must contain `voice-ai`, `rtc`, or both so the recipe appears under the correct landing-page selection.
 
 Use clear platform labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`. Reuse existing `useCases` and `capabilities` where practical so filters stay useful.
 
