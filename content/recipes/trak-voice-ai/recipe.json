@@ -1,0 +1,14 @@
+{
+  "title": "Trak App Voice AI Integration",
+  "tagline": "Control music playback and search tracks using Agora Voice AI.",
+  "description": "Integrate Agora Conversational Voice AI into an Electron music application for hands-free audio controls.",
+  "tags": ["voice-ai"],
+  "platforms": ["JavaScript", "Electron"],
+  "useCases": ["Voice AI", "Audio Streaming"],
+  "capabilities": ["Conversational AI", "Voice Agent"],
+  "mainRepoUrl": "https://github.com/Saarthak1234/Trak-VoiceAI-Demo",
+  "recipeUrl": "https://github.com/Saarthak1234/Trak-VoiceAI-Demo/blob/main/docs/ai/RECIPE.md",
+  "author": "Saarthak Agarwal",
+  "updated": "2026-08-24",
+  "difficulty": "Intermediate"
+}
