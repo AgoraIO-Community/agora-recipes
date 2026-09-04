@@ -1,0 +1,27 @@
+{
+  "title": "Muse AI",
+  "tagline": "Real-time conversational Voice AI music studio co-producer and melody ideation agent powered by Agora RTC.",
+  "description": "Muse AI turns sung melodies and spoken creative prompts into musical directions in real time. Features multi-agent producer personas, pitch telemetry, prompt injection, and an in-browser Web Audio synthesis sandbox.",
+  "tags": ["voice-ai"],
+  "platforms": [
+    "TypeScript",
+    "React"
+  ],
+  "useCases": [
+    "Voice AI",
+    "Audio & Music",
+    "Creative Studio"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Web Audio API",
+    "Prompt Injection"
+  ],
+  "mainRepoUrl": "https://github.com/Molly-Arora02/MUSE-AI-",
+  "recipeUrl": "https://github.com/Molly-Arora02/MUSE-AI-/blob/main/docs/ai/RECIPE.md",
+  "author": "Molly Arora",
+  "updated": "2026-08-24",
+  "difficulty": "Intermediate"
+}
