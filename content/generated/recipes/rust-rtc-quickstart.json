@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "rust-rtc-quickstart",
-  "generatedAt": "2026-09-01T06:04:31.482Z",
+  "generatedAt": "2026-09-04T17:59:45.102Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-Rust-QuickStart",
     "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Rust-QuickStart/blob/main/docs/ai/RECIPE.md",
