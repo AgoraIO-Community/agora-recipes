@@ -2,6 +2,7 @@
   "title": "React Native Quickstart",
   "tagline": "Build a cross-platform voice AI client with React Native.",
   "description": "A bare React Native (TypeScript) voice-agent client for Agora Conversational AI. It reuses the engine-agnostic web toolkit over thin RTC/RTM engine adapters and renders live transcript, talking to a bundled keyless Python backend.",
+  "tags": ["voice-ai"],
   "platforms": [
     "React Native",
     "TypeScript"
@@ -19,5 +20,14 @@
   "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-client-rn-quickstart/blob/main/README.md",
   "author": "Agora",
   "updated": "2026-06-14",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "react-native",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    }
+  }
 }
