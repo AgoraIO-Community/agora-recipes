@@ -2,6 +2,7 @@
   "title": "Breath Companion",
   "tagline": "Build a guided breathing and voice-agent experience with Agora.",
   "description": "Use the Next.js Breath Companion starter to create a branded wellness experience with live transcript, a voice-agent visualizer, and real-time pipeline latency feedback powered by Agora Conversational AI.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["Wellness", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Next.js"],

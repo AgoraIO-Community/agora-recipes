@@ -1,0 +1,31 @@
+{
+  "title": "Kaun Katega Taarpati",
+  "tagline": "Run a three-player Hinglish voice game show on a server that owns the clock.",
+  "description": "Build a multiplayer voice game show where one Agora agent hosts three contestants at once. A custom LLM endpoint sits between Agora and the model so authoritative game state is injected on every turn and tool calls actually execute, with a real PSTN call as the human-escalation lifeline.",
+  "tags": ["voice-ai"],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Gaming",
+    "Entertainment",
+    "Custom LLM",
+    "Tool Use",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Custom LLM",
+    "Function Calling",
+    "Game State",
+    "State Management",
+    "Next.js",
+    "RTM"
+  ],
+  "mainRepoUrl": "https://github.com/subinsk/kkt",
+  "recipeUrl": "https://github.com/subinsk/kkt/blob/main/docs/ai/RECIPE.md",
+  "author": "subinsk",
+  "updated": "2026-08-28",
+  "difficulty": "Advanced"
+}
