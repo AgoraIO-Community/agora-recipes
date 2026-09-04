@@ -1,0 +1,14 @@
+{
+  "title": "AgoraCare - Voice AI Medical Triage",
+  "tagline": "Real-time, Multilingual Voice AI with Instant Human Escalation via Agora RTC.",
+  "description": "An intelligent care coordination system that assists patients with daily regimens and intelligently escalates emergencies to human nurses using Agora Conversational AI and RTC.",
+  "tags": ["voice-ai", "telehealth", "hackathon"],
+  "platforms": ["Web", "Next.js"],
+  "useCases": ["Voice AI", "Telehealth", "Emergency Triage"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Tool Calling"],
+  "mainRepoUrl": "https://github.com/iamaanahmad/AgoraCare",
+  "recipeUrl": "https://github.com/iamaanahmad/AgoraCare/blob/main/README.md",
+  "author": "iamaanahmad",
+  "updated": "2026-09-04",
+  "difficulty": "Advanced"
+}
