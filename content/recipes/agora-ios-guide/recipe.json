@@ -2,6 +2,7 @@
   "title": "iOS RTC Guide",
   "tagline": "Follow an iOS guide for Agora RTC video calling.",
   "description": "An iOS guide for joining Agora RTC channels, rendering local and remote video, and handling channel lifecycle callbacks.",
+  "tags": ["rtc"],
   "platforms": ["iOS", "Swift"],
   "useCases": ["Guide", "Video Calling"],
   "capabilities": ["Agora RTC", "iOS", "Swift", "Video Calling"],

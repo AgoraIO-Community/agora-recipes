@@ -2,6 +2,7 @@
   "title": "Unity Virtual Camera Prefab",
   "tagline": "Publish Unity-rendered camera output through Agora RTC.",
   "description": "A Unity prefab sample for sending rendered camera output into an Agora RTC channel as a custom media source.",
+  "tags": ["rtc"],
   "platforms": ["Unity"],
   "useCases": ["Custom Media", "Video Calling"],
   "capabilities": ["Agora RTC", "Unity", "Virtual Camera", "Custom Video Source"],

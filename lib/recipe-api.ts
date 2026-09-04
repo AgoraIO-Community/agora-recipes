@@ -34,11 +34,7 @@ export function isOfficialAgoraRecipe(recipe: Recipe): boolean {
 }
 
 export function getRecipeCatalogType(recipe: Recipe): RecipeCatalogType {
-  return recipe.capabilities.some((capability) =>
-    capability.toLowerCase().includes("agora rtc"),
-  )
-    ? "rtc"
-    : "ai"
+  return recipe.tags.includes("rtc") ? "rtc" : "ai"
 }
 
 export function toRecipeApiSummary(recipe: Recipe): RecipeApiSummary {

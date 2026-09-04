@@ -2,6 +2,7 @@
   "title": "Web Group Video Chat",
   "tagline": "Build a browser-based group video chat with Agora RTC.",
   "description": "A vanilla JavaScript group video chat that joins an Agora RTC channel, publishes local media, and renders remote participants.",
+  "tags": ["rtc"],
   "platforms": ["JavaScript", "Web"],
   "useCases": ["Video Calling", "Quickstart"],
   "capabilities": ["Agora RTC", "Group Video", "Web SDK", "Vite"],

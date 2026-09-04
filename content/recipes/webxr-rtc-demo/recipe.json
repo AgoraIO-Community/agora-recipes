@@ -2,6 +2,7 @@
   "title": "WebXR RTC Demo",
   "tagline": "Bring Agora RTC audio/video into a WebXR scene.",
   "description": "A WebXR sample for adding real-time Agora RTC media to immersive browser-based communication experiences.",
+  "tags": ["rtc"],
   "platforms": ["WebXR", "JavaScript", "Web"],
   "useCases": ["Video Calling", "Immersive"],
   "capabilities": ["Agora RTC", "WebXR", "Immersive", "Web SDK"],

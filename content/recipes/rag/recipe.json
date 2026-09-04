@@ -2,6 +2,7 @@
   "title": "Retrieval-Augmented Generation",
   "tagline": "Ground the agent's answers in your own knowledge base.",
   "description": "Retrieve from an in-app corpus and inject context so the voice agent answers from your documents.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

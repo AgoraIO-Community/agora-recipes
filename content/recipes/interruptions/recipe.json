@@ -2,6 +2,7 @@
   "title": "Interruption Handling",
   "tagline": "Tune how the agent yields when the user barges in.",
   "description": "Configure VAD-based interruption handling so the agent stops and listens when the user speaks over it.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

@@ -2,6 +2,7 @@
   "title": "React Native RTC Quickstart",
   "tagline": "Build a cross-platform mobile video call with Agora RTC.",
   "description": "A React Native quickstart for joining Agora RTC channels, rendering local and remote video, and cleaning up the native RTC engine.",
+  "tags": ["rtc"],
   "platforms": ["React Native", "iOS", "Android"],
   "useCases": ["Quickstart", "Video Calling"],
   "capabilities": ["Agora RTC", "React Native", "Mobile", "Video Calling"],

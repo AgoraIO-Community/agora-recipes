@@ -2,6 +2,7 @@
   "title": "Custom Modalities",
   "tagline": "Bring your own LLM and a custom TTS voice.",
   "description": "Customize both the reasoning (LLM) and the spoken output (TTS) of the voice agent with your own providers.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

@@ -53,6 +53,7 @@ recipe's language or checked-out files.
   "title": "Python Quickstart",
   "tagline": "Build a basic Agora Conversational AI agent in Python.",
   "description": "Set up the Python quickstart agent, configure credentials, and run a minimal voice AI workflow.",
+  "tags": ["voice-ai"],
   "platforms": ["Python"],
   "useCases": ["Quickstart", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Python"],
@@ -65,6 +66,7 @@ recipe's language or checked-out files.
 ```
 
 `difficulty` must be `Beginner`, `Intermediate`, or `Advanced`.
+`tags` must contain at least one supported recipe type: `voice-ai` or `rtc`.
 
 ## Verification
 

@@ -2,6 +2,7 @@
   "title": "C# RTC Quickstart",
   "tagline": "Join an Agora RTC channel from a C# sample.",
   "description": "A C# quickstart for connecting to Agora RTC and validating basic real-time audio or video publish and subscribe behavior.",
+  "tags": ["rtc"],
   "platforms": ["C#"],
   "useCases": ["Quickstart", "Video Calling"],
   "capabilities": ["Agora RTC", "C#", "Channel Join", "Audio Video"],

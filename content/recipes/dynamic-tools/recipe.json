@@ -2,6 +2,7 @@
   "title": "Dynamic Tool Sets",
   "tagline": "Swap the agent's available tools based on context.",
   "description": "A smart-home agent whose available device tools change with the active room mode, plus keyword-triggered scenes.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

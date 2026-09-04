@@ -2,6 +2,7 @@
   "title": "Babylon.js RTC Demo",
   "tagline": "Add Agora RTC media to a Babylon.js scene.",
   "description": "A 3D browser demo that combines Babylon.js rendering with Agora RTC audio/video in a shared scene.",
+  "tags": ["rtc"],
   "platforms": ["JavaScript", "Web"],
   "useCases": ["Video Calling", "Immersive"],
   "capabilities": ["Agora RTC", "Babylon.js", "3D Scene", "Web SDK"],

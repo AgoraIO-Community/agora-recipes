@@ -2,6 +2,7 @@
   "title": "Custom LLM",
   "tagline": "Bring your own OpenAI-compatible LLM endpoint.",
   "description": "Drive the voice agent with a custom OpenAI-compatible LLM you host, keeping the full voice flow intact.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

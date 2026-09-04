@@ -2,6 +2,7 @@
   "title": "Dynamic Instructions",
   "tagline": "Update the agent's system prompt mid-session.",
   "description": "Use template variables and a live update endpoint to change the agent's instructions without restarting.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"

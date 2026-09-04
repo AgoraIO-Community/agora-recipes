@@ -2,6 +2,7 @@
   "title": "React Live Video App",
   "tagline": "Build a live video experience with React and Agora RTC.",
   "description": "A React live video sample for host publishing, audience playback, and Agora RTC channel setup in a browser app.",
+  "tags": ["rtc"],
   "platforms": ["React", "TypeScript"],
   "useCases": ["Live Streaming", "Video Calling"],
   "capabilities": ["Agora RTC", "Live Video", "React", "Host Audience"],

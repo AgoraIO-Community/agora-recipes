@@ -2,6 +2,7 @@
   "title": "Rust RTC Quickstart",
   "tagline": "Use Rust to connect to an Agora RTC channel.",
   "description": "A Rust quickstart for exploring Agora RTC channel connection patterns and native real-time communication workflows.",
+  "tags": ["rtc"],
   "platforms": ["Rust"],
   "useCases": ["Quickstart", "Video Calling"],
   "capabilities": ["Agora RTC", "Rust", "Native", "Channel Join"],

@@ -2,6 +2,7 @@
   "title": "MCP Tools",
   "tagline": "Let Agora orchestrate tools on a Model Context Protocol server.",
   "description": "Expose tools over a streamable-HTTP MCP server that Agora's managed LLM invokes during the conversation.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"
