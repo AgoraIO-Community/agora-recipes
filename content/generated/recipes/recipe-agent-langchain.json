@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "recipe-agent-langchain",
-  "generatedAt": "2026-06-24T17:39:25.892Z",
+  "generatedAt": "2026-09-04T17:59:44.782Z",
   "source": {
     "mainRepoUrl": "https://github.com/bluemotional/recipe-agent-langchain",
     "recipeUrl": "https://github.com/bluemotional/recipe-agent-langchain/blob/fix/session-isolation-stability-latency/docs/ai/RECIPE.md",
