@@ -10,6 +10,7 @@ import {
   Calendar,
   User,
   Layers,
+  Terminal,
 } from "lucide-react"
 
 import {
@@ -121,6 +122,8 @@ export default async function RecipePage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14">
           {/* Main column */}
           <div className="min-w-0 flex flex-col gap-8">
+            {recipe.cli ? <CliCommandSection slug={recipe.slug} /> : null}
+
             <CopyPromptSection
               prompt={recipe.primaryPrompt}
             />
@@ -198,6 +201,35 @@ export default async function RecipePage({
         </div>
       </div>
     </article>
+  )
+}
+
+function CliCommandSection({ slug }: { slug: string }) {
+  const command = `agora init my-${slug} --recipe ${slug}`
+
+  return (
+    <section aria-labelledby="cli-command-heading" className="flex flex-col gap-3">
+      <div className="flex flex-col gap-1">
+        <h2
+          id="cli-command-heading"
+          className="font-brand text-xl font-semibold tracking-tight"
+        >
+          Use with Agora CLI
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Clone the recipe and configure it with an Agora project.
+        </p>
+      </div>
+      <div className="overflow-hidden rounded-xl border border-border bg-card">
+        <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-2.5 text-xs font-medium">
+          <Terminal className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+          Agora CLI
+        </div>
+        <pre className="overflow-x-auto px-4 py-3 text-xs sm:text-sm font-mono leading-relaxed text-foreground/90 selection:bg-primary/30">
+          <code>{command}</code>
+        </pre>
+      </div>
+    </section>
   )
 }
 

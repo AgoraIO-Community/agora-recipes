@@ -2,6 +2,7 @@
   "title": "Thymia Biomarkers",
   "tagline": "Add Thymia biomarker analysis to an Agora voice AI workflow.",
   "description": "Integrate an advanced biomarker workflow with an Agora conversational agent sample.",
+  "tags": ["voice-ai"],
   "platforms": ["Python"],
   "useCases": ["Healthcare", "Voice AI"],
   "capabilities": ["Conversational AI", "Biomarkers", "Integrations"],
