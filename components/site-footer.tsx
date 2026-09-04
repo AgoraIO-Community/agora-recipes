@@ -25,7 +25,7 @@ export function SiteFooter() {
               Docs
             </Link>
             <Link
-              href="https://github.com/AgoraIO-Community/v0-voice-ai-recipes"
+              href="https://github.com/AgoraIO-Community/agora-recipes"
               target="_blank"
               rel="noreferrer"
               className="hover:text-foreground transition-colors"
