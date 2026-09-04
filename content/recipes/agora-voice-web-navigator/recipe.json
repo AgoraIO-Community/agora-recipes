@@ -2,6 +2,7 @@
   "title": "Agora Voice Web Navigator",
   "tagline": "Voice-controlled browser automation powered by Agora RTC.",
   "description": "An intelligent, real-time voice-controlled browser automation assistant powered by Agora RTC voice channels.",
+  "tags": ["voice-ai"],
   "platforms": ["JavaScript"],
   "useCases": ["Browser Automation", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Real-Time Audio"],
