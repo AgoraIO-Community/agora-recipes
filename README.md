@@ -27,6 +27,25 @@ npm run build
 
 The build runs `npm run recipes:build`, which fetches the configured markdown, expands relative markdown links to absolute GitHub links, and writes generated artifacts under `content/generated/recipes/`.
 
+## Recipes API
+
+The deployed catalog exposes a versioned, read-only API for official tooling:
+
+```text
+GET /api/v1/recipes?type=all|ai|rtc
+GET /api/v1/recipes/<slug>
+```
+
+List responses contain compact recipe metadata. Detail responses additionally
+include `recipeRawUrl` and `primaryPrompt`, which the Agora CLI can return as
+setup guidance after cloning a recipe. Every response includes
+`schemaVersion: 1`; consumers must reject unsupported schema versions.
+
+Only recipes whose `author` is exactly `Agora` are exposed. When present, the
+`cli.env` object is the source of truth for the example file, target file, and
+credential variable names; the CLI does not guess these values from the
+recipe's language or checked-out files.
+
 ## Recipe Config
 
 ```json

@@ -41,6 +41,19 @@ export type RecipeMeta = {
   author: string
   updated: string
   difficulty: Difficulty
+  cli?: RecipeCLIConfig
+}
+
+export type RecipeCLIConfig = {
+  projectType: string
+  env: {
+    examplePath: string
+    targetPath: string
+    appIdKey: string
+    appCertificateKey: string
+  }
+  installCommand?: string
+  runCommand?: string
 }
 
 export type Recipe = RecipeMeta & {
@@ -108,6 +121,31 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
         ", ",
       )}`,
     )
+  }
+
+  if (m.cli !== undefined) {
+    if (!m.cli || typeof m.cli !== "object") {
+      throw new Error(`[recipes] ${slug}/recipe.json field "cli" must be an object`)
+    }
+    const cli = m.cli as Record<string, unknown>
+    const env = cli.env as Record<string, unknown> | undefined
+    if (typeof cli.projectType !== "string" || !env) {
+      throw new Error(
+        `[recipes] ${slug}/recipe.json cli requires projectType and env`,
+      )
+    }
+    for (const field of [
+      "examplePath",
+      "targetPath",
+      "appIdKey",
+      "appCertificateKey",
+    ]) {
+      if (typeof env[field] !== "string" || env[field].length === 0) {
+        throw new Error(
+          `[recipes] ${slug}/recipe.json cli.env is missing "${field}"`,
+        )
+      }
+    }
   }
 }
 
