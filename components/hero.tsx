@@ -1,6 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Github, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight, Sparkles } from "lucide-react"
 import { Waveform } from "@/components/waveform"
 
 export function Hero() {
@@ -28,7 +27,7 @@ export function Hero() {
             <ArrowRight className="h-3 w-3" aria-hidden="true" />
           </Link>
 
-          <h1 className="font-brand text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-balance leading-[1.05]">
+          <h1 className="page-hero__title font-brand text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-balance leading-[1.05]">
             Voice AI recipes,{" "}
             <span className="text-primary">ready to ship.</span>
           </h1>
@@ -39,27 +38,8 @@ export function Hero() {
             coding agent or fork the repo to start from working code.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
-            <Button asChild size="lg" className="h-11 gap-2">
-              <Link href="#recipes">
-                Browse recipes
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="h-11 gap-2">
-              <Link
-                href="https://github.com/AgoraIO-Community/voice-ai-recipes"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github className="h-4 w-4" aria-hidden="true" />
-                View on GitHub
-              </Link>
-            </Button>
-          </div>
-
           {/* Live waveform accent */}
-          <div className="mt-8 w-full max-w-md h-14" aria-hidden="true">
+          <div className="mt-4 h-14 w-full max-w-md sm:mt-6" aria-hidden="true">
             <Waveform bars={48} />
           </div>
         </div>

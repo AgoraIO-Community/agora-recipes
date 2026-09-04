@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "slug": "gemini-agora-voice-agents-nextjs",
+  "generatedAt": "2026-08-27T02:27:21.033Z",
+  "source": {
+    "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS",
+    "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/blob/main/docs/ai/RECIPE.md",
+    "recipeRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/main/docs/ai/RECIPE.md"
+  },
+  "recipeDocument": {
+    "rawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/main/docs/ai/RECIPE.md",
+    "viewUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/blob/main/docs/ai/RECIPE.md",
+    "markdown": "",
+    "fetchError": "recipe fetch failed: 404 Not Found"
+  },
+  "primaryPrompt": "You are implementing the \"Gemini Agora Voice Agents for Next.js\" recipe in this project.\n\nRead the recipe markdown first:\nhttps://raw.githubusercontent.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/main/docs/ai/RECIPE.md\n\nUse the source repository for cross-reference:\nhttps://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS\n\nBuild this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies."
+}

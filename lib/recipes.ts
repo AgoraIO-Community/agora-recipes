@@ -8,6 +8,7 @@ const GENERATED_DIR = path.join(process.cwd(), "content", "generated", "recipes"
 const PLATFORM_ORDER = ["Web", "iOS", "Android"] as const
 
 export type Difficulty = "Beginner" | "Intermediate" | "Advanced"
+export type RecipeTag = "voice-ai" | "rtc"
 
 export type RecipeDocument = {
   rawUrl: string
@@ -33,6 +34,7 @@ export type RecipeMeta = {
   title: string
   tagline: string
   description: string
+  tags: RecipeTag[]
   platforms: string[]
   useCases: string[]
   capabilities: string[]
@@ -41,6 +43,19 @@ export type RecipeMeta = {
   author: string
   updated: string
   difficulty: Difficulty
+  cli?: RecipeCLIConfig
+}
+
+export type RecipeCLIConfig = {
+  projectType: string
+  env: {
+    examplePath: string
+    targetPath: string
+    appIdKey: string
+    appCertificateKey: string
+  }
+  installCommand?: string
+  runCommand?: string
 }
 
 export type Recipe = RecipeMeta & {
@@ -56,6 +71,8 @@ export type FilterOptions = {
   capabilities: string[]
 }
 
+export type FilterOptionsByTag = Record<RecipeTag, FilterOptions>
+
 const REQUIRED_STRING_FIELDS: (keyof RecipeMeta)[] = [
   "title",
   "tagline",
@@ -68,6 +85,7 @@ const REQUIRED_STRING_FIELDS: (keyof RecipeMeta)[] = [
 ]
 
 const REQUIRED_ARRAY_FIELDS: (keyof RecipeMeta)[] = [
+  "tags",
   "platforms",
   "useCases",
   "capabilities",
@@ -78,6 +96,8 @@ const VALID_DIFFICULTIES: Difficulty[] = [
   "Intermediate",
   "Advanced",
 ]
+
+const VALID_RECIPE_TAGS: RecipeTag[] = ["voice-ai", "rtc"]
 
 function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMeta {
   if (!meta || typeof meta !== "object") {
@@ -102,12 +122,49 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
     }
   }
 
+  const tags = m.tags as unknown[]
+  if (
+    tags.length === 0 ||
+    !tags.every((tag) => VALID_RECIPE_TAGS.includes(tag as RecipeTag))
+  ) {
+    throw new Error(
+      `[recipes] ${slug}/recipe.json tags must be a non-empty array containing only ${VALID_RECIPE_TAGS.join(
+        ", ",
+      )}`,
+    )
+  }
+
   if (!VALID_DIFFICULTIES.includes(m.difficulty as Difficulty)) {
     throw new Error(
       `[recipes] ${slug}/recipe.json difficulty must be one of ${VALID_DIFFICULTIES.join(
         ", ",
       )}`,
     )
+  }
+
+  if (m.cli !== undefined) {
+    if (!m.cli || typeof m.cli !== "object") {
+      throw new Error(`[recipes] ${slug}/recipe.json field "cli" must be an object`)
+    }
+    const cli = m.cli as Record<string, unknown>
+    const env = cli.env as Record<string, unknown> | undefined
+    if (typeof cli.projectType !== "string" || !env) {
+      throw new Error(
+        `[recipes] ${slug}/recipe.json cli requires projectType and env`,
+      )
+    }
+    for (const field of [
+      "examplePath",
+      "targetPath",
+      "appIdKey",
+      "appCertificateKey",
+    ]) {
+      if (typeof env[field] !== "string" || env[field].length === 0) {
+        throw new Error(
+          `[recipes] ${slug}/recipe.json cli.env is missing "${field}"`,
+        )
+      }
+    }
   }
 }
 
@@ -239,15 +296,26 @@ function uniqueSorted(values: string[], order?: readonly string[]): string[] {
   return [...set].sort((a, b) => a.localeCompare(b))
 }
 
-export function getFilterOptions(): FilterOptions {
-  const all = getAllRecipes()
+function buildFilterOptions(recipes: Recipe[]): FilterOptions {
   return {
     platforms: uniqueSorted(
-      all.flatMap((r) => r.platforms),
+      recipes.flatMap((r) => r.platforms),
       PLATFORM_ORDER,
     ),
-    useCases: uniqueSorted(all.flatMap((r) => r.useCases)),
-    capabilities: uniqueSorted(all.flatMap((r) => r.capabilities)),
+    useCases: uniqueSorted(recipes.flatMap((r) => r.useCases)),
+    capabilities: uniqueSorted(recipes.flatMap((r) => r.capabilities)),
+  }
+}
+
+export function getFilterOptionsByTag(): FilterOptionsByTag {
+  const recipes = getAllRecipes()
+  return {
+    "voice-ai": buildFilterOptions(
+      recipes.filter((recipe) => recipe.tags.includes("voice-ai")),
+    ),
+    rtc: buildFilterOptions(
+      recipes.filter((recipe) => recipe.tags.includes("rtc")),
+    ),
   }
 }
 

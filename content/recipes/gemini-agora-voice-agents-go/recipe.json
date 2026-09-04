@@ -1,0 +1,14 @@
+{
+  "title": "Gemini Agora Voice Agents for Go",
+  "tagline": "Build a Gemini-powered voice agent with Go and Agora.",
+  "description": "Create a Go voice AI agent that uses Gemini for conversational intelligence and Agora for real-time voice interactions.",
+  "tags": ["voice-ai"],
+  "platforms": ["Go"],
+  "useCases": ["Voice AI", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Gemini", "Go"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Go",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Go/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-08-26",
+  "difficulty": "Intermediate"
+}
