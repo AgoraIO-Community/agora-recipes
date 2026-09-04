@@ -1,0 +1,13 @@
+{
+  "title": "Unity Virtual Camera Demos",
+  "tagline": "Use Unity scenes as custom video sources for Agora RTC.",
+  "description": "A set of Unity demos for publishing rendered scenes, avatars, or virtual camera output into Agora RTC workflows.",
+  "platforms": ["Unity"],
+  "useCases": ["Video Calling", "Custom Media"],
+  "capabilities": ["Agora RTC", "Custom Video Source", "Unity", "Virtual Camera"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/UnityVirtualCamDemos",
+  "recipeUrl": "https://github.com/AgoraIO-Community/UnityVirtualCamDemos/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Intermediate"
+}

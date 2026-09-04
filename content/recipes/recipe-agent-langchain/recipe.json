@@ -7,7 +7,7 @@
   "capabilities": ["Conversational AI", "Voice Agent", "Custom LLM", "Function Calling"],
   "mainRepoUrl": "https://github.com/bluemotional/recipe-agent-langchain",
   "recipeUrl": "https://github.com/bluemotional/recipe-agent-langchain/blob/fix/session-isolation-stability-latency/docs/ai/RECIPE.md",
-  "author": "Agora",
+  "author": "Jingyi",
   "updated": "2026-06-24",
   "difficulty": "Intermediate"
 }

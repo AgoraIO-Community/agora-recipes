@@ -1,0 +1,13 @@
+{
+  "title": "React Live Video App",
+  "tagline": "Build a live video experience with React and Agora RTC.",
+  "description": "A React live video sample for host publishing, audience playback, and Agora RTC channel setup in a browser app.",
+  "platforms": ["React", "TypeScript"],
+  "useCases": ["Live Streaming", "Video Calling"],
+  "capabilities": ["Agora RTC", "Live Video", "React", "Host Audience"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/live-video-react-app-dev",
+  "recipeUrl": "https://github.com/AgoraIO-Community/live-video-react-app-dev/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Beginner"
+}

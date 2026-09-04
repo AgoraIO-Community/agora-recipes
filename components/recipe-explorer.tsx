@@ -2,11 +2,17 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Search, X, SlidersHorizontal } from "lucide-react"
+import { ChevronDown, Search, X, SlidersHorizontal } from "lucide-react"
 import type { Recipe, FilterOptions } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
 import { RecipeCard } from "@/components/recipe-card"
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 
 type Filters = {
@@ -22,6 +28,16 @@ const EMPTY_FILTERS: Filters = {
   useCases: [],
   capabilities: [],
 }
+
+const VISIBLE_PLATFORMS = [
+  "iOS",
+  "Android",
+  "Flutter",
+  "Go",
+  "Python",
+  "React Native",
+  "TypeScript",
+]
 
 function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
@@ -65,6 +81,15 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
     filters.useCases.length +
     filters.capabilities.length +
     (filters.query ? 1 : 0)
+  const visiblePlatforms = VISIBLE_PLATFORMS.filter((p) =>
+    filterOptions.platforms.includes(p),
+  )
+  const overflowPlatforms = filterOptions.platforms.filter(
+    (p) => !VISIBLE_PLATFORMS.includes(p),
+  )
+  const activeOverflowPlatforms = overflowPlatforms.filter((p) =>
+    filters.platforms.includes(p),
+  )
 
   return (
     <section
@@ -112,7 +137,7 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
               aria-label="Filter by platform"
               className="inline-flex h-10 items-center rounded-lg border border-border bg-background p-0.5"
             >
-              {filterOptions.platforms.map((p) => {
+              {visiblePlatforms.map((p) => {
                 const active = filters.platforms.includes(p)
                 return (
                   <button
@@ -123,7 +148,7 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
                     }
                     aria-pressed={active}
                     className={cn(
-                      "h-full px-3 text-sm rounded-md transition-colors",
+                      "h-full whitespace-nowrap px-3 text-sm rounded-md transition-colors",
                       active
                         ? "bg-foreground text-background font-medium"
                         : "text-muted-foreground hover:text-foreground",
@@ -133,6 +158,45 @@ export function RecipeExplorer({ recipes, filterOptions }: Props) {
                   </button>
                 )
               })}
+              {overflowPlatforms.length > 0 && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className={cn(
+                        "inline-flex h-full items-center gap-1 whitespace-nowrap rounded-md px-3 text-sm transition-colors",
+                        activeOverflowPlatforms.length
+                          ? "bg-foreground text-background font-medium"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      More
+                      {activeOverflowPlatforms.length > 0 && (
+                        <span className="ml-0.5 text-xs">
+                          {activeOverflowPlatforms.length}
+                        </span>
+                      )}
+                      <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-44">
+                    {overflowPlatforms.map((p) => (
+                      <DropdownMenuCheckboxItem
+                        key={p}
+                        checked={filters.platforms.includes(p)}
+                        onCheckedChange={() =>
+                          setFilters((f) => ({
+                            ...f,
+                            platforms: toggle(f.platforms, p),
+                          }))
+                        }
+                      >
+                        {p}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
             <Button
               type="button"
