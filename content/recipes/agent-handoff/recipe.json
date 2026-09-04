@@ -1,0 +1,37 @@
+{
+  "title": "Agent Handoff",
+  "tagline": "Route the conversation across specialized personas.",
+  "description": "A travel concierge that hands off between triage, booking, and trip-support personas driven by intent and itinerary state.",
+  "tags": ["voice-ai"],
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Multi-Agent",
+    "Customer Support",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agent Handoff",
+    "State Management"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-handoff",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-handoff/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Advanced",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
+}

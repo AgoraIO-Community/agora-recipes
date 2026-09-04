@@ -1,0 +1,36 @@
+{
+  "title": "Real-time Voice (MLLM)",
+  "tagline": "Voice-to-voice with a realtime multimodal model.",
+  "description": "Replace the STT to LLM to TTS pipeline with a single realtime speech model (bring your own OpenAI key).",
+  "tags": ["voice-ai"],
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Realtime",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Realtime",
+    "MLLM"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
+}

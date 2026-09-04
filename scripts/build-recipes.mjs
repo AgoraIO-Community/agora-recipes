@@ -126,7 +126,7 @@ function expandLinkTarget(href, baseUrl) {
 async function fetchRequiredText(url, label) {
   const res = await fetch(url, {
     headers: {
-      "User-Agent": "v0-voice-ai-recipes-build",
+      "User-Agent": "agora-recipes-build",
     },
   })
 

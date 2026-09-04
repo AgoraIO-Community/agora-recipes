@@ -1,0 +1,38 @@
+{
+  "title": "Real-time Translator",
+  "tagline": "Speak in one language, hear another, in real time.",
+  "description": "A speech-to-speech translator that transcribes the source language and synthesizes the target language.",
+  "tags": ["voice-ai"],
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Translation",
+    "Accessibility",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Speech Translation",
+    "STT",
+    "TTS"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-translator",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-translator/blob/main/README.md",
+  "author": "Agora",
+  "updated": "2026-06-12",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
+}
