@@ -20,5 +20,14 @@
   "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-client-rn-quickstart/blob/main/README.md",
   "author": "Agora",
   "updated": "2026-06-14",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "react-native",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    }
+  }
 }

@@ -10,5 +10,16 @@
   "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-python/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-05-28",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
 }

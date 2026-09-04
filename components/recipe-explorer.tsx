@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import {
   AudioLines,
+  ChevronDown,
   RadioTower,
   Search,
   SlidersHorizontal,
@@ -15,6 +16,12 @@ import { Button } from "@/components/ui/button"
 import { AgoraLogo } from "@/components/agora-logo"
 import { RecipeCard } from "@/components/recipe-card"
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "@/components/ui/empty"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 
 type Filters = {
@@ -47,6 +54,16 @@ const RECIPE_TYPES = [
     icon: RadioTower,
   },
 ] as const
+
+const VISIBLE_PLATFORMS = [
+  "iOS",
+  "Android",
+  "Flutter",
+  "Go",
+  "Python",
+  "React Native",
+  "TypeScript",
+]
 
 function toggle<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
@@ -140,6 +157,15 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
     filters.platforms.length +
     filters.useCases.length +
     filters.capabilities.length
+  const visiblePlatforms = VISIBLE_PLATFORMS.filter((platform) =>
+    filterOptions.platforms.includes(platform),
+  )
+  const overflowPlatforms = filterOptions.platforms.filter(
+    (platform) => !VISIBLE_PLATFORMS.includes(platform),
+  )
+  const activeOverflowPlatforms = overflowPlatforms.filter((platform) =>
+    filters.platforms.includes(platform),
+  )
 
   React.useEffect(() => {
     if (!showAdvanced) return
@@ -360,11 +386,11 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
             <div className="recipe-toolbar__facet-controls flex min-w-0 items-center gap-2">
               {filterOptions.platforms.length > 0 && (
                 <fieldset
-                  className="recipe-toolbar__quick-filters min-w-0 max-w-full overflow-x-auto rounded-lg border border-border bg-background"
+                  className="recipe-toolbar__quick-filters min-w-0 max-w-full rounded-lg border border-border bg-background"
                 >
                   <legend className="sr-only">Filter by platform</legend>
                   <div className="inline-flex h-10 items-center p-0.5">
-                    {filterOptions.platforms.map((p) => {
+                    {visiblePlatforms.map((p) => {
                       const active = filters.platforms.includes(p)
                       return (
                         <button
@@ -378,7 +404,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                           }
                           aria-pressed={active}
                           className={cn(
-                            "h-full px-3 text-sm rounded-md transition-colors",
+                            "h-full whitespace-nowrap px-3 text-sm rounded-md transition-colors",
                             active
                               ? "bg-foreground text-background font-medium"
                               : "text-muted-foreground hover:text-foreground",
@@ -388,6 +414,48 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: Props) {
                         </button>
                       )
                     })}
+                    {overflowPlatforms.length > 0 && (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            type="button"
+                            className={cn(
+                              "inline-flex h-full items-center gap-1 whitespace-nowrap rounded-md px-3 text-sm transition-colors",
+                              activeOverflowPlatforms.length
+                                ? "bg-foreground text-background font-medium"
+                                : "text-muted-foreground hover:text-foreground",
+                            )}
+                          >
+                            More
+                            {activeOverflowPlatforms.length > 0 && (
+                              <span className="ml-0.5 text-xs">
+                                {activeOverflowPlatforms.length}
+                              </span>
+                            )}
+                            <ChevronDown
+                              className="h-3.5 w-3.5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-44">
+                          {overflowPlatforms.map((p) => (
+                            <DropdownMenuCheckboxItem
+                              key={p}
+                              checked={filters.platforms.includes(p)}
+                              onCheckedChange={() =>
+                                updateFilters((f) => ({
+                                  ...f,
+                                  platforms: toggle(f.platforms, p),
+                                }))
+                              }
+                            >
+                              {p}
+                            </DropdownMenuCheckboxItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
                   </div>
                 </fieldset>
               )}

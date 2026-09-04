@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { flushSync } from "react-dom"
 import { Button } from "@/components/ui/button"
 import { AgoraLogo } from "@/components/agora-logo"
-import { Github } from "lucide-react"
+import { Github, PlusCircle } from "lucide-react"
 
 type RecipeNavStage = "expanded" | "folded" | "merged"
 const FOLD_SETTLE_DELAY_MS = 80
@@ -185,6 +185,21 @@ export function SiteHeader() {
           >
             Docs
           </Link>
+          <Button
+            asChild
+            size="sm"
+            className="h-8 gap-1.5 bg-primary px-3 font-semibold text-primary-foreground shadow-sm shadow-primary/20 hover:bg-primary/90"
+          >
+            <Link
+              href="https://github.com/AgoraIO-Community/agora-recipes/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <PlusCircle className="h-3.5 w-3.5" aria-hidden="true" />
+              <span className="hidden sm:inline">Submit a recipe</span>
+              <span className="sm:hidden">Submit</span>
+            </Link>
+          </Button>
           <Button asChild variant="outline" size="sm" className="gap-1.5 h-8">
             <Link
               href="https://github.com/AgoraIO-Community/agora-recipes"
