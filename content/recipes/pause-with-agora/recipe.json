@@ -2,6 +2,7 @@
   "title": "Agora Chrome Plugin",
   "tagline": "Build a Chrome plugin example powered by Agora Conversational AI.",
   "description": "Use this recipe as a Chrome plugin example that shows how to pair a browser extension UI with a small API service and Agora Conversational AI.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["Chrome Extension", "Voice AI"],
   "capabilities": ["Conversational AI", "Chrome Extension", "React"],
