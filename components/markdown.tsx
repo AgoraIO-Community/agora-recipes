@@ -31,6 +31,7 @@ export function Markdown({
 // ---------------------------------------------------------------------------
 
 type Block =
+  | { type: "frontmatter"; fields: FrontmatterField[] }
   | { type: "heading"; level: 1 | 2 | 3 | 4 | 5 | 6; text: string }
   | { type: "paragraph"; text: string }
   | { type: "code"; lang?: string; content: string }
@@ -40,10 +41,31 @@ type Block =
   | { type: "hr" }
   | { type: "table"; header: string[]; rows: string[][] }
 
+type FrontmatterField = {
+  name: string
+  values: string[]
+}
+
 function parseBlocks(src: string): Block[] {
   const lines = src.replace(/\r\n/g, "\n").split("\n")
   const blocks: Block[] = []
   let i = 0
+
+  if (
+    /^---\s*$/.test(lines[0] ?? "") &&
+    /^[A-Za-z0-9_-]+:\s*/.test(lines[1] ?? "")
+  ) {
+    const closingFence = lines.findIndex(
+      (line, index) => index > 0 && /^---\s*$/.test(line),
+    )
+    if (closingFence > 0) {
+      const fields = parseFrontmatter(lines.slice(1, closingFence))
+      if (fields.length > 0) {
+        blocks.push({ type: "frontmatter", fields })
+        i = closingFence + 1
+      }
+    }
+  }
 
   while (i < lines.length) {
     const line = lines[i]
@@ -155,6 +177,39 @@ function parseBlocks(src: string): Block[] {
   return blocks
 }
 
+function parseFrontmatter(lines: string[]): FrontmatterField[] {
+  const fields: FrontmatterField[] = []
+  let currentField: FrontmatterField | undefined
+
+  for (const line of lines) {
+    const field = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/)
+    if (field) {
+      currentField = {
+        name: field[1],
+        values: field[2] ? [field[2]] : [],
+      }
+      fields.push(currentField)
+      continue
+    }
+
+    if (!currentField) continue
+
+    const listItem = line.match(/^\s+-\s+(.+)$/)
+    if (listItem) {
+      currentField.values.push(listItem[1].trim())
+      continue
+    }
+
+    const nestedField = line.match(/^\s+([A-Za-z0-9_-]+):\s*(.+)$/)
+    if (nestedField && currentField.values.length > 0) {
+      const lastValueIndex = currentField.values.length - 1
+      currentField.values[lastValueIndex] += ` · ${nestedField[1]}: ${nestedField[2].trim()}`
+    }
+  }
+
+  return fields
+}
+
 function splitRow(line: string): string[] {
   return line
     .replace(/^\s*\|/, "")
@@ -246,6 +301,42 @@ function BlockNode({
   headingOffset: number
 }) {
   switch (block.type) {
+    case "frontmatter":
+      return (
+        <div className="overflow-x-auto">
+          <table className="recipe-frontmatter" data-recipe-frontmatter>
+            <caption className="sr-only">Recipe metadata</caption>
+            <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {block.fields.map((field) => (
+                <tr key={field.name}>
+                  <th scope="row">
+                    <code>{field.name}</code>
+                  </th>
+                  <td>
+                    {field.values.length > 1 ? (
+                      <ul>
+                        {field.values.map((value, index) => (
+                          <li key={`${field.name}-${index}`}>
+                            <code>{value}</code>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <code>{field.values[0] ?? "—"}</code>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
     case "heading": {
       const level = Math.min(block.level + headingOffset, 6)
       const Tag = `h${level}` as keyof React.JSX.IntrinsicElements
