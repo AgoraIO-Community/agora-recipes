@@ -2,6 +2,7 @@
   "title": "LabSpark AI",
   "tagline": "AI-first virtual science laboratory with a real-time Gemini-powered Socratic tutor.",
   "description": "An interactive 3D science lab for NCERT Class 6–10 featuring a real-time voice tutor using Gemini AI. Includes viva voce mock exams, multilingual voice, and interruption control.",
+  "tags": ["voice-ai"],
   "platforms": ["JavaScript", "HTML", "Dart"],
   "useCases": ["Education", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Gemini AI"],
