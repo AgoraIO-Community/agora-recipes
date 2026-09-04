@@ -2,6 +2,7 @@
   "title": "Push-to-Talk",
   "tagline": "Gate the microphone with press-to-talk for deliberate voice turns.",
   "description": "Build an Agora Conversational AI web client where uplink audio publishes only while push-to-talk is engaged, using hold or toggle modes.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["Voice AI", "Client UX"],
   "capabilities": ["Conversational AI", "Voice Agent", "Push to Talk"],
