@@ -1,0 +1,25 @@
+{
+  "title": "Unreal Engine RTC Demo",
+  "tagline": "Add Agora realtime communication to an Unreal project.",
+  "description": "An Unreal Engine demo that integrates Agora RTC for realtime audio and video inside an interactive 3D application.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Unreal"
+  ],
+  "useCases": [
+    "Game Communication",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Unreal Engine",
+    "Realtime Media"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/AgoraUnrealDemo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/AgoraUnrealDemo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Advanced"
+}

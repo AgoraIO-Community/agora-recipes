@@ -1,0 +1,26 @@
+{
+  "title": "Real-Time Transcription Demo",
+  "tagline": "Add realtime transcription to Agora RTC sessions.",
+  "description": "A realtime transcription demo that shows how spoken audio in an Agora RTC session can be converted into live text.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Transcription",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Real-Time Transcription",
+    "Web SDK"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-RTT-Demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-RTT-Demo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Android Transcription Widget",
+  "tagline": "Embed a transcription widget in an Android RTC app.",
+  "description": "An Android widget sample that displays transcription alongside Agora realtime audio and video sessions.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "Transcription",
+    "Accessibility"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Android Widget",
+    "Speech-to-Text UI"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android",
+  "recipeUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

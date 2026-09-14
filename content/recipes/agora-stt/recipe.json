@@ -1,0 +1,26 @@
+{
+  "title": "Speech-to-Text with Agora RTC",
+  "tagline": "Transcribe Agora RTC audio with a speech-to-text workflow.",
+  "description": "A speech-to-text sample that captures Agora RTC audio and demonstrates realtime transcription behavior.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Transcription",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Speech-to-Text",
+    "Realtime Audio"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-stt",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-stt/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}
