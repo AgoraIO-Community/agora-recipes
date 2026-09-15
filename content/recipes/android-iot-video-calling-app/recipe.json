@@ -1,0 +1,25 @@
+{
+  "title": "Android IoT Video Calling App",
+  "tagline": "Add Agora video calling to an Android IoT app.",
+  "description": "An Android IoT video calling sample that connects mobile users and devices through Agora realtime communication.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "IoT",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Mobile App",
+    "Device Calling"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-android-app",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-android-app/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

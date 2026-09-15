@@ -1,0 +1,26 @@
+{
+  "title": "iOS IoT CallKit App",
+  "tagline": "Use CallKit in an Agora IoT calling app for iOS.",
+  "description": "An iOS IoT CallKit sample that integrates native call handling with Agora realtime audio and video sessions.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "iOS",
+    "Swift"
+  ],
+  "useCases": [
+    "IoT",
+    "Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "CallKit",
+    "Mobile App"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

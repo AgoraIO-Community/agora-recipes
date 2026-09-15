@@ -1,0 +1,26 @@
+{
+  "title": "RTC Signaling Sample",
+  "tagline": "Coordinate realtime RTC sessions with signaling.",
+  "description": "A signaling sample that demonstrates how to coordinate Agora RTC channel state and participant interactions.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Signaling",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Signaling",
+    "Session Control"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-rtc-signaling",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-rtc-signaling/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

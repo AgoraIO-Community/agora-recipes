@@ -1,0 +1,25 @@
+{
+  "title": "Android Custom Camera Source",
+  "tagline": "Publish custom Android camera frames through Agora RTC.",
+  "description": "An Android MediaIO camera sample for feeding custom camera frames into an Agora RTC video stream.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "Custom Video",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Custom Camera",
+    "MediaIO"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/MediaIO-Camera",
+  "recipeUrl": "https://github.com/AgoraIO-Community/MediaIO-Camera/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}
