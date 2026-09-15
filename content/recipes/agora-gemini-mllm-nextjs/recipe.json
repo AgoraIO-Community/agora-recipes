@@ -1,0 +1,14 @@
+{
+  "title": "Gemini MLLM Voice Agent for Next.js",
+  "tagline": "Build an end-to-end Gemini 3.8 Live MLLM voice agent with Next.js and Agora.",
+  "description": "Create a browser voice AI app where Gemini 3.8 Live handles speech understanding and generation end to end, while Agora provides real-time RTC and RTM communication.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Quickstart", "Voice AI", "Conversational AI", "Multimodal"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Gemini", "Gemini Live", "Multimodal", "Next.js"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-gemini-mllm-nextjs",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-gemini-mllm-nextjs/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-15",
+  "difficulty": "Intermediate"
+}
