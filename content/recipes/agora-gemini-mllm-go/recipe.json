@@ -9,6 +9,17 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-gemini-mllm-go",
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-gemini-mllm-go/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-15",
-  "difficulty": "Intermediate"
+  "updated": "2026-09-16",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "go",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "make setup",
+    "runCommand": "pnpm run dev:parallel"
+  }
 }
