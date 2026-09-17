@@ -1,0 +1,14 @@
+{
+  "title": "Close",
+  "tagline": "A voice sales agent for a staffing consultancy, running entirely on Agora's native Custom Tools (no LLM adapter, no extra hop).",
+  "description": "Close is a real-time voice sales and qualification agent built for a staffing/recruitment consultancy scenario. Agora's managed LLM handles all reasoning and turn-taking natively, calling a FastAPI backend directly via Custom Tools for pricing, lead capture, meeting booking, and escalation, with real Google Calendar, Google Sheets, and Resend integrations.",
+  "tags": ["voice-ai"],
+  "platforms": ["Python"],
+  "useCases": ["Voice AI", "Sales Automation", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Python", "Custom Tools"],
+  "mainRepoUrl": "https://github.com/swatiaggrawal/close",
+  "recipeUrl": "https://github.com/swatiaggrawal/close/blob/master/README.md",
+  "author": "Swati Aggrawal",
+  "updated": "2026-09-17",
+  "difficulty": "Intermediate"
+}
