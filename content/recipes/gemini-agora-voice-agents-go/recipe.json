@@ -9,6 +9,17 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Go",
   "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Go/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-08-26",
-  "difficulty": "Intermediate"
+  "updated": "2026-09-16",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "go",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "make setup",
+    "runCommand": "make dev"
+  }
 }

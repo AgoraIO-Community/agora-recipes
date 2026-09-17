@@ -9,6 +9,17 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS",
   "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-08-26",
-  "difficulty": "Intermediate"
+  "updated": "2026-09-16",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install",
+    "runCommand": "pnpm dev"
+  }
 }
