@@ -1,0 +1,14 @@
+{
+  "title": "AgoraCare",
+  "tagline": "Build a multilingual voice AI triage assistant with live nurse escalation.",
+  "description": "Create a remote patient-care workflow that uses Agora Conversational AI for multilingual symptom conversations and instant human handoff during emergencies.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Healthcare", "Voice AI", "Emergency Response"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Human Escalation"],
+  "mainRepoUrl": "https://github.com/iamaanahmad/AgoraCare",
+  "recipeUrl": "https://github.com/iamaanahmad/AgoraCare/blob/main/AGORA_CONVERSATIONAL_AI.md",
+  "author": "iamaanahmad",
+  "updated": "2026-09-06",
+  "difficulty": "Intermediate"
+}
