@@ -1,0 +1,26 @@
+{
+  "title": "Call API Sample",
+  "tagline": "Use Agora Call API patterns for realtime calling.",
+  "description": "A Call API sample that demonstrates setting up and controlling calling workflows with Agora realtime communication.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Calling",
+    "API Integration"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Call API",
+    "Session Control"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/CallAPI",
+  "recipeUrl": "https://github.com/AgoraIO-Community/CallAPI/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

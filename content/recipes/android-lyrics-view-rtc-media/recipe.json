@@ -1,0 +1,25 @@
+{
+  "title": "Android Lyrics View with RTC Media",
+  "tagline": "Synchronize lyrics UI with Agora RTC media playback.",
+  "description": "An Android sample that shows lyrics rendering alongside Agora RTC media playback and realtime interaction.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "Media Playback",
+    "Interactive Audio"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Lyrics View",
+    "Android UI"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/LyricsView",
+  "recipeUrl": "https://github.com/AgoraIO-Community/LyricsView/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

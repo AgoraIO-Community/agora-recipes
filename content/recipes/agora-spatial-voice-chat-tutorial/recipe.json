@@ -1,0 +1,26 @@
+{
+  "title": "Spatial Voice Chat Tutorial",
+  "tagline": "Build a spatial voice chat experience with Agora RTC.",
+  "description": "A spatial audio chat tutorial that shows how to place participants in a shared sound field using Agora RTC.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Spatial Audio",
+    "Voice Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Spatial Audio",
+    "Web SDK"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

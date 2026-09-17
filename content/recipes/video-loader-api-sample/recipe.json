@@ -1,0 +1,26 @@
+{
+  "title": "Video Loader API Sample",
+  "tagline": "Load and manage video sources for Agora RTC workflows.",
+  "description": "A Video Loader API sample that demonstrates preparing and handling video sources in an Agora realtime media flow.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Video Calling",
+    "Media Loading"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Video Loader",
+    "Media Workflow"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/VideoLoaderAPI",
+  "recipeUrl": "https://github.com/AgoraIO-Community/VideoLoaderAPI/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}
