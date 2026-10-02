@@ -1,0 +1,26 @@
+{
+  "title": "Cloud Gaming RTC Example",
+  "tagline": "Use Agora RTC for interactive cloud gaming media.",
+  "description": "A cloud gaming sample that demonstrates realtime audio and video communication patterns for interactive gameplay sessions.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Cloud Gaming",
+    "Interactive Streaming"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Cloud Gaming",
+    "Realtime Media"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Advanced"
+}

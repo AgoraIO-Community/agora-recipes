@@ -1,0 +1,26 @@
+{
+  "title": "Web Spatial Audio Demo",
+  "tagline": "Build a browser-based spatial audio experience with Agora.",
+  "description": "A web spatial audio demo that places realtime participants in an immersive Agora RTC audio scene.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Spatial Audio",
+    "Voice Chat"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Spatial Audio",
+    "Web SDK"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/web-spatial-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/web-spatial-demo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

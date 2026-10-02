@@ -1,0 +1,26 @@
+{
+  "title": "Unity Spatial Audio Spaces",
+  "tagline": "Create spatial audio spaces in Unity with Agora RTC.",
+  "description": "A Unity sample for building spatial audio rooms and interactive realtime communication spaces with Agora RTC.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Unity",
+    "C#"
+  ],
+  "useCases": [
+    "Spatial Audio",
+    "Voice Chat"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Unity",
+    "Spatial Audio"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

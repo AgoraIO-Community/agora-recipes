@@ -1,0 +1,26 @@
+{
+  "title": "AUI Voice Room",
+  "tagline": "Run an interactive voice room with Agora UI components.",
+  "description": "A voice room sample that uses Agora RTC and AUI patterns for live audio rooms, speakers, and audience participation.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android",
+    "iOS"
+  ],
+  "useCases": [
+    "Voice Chat",
+    "Live Audio"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Voice Room",
+    "UIKit"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/AUIVoiceRoom",
+  "recipeUrl": "https://github.com/AgoraIO-Community/AUIVoiceRoom/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

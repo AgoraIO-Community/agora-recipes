@@ -1,0 +1,26 @@
+{
+  "title": "AIGC Demo with Agora RTC",
+  "tagline": "Combine AIGC interactions with Agora realtime media.",
+  "description": "An AIGC demo showing how realtime Agora audio and video can support AI-generated content workflows.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Web",
+    "JavaScript"
+  ],
+  "useCases": [
+    "AIGC",
+    "Realtime Media"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "AI Workflow",
+    "Interactive Demo"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-AIGCDemo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-AIGCDemo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

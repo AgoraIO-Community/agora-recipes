@@ -1,0 +1,25 @@
+{
+  "title": "ESP32 IoT CallKit Demo",
+  "tagline": "Prototype embedded IoT calling on ESP32 with Agora.",
+  "description": "An ESP32 IoT CallKit sample for device-side calling flows connected to Agora-powered clients.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "C++"
+  ],
+  "useCases": [
+    "IoT",
+    "Embedded"
+  ],
+  "capabilities": [
+    "ESP32",
+    "CallKit",
+    "Agora RTC"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Advanced"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Channel Management Sample",
+  "tagline": "Manage Agora RTC channel workflows from an app sample.",
+  "description": "A channel management sample that demonstrates coordinating Agora RTC rooms, channel state, and participant workflows.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Channel Management",
+    "RTC Workflow"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Channel Control",
+    "Sample App"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-channel-management",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-channel-management/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

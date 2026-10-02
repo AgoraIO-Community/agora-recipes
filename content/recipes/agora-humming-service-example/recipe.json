@@ -1,0 +1,26 @@
+{
+  "title": "Humming Service Example",
+  "tagline": "Explore an Agora service integration sample for RTC workflows.",
+  "description": "A service example that demonstrates how to connect an Agora-powered application flow with a supporting backend service.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Service Integration",
+    "RTC Workflow"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Backend Service",
+    "Sample App"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}
