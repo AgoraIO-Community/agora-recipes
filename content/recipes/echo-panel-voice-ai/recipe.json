@@ -1,0 +1,14 @@
+{
+  "title": "EchoPanel Voice AI",
+  "tagline": "Build a conversational voice assistant interface.",
+  "description": "Set up EchoPanel, configure credentials, and run a real-time conversational voice workflow.",
+  "tags": ["voice-ai"],
+  "platforms": ["Android"],
+  "useCases": ["Voice AI", "Quickstart"],
+  "capabilities": ["Conversational AI", "Voice Agent"],
+  "mainRepoUrl": "https://github.com/madhuri-sharma921/EchoPanel",
+  "recipeUrl": "https://github.com/madhuri-sharma921/EchoPanel/blob/main/README.md",
+  "author": "Madhuri Sharma",
+  "updated": "2026-09-16",
+  "difficulty": "Beginner"
+}
