@@ -1,0 +1,25 @@
+{
+  "title": "Delegated Reasoning",
+  "tagline": "Keep a voice agent responsive while a second model reasons and calls tools.",
+  "description": "A full-duplex GPT Live voice agent that delegates reasoning and tool use to a separate Responses model (gpt-6-astra) over MCP, so the conversation stays live while a slow tool runs.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Conversational AI", "Tool Use"],
+  "capabilities": ["Conversational AI", "Voice Agent", "OpenAI GPT Live", "Delegated Reasoning", "MCP", "Next.js"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation",
+  "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-25",
+  "difficulty": "Advanced",
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install",
+    "runCommand": "pnpm run dev"
+  }
+}
