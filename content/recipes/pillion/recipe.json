@@ -1,0 +1,14 @@
+{
+  "title": "Pillion: Voice Co-Pilot for Riders",
+  "tagline": "A hands-free Hindi and English voice co-pilot that acts on the phone and keeps riders safe.",
+  "description": "A native Android app for delivery and bike-taxi riders: an Agora Conversational AI agent talks in Hindi, English or Hinglish, calls tools that act on the phone over RTM (ETA, SMS, calls, answering incoming calls), speaks first with the speak and think APIs for crash checks, and hands the line to family through the Web SDK during an SOS.",
+  "tags": ["voice-ai"],
+  "platforms": ["Android", "JavaScript"],
+  "useCases": ["Voice AI", "Tool Use", "Safety", "Accessibility"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Agora RTC", "RTM", "Tool Calling", "Filler Words", "Interruptions", "Web SDK", "Android", "Jetpack Compose"],
+  "mainRepoUrl": "https://github.com/jatinvats123/pillion",
+  "recipeUrl": "https://github.com/jatinvats123/pillion/blob/main/docs/ai/RECIPE.md",
+  "author": "jatinvats123",
+  "updated": "2026-10-08",
+  "difficulty": "Advanced"
+}
