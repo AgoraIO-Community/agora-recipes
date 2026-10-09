@@ -2,7 +2,7 @@
   "title": "Sahara - Multilingual Voice AI Healthcare Companion",
   "tagline": "Full-duplex conversational voice companion and autonomous emergency lifeline for elderly care.",
   "description": "Sahara transforms voice interaction into an everyday health helper and autonomous emergency lifeline for elderly chronic-care patients using Agora Conversational AI, Deepgram Nova-3, Murf AI, Groq Llama 3.3, and clinical NEWS2 emergency triage.",
-  "tags": ["voice-ai", "healthcare", "conversational-ai", "emergency-response"],
+  "tags": ["voice-ai", "rtc"],
   "platforms": ["Python", "React Native", "Expo"],
   "useCases": ["Healthcare", "Elderly Care", "Conversational AI", "Emergency Lifeline"],
   "capabilities": ["Conversational AI", "Voice Agent", "Custom LLM", "Full Duplex RTC", "Tool Calling"],
