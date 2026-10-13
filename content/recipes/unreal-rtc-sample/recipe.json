@@ -1,0 +1,25 @@
+{
+  "title": "Unreal RTC Sample",
+  "tagline": "Integrate Agora RTC into an Unreal Engine sample.",
+  "description": "An Unreal Engine sample showing realtime audio and video communication inside an interactive application.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Unreal"
+  ],
+  "useCases": [
+    "Game Communication",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Unreal Engine",
+    "Realtime Media"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/AgoraUnrealSample",
+  "recipeUrl": "https://github.com/AgoraIO-Community/AgoraUnrealSample/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Advanced"
+}

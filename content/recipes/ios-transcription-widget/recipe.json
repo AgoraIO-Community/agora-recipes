@@ -1,0 +1,26 @@
+{
+  "title": "iOS Transcription Widget",
+  "tagline": "Embed realtime transcription UI in an iOS RTC app.",
+  "description": "An iOS transcription widget sample that displays live speech text during Agora realtime audio and video sessions.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "iOS",
+    "Swift"
+  ],
+  "useCases": [
+    "Transcription",
+    "Accessibility"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "iOS Widget",
+    "Speech-to-Text UI"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-iOS",
+  "recipeUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-iOS/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

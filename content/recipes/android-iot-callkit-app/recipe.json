@@ -1,0 +1,25 @@
+{
+  "title": "Android IoT CallKit App",
+  "tagline": "Build an Android IoT calling app with Agora CallKit patterns.",
+  "description": "An Android IoT CallKit sample that connects mobile call handling with Agora realtime communication.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "IoT",
+    "Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "CallKit",
+    "Mobile App"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-android-app",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-android-app/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}

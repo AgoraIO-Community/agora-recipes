@@ -1,0 +1,26 @@
+{
+  "title": "MCC External Service Example",
+  "tagline": "Connect an external service workflow to Agora RTC.",
+  "description": "An MCC external service sample that demonstrates integrating backend service behavior with Agora realtime communication.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Service Integration",
+    "RTC Workflow"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "External Service",
+    "Sample App"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-MccExService-Example",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-MccExService-Example/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate"
+}
