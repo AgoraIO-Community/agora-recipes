@@ -1,0 +1,14 @@
+{
+  "title": "MoodLens - Voice AI Mood Journal",
+  "tagline": "A voice-first mood journaling application and emotional companion.",
+  "description": "Build a low-latency voice AI companion that listens to your day, performs on-device real-time sentiment analysis, and visually maps your emotional state.",
+  "tags": ["voice-ai"],
+  "platforms": ["Android", "Python"],
+  "useCases": ["Health & Wellness", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Sentiment Analysis"],
+  "mainRepoUrl": "https://github.com/sandy10/voice_ai_agent",
+  "recipeUrl": "https://github.com/sandy10/voice_ai_agent/blob/main/docs/ai/RECIPE.md",
+  "author": "Sandeep",
+  "updated": "2026-08-23",
+  "difficulty": "Intermediate"
+}

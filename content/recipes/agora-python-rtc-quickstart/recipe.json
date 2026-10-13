@@ -1,0 +1,14 @@
+{
+  "title": "Python RTC Quickstart",
+  "tagline": "Use Python to connect to an Agora RTC workflow.",
+  "description": "A Python quickstart for running a simple Agora RTC sample and validating real-time channel connectivity.",
+  "tags": ["rtc"],
+  "platforms": ["Python"],
+  "useCases": ["Quickstart", "Video Calling"],
+  "capabilities": ["Agora RTC", "Python", "Channel Join", "Native"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-Python-QuickStart",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Python-QuickStart/blob/master/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Beginner"
+}

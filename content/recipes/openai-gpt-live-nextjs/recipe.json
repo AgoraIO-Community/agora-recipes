@@ -1,0 +1,25 @@
+{
+  "title": "OpenAI GPT Live with Next.js",
+  "tagline": "Build a real-time GPT Live voice agent with Agora and Next.js.",
+  "description": "Run an OpenAI GPT Live voice agent from Next.js server routes and connect it to a browser-based Agora conversation client.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "OpenAI GPT Live", "Next.js"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS",
+  "recipeUrl": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-10",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install",
+    "runCommand": "pnpm run dev"
+  }
+}

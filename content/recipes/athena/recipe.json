@@ -1,0 +1,14 @@
+{
+  "title": "Athena",
+  "tagline": "Highlight anything you don't understand and ask about it out loud.",
+  "description": "A Chrome extension that reads the page with you. Highlight the line that lost you and ask about it by voice: Athena already has the passage, so she explains it in context, or examines you on it and fills in a live understanding map as you answer.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Education", "Conversation Design"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Chrome Extension", "Next.js", "RTM"],
+  "mainRepoUrl": "https://github.com/agsyna/Athena",
+  "recipeUrl": "https://github.com/agsyna/Athena/blob/main/docs/ai/RECIPE.md",
+  "author": "agsyna",
+  "updated": "2026-09-07",
+  "difficulty": "Advanced"
+}

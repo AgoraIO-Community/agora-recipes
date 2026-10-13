@@ -1,0 +1,14 @@
+{
+  "title": "Aria — Real-Time Voice AI Sales Agent",
+  "tagline": "Voice AI sales rep that qualifies, negotiates, and writes to a real CRM live on the call.",
+  "description": "Aria runs a full B2B sales qualification call out loud in real time: answers pricing questions from a knowledge base, handles objections, negotiates, remembers context, writes to a real CRM while still talking, books a meeting, and escalates to a human with a written handoff brief when needed.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["Python", "TypeScript"],
+  "useCases": ["Sales", "Customer Support", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Tool Calling", "CRM Integration", "RAG"],
+  "mainRepoUrl": "https://github.com/Aryan-Techie/aria",
+  "recipeUrl": "https://github.com/Aryan-Techie/aria/blob/main/README.md",
+  "author": "Aryan-Techie",
+  "updated": "2026-09-10",
+  "difficulty": "Advanced"
+}

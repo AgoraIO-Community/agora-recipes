@@ -1,0 +1,14 @@
+{
+  "title": "Aria Co-Teacher",
+  "tagline": "An AI-powered co-teacher for virtual classrooms.",
+  "description": "Set up a virtual classroom with an AI co-teacher using Next.js, Agora Voice AI, Groq, and Supabase.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript", "Next.js"],
+  "useCases": ["Education", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent"],
+  "mainRepoUrl": "https://github.com/saksham456456/Aria",
+  "recipeUrl": "https://github.com/saksham456456/Aria/blob/main/README.md",
+  "author": "saksham456456",
+  "updated": "2026-09-08",
+  "difficulty": "Intermediate"
+}

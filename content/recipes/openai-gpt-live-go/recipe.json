@@ -1,0 +1,25 @@
+{
+  "title": "OpenAI GPT Live with Go",
+  "tagline": "Build a real-time GPT Live voice agent with Agora and Go.",
+  "description": "Run an OpenAI GPT Live voice agent in an Agora channel with a Go backend and a browser conversation client.",
+  "tags": ["voice-ai"],
+  "platforms": ["Go"],
+  "useCases": ["Voice AI", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "OpenAI GPT Live", "Go"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Go",
+  "recipeUrl": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Go/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-10",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "go",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "make setup",
+    "runCommand": "make dev"
+  }
+}

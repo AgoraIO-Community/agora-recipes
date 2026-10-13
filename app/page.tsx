@@ -1,15 +1,15 @@
 import { Hero } from "@/components/hero"
 import { RecipeExplorer } from "@/components/recipe-explorer"
-import { getAllRecipes, getFilterOptions } from "@/lib/recipes"
+import { getAllRecipes, getFilterOptionsByTag } from "@/lib/recipes"
 
 export default function HomePage() {
   const recipes = getAllRecipes()
-  const filterOptions = getFilterOptions()
+  const filterOptionsByTag = getFilterOptionsByTag()
 
   return (
     <>
       <Hero />
-      <RecipeExplorer recipes={recipes} filterOptions={filterOptions} />
+      <RecipeExplorer recipes={recipes} filterOptionsByTag={filterOptionsByTag} />
     </>
   )
 }

@@ -2,6 +2,7 @@
   "title": "Server-side Webhooks",
   "tagline": "Receive Agora NCS lifecycle events on your server.",
   "description": "A receiver for Agora's server-side notification callbacks with a live SSE timeline of agent lifecycle events.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"
@@ -21,5 +22,16 @@
   "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-webhooks/blob/main/README.md",
   "author": "Agora",
   "updated": "2026-06-12",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
 }

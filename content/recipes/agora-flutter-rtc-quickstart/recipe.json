@@ -1,0 +1,14 @@
+{
+  "title": "Flutter RTC Quickstart",
+  "tagline": "Build a cross-platform Flutter video call with Agora RTC.",
+  "description": "A Flutter quickstart for configuring Agora RTC on mobile platforms and validating local and remote media in a test channel.",
+  "tags": ["rtc"],
+  "platforms": ["Flutter", "iOS", "Android"],
+  "useCases": ["Quickstart", "Video Calling"],
+  "capabilities": ["Agora RTC", "Flutter", "Mobile", "Video Calling"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-Flutter-Quickstart",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Flutter-Quickstart/blob/master/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Beginner"
+}

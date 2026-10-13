@@ -1,0 +1,14 @@
+{
+  "title": "visionOS RTC Quickstart",
+  "tagline": "Add Agora RTC to an immersive visionOS sample.",
+  "description": "A visionOS quickstart for joining an Agora RTC channel from an immersive Apple platform experience.",
+  "tags": ["rtc"],
+  "platforms": ["visionOS", "Swift"],
+  "useCases": ["Quickstart", "Video Calling"],
+  "capabilities": ["Agora RTC", "visionOS", "Spatial App", "Swift"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/visionOS-Quickstart",
+  "recipeUrl": "https://github.com/AgoraIO-Community/visionOS-Quickstart/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Intermediate"
+}

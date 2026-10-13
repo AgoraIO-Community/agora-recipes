@@ -1,0 +1,14 @@
+{
+  "title": "RTC Custom Camera",
+  "tagline": "Publish a custom camera source into Agora RTC.",
+  "description": "A custom camera sample for publishing nonstandard video sources into an Agora RTC channel.",
+  "tags": ["rtc"],
+  "platforms": ["JavaScript", "Web"],
+  "useCases": ["Custom Media", "Video Calling"],
+  "capabilities": ["Agora RTC", "Custom Camera", "Custom Video Source", "Web SDK"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/RTC-Custom-Camera",
+  "recipeUrl": "https://github.com/AgoraIO-Community/RTC-Custom-Camera/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Intermediate"
+}

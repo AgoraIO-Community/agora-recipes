@@ -1,0 +1,14 @@
+{
+  "title": "Hello Agora Vision",
+  "tagline": "Build an immersive visionOS RTC sample.",
+  "description": "A visionOS sample that uses Agora RTC for real-time communication inside an immersive Apple platform app.",
+  "tags": ["rtc"],
+  "platforms": ["visionOS", "Swift"],
+  "useCases": ["Video Calling", "Immersive"],
+  "capabilities": ["Agora RTC", "visionOS", "Spatial App", "Swift"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/HelloAgoraVision",
+  "recipeUrl": "https://github.com/AgoraIO-Community/HelloAgoraVision/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-01",
+  "difficulty": "Intermediate"
+}

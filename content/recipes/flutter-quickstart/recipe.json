@@ -2,6 +2,7 @@
   "title": "Flutter Quickstart",
   "tagline": "Build a basic Agora Conversational AI agent with Flutter.",
   "description": "Set up the Flutter quickstart, configure the required environment, and run a cross-platform voice AI workflow.",
+  "tags": ["voice-ai"],
   "platforms": ["Flutter"],
   "useCases": ["Quickstart", "Voice AI"],
   "capabilities": ["Conversational AI", "Voice Agent", "Flutter"],

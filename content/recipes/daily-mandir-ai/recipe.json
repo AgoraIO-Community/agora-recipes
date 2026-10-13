@@ -2,6 +2,7 @@
   "title": "Daily Mandir AI",
   "tagline": "Build a devotional assistant for daily temple guidance.",
   "description": "Use this recipe to create a voice AI companion that helps with daily mandir routines, devotional guidance, and prayer-oriented conversations.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["Devotional", "Voice AI"],
   "capabilities": ["Conversational AI", "Daily Rituals", "Guidance"],

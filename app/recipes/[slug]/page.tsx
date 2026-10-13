@@ -16,12 +16,14 @@ import {
   Play,
   Twitter,
   Youtube,
+  Terminal,
 } from "lucide-react"
 
 import {
   getAllRecipes,
   getRecipe,
   getRelatedRecipes,
+  type Recipe,
 } from "@/lib/recipes"
 import type { RecipePreviewLink } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
@@ -128,12 +130,15 @@ export default async function RecipePage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14">
           {/* Main column */}
           <div className="min-w-0 flex flex-col gap-8">
+            {recipe.cli ? <CliCommandSection slug={recipe.slug} /> : null}
+
             <CopyPromptSection
               prompt={recipe.primaryPrompt}
             />
 
             <RecipeMarkdownSection
               markdown={recipe.recipeDocument.markdown}
+              sourceUrl={recipe.recipeDocument.viewUrl}
               rawUrl={recipe.recipeDocument.rawUrl}
               fetchError={recipe.recipeDocument.fetchError}
             />
@@ -142,7 +147,7 @@ export default async function RecipePage({
           </div>
 
           {/* Sidebar */}
-          <aside className="lg:sticky lg:top-20 self-start flex flex-col gap-6">
+          <aside className="min-w-0 self-start flex flex-col gap-6">
             <SidebarSection title="About">
               <SidebarRow icon={User} label="Author" value={recipe.author} />
               <SidebarRow
@@ -203,6 +208,7 @@ export default async function RecipePage({
                 </ul>
               </SidebarSection>
             )}
+            <HowToUseRecipeSection recipe={recipe} />
           </aside>
         </div>
       </div>
@@ -231,6 +237,58 @@ function PreviewLinksSection({ links }: { links: RecipePreviewLink[] }) {
         {links.map((link) => (
           <PreviewLinkCard key={`${link.url}-${link.title}`} link={link} />
         ))}
+      </div>
+    </section>
+  )
+}
+
+function HowToUseRecipeSection({ recipe }: { recipe: Recipe }) {
+  const linkClassName = "text-primary underline underline-offset-4 hover:text-primary/80"
+  return (
+    <SidebarSection title="How to use this recipe">
+      <ol className="list-decimal space-y-3 pl-4 text-sm leading-relaxed text-muted-foreground marker:text-primary">
+        <li>
+          Copy the <Link href="#prompt-heading" className={linkClassName}>recipe prompt</Link>
+          {" "}into your coding agent, or clone the{" "}
+          <Link href={recipe.mainRepoUrl} target="_blank" rel="noreferrer" className={linkClassName}>
+            source repo
+          </Link>.
+        </li>
+        <li>
+          Follow the <Link href="#recipe-markdown-heading" className={linkClassName}>guide</Link>
+          {" "}to install the required packages and add your Agora App ID and any
+          API keys listed in the recipe.
+        </li>
+        <li>Run the example, test it, then customize it for your app.</li>
+      </ol>
+    </SidebarSection>
+  )
+}
+
+function CliCommandSection({ slug }: { slug: string }) {
+  const command = `agora init my-${slug} --recipe ${slug}`
+
+  return (
+    <section aria-labelledby="cli-command-heading" className="flex flex-col gap-3">
+      <div className="flex flex-col gap-1">
+        <h2
+          id="cli-command-heading"
+          className="scroll-mt-20 font-brand text-xl font-semibold tracking-tight"
+        >
+          Use with Agora CLI
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Clone the recipe and configure it with an Agora project.
+        </p>
+      </div>
+      <div className="overflow-hidden rounded-xl border border-border bg-card">
+        <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-2.5 text-xs font-medium">
+          <Terminal className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+          Agora CLI
+        </div>
+        <pre className="overflow-x-auto px-4 py-3 text-xs sm:text-sm font-mono leading-relaxed text-foreground/90 selection:bg-primary/30">
+          <code>{command}</code>
+        </pre>
       </div>
     </section>
   )
@@ -322,10 +380,12 @@ function PreviewLinkCard({ link }: { link: RecipePreviewLink }) {
 
 function RecipeMarkdownSection({
   markdown,
+  sourceUrl,
   rawUrl,
   fetchError,
 }: {
   markdown: string
+  sourceUrl: string
   rawUrl: string
   fetchError?: string
 }) {
@@ -335,7 +395,7 @@ function RecipeMarkdownSection({
         <div className="flex flex-col gap-1">
           <h2
             id="recipe-markdown-heading"
-            className="font-brand text-xl font-semibold tracking-tight"
+            className="scroll-mt-20 font-brand text-xl font-semibold tracking-tight"
           >
             Recipe
           </h2>
@@ -356,7 +416,7 @@ function RecipeMarkdownSection({
 
       <div className="rounded-xl border border-border bg-card px-5 py-5">
         {markdown ? (
-          <Markdown source={markdown} />
+          <Markdown source={markdown} sourceUrl={sourceUrl} />
         ) : (
           <div className="text-sm text-muted-foreground">
             <p>Recipe markdown is not available in the generated artifact.</p>
@@ -380,7 +440,7 @@ function CopyPromptSection({
   return (
     <section aria-labelledby="prompt-heading" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
-        <h2 id="prompt-heading" className="font-brand text-xl font-semibold tracking-tight">
+        <h2 id="prompt-heading" className="scroll-mt-20 font-brand text-xl font-semibold tracking-tight">
           Recipe prompt
         </h2>
         <span className="text-xs text-muted-foreground">

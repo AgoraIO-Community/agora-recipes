@@ -1,0 +1,25 @@
+{
+  "title": "OpenAI GPT Live with Python",
+  "tagline": "Build a real-time GPT Live voice agent with Agora and Python.",
+  "description": "Run an OpenAI GPT Live voice agent in an Agora channel with a FastAPI backend and a browser conversation client.",
+  "tags": ["voice-ai"],
+  "platforms": ["Python"],
+  "useCases": ["Voice AI", "Conversational AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "OpenAI GPT Live", "Python"],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Python",
+  "recipeUrl": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Python/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-09-10",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
+}

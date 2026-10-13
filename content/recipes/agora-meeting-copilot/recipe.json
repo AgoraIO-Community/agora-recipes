@@ -1,0 +1,21 @@
+{
+  "title": "Agora Meeting Copilot",
+  "tagline": "A real-time meeting where an AI teammate can listen, respond, and take action.",
+  "description": "A multi-participant Agora RTC meeting app with an AI teammate powered by OpenAI GPT-Live-1. The AI listens on a wake phrase, produces speaker-attributed live transcripts via Agora Real-Time Speech-to-Text, and manages a shared Kanban board through voice-triggered tools, all behind a Fastify orchestrator that keeps Agora and OpenAI secrets off the browser.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Meetings", "Realtime"],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "STT",
+    "Tool Calling",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/zicojiao/agora-meeting-copilot",
+  "recipeUrl": "https://github.com/zicojiao/agora-meeting-copilot/blob/main/README.md",
+  "author": "zicojiao",
+  "updated": "2026-09-12",
+  "difficulty": "Advanced"
+}

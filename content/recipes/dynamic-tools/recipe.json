@@ -2,6 +2,7 @@
   "title": "Dynamic Tool Sets",
   "tagline": "Swap the agent's available tools based on context.",
   "description": "A smart-home agent whose available device tools change with the active room mode, plus keyword-triggered scenes.",
+  "tags": ["voice-ai"],
   "platforms": [
     "Python",
     "TypeScript"
@@ -21,5 +22,16 @@
   "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tools-plus/blob/main/README.md",
   "author": "Agora",
   "updated": "2026-06-12",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
 }

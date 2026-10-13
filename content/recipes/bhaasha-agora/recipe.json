@@ -2,6 +2,7 @@
   "title": "Bhaasha",
   "tagline": "Build a multilingual India atlas voice guide with Agora Conversational AI.",
   "description": "Explore India state by state with a chat-guided language atlas built on Next.js and the Agora Conversational AI Engine, including a clickable map, live transcript, and real-time metrics.",
+  "tags": ["voice-ai"],
   "platforms": ["TypeScript"],
   "useCases": ["Voice AI", "Quickstart"],
   "capabilities": ["Conversational AI", "Voice Agent", "Next.js"],
