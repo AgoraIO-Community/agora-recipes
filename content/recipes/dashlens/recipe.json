@@ -1,0 +1,23 @@
+{
+  "title": "DashLens - Dashboard Warning Light Co-Driver",
+  "tagline": "Point your phone at the dashboard, ask what a light means, and get the answer from your car's own owner's manual, hands-free.",
+  "description": "A hands-free Android voice and camera assistant built on Agora Conversational AI. A vision LLM reads the live RTC camera frame, HTTP tool calls fetch the car's owner's manual and verified roadside helpline, and silent screen tags drive a stop card with one-tap dialling when a lamp is urgent.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["Android", "Python"],
+  "useCases": ["Voice AI", "Vision", "Tool Use", "Safety", "Multimodal"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Vision", "Tool Calling", "RTM", "Interruptions", "Jetpack Compose"],
+  "mainRepoUrl": "https://github.com/shubhh00/DashLens",
+  "recipeUrl": "https://github.com/shubhh00/DashLens/blob/main/docs/ai/RECIPE.md",
+  "author": "Shubh Singh",
+  "updated": "2026-10-13",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "android",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    }
+  }
+}
