@@ -59,6 +59,13 @@ recipe's language or checked-out files.
   "capabilities": ["Conversational AI", "Voice Agent", "Python"],
   "mainRepoUrl": "https://github.com/OWNER/REPO",
   "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
+  "previewLinks": [
+    {
+      "title": "Demo video",
+      "url": "https://www.youtube.com/watch?v=VIDEO_ID",
+      "type": "youtube"
+    }
+  ],
   "author": "Agora",
   "updated": "2026-05-28",
   "difficulty": "Beginner"
@@ -67,6 +74,8 @@ recipe's language or checked-out files.
 
 `difficulty` must be `Beginner`, `Intermediate`, or `Advanced`.
 `tags` must contain at least one supported recipe type: `voice-ai` or `rtc`.
+
+`previewLinks` is optional. Use it for demos, launch posts, or community discussions. Supported `type` values are `youtube`, `linkedin`, `x`, `reddit`, `demo`, `article`, and `other`. Add `description` or `imageUrl` when you want to control the preview card copy or thumbnail.
 
 ## Verification
 
