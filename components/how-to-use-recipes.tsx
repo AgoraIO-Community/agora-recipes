@@ -31,21 +31,21 @@ const steps = [
   },
 ]
 
-export function HowToUseRecipes() {
+export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "footer" }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button
           type="button"
-          className="inline-flex items-center gap-2 rounded-md text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className={variant === "footer" ? "footer-link" : "action action-secondary"}
         >
-          How to use these recipes
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          {variant === "footer" ? "How to use recipes" : "How to use these recipes"}
+          {variant !== "footer" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
         </button>
       </DialogTrigger>
       <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-3xl lg:max-w-4xl">
         <DialogHeader className="pr-6">
-          <DialogTitle className="font-brand text-2xl leading-tight sm:text-3xl">
+          <DialogTitle className="font-brand text-2xl font-normal leading-tight sm:text-3xl">
             How to use these recipes
           </DialogTitle>
           <DialogDescription className="leading-relaxed">
@@ -55,15 +55,12 @@ export function HowToUseRecipes() {
         </DialogHeader>
 
         <ol className="grid gap-4 md:grid-cols-3">
-          {steps.map(({ title, description, icon: Icon }, index) => (
-            <li key={title} className="rounded-xl border border-border bg-card p-5 sm:p-6">
+          {steps.map(({ title, description, icon: Icon }) => (
+            <li key={title} className="p-5 sm:p-6">
               <div className="flex items-center justify-between" aria-hidden="true">
-                <Icon className="h-5 w-5 text-primary" />
-                <span className="font-mono text-xs text-muted-foreground">
-                  0{index + 1}
-                </span>
+                <Icon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
               </div>
-              <h3 className="mt-4 font-brand text-lg font-semibold tracking-tight">
+              <h3 className="mt-4 detail-title">
                 {title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
