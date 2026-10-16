@@ -8,7 +8,7 @@ export default function NotFound() {
       <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
         404
       </p>
-      <h1 className="font-brand text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
+      <h1 className="hero-title">
         We couldn&apos;t find that recipe.
       </h1>
       <p className="text-muted-foreground max-w-md text-pretty">
