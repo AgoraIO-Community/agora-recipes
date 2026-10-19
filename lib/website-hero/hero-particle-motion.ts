@@ -5,6 +5,7 @@ import {
   mediumLightWGSL,
   voiceCurtainLayout,
   wgslFloat,
+  lightThemeRendering,
 } from './hero-field-light';
 import { createFieldParticleSeed, fieldMaxParticles, fieldShaftTops } from './hero-field-model';
 
@@ -322,7 +323,7 @@ fn fieldGoal(s: Seed, index: u32, time: f32) -> Goal {
   let mediaLift = select(1.0, 1.0 + environment * 1.45, kind == 2.0);
   let visualDepth = moving + (depth - moving) * shapeMode;
   let outwardFade = depthFade(moving) + (1.0 - depthFade(moving)) * shapeMode;
-  let alpha = s.b.x * select(1.0, 0.48, u.m3.z > 0.5) * titleAttenuation * outwardFade
+  let alpha = s.b.x * select(1.0, ${wgslFloat(lightThemeRendering.particleOpacity)}, u.m3.z > 0.5) * titleAttenuation * outwardFade
     * videoVisibility * mediaLift
     * (0.62 + visualDepth * 0.28 + visibleExposure * 0.96 + reflection * 0.78
       + sideSpeaking * sphereMode * 0.12 + goal.sphereWave * 0.42)

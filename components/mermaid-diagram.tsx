@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useId, useState } from "react"
-import { useTheme } from "next-themes"
+import { useSystemTheme } from "@/components/theme-provider"
 
 let renderer: Promise<typeof import("mermaid")["default"]> | undefined
 let renderQueue: Promise<unknown> = Promise.resolve()
@@ -23,12 +23,13 @@ function getRenderer() {
 }
 
 export function MermaidDiagram({ source }: { source: string }) {
-  const { resolvedTheme } = useTheme()
+  const resolvedTheme = useSystemTheme()
   const id = `diagram-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
   const [result, setResult] = useState<{ source: string; url?: string; width?: number }>()
   const [actualSize, setActualSize] = useState(false)
 
   useEffect(() => {
+    if (!resolvedTheme) return
     let cancelled = false
     async function render() {
       try {

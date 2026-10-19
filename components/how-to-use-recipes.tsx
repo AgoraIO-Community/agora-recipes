@@ -31,13 +31,13 @@ const steps = [
   },
 ]
 
-export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "footer" }) {
+export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "footer" | "text" }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button
           type="button"
-          className={variant === "footer" ? "footer-link" : "action action-secondary"}
+          className={variant === "footer" ? "footer-link" : variant === "text" ? "text-action hero-help" : "action action-secondary"}
         >
           {variant === "footer" ? "How to use recipes" : "How to use these recipes"}
           {variant !== "footer" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}

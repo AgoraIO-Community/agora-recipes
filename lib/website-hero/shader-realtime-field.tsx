@@ -68,8 +68,8 @@ export function RealtimeField(props: Props) {
     // population at the same backing resolution.
     const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
     const lowPower = isLowPowerDevice(navigator.hardwareConcurrency, memory);
-    let width = Math.max(1, window.innerWidth);
-    let height = Math.max(1, window.innerHeight);
+    let width = Math.max(1, host.clientWidth);
+    let height = Math.max(1, host.clientHeight);
 
     // Field state eased exactly as the Canvas field's render loop eases it.
     const initialPhase = runtimeRef.current.phase;
@@ -267,7 +267,7 @@ export function RealtimeField(props: Props) {
             connect: state.connect,
             exit: idle ? smoothstep(0.02, 0.98, exitProgress) : 0,
             light: lightTheme ? 1 : 0,
-            count: fieldParticleCount(width, lowPower),
+            count: fieldParticleCount(width, lowPower, height),
             reduced: still ? 1 : 0,
             hostWidth: host.clientWidth,
             hostHeight: host.clientHeight,
@@ -324,11 +324,11 @@ export function RealtimeField(props: Props) {
     };
     playbackRef.current = syncPlayback;
 
-    // Like the Canvas field, positions live in a viewport-sized space; a
+    // Like the Canvas field, positions live in the intro's own space; a
     // resize only changes targets, so particles ease rather than replay.
     const resize = () => {
-      width = Math.max(1, window.innerWidth);
-      height = Math.max(1, window.innerHeight);
+      width = Math.max(1, host.clientWidth);
+      height = Math.max(1, host.clientHeight);
       particleCanvas.style.width = `${width}px`;
       particleCanvas.style.height = `${height}px`;
       if (!shader || failed) return;
@@ -336,9 +336,11 @@ export function RealtimeField(props: Props) {
       syncPlayback();
     };
     const onPointer = (event: PointerEvent) => {
-      pointer.targetX = event.clientX;
-      pointer.targetY = event.clientY;
-      pointer.active = true;
+      const bounds = host.getBoundingClientRect();
+      pointer.targetX = clamp(event.clientX - bounds.left, 0, width);
+      pointer.targetY = clamp(event.clientY - bounds.top, 0, height);
+      pointer.active = event.pointerType !== 'touch' && event.clientX >= bounds.left &&
+        event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
     };
     const onPointerLeave = () => {
       pointer.active = false;

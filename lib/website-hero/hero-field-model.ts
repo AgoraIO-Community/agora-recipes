@@ -38,10 +38,12 @@ const bandCenters = [
 
 export const fieldMaxParticles = 9000;
 
-export function fieldParticleCount(width: number, lowPower: boolean) {
-  if (width < 680) return lowPower ? 2400 : 3600;
-  if (lowPower) return 5200;
-  return width > 1500 ? 9000 : 7200;
+export function fieldParticleCount(width: number, lowPower: boolean, height = 720) {
+  const sourceCount = width < 680 ? (lowPower ? 2400 : 3600)
+    : lowPower ? 5200 : width > 1500 ? 9000 : 7200;
+  // Keep the source's deterministic motes, scaled to the bounded intro area.
+  const areaScale = Math.max(0.25, Math.min(1, height / 720));
+  return Math.round(sourceCount * areaScale / 13) * 13;
 }
 
 export function createFieldParticleSeed(index: number): FieldParticleSeed {

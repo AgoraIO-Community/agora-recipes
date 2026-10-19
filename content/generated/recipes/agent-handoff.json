@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "agent-handoff",
-  "generatedAt": "2026-09-04T17:59:38.516Z",
+  "generatedAt": "2026-10-19T07:56:43.172Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-handoff",
     "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-handoff/blob/main/README.md",

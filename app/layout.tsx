@@ -70,19 +70,14 @@ export default function RootLayout({
     >
       <head>
         <meta name="color-scheme" content="dark light" />
-        <script dangerouslySetInnerHTML={{ __html: `(function(){var t;try{t=localStorage.getItem('agora-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t})()` }} />
         <link rel="preload" href="/font/MiSansLatin-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <ThemeProvider
-          attribute="data-theme"
-          storageKey="agora-theme"
-          defaultTheme="system"
-          enableSystem
-        >
+        <ThemeProvider>
           <SiteHeader />
           <main id="main-content" className="flex-1">
             {children}

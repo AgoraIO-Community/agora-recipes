@@ -6,6 +6,7 @@ import {
   mediumLightWGSL,
   voiceCurtainLayout as curtain,
   wgslFloat as f,
+  lightThemeRendering,
 } from './hero-field-light';
 
 // The atmosphere pass reproduces the Canvas field's light: refractive panes,
@@ -61,12 +62,12 @@ export const heroParticleShader = defineShader({
       * (1.0 - smoothstep(copyRight, copyRight + 120.0, px.x))
       * smoothstep(copyTop - 120.0, copyTop, px.y)
       * (1.0 - smoothstep(copyBottom, copyBottom + 120.0, px.y));
-    let themeScale = select(1.42, 0.34, lightTheme > 0.5)
+    let themeScale = select(1.42, ${f(lightThemeRendering.atmosphere)}, lightTheme > 0.5)
       * (1.0 - suppression * 0.94) * (1.0 + audioIntent * 0.38);
 
     // Refractive panes: ceiling, floor and two slow density pockets.
     let activeMedia = clamp(0.16 + videoIntent * 0.56 + sphereMode * 0.62, 0.0, 1.0)
-      * select(1.0, 0.34, lightTheme > 0.5);
+      * select(1.0, ${f(lightThemeRendering.atmosphere)}, lightTheme > 0.5);
     let shimmer = sin(clock * 0.21) * w * 0.018;
     let drift = vec2f(cameraX * w * 0.035, cameraY * h * 0.024);
     let turn = cameraX * 0.035;
@@ -103,7 +104,7 @@ export const heroParticleShader = defineShader({
       } else if (r < 1.0) {
         stop = mix(vec4f(violet.rgb, 0.05), vec4f(violet.rgb, 0.0), (r - 0.45) / 0.55);
       }
-      let a = clamp(stop.a * themeScale * layerAlpha * (1.0 - voice), 0.0, 1.0);
+      let a = clamp(stop.a * themeScale * layerAlpha * select(1.0 - voice, 1.0, lightTheme > 0.5), 0.0, 1.0);
       let c = stop.rgb * a;
       color = c + color - c * color;
       alpha = a + alpha - a * alpha;
@@ -127,7 +128,7 @@ export const heroParticleShader = defineShader({
         let shaftColor = select(select(bright.rgb, violet.rgb, band > 8), cyan.rgb, band < 4);
         // Voice hands the shaft light to the volumetric curtains.
         let shaftAlpha = (0.19 + (1.0 - fromCenter) * 0.17) * themeScale * layerAlpha
-          * (1.0 - voice);
+          * select(1.0 - voice, 1.0, lightTheme > 0.5);
         // Faint upward density drift: the GPU-only volumetric cue.
         let density = 1.0 + medium * (0.6 * sin(px.y * 0.021 + clock * 0.55 + b * 1.3)
           + 0.4 * sin(px.y * 0.047 - clock * 0.31 + b * 2.1));

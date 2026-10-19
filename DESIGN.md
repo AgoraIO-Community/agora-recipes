@@ -1,7 +1,7 @@
 ---
 name: Agora 2026
-version: 1.1.0
-updated: 2026-10-12
+version: 1.2.0
+updated: 2026-10-19
 source: agora.io marketing site (2026 redesign), measured in a browser at 1440px and 390px
 scope: >
   Visual spec for restyling Agora SSO (login, signup) and Agora Recipes so they
@@ -12,10 +12,10 @@ theme:
   site: { default: dark, user_toggle: false }       # agora.io itself (measured)
   sso: { default: dark, user_toggle: false }         # recommendation: SSO stays dark-only
   recipes:                                           # recommendation: owner direction
-    default: system          # follows prefers-color-scheme until the visitor chooses
-    user_toggle: true
+    default: system          # always follows prefers-color-scheme
+    user_toggle: false       # owner direction: never restore theme-setting UI
     attribute: 'data-theme="dark|light" on <html>'
-    storage_key: "agora-theme"   # localStorage; written only after an explicit toggle
+    storage_key: null         # legacy saved choices are ignored
 colors:
   dark:                       # default page theme
     canvas: "#000000"         # page background
@@ -193,6 +193,27 @@ focus:
 
 # Agora 2026 design spec (for SSO and Recipes)
 
+## Current Recipes owner direction — do not regress
+
+These requirements override older website measurements or recommendations when
+styling Recipes:
+
+- No light/dark/system switcher, theme menu, or appearance setting. Follow the
+  device's `prefers-color-scheme`, including live changes. Ignore legacy manual
+  preferences.
+- The intro uses 45% of the usable viewport below the compact navigation.
+  The recipe directory starts immediately afterward in the remaining space,
+  with card titles visible on first load on common laptop and phone viewports.
+  Never use a full-viewport hero or add a tall animation-only band on mobile.
+- All interactive recipe filters use the website's plain-text directory controls:
+  transparent background, no box or pill, and a 2px signal underline beneath
+  selected choices. Card metadata tags are noninteractive and may retain their
+  metadata treatment.
+- Retain the website's Voice/Video/Agent formations without mode tabs. Both
+  renderers use the intro's own dimensions and area-scaled particle budget.
+  Light-mode particles must be clearly visible, with stronger blue depth and
+  shared light-surface exposure in Canvas and WebGPU.
+
 This document describes how the 2026 agora.io website looks and behaves. Use it
 to restyle **Agora SSO** (login, signup) and **Agora Recipes** (index and
 detail) so they read as part of the same product family. Every value was
@@ -227,8 +248,8 @@ tokens.
   between three states: an audio wave of 13 light shafts (Voice), a rigid grid
   of tiles (Video) and a two-layer particle sphere (Agent). §7.2 describes it so
   SSO and Recipes can recreate it without our code.
-- **Themes.** The site is dark-only. **Recipes adds a light theme with a
-  toggle**, and SSO stays dark (recommendation). The official blue `#00c2ff`
+- **Themes.** The site is dark-only. **Recipes follows the device's light/dark
+  preference with no theme selector**, and SSO stays dark (recommendation). The official blue `#00c2ff`
   is the brand blue in both themes; §2.2 explains how it's used on light.
 
 ## 2. Colors
@@ -665,7 +686,7 @@ right, a single text link ("Docs" or "agora.io"). No full site navigation, no
 search. **Recommendation (Recipes header):** logo plus a 12px muted
 "/ Recipes" label. Right side: Docs and GitHub as text actions, then
 **one** outline-signal CTA ("Get started"). "Submit a recipe" becomes a text
-action. The theme toggle (§5.17) sits between the text actions and the CTA.
+action. Do not add a theme control; appearance follows the device (§5.17).
 
 ### 5.11 Footer (minimal variant)
 
@@ -765,12 +786,13 @@ The website doesn't use rounded chips. Metadata is set as text:
   marks live or active state, add a 6px dot in `#00c2ff`.
 - **Mono meta:** 12px mono uppercase, 0.13em, `#b3b3b3`, for things like
   "DEVELOPER", "OCTOBER 11, 2026", "INTERMEDIATE".
-- **Recommendation (filter or tag chip for Recipes):** inline-flex,
+- **Metadata tag (noninteractive) for Recipes:** inline-flex,
   min-height 28px (inside a 46px hit row when interactive), padding `4px 10px`,
   1px `#383838` border, radius 2px, transparent background, 12px/1.3 `#b3b3b3`
-  (sentence case for tags, uppercase mono for levels). Selected state: border
-  `#00c2ff`, text `#fcf9f8`, bg `rgba(0,194,255,0.10)`. No pill radius, no
-  filled colors.
+  (sentence case for tags, uppercase mono for levels). These labels have no
+  interactive or selected state. No pill radius or filled colors.
+  Interactive filters do not use chips: use plain text, a
+  transparent background, and a 2px signal underline when selected (§11.3).
 
 ### 5.15 Loading: spinner and skeleton
 
@@ -798,33 +820,24 @@ The site's assistant opens dialogs above everything else (layer order: dialog
   background inert, and label it with `aria-labelledby`. On mobile, use full
   width with 16px margins.
 
-### 5.17 Theme toggle (Recipes only)
+### 5.17 Automatic appearance (Recipes only; no theme selector)
 
-The site has no theme toggle; everything here is a **recommendation** built
-from the site's icon-button and header tokens. SSO has no toggle and stays
-dark.
+**Owner requirement:** do not add a light/dark/system button, menu, or setting.
+Recipes always follows the device preference. SSO remains dark-only.
 
 | Property | Spec |
 | --- | --- |
-| Placement | Recipes header, right actions: after Docs, GitHub and Submit, directly before the "Get started" CTA. Under 900px it sits immediately left of the 46px menu button, so it's reachable without opening the menu |
-| Control | One `<button type="button">`, 46×46, transparent, no border, radius 2px, icon `currentColor` in muted (`#b3b3b3` dark / `#626262` light), ink on hover over 200ms |
-| Icon | Lucide, 20px, stroke 1.5. Show the theme you'll **switch to**: `sun` while dark, `moon` while light. No text label |
-| Name and state | `aria-label="Switch to light theme"` / `"Switch to dark theme"`, updated on toggle. Announce nothing else |
-| Default | Follow `prefers-color-scheme` until the visitor toggles. While no choice is stored, follow live OS changes (`matchMedia('(prefers-color-scheme: dark)').addEventListener('change', …)`) |
-| Persistence | On toggle, write `"light"` or `"dark"` to `localStorage["agora-theme"]` inside `try/catch` (private mode can throw). Never write on first visit. A stored value wins over the OS setting |
-| Applying | Set `data-theme="light|dark"` and `style.colorScheme` on `<html>`. All tokens (§2.2) switch from that one attribute; canvases re-read their palette on change (watch the attribute with a `MutationObserver`, as the site's canvases do) |
-| No flash | An inline, render-blocking script in `<head>`, before any stylesheet, sets the attribute before first paint. Also ship `<meta name="color-scheme" content="dark light">`, and set the `<html>` background from the token so the first frame is already correct |
-| Transition | On toggle only, add a `theme-switching` class to `<html>` for 240ms that transitions `background-color`, `color`, `border-color` and `fill` over 200ms with the standard easing. Don't leave a global colour transition on (it slows every hover). The hero canvas swaps palette on the next frame and fades its own opacity 0→1 over 200ms |
-| Reduced motion | No transition: switch instantly. The hero graphic redraws its static frame in the new palette |
+| Resolution | Read `matchMedia('(prefers-color-scheme: dark)')` and subscribe to its live `change` events |
+| Persistence | Do not read or write a manual preference. Ignore legacy saved theme choices |
+| Applying | Set `data-theme="light|dark"` and `style.colorScheme` on `<html>`. Canvases re-read their palette on attribute changes |
+| No flash | A blocking head script resolves the device preference before first paint; ship `<meta name="color-scheme" content="dark light">` |
+| Motion | Switch appearance without a global color animation; reduced-motion graphics redraw one static frame |
 
 ```html
 <meta name="color-scheme" content="dark light">
 <script>
   (() => {
-    let t = null;
-    try { t = localStorage.getItem('agora-theme'); } catch {}
-    if (t !== 'light' && t !== 'dark')
-      t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    const t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const r = document.documentElement;
     r.dataset.theme = t;
     r.style.colorScheme = t;
@@ -1352,25 +1365,26 @@ panel in the narrative column, under the copy.
 
 ### 11.3 Recipes index
 
-**Layout:** this follows the website's blog directory. A page intro with the
-hero graphic on its right, then a sticky filter bar, then a card grid. Both
-themes use the same layout; colours come from the theme tokens (§2.2).
+**Layout:** a compact catalog introduction, the website's sticky text-filter
+controls, and the card grid. Both themes share this layout. The first recipe
+card titles must be visible without scrolling on common laptop and phone
+viewports. No viewport-height section or extra animation-only mobile band.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│ [logo] / Recipes   Docs  GitHub  Submit a recipe  [☀]  [Get started] │ ← ☀/☾ toggle §5.17
+│ [logo] / Recipes   Docs  GitHub  Submit a recipe       [Get started] │ no theme selector
 ├──────────────────────────────────┬───────────────────────────────────┤
-│ VOICE AI RECIPES  (eyebrow 12px) │░      ▌ ▐▌▐█▌▐▌ ▌     Voice 8s    │
+│ Compact catalog intro            │░ website particle formations      │
 │ Voice AI recipes, ready to ship. │░    ▌▐▌▐▌▐▌▐█▌▐▌▐▌▌                │
-│  ← Hero 44px/400; one phrase may │░         ⇣                         │
-│    be signal (no gradient)       │░   ▪▪ ▪▪ ▪▪ ▪▪ ▪▪     Video 8s     │
+│  ← Intro heading 34px → 28px/400 │░         ⇣                         │
+│    (no gradient or extra label)  │░   ▪▪ ▪▪ ▪▪ ▪▪ ▪▪                  │
 │ Intro Body 16 muted, max 55ch    │░   ▪▪ ▪▪ ▪▪ ▪▪ ▪▪                  │
-│ [Primary: Browse] [Sec: How to…] │░         ⇣    .·::·.   Agent 12s   │
-│                                  │░  graphic panel, 360px tall  [⏸]  │
+│ How to use these recipes →       │░         ⇣    .·::·.                │
+│                                  │░  same intro height, no tabs [⏸]  │
 ├──────────────────────────────────┴───────────────────────────────────┤ sticky under header
 │ [🔍 Search recipes, authors…  52px]   Voice AI 65 | RTC 19  ← tabs    │
 ├──────────────────────────────────────────────────────────────────────┤
-│ Platform: [iOS][Android][Flutter][Go][Python][RN][TypeScript] More   │ ← chips
+│ Platform: All  iOS  Android  Flutter  Go  Python  RN  TypeScript More │ text + active underline
 │ Showing 65 of 65 recipes  (13px muted, aria-live)                    │
 │ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                   │
 │ │PYTHON  INTERM.│ │TYPESCRIPT  ADV│ │GO       BEGIN.│ ← mono meta      │
@@ -1382,22 +1396,25 @@ themes use the same layout; colours come from the theme tokens (§2.2).
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-- **Hero graphic (recommendation):** a panel in the intro's right column,
-  360px tall on desktop, from the column edge to the shell's right edge, with
-  the 48px inner fade of §11.0. All three states, **Voice 8s → Video 8s →
-  Agent 12s**, then repeat (a 28s loop plus ~1.2s morphs); the index is about
-  the product's modes, so Video stays. 2,800 dots on desktop. It stops when the
-  intro scrolls out of view (the filter bar sticks), when the tab is hidden, and
-  under the pause button (bottom-right, as §11.0). Reduced motion and
-  low-power: the static Voice frame. Canvas 2D; WebGPU optional for the dark
-  theme only, with the Canvas fallback.
-- **Under 900px:** the panel becomes a 180px band below the intro copy and
-  actions, 1,200 dots, same cycle. Under 640px on low-power devices it's static.
-- **Light theme:** use the §7.2.7 palette on the `#fcf9f8` ground: dots in
-  `#00c2ff` with `#075c9a` depth, glows multiplied at 34%, dot alpha ×0.6. It
-  should read as a light cyan haze, never as dark ink scribbles. The
-  hero phrase in signal is `#075c9a` on light (text rule, §2.2), or keep the
-  headline all ink.
+- **Intro:** use 45% of the usable first viewport below the compact navigation,
+  leaving the remaining 55% for the recipe directory. Compute its height as
+  `calc((100svh - var(--header-height) - 1px) * .45)` with a `100vh` fallback.
+  The extra pixel accounts for the navigation border. This supersedes the
+  earlier fixed 260px/325px heights and large mobile padding. Search and recipe
+  filters start immediately after the hero; the full catalog scrolls normally.
+  Keep the first card titles visible on first load and preserve 46px controls.
+  Keep one heading, concise copy, and a text link to the existing guide.
+- **Hero graphic:** use the website renderer in the intro's actual coordinate
+  space. Keep Voice 2.8s → Video 2.8s → Agent 14.4s autoplay, no mode tabs,
+  an unobtrusive pause control, off-screen suspension, and a static reduced-motion
+  frame. Scale the fixed particle budget to the intro area and device budget;
+  do not reseed or change population adaptively while animating.
+- **Mobile:** particles remain a background within the intro, never a separate
+  tall band that pushes the card grid away.
+- **Light theme:** retain official cyan for light and highlights, with `#075c9a`
+  depth points. Use shared Canvas/WebGPU light particle opacity 0.84 and
+  atmosphere scale 0.48. Keep the light Voice shafts enabled. The white copy
+  fade must not wash out the graphic area. Verify all formations in both renderers.
 - **Filter bar:** full width with 1px line top and bottom borders, 62px
   tall, and the scrolled-header background (`rgba(0,0,0,0.96)` dark,
   `rgba(252,249,248,0.96)` light) with blur when sticky (offset by the
@@ -1408,9 +1425,14 @@ themes use the same layout; colours come from the theme tokens (§2.2).
     input 16px with no border.
   - **Recipe type:** underline tabs (§5.12), with the count as muted text
     after the label.
-- **Platform filters:** a chip row (§5.14, recommendation), horizontally
-  scrollable on mobile. "Filters" opens a panel or dialog (§5.16). Selected
-  chip on light: border `#00c2ff`, bg `rgba(0,194,255,0.10)`, text ink.
+- **All interactive filters:** follow the website's EditorialDirectoryControls
+  and StickyDirectoryControls pattern. Use plain text with a transparent
+  background, zero box border/radius, and a 2px `#00c2ff` underline beneath
+  selected values. Inactive text is muted; active/hover text is ink. Use 28px
+  spacing and at least 46px targets. Platform choices scroll horizontally on
+  mobile. The More and Filters controls use the same text treatment; selected
+  use cases and capabilities are underlined too. Preserve filtering semantics
+  and keep the sticky controls visible as result counts change.
 - **Cards:** listing cards (§5.8). Meta row: platforms on the left, level on
   the right (mono 12px). Title 20px. Description 13px, clamped to 3 lines.
   Author row: 24px round avatar, 13px "By <name>" with the name in ink, plus an
@@ -1511,16 +1533,16 @@ and the cyan primary hue (it already matches `#00c2ff`).
 
 | Today (measured) | Change to |
 | --- | --- |
-| **Light theme only**: white ground, near-black text | **Both themes with a toggle** (§5.17): default follows `prefers-color-scheme`, choice stored in `localStorage["agora-theme"]`, set before first paint, 200ms colour cross-fade (none under reduced motion). Dark: `#000` canvas, `#0a0a0a` panels. Light: `#fcf9f8` canvas, `#f1f0f0` panels, `#0f0f0f` ink, `#626262` muted (§2.2) |
+| **Light theme only**: white ground, near-black text | Both themes follow `prefers-color-scheme` automatically (§5.17), including live changes. No theme selector and no saved-choice override. Dark: `#000` canvas; light: `#fcf9f8` canvas (§2.2) |
 | Jokker 600: H1 60px (index) / 48px (detail), H2 30px | MiSans 400: Hero 44px (36px mobile), Display 34px, Title 20px, all with negative tracking |
 | Instrument Sans body 18px, grey | 16px/1.58, `#b3b3b3` for intros, 82% ink for prose |
 | Space Mono for code, labels and 10px level tags | System mono stack, 12px minimum. Mono only for code and meta |
 | Accent `#0099cc` (3.27:1 on white, fails AA as text) and gradient text "ready to ship." | The official `#00c2ff` in both themes. Dark: signal text and fills. Light: `#00c2ff` for fills (with `#04111d` text, 9.21:1), rules, underlines, indicators and graphics; `#075c9a` only for small text that must read blue (6.67:1). No gradient text, no `#0099cc` |
-| Header: "a" app-icon plus "Agora / Recipes"; three prominent actions (two filled blue, one outlined) | Blue `#00c2ff` wordmark 86px plus "/ Recipes" (same wordmark in both themes); Docs, GitHub and Submit as text actions; the 46px theme toggle (sun/moon); one "Get started" CTA (outline-signal on dark; filled `#00c2ff` with `#04111d` text on light) |
-| Hero with grid-paper pattern, blue radial glow and an animated waveform | Drop the grid paper and glow. The index hero gets the site's hero graphic in a 360px right-hand panel: Voice 8s → Video 8s → Agent 12s, pause button, stops off-screen, static Voice frame under reduced motion (§11.3). Light theme: §7.2.7 palette led by `#00c2ff`. Detail pages: no animation; optional static 120px strip matching the recipe type (§11.4) |
+| Header: "a" app-icon plus "Agora / Recipes"; three prominent actions (two filled blue, one outlined) | Blue `#00c2ff` wordmark 86px plus "/ Recipes"; Docs, GitHub and Submit as text actions; one "Get started" CTA. No appearance control |
+| Hero with grid-paper pattern, blue radial glow and an animated waveform | Compact catalog intro with the website's formations in intro coordinates, an area-scaled budget, no mode tabs, and clearly visible light-mode particles. Card titles visible on first load; no viewport-height hero or mobile animation band (§11.3) |
 | Type toggle as two 62px rounded tiles (radius 14px) with count pills | Underline tabs in the filter bar, count as muted text |
 | Search 40px, radius 10px, white | Search field per §11.3: 52px, `#0a0a0a`, radius 2px, inset ring |
-| Platform filter in a rounded segmented bar (radius 8px, 36px items) | Chip row (§5.14) or underline tabs, 46px targets |
+| Platform filter in a rounded segmented bar (radius 8px, 36px items) | Plain text with an active signal underline, no box or fill, 46px targets; same treatment for use cases and capabilities |
 | Cards: radius 14px, 1px light border, rounded tag chips (~11px), 34px avatars | Listing cards, radius 0, `#0a0a0a`; 12px meta; rectilinear chips; 24px avatars |
 | Code blocks: light (white panel, radius 14px, grey header), **no syntax highlighting**, Space Mono 14px | §5.13: 2px radius, 34px language strip, signal left rule, 13px system mono. Dark: `#0a1114` with GitHub Dark Default. Light: `#f2f7f8` with GitHub Light Default (comment `#57606a`). One Shiki dual-theme pass |
 | Inline code: grey pill, radius 6px, 12.24px | 10% signal tint, radius 2px, same size as surrounding text; text `#00c2ff` on dark, `#075c9a` on light |

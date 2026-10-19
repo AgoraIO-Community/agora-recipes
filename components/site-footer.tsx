@@ -62,8 +62,6 @@ export function SiteFooter() {
           </nav>
           <div className="footer-meta">
             <p>Copyright © {new Date().getFullYear()} Agora <span className="footer-rights">All rights reserved.</span></p>
-            <a href="https://hyperos.mi.com/font/en/" target="_blank" rel="noreferrer"
-              aria-label="Typography by MiSans (opens in a new tab)">Typography by MiSans</a>
           </div>
         </div>
       </div>

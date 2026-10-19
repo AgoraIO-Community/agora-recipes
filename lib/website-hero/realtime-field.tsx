@@ -17,6 +17,7 @@ import {
   type FieldParticleSeed,
 } from './hero-field-model';
 import { readHeroQaClock } from './hero-renderer-policy';
+import { lightThemeRendering } from './hero-field-light';
 import {
   type CurtainFrame,
   createCurtainLayer,
@@ -107,11 +108,10 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
     const cores = navigator.hardwareConcurrency ?? 8;
     const lowPower = cores <= 4 || (memory !== undefined && memory <= 4);
 
-    let width = Math.max(1, window.innerWidth);
-    let height = Math.max(1, window.innerHeight);
-    // Voice curtains live in the host box's uv space, as the WebGPU medium
-    // pass draws them; particles use the viewport-sized field space.
     const host = canvas.parentElement;
+    let width = Math.max(1, host?.clientWidth || 1);
+    let height = Math.max(1, host?.clientHeight || 1);
+    // Curtains and particles share the compact intro's coordinates.
     let hostWidth = host?.clientWidth || width;
     let hostHeight = host?.clientHeight || height;
     let curtains: CurtainFrame = curtainFrame(hostWidth, hostHeight);
@@ -184,7 +184,7 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
       redrawStatic();
     };
 
-    const particleCount = () => fieldParticleCount(width, lowPower);
+    const particleCount = () => fieldParticleCount(width, lowPower, height);
 
     const createParticle = (index: number): Particle => ({
       ...createFieldParticleSeed(index),
@@ -196,7 +196,7 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
       particles = Array.from({ length: particleCount() }, (_, index) => createParticle(index));
     };
 
-    // Targets are recomputed from the viewport every frame, so existing
+    // Targets are recomputed from the intro every frame, so existing
     // particles ease to a new composition on their own. Only the count
     // depends on width: trim or grow from the end, and start new particles on
     // top of existing ones so nothing flies in from the spawn point.
@@ -221,8 +221,8 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
       // to its spawn point and replays the load-in: mobile toolbars fire
       // height-only resizes during scroll, and dragging a desktop window
       // fires width changes continuously.
-      width = Math.max(1, window.innerWidth);
-      height = Math.max(1, window.innerHeight);
+      width = Math.max(1, host?.clientWidth || 1);
+      height = Math.max(1, host?.clientHeight || 1);
       dpr = Math.min(window.devicePixelRatio || 1, lowPower ? 0.9 : 1.1);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -241,15 +241,15 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
       curtains = curtainFrame(hostWidth, hostHeight);
       curtainLayer.invalidate();
     }
-    const hostObserver = new ResizeObserver(() => {
-      measureHost();
-      redrawStatic();
-    });
+    const hostObserver = new ResizeObserver(resize);
 
     const onPointerMove = (event: PointerEvent) => {
-      pointer.targetX = event.clientX;
-      pointer.targetY = event.clientY;
-      pointer.active = true;
+      const bounds = host?.getBoundingClientRect();
+      if (!bounds) return;
+      pointer.targetX = clamp(event.clientX - bounds.left, 0, width);
+      pointer.targetY = clamp(event.clientY - bounds.top, 0, height);
+      pointer.active = event.pointerType !== 'touch' && event.clientX >= bounds.left &&
+        event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
     };
 
     const onPointerLeave = () => {
@@ -407,7 +407,7 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
     const drawRefractiveEnvironment = (time: number) => {
       const sphereMode = Math.max(conversationIntent, prepareIntent, liveStrength);
       const activeMedia = clamp(0.16 + videoIntent * 0.56 + sphereMode * 0.62);
-      const themeScale = lightTheme ? 0.34 : 1;
+      const themeScale = lightTheme ? lightThemeRendering.atmosphere : 1;
       const driftX = cameraX * width * 0.035;
       const driftY = cameraY * height * 0.024;
 
@@ -490,11 +490,11 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
       // Idle and Audio are light-led. In the more graphic states the shafts
       // recede, leaving only enough atmosphere to keep the field coherent.
       const stateScale = (1 - shapeSuppression * 0.94) * (1 + audioIntent * 0.38);
-      const themeScale = (lightTheme ? 0.34 : 1.42) * stateScale;
+      const themeScale = (lightTheme ? lightThemeRendering.atmosphere : 1.42) * stateScale;
       // Voice hands the shaft light and bloom to the volumetric curtains, as
       // the WebGPU medium pass does.
       const voice = clamp(audioIntent * (1 - shapeSuppression));
-      const shaftScale = themeScale * (1 - voice);
+      const shaftScale = themeScale * (lightTheme ? 1 : 1 - voice);
       context.save();
       context.globalCompositeOperation = lightTheme ? 'multiply' : 'screen';
       drawRefractiveEnvironment(time);
@@ -739,14 +739,14 @@ export function RealtimeField({ phase, intent, amplitudeRef, exitProgressRef, pa
     };
 
     const drawParticles = (time: number, delta: number, audio: number, shafts: Shaft[]) => {
-      const themeAlpha = lightTheme ? 0.48 : 1;
+      const themeAlpha = lightTheme ? lightThemeRendering.particleOpacity : 1;
       const movement = reducedMotion || (runtimeRef.current.paused && !hasPainted)
         ? 1 : runtimeRef.current.paused ? 0 : clamp(delta * 6.5, 0.035, 0.18);
       const renderCount = Math.max(1, Math.floor(particles.length * qualityScale));
       const densityCompensation = 1 / Math.sqrt(qualityScale);
 
       context.save();
-      context.globalCompositeOperation = lightTheme ? 'multiply' : 'screen';
+      context.globalCompositeOperation = lightTheme ? 'source-over' : 'screen';
 
       if (moteCurtainLight.length < renderCount) {
         moteCurtainLight = new Float32Array(renderCount);

@@ -29,6 +29,12 @@ export const voiceCurtainLayout = {
   ridgeWhite: 0.1,
 } as const;
 
+/** Shared Recipes light-surface exposure for Canvas and WebGPU. */
+export const lightThemeRendering = {
+  particleOpacity: 0.84,
+  atmosphere: 0.48,
+} as const;
+
 /** WGSL float literal for a shared constant (always carries a decimal point). */
 export const wgslFloat = (value: number) =>
   Number.isInteger(value) ? value.toFixed(1) : String(value);
