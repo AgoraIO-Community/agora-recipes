@@ -24,6 +24,9 @@ export function SiteFooter() {
             >
               Docs
             </Link>
+            <a href="/llms.txt" className="hover:text-foreground transition-colors">
+              llms.txt
+            </a>
             <Link
               href="https://github.com/AgoraIO-Community/agora-recipes"
               target="_blank"
