@@ -407,6 +407,8 @@ a.recipe-author:hover .recipe-author__name { text-decoration: underline; }
 }
 @media (pointer: coarse) {
   .agent-ui { --control-sm: 44px; --control-md: 44px; }
+  .showcase-card__body { gap: 10px; }
+  a.recipe-author { min-height: 44px; padding-block: 10px; margin-block: -10px; }
   .catalog-sort, .catalog-filter-trigger.ag-button, .catalog-filter-select { min-height: 44px; }
   .catalog-select-menu [data-slot=select-item] { min-height: 44px; }
 }

@@ -69,6 +69,8 @@ channel was joined and no media permission was requested.
   Mouse and keyboard switching, reload persistence, and the mobile browser theme
   color were checked. Header actions have 44px touch targets; 320px, 390px,
   768px, and 1280px layouts retain no horizontal document overflow.
+  Coarse-pointer author profile links also have 44px hit areas within a compact
+  24px byline row, without overlapping the recipe title/summary link.
   Description typos (`pricng objecrtions`), Chinese aliases (`语音转文字`),
   an expanded CRM phrase, and empty-result recovery were exercised in-browser.
 - Lint (one existing logo image warning), independent TypeScript checking,
