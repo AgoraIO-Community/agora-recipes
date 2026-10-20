@@ -15,3 +15,7 @@ node_modules
 .pnpm-store/
 .next/
 .DS_Store
+
+# Local verification output
+*.tsbuildinfo
+.impeccable/

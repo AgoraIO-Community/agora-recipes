@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button"
 import { CopyPrompt } from "@/components/copy-prompt"
 import { CopyMarkdownButton } from "@/components/copy-markdown-button"
 import { Markdown } from "@/components/markdown"
+import { RecipePreview } from "@/components/recipe-preview"
+import { getRecipeSummaries } from "@/lib/showcase"
 import { PlatformBadge } from "@/components/platform-badge"
 
 type Params = { slug: string }
@@ -59,6 +61,7 @@ export default async function RecipePage({
   const recipe = getRecipe(slug)
   if (!recipe) notFound()
 
+  const summary = getRecipeSummaries().find((entry) => entry.slug === slug)
   const related = getRelatedRecipes(recipe.slug, 3)
 
   return (
@@ -123,6 +126,8 @@ export default async function RecipePage({
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14">
           {/* Main column */}
           <div className="min-w-0 flex flex-col gap-8">
+            {summary?.showcase && <RecipePreview recipe={summary} />}
+
             {recipe.cli ? <CliCommandSection slug={recipe.slug} /> : null}
 
             <CopyPromptSection

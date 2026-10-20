@@ -1,0 +1,150 @@
+[
+  {
+    "slug": "agora-rotary-dial-phone",
+    "title": "Agora Rotary Dial Phone",
+    "summary": "Dial into a 3D escape room and talk to an AI character. See how voice can become part of the experience.",
+    "thumbnail": "/recipes/agora-rotary-dial-phone.webp",
+    "thumbnailAlt": "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe",
+    "thumbnailSource": "https://rotary-dial-phone.vercel.app/",
+    "demoUrl": "https://rotary-dial-phone.vercel.app/",
+    "demoNote": "Chinese experience · Microphone needed",
+    "labels": [
+      "3D",
+      "Voice AI"
+    ],
+    "searchTerms": [
+      "财富热线",
+      "密室",
+      "电话",
+      "游戏",
+      "games",
+      "Three.js"
+    ],
+    "compactTitle": "Rotary Dial Phone",
+    "compactSummary": "A 3D voice escape room."
+  },
+  {
+    "slug": "agora-podcasts",
+    "title": "Agora Podcasts",
+    "summary": "Turn a topic into a two-host AI podcast listeners can talk to.",
+    "thumbnail": "/recipes/agora-podcasts.webp",
+    "thumbnailAlt": "Agora Podcasts illustrated landing page with its two AI hosts",
+    "thumbnailSource": "https://agora-podcasts.vercel.app/",
+    "videoUrl": "https://github.com/user-attachments/assets/b624ff06-62d6-41d7-a74e-24cfc73d7ce8",
+    "videoDuration": "2:27",
+    "demoUrl": "https://agora-podcasts.vercel.app/",
+    "demoNote": "Chinese experience",
+    "labels": [
+      "Voice AI",
+      "TypeScript"
+    ],
+    "searchTerms": [
+      "播客",
+      "双人",
+      "podcast",
+      "education"
+    ],
+    "compactTitle": "Agora Podcasts",
+    "compactSummary": "A podcast you can talk to."
+  },
+  {
+    "slug": "aria-voice-sales-agent",
+    "title": "Aria Sales Agent",
+    "summary": "A voice sales agent that answers questions and updates your CRM during the call.",
+    "thumbnail": "/recipes/aria-voice-sales-agent.webp",
+    "thumbnailAlt": "Aria live call interface with conversation transcript and call controls",
+    "thumbnailSource": "https://raw.githubusercontent.com/Aryan-Techie/aria/main/assets/screenshot-live-call.png",
+    "demoUrl": "https://aria.aroice.in/",
+    "demoNote": "Microphone needed",
+    "labels": [
+      "Tool calling",
+      "Python"
+    ],
+    "searchTerms": [
+      "销售",
+      "客服",
+      "CRM",
+      "sales",
+      "tool calling"
+    ],
+    "compactTitle": "Aria Sales Agent",
+    "compactSummary": "Calls that update your CRM.",
+    "thumbnailScale": 1.173,
+    "thumbnailOrigin": "50% 85%"
+  },
+  {
+    "slug": "agora-meeting-copilot",
+    "title": "Meeting Copilot",
+    "summary": "Bring an AI teammate into a video meeting to listen, respond, and manage tasks.",
+    "thumbnail": "/recipes/agora-meeting-copilot.webp",
+    "thumbnailAlt": "Existing Meeting Copilot video showing a live meeting alongside a shared task board",
+    "thumbnailSource": "https://github.com/user-attachments/assets/0376ad2c-0a1f-4d9b-b9fa-b452b982e4e2",
+    "videoUrl": "https://github.com/user-attachments/assets/0376ad2c-0a1f-4d9b-b9fa-b452b982e4e2",
+    "videoDuration": "1:10",
+    "demoUrl": "https://agora-meeting-copilot.vercel.app/",
+    "demoNote": "AI demo requires your OpenAI API key",
+    "labels": [
+      "Tool calling",
+      "TypeScript"
+    ],
+    "searchTerms": [
+      "会议",
+      "转写",
+      "copilot",
+      "transcription",
+      "kanban"
+    ],
+    "compactTitle": "Meeting Copilot",
+    "compactSummary": "Turn meeting talk into tasks.",
+    "thumbnailScale": 1.22,
+    "thumbnailOrigin": "50% 74%"
+  },
+  {
+    "slug": "worldcupvoice",
+    "title": "WorldCupVoice",
+    "summary": "An AI commentator that watches a sports stream and calls the action out loud.",
+    "thumbnail": "/recipes/worldcupvoice.webp",
+    "thumbnailAlt": "WorldCupVoice World Cup final poster from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/worldcupvoice/main/public/worldcup-final-poster.jpg",
+    "videoUrl": "https://github.com/user-attachments/assets/307ca759-29f7-40d8-b3be-e9d5e5104e48",
+    "videoDuration": "0:40",
+    "demoNote": "Recorded demo",
+    "labels": [
+      "Vision",
+      "Sports"
+    ],
+    "searchTerms": [
+      "足球",
+      "体育",
+      "解说",
+      "sports",
+      "football",
+      "vision"
+    ],
+    "compactTitle": "WorldCupVoice",
+    "compactSummary": "AI sports commentary."
+  },
+  {
+    "slug": "live-video-react-app",
+    "title": "React Live Video",
+    "summary": "Publish a live video stream and let an audience join, built with React and Agora RTC.",
+    "thumbnail": "/recipes/live-video-react-app.webp",
+    "thumbnailAlt": "The existing React Live Video demo entry screen with an Agora logo, channel field, and Connect button",
+    "thumbnailSource": "https://main--scintillating-druid-f6d860.netlify.app/",
+    "demoUrl": "https://main--scintillating-druid-f6d860.netlify.app/",
+    "demoNote": "Camera and microphone needed",
+    "labels": [
+      "React",
+      "Live video"
+    ],
+    "searchTerms": [
+      "视频",
+      "直播",
+      "RTC",
+      "video calling",
+      "streaming"
+    ],
+    "compactTitle": "React Live Video",
+    "compactSummary": "Stream to a live audience."
+  }
+]

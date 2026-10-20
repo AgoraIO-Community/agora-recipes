@@ -1,50 +1,10 @@
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/next"
-import { Instrument_Sans, Space_Mono } from "next/font/google"
-import localFont from "next/font/local"
 import "./globals.css"
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-mono",
-})
-
-const jokker = localFont({
-  src: [
-    {
-      path: "../public/font/Jokker-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/font/Jokker-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/font/Jokker-Semibold.woff2",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/font/Jokker-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-brand",
-  display: "swap",
-})
 
 const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
@@ -89,10 +49,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 }
@@ -105,7 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSans.variable} ${spaceMono.variable} ${jokker.variable} bg-background`}
+      className="dark bg-background"
       suppressHydrationWarning
     >
       <body className="font-sans antialiased min-h-svh flex flex-col">
@@ -114,9 +71,9 @@ export default function RootLayout({
         </a>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          forcedTheme="system"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="agora-recipes-theme"
           disableTransitionOnChange
         >
           <SiteHeader />

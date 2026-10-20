@@ -1,0 +1,928 @@
+/* Adopted from shczhen/agent-ui @ 9ca9d39. See README.md. */
+/* Agora Glass: full CSS color values, using shadcn/ui semantic token names. */
+.agent-ui {
+  color-scheme: light;
+  --font-sans: "MiSans", sans-serif;
+  --font-mono: "MiSans", sans-serif;
+  --background: #f5f6f7;
+  --foreground: #17232b;
+  --card: #ffffff;
+  --card-foreground: #17232b;
+  --popover: #ffffff;
+  --popover-foreground: #17232b;
+  --primary: #29a6d6;
+  --primary-foreground: #002b3b;
+  --primary-hover: #41b0df;
+  --primary-pressed: #2498c4;
+  --secondary: #e9edf0;
+  --secondary-foreground: #263d49;
+  --muted: #e5edf1;
+  --muted-foreground: #505a5e;
+  --accent: #d1edfb;
+  --accent-foreground: #003e54;
+  --destructive: #b92c3d;
+  --destructive-surface: #fff0f1;
+  --success: #217345;
+  --success-surface: #e9f5ed;
+  --border: #d0d9de;
+  --input: #707c83;
+  --ring: #006789;
+  --radius: 0.375rem;
+  --radius-group: 0.5rem;
+  --radius-surface: 0.75rem;
+  --control-height: 2.25rem;
+  --glass-tint: rgb(255 255 255 / 0.72);
+  --glass-edge: rgb(255 255 255 / 0.9);
+  --glass-shadow: 0 8px 24px rgb(22 39 50 / 0.10), 0 1px 3px rgb(22 39 50 / 0.08);
+  --control-glass-fill: rgb(255 255 255 / 0.48);
+  --control-glass-fill-hover: rgb(255 255 255 / 0.62);
+  --control-glass-edge: rgb(255 255 255 / 0.82);
+  --control-glass-low-edge: rgb(38 73 91 / 0.22);
+  --control-glass-sheen: rgb(255 255 255 / 0.68);
+  --control-primary-fill: rgb(41 166 214 / 0.82);
+  --control-primary-fill-hover: rgb(65 176 223 / 0.88);
+  --control-primary-fill-pressed: rgb(36 152 196 / 0.92);
+  --motion-press: 90ms;
+  --motion-control: 160ms;
+  --motion-surface: 240ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .agent-ui {
+  color-scheme: dark;
+  --background: #14191d;
+  --foreground: #f0f3f5;
+  --card: #1c242a;
+  --card-foreground: #f0f3f5;
+  --popover: #263139;
+  --popover-foreground: #f0f3f5;
+  --secondary: #303c44;
+  --secondary-foreground: #ecf3f7;
+  --primary: #63bae2;
+  --primary-foreground: #002b3b;
+  --primary-hover: #72c5ec;
+  --primary-pressed: #59aacf;
+  --muted: #22272a;
+  --muted-foreground: #9faaaf;
+  --accent: #223640;
+  --accent-foreground: #b5d7e8;
+  --destructive: #ff8d99;
+  --destructive-surface: #41232a;
+  --success: #8bdbab;
+  --success-surface: #1a3829;
+  --border: #373e42;
+  --input: #879196;
+  --ring: #86c1de;
+  --glass-tint: rgb(32 43 51 / 0.82);
+  --glass-edge: rgb(209 233 245 / 0.19);
+  --glass-shadow: 0 8px 24px rgb(0 0 0 / 0.22), 0 1px 3px rgb(0 0 0 / 0.16);
+  --control-glass-fill: rgb(43 58 67 / 0.58);
+  --control-glass-fill-hover: rgb(57 75 86 / 0.68);
+  --control-glass-edge: rgb(218 240 250 / 0.22);
+  --control-glass-low-edge: rgb(0 8 14 / 0.46);
+  --control-glass-sheen: rgb(220 245 255 / 0.2);
+  --control-primary-fill: rgb(99 186 226 / 0.82);
+  --control-primary-fill-hover: rgb(114 197 236 / 0.88);
+  --control-primary-fill-pressed: rgb(89 170 207 / 0.92);
+}
+
+@media (pointer: coarse) {
+  .agent-ui { --control-height: 2.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-ui { --motion-press: 0ms; --motion-control: 0ms; --motion-surface: 0ms; }
+}
+
+
+@layer components {
+  .ag-control-sm {
+    --control-size: var(--control-sm);
+  }
+  .ag-control-md {
+    --control-size: var(--control-md);
+  }
+  .ag-control-lg {
+    --control-size: var(--control-lg);
+  }
+  .ag-button,
+  .ag-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: var(--control-size, var(--control-md));
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background var(--motion-control) var(--ease-out),
+      color var(--motion-control) var(--ease-out),
+      border-color var(--motion-control) var(--ease-out),
+      box-shadow var(--motion-control) var(--ease-out),
+      transform var(--motion-control) var(--ease-out);
+  }
+  .ag-button > svg,
+  .ag-toggle > svg {
+    width: var(--icon-size);
+    height: var(--icon-size);
+  }
+  .ag-button .lucide-arrow-right {
+    transition: transform var(--motion-control) var(--ease-out);
+  }
+  .ag-button:disabled,
+  .ag-toggle:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .ag-button:not(:disabled):is(:active, [data-demo-state="pressed"]) {
+    transform: scale(0.985);
+  }
+  .ag-button:focus-visible,
+  .ag-button[data-demo-state="focus"],
+  .ag-toggle:focus-visible {
+    outline: var(--focus-width) solid var(--ring);
+    outline-offset: var(--focus-offset);
+  }
+  .ag-icon-button {
+    width: var(--control-size, var(--control-md));
+    padding: 0;
+  }
+  .ag-button-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .ag-button-primary:not(:disabled):is(:hover, [data-demo-state="hover"]) {
+    background:
+      radial-gradient(
+        72% 150% at var(--control-light-x, 28%) -40%,
+        rgb(255 255 255 / 0.42),
+        transparent 66%
+      ),
+      color-mix(in srgb, var(--control-primary-fill-hover) 90%, transparent);
+    border-color: color-mix(in srgb, var(--primary-pressed) 54%, var(--control-glass-edge));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.34),
+      0 3px 9px rgb(17 40 55 / 0.1);
+    -webkit-backdrop-filter: blur(7px) saturate(1.32);
+    backdrop-filter: blur(7px) saturate(1.32);
+  }
+  .ag-button-primary:not(:disabled):is(:active, [data-demo-state="pressed"]) {
+    background: color-mix(in srgb, var(--control-primary-fill-pressed) 94%, transparent);
+    box-shadow: inset 0 1px 2px rgb(0 43 59 / 0.16);
+    -webkit-backdrop-filter: blur(5px) saturate(1.24);
+    backdrop-filter: blur(5px) saturate(1.24);
+  }
+  .ag-button-outline {
+    border-color: var(--input);
+    background: var(--card);
+    color: var(--foreground);
+  }
+  .ag-button-secondary {
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+  }
+  .ag-button-glass {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-color: color-mix(in srgb, var(--border) 48%, var(--control-glass-edge));
+    background: var(--control-glass-fill);
+    color: var(--foreground);
+    box-shadow:
+      inset 0 1px 0 var(--control-glass-edge),
+      0 2px 8px rgb(17 40 55 / 0.08);
+    -webkit-backdrop-filter: blur(7px) saturate(1.35);
+    backdrop-filter: blur(7px) saturate(1.35);
+  }
+  .ag-button-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      82% 150% at var(--control-light-x, 18%) -34%,
+      var(--control-glass-sheen),
+      transparent 62%
+    );
+    opacity: 0.34;
+    transition: opacity var(--motion-control) var(--ease-out);
+  }
+  .ag-button-glass-primary {
+    border-color: color-mix(in srgb, var(--primary-pressed) 58%, var(--control-glass-edge));
+    background: var(--control-primary-fill);
+    color: var(--primary-foreground);
+  }
+  .ag-button-glass:not(:disabled):hover {
+    background: var(--control-glass-fill-hover);
+    border-color: color-mix(in srgb, var(--ring) 38%, var(--control-glass-edge));
+    box-shadow:
+      inset 0 1px 0 var(--control-glass-edge),
+      0 3px 10px rgb(17 40 55 / 0.1);
+  }
+  .ag-button-glass-primary:not(:disabled):hover {
+    background: var(--control-primary-fill-hover);
+  }
+  .ag-button-glass:not(:disabled):hover::before {
+    opacity: 0.58;
+  }
+  .ag-button-glass:not(:disabled):active {
+    box-shadow: inset 0 1px 1px var(--control-glass-low-edge);
+  }
+  .ag-button-glass-primary:not(:disabled):active {
+    background: var(--control-primary-fill-pressed);
+  }
+  .ag-button-ghost,
+  .ag-toggle {
+    background: transparent;
+    color: var(--foreground);
+  }
+  .ag-button:is(.ag-button-outline, .ag-button-secondary, .ag-button-ghost):not(
+      :disabled
+    ):is(:hover, [data-demo-state="hover"]),
+  .ag-toggle:hover {
+    background:
+      radial-gradient(
+        76% 155% at var(--control-light-x, 32%) -42%,
+        var(--control-glass-sheen),
+        transparent 64%
+      ),
+      color-mix(in srgb, var(--control-glass-fill-hover) 82%, transparent);
+    box-shadow:
+      inset 0 1px 0 var(--control-glass-edge),
+      0 3px 9px rgb(17 40 55 / 0.08);
+    -webkit-backdrop-filter: blur(7px) saturate(1.3);
+    backdrop-filter: blur(7px) saturate(1.3);
+  }
+  .ag-button:is(.ag-button-outline, .ag-button-secondary):not(:disabled):is(
+      :hover,
+      [data-demo-state="hover"]
+    ),
+  .ag-toggle:hover {
+    border-color: color-mix(in srgb, var(--input) 72%, var(--ring));
+  }
+  .ag-button:is(.ag-button-outline, .ag-button-secondary, .ag-button-ghost):not(
+      :disabled
+    ):is(:active, [data-demo-state="pressed"]) {
+    background: var(--secondary);
+    border-color: var(--input);
+  }
+  .ag-button[aria-pressed="true"],
+  .ag-toggle[data-state="on"] {
+    background:
+      radial-gradient(
+        76% 155% at var(--control-light-x, 28%) -44%,
+        color-mix(in srgb, var(--control-glass-sheen) 82%, transparent),
+        transparent 66%
+      ),
+      color-mix(in srgb, var(--accent) 82%, transparent);
+    color: var(--accent-foreground);
+    border-color: var(--ring);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--control-glass-edge) 76%, transparent);
+    -webkit-backdrop-filter: blur(7px) saturate(1.3);
+    backdrop-filter: blur(7px) saturate(1.3);
+  }
+  .ag-button-danger {
+    background: var(--destructive-surface);
+    color: var(--destructive);
+  }
+  .ag-button-danger:hover:not(:disabled) {
+    border-color: var(--destructive);
+    background:
+      radial-gradient(
+        76% 155% at var(--control-light-x, 32%) -42%,
+        rgb(255 255 255 / 0.3),
+        transparent 64%
+      ),
+      color-mix(in srgb, var(--destructive-surface) 86%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--control-glass-edge) 74%, transparent),
+      0 3px 9px rgb(80 12 24 / 0.08);
+    -webkit-backdrop-filter: blur(7px) saturate(1.24);
+    backdrop-filter: blur(7px) saturate(1.24);
+  }
+  .ag-button[data-demo-state="hover"]:not(:disabled) {
+    transform: translateY(-1px);
+  }
+  .ag-button-link {
+    color: var(--accent-foreground);
+  }
+  .ag-button-link:hover {
+    text-decoration: underline;
+  }
+  .ag-input,
+  .ag-textarea,
+  .ag-select,
+  .ag-input-group {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--input);
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--foreground);
+    font-size: 14px;
+    line-height: 20px;
+    transition:
+      background var(--motion-control) var(--ease-out),
+      border-color var(--motion-control),
+      box-shadow var(--motion-control),
+      transform var(--motion-press) var(--ease-out);
+  }
+  .ag-input {
+    height: var(--control-size, var(--control-md));
+    padding: 0 12px;
+  }
+  .ag-input:disabled,
+  .ag-textarea:disabled,
+  .ag-select:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .ag-input::placeholder,
+  .ag-textarea::placeholder {
+    color: var(--muted-foreground);
+    opacity: 1;
+  }
+  .ag-input:hover:not(:disabled),
+  .ag-textarea:hover:not(:disabled),
+  .ag-select:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--input) 62%, var(--ring));
+  }
+  .ag-input[aria-invalid="true"],
+  .ag-textarea[aria-invalid="true"],
+  .ag-select[aria-invalid="true"] {
+    border-color: var(--destructive);
+  }
+  .ag-input:focus-visible,
+  .ag-textarea:focus-visible,
+  .ag-select:focus-visible {
+    outline: var(--focus-width) solid var(--ring);
+    outline-offset: var(--focus-offset);
+  }
+  .ag-input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 8px;
+  }
+  .ag-input-group:has(:focus-visible) {
+    outline: var(--focus-width) solid var(--ring);
+    outline-offset: var(--focus-offset);
+  }
+  .ag-input-group > .ag-composer-textarea {
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+    resize: none;
+    background: transparent;
+    min-height: var(--control-lg);
+    padding: 12px;
+    flex: 1;
+  }
+  .ag-glass .ag-tabs-list:not(.ag-tabs-line) {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--muted) 76%, transparent);
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-glass {
+    position: relative;
+    isolation: isolate;
+    border-radius: var(--radius-surface);
+    box-shadow: var(--glass-elevation);
+  }
+  .ag-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: var(--material-fill, var(--glass-fill));
+    -webkit-backdrop-filter: var(--material-filter, blur(7px) saturate(1.4));
+    backdrop-filter: var(
+      --material-filter,
+      var(--glass-filter, blur(7px) saturate(1.4))
+    );
+  }
+  .ag-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: var(
+      --material-rim-shadow,
+      inset 0 1px 1px var(--glass-highlight),
+      inset 0 0 10px 4px var(--glass-bloom)
+    );
+    background: var(
+      --material-rim-background,
+      radial-gradient(
+        ellipse at var(--light-x, 24%) var(--light-y, 0%),
+        var(--glass-light),
+        transparent 65%
+      ),
+      linear-gradient(
+        145deg,
+        var(--glass-highlight),
+        transparent 38%,
+        transparent 68%,
+        var(--glass-bloom)
+      )
+    );
+    mask: var(
+      --material-rim-mask,
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0)
+    );
+    mask-composite: exclude;
+    padding: var(--material-rim-padding, 1px);
+  }
+  [data-material] {
+    --material-filter: initial;
+    --material-fill: initial;
+    --material-rim-shadow: initial;
+    --material-rim-background: initial;
+    --material-rim-mask: initial;
+    --material-rim-padding: initial;
+  }
+  [data-material="frosted"] {
+    --material-filter: blur(7px) saturate(1.4);
+  }
+  [data-material="solid"] {
+    --material-filter: none;
+    --material-fill: var(--popover);
+    --material-rim-background: none;
+    --material-rim-shadow: none;
+    --material-rim-mask: none;
+    --material-rim-padding: 0px;
+    --control-glass-fill: var(--card);
+    --control-glass-fill-hover: var(--secondary);
+    --control-glass-sheen: transparent;
+    --control-primary-fill: var(--primary);
+    --control-primary-fill-hover: var(--primary-hover);
+    --control-primary-fill-pressed: var(--primary-pressed);
+  }
+  [data-material="solid"] :is(.ag-button-glass, .ag-tabs-list:not(.ag-tabs-line)) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-filter-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+  .ag-voice-dock .ag-button {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-voice-dock .ag-button-primary {
+    background: var(--control-primary-fill);
+  }
+  .ag-voice-dock .ag-button-primary:not(:disabled):is(
+      :hover,
+      [data-demo-state="hover"]
+    ) {
+    background:
+      radial-gradient(
+        76% 160% at var(--control-light-x, 30%) -46%,
+        rgb(255 255 255 / 0.38),
+        transparent 66%
+      ),
+      var(--control-primary-fill-hover);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-voice-dock .ag-button-primary:not(:disabled):is(
+      :active,
+      [data-demo-state="pressed"]
+    ) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-voice-dock .ag-button:is(.ag-button-ghost, .ag-button-outline):not(
+      :disabled
+    ):hover {
+    background:
+      radial-gradient(
+        78% 165% at var(--control-light-x, 30%) -48%,
+        var(--control-glass-sheen),
+        transparent 66%
+      ),
+      color-mix(in srgb, var(--accent) 42%, transparent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-voice-dock .ag-button[aria-pressed="true"] {
+    background:
+      radial-gradient(
+        78% 165% at var(--control-light-x, 28%) -48%,
+        color-mix(in srgb, var(--control-glass-sheen) 78%, transparent),
+        transparent 68%
+      ),
+      color-mix(in srgb, var(--accent) 68%, transparent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-composer .ag-input-group {
+    overflow: hidden;
+    transition:
+      background var(--motion-control) var(--ease-out),
+      border-color var(--motion-control) var(--ease-out),
+      box-shadow var(--motion-control) var(--ease-out);
+  }
+  .ag-composer .ag-input-group:has(.ag-composer-textarea:focus-visible) {
+    border-color: color-mix(in srgb, var(--ring) 62%, var(--control-glass-edge));
+    background:
+      radial-gradient(
+        70% 145% at 86% -38%,
+        rgb(255 255 255 / 0.26),
+        transparent 66%
+      ),
+      color-mix(in srgb, var(--control-glass-fill-hover) 86%, transparent);
+    box-shadow:
+      inset 0 1px 0 var(--control-glass-edge),
+      0 4px 12px rgb(17 40 55 / 0.08);
+    -webkit-backdrop-filter: blur(8px) saturate(1.32);
+    backdrop-filter: blur(8px) saturate(1.32);
+  }
+  .ag-composer .ag-input-group:has(.ag-composer-textarea:disabled) {
+    background: var(--muted);
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-composer .ag-input-group .ag-button {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-composer
+    .ag-input-group
+    .ag-button-primary:not(:disabled):is(
+      :hover,
+      :active,
+      [data-demo-state="hover"],
+      [data-demo-state="pressed"]
+    ) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-agent-run-header > .ag-button:not(.ag-agent-run-trigger) {
+    flex: none;
+  }
+  .ag-approval-actions .ag-button {
+    position: relative;
+    overflow: hidden;
+  }
+  .ag-approval-actions .ag-button:not(:disabled):active {
+    transform: translateY(1px) scale(0.975);
+  }
+  .ag-artifact-footer > :first-child:not(.ag-button) {
+    min-width: 0;
+    margin-right: auto;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .ag-button:not(:disabled, .ag-button-link, :active, [data-demo-state="pressed"]):hover {
+    transform: translateY(-1px);
+  }
+  .ag-button:not(:disabled):hover .lucide-arrow-right {
+    transform: translateX(2px);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :is(
+    .ag-button-glass,
+    .ag-tabs-list:not(.ag-tabs-line),
+    .ag-select,
+    .ag-select-content,
+    .ag-switch-thumb
+  ) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-button:is(.ag-button-outline, .ag-button-secondary, .ag-button-ghost):not(
+      :disabled
+    ):hover,
+  .ag-toggle:hover,
+  .ag-select:hover:not(:disabled),
+  .ag-select[data-state="open"] {
+    background: var(--secondary);
+  }
+  .ag-button-danger:hover:not(:disabled) {
+    background: var(--destructive-surface);
+  }
+  .ag-button-primary:not(:disabled):is(:hover, [data-demo-state="hover"]) {
+    background: var(--primary-hover);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-button-primary:not(:disabled):is(:active, [data-demo-state="pressed"]) {
+    background: var(--primary-pressed);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-button[aria-pressed="true"],
+  .ag-toggle[data-state="on"] {
+    background: var(--accent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-composer .ag-input-group:has(.ag-composer-textarea:focus-visible) {
+    background: var(--card);
+    box-shadow: 0 0 0 1px var(--ring);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-glass::before {
+    background: var(--popover);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .ag-glass::after {
+    background: none;
+    box-shadow: none;
+  }
+}
+@media (forced-colors: active) {
+  :is(
+    .ag-button:not(.ag-button-link),
+    .ag-toggle,
+    .ag-tab,
+    .ag-tabs-list:not(.ag-tabs-line),
+    .ag-select,
+    .ag-select-content,
+    .ag-select-item,
+    .ag-switch,
+    .ag-switch-thumb,
+    .ag-artifact-item
+  ) {
+    background: ButtonFace;
+    color: ButtonText;
+    border: 1px solid ButtonText;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ag-button-glass::before {
+    display: none;
+  }
+  .ag-glass::before {
+    background: Canvas;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .ag-glass::after {
+    background: none;
+    box-shadow: none;
+    mask: none;
+    padding: 0;
+    border: 1px solid CanvasText;
+  }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .ag-glass::before {
+    background: var(--popover);
+  }
+  :is(
+    .ag-button,
+    .ag-toggle,
+    .ag-select,
+    .ag-select-content,
+    .ag-tab,
+    .ag-switch-thumb,
+    .ag-agent-run-trigger,
+    .ag-tool-disclosure > button,
+    .ag-artifact-item
+  ) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Default Crystal glass / Obsidian actions. Import through styles.css. */
+html:not(.dark) .agent-ui {
+  --background: oklch(97.558% 0.00264 106.45);
+  --foreground: oklch(26.820% 0.00797 264.43);
+  --card: oklch(96.8% .006 175 / .97);
+  --popover: oklch(97% .006 175 / .96);
+  --primary: oklch(35.145% 0.02744 240.34);
+  --primary-foreground: oklch(100.000% 0.00000 89.88);
+  --primary-hover: oklch(39.410% 0.02834 232.73);
+  --primary-pressed: oklch(30.499% 0.02609 239.78);
+  --secondary: oklch(93.8% .009 175 / .72);
+  --secondary-foreground: oklch(33.637% 0.00752 264.47);
+  --muted: oklch(94% .007 175 / .75);
+  --muted-foreground: oklch(50.616% 0.01018 264.48);
+  --accent: oklch(92.672% 0.00255 228.79);
+  --accent-foreground: oklch(34.558% 0.02028 239.76);
+  --border: oklch(45% .018 180 / .16);
+  --input: oklch(45% .018 180 / .32);
+  --ring: oklch(51.842% 0.04414 241.76);
+  --scene-ground: oklch(92.685% 0.00535 106.50);
+  --scene-blue: oklch(83.132% 0.00534 247.89);
+  --scene-blue-foreground: oklch(33.787% 0.01114 248.16);
+}
+
+.dark .agent-ui {
+  --background: oklch(20.835% 0.00252 247.95);
+  --foreground: oklch(94.253% 0.00267 106.45);
+  --card: oklch(25.027% 0.00352 228.94);
+  --popover: oklch(28.784% 0.00464 247.99);
+  --primary: oklch(89.811% 0.01446 238.03);
+  --primary-foreground: oklch(28.607% 0.02335 241.02);
+  --primary-hover: oklch(93.894% 0.00926 232.37);
+  --primary-pressed: oklch(84.067% 0.02072 238.72);
+  --secondary: oklch(29.189% 0.00462 247.99);
+  --secondary-foreground: oklch(91.173% 0.00172 145.56);
+  --muted: oklch(25.906% 0.00476 248.01);
+  --muted-foreground: oklch(73.681% 0.00668 255.49);
+  --accent: oklch(34.473% 0.01196 243.17);
+  --accent-foreground: oklch(92.410% 0.01015 238.52);
+  --border: oklch(35.056% 0.00663 248.02);
+  --input: oklch(57.969% 0.01487 251.65);
+  --ring: oklch(74.140% 0.02854 241.30);
+  --scene-ground: oklch(25.069% 0.00480 248.02);
+  --scene-blue: oklch(37.250% 0.01087 248.12);
+  --scene-blue-foreground: oklch(91.211% 0.00461 258.33);
+}
+
+.agent-ui {
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+  --control-primary-fill: color-mix(in oklch, var(--primary) 94%, transparent);
+  --control-primary-fill-hover: color-mix(in oklch, var(--primary-hover) 96%, transparent);
+  --control-primary-fill-pressed: var(--primary-pressed);
+  --control-glass-fill: color-mix(in oklch, var(--card) 48%, transparent);
+  --control-glass-fill-hover: color-mix(in oklch, var(--card) 64%, transparent);
+  --control-glass-edge: color-mix(in oklch, var(--card) 82%, transparent);
+  --control-glass-low-edge: color-mix(in oklch, var(--foreground) 20%, transparent);
+  --control-glass-sheen: color-mix(in oklch, var(--card) 68%, transparent);
+  --glass-fill: color-mix(in oklch, var(--card) 42%, transparent);
+  --glass-highlight: color-mix(in oklch, var(--card) 75%, transparent);
+  --glass-bloom: color-mix(in oklch, var(--card) 18%, transparent);
+  --glass-light: color-mix(in oklch, var(--card) 45%, transparent);
+  --glass-tint: color-mix(in oklch, var(--card) 72%, transparent);
+  --glass-edge: color-mix(in oklch, var(--card) 90%, transparent);
+  --glass-elevation: 0 6px 24px color-mix(in oklch, var(--foreground) 10%, transparent), 0 12px 40px color-mix(in oklch, var(--foreground) 7%, transparent);
+}
+
+.dark .agent-ui {
+  --glass-fill: color-mix(in oklch, var(--card) 48%, transparent);
+  --glass-highlight: color-mix(in oklch, var(--foreground) 24%, transparent);
+  --glass-bloom: color-mix(in oklch, var(--foreground) 5%, transparent);
+  --glass-light: color-mix(in oklch, var(--foreground) 15%, transparent);
+  --control-glass-edge: color-mix(in oklch, var(--foreground) 22%, transparent);
+  --control-glass-sheen: color-mix(in oklch, var(--foreground) 12%, transparent);
+  --glass-elevation: 0 6px 24px rgb(0 0 0 / .22), 0 12px 40px rgb(0 0 0 / .15);
+}
+
+.agent-ui { --overlay: color-mix(in oklch, var(--foreground) 35%, transparent); }
+
+.dark .agent-ui { --overlay: rgb(0 0 0 / .6); }
+
+.agent-ui {
+  --showcase-shadow: 0 18px 44px rgb(24 26 29 / .07), 0 2px 6px rgb(24 26 29 / .035);
+  --glass-elevation: 0 6px 20px rgb(24 26 29 / .065), 0 14px 36px rgb(24 26 29 / .04);
+  --control-glass-low-edge: rgb(32 34 38 / .18);
+}
+
+.dark .agent-ui {
+  --showcase-shadow: 0 18px 44px rgb(0 0 0 / .25), 0 2px 6px rgb(0 0 0 / .15);
+  --glass-elevation: 0 6px 20px rgb(0 0 0 / .24), 0 14px 36px rgb(0 0 0 / .12);
+  --control-glass-low-edge: rgb(255 255 255 / .14);
+}
+
+.agent-ui .ag-button-primary:not(:disabled):is(:hover,[data-demo-state="hover"]) {
+  background:
+    radial-gradient(72% 150% at var(--control-light-x,28%) -40%,rgb(255 255 255 / .16),transparent 66%),
+    var(--control-primary-fill-hover);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .22),0 3px 9px rgb(24 26 29 / .1);
+}
+
+html:not(.dark) .agent-ui {
+  --background: oklch(93% .003 170);
+  --foreground: oklch(25% .013 210);
+  --primary: oklch(45% .048 205);
+  --primary-hover: oklch(49% .048 205);
+  --primary-pressed: oklch(39% .043 205);
+  --accent: oklch(91% .02 190);
+  --accent-foreground: oklch(31% .035 205);
+  --ring: oklch(48% .054 205);
+  --scene-ground: oklch(88.5% .012 165);
+  --scene-blue: oklch(76% .038 190);
+  --scene-blue-foreground: oklch(28% .025 210);
+  --glass-fill: rgb(237 252 249 / .27);
+  --glass-highlight: rgb(255 255 255 / .94);
+  --glass-light: rgb(255 255 255 / .34);
+  --glass-bloom: rgb(192 236 231 / .045);
+  --control-glass-fill: rgb(243 255 252 / .29);
+  --control-glass-fill-hover: rgb(246 255 253 / .48);
+  --control-glass-edge: rgb(255 255 255 / .9);
+  --control-glass-low-edge: rgb(65 118 116 / .27);
+  --control-primary-fill: color-mix(in oklch,var(--primary) 88%,transparent);
+  --control-primary-fill-hover: color-mix(in oklch,var(--primary-hover) 94%,transparent);
+  --glass-elevation: 0 10px 24px rgb(31 66 63 / .09),0 24px 48px rgb(31 66 63 / .055);
+}
+
+.dark .agent-ui {
+  --background: oklch(19% .012 205);
+  --foreground: oklch(94% .008 180);
+  --primary: oklch(82% .045 185);
+  --primary-hover: oklch(88% .035 185);
+  --primary-pressed: oklch(74% .047 185);
+  --primary-foreground: oklch(24% .024 205);
+  --accent: oklch(31% .024 200);
+  --accent-foreground: oklch(91% .025 185);
+  --ring: oklch(76% .05 185);
+  --scene-ground: oklch(28% .02 200);
+  --scene-blue: oklch(49% .055 190);
+  --scene-blue-foreground: oklch(95% .018 180);
+  --glass-fill: rgb(23 46 47 / .3);
+  --glass-highlight: rgb(225 255 248 / .48);
+  --glass-light: rgb(209 255 246 / .12);
+  --glass-bloom: rgb(126 204 188 / .04);
+  --control-glass-fill: rgb(111 156 150 / .13);
+  --control-glass-fill-hover: rgb(149 197 187 / .2);
+  --control-glass-edge: rgb(222 255 246 / .4);
+  --control-glass-low-edge: rgb(0 0 0 / .4);
+}
+
+.agent-ui .ag-glass:not([data-material="solid"])::after {
+  box-shadow: var(--material-rim-shadow, inset 0 1px 0 var(--glass-highlight),
+    inset 1px 0 0 rgb(255 255 255 / .32),
+    inset 0 -1px 0 var(--control-glass-low-edge));
+}
+
+.agent-ui .ag-button-glass,
+.agent-ui .ag-toggle[aria-pressed="true"] {
+  box-shadow:inset 0 1px 0 var(--control-glass-edge),inset 0 -1px 0 var(--control-glass-low-edge),0 3px 8px rgb(29 62 59 / .07);
+}
+
+.agent-ui {
+  --action-fill: oklch(25% .009 255 / .98);
+  --action-hover: oklch(30% .011 255 / .98);
+  --action-pressed: oklch(21% .008 255);
+  --action-ink: oklch(97% .003 255);
+  --action-edge: oklch(18% .008 255 / .5);
+  --action-ring: oklch(51% .018 255);
+  --action-sheen: oklch(100% 0 0 / .12);
+}
+
+.dark .agent-ui {
+  --action-fill: oklch(27% .009 255 / .98);
+  --action-hover: oklch(32% .011 255 / .98);
+  --action-pressed: oklch(23% .008 255);
+  --action-edge: oklch(72% .012 255 / .35);
+  --action-ring: oklch(76% .015 255);
+  --action-sheen: oklch(100% 0 0 / .16);
+}
+
+.agent-ui :is(.ag-button-primary,.ag-button-glass-primary) {
+  --primary-foreground:var(--action-ink);
+  --ring:var(--action-ring);
+  color:var(--action-ink);
+  background:linear-gradient(180deg,oklch(100% 0 0 / .018),transparent 55%),var(--action-fill);
+  border-color:var(--action-edge);
+  box-shadow:inset 0 1px 0 var(--action-sheen),0 2px 4px oklch(15% .01 270 / .12);
+  -webkit-backdrop-filter:blur(12px) saturate(1.25);
+  backdrop-filter:blur(12px) saturate(1.25);
+}
+
+.agent-ui :is(.ag-button-primary,.ag-button-glass-primary):not(:disabled):is(:hover,[data-demo-state="hover"]) {
+  background:radial-gradient(100% 180% at var(--control-light-x,28%) -65%,var(--action-sheen),transparent 75%),var(--action-hover);
+  box-shadow:inset 0 1px 0 var(--action-sheen),0 3px 6px oklch(15% .01 270 / .14);
+}
+
+.agent-ui :is(.ag-button-primary,.ag-button-glass-primary):not(:disabled):is(:active,[data-demo-state="pressed"]) {
+  background:var(--action-pressed);
+  box-shadow:inset 0 1px 2px oklch(15% .01 270 / .14);
+}
+
+html:not(.dark) .agent-ui :is(.ag-button-outline,.ag-button-secondary,.ag-input,.ag-textarea,.ag-select,.ag-input-group) {
+  background-color: oklch(96% .008 175 / .62);
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / .48);
+}
+
+/* Composite controls already share a single filtered parent plane. */
+.agent-ui :is(.ag-voice-dock, .ag-composer) .ag-button {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+  .agent-ui .ag-button, .agent-ui .ag-button:hover {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

@@ -1,15 +1,6 @@
-import { Hero } from "@/components/hero"
 import { RecipeExplorer } from "@/components/recipe-explorer"
-import { getAllRecipes, getFilterOptionsByTag } from "@/lib/recipes"
+import { getRecipeSummaries } from "@/lib/showcase"
 
 export default function HomePage() {
-  const recipes = getAllRecipes()
-  const filterOptionsByTag = getFilterOptionsByTag()
-
-  return (
-    <>
-      <Hero />
-      <RecipeExplorer recipes={recipes} filterOptionsByTag={filterOptionsByTag} />
-    </>
-  )
+  return <RecipeExplorer recipes={getRecipeSummaries()} />
 }
