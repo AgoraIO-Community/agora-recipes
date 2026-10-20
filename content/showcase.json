@@ -1,27 +1,28 @@
 [
   {
-    "slug": "agora-rotary-dial-phone",
-    "title": "Agora Rotary Dial Phone",
-    "summary": "Dial into a 3D escape room and talk to an AI character. See how voice can become part of the experience.",
-    "thumbnail": "/recipes/agora-rotary-dial-phone.webp",
-    "thumbnailAlt": "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe",
-    "thumbnailSource": "https://rotary-dial-phone.vercel.app/",
-    "demoUrl": "https://rotary-dial-phone.vercel.app/",
-    "demoNote": "Chinese experience · Microphone needed",
+    "slug": "aria-voice-sales-agent",
+    "title": "Aria Sales Agent",
+    "summary": "A voice sales agent that answers questions and updates your CRM during the call.",
+    "thumbnail": "/recipes/aria-voice-sales-agent.webp",
+    "thumbnailAlt": "Aria live call interface with conversation transcript and call controls",
+    "thumbnailSource": "https://raw.githubusercontent.com/Aryan-Techie/aria/main/assets/screenshot-live-call.png",
+    "demoUrl": "https://aria.aroice.in/",
+    "demoNote": "Microphone needed",
     "labels": [
-      "3D",
-      "Voice AI"
+      "Tool calling",
+      "Python"
     ],
     "searchTerms": [
-      "财富热线",
-      "密室",
-      "电话",
-      "游戏",
-      "games",
-      "Three.js"
+      "销售",
+      "客服",
+      "CRM",
+      "sales",
+      "tool calling"
     ],
-    "compactTitle": "Rotary Dial Phone",
-    "compactSummary": "A 3D voice escape room."
+    "compactTitle": "Aria Sales Agent",
+    "compactSummary": "Calls that update your CRM.",
+    "thumbnailScale": 1.173,
+    "thumbnailOrigin": "50% 85%"
   },
   {
     "slug": "agora-podcasts",
@@ -48,29 +49,28 @@
     "compactSummary": "A podcast you can talk to."
   },
   {
-    "slug": "aria-voice-sales-agent",
-    "title": "Aria Sales Agent",
-    "summary": "A voice sales agent that answers questions and updates your CRM during the call.",
-    "thumbnail": "/recipes/aria-voice-sales-agent.webp",
-    "thumbnailAlt": "Aria live call interface with conversation transcript and call controls",
-    "thumbnailSource": "https://raw.githubusercontent.com/Aryan-Techie/aria/main/assets/screenshot-live-call.png",
-    "demoUrl": "https://aria.aroice.in/",
-    "demoNote": "Microphone needed",
+    "slug": "agora-rotary-dial-phone",
+    "title": "Agora Rotary Dial Phone",
+    "summary": "Dial into a 3D escape room and talk to an AI character. See how voice can become part of the experience.",
+    "thumbnail": "/recipes/agora-rotary-dial-phone.webp",
+    "thumbnailAlt": "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe",
+    "thumbnailSource": "https://rotary-dial-phone.vercel.app/",
+    "demoUrl": "https://rotary-dial-phone.vercel.app/",
+    "demoNote": "Chinese experience · Microphone needed",
     "labels": [
-      "Tool calling",
-      "Python"
+      "3D",
+      "Voice AI"
     ],
     "searchTerms": [
-      "销售",
-      "客服",
-      "CRM",
-      "sales",
-      "tool calling"
+      "财富热线",
+      "密室",
+      "电话",
+      "游戏",
+      "games",
+      "Three.js"
     ],
-    "compactTitle": "Aria Sales Agent",
-    "compactSummary": "Calls that update your CRM.",
-    "thumbnailScale": 1.173,
-    "thumbnailOrigin": "50% 85%"
+    "compactTitle": "Rotary Dial Phone",
+    "compactSummary": "A 3D voice escape room."
   },
   {
     "slug": "agora-meeting-copilot",
