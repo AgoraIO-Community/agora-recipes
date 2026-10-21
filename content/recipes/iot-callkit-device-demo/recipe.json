@@ -1,12 +1,13 @@
 {
   "title": "IoT CallKit Device Demo",
   "tagline": "Connect an IoT device to an Agora CallKit calling flow.",
-  "description": "A device-side IoT CallKit sample for testing hardware calling workflows backed by Agora realtime communication.",
+  "description": "A Linux device-side Agora Link reference for calling, answering and hanging up with provisioned mobile peers. Requires device activation credentials and the matching IoT SDK.",
   "tags": [
     "rtc"
   ],
   "platforms": [
-    "C++"
+    "C",
+    "Linux"
   ],
   "useCases": [
     "IoT",
@@ -18,8 +19,8 @@
     "Device Calling"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-device-demo",
-  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-device-demo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-device-demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Advanced"
 }

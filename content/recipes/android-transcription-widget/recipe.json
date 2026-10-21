@@ -18,8 +18,8 @@
     "Speech-to-Text UI"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android",
-  "recipeUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }

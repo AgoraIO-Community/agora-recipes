@@ -1,7 +1,7 @@
 {
   "title": "iOS Live Shopping Reference App",
   "tagline": "Build an iOS live shopping experience with Agora RTC.",
-  "description": "An iOS reference app for live shopping that uses Agora RTC for realtime video, audience engagement, and host interaction.",
+  "description": "An iOS reference combining live merchant video, product selection and customer shopping flows. Requires configuration of Agora and the external commerce, authentication and media services used by the app.",
   "tags": [
     "rtc"
   ],
@@ -19,8 +19,8 @@
     "Reference App"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/referenceapp-liveshopping-ios",
-  "recipeUrl": "https://github.com/AgoraIO-Community/referenceapp-liveshopping-ios/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/referenceapp-liveshopping-ios/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }

@@ -6,7 +6,7 @@
     "rtc"
   ],
   "platforms": [
-    "C++"
+    "C"
   ],
   "useCases": [
     "IoT",
@@ -18,8 +18,8 @@
     "Agora RTC"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo",
-  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Advanced"
 }

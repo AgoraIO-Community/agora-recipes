@@ -1,13 +1,13 @@
 {
   "title": "Humming Service Example",
-  "tagline": "Explore an Agora service integration sample for RTC workflows.",
-  "description": "A service example that demonstrates how to connect an Agora-powered application flow with a supporting backend service.",
+  "tagline": "Explore the Humming service with native mobile samples.",
+  "description": "Android and iOS references for Humming service audio workflows. Requires the compatible service SDK and project configuration.",
   "tags": [
     "rtc"
   ],
   "platforms": [
-    "JavaScript",
-    "Web"
+    "Android",
+    "iOS"
   ],
   "useCases": [
     "Service Integration",
@@ -15,12 +15,12 @@
   ],
   "capabilities": [
     "Agora RTC",
-    "Backend Service",
-    "Sample App"
+    "Humming Service",
+    "Audio Processing"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example",
-  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }

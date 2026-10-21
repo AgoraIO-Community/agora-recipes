@@ -19,8 +19,8 @@
     "Web SDK"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-RTT-Demo",
-  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-RTT-Demo/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-RTT-Demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }

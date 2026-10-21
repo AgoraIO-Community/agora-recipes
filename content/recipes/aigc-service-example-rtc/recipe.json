@@ -1,13 +1,13 @@
 {
   "title": "AIGC Service Example with RTC",
   "tagline": "Connect an AIGC service flow with Agora realtime media.",
-  "description": "An AIGC service sample showing how supporting services can interact with Agora RTC audio and video workflows.",
+  "description": "Native Android and iOS references for integrating AIGC service interactions with RTC media. Requires access to the compatible historical service SDK.",
   "tags": [
     "rtc"
   ],
   "platforms": [
-    "JavaScript",
-    "Web"
+    "Android",
+    "iOS"
   ],
   "useCases": [
     "AIGC",
@@ -19,8 +19,8 @@
     "Realtime Media"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-AIGCService-Example",
-  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-AIGCService-Example/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-AIGCService-Example/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }

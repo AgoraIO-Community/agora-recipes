@@ -19,8 +19,8 @@
     "Spatial Audio"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity",
-  "recipeUrl": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }

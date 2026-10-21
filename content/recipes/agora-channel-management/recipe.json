@@ -1,7 +1,7 @@
 {
   "title": "Channel Management Sample",
-  "tagline": "Manage Agora RTC channel workflows from an app sample.",
-  "description": "A channel management sample that demonstrates coordinating Agora RTC rooms, channel state, and participant workflows.",
+  "tagline": "Inspect channel users and manage RTC user privileges.",
+  "description": "A browser REST API tester for querying channel users and creating, updating or deleting user-privilege rules in a test project.",
   "tags": [
     "rtc"
   ],
@@ -11,16 +11,16 @@
   ],
   "useCases": [
     "Channel Management",
-    "RTC Workflow"
+    "Moderation"
   ],
   "capabilities": [
     "Agora RTC",
-    "Channel Control",
-    "Sample App"
+    "REST API",
+    "Channel Control"
   ],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-channel-management",
-  "recipeUrl": "https://github.com/AgoraIO-Community/agora-channel-management/blob/codex/add-recipe-md/docs/ai/RECIPE.md",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-channel-management/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-09-14",
+  "updated": "2026-10-21",
   "difficulty": "Intermediate"
 }
