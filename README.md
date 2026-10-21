@@ -97,10 +97,10 @@ Search covers titles, descriptions, card summaries, authors, and recipe metadata
 It tolerates small spelling mistakes and recognizes common English/Chinese domain
 terms, such as `speech to text` / `语音转文字`. The default sort ranks exact matches
 ahead of approximate ones. Matching runs locally without a search service.
-The site opens in dark mode; the header theme switch saves each visitor's choice.
+Appearance follows the system setting automatically, including changes while the page is open. There is no theme selector or saved-choice override. Platform choices are visible and multi-select (OR); use cases also use OR, while selected capabilities must all match.
 
 Each recommendation can provide a local `thumbnail`, its `thumbnailSource` and
-`thumbnailAlt`, an existing `videoUrl`, and/or an external `demoUrl`. Use
+`thumbnailAlt`, and an existing `videoUrl`. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
 `compactTitle` and `compactSummary` for a short title and one concise outcome.
 Media cards show the preview, title, summary, author avatar, and up to two selected
 `labels` (one on phones). Guide cards reuse the tagline and platform labels.
@@ -110,7 +110,7 @@ Keep `demoNote` truthful about language, microphones, cameras, and API-key
 requirements; it remains visible in recipe details and video players. Video
 cards open the on-site player, which also offers the existing external live demo;
 image cards open their live demo directly. Recipe links always lead to the guide.
-Curated recipe detail pages retain their preview actions.
+Recipe detail pages show the optional Demo action whether or not they are recommended.
 
 Verified author profiles and local avatar sources are maintained in
 [`content/authors.json`](content/authors.json). Unknown or failed avatars display
@@ -120,14 +120,10 @@ public entry screen because its original recording mostly contains empty tiles.
 
 Posters stay below 150 KB each; videos remain externally hosted with canonical
 URLs rather than expiring signed redirects. Removing a recommendation leaves the
-recipe in the catalog. The recipe metadata contract and public API are unchanged.
+recipe in the catalog. The required recipe metadata and public API are unchanged; `demoUrl` is optional.
 
-The appearance follows Agora Website 2026 foundations with selected original
-agent-ui Glass components. See [`components/agent-ui/README.md`](components/agent-ui/README.md)
-for source commits, host adaptations, official MiSans font slices, and attribution.
-The glass filter affects the backdrop, while text and media remain clear. Normal
-recipe links do not prefetch large implementation documents on initial browsing.
+The visual shell, official fonts, particle formations, and reading page follow Omja's [design refresh (#68)](https://github.com/AgoraIO-Community/agora-recipes/pull/68), with our compact media catalog and local discovery from [#70](https://github.com/AgoraIO-Community/agora-recipes/pull/70). The intro is content-sized so QR visitors reach the demos quickly. Normal recipe links do not prefetch large implementation documents on initial browsing. Renderer provenance is in [`lib/website-hero/README.md`](lib/website-hero/README.md).
 
-Verification: `node --test scripts/recipe-discovery.test.mjs` (Node 22.18+ or Node 24+),
+Verification: `node --test scripts/markdown.test.mjs scripts/recipe-discovery.test.mjs scripts/recipes-meta.test.mjs` (Node 22.18+ or Node 24+),
 `npm run lint`, `pnpm exec tsc --noEmit --incremental false`, and `npm run build`.
 The ESLint config retains narrowly scoped exceptions for existing shadcn templates.

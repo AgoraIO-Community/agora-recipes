@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/agent-ui/button"
+import { Button } from "@/components/ui/button"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 
 export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary; children: ReactNode }) {
@@ -15,7 +15,7 @@ export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary;
   return (
     <Dialog open={open} onOpenChange={(next) => { setOpen(next); setFailed(false) }}>
       {children}
-      <DialogContent className="agent-ui video-preview max-h-[90dvh] overflow-y-auto sm:max-w-5xl">
+      <DialogContent className="video-preview max-h-[90dvh] overflow-y-auto sm:max-w-5xl">
         <DialogHeader className="pr-8 text-left">
           <DialogTitle className="font-brand text-xl leading-tight">{media.compactTitle ?? media.title}</DialogTitle>
           <DialogDescription>{media.demoNote}</DialogDescription>
@@ -31,7 +31,7 @@ export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary;
           <a href={media.videoUrl} target="_blank" rel="noreferrer" className="video-source-link">Original video <ArrowUpRight aria-hidden="true" /></a>
           <div className="video-preview__actions">
             <a href={`/recipes/${recipe.slug}`} className="video-recipe-link">Read recipe</a>
-            {media.demoUrl && <Button asChild><a href={media.demoUrl} target="_blank" rel="noreferrer">Try live demo <ArrowUpRight aria-hidden="true" /></a></Button>}
+            {recipe.demoUrl && <Button asChild><a href={recipe.demoUrl} target="_blank" rel="noreferrer">Try live demo <ArrowUpRight aria-hidden="true" /></a></Button>}
           </div>
         </div>
       </DialogContent>

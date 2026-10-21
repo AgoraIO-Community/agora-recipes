@@ -6,7 +6,6 @@
     "thumbnail": "/recipes/aria-voice-sales-agent.webp",
     "thumbnailAlt": "Aria live call interface with conversation transcript and call controls",
     "thumbnailSource": "https://raw.githubusercontent.com/Aryan-Techie/aria/main/assets/screenshot-live-call.png",
-    "demoUrl": "https://aria.aroice.in/",
     "demoNote": "Microphone needed",
     "labels": [
       "Tool calling",
@@ -33,7 +32,6 @@
     "thumbnailSource": "https://agora-podcasts.vercel.app/",
     "videoUrl": "https://github.com/user-attachments/assets/b624ff06-62d6-41d7-a74e-24cfc73d7ce8",
     "videoDuration": "2:27",
-    "demoUrl": "https://agora-podcasts.vercel.app/",
     "demoNote": "Chinese experience",
     "labels": [
       "Voice AI",
@@ -55,7 +53,6 @@
     "thumbnail": "/recipes/agora-rotary-dial-phone.webp",
     "thumbnailAlt": "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe",
     "thumbnailSource": "https://rotary-dial-phone.vercel.app/",
-    "demoUrl": "https://rotary-dial-phone.vercel.app/",
     "demoNote": "Chinese experience · Microphone needed",
     "labels": [
       "3D",
@@ -81,7 +78,6 @@
     "thumbnailSource": "https://github.com/user-attachments/assets/0376ad2c-0a1f-4d9b-b9fa-b452b982e4e2",
     "videoUrl": "https://github.com/user-attachments/assets/0376ad2c-0a1f-4d9b-b9fa-b452b982e4e2",
     "videoDuration": "1:10",
-    "demoUrl": "https://agora-meeting-copilot.vercel.app/",
     "demoNote": "AI demo requires your OpenAI API key",
     "labels": [
       "Tool calling",
@@ -131,7 +127,6 @@
     "thumbnail": "/recipes/live-video-react-app.webp",
     "thumbnailAlt": "The existing React Live Video demo entry screen with an Agora logo, channel field, and Connect button",
     "thumbnailSource": "https://main--scintillating-druid-f6d860.netlify.app/",
-    "demoUrl": "https://main--scintillating-druid-f6d860.netlify.app/",
     "demoNote": "Camera and microphone needed",
     "labels": [
       "React",

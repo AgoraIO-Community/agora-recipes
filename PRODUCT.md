@@ -18,11 +18,11 @@ A searchable catalog of Agora voice AI and real-time communication recipes. Reci
 
 The local catalog includes every recipe. Six existing demo recipes are recommended first, with compact thumbnails and actions. More entries peek through a natural inline expansion; search and filters always cover every recipe. Video plays on-site and live demos open externally. There is no event-specific collection or View all destination. No new demo services or deployment are in scope. Catalog and curation remain in the repository; database, upload infrastructure, and expanded contribution flows are deferred.
 
-Dark mode is the first-visit default with a persistent theme switch. Local search includes descriptions and card summaries, tolerates small typos, and recognizes common English/Chinese domain terms. It does not require a hosted search service.
+Appearance follows the system color preference, including live changes; legacy stored choices are ignored. Visible platform filters support multiple selections. Any recipe can provide an optional HTTPS Demo link, independently of homepage curation. Local search includes descriptions and card summaries, tolerates small typos, and recognizes common English/Chinese domain terms. It does not require a hosted search service.
 
 ## Brand Commitments
 
-Use the current Agora Website 2026 visual family and selected original agent-ui Glass components supplied by the user. Keep real product media, clear outcomes, compact mobile browsing, and simple interactions. Existing catalog copy is English.
+Use the current Agora Website 2026 visual family from Omja’s design refresh: official wordmark, MiSans Latin, warm light and black dark surfaces, rectilinear controls, and underlined filters. Keep the website particle formations inside a compact, content-sized introduction. Keep real product media, clear outcomes, compact mobile browsing, and simple interactions. Existing catalog copy is English.
 
 ## Evidence on Hand
 

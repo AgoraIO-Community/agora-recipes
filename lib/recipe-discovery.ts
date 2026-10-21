@@ -13,7 +13,6 @@ export type Showcase = {
   thumbnailOrigin?: string
   videoUrl?: string
   videoDuration?: string
-  demoUrl?: string
   demoNote: string
   labels: string[]
   searchTerms: string[]
@@ -38,16 +37,16 @@ export type DiscoveryFilters = {
   query: string
   topic: string
   category: string
-  platform: string
-  useCase: string
-  capability: string
+  platforms: string[]
+  useCases: string[]
+  capabilities: string[]
   previewOnly: boolean
   sort: "recommended" | "updated" | "title"
 }
 
 export const defaultFilters: DiscoveryFilters = {
   query: "", topic: "all", category: "all",
-  platform: "all", useCase: "all", capability: "all", previewOnly: false, sort: "recommended",
+  platforms: [], useCases: [], capabilities: [], previewOnly: false, sort: "recommended",
 }
 
 function normalize(value: string) {
@@ -142,10 +141,10 @@ export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilt
       const topics = normalize([...recipe.useCases, ...recipe.capabilities, ...(recipe.showcase?.searchTerms ?? [])].join(" "))
       return score > 0 &&
         (filters.category === "all" || recipe.tags.includes(filters.category as "voice-ai" | "rtc")) &&
-        (filters.platform === "all" || recipe.platforms.includes(filters.platform)) &&
-        (filters.useCase === "all" || recipe.useCases.includes(filters.useCase)) &&
-        (filters.capability === "all" || recipe.capabilities.includes(filters.capability)) &&
-        (!filters.previewOnly || Boolean(recipe.showcase?.videoUrl || recipe.showcase?.demoUrl)) &&
+        (!filters.platforms.length || filters.platforms.some((platform) => recipe.platforms.includes(platform))) &&
+        (!filters.useCases.length || filters.useCases.some((useCase) => recipe.useCases.includes(useCase))) &&
+        (!filters.capabilities.length || filters.capabilities.every((capability) => recipe.capabilities.includes(capability))) &&
+        (!filters.previewOnly || Boolean(recipe.showcase?.videoUrl || recipe.demoUrl)) &&
         (!topic?.terms.length || topic.terms.some((term) => topics.includes(normalize(term))))
     })
     .sort((a, b) => {

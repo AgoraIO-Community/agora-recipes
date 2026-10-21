@@ -8,6 +8,7 @@
   "capabilities": ["Agora RTC", "Live Video", "React", "Host Audience"],
   "mainRepoUrl": "https://github.com/AgoraIO-Community/live-video-react-app-dev",
   "recipeUrl": "https://github.com/AgoraIO-Community/live-video-react-app-dev/blob/main/docs/ai/RECIPE.md",
+  "demoUrl": "https://main--scintillating-druid-f6d860.netlify.app/",
   "author": "Agora",
   "updated": "2026-09-01",
   "difficulty": "Beginner"

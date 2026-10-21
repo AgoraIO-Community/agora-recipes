@@ -27,7 +27,7 @@ test('search spans fields, supports multiple words, and includes Chinese aliases
   assert.ok(search('webhooks').some(recipe => recipe.slug === 'webhooks' && recipe.recommendedOrder === undefined))
 })
 test('topic, category, platform, and preview filters combine without hiding valid matches', () => {
-  const results = search('', { topic: 'tools', platform: 'Python', category: 'rtc', previewOnly: true })
+  const results = search('', { topic: 'tools', platforms: ['Python'], category: 'rtc', previewOnly: true })
   assert.deepEqual(results.map(recipe => recipe.slug), ['aria-voice-sales-agent'])
   assert.equal(search('not-a-real-recipe-zzzz').length, 0)
 })
@@ -71,4 +71,21 @@ test('all curated assets refer to known unique recipes, local posters, and canon
     }
   }
   assert.equal(curated.find(entry => entry.slug === 'worldcupvoice').demoUrl, undefined)
+})
+
+test('platform choices use OR and combine with search and capability requirements', () => {
+  const results = search('', { platforms: ['Python', 'iOS'] })
+  assert.ok(results.some(recipe => recipe.platforms.includes('Python')))
+  assert.ok(results.some(recipe => recipe.platforms.includes('iOS')))
+  assert.ok(results.every(recipe => recipe.platforms.includes('Python') || recipe.platforms.includes('iOS')))
+  assert.ok(search('CRM', { platforms: ['iOS', 'Python'] }).some(recipe => recipe.slug === 'aria-voice-sales-agent'))
+  const fixture = { ...recipes[0], platforms: ['Web'], useCases: ['Meeting'], capabilities: ['Transcription'], demoUrl: undefined, showcase: undefined }
+  assert.equal(discoverRecipes([fixture], { ...defaultFilters, capabilities: ['Transcription', 'Translation'] }).length, 0)
+  assert.equal(discoverRecipes([fixture], { ...defaultFilters, platforms: ['Web'], useCases: ['Meeting', 'Education'], capabilities: ['Transcription'] }).length, 1)
+})
+test('demo availability is independent of homepage recommendations', () => {
+  const fixture = { ...recipes[0], slug: 'native-demo', recommendedOrder: undefined, showcase: undefined, demoUrl: 'https://testflight.apple.com/join/example' }
+  assert.equal(discoverRecipes([fixture], { ...defaultFilters, previewOnly: true }).length, 1)
+  assert.equal(discoverRecipes([{ ...fixture, demoUrl: undefined }], { ...defaultFilters, previewOnly: true }).length, 0)
+  assert.ok(recipes.filter(recipe => recipe.demoUrl).length >= 5)
 })

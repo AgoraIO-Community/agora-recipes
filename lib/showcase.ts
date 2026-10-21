@@ -10,13 +10,13 @@ export function getRecipeSummaries(): RecipeSummary[] {
     if (!recipes.some((recipe) => recipe.slug === entry.slug) || curated.has(entry.slug)) {
       throw new Error(`[showcase] Unknown or duplicate recipe slug: ${entry.slug}`)
     }
-    for (const url of [entry.demoUrl, entry.videoUrl, entry.thumbnailSource]) {
+    for (const url of [entry.videoUrl, entry.thumbnailSource]) {
       if (url && !url.startsWith("https://")) throw new Error(`[showcase] Expected HTTPS URL for ${entry.slug}`)
     }
     curated.set(entry.slug, { showcase: entry, recommendedOrder: index })
   })
-  return recipes.map(({ slug, title, tagline, description, tags, platforms, useCases, capabilities, mainRepoUrl, recipeUrl, author, updated, difficulty }) => ({
-    slug, title, tagline, description, tags, platforms, useCases, capabilities, mainRepoUrl, recipeUrl, author, updated, difficulty,
+  return recipes.map(({ slug, title, tagline, description, tags, platforms, useCases, capabilities, mainRepoUrl, recipeUrl, demoUrl, author, updated, difficulty }) => ({
+    slug, title, tagline, description, tags, platforms, useCases, capabilities, mainRepoUrl, recipeUrl, demoUrl, author, updated, difficulty,
     ...curated.get(slug),
   }))
 }

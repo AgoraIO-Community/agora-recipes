@@ -1,86 +1,71 @@
-# Compact catalog and Agora family QA
+# Recipes design integration QA
 
-Scope: catalog refinement on a feature branch. No deployment, new demo services, database, or upload infrastructure.
+Scope: local integration of Omja's design refresh (#68, `da99e784`) and the
+compact media catalog (#70, `6afa3d9`). Neither PR has been merged, closed, or
+updated. No deployment, new demo service, database, or uploads.
 
-## Requested behavior
+## Visual authority
 
-The homepage is one catalog. All 81 recipes participate in search and filtering;
-the six existing demo recommendations lead the default order. There is no RTE
-collection, large feature story, or separate View all route. The remaining real
-recipe titles peek through a faded native disclosure and expand inline.
+The website shell, official wordmark, MiSans Latin faces, system theme provider,
+particle formations, underline filters, and detail reader come from Omja's #68.
+They follow Agora Website 2026. The intro now uses content-sized spacing so
+search, visible platform filters, and real demos appear early on QR visits.
+The previous Glass adaptation and duplicate font slices are retired; the current
+header and sticky controls retain the website's restrained backdrop treatment.
+Renderer and font provenance remain in `lib/website-hero/README.md` and
+`public/font/README.md`.
 
-Search and quick topics precede every demo. The search surface stays reachable
-while scrolling. Media cards show a preview, title, short outcome, author/avatar,
-and selected tags (two on desktop, one on phones). The preview plays video or
-opens the existing demo; the title/summary opens the recipe and verified authors
-link to GitHub. Setup notes remain in detail pages/players. Guide-only cards
-retain one excerpt and platform tags. No duplicate action rows or tinted card box.
+The six agreed recommendations, real thumbnails, short summaries, verified local
+author avatars, selected tags, onsite videos, and faded inline continuation are
+retained from #70. No replacement screenshots or demo scenes were invented.
+Aria leads; the Chinese rotary phone demo is third. Thumbnail sidecars and the author source manifest are retained. Original source
+attribution is also embedded in all 23 shipping rasters; the 18 metadata-only
+updates preserve identical decoded image pixels.
 
-## Visual authority and implementation
+## Behavior
 
-The provided `agora-family-standalone.html` was opened and its actual Glass
-controls inspected. Current website foundations were read from
-`AgoraIO/agora-website-2026` at `902c4424d1243545366630d14bc3d9a28b1170b6`.
-Original GlassSurface, Button, Input, control-light, selected source recipes,
-and theme tokens come from `shczhen/agent-ui` at
-`9ca9d39be0037adf34a8984b1ab3a8383df0477c`.
-
-Website foundations supply the warm light canvas, shared black dark layers,
-blue signal, and MiSans. Original Glass controls retain their geometry,
-Obsidian primary action, foreground separation, refraction, pointer light,
-and material fallbacks. No simulated Agent persona or session was added.
-Official unmodified Latin font slices total 113,864 bytes; the full 10 MB
-CJK bundle is not required by this English catalog. Attribution is retained.
-
-Three columns on desktop and two on phones bring several demos into the first
-screen. Every author comes directly from recipe metadata. Search uses one Glass
-plane without a nested input border; topics have neutral selected states.
-Filters use a dismissible popover with 12px collision gutters and consistent
-select geometry. Recipe links do not prefetch implementation documents.
-
-All 17 author avatar sources were checked against GitHub profiles and recipe
-implementation owners. Local originals total 36,001 bytes and keep an initials
-fallback. Aria and Meeting Copilot use CSS framing to exclude browser chrome
-without editing their recordings. React Live Video uses a real screenshot of
-the existing public entry form, framed without browser chrome. No
-channel was joined and no media permission was requested.
+- All 81 recipes remain in one catalog. The first six lead the default sort;
+  native inline expansion exposes the remaining 75. Search and filtering cover
+  the whole catalog even while the disclosure is closed.
+- Search spans titles, descriptions, summaries, authors, and metadata, with
+  common English/Chinese aliases and bounded typo tolerance. Browser search
+  `pyhton CRM` returns Aria. Exact matches rank above approximate ones.
+- Platform filters are visible and support multiple selections with OR.
+  Use cases use OR; selected capabilities must all match. Additional platform
+  labels remain in More. The Has a demo filter and explicit sorts are retained.
+- Any recipe can now provide optional `demoUrl` in its own metadata, independently
+  of recommendation order. The five existing verified links were moved there.
+  HTTPS web links and TestFlight links are supported; malformed links, unsafe
+  schemes, credentials, empty values, and wrong types are rejected.
+- Appearance follows the system in both themes, including live changes. There
+  is no theme selector and no read of saved manual theme preferences.
+- Videos open onsite with native controls, original-video recovery link, recipe
+  link, and optional live-demo action. Podcasts loaded with readyState 4 and
+  duration 146.59s. Closing unmounts playback and returns focus to its trigger. Shared dialog
+  overlay/content layers are 100/110 above header80 and catalog60. Actual
+  viewport captures verify video and footer-help dialogs while scrolled, with
+  reachable close controls and focus returned to each trigger.
+- The detail reader retains rendered/raw tabs, syntax highlighting, copy
+  actions, recipe prompt, CLI instructions, related entries, and attribution.
+  Aria's Demo link and Raw tab were verified in the production build.
 
 ## Verification
 
-- Discovery tests cover the full default catalog, exact six-item recommendation
-  prefix, description/card-summary search, small typos and transpositions,
-  common English/Chinese aliases, exact-before-fuzzy relevance, combined
-  filters, explicit sort overrides, and source asset constraints.
-- Browser checks cover keyboard expansion/collapse, searching beyond the first
-  six, empty-result recovery, topic + platform filtering, and external demo links.
-- All six lead cards loaded local author images. Blocking a known avatar showed
-  its initials; removing the block restored the image on reload. Avatar/profile
-  links retain the actual recipe author, and card tag counts adapt by viewport.
-- Video playback, Escape close, focus return, playback unmount, and a deliberately
-  blocked-video recovery state were exercised with the adopted controls.
-- Latest responsive/theme evidence is saved in `.impeccable/review/media/`.
-  Checked 320px, 390px, 768px, and 1280px layouts without document-level
-  horizontal overflow, plus light and dark control contrast. The mobile header
-  keeps secondary links hidden while preserving 44px touch targets.
-  Valid full-page captures are used for phone first-screen crops because this
-  host's normal phone screenshot wrapper scales viewport captures incorrectly.
-- Theme/search follow-up evidence is saved in `.impeccable/review/theme-search/`.
-  The production build opens dark under an emulated light system preference.
-  Mouse and keyboard switching, reload persistence, and the mobile browser theme
-  color were checked. Header actions have 44px touch targets; 320px, 390px,
-  768px, and 1280px layouts retain no horizontal document overflow.
-  Coarse-pointer author profile links also have 44px hit areas within a compact
-  24px byline row, without overlapping the recipe title/summary link.
-  Description typos (`pricng objecrtions`), Chinese aliases (`语音转文字`),
-  an expanded CRM phrase, and empty-result recovery were exercised in-browser.
-- Lint (one existing logo image warning), independent TypeScript checking,
-  all 15 markdown/discovery tests, and the full production build passed.
-  The build generated all 81 recipe artifacts and 85 static pages.
-- The design detector's material warning is the existing semantic markdown
-  blockquote border. The old detail grid and literal type-ramp advisories are
-  outside this compact homepage change; source material recipes remain intentional.
+`npm run lint` passes with one existing logo `<img>` warning.
+`pnpm exec tsc --noEmit --incremental false` passes independently of Next's
+build configuration. All 19 markdown, discovery, and metadata-loader tests pass.
+`npm run build` fetches all 81 artifacts and generates all 85 static pages.
+Generated timestamps and fetched-document churn are excluded from this change.
 
-Limitations: full live voice/camera sessions, physical phone/WeChat behavior,
-and non-Chromium optical rendering have not been certified. The WebKit frosted
-and reduced-transparency solid paths are implemented without claiming real-device
-coverage. Existing externally hosted demos can change independently.
+Production screenshots are saved locally in `.impeccable/review/integration/`:
+1440px desktop in both themes, 390px mobile in both themes, 320px narrow mobile,
+768px tablet, video dialog, and detail reader. No horizontal document overflow
+was observed at these widths. At 390px the first card begins at y=363.66 and
+its title at y=470.97; at 320px the first title begins at y=451.28. Search and
+filter targets retain 46px height. The animation has pause and reduced-motion
+support. Browser emulation was cleared before leaving the preview open. The finish
+reviewer scored the dialog-layering fix resolved, with no direct regressions.
+
+Full live voice/camera sessions, physical phone/WeChat behavior, and real-device
+WebKit rendering have not been verified. Existing external demos can change
+independently. This preview uses the production build at `127.0.0.1:3004`.

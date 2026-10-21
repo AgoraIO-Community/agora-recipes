@@ -19,14 +19,14 @@ export function RecipeCard({ recipe }: { recipe: RecipeSummary }) {
     <div className="recipe-cover" style={{ "--thumbnail-scale": media.thumbnailScale ?? 1, "--thumbnail-origin": media.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
       {!imageFailed ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
       {media.videoUrl && <span className="recipe-cover__play" aria-hidden="true"><Play fill="currentColor" /></span>}
-      <span className="recipe-cover__label">{media.videoUrl ? media.videoDuration : <>Live demo <ArrowUpRight aria-hidden="true" /></>}</span>
+      {(media.videoUrl || recipe.demoUrl) && <span className="recipe-cover__label">{media.videoUrl ? media.videoDuration : <>Live demo <ArrowUpRight aria-hidden="true" /></>}</span>}
     </div>
   )
 
   return (
     <RecipeVideoDialog recipe={recipe}>
       <article className={cn("showcase-card", !media && "showcase-card--guide")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
-        {media && (media.videoUrl ? <DialogTrigger asChild><button className="recipe-cover-link" aria-label={`Watch ${title} demo`}>{cover}</button></DialogTrigger> : media.demoUrl ? <a href={media.demoUrl} target="_blank" rel="noreferrer" className="recipe-cover-link" aria-label={`Try ${title} demo (opens in a new tab)`} title={media.demoNote}>{cover}</a> : <Link prefetch={false} href={`/recipes/${recipe.slug}`} className="recipe-cover-link">{cover}</Link>)}
+        {media && (media.videoUrl ? <DialogTrigger asChild><button className="recipe-cover-link" aria-label={`Watch ${title} demo`}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <a href={recipe.demoUrl} target="_blank" rel="noreferrer" className="recipe-cover-link" aria-label={`Try ${title} demo (opens in a new tab)`} title={media.demoNote}>{cover}</a> : <Link prefetch={false} href={`/recipes/${recipe.slug}`} className="recipe-cover-link">{cover}</Link>)}
         <div className="showcase-card__body">
           <Link prefetch={false} href={`/recipes/${recipe.slug}`} className="showcase-card__details">
             <h3>{title}</h3>
@@ -36,6 +36,7 @@ export function RecipeCard({ recipe }: { recipe: RecipeSummary }) {
             <RecipeAuthor name={recipe.author} />
             <div className="showcase-card__tags" aria-label="Recipe tags">{labels.map((label) => <span key={label}>{label}</span>)}</div>
           </div>
+          {!media && recipe.demoUrl && <a href={recipe.demoUrl} target="_blank" rel="noreferrer" className="text-action recipe-demo-link" aria-label={`Try ${title} demo (opens in a new tab)`}>Try demo <ArrowUpRight size={14} aria-hidden="true" /></a>}
         </div>
       </article>
     </RecipeVideoDialog>
