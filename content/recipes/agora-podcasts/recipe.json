@@ -1,0 +1,14 @@
+{
+  "title": "Agora Podcasts",
+  "tagline": "Turn any topic into a live two-host podcast listeners can talk to.",
+  "description": "Create a two-host podcast from a topic, notes, or an article. Agora RTC broadcasts the show to listeners, who can ask a spoken question and hear a contextual answer before playback resumes.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Education", "Realtime"],
+  "capabilities": ["Agora RTC", "Agora Signaling", "Gemini", "TTS", "STT", "Next.js"],
+  "mainRepoUrl": "https://github.com/zicojiao/agora-podcasts",
+  "recipeUrl": "https://github.com/zicojiao/agora-podcasts/blob/main/README.md",
+  "author": "zicojiao",
+  "updated": "2026-09-24",
+  "difficulty": "Advanced"
+}

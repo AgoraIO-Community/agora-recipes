@@ -1,0 +1,23 @@
+{
+  "title": "Android AutoPilot Voice Action Agent",
+  "tagline": "Control Android apps hands-free using Agora Conversational AI and Gemini Vision.",
+  "description": "An autonomous Android voice assistant that uses Agora Conversational AI for real-time speech interaction and Gemini Vision via Android Accessibility API to tap, swipe, type, and navigate apps hands-free.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["Android", "Python"],
+  "useCases": ["Voice AI", "Automation", "Accessibility"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Gemini Vision", "Android Accessibility"],
+  "mainRepoUrl": "https://github.com/Shariq1912/AgoraActionAgent",
+  "recipeUrl": "https://github.com/Shariq1912/AgoraActionAgent/blob/main/RECIPE.md",
+  "author": "Shariq1912",
+  "updated": "2026-09-14",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "android",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env.local",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    }
+  }
+}

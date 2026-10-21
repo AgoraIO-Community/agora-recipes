@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, Sparkles } from "lucide-react"
+import { HowToUseRecipes } from "@/components/how-to-use-recipes"
 import { Waveform } from "@/components/waveform"
 
 export function Hero() {
@@ -37,6 +38,8 @@ export function Hero() {
             Agora&apos;s low-latency network. Drop a recipe prompt into your
             coding agent or fork the repo to start from working code.
           </p>
+
+          <HowToUseRecipes />
 
           {/* Live waveform accent */}
           <div className="mt-4 h-14 w-full max-w-md sm:mt-6" aria-hidden="true">

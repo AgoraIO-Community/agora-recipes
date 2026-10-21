@@ -17,6 +17,7 @@ import {
   getAllRecipes,
   getRecipe,
   getRelatedRecipes,
+  type Recipe,
 } from "@/lib/recipes"
 import { Button } from "@/components/ui/button"
 import { CopyPrompt } from "@/components/copy-prompt"
@@ -130,13 +131,14 @@ export default async function RecipePage({
 
             <RecipeMarkdownSection
               markdown={recipe.recipeDocument.markdown}
+              sourceUrl={recipe.recipeDocument.viewUrl}
               rawUrl={recipe.recipeDocument.rawUrl}
               fetchError={recipe.recipeDocument.fetchError}
             />
           </div>
 
           {/* Sidebar */}
-          <aside className="lg:sticky lg:top-20 self-start flex flex-col gap-6">
+          <aside className="min-w-0 self-start flex flex-col gap-6">
             <SidebarSection title="About">
               <SidebarRow icon={User} label="Author" value={recipe.author} />
               <SidebarRow
@@ -197,10 +199,34 @@ export default async function RecipePage({
                 </ul>
               </SidebarSection>
             )}
+            <HowToUseRecipeSection recipe={recipe} />
           </aside>
         </div>
       </div>
     </article>
+  )
+}
+
+function HowToUseRecipeSection({ recipe }: { recipe: Recipe }) {
+  const linkClassName = "text-primary underline underline-offset-4 hover:text-primary/80"
+  return (
+    <SidebarSection title="How to use this recipe">
+      <ol className="list-decimal space-y-3 pl-4 text-sm leading-relaxed text-muted-foreground marker:text-primary">
+        <li>
+          Copy the <Link href="#prompt-heading" className={linkClassName}>recipe prompt</Link>
+          {" "}into your coding agent, or clone the{" "}
+          <Link href={recipe.mainRepoUrl} target="_blank" rel="noreferrer" className={linkClassName}>
+            source repo
+          </Link>.
+        </li>
+        <li>
+          Follow the <Link href="#recipe-markdown-heading" className={linkClassName}>guide</Link>
+          {" "}to install the required packages and add your Agora App ID and any
+          API keys listed in the recipe.
+        </li>
+        <li>Run the example, test it, then customize it for your app.</li>
+      </ol>
+    </SidebarSection>
   )
 }
 
@@ -212,7 +238,7 @@ function CliCommandSection({ slug }: { slug: string }) {
       <div className="flex flex-col gap-1">
         <h2
           id="cli-command-heading"
-          className="font-brand text-xl font-semibold tracking-tight"
+          className="scroll-mt-20 font-brand text-xl font-semibold tracking-tight"
         >
           Use with Agora CLI
         </h2>
@@ -235,10 +261,12 @@ function CliCommandSection({ slug }: { slug: string }) {
 
 function RecipeMarkdownSection({
   markdown,
+  sourceUrl,
   rawUrl,
   fetchError,
 }: {
   markdown: string
+  sourceUrl: string
   rawUrl: string
   fetchError?: string
 }) {
@@ -248,7 +276,7 @@ function RecipeMarkdownSection({
         <div className="flex flex-col gap-1">
           <h2
             id="recipe-markdown-heading"
-            className="font-brand text-xl font-semibold tracking-tight"
+            className="scroll-mt-20 font-brand text-xl font-semibold tracking-tight"
           >
             Recipe
           </h2>
@@ -269,7 +297,7 @@ function RecipeMarkdownSection({
 
       <div className="rounded-xl border border-border bg-card px-5 py-5">
         {markdown ? (
-          <Markdown source={markdown} />
+          <Markdown source={markdown} sourceUrl={sourceUrl} />
         ) : (
           <div className="text-sm text-muted-foreground">
             <p>Recipe markdown is not available in the generated artifact.</p>
@@ -293,7 +321,7 @@ function CopyPromptSection({
   return (
     <section aria-labelledby="prompt-heading" className="flex flex-col gap-3">
       <div className="flex items-baseline justify-between flex-wrap gap-2">
-        <h2 id="prompt-heading" className="font-brand text-xl font-semibold tracking-tight">
+        <h2 id="prompt-heading" className="scroll-mt-20 font-brand text-xl font-semibold tracking-tight">
           Recipe prompt
         </h2>
         <span className="text-xs text-muted-foreground">

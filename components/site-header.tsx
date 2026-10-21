@@ -212,7 +212,7 @@ export function SiteHeader() {
           </Button>
           <Button asChild size="sm" className="h-8">
             <Link
-              href="https://console.agora.io/signup"
+              href="https://sso2.agora.io/en/signup"
               target="_blank"
               rel="noreferrer"
             >

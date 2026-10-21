@@ -1,0 +1,37 @@
+{
+  "title": "Jev VAD: Client-side Turn Detection",
+  "tagline": "Let a language-model judge decide when the user is done and when to barge in.",
+  "description": "Run Agora Conversational AI in manual turn mode and drive start-of-speech, end-of-speech and interruption from the web client: a mic-energy gate opens the turn, TypeSafe's Jev scores the live transcript to close it or to tell a real interruption from a backchannel.",
+  "tags": ["voice-ai"],
+  "platforms": [
+    "Python",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Conversation Design",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Turn Detection",
+    "Interruptions",
+    "Manual Turn Control"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/convoai-jev-vad",
+  "recipeUrl": "https://github.com/AgoraIO-Community/convoai-jev-vad/blob/main/recipe/README.md",
+  "author": "Agora",
+  "updated": "2026-09-22",
+  "difficulty": "Intermediate",
+  "cli": {
+    "projectType": "python",
+    "env": {
+      "examplePath": "server/.env.example",
+      "targetPath": "server/.env",
+      "appIdKey": "AGORA_APP_ID",
+      "appCertificateKey": "AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "bun run setup",
+    "runCommand": "bun run dev"
+  }
+}
