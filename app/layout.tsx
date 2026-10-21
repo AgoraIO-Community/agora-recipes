@@ -7,6 +7,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { siteUrl } from "@/lib/site"
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: {
     default: "Agora Voice AI Recipes",
     template: "%s · Agora Voice AI Recipes",
@@ -108,6 +110,9 @@ export default function RootLayout({
       className={`${instrumentSans.variable} ${spaceMono.variable} ${jokker.variable} bg-background`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="describedby" href="/llms.txt" />
+      </head>
       <body className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">
           Skip to main content
