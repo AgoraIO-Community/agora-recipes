@@ -1365,6 +1365,15 @@ panel in the narrative column, under the copy.
 
 ### 11.3 Recipes index
 
+**Owner controls update (October 2026):** desktop order is Voice AI / RTC,
+search, then a plain-text platform dropdown and Filters action. The dropdown
+supports multiple selections and replaces the separate platform row. As the
+directory reaches the navigation, the same search field and controls become
+the compact top header with the Agora wordmark; normal navigation returns on
+scrolling back up. Phones use type/platform controls above a full-width search
+field, with icon-only Filters retaining an accessible label. Keep the existing
+45% hero and first-load recipe visibility.
+
 **Layout:** a compact catalog introduction, the website's sticky text-filter
 controls, and the card grid. Both themes share this layout. The first recipe
 card titles must be visible without scrolling on common laptop and phone
@@ -1445,6 +1454,18 @@ viewports. No viewport-height section or extra animation-only mobile band.
   "Clear filters" link.
 
 ### 11.4 Recipes detail (with code)
+
+**Owner layout update (October 2026):** the detail navigation uses the glass
+treatment from `http://localhost:4321/en/`, with the owner's corrected opacity:
+an 80%-opaque page-colored background at the top, reducing to 58% on scroll so
+the content behind the navigation is faintly visible. Keep 12px backdrop blur,
+1.15 saturation, and a soft shadow after scrolling, in both themes. Apply alpha
+only to the background, never to the navigation text or the whole header.
+The hero and body share a centered 1200px content width plus
+responsive outer gutters. Use a 260px rail with a 32px column gap; do not leave
+unused grid-track space beyond a separately capped main column. The recipe
+document owns one outer hairline border, a divided format toolbar, and 24px
+internal padding (16px on phones). Existing code-block borders remain intact.
 
 **Layout:** this follows the website's article page. A hero band, then a main
 column (≤68ch prose, code may widen) with a right "About" rail.

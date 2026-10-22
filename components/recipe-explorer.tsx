@@ -5,12 +5,12 @@ import Link from "next/link"
 import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react"
 import type { Recipe, FilterOptionsByTag, RecipeTag } from "@/lib/recipes"
 import { RecipeCard } from "@/components/recipe-card"
+import { AgoraLogo } from "@/components/agora-logo"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 type Filters = { query: string; platforms: string[]; useCases: string[]; capabilities: string[] }
 const EMPTY: Filters = { query: "", platforms: [], useCases: [], capabilities: [] }
 const TYPES = [{ tag: "voice-ai", label: "Voice AI" }, { tag: "rtc", label: "RTC" }] as const
-const VISIBLE_PLATFORMS = ["iOS", "Android", "Flutter", "Go", "Python", "React Native", "TypeScript"]
 const toggle = (values: string[], value: string) => values.includes(value) ? values.filter(item => item !== value) : [...values,value]
 
 function searchText(recipe: Recipe) {
@@ -25,10 +25,10 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
   const [advanced,setAdvanced] = useState(false)
   const filterButton = useRef<HTMLButtonElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
+  const markerRef = useRef<HTMLDivElement>(null)
+  const [merged, setMerged] = useState(false)
   const keepSticky = useRef(false)
   const options = filterOptionsByTag[tag]
-  const platforms = VISIBLE_PLATFORMS.filter(platform => options.platforms.includes(platform))
-  const otherPlatforms = options.platforms.filter(platform => !VISIBLE_PLATFORMS.includes(platform))
   const tagged = useMemo(() => recipes.filter(recipe => recipe.tags.includes(tag)),[recipes,tag])
   const filtered = useMemo(() => tagged.filter(recipe => {
     if (filters.query.trim() && !searchText(recipe).includes(filters.query.trim().toLowerCase())) return false
@@ -41,11 +41,22 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
     const header = document.querySelector(".site-header")
     const bar = barRef.current
     if (!header || !bar) return
-    const measure = () => bar.style.setProperty("--catalog-header-height", `${header.getBoundingClientRect().height}px`)
+    const measure = () => {
+      const height = header.getBoundingClientRect().height
+      bar.style.setProperty("--catalog-header-height", `${height}px`)
+      const next = !!markerRef.current && markerRef.current.getBoundingClientRect().top <= height
+      setMerged(next)
+      header.setAttribute("data-catalog-merged", String(next))
+    }
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(header)
-    return () => observer.disconnect()
+    window.addEventListener("scroll", measure, { passive: true })
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("scroll", measure)
+      header.removeAttribute("data-catalog-merged")
+    }
   }, [])
   useLayoutEffect(() => {
     if (!keepSticky.current) return
@@ -54,7 +65,7 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
       const bar = barRef.current
       const header = document.querySelector(".site-header")
       if (!bar || !header) return
-      const offset = bar.getBoundingClientRect().top - header.getBoundingClientRect().height
+      const offset = bar.getBoundingClientRect().top - (header.getAttribute("data-catalog-merged") === "true" ? 0 : header.getBoundingClientRect().height)
       if (offset < -1) window.scrollBy({ top: offset, behavior: "instant" })
     })
     return () => cancelAnimationFrame(frame)
@@ -73,28 +84,28 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
   function facet(key: "platforms" | "useCases" | "capabilities", value: string) { setFilters(current => ({ ...current,[key]: toggle(current[key],value) })) }
   return <section id="recipes" className="catalog" aria-labelledby="recipes-heading" onClickCapture={rememberStickyPosition} onInputCapture={rememberStickyPosition} onChangeCapture={rememberStickyPosition}>
     <h2 id="recipes-heading" className="sr-only">Recipe library</h2>
-    <div ref={barRef} className="catalog-bar">
+    <div ref={markerRef} className="catalog-marker" aria-hidden="true" />
+    <div ref={barRef} className="catalog-bar" data-merged={merged}>
       <div className="shell catalog-bar__inner">
+        <Link href="/" className="catalog-brand" aria-label="Agora Recipes home"><AgoraLogo /></Link>
+        <div className="catalog-types" role="group" aria-label="Recipe type">
+          {TYPES.map(type => <button key={type.tag} type="button" className="catalog-filter" aria-pressed={tag === type.tag} onClick={() => { setTag(type.tag); setFilters(EMPTY); setAdvanced(false) }}>{type.label}<span>{recipes.filter(recipe => recipe.tags.includes(type.tag)).length}</span></button>)}
+        </div>
         <form role="search" className="catalog-search" onSubmit={event => event.preventDefault()}>
           <Search size={20} strokeWidth={1} aria-hidden="true" />
           <label htmlFor="recipe-search" className="sr-only">Search recipes, authors, or GitHub handles</label>
           <input id="recipe-search" type="search" placeholder="Search recipes, authors, or GitHub handles" value={filters.query} onChange={event => setFilters(current => ({...current,query: event.target.value}))} />
         </form>
-        <div className="catalog-types" role="group" aria-label="Recipe type">
-          {TYPES.map(type => <button key={type.tag} type="button" className="catalog-filter" aria-pressed={tag === type.tag} onClick={() => { setTag(type.tag); setFilters(EMPTY); setAdvanced(false) }}>{type.label}<span>{recipes.filter(recipe => recipe.tags.includes(type.tag)).length}</span></button>)}
+        <div className="platform-filters">
+          <DropdownMenu><DropdownMenuTrigger asChild><button type="button" className="catalog-filter" aria-label={`Filter by platform: ${filters.platforms.length ? filters.platforms.join(", ") : "All platforms"}`} data-active={filters.platforms.length > 0 || undefined}>{filters.platforms.length === 1 ? filters.platforms[0] : filters.platforms.length ? `Platforms (${filters.platforms.length})` : "All platforms"}<ChevronDown size={16} aria-hidden="true" /></button></DropdownMenuTrigger><DropdownMenuContent align="end">
+            <DropdownMenuCheckboxItem checked={filters.platforms.length === 0} onCheckedChange={() => { rememberStickyPosition(); setFilters(current => ({ ...current, platforms: [] })) }}>All platforms</DropdownMenuCheckboxItem>
+            {options.platforms.map(platform => <DropdownMenuCheckboxItem key={platform} checked={filters.platforms.includes(platform)} onCheckedChange={() => { rememberStickyPosition(); facet("platforms", platform) }}>{platform}</DropdownMenuCheckboxItem>)}
+          </DropdownMenuContent></DropdownMenu>
+          <button type="button" ref={filterButton} className="catalog-filter" aria-label={`Filters${count > 0 ? ` (${count})` : ""}`} data-active={advanced || count > 0 || undefined} aria-expanded={advanced} aria-controls="advanced-recipe-filters" onClick={() => setAdvanced(!advanced)}>{advanced ? <X size={16} strokeWidth={1.5} aria-hidden="true" /> : <SlidersHorizontal size={16} strokeWidth={1.5} aria-hidden="true" />}<span className="catalog-filter-label">Filters{count > 0 && ` (${count})`}</span></button>
         </div>
       </div>
     </div>
     <div className="shell">
-      <div className="catalog-facets">
-        <div className="platform-filters" role="group" aria-label="Filter by platform">
-          <span>Platform</span>
-          <button type="button" className="catalog-filter" aria-pressed={filters.platforms.length === 0} onClick={() => setFilters(current => ({ ...current, platforms: [] }))}>All platforms</button>
-          {platforms.map(platform => <button type="button" className="catalog-filter" key={platform} aria-pressed={filters.platforms.includes(platform)} onClick={() => facet("platforms",platform)}>{platform}</button>)}
-          {otherPlatforms.length > 0 && <DropdownMenu><DropdownMenuTrigger asChild><button type="button" className="catalog-filter" data-active={filters.platforms.some(platform => otherPlatforms.includes(platform)) || undefined}>More{filters.platforms.some(platform => otherPlatforms.includes(platform)) && ` (${filters.platforms.filter(platform => otherPlatforms.includes(platform)).length})`}<ChevronDown size={16} aria-hidden="true" /></button></DropdownMenuTrigger><DropdownMenuContent align="end">{otherPlatforms.map(platform => <DropdownMenuCheckboxItem key={platform} checked={filters.platforms.includes(platform)} onCheckedChange={() => { rememberStickyPosition(); facet("platforms", platform) }}>{platform}</DropdownMenuCheckboxItem>)}</DropdownMenuContent></DropdownMenu>}
-        </div>
-        <button type="button" ref={filterButton} className="catalog-filter" data-active={advanced || count > 0 || undefined} aria-expanded={advanced} aria-controls="advanced-recipe-filters" onClick={() => setAdvanced(!advanced)}>{advanced ? <X size={16} strokeWidth={1.5} aria-hidden="true" /> : <SlidersHorizontal size={16} strokeWidth={1.5} aria-hidden="true" />}Filters{count > 0 && ` (${count})`}</button>
-      </div>
       {advanced && <div id="advanced-recipe-filters" className="catalog-advanced">
         {(["useCases","capabilities"] as const).map(key => <fieldset key={key}>
           <legend className="eyebrow">{key === "useCases" ? "Use cases" : "Capabilities"}</legend>
