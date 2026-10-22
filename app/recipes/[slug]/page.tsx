@@ -43,6 +43,10 @@ export async function generateMetadata({
   return {
     title: recipe.title,
     description: recipe.tagline,
+    alternates: {
+      canonical: `/recipes/${slug}`,
+      types: { "text/markdown": `/recipes/${slug}/index.md` },
+    },
     openGraph: {
       title: recipe.title,
       description: recipe.tagline,

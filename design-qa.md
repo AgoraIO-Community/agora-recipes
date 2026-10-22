@@ -57,6 +57,13 @@ independent TypeScript checking, and the full81-recipe/85-page build passed.
 These are Chromium emulation and mouse/keyboard interaction checks; physical
 iOS/Android touch, browser chrome, and WebKit were not tested.
 
+Before updating PR #70, the integration was synchronized with staging PR #69
+(`ea038a6`). Canonical links, Markdown alternates, llms.txt, robots, the sitemap,
+and the new Markdown routes are preserved. The follow-up build generates170
+static pages; `node scripts/check-llm-discovery.mjs http://127.0.0.1:3004`
+passes for all81recipes. All19existing unit tests, lint, and an independent
+TypeScript check pass. Generated recipe-document churn is excluded from Git.
+
 Media sources remain recorded in thumbnail sidecars, the author manifest, and
 embedded attribution. Glass source and host adaptations are documented in
 `components/agent-ui/README.md`; font provenance is in `public/font/README.md`.

@@ -5,11 +5,13 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { siteUrl } from "@/lib/site"
 
 const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: {
     default: "Agora Voice AI Recipes",
     template: "%s · Agora Voice AI Recipes",
@@ -70,6 +72,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="describedby" href="/llms.txt" />
         <meta name="color-scheme" content="dark light" />
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t})()` }} />
         <link rel="preload" href="/font/MiSansLatin-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

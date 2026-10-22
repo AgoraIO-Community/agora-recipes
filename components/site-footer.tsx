@@ -40,6 +40,7 @@ export function SiteFooter() {
           <nav className="footer-group" aria-labelledby="footer-developers-heading">
             <h2 id="footer-developers-heading">Developers</h2>
             <ul>
+              <li><Link className="footer-link" href="/llms.txt">llms.txt</Link></li>
               {[
                 ["Documentation", "https://docs.agora.io"],
                 ["Agora Console", "https://console.agora.io"],
