@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "golang-quickstart",
-  "generatedAt": "2026-09-04T17:59:42.212Z",
+  "generatedAt": "2026-10-19T07:56:58.628Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-go",
     "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-go/blob/main/docs/ai/RECIPE.md",

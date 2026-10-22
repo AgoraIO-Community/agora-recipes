@@ -1,67 +1,70 @@
-import Link from 'next/link';
-import { AgoraLogo } from '@/components/agora-logo';
+import { AgoraLogo } from "@/components/agora-logo"
+import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
+import { HowToUseRecipes } from "@/components/how-to-use-recipes"
+
+const legal = [
+  ["Privacy Policy", "https://www.agora.io/en/privacy-policy/"],
+  ["Cookie Policy", "https://www.agora.io/en/cookie-policy/"],
+  ["Terms of Service", "https://www.agora.io/en/terms-of-service/"],
+  ["Acceptable Use Policy", "https://www.agora.io/en/acceptable-use-policy/"],
+] as const
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/60 mt-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-2.5 text-sm">
-            <AgoraLogo className="h-5 w-5 text-primary" />
-            <span className="font-medium">Agora Voice AI Recipes</span>
-            <span className="text-muted-foreground">· Built with Agora</span>
+    <footer className="site-footer">
+      <div className="shell">
+        <div className="footer-grid">
+          <div className="footer-intro">
+            <Link href="/" className="footer-brand" aria-label="Agora Recipes home">
+              <AgoraLogo />
+              <span>/ Recipes</span>
+            </Link>
+            <p>Recipes and guides for building voice AI and real-time experiences with Agora.</p>
           </div>
 
-          <nav
-            aria-label="Footer navigation"
-            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
-          >
-            <Link
-              href="https://docs.agora.io"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Docs
-            </Link>
-            <a href="/llms.txt" className="hover:text-foreground transition-colors">
-              llms.txt
-            </a>
-            <Link
-              href="https://github.com/AgoraIO-Community/agora-recipes"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              GitHub
-            </Link>
-            <Link
-              href="https://www.agora.io/en/products/conversational-ai-engine/"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Conversational AI
-            </Link>
-            <Link
-              href="https://console.agora.io"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Console
-            </Link>
+          <nav className="footer-group" aria-labelledby="footer-explore-heading">
+            <h2 id="footer-explore-heading">Explore</h2>
+            <ul>
+              <li><Link className="footer-link" href="/#recipes">Browse recipes</Link></li>
+              <li><HowToUseRecipes variant="footer" /></li>
+              <li>
+                <a className="footer-link" href="https://github.com/AgoraIO-Community/agora-recipes/blob/main/CONTRIBUTING.md"
+                  target="_blank" rel="noreferrer" aria-label="Submit a recipe (opens in a new tab)">
+                  Submit a recipe <ArrowUpRight size={14} strokeWidth={1.5} aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <nav className="footer-group" aria-labelledby="footer-developers-heading">
+            <h2 id="footer-developers-heading">Developers</h2>
+            <ul>
+              {[
+                ["Documentation", "https://docs.agora.io"],
+                ["Agora Console", "https://console.agora.io"],
+                ["GitHub", "https://github.com/AgoraIO-Community/agora-recipes"],
+              ].map(([label, href]) => (
+                <li key={label}>
+                  <a className="footer-link" href={href} target="_blank" rel="noreferrer"
+                    aria-label={`${label} (opens in a new tab)`}>
+                    {label} <ArrowUpRight size={14} strokeWidth={1.5} aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </nav>
         </div>
 
-        <p className="mt-8 text-xs text-muted-foreground">
-          © {new Date().getFullYear()}{' '}
-          <a href="https://www.agora.io" target="_blank">
-            Agora
-          </a>
-          . All recipes MIT licensed.
-        </p>
+        <div className="footer-bottom">
+          <nav aria-label="Legal" className="footer-legal">
+            {legal.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
+          </nav>
+          <div className="footer-meta">
+            <p>Copyright © {new Date().getFullYear()} Agora <span className="footer-rights">All rights reserved.</span></p>
+          </div>
+        </div>
       </div>
     </footer>
-  );
+  )
 }

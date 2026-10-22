@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "custom-llm",
-  "generatedAt": "2026-09-04T17:59:40.794Z",
+  "generatedAt": "2026-10-19T07:56:53.452Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm",
     "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm/blob/main/README.md",

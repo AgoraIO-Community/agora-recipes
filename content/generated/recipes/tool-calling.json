@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "tool-calling",
-  "generatedAt": "2026-09-04T17:59:45.505Z",
+  "generatedAt": "2026-10-19T07:57:10.184Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tool-calling",
     "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tool-calling/blob/main/README.md",

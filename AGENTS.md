@@ -10,6 +10,15 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 
 ## How to Work in This Repo
 
+### Owner UI decisions — do not regress
+
+- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance follows `prefers-color-scheme` automatically; old manual theme preferences must not override it.
+- The Recipes index is a catalog, not a full-screen landing page. Its intro uses 45% of the usable viewport below the compact navigation; the recipe directory starts immediately afterward and occupies the remaining first-screen space. Keep recipe card titles visible on first load on common laptop and phone viewports. Do not restore a full-viewport hero, fixed 325px intro, or separate tall mobile animation band.
+- Recipe-type, platform, use-case, and capability filters use the website's plain-text directory controls with an underline under selected filters. Do not restore boxed or pill-shaped filter buttons. Metadata tags are not interactive filters.
+- Keep the website's particle formations, but size their coordinate space to the intro and make them clearly visible in light mode in both WebGPU and Canvas. Keep the hero mode tabs removed.
+
+### Implementation practices
+
 - Keep changes focused and minimal. Prefer extending the existing content and component patterns over adding new abstractions.
 - Do not manually edit generated output such as `.next/`, `node_modules/`, or lockfiles unless the task explicitly requires it.
 - Use the existing scripts in `package.json`:
