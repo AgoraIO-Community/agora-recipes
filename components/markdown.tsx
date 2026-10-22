@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm"
 import rehypeRaw from "rehype-raw"
 import rehypeSanitize from "rehype-sanitize"
 import { MermaidDiagram } from "./mermaid-diagram"
+import { HighlightedCode } from "./highlighted-code"
 
 // Parse embedded README HTML, then sanitize it before creating React elements.
 export function Markdown({
@@ -32,6 +33,11 @@ export function Markdown({
       if (code?.type === "element" && code.tagName === "code" &&
         Array.isArray(code.properties.className) && code.properties.className.includes("language-mermaid")) {
         return <MermaidDiagram source={nodeText(code).replace(/\n$/, "")} />
+      }
+      if (code?.type === "element" && code.tagName === "code") {
+        const classes = Array.isArray(code.properties.className) ? code.properties.className : []
+        const language = classes.find(name => String(name).startsWith("language-"))
+        return <HighlightedCode code={nodeText(code).replace(/\n$/, "")} language={language ? String(language).replace("language-", "") : "text"} />
       }
       return <pre>{children}</pre>
     },

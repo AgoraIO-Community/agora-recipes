@@ -15,6 +15,7 @@
   ],
   "mainRepoUrl": "https://github.com/zicojiao/agora-meeting-copilot",
   "recipeUrl": "https://github.com/zicojiao/agora-meeting-copilot/blob/main/README.md",
+  "demoUrl": "https://agora-meeting-copilot.vercel.app/",
   "author": "zicojiao",
   "updated": "2026-09-12",
   "difficulty": "Advanced"

@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react"
 
 let renderer: Promise<typeof import("mermaid")["default"]> | undefined
+let renderQueue: Promise<unknown> = Promise.resolve()
 
 function getRenderer() {
   renderer ??= import("mermaid").then(({ default: mermaid }) => {
@@ -10,7 +11,7 @@ function getRenderer() {
       startOnLoad: false,
       securityLevel: "strict",
       suppressErrorRendering: true,
-      theme: "default",
+      theme: "dark",
       htmlLabels: false,
       secure: ["secure", "securityLevel", "startOnLoad", "maxTextSize", "maxEdges", "suppressErrorRendering", "htmlLabels", "flowchart"],
       flowchart: { htmlLabels: false },
@@ -31,7 +32,24 @@ export function MermaidDiagram({ source }: { source: string }) {
       try {
         const mermaid = await getRenderer()
         if (cancelled) return
-        const { svg } = await mermaid.render(id, source)
+        const job = renderQueue.catch(() => {}).then(async () => {
+          mermaid.initialize({
+            startOnLoad: false, securityLevel: "strict", suppressErrorRendering: true,
+            theme: "base", htmlLabels: false,
+            secure: ["secure", "securityLevel", "startOnLoad", "maxTextSize", "maxEdges", "suppressErrorRendering", "htmlLabels", "flowchart", "theme", "themeVariables"],
+            flowchart: { htmlLabels: false },
+            themeVariables: {
+              darkMode: true, fontFamily: 'MiSansLatin, Helvetica Neue, Arial, sans-serif', fontSize: '13px',
+              background: '#0a0a0a', primaryColor: '#1a1a1a',
+              primaryTextColor: '#fcf9f8', primaryBorderColor: '#626262',
+              lineColor: '#b3b3b3', secondaryColor: '#0a1114',
+              tertiaryColor: '#0a0a0a', textColor: '#fcf9f8',
+            },
+          })
+          return mermaid.render(id, source)
+        })
+        renderQueue = job
+        const { svg } = await job
         const document = new DOMParser().parseFromString(svg, "image/svg+xml")
         const width = Number(document.documentElement.getAttribute("viewBox")?.split(/\s+/)[2])
         if (!cancelled) {
@@ -53,7 +71,7 @@ export function MermaidDiagram({ source }: { source: string }) {
   return (
     <figure className="my-6 min-w-0" aria-label="Recipe diagram">
       {current?.url ? (
-        <div className="overflow-x-auto rounded-lg border border-border bg-white p-4" tabIndex={0} aria-label="Scrollable diagram">
+        <div className="overflow-x-auto rounded-[2px] border border-border bg-secondary p-4" tabIndex={0} aria-label="Scrollable diagram">
           {/* SVG is displayed as an image so diagram markup cannot execute in the page. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={current.url} alt="Recipe diagram; text description is available in Diagram source below" style={{ width: current.width, maxWidth: actualSize ? "none" : "100%" }} />
@@ -64,12 +82,12 @@ export function MermaidDiagram({ source }: { source: string }) {
         </p>
       )}
       {current?.url ? (
-        <button type="button" onClick={() => setActualSize(!actualSize)} aria-pressed={actualSize} className="mt-2 rounded-sm text-sm text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-ring">
+        <button type="button" onClick={() => setActualSize(!actualSize)} aria-pressed={actualSize} className="text-action underline underline-offset-4">
           {actualSize ? "Fit to width" : "View actual size"}
         </button>
       ) : null}
       <details className="mt-2 text-sm" open={current && !current.url ? true : undefined}>
-        <summary className="cursor-pointer text-muted-foreground">Diagram source</summary>
+        <summary className="min-h-[46px] cursor-pointer py-3 text-muted-foreground">Diagram source</summary>
         <pre><code>{source}</code></pre>
       </details>
     </figure>

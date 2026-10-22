@@ -1,51 +1,10 @@
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/next"
-import { Instrument_Sans, Space_Mono } from "next/font/google"
-import localFont from "next/font/local"
 import "./globals.css"
 
-import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/lib/site"
-
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-mono",
-})
-
-const jokker = localFont({
-  src: [
-    {
-      path: "../public/font/Jokker-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/font/Jokker-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/font/Jokker-Semibold.woff2",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/font/Jokker-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-brand",
-  display: "swap",
-})
 
 const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
@@ -91,10 +50,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 }
@@ -107,29 +63,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSans.variable} ${spaceMono.variable} ${jokker.variable} bg-background`}
-      suppressHydrationWarning
+      data-theme="dark"
+      data-scroll-behavior="smooth"
+      className="dark bg-background"
     >
       <head>
         <link rel="describedby" href="/llms.txt" />
+        <meta name="color-scheme" content="dark" />
+        <link rel="preload" href="/font/MiSansLatin-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          forcedTheme="system"
-          disableTransitionOnChange
-        >
-          <SiteHeader />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-        </ThemeProvider>
+        <SiteHeader />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
         {shouldLoadAnalytics && <Analytics />}
       </body>
     </html>

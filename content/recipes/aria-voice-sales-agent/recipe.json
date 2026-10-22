@@ -8,6 +8,7 @@
   "capabilities": ["Conversational AI", "Voice Agent", "Tool Calling", "CRM Integration", "RAG"],
   "mainRepoUrl": "https://github.com/Aryan-Techie/aria",
   "recipeUrl": "https://github.com/Aryan-Techie/aria/blob/main/README.md",
+  "demoUrl": "https://aria.aroice.in/",
   "author": "Aryan-Techie",
   "updated": "2026-09-10",
   "difficulty": "Advanced"

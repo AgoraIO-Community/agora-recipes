@@ -8,6 +8,7 @@
   "capabilities": ["Agora RTC", "Agora Signaling", "Gemini", "TTS", "STT", "Next.js"],
   "mainRepoUrl": "https://github.com/zicojiao/agora-podcasts",
   "recipeUrl": "https://github.com/zicojiao/agora-podcasts/blob/main/README.md",
+  "demoUrl": "https://agora-podcasts.vercel.app/",
   "author": "zicojiao",
   "updated": "2026-09-24",
   "difficulty": "Advanced"
