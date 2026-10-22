@@ -8,7 +8,7 @@ to the search surface, selected filters, and sorting controls. Pointer-following
 light and ambient animation are omitted. Other fonts and global color tokens
 continue to come from the Agora Website family.
 
-The host follows `data-theme` and system appearance. Chromium uses SVG backdrop
+The host fixes `data-theme="dark"` and uses only the dark palette. Chromium uses SVG backdrop
 refraction; WebKit uses the frosted path. Reduced transparency, forced colors,
 and unsupported backdrop filtering keep solid, readable surfaces. Input text
 and interactive controls stay outside the filtered backdrop.

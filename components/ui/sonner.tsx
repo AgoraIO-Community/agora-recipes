@@ -1,14 +1,10 @@
 'use client'
 
-import { useSystemTheme } from '@/components/theme-provider'
 import { Toaster as Sonner, ToasterProps } from 'sonner'
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const theme = useSystemTheme() ?? 'system'
-
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
       className="toaster group"
       style={
         {
@@ -18,6 +14,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         } as React.CSSProperties
       }
       {...props}
+      theme="dark"
     />
   )
 }

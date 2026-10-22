@@ -4,7 +4,6 @@ description: Search-first recipe discovery with Agora typography and agent-ui li
 colors:
   signal: "#00c2ff"
   signal-ink: "#04111d"
-  signal-text-light: "#075c9a"
   canvas-dark: "#000000"
   card-dark: "#0a0a0a"
   card-hover-dark: "#1a1a1a"
@@ -13,33 +12,17 @@ colors:
   line-dark: "#383838"
   control-dark: "#626262"
   focus-dark: "#a0faff"
-  canvas-light: "#fcf9f8"
-  card-light: "#f0f1f3"
-  card-hover-light: "#e7e8eb"
-  panel-light: "#f1f0f0"
-  ink-light: "#0f0f0f"
-  muted-light: "#626262"
-  line-light: "#d6d6d6"
-  control-light: "#8a8a8a"
   code-bg-dark: "#0a1114"
   code-header-dark: "#12191c"
   code-text-dark: "#e6edf3"
   code-border-dark: "#2c2c2c"
-  code-bg-light: "#f2f7f8"
-  code-header-light: "#eaeff0"
-  code-text-light: "#1f2328"
   footer-bg: "#050708"
   footer-ink: "#f3f6f7"
   glass-fill-dark: "rgba(28, 31, 34, .62)"
-  glass-fill-light: "rgba(255, 255, 255, .66)"
   glass-highlight-dark: "rgba(255, 255, 255, .3)"
-  glass-highlight-light: "rgba(255, 255, 255, .96)"
   glass-low-edge-dark: "rgba(0, 0, 0, .5)"
-  glass-low-edge-light: "rgba(27, 43, 53, .18)"
   glass-control-dark: "rgba(255, 255, 255, .075)"
-  glass-control-light: "rgba(255, 255, 255, .72)"
   glass-control-hover-dark: "rgba(255, 255, 255, .13)"
-  glass-control-hover-light: "rgba(255, 255, 255, .92)"
 typography:
   headline: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "clamp(2.25rem, 3.055556vw, 2.75rem)", "fontWeight": 400, "lineHeight": 0.94, "letterSpacing": "-0.04em"}
   title: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "20px", "fontWeight": 400, "lineHeight": 1.2, "letterSpacing": "-0.025em"}
@@ -67,7 +50,7 @@ components:
 
 **Creative North Star: "The Agora Website Directory"**
 
-Recipes retains the Agora site header and opens directly into discovery below it. Agora Website typography, warm-light or black surfaces, lightweight media previews, and official cyan signals pair with the supplied agent-ui liquid glass controls. Rounded search and static reflective selections provide the material character while independent foreground text stays clear.
+Recipes retains the Agora site header and opens directly into discovery below it. Agora Website typography, black surfaces, lightweight media previews, and official cyan signals pair with the supplied agent-ui liquid glass controls. Rounded search and static reflective selections provide the material character while independent foreground text stays clear.
 
 This Recipes-scoped record preserves the website fonts, palette, and detail reader from Omja’s #68 and the media/discovery work from #70. The homepage retains the site header and navigation, followed by search with no introduction, hero, or ambient animation. Secondary navigation is also in the footer. The implemented CSS is normative where older website-directory guidance differed.
 
@@ -81,12 +64,12 @@ Provenance: [Omja #68](https://github.com/AgoraIO-Community/agora-recipes/pull/6
 ## Colors
 
 ### Primary
-Official Signal is the action fill, detail-navigation logo, reader-tab underline, and graphic accent. Signal Ink carries text on that fill. Small light-theme blue text uses Signal Text Light; light prose links use neutral ink with a signal underline. Primary hover uses warm ink with dark text in dark mode, and dark ink with warm text in light mode.
+Official Signal is the action fill, detail-navigation logo, reader-tab underline, and graphic accent. Signal Ink carries text on that fill. Primary hover uses warm ink with dark text.
 
-**The Signal Rule.** Keep official cyan for action fills, active rules, and graphics in both themes. Small blue text on light surfaces uses the companion signal-text shade; body copy remains neutral.
+**The Signal Rule.** Keep official cyan for action fills, active rules, links, and graphics on the dark canvas; body copy remains neutral.
 
 ### Neutral
-Dark canvas, card, and hover planes step upward from black. Light canvas is warm, with cooler card and hover planes. Muted ink distinguishes secondary information; decorative lines and stronger control boundaries have separate roles. The footer retains its dark website palette in either appearance. Code uses its own theme-aware surface and ink tokens.
+Canvas, card, and hover planes step upward from black. Muted ink distinguishes secondary information; decorative lines and stronger control boundaries have separate roles. The footer and code use their dark surface and ink tokens. System appearance does not change the site.
 
 ## Typography
 
@@ -106,7 +89,7 @@ Detail pages use a main column and (240–280px) sticky rail with a (clamp(24px,
 
 **The Matte Surface Rule.** Media entries show rounded previews with text directly below, without a large filled card plane. Guide entries and dialogs use matte tonal planes without drop shadows. Reserve refraction, specular rims, and restrained elevation for the supplied glass controls.
 
-The detail header and sticky catalog bar use translucent backgrounds with (20px) blur and (1.15) saturation. Search uses its own theme-aware glass fill, a static specular rim, and low elevation. Chromium applies the original measured map with RGB displacement scales (-50/-47/-44), followed by (5px) blur and (1.4) saturation; the frosted path uses (7px) blur. Selected filters and sort use (8px) blur with (1.3) saturation. Foreground input text remains outside the filtered backdrop. Reduced transparency, forced colors, and unsupported backdrop filtering have readable solid fallbacks. Code has an inset signal rule (3px). Layer order is catalog bar (60), header (80), dialog overlay (100), dialog content (110), and focused skip link (150); dialogs must cover both sticky surfaces.
+The detail header and sticky catalog bar use translucent backgrounds with (20px) blur and (1.15) saturation. Search uses its dark glass fill, a static specular rim, and low elevation. Chromium applies the original measured map with RGB displacement scales (-50/-47/-44), followed by (5px) blur and (1.4) saturation; the frosted path uses (7px) blur. Selected filters and sort use (8px) blur with (1.3) saturation. Foreground input text remains outside the filtered backdrop. Reduced transparency, forced colors, and unsupported backdrop filtering have readable solid fallbacks. Code has an inset signal rule (3px). Layer order is catalog bar (60), header (80), dialog overlay (100), dialog content (110), and focused skip link (150); dialogs must cover both sticky surfaces.
 
 State changes use the shared easing, with (200ms) color transitions and (360ms) header changes. Fine-pointer action hover lifts (2px); media title links change color without moving. Homepage material has no pointer-following light, particle renderer, or autoplay. Glass reflections are static; only interaction states transition. Reduced motion shortens transitions and disables hover translation.
 
@@ -117,7 +100,7 @@ Search, selected filters, sorting, preview corners, guide cards, and continuatio
 ## Components
 
 ### Buttons and fields
-Primary buttons pair Signal with Signal Ink; outline buttons use the control boundary and neutral text; text actions use the theme's signal-text role. Shared actions have (46px) minimum targets, (12px 20px) padding, and visible focus. Focus is a (2px) outline with (3px) offset; light appearance adds an outer signal ring. Search uses the restored liquid GlassSurface, (16px) input text, and independent foreground controls: height (50px), reducing to (46px) on phones. A visible outer focus outline replaces an input-level ring so it does not obscure the glass rim.
+Primary buttons pair Signal with Signal Ink; outline buttons use the control boundary and neutral text; text actions use the theme's signal-text role. Shared actions have (46px) minimum targets, (12px 20px) padding, and visible focus. Focus is a (2px) outline with (3px) offset. Search uses the restored liquid GlassSurface, (16px) input text, and independent foreground controls: height (50px), reducing to (46px) on phones. A visible outer focus outline replaces an input-level ring so it does not obscure the glass rim.
 
 ### Directory filters and metadata
 **The Directory Control Rule.** Keep unselected filters quiet and transparent. Selected filters use rounded glass fill, a static highlight and low edge, a faint boundary, and readable neutral ink. Quiet tinted metadata labels remain noninteractive.
@@ -128,12 +111,12 @@ Quick topics and visible platform choices scroll horizontally when needed. Platf
 Media bodies use desktop padding (10px 2px 0), reducing to (8px 2px 0) with a (4px) content gap on phones. Phone title/summary links size to their content rather than reserving a fixed-height text block. Guide entries retain (16px) internal spacing. Titles and summaries each clamp to two lines. Author links retain a (46px) target and a (20px) avatar with initials fallback. Show at most two metadata labels, reducing to one on phones. Video covers open on-site playback; non-video demo covers open the existing external demo; titles open the guide. Guide-only entries use the same text and author hierarchy without fabricated media. Native inline continuation reveals the remaining catalog in place.
 
 ### Navigation, dialogs, and reading
-All pages retain the official wordmark and website header; desktop navigation becomes a keyboard-operable menu at (900px). The homepage places search directly below the header, with secondary navigation also in the footer. Appearance follows the system without a selector. Video and help dialogs use the shared corrected layers, (46px) close targets, scrollable content, and focus restoration. Video includes native controls, setup notes, original-source and recipe links, optional HTTPS demo actions, and a load-failure fallback. Optional Demo links belong to recipe metadata independently of curation. Detail reading preserves true Rendered/Raw tabs, Shiki dual-theme highlighting, copy feedback, horizontal code scrolling, and the narrower prose measure.
+All pages retain the official wordmark and website header; desktop navigation becomes a keyboard-operable menu at (900px). The homepage places search directly below the header, with secondary navigation also in the footer. Appearance is fixed to dark without a selector. Video and help dialogs use the shared corrected layers, (46px) close targets, scrollable content, and focus restoration. Video includes native controls, setup notes, original-source and recipe links, optional HTTPS demo actions, and a load-failure fallback. Optional Demo links belong to recipe metadata independently of curation. Detail reading preserves true Rendered/Raw tabs, Shiki dark highlighting, copy feedback, horizontal code scrolling, and the narrower prose measure.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** follow live device appearance and ignore legacy stored theme choices.
+- **Do** render dark from the initial HTML, including controls, code, diagrams, and browser chrome, regardless of system or saved preferences.
 - **Do** preserve real thumbnails, source attribution, setup notes, and truthful demo availability.
 - **Do** keep visible focus, 46px control targets, keyboard disclosure, reduced-motion support, and solid glass fallbacks.
 - **Do** keep all recipes in one catalog; search and filters must reach beyond the initial recommendations.

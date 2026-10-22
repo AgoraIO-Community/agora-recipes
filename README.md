@@ -122,7 +122,7 @@ Search covers titles, descriptions, card summaries, authors, and recipe metadata
 It tolerates small spelling mistakes and recognizes common English/Chinese domain
 terms, such as `speech to text` / `语音转文字`. The default sort ranks exact matches
 ahead of approximate ones. Matching runs locally without a search service.
-Appearance follows the system setting automatically, including changes while the page is open. There is no theme selector or saved-choice override. Platform choices are visible and multi-select (OR); use cases also use OR, while selected capabilities must all match.
+Appearance is fixed to dark on every page, including code blocks and diagrams. There is no light mode, system-following behavior, theme selector, or saved-choice override. Platform choices are visible and multi-select (OR); use cases also use OR, while selected capabilities must all match.
 
 Each recommendation can provide a local `thumbnail`, its `thumbnailSource` and
 `thumbnailAlt`, and an existing `videoUrl`. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use

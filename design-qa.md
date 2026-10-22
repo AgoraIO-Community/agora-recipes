@@ -68,3 +68,16 @@ Media sources remain recorded in thumbnail sidecars, the author manifest, and
 embedded attribution. Glass source and host adaptations are documented in
 `components/agent-ui/README.md`; font provenance is in `public/font/README.md`.
 Full voice/camera sessions and physical-device WebKit rendering were not retested.
+
+## Fixed dark appearance
+
+The owner subsequently requested dark only. The initial HTML now sets dark
+appearance, CSS and the manifest declare dark browser chrome, and the theme
+provider, device preference listener, and light styles are removed. Shiki,
+Mermaid, and toast surfaces use dark palettes directly.
+
+With a simulated light system preference, desktop and390px phone layouts retain
+`data-theme="dark"`, `color-scheme: dark`, and a black background. The Meeting
+Copilot detail page renders `github-dark-default` code and its Mermaid diagram.
+Lint, independent TypeScript checking, all19tests, the170-page build, and the
+81-recipe LLM discovery check pass. Evidence is in `.impeccable/review/dark-only/`.

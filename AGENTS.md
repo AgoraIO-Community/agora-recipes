@@ -12,7 +12,7 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 
 ### Owner UI decisions — do not regress
 
-- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance follows `prefers-color-scheme` automatically; old manual theme preferences must not override it.
+- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance is fixed to dark on every page, regardless of system settings or saved preferences.
 - Keep the Agora site header and navigation on the homepage and recipe detail pages. Search, quick topics, visible platform filters, and the media directory follow the header immediately. The homepage has no introduction, hero, or ambient animation. Secondary links also remain in the footer.
 - Homepage controls use the supplied agent-ui Glass material: a shared 12px corner treatment for search, restrained glass selections and sorting, readable independent text, and solid accessibility fallbacks. Metadata tags remain noninteractive. Preserve visible multi-select platforms and compact two-column phone browsing.
 
