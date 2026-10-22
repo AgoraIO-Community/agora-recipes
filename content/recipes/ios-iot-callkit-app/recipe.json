@@ -1,0 +1,26 @@
+{
+  "title": "iOS IoT CallKit App",
+  "tagline": "Connect iOS clients and devices through Agora Link calling.",
+  "description": "An Agora Link CallKit library and iOS demo for account/device calls, notifications and live device media. Requires provisioned IoT service configuration.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "iOS",
+    "Swift"
+  ],
+  "useCases": [
+    "IoT",
+    "Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "CallKit",
+    "Mobile App"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}
