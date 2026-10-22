@@ -61,7 +61,6 @@
     "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "server-only": "^0.0.1",
-    "shaders": "4.0.0",
     "shiki": "^4.5.0",
     "sonner": "^1.7.1",
     "tailwind-merge": "^3.3.1",

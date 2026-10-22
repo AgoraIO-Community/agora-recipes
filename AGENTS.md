@@ -13,9 +13,8 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 ### Owner UI decisions — do not regress
 
 - Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance follows `prefers-color-scheme` automatically; old manual theme preferences must not override it.
-- The Recipes index is a catalog, not a full-screen landing page. Its intro uses content-sized spacing below the compact navigation; search, topics, platform filters, and the media directory follow immediately. Keep recipe card titles visible on first load on common laptop and phone viewports. Keep the intro compact on phones and laptops; do not restore viewport-proportional heights or a separate animation band.
-- Recipe-type, platform, use-case, and capability filters use the website's plain-text directory controls with an underline under selected filters. Do not restore boxed or pill-shaped filter buttons. Metadata tags are not interactive filters.
-- Keep the website's particle formations, but size their coordinate space to the intro and make them clearly visible in light mode in both WebGPU and Canvas. Keep the hero mode tabs removed.
+- Keep the Agora site header and navigation on the homepage and recipe detail pages. Search, quick topics, visible platform filters, and the media directory follow the header immediately. The homepage has no introduction, hero, or ambient animation. Secondary links also remain in the footer.
+- Homepage controls use the supplied agent-ui Glass material: a shared 12px corner treatment for search, restrained glass selections and sorting, readable independent text, and solid accessibility fallbacks. Metadata tags remain noninteractive. Preserve visible multi-select platforms and compact two-column phone browsing.
 
 ### Implementation practices
 

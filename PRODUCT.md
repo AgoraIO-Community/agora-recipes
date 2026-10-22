@@ -22,7 +22,7 @@ Appearance follows the system color preference, including live changes; legacy s
 
 ## Brand Commitments
 
-Use the current Agora Website 2026 visual family from Omja’s design refresh: official wordmark, MiSans Latin, warm light and black dark surfaces, rectilinear controls, and underlined filters. Keep the website particle formations inside a compact, content-sized introduction. Keep real product media, clear outcomes, compact mobile browsing, and simple interactions. Existing catalog copy is English.
+Use Agora Website 2026 typography, colors, and the detail reader alongside the supplied agent-ui liquid glass controls. Keep the Agora site header, followed immediately by search; omit the introduction, hero, and ambient animation. Use the original lightweight showcase cards with rounded previews, short copy underneath, and a shared 12px geometry for controls. Secondary navigation also lives in the footer. Keep glass scoped to controls with clear text and accessible solid fallbacks. Keep real product media, clear outcomes, compact mobile browsing, and simple interactions. Existing catalog copy is English.
 
 ## Evidence on Hand
 

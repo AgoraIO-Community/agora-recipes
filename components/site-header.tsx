@@ -26,7 +26,7 @@ export function SiteHeader() {
     return () => {
       window.removeEventListener("scroll", scroll)
     }
-  }, [])
+  }, [pathname])
   useEffect(() => {
     if (!open) return
     const close = (event: KeyboardEvent) => {
