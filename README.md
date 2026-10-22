@@ -46,6 +46,31 @@ Only recipes whose `author` is exactly `Agora` are exposed. When present, the
 credential variable names; the CLI does not guess these values from the
 recipe's language or checked-out files.
 
+## LLM discovery and crawling
+
+The public origin defaults to `https://recipes.agora.io`. Set `SITE_URL` at build
+time to override it for a different deployment. Canonical links, the sitemap,
+and Markdown links all use this origin.
+
+- `/llms.txt` provides a generated index of every Voice AI and RTC recipe,
+  including community recipes, plus guidance on the existing official-only API.
+- `/index.md` provides the catalog as Markdown.
+- `/recipes/<slug>/index.md` provides recipe metadata, source links, the fetched
+  implementation guide, and its implementation prompt. Missing documents are
+  explicitly marked unavailable; unknown slugs return HTTP 404.
+- `/sitemap.xml` lists the homepage and every recipe page.
+- `/robots.txt` allows crawling and points to the sitemap.
+
+HTML pages advertise their Markdown alternate and `/llms.txt`; the footer also
+links to the index. These routes reuse the recipe loader and build artifacts, so
+adding a recipe requires no separate discovery-file edits or runtime GitHub fetches.
+The `llms.txt` format follows the [llms.txt proposal](https://llmstxt.org/).
+Crawler access at the CDN or hosting layer must also permit these public routes.
+
+After building, run `npm start`, then `node scripts/check-llm-discovery.mjs` to
+check the catalog, Markdown responses, canonical links, sitemap coverage, and 404s.
+Pass a different server origin as the first argument to check another deployment.
+
 ## Recipe Config
 
 ```json
