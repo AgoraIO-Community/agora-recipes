@@ -1,0 +1,14 @@
+{
+  "title": "Filler-Free: Live",
+  "tagline": "A real-time AI speech coach that interrupts filler words and rambling.",
+  "description": "Android app with an Agora Conversational AI agent that coaches speakers live, with a FastAPI backend and live group coaching sessions.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["Android", "Python"],
+  "useCases": ["Speech Coaching", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Interactive Live Streaming"],
+  "mainRepoUrl": "https://github.com/madhuri-sharma921/Filler-Free",
+  "recipeUrl": "https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/RECIPE.md",
+  "author": "Dhiraj Sharma",
+  "updated": "2026-10-16",
+  "difficulty": "Advanced"
+}
