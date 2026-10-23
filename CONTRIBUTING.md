@@ -66,6 +66,11 @@ Use clear platform labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Andro
 
 ## Recipe URL Requirements
 
+Optional `demoUrl` adds a **Try demo** link on the recipe page and catalog card.
+Use an absolute HTTPS URL for an existing web demo or native distribution page
+such as TestFlight, without embedded credentials. Omit it when no usable demo
+exists. Demo links work independently of homepage recommendations.
+
 `mainRepoUrl` should point to the implementation repository root:
 
 ```text

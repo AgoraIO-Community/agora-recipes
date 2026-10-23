@@ -10,6 +10,14 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 
 ## How to Work in This Repo
 
+### Owner UI decisions — do not regress
+
+- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance is fixed to dark on every page, regardless of system settings or saved preferences.
+- Keep the Agora site header and navigation on the homepage and recipe detail pages. Search, quick topics, visible platform filters, and the media directory follow the header immediately. The homepage has no introduction, hero, or ambient animation. Secondary links also remain in the footer.
+- Homepage controls use the supplied agent-ui Glass material: a shared 12px corner treatment for search, restrained glass selections and sorting, readable independent text, and solid accessibility fallbacks. Metadata tags remain noninteractive. Preserve visible multi-select platforms and compact two-column phone browsing.
+
+### Implementation practices
+
 - Keep changes focused and minimal. Prefer extending the existing content and component patterns over adding new abstractions.
 - Do not manually edit generated output such as `.next/`, `node_modules/`, or lockfiles unless the task explicitly requires it.
 - Use the existing scripts in `package.json`:
@@ -122,6 +130,8 @@ Required array fields must be JSON arrays:
 
 - `voice-ai`
 - `rtc`
+
+Optional `demoUrl` is an absolute HTTPS link to an existing web demo or native distribution page such as TestFlight. Omit it when no usable demo exists; it does not require homepage recommendation.
 
 `updated` should use `YYYY-MM-DD` format. `platforms` should use clear language or runtime labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`; reuse existing labels when possible so filters stay useful.
 

@@ -1,15 +1,14 @@
-import { Hero } from "@/components/hero"
+import type { Metadata } from "next"
 import { RecipeExplorer } from "@/components/recipe-explorer"
-import { getAllRecipes, getFilterOptionsByTag } from "@/lib/recipes"
+import { getRecipeSummaries } from "@/lib/showcase"
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    types: { "text/markdown": "/index.md" },
+  },
+}
 
 export default function HomePage() {
-  const recipes = getAllRecipes()
-  const filterOptionsByTag = getFilterOptionsByTag()
-
-  return (
-    <>
-      <Hero />
-      <RecipeExplorer recipes={recipes} filterOptionsByTag={filterOptionsByTag} />
-    </>
-  )
+  return <RecipeExplorer recipes={getRecipeSummaries()} />
 }

@@ -18,6 +18,7 @@
   ],
   "mainRepoUrl": "https://github.com/zicojiao/agora-rotary-dial-phone",
   "recipeUrl": "https://github.com/zicojiao/agora-rotary-dial-phone/blob/main/README.md",
+  "demoUrl": "https://rotary-dial-phone.vercel.app/",
   "author": "zicojiao",
   "updated": "2026-09-01",
   "difficulty": "Intermediate"

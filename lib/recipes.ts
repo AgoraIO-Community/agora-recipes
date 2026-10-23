@@ -40,6 +40,7 @@ export type RecipeMeta = {
   capabilities: string[]
   mainRepoUrl: string
   recipeUrl: string
+  demoUrl?: string
   author: string
   updated: string
   difficulty: Difficulty
@@ -140,6 +141,15 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
         ", ",
       )}`,
     )
+  }
+
+  if (m.demoUrl !== undefined) {
+    let valid = false
+    try {
+      const url = new URL(m.demoUrl as string)
+      valid = typeof m.demoUrl === "string" && url.protocol === "https:" && !url.username && !url.password
+    } catch { /* A malformed optional demo link is a content error. */ }
+    if (!valid) throw new Error(`[recipes] ${slug}/recipe.json demoUrl must be an absolute HTTPS URL without credentials`)
   }
 
   if (m.cli !== undefined) {
