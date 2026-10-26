@@ -166,5 +166,19 @@
       "Reactor",
       "transcription"
     ]
+  },
+  {
+    "slug": "agora-drawguess",
+    "title": "Draw & Guess",
+    "compactTitle": "Draw & Guess",
+    "summary": "Draw and guess with friends using Agora Whiteboard and voice chat. Race FastH3 as it turns a correct guess into verified video proof.",
+    "compactSummary": "Draw it. Guess it. Beat FastH3.",
+    "thumbnail": "/recipes/agora-drawguess.jpg",
+    "thumbnailAlt": "English Draw & Guess illustrated cover showing a cat sketch becoming video, with Agora Realtime and FastH3 Video Proof labels",
+    "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/agora-drawguess/33b94683a997175b89f8ce501d99c5f408131b00/public/og-draw-and-guess.png",
+    "demoUrl": "https://drawguess.app/",
+    "demoNote": "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.",
+    "labels": ["Gaming", "Whiteboard"],
+    "searchTerms": ["drawing game", "draw and guess", "drawguess", "multiplayer", "voice chat", "whiteboard", "FastH3", "Reactor", "video proof"]
   }
 ]

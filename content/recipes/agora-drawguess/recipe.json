@@ -1,0 +1,15 @@
+{
+  "title": "Draw & Guess",
+  "tagline": "Draw with friends and race an AI that must prove its guess with video.",
+  "description": "Build a multiplayer drawing game with Agora Interactive Whiteboard, RTC voice chat and proof-video sharing, and RTM room updates. An optional FastH3 challenger must guess the sketch, generate matching video, and pass independent vision verification before it wins.",
+  "tags": ["rtc"],
+  "platforms": ["Web", "TypeScript"],
+  "useCases": ["Gaming", "Entertainment", "Realtime"],
+  "capabilities": ["Agora RTC", "Agora Signaling", "Interactive Whiteboard", "AI Video Generation", "React"],
+  "mainRepoUrl": "https://github.com/zicojiao/agora-drawguess",
+  "recipeUrl": "https://github.com/zicojiao/agora-drawguess/blob/main/README.md",
+  "demoUrl": "https://drawguess.app/",
+  "author": "zicojiao",
+  "updated": "2026-10-26",
+  "difficulty": "Advanced"
+}
