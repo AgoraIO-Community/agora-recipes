@@ -8,6 +8,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { defaultFilters, discoverRecipes, quickTags, type DiscoveryFilters, type RecipeSummary } from "@/lib/recipe-discovery"
 
 const VISIBLE_PLATFORMS = ["Web", "iOS", "Android", "Flutter", "Python", "TypeScript", "Go", "React Native"]
+const RECIPE_BATCH_SIZE = 12
 const toggle = (values: string[], value: string) => values.includes(value) ? values.filter(item => item !== value) : [...values, value]
 
 export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
@@ -15,6 +16,8 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
   const [advanced, setAdvanced] = useState(false)
   const filterButton = useRef<HTMLButtonElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
+  const loadMoreRef = useRef<HTMLDivElement>(null)
+  const [pagination, setPagination] = useState({ key: "", limit: RECIPE_BATCH_SIZE })
   const keepSticky = useRef(false)
   const filtered = useMemo(() => discoverRecipes(recipes, filters), [recipes, filters])
   const options = useMemo(() => ({
@@ -27,8 +30,25 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
   const otherSelected = filters.platforms.filter(platform => otherPlatforms.includes(platform)).length
   const advancedCount = filters.useCases.length + filters.capabilities.length + Number(filters.category !== "all") + Number(filters.previewOnly)
   const hasFilters = Boolean(filters.query.trim() || filters.topic !== "all" || filters.platforms.length || advancedCount || filters.previewOnly)
-  const leading = hasFilters ? filtered : filtered.slice(0, 6)
-  const remaining = hasFilters ? [] : filtered.slice(6)
+  const resultsKey = JSON.stringify(filters)
+  const visibleLimit = pagination.key === resultsKey ? pagination.limit : RECIPE_BATCH_SIZE
+  const visibleRecipes = filtered.slice(0, visibleLimit)
+  const hasMore = visibleRecipes.length < filtered.length
+  useEffect(() => {
+    const sentinel = loadMoreRef.current
+    if (!hasMore || !sentinel) return
+    if (!("IntersectionObserver" in window)) {
+      setPagination({ key: resultsKey, limit: filtered.length })
+      return
+    }
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return
+      observer.disconnect()
+      setPagination({ key: resultsKey, limit: Math.min(visibleLimit + RECIPE_BATCH_SIZE, filtered.length) })
+    }, { rootMargin: "0px 0px 400px 0px" })
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [resultsKey, visibleLimit, filtered.length, hasMore])
 
   // Keep search directly below the site navigation, including its mobile menu.
   useEffect(() => {
@@ -116,18 +136,12 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
         </fieldset>)}
       </div>}
       <div className="catalog-results-meta" data-filtered={hasFilters || filters.sort !== "recommended"}>
-        <p role="status" aria-atomic="true"><span className="text-foreground">{filtered.length}</span> {filtered.length === 1 ? "recipe" : "recipes"}<span className="catalog-sort-status"> · {filters.sort === "recommended" ? "Recommended first" : filters.sort === "updated" ? "Recently updated" : "A–Z"}</span></p>
+        <p role="status" aria-atomic="true">Showing <span className="text-foreground">{visibleRecipes.length}</span> of {filtered.length} {filtered.length === 1 ? "recipe" : "recipes"}<span className="catalog-sort-status"> · {filters.sort === "recommended" ? "Recommended first" : filters.sort === "updated" ? "Recently updated" : "A–Z"}</span></p>
         {(hasFilters || filters.sort !== "recommended") && <button type="button" className="text-action catalog-reset" onClick={() => setFilters(defaultFilters)}>Clear filters</button>}
       </div>
       {filtered.length ? <>
-        <div className="showcase-grid">{leading.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
-        {remaining.length > 0 && <details className="catalog-continuation">
-          <summary>
-            <span className="catalog-peek" aria-hidden="true">{remaining.slice(0, 3).map(recipe => <span className="catalog-peek-card" key={recipe.slug}><strong>{recipe.title}</strong><span>{recipe.author}</span></span>)}</span>
-            <span className="catalog-continuation-label">{remaining.length} more recipes <ChevronDown size={16} aria-hidden="true" /></span>
-          </summary>
-          <div className="showcase-grid catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
-        </details>}
+        <div className="showcase-grid">{visibleRecipes.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
+        {hasMore && <div ref={loadMoreRef} className="catalog-load-more" aria-hidden="true">Scroll for more recipes</div>}
       </> : <div className="empty-recipes"><h3>No recipes match</h3><p>Try another keyword or remove a filter.</p><button type="button" className="text-action" onClick={() => setFilters(defaultFilters)}>Clear search and filters</button></div>}
     </div>
   </section>

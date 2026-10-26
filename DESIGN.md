@@ -79,6 +79,17 @@ Use regular weight and tight tracking for headings. Detail hero headings use hea
 
 ## Layout
 
+**Integrated designUpdate behavior:** the catalog renders 12 matching recipes
+initially and appends batches of 12 when the bottom sentinel comes within
+400px of the viewport. This supersedes the six-card disclosure described below;
+there is no View more interaction. Search, topics, sorting, and facets reset
+the batch. Browsers without IntersectionObserver render all matching recipes.
+Keep staging's media cards, discovery controls, fixed dark theme, and responsive
+grid. The detail reader retains the recent 1200px content width, 260px rail,
+32px gap, and bordered document with 24px padding (16px on phones). Its header
+uses an 80%-opaque background at the top and 58% on scroll with 12px blur and
+1.15 saturation, preserving the requested see-through navigation treatment.
+
 The shell uses a content width up to (1600px), plus gutters of (clamp(24px, 4vw, 64px)); phones at or below (640px) use (16px) gutters. Site navigation is (62px) tall, becoming (58px) at (900px), and remains visible on the homepage. Search follows immediately with phone top padding (6px). On larger screens its sticky offset tracks the measured header, including the mobile menu.
 
 Search and topics stick beneath the site header on larger screens. On phones, only the site header stays fixed; search and filters scroll with the catalog. Phone search padding is (6px 0), with a (4px) gap before topics. Visible platforms follow; advanced facets expand inline. The media grid has three columns and (20px) gaps, changing directly to two columns at (640px), with (12px) horizontal and (16px) vertical gaps. The first six recommendations lead; a fading native disclosure previews subsequent real entries. Search/filter results bypass that initial truncation. Media stays (16:9).
