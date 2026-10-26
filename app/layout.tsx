@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/lib/site"
@@ -51,10 +50,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fcf9f8" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 }
@@ -67,25 +63,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="bg-background"
-      suppressHydrationWarning
+      data-theme="dark"
+      data-scroll-behavior="smooth"
+      className="dark bg-background"
     >
       <head>
-        <meta name="color-scheme" content="dark light" />
-        <script dangerouslySetInnerHTML={{ __html: `(function(){var t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t})()` }} />
+        <link rel="describedby" href="/llms.txt" />
+        <meta name="color-scheme" content="dark" />
         <link rel="preload" href="/font/MiSansLatin-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <ThemeProvider>
-          <SiteHeader />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-        </ThemeProvider>
+        <SiteHeader />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
         {shouldLoadAnalytics && <Analytics />}
       </body>
     </html>

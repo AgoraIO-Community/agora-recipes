@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "custom-modalities",
-  "generatedAt": "2026-10-19T07:56:53.854Z",
+  "generatedAt": "2026-09-04T17:59:40.913Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm-tts",
     "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm-tts/blob/main/README.md",

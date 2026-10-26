@@ -14,9 +14,11 @@ const links = [
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
   const menuButton = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
+  const [menu, setMenu] = useState({ pathname, open: false })
+  const open = menu.pathname === pathname && menu.open
+  const setOpen = (next: boolean) => setMenu({ pathname, open: next })
   useEffect(() => {
     const scroll = () => setScrolled(window.scrollY > 8)
     scroll()
@@ -24,16 +26,15 @@ export function SiteHeader() {
     return () => {
       window.removeEventListener("scroll", scroll)
     }
-  }, [])
-  useEffect(() => { setOpen(false) }, [pathname])
+  }, [pathname])
   useEffect(() => {
     if (!open) return
     const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") { setOpen(false); menuButton.current?.focus() }
+      if (event.key === "Escape") { setMenu({ pathname, open: false }); menuButton.current?.focus() }
     }
     document.addEventListener("keydown", close)
     return () => document.removeEventListener("keydown", close)
-  }, [open])
+  }, [open, pathname])
   return (
     <header className="site-header" data-scrolled={scrolled || open} data-detail={pathname.startsWith("/recipes/")}>
       <div className="site-header__content shell">

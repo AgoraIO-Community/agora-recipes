@@ -12,10 +12,9 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 
 ### Owner UI decisions — do not regress
 
-- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance follows `prefers-color-scheme` automatically; old manual theme preferences must not override it.
-- The Recipes index is a catalog, not a full-screen landing page. Its intro uses 45% of the usable viewport below the compact navigation; the recipe directory starts immediately afterward and occupies the remaining first-screen space. Keep recipe card titles visible on first load on common laptop and phone viewports. Do not restore a full-viewport hero, fixed 325px intro, or separate tall mobile animation band.
-- Recipe-type, platform, use-case, and capability filters use the website's plain-text directory controls with an underline under selected filters. Do not restore boxed or pill-shaped filter buttons. Metadata tags are not interactive filters.
-- Keep the website's particle formations, but size their coordinate space to the intro and make them clearly visible in light mode in both WebGPU and Canvas. Keep the hero mode tabs removed.
+- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance is fixed to dark on every page, regardless of system settings or saved preferences.
+- Keep the Agora site header and navigation on the homepage and recipe detail pages. Search, quick topics, visible platform filters, and the media directory follow the header immediately. The homepage has no introduction, hero, or ambient animation. Secondary links also remain in the footer.
+- Homepage controls use the supplied agent-ui Glass material: a shared 12px corner treatment for search, restrained glass selections and sorting, readable independent text, and solid accessibility fallbacks. Metadata tags remain noninteractive. Preserve visible multi-select platforms and compact two-column phone browsing.
 
 ### Implementation practices
 
@@ -131,6 +130,8 @@ Required array fields must be JSON arrays:
 
 - `voice-ai`
 - `rtc`
+
+Optional `demoUrl` is an absolute HTTPS link to an existing web demo or native distribution page such as TestFlight. Omit it when no usable demo exists; it does not require homepage recommendation.
 
 `updated` should use `YYYY-MM-DD` format. `platforms` should use clear language or runtime labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`; reuse existing labels when possible so filters stay useful.
 

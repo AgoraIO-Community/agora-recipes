@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useId, useState } from "react"
-import { useSystemTheme } from "@/components/theme-provider"
 
 let renderer: Promise<typeof import("mermaid")["default"]> | undefined
 let renderQueue: Promise<unknown> = Promise.resolve()
@@ -12,7 +11,7 @@ function getRenderer() {
       startOnLoad: false,
       securityLevel: "strict",
       suppressErrorRendering: true,
-      theme: "default",
+      theme: "dark",
       htmlLabels: false,
       secure: ["secure", "securityLevel", "startOnLoad", "maxTextSize", "maxEdges", "suppressErrorRendering", "htmlLabels", "flowchart"],
       flowchart: { htmlLabels: false },
@@ -23,19 +22,16 @@ function getRenderer() {
 }
 
 export function MermaidDiagram({ source }: { source: string }) {
-  const resolvedTheme = useSystemTheme()
   const id = `diagram-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
   const [result, setResult] = useState<{ source: string; url?: string; width?: number }>()
   const [actualSize, setActualSize] = useState(false)
 
   useEffect(() => {
-    if (!resolvedTheme) return
     let cancelled = false
     async function render() {
       try {
         const mermaid = await getRenderer()
         if (cancelled) return
-        const dark = resolvedTheme === "dark"
         const job = renderQueue.catch(() => {}).then(async () => {
           mermaid.initialize({
             startOnLoad: false, securityLevel: "strict", suppressErrorRendering: true,
@@ -43,11 +39,11 @@ export function MermaidDiagram({ source }: { source: string }) {
             secure: ["secure", "securityLevel", "startOnLoad", "maxTextSize", "maxEdges", "suppressErrorRendering", "htmlLabels", "flowchart", "theme", "themeVariables"],
             flowchart: { htmlLabels: false },
             themeVariables: {
-              darkMode: dark, fontFamily: 'MiSansLatin, Helvetica Neue, Arial, sans-serif', fontSize: '13px',
-              background: dark ? '#0a0a0a' : '#f1f0f0', primaryColor: dark ? '#1a1a1a' : '#f0f1f3',
-              primaryTextColor: dark ? '#fcf9f8' : '#0f0f0f', primaryBorderColor: dark ? '#626262' : '#8a8a8a',
-              lineColor: dark ? '#b3b3b3' : '#626262', secondaryColor: dark ? '#0a1114' : '#f2f7f8',
-              tertiaryColor: dark ? '#0a0a0a' : '#fcf9f8', textColor: dark ? '#fcf9f8' : '#0f0f0f',
+              darkMode: true, fontFamily: 'MiSansLatin, Helvetica Neue, Arial, sans-serif', fontSize: '13px',
+              background: '#0a0a0a', primaryColor: '#1a1a1a',
+              primaryTextColor: '#fcf9f8', primaryBorderColor: '#626262',
+              lineColor: '#b3b3b3', secondaryColor: '#0a1114',
+              tertiaryColor: '#0a0a0a', textColor: '#fcf9f8',
             },
           })
           return mermaid.render(id, source)
@@ -69,7 +65,7 @@ export function MermaidDiagram({ source }: { source: string }) {
     }
     void render()
     return () => { cancelled = true }
-  }, [id, source, resolvedTheme])
+  }, [id, source])
 
   const current = result?.source === source ? result : undefined
   return (

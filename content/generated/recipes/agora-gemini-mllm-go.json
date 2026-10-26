@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "agora-gemini-mllm-go",
-  "generatedAt": "2026-10-19T07:56:44.406Z",
+  "generatedAt": "2026-09-15T23:00:37.729Z",
   "source": {
     "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-gemini-mllm-go",
     "recipeUrl": "https://github.com/AgoraIO-Community/agora-gemini-mllm-go/blob/main/docs/ai/RECIPE.md",

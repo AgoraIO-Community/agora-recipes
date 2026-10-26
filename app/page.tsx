@@ -1,7 +1,6 @@
-import { Hero } from "@/components/hero"
-import { RecipeExplorer } from "@/components/recipe-explorer"
-import { getAllRecipes, getFilterOptionsByTag } from "@/lib/recipes"
 import type { Metadata } from "next"
+import { RecipeExplorer } from "@/components/recipe-explorer"
+import { getRecipeSummaries } from "@/lib/showcase"
 
 export const metadata: Metadata = {
   alternates: {
@@ -11,13 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function HomePage() {
-  const recipes = getAllRecipes()
-  const filterOptionsByTag = getFilterOptionsByTag()
-
-  return (
-    <>
-      <Hero />
-      <RecipeExplorer recipes={recipes} filterOptionsByTag={filterOptionsByTag} />
-    </>
-  )
+  return <RecipeExplorer recipes={getRecipeSummaries()} />
 }

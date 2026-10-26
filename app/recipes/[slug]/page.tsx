@@ -22,6 +22,9 @@ import { CopyPrompt } from "@/components/copy-prompt"
 import { RecipeDocument } from "@/components/recipe-document"
 import { CodePanel } from "@/components/code-panel"
 import { Markdown } from "@/components/markdown"
+import { RecipePreview } from "@/components/recipe-preview"
+import { RecipeAuthor } from "@/components/recipe-author"
+import { getRecipeSummaries } from "@/lib/showcase"
 
 type Params = { slug: string }
 
@@ -62,6 +65,7 @@ export default async function RecipePage({
   if (!recipe) notFound()
 
   const related = getRelatedRecipes(recipe.slug, 3)
+  const summary = getRecipeSummaries().find((entry) => entry.slug === slug)!
 
   return (
     <article className="recipe-detail">
@@ -86,7 +90,8 @@ export default async function RecipePage({
           </p>
 
           <div className="mt-7 flex flex-col sm:flex-row gap-3">
-            <Button asChild size="lg" className="gap-2 h-11">
+            {recipe.demoUrl && <Button asChild size="lg"><a href={recipe.demoUrl} target="_blank" rel="noreferrer" aria-label="Try demo (opens in a new tab)">Try demo <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a></Button>}
+            <Button asChild size="lg" variant={recipe.demoUrl ? "outline" : "default"} className="gap-2 h-11">
               <Link href={recipe.mainRepoUrl} target="_blank" rel="noreferrer" aria-label="Source on GitHub (opens in a new tab)">
                 Source on GitHub
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -105,6 +110,7 @@ export default async function RecipePage({
               </Link>
             </Button>
           </div>
+          {summary.showcase && <p className="mt-3 text-sm text-muted-foreground">{summary.showcase.demoNote}</p>}
         </div>
       </header>
 
@@ -112,6 +118,7 @@ export default async function RecipePage({
       <div className="shell detail-layout">
           {/* Main column */}
           <div className="detail-main">
+            <RecipePreview recipe={summary} />
             {recipe.cli ? <CliCommandSection slug={recipe.slug} /> : null}
 
             <CopyPromptSection
@@ -128,7 +135,7 @@ export default async function RecipePage({
           {/* Sidebar */}
           <aside className="detail-rail" aria-label="About this recipe">
             <SidebarSection title="About">
-              <SidebarRow icon={User} label="Author" value={recipe.author} />
+              <div className="detail-row"><span className="inline-flex items-center gap-2 text-muted-foreground"><User className="h-3.5 w-3.5" aria-hidden="true" />Author</span><RecipeAuthor name={recipe.author} /></div>
               <SidebarRow
                 icon={Calendar}
                 label="Updated"
