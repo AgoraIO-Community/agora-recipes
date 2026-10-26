@@ -1,0 +1,14 @@
+{
+  "title": "Agora Arena",
+  "tagline": "Create your own ultimate moves by voice.",
+  "description": "Build a browser fighting game with Agora RTC voice chat and RTM multiplayer input synchronization. Players speak an ultimate move, OpenAI transcribes it, and Reactor FastH3 Omni generates a cinematic attack that both players can watch.",
+  "tags": ["rtc"],
+  "platforms": ["Web", "TypeScript"],
+  "useCases": ["Gaming", "Entertainment", "Realtime"],
+  "capabilities": ["Agora RTC", "Agora Signaling", "STT", "AI Video Generation", "React"],
+  "mainRepoUrl": "https://github.com/zicojiao/agora-arena",
+  "recipeUrl": "https://github.com/zicojiao/agora-arena/blob/main/docs/ai/RECIPE.md",
+  "author": "zicojiao",
+  "updated": "2026-10-26",
+  "difficulty": "Advanced"
+}
