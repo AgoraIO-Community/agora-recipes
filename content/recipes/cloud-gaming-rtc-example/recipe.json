@@ -1,0 +1,26 @@
+{
+  "title": "Cloud Gaming RTC Example",
+  "tagline": "Use Agora RTC for interactive cloud gaming media.",
+  "description": "Native mobile references for starting a cloud game, receiving its RTC video and sending control input. Requires cloud-gaming service access.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android",
+    "iOS"
+  ],
+  "useCases": [
+    "Cloud Gaming",
+    "Interactive Streaming"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Cloud Gaming",
+    "Realtime Media"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Advanced"
+}

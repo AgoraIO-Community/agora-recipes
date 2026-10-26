@@ -16,12 +16,12 @@ export function RecipeDocument({ markdown,children }: {markdown: string;children
     else return
     event.preventDefault();setSelected(next);tabs.current[next]?.focus()
   }
-  return <>
+  return <div className="recipe-document">
     <div className="recipe-document-tabs">
       <div role="tablist" aria-label="Recipe format">{["Rendered","Raw"].map((label,index)=><button key={label} ref={element=>{tabs.current[index]=element}} type="button" role="tab" id={`${id}-tab-${index}`} aria-controls={`${id}-panel-${index}`} aria-selected={selected===index} tabIndex={selected===index?0:-1} className="underline-tab" onKeyDown={keyDown} onClick={()=>setSelected(index)}>{label}</button>)}</div>
       <CopyMarkdownButton markdown={markdown}/>
     </div>
     <div role="tabpanel" id={`${id}-panel-0`} aria-labelledby={`${id}-tab-0`} hidden={selected!==0}>{children}</div>
     <div role="tabpanel" id={`${id}-panel-1`} aria-labelledby={`${id}-tab-1`} hidden={selected!==1}><CodePanel code={markdown} label="Markdown" wrap/></div>
-  </>
+  </div>
 }

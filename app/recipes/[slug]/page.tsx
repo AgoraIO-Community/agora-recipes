@@ -68,7 +68,7 @@ export default async function RecipePage({
   const summary = getRecipeSummaries().find((entry) => entry.slug === slug)!
 
   return (
-    <article>
+    <article className="recipe-detail">
       {/* Hero */}
       <header className="detail-hero">
         <div className="shell">

@@ -141,5 +141,44 @@
     ],
     "compactTitle": "React Live Video",
     "compactSummary": "Stream to a live audience."
+  },
+  {
+    "slug": "agora-arena",
+    "title": "Agora Arena",
+    "compactTitle": "Agora Arena",
+    "summary": "Create your own ultimate moves by voice in a browser fighting game with Agora multiplayer voice chat.",
+    "compactSummary": "Speak your ultimate. Watch it land.",
+    "thumbnail": "/recipes/agora-arena.jpg",
+    "thumbnailAlt": "English Agora Arena gameplay showing Emberpaw and Cloudhop with the FastH3 ultimate gauge ready",
+    "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/agora-arena/4318b3fed5a453a05a04ae14182e88310be16edc/docs/images/fight.jpg",
+    "demoNote": "English gameplay screenshot. Run the open-source project with your own provider credentials.",
+    "labels": [
+      "Gaming",
+      "AI video"
+    ],
+    "searchTerms": [
+      "gaming",
+      "fighting game",
+      "voice chat",
+      "multiplayer",
+      "ultimate moves",
+      "FastH3 Omni",
+      "Reactor",
+      "transcription"
+    ]
+  },
+  {
+    "slug": "agora-drawguess",
+    "title": "Draw & Guess",
+    "compactTitle": "Draw & Guess",
+    "summary": "Draw and guess with friends using Agora Whiteboard and voice chat. Race FastH3 as it turns a correct guess into verified video proof.",
+    "compactSummary": "Draw it. Guess it. Beat FastH3.",
+    "thumbnail": "/recipes/agora-drawguess.jpg",
+    "thumbnailAlt": "English Draw & Guess illustrated cover showing a cat sketch becoming video, with Agora Realtime and FastH3 Video Proof labels",
+    "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/agora-drawguess/33b94683a997175b89f8ce501d99c5f408131b00/public/og-draw-and-guess.png",
+    "demoUrl": "https://drawguess.app/",
+    "demoNote": "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.",
+    "labels": ["Gaming", "Whiteboard"],
+    "searchTerms": ["drawing game", "draw and guess", "drawguess", "multiplayer", "voice chat", "whiteboard", "FastH3", "Reactor", "video proof"]
   }
 ]
