@@ -5,11 +5,13 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { siteUrl } from "@/lib/site"
 
 const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: {
     default: "Agora Voice AI Recipes",
     template: "%s · Agora Voice AI Recipes",
