@@ -178,7 +178,47 @@
     "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/agora-drawguess/33b94683a997175b89f8ce501d99c5f408131b00/public/og-draw-and-guess.png",
     "demoUrl": "https://drawguess.app/",
     "demoNote": "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.",
-    "labels": ["Gaming", "Whiteboard"],
-    "searchTerms": ["drawing game", "draw and guess", "drawguess", "multiplayer", "voice chat", "whiteboard", "FastH3", "Reactor", "video proof"]
+    "labels": [
+      "Gaming",
+      "Whiteboard"
+    ],
+    "searchTerms": [
+      "drawing game",
+      "draw and guess",
+      "drawguess",
+      "multiplayer",
+      "voice chat",
+      "whiteboard",
+      "FastH3",
+      "Reactor",
+      "video proof"
+    ]
+  },
+  {
+    "slug": "m5-sticks3-voice-agent",
+    "title": "M5 StickS3 Agora Voice Agent",
+    "compactTitle": "StickS3 Voice Agent",
+    "summary": "Pocket ESP32-S3 voice agent on M5StickS3 and StopWatch with Agora Conversational AI.",
+    "compactSummary": "StickS3 / StopWatch voice agent.",
+    "thumbnail": "/recipes/m5-sticks3-voice-agent.jpg",
+    "thumbnailAlt": "Semi-realistic cover showing M5Stack StickS3 and StopWatch with bilingual Agora Voice Agent title",
+    "thumbnailSource": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo",
+    "demoNote": "On-device demo video linked from recipe metadata. Same firmware supports StickS3 and StopWatch.",
+    "labels": [
+      "Embedded",
+      "Voice AI"
+    ],
+    "searchTerms": [
+      "sticks3",
+      "stopwatch",
+      "m5stack",
+      "esp32",
+      "esp-idf",
+      "rtsa",
+      "voice agent",
+      "embedded",
+      "stick",
+      "badge"
+    ]
   }
 ]
