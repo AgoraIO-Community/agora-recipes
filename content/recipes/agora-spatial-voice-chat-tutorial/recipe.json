@@ -1,0 +1,26 @@
+{
+  "title": "Spatial Voice Chat Tutorial",
+  "tagline": "Build a spatial voice chat experience with Agora RTC.",
+  "description": "A Unity tutorial combining Photon PUN room synchronization with Agora positional voice chat. Uses the historical Unity and SDK versions documented by the sample.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Unity",
+    "C#"
+  ],
+  "useCases": [
+    "Spatial Audio",
+    "Voice Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Spatial Audio",
+    "Unity"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial/blob/master/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}
