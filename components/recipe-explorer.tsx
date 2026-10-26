@@ -10,6 +10,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 
 type Filters = { query: string; platforms: string[]; useCases: string[]; capabilities: string[] }
 const EMPTY: Filters = { query: "", platforms: [], useCases: [], capabilities: [] }
+const RECIPE_BATCH_SIZE = 12
 const TYPES = [{ tag: "voice-ai", label: "Voice AI" }, { tag: "rtc", label: "RTC" }] as const
 const toggle = (values: string[], value: string) => values.includes(value) ? values.filter(item => item !== value) : [...values,value]
 
@@ -26,6 +27,8 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
   const filterButton = useRef<HTMLButtonElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
   const markerRef = useRef<HTMLDivElement>(null)
+  const loadMoreRef = useRef<HTMLDivElement>(null)
+  const [pagination, setPagination] = useState({ key: "", limit: RECIPE_BATCH_SIZE })
   const [merged, setMerged] = useState(false)
   const keepSticky = useRef(false)
   const options = filterOptionsByTag[tag]
@@ -36,6 +39,25 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
     if (filters.useCases.length && !filters.useCases.some(value => recipe.useCases.includes(value))) return false
     return filters.capabilities.every(value => recipe.capabilities.includes(value))
   }),[tagged,filters])
+  const resultsKey = JSON.stringify([tag, filters])
+  const visibleLimit = pagination.key === resultsKey ? pagination.limit : RECIPE_BATCH_SIZE
+  const visibleRecipes = filtered.slice(0, visibleLimit)
+  const hasMore = visibleRecipes.length < filtered.length
+  useEffect(() => {
+    const sentinel = loadMoreRef.current
+    if (!hasMore || !sentinel) return
+    if (!("IntersectionObserver" in window)) {
+      setPagination({ key: resultsKey, limit: filtered.length })
+      return
+    }
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return
+      observer.disconnect()
+      setPagination({ key: resultsKey, limit: Math.min(visibleLimit + RECIPE_BATCH_SIZE, filtered.length) })
+    }, { rootMargin: "0px 0px 400px 0px" })
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [resultsKey, visibleLimit, filtered.length, hasMore])
   const count = filters.platforms.length + filters.useCases.length + filters.capabilities.length
   useEffect(() => {
     const header = document.querySelector(".site-header")
@@ -114,10 +136,11 @@ export function RecipeExplorer({ recipes, filterOptionsByTag }: { recipes: Recip
         </fieldset>)}
       </div>}
       <div className="catalog-results-meta">
-        <p role="status">Showing <span className="text-foreground">{filtered.length}</span> of {tagged.length} recipes</p>
+        <p role="status">Showing <span className="text-foreground">{visibleRecipes.length}</span> of {filtered.length} recipes{filtered.length !== tagged.length && ` matching your filters (${tagged.length} total)`}</p>
         {(count > 0 || filters.query) && <button type="button" className="text-action" onClick={() => setFilters(EMPTY)}><X size={16} aria-hidden="true" />Clear filters</button>}
       </div>
-      {filtered.length ? <div className="recipe-grid">{filtered.map(recipe => <Link key={recipe.slug} href={`/recipes/${recipe.slug}`}><RecipeCard recipe={recipe} /></Link>)}</div> : <div className="empty-recipes"><h3>{tagged.length ? "No recipes match" : `No ${tag === "rtc" ? "RTC" : "Voice AI"} recipes yet`}</h3><p>{tagged.length ? "Try a different search or remove a filter." : "Recipes will appear here as they are added."}</p>{tagged.length > 0 && <button type="button" className="text-action" onClick={() => setFilters(EMPTY)}>Clear filters</button>}</div>}
+      {filtered.length ? <div className="recipe-grid">{visibleRecipes.map(recipe => <Link key={recipe.slug} href={`/recipes/${recipe.slug}`}><RecipeCard recipe={recipe} /></Link>)}</div> : <div className="empty-recipes"><h3>{tagged.length ? "No recipes match" : `No ${tag === "rtc" ? "RTC" : "Voice AI"} recipes yet`}</h3><p>{tagged.length ? "Try a different search or remove a filter." : "Recipes will appear here as they are added."}</p>{tagged.length > 0 && <button type="button" className="text-action" onClick={() => setFilters(EMPTY)}>Clear filters</button>}</div>}
+      {hasMore && <div ref={loadMoreRef} className="catalog-load-more" aria-hidden="true">Scroll for more recipes</div>}
     </div>
   </section>
 }

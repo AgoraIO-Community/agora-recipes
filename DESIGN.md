@@ -1365,6 +1365,12 @@ panel in the narrative column, under the copy.
 
 ### 11.3 Recipes index
 
+**Progressive catalog loading:** render the first 12 matching recipes, then
+append batches of 12 automatically when the bottom sentinel is within 400px
+of the viewport. No View more button. Reset the batch on type, search, or facet
+changes, show loaded/matching counts, and remove the sentinel at the end.
+Browsers without IntersectionObserver render all matching recipes.
+
 **Owner controls update (October 2026):** desktop order is Voice AI / RTC,
 search, then a plain-text platform dropdown and Filters action. The dropdown
 supports multiple selections and replaces the separate platform row. As the

@@ -257,6 +257,7 @@ html[data-theme="light"] .recipes-hero .hero-scrim {
 .catalog-results-meta { min-height: 46px; display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-block: 8px 16px; color: var(--muted-foreground); font-size: 13px; }
 .text-action { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; font-size: 13px; color: var(--signal-text); }
 .recipe-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.catalog-load-more { min-height: 46px; display: flex; align-items: center; justify-content: center; margin-top: 24px; color: var(--muted-foreground); font-size: 13px; }
 .recipe-card { display: flex; flex-direction: column; height: 100%; min-width: 0; padding: 28px; gap: 20px; background: var(--card); transition: background 200ms var(--ease), transform 200ms var(--ease); }
 .recipe-card__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; color: var(--muted-foreground); font: 12px/1.5 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
 .recipe-card__meta span:first-child { min-width: 0; overflow-wrap: anywhere; }
