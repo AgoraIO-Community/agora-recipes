@@ -2,13 +2,30 @@
   "title": "M5 StickS3 Agora Voice Agent",
   "tagline": "Pocket ESP32-S3 voice agent on M5StickS3 with Agora Conversational AI.",
   "description": "Build and flash an ESP-IDF voice client on M5Stack StickS3 (and StopWatch) that talks to Agora Conversational AI through a small FastAPI control service over your LAN.",
-  "tags": ["voice-ai", "rtc"],
-  "platforms": ["ESP-IDF", "Python", "ESP32"],
-  "useCases": ["Voice AI", "Embedded", "Hardware"],
-  "capabilities": ["Conversational AI", "Voice Agent", "RTC", "RTSA"],
+  "tags": [
+    "voice-ai",
+    "rtc"
+  ],
+  "platforms": [
+    "ESP-IDF",
+    "Python",
+    "ESP32"
+  ],
+  "useCases": [
+    "Voice AI",
+    "Embedded",
+    "Hardware"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "RTC",
+    "RTSA"
+  ],
   "mainRepoUrl": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo",
   "recipeUrl": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo/blob/main/docs/ai/RECIPE.md",
   "author": "Dylan Luo",
   "updated": "2026-10-26",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "demoUrl": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo/releases/download/demo-video/sticks3-agora-demo.mp4"
 }
