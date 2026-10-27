@@ -180,5 +180,18 @@
     "demoNote": "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.",
     "labels": ["Gaming", "Whiteboard"],
     "searchTerms": ["drawing game", "draw and guess", "drawguess", "multiplayer", "voice chat", "whiteboard", "FastH3", "Reactor", "video proof"]
+  },
+  {
+    "slug": "dashlens",
+    "title": "DashLens",
+    "compactTitle": "DashLens",
+    "summary": "Point your phone at the dashboard and ask what a light means. A vision voice agent answers from your car's own owner's manual and shows the roadside helpline when it's urgent.",
+    "compactSummary": "Ask your dashboard what that light means.",
+    "thumbnail": "/recipes/dashlens.jpg",
+    "thumbnailAlt": "DashLens cover: the app showing a red engine temperature warning with a stop card and the roadside helpline, next to the DashLens logo and tagline",
+    "thumbnailSource": "https://github.com/user-attachments/assets/80ff3018-fe69-4890-bcfa-a65cb56e0650",
+    "demoNote": "Android app. Microphone and camera needed; the FastAPI server must be reachable over HTTPS (e.g. ngrok).",
+    "labels": ["Vision", "Tool calling"],
+    "searchTerms": ["car", "dashboard", "warning light", "owner's manual", "automotive", "vision", "camera", "android", "tool calling", "roadside assistance"]
   }
 ]
