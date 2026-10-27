@@ -1,60 +1,48 @@
-import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cva, type VariantProps } from 'class-variance-authority'
+"use client";
 
-import { cn } from '@/lib/utils'
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "@radix-ui/react-slot";
+import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex min-h-[46px] items-center justify-center gap-3 whitespace-nowrap rounded-[2px] border border-transparent text-[13px] font-medium transition-colors disabled:pointer-events-none disabled:opacity-[0.52] [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 aria-invalid:border-destructive",
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-[var(--primary-hover)] hover:text-[var(--primary-hover-ink)]',
-        destructive:
-          'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
-        outline:
-          'border-input bg-transparent text-foreground hover:border-foreground hover:bg-secondary',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost:
-          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-        link: 'text-[var(--signal-text)] underline-offset-4 hover:underline',
-      },
-      size: {
-        default: 'px-5 py-3',
-        sm: 'gap-2 px-4 py-2',
-        lg: 'px-6 py-3',
-        icon: 'size-[46px]',
-        'icon-sm': 'size-[46px]',
-        'icon-lg': 'size-[46px]',
-      },
+const buttonVariants = cva("ag-button", {
+  variants: {
+    variant: {
+      default: "ag-button-primary",
+      destructive: "ag-button-danger",
+      outline: "ag-button-outline",
+      secondary: "ag-button-secondary",
+      ghost: "ag-button-ghost",
+      link: "ag-button-link",
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+    size: {
+      default: "ag-control-md",
+      sm: "ag-control-sm",
+      lg: "ag-control-lg",
+      xs: "ag-control-sm",
+      icon: "ag-control-md ag-icon-button",
+      "icon-sm": "ag-control-sm ag-icon-button",
+      "icon-lg": "ag-control-lg ag-icon-button",
+      "icon-xs": "ag-control-sm ag-icon-button",
     },
   },
-)
+  defaultVariants: { variant: "default", size: "default" },
+});
 
 function Button({
   className,
-  variant,
-  size,
+  variant = "default",
+  size = "default",
   asChild = false,
+  type = "button",
+  children,
   ...props
-}: React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : 'button'
-
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+}: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
+  const classes = cn(buttonVariants({ variant, size, className }));
+  if (asChild) return <Slot data-slot="button" data-variant={variant} data-size={size} className={classes} {...props}>{children}</Slot>;
+  return <button type={type} data-slot="button" data-variant={variant} data-size={size} className={classes} {...props}>
+    <span className="basic-button-content">{children}</span>
+  </button>;
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

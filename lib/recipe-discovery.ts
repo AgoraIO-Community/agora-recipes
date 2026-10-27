@@ -49,6 +49,39 @@ export const defaultFilters: DiscoveryFilters = {
   platforms: [], useCases: [], capabilities: [], previewOnly: false, sort: "recommended",
 }
 
+const filterParams = ["q", "topic", "category", "platform", "useCase", "capability", "demo", "sort"]
+
+export function readDiscoveryFilters(params: URLSearchParams): DiscoveryFilters {
+  const values = (key: string) => [...new Set(params.getAll(key).filter(Boolean))]
+  const topic = params.get("topic") ?? "all"
+  const category = params.get("category") ?? "all"
+  const sort = params.get("sort")
+  return {
+    query: params.get("q") ?? "",
+    topic: quickTags.some(tag => tag.value === topic) ? topic : "all",
+    category: ["voice-ai", "rtc"].includes(category) ? category : "all",
+    platforms: values("platform"),
+    useCases: values("useCase"),
+    capabilities: values("capability"),
+    previewOnly: params.get("demo") === "1",
+    sort: sort === "updated" || sort === "title" ? sort : "recommended",
+  }
+}
+
+export function writeDiscoveryFilters(filters: DiscoveryFilters, current = new URLSearchParams()): URLSearchParams {
+  const params = new URLSearchParams(current)
+  for (const key of filterParams) params.delete(key)
+  if (filters.query) params.set("q", filters.query)
+  if (filters.topic !== "all") params.set("topic", filters.topic)
+  if (filters.category !== "all") params.set("category", filters.category)
+  for (const value of filters.platforms) params.append("platform", value)
+  for (const value of filters.useCases) params.append("useCase", value)
+  for (const value of filters.capabilities) params.append("capability", value)
+  if (filters.previewOnly) params.set("demo", "1")
+  if (filters.sort !== "recommended") params.set("sort", filters.sort)
+  return params
+}
+
 function normalize(value: string) {
   return value.normalize("NFKD").replace(/\p{Diacritic}/gu, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()
 }

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync } from 'node:fs'
 import { test } from 'node:test'
-import { defaultFilters, discoverRecipes } from '../lib/recipe-discovery.ts'
+import { defaultFilters, discoverRecipes, readDiscoveryFilters, writeDiscoveryFilters } from '../lib/recipe-discovery.ts'
 
 const curated = JSON.parse(readFileSync(new URL('../content/showcase.json', import.meta.url)))
 const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { withFileTypes: true })
@@ -12,6 +12,20 @@ const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { w
     return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { recommendedOrder, showcase: curated[recommendedOrder] }) }
   })
 const search = (query, extra = {}) => discoverRecipes(recipes, { ...defaultFilters, query, ...extra })
+
+test('shared catalog URLs preserve combined filters, Unicode queries, and their results', () => {
+  const filters = { ...defaultFilters, query: '会议 Gemini', topic: 'voice', platforms: ['Python', 'iOS'], useCases: ['Meetings'], capabilities: ['Gemini', 'STT'], previewOnly: true, sort: 'updated' }
+  const restored = readDiscoveryFilters(new URLSearchParams(writeDiscoveryFilters(filters).toString()))
+  assert.deepEqual(restored, filters)
+  assert.deepEqual(discoverRecipes(recipes, restored), discoverRecipes(recipes, filters))
+})
+test('invalid single-value URL filters fall back safely and repeated values are deduplicated', () => {
+  assert.deepEqual(readDiscoveryFilters(new URLSearchParams('topic=unknown&category=invalid&sort=invalid&platform=Python&platform=Python&platform=')), { ...defaultFilters, platforms: ['Python'] })
+})
+test('clearing catalog filters removes obsolete parameters while keeping unrelated URL state', () => {
+  const params = writeDiscoveryFilters(defaultFilters, new URLSearchParams('q=python&platform=Python&capability=STT&demo=1&sort=title&all=1&utm_source=rte'))
+  assert.equal(params.toString(), 'all=1&utm_source=rte')
+})
 
 test('default catalog includes every recipe with the six recommendations first', () => {
   const results = discoverRecipes(recipes, defaultFilters)

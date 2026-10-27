@@ -122,7 +122,7 @@ Search covers titles, descriptions, card summaries, authors, and recipe metadata
 It tolerates small spelling mistakes and recognizes common English/Chinese domain
 terms, such as `speech to text` / `语音转文字`. The default sort ranks exact matches
 ahead of approximate ones. Matching runs locally without a search service.
-Appearance is fixed to dark on every page, including code blocks and diagrams. There is no light mode, system-following behavior, theme selector, or saved-choice override. Platform choices are visible and multi-select (OR); use cases also use OR, while selected capabilities must all match.
+Appearance defaults to dark. The header light/dark toggle saves an explicit choice locally and applies it across pages and reloads, including code blocks and diagrams. First visits use dark regardless of the system setting. Platform choices in the refinement sheet support multi-select (OR); use cases also use OR, while selected capabilities must all match.
 
 Each recommendation can provide a local `thumbnail`, its `thumbnailSource` and
 `thumbnailAlt`, and an existing `videoUrl`. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
@@ -147,8 +147,18 @@ Posters stay below 150 KB each; videos remain externally hosted with canonical
 URLs rather than expiring signed redirects. Removing a recommendation leaves the
 recipe in the catalog. The required recipe metadata and public API are unchanged; `demoUrl` is optional.
 
-Official fonts, colors, and the reading page follow Omja's [design refresh (#68)](https://github.com/AgoraIO-Community/agora-recipes/pull/68), alongside the compact media catalog and local discovery from [#70](https://github.com/AgoraIO-Community/agora-recipes/pull/70). The Agora site header is retained, followed directly by search, topics, and platforms. Secondary navigation is also available in the footer. Lightweight media cards retain rounded previews with copy underneath. The hero and particle runtime are removed. Search and selected controls use the supplied [agent-ui Glass material](components/agent-ui/README.md), with static reflections, independent text, and accessible fallbacks. Normal recipe links do not prefetch large implementation documents on initial browsing.
+The Recipes design system uses the Agora wordmark, local typography, and shared
+dark/light tokens. Ordinary controls and reading surfaces are solid; floating
+media actions, menus, and dialogs use complete Liquid Glass. A centered title
+and search lead into one topic toolbar and project tiles; phones retain two
+columns. Cards, images, links, labels, and icons stay in place on hover. Color,
+border, underline, and opacity provide feedback; motion accompanies explicit
+state changes such as selection, disclosure, and copy confirmation. Normal
+recipe links do not prefetch large implementation documents during initial
+browsing. DESIGN.md documents the palette, geometry, responsive layouts,
+components, and interaction rules. Component integration lives in
+`components/agent-ui/README.md`.
 
 Verification: `node --test scripts/markdown.test.mjs scripts/recipe-discovery.test.mjs scripts/recipes-meta.test.mjs` (Node 22.18+ or Node 24+),
 `npm run lint`, `pnpm exec tsc --noEmit --incremental false`, and `npm run build`.
-The ESLint config retains narrowly scoped exceptions for existing shadcn templates.
+The ESLint config retains narrowly scoped exceptions for existing UI templates.

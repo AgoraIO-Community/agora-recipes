@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useId, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { useTheme } from "@/hooks/use-theme"
 
 let renderer: Promise<typeof import("mermaid")["default"]> | undefined
 let renderQueue: Promise<unknown> = Promise.resolve()
@@ -22,6 +24,7 @@ function getRenderer() {
 }
 
 export function MermaidDiagram({ source }: { source: string }) {
+  const theme = useTheme()
   const id = `diagram-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`
   const [result, setResult] = useState<{ source: string; url?: string; width?: number }>()
   const [actualSize, setActualSize] = useState(false)
@@ -33,25 +36,27 @@ export function MermaidDiagram({ source }: { source: string }) {
         const mermaid = await getRenderer()
         if (cancelled) return
         const job = renderQueue.catch(() => {}).then(async () => {
+          const palette = getComputedStyle(document.documentElement)
+          const color = (name: string) => palette.getPropertyValue(name).trim()
           mermaid.initialize({
             startOnLoad: false, securityLevel: "strict", suppressErrorRendering: true,
             theme: "base", htmlLabels: false,
             secure: ["secure", "securityLevel", "startOnLoad", "maxTextSize", "maxEdges", "suppressErrorRendering", "htmlLabels", "flowchart", "theme", "themeVariables"],
             flowchart: { htmlLabels: false },
             themeVariables: {
-              darkMode: true, fontFamily: 'MiSansLatin, Helvetica Neue, Arial, sans-serif', fontSize: '13px',
-              background: '#0a0a0a', primaryColor: '#1a1a1a',
-              primaryTextColor: '#fcf9f8', primaryBorderColor: '#626262',
-              lineColor: '#b3b3b3', secondaryColor: '#0a1114',
-              tertiaryColor: '#0a0a0a', textColor: '#fcf9f8',
+              darkMode: theme === "dark", fontFamily: 'MiSansLatin, Helvetica Neue, Arial, sans-serif', fontSize: '13px',
+              background: color('--secondary'), primaryColor: color('--muted'),
+              primaryTextColor: color('--foreground'), primaryBorderColor: color('--input'),
+              lineColor: color('--muted-foreground'), secondaryColor: color('--card'),
+              tertiaryColor: color('--secondary'), textColor: color('--foreground'),
             },
           })
           return mermaid.render(id, source)
         })
         renderQueue = job
         const { svg } = await job
-        const document = new DOMParser().parseFromString(svg, "image/svg+xml")
-        const width = Number(document.documentElement.getAttribute("viewBox")?.split(/\s+/)[2])
+        const svgDocument = new DOMParser().parseFromString(svg, "image/svg+xml")
+        const width = Number(svgDocument.documentElement.getAttribute("viewBox")?.split(/\s+/)[2])
         if (!cancelled) {
           setResult({
             source,
@@ -65,13 +70,13 @@ export function MermaidDiagram({ source }: { source: string }) {
     }
     void render()
     return () => { cancelled = true }
-  }, [id, source])
+  }, [id, source, theme])
 
   const current = result?.source === source ? result : undefined
   return (
     <figure className="my-6 min-w-0" aria-label="Recipe diagram">
       {current?.url ? (
-        <div className="overflow-x-auto rounded-[2px] border border-border bg-secondary p-4" tabIndex={0} aria-label="Scrollable diagram">
+        <div className="ag-surface-solid overflow-x-auto p-4" role="group" tabIndex={0} aria-label="Scrollable diagram">
           {/* SVG is displayed as an image so diagram markup cannot execute in the page. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={current.url} alt="Recipe diagram; text description is available in Diagram source below" style={{ width: current.width, maxWidth: actualSize ? "none" : "100%" }} />
@@ -82,9 +87,9 @@ export function MermaidDiagram({ source }: { source: string }) {
         </p>
       )}
       {current?.url ? (
-        <button type="button" onClick={() => setActualSize(!actualSize)} aria-pressed={actualSize} className="text-action underline underline-offset-4">
+        <Button variant="ghost" size="sm" className="mt-2" type="button" onClick={() => setActualSize(!actualSize)} aria-pressed={actualSize}>
           {actualSize ? "Fit to width" : "View actual size"}
-        </button>
+        </Button>
       ) : null}
       <details className="mt-2 text-sm" open={current && !current.url ? true : undefined}>
         <summary className="min-h-[46px] cursor-pointer py-3 text-muted-foreground">Diagram source</summary>

@@ -1,355 +1,107 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import type * as React from "react"
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  FileText,
-  Calendar,
-  User,
-  Layers,
-} from "lucide-react"
-
-import {
-  getAllRecipes,
-  getRecipe,
-  getRelatedRecipes,
-  type Recipe,
-} from "@/lib/recipes"
-import { Button } from "@/components/ui/button"
+import { ArrowUpRight, ChevronDown } from "lucide-react"
+import { getAllRecipes, getRecipe, getRelatedRecipes } from "@/lib/recipes"
+import { getRecipeSummaries } from "@/lib/showcase"
+import { RecipeBackLink } from "@/components/recipe-back-link"
 import { CopyPrompt } from "@/components/copy-prompt"
 import { RecipeDocument } from "@/components/recipe-document"
-import { CodePanel } from "@/components/code-panel"
+import { CodePanel, CopyTextButton } from "@/components/code-panel"
 import { Markdown } from "@/components/markdown"
 import { RecipePreview } from "@/components/recipe-preview"
+import { RecipeOutline } from "@/components/recipe-outline"
 import { RecipeAuthor } from "@/components/recipe-author"
-import { getRecipeSummaries } from "@/lib/showcase"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 type Params = { slug: string }
 
 export function generateStaticParams(): Params[] {
-  return getAllRecipes().map((r) => ({ slug: r.slug }))
+  return getAllRecipes().map(recipe => ({ slug: recipe.slug }))
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<Params>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params
   const recipe = getRecipe(slug)
   if (!recipe) return { title: "Recipe not found" }
   return {
     title: recipe.title,
     description: recipe.tagline,
-    alternates: {
-      canonical: `/recipes/${slug}`,
-      types: { "text/markdown": `/recipes/${slug}/index.md` },
-    },
-    openGraph: {
-      title: recipe.title,
-      description: recipe.tagline,
-      type: "article",
-    },
+    alternates: { canonical: `/recipes/${slug}`, types: { "text/markdown": `/recipes/${slug}/index.md` } },
+    openGraph: { title: recipe.title, description: recipe.tagline, type: "article" },
   }
 }
 
-export default async function RecipePage({
-  params,
-}: {
-  params: Promise<Params>
-}) {
+function guideSections(markdown: string) {
+  const sections: { title: string; id: string }[] = []
+  let fence = ""
+  for (const line of markdown.split("\n")) {
+    const marker = line.trimStart().match(/^(`{3,}|~{3,})/)
+    if (marker) { if (!fence) fence = marker[1][0]; else if (fence === marker[1][0]) fence = ""; continue }
+    if (fence) continue
+    const heading = line.match(/^##\s+(.+?)\s*#*$/)
+    if (!heading) continue
+    const title = heading[1].replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/<[^>]+>|[*_`]/g, "").trim()
+    const id = title.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-")
+    if (id && !sections.some(section => section.id === id)) sections.push({ title, id })
+  }
+  return sections.slice(0, 8)
+}
+
+export default async function RecipePage({ params }: { params: Promise<Params> }) {
   const { slug } = await params
   const recipe = getRecipe(slug)
   if (!recipe) notFound()
-
-  const related = getRelatedRecipes(recipe.slug, 3)
-  const summary = getRecipeSummaries().find((entry) => entry.slug === slug)!
-
-  return (
-    <article>
-      {/* Hero */}
-      <header className="detail-hero">
-        <div className="shell">
-          <Link
-            href="/#recipes"
-            className="inline-flex min-h-[46px] items-center gap-2 text-[13px] text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
-            All recipes
-          </Link>
-
-          <p className="detail-meta">{recipe.platforms.join(" / ")} · {recipe.difficulty}</p>
-
-          <h1 className="hero-title">
-            {recipe.title}
-          </h1>
-          <p className="mt-5 text-base text-muted-foreground max-w-[55ch] text-pretty">
-            {recipe.tagline}
-          </p>
-
-          <div className="mt-7 flex flex-col sm:flex-row gap-3">
-            {recipe.demoUrl && <Button asChild size="lg"><a href={recipe.demoUrl} target="_blank" rel="noreferrer" aria-label="Try demo (opens in a new tab)">Try demo <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a></Button>}
-            <Button asChild size="lg" variant={recipe.demoUrl ? "outline" : "default"} className="gap-2 h-11">
-              <Link href={recipe.mainRepoUrl} target="_blank" rel="noreferrer" aria-label="Source on GitHub (opens in a new tab)">
-                Source on GitHub
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="gap-2 h-11">
-              <Link
-                href={recipe.recipeDocument.rawUrl}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="View raw recipe (opens in a new tab)"
-              >
-                <FileText className="h-4 w-4" aria-hidden="true" />
-                View raw recipe
-                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
-            </Button>
-          </div>
-          {summary.showcase && <p className="mt-3 text-sm text-muted-foreground">{summary.showcase.demoNote}</p>}
-        </div>
-      </header>
-
-      {/* Body */}
-      <div className="shell detail-layout">
-          {/* Main column */}
-          <div className="detail-main">
-            <RecipePreview recipe={summary} />
-            {recipe.cli ? <CliCommandSection slug={recipe.slug} /> : null}
-
-            <CopyPromptSection
-              prompt={recipe.primaryPrompt}
-            />
-
-            <RecipeMarkdownSection
-              markdown={recipe.recipeDocument.markdown}
-              sourceUrl={recipe.recipeDocument.viewUrl}
-              fetchError={recipe.recipeDocument.fetchError}
-            />
-          </div>
-
-          {/* Sidebar */}
-          <aside className="detail-rail" aria-label="About this recipe">
-            <SidebarSection title="About">
-              <div className="detail-row"><span className="inline-flex items-center gap-2 text-muted-foreground"><User className="h-3.5 w-3.5" aria-hidden="true" />Author</span><RecipeAuthor name={recipe.author} /></div>
-              <SidebarRow
-                icon={Calendar}
-                label="Updated"
-                value={formatDate(recipe.updated)}
-              />
-              <SidebarRow
-                icon={Layers}
-                label="Difficulty"
-                value={recipe.difficulty}
-              />
-            </SidebarSection>
-
-            <SidebarSection title="Use cases">
-              <div className="flex flex-wrap gap-1.5">
-                {recipe.useCases.map((u) => (
-                  <span
-                    key={u}
-                    className="metadata-chip"
-                  >
-                    {u}
-                  </span>
-                ))}
-              </div>
-            </SidebarSection>
-
-            <SidebarSection title="Capabilities">
-              <div className="flex flex-wrap gap-1.5">
-                {recipe.capabilities.map((c) => (
-                  <span
-                    key={c}
-                    className="metadata-chip"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </SidebarSection>
-
-            {related.length > 0 && (
-              <SidebarSection title="Related recipes">
-                <ul className="flex flex-col gap-1.5">
-                  {related.map((r) => (
-                    <li key={r.slug}>
-                      <Link
-                        href={`/recipes/${r.slug}`}
-                         className="group flex min-h-[46px] items-center justify-between gap-2 py-2 hover:text-[var(--signal-text)] transition-colors"
-                      >
-                        <span className="text-sm leading-snug">{r.title}</span>
-                        <ArrowUpRight
-                          className="h-3.5 w-3.5 mt-0.5 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors"
-                          aria-hidden="true"
-                        />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </SidebarSection>
-            )}
-            <HowToUseRecipeSection recipe={recipe} />
-          </aside>
-      </div>
-    </article>
-  )
-}
-
-function HowToUseRecipeSection({ recipe }: { recipe: Recipe }) {
-  const linkClassName = "text-[var(--signal-text)] underline underline-offset-4 hover:text-foreground"
-  return (
-    <SidebarSection title="How to use this recipe">
-      <ol className="list-decimal space-y-3 pl-4 text-[13px] leading-relaxed text-muted-foreground">
-        <li>
-          Copy the <Link href="#prompt-heading" className={linkClassName}>recipe prompt</Link>
-          {" "}into your coding agent, or clone the{" "}
-          <Link href={recipe.mainRepoUrl} target="_blank" rel="noreferrer" className={linkClassName}>
-            source repo
-          </Link>.
-        </li>
-        <li>
-          Follow the <Link href="#recipe-markdown-heading" className={linkClassName}>guide</Link>
-          {" "}to install the required packages and add your Agora App ID and any
-          API keys listed in the recipe.
-        </li>
-        <li>Run the example, test it, then customize it for your app.</li>
-      </ol>
-    </SidebarSection>
-  )
-}
-
-function CliCommandSection({ slug }: { slug: string }) {
+  const summary = getRecipeSummaries().find(entry => entry.slug === slug)!
+  const related = getRelatedRecipes(slug, 3)
+  const sections = guideSections(recipe.recipeDocument.markdown)
   const command = `agora init my-${slug} --recipe ${slug}`
 
-  return (
-    <section aria-labelledby="cli-command-heading" className="flex flex-col gap-3">
-      <div className="flex flex-col gap-1">
-        <h2
-          id="cli-command-heading"
-          className="scroll-mt-20 detail-title"
-        >
-          Use with Agora CLI
-        </h2>
-        <p className="text-base text-muted-foreground">
-          Clone the recipe and configure it with an Agora project.
-        </p>
-      </div>
-      <CodePanel code={command} label="Agora CLI" />
-    </section>
-  )
-}
-
-function RecipeMarkdownSection({
-  markdown,
-  sourceUrl,
-  fetchError,
-}: {
-  markdown: string
-  sourceUrl: string
-  fetchError?: string
-}) {
-  return (
-    <section aria-labelledby="recipe-markdown-heading" className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-col gap-1">
-          <h2
-            id="recipe-markdown-heading"
-          className="scroll-mt-20 detail-title"
-          >
-            Recipe
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Rendered from the configured recipe markdown.
-          </p>
-        </div>
-      </div>
-
-      <RecipeDocument markdown={markdown}>
-        {markdown ? (
-          <Markdown source={markdown} sourceUrl={sourceUrl} headingOffset={1} />
-        ) : (
-          <div className="text-sm text-muted-foreground">
-            <p>Recipe markdown is not available in the generated artifact.</p>
-            {fetchError && (
-              <p className="mt-2 font-mono text-xs text-destructive break-words">
-                {fetchError}
-              </p>
-            )}
+  return <article>
+    <header className="detail-hero">
+      <div className="shell">
+        <RecipeBackLink />
+        <div className={summary.showcase ? "detail-overview detail-overview--media" : "detail-overview"}>
+          <div className="detail-overview__content">
+            <h1 className="hero-title">{recipe.title}</h1>
+            <p className="detail-description">{recipe.tagline}</p>
+            <div className="detail-meta"><Badge variant="outline">{recipe.platforms.join(" / ")}</Badge><Badge variant="outline">{recipe.difficulty}</Badge><RecipeAuthor name={recipe.author} /></div>
+            <div className="detail-actions">
+              <CopyTextButton text={recipe.primaryPrompt} label="Copy recipe prompt" subject="Recipe prompt" primary />
+              {recipe.demoUrl && <Button asChild variant="outline"><a href={recipe.demoUrl} target="_blank" rel="noreferrer" aria-label="Try demo (opens in a new tab)">Try demo<ArrowUpRight aria-hidden="true" /></a></Button>}
+              <Button asChild variant="ghost"><a href={recipe.mainRepoUrl} target="_blank" rel="noreferrer" aria-label="Source on GitHub (opens in a new tab)">GitHub<ArrowUpRight aria-hidden="true" /></a></Button>
+            </div>
+            <p className="detail-agent-hint">Paste the prompt into Cursor, Claude Code, or your coding agent.</p>
           </div>
-        )}
-      </RecipeDocument>
-    </section>
-  )
-}
-
-function CopyPromptSection({
-  prompt,
-}: {
-  prompt: string
-}) {
-  return (
-    <section aria-labelledby="prompt-heading" className="flex flex-col gap-3">
-      <div className="flex items-baseline justify-between flex-wrap gap-2">
-        <h2 id="prompt-heading" className="scroll-mt-20 detail-title">
-          Recipe prompt
-        </h2>
-        <span className="text-xs text-muted-foreground">
-          Paste into Cursor, Claude Code, v0, or your coding agent
-        </span>
+          <RecipePreview recipe={summary} />
+        </div>
+        <nav className="detail-jump-nav" aria-label="Recipe sections">
+          <Button asChild variant="ghost" size="sm"><a href="#build">Build with agent</a></Button><Button asChild variant="ghost" size="sm"><a href="#recipe-markdown-heading">Implementation guide</a></Button>{recipe.cli && <Button asChild variant="ghost" size="sm"><a href="#recipe-cli">Agora CLI</a></Button>}
+        </nav>
       </div>
-      <CopyPrompt prompt={prompt} />
-    </section>
-  )
-}
-
-function SidebarSection({
-  title,
-  children,
-}: {
-  title: string
-  children: React.ReactNode
-}) {
-  return (
-    <section className="flex flex-col gap-2.5">
-      <h3 className="eyebrow">
-        {title}
-      </h3>
-      <div>{children}</div>
-    </section>
-  )
-}
-
-function SidebarRow({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: React.ComponentType<{ className?: string }>
-  label: string
-  value: string
-}) {
-  return (
-    <div className="detail-row">
-      <span className="inline-flex items-center gap-2 text-muted-foreground">
-        <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-        {label}
-      </span>
-      <span className="text-foreground">{value}</span>
+    </header>
+    <div className="shell detail-layout">
+      <div className="detail-main">
+        <section id="build" aria-labelledby="prompt-heading" className="recipe-start">
+          <h2 id="prompt-heading" className="sr-only">Build with your coding agent</h2>
+          <details className="recipe-disclosure ag-disclosure"><summary>View recipe prompt<ChevronDown size={15} aria-hidden="true" /></summary><CopyPrompt prompt={recipe.primaryPrompt} /></details>
+          {recipe.cli && <details id="recipe-cli" className="recipe-disclosure ag-disclosure"><summary>Start with Agora CLI<ChevronDown size={15} aria-hidden="true" /></summary><p className="recipe-cli-hint">Clone this recipe and configure it with an Agora project.</p><CodePanel code={command} label="Agora CLI" /></details>}
+        </section>
+        <section aria-labelledby="recipe-markdown-heading" className="recipe-guide">
+          <div className="recipe-guide__heading"><h2 id="recipe-markdown-heading" className="detail-title">Implementation guide</h2><Button asChild variant="ghost" size="sm"><a href={recipe.recipeDocument.viewUrl} target="_blank" rel="noreferrer">View on GitHub<ArrowUpRight aria-hidden="true" /></a></Button></div>
+          {sections.length > 0 && <details className="mobile-guide-outline ag-disclosure"><summary>In this guide<ChevronDown size={15} aria-hidden="true" /></summary><nav aria-label="Guide contents on mobile">{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></details>}
+          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl}>
+            {recipe.recipeDocument.markdown ? <Markdown source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /> : <div className="recipe-document-error"><h3>The guide couldn’t be loaded</h3><p>You can still copy the recipe prompt or open the implementation on GitHub.</p><a href={recipe.recipeUrl} target="_blank" rel="noreferrer">Open source guide<ArrowUpRight size={14} aria-hidden="true" /></a></div>}
+          </RecipeDocument>
+        </section>
+      </div>
+      <aside className="detail-rail" aria-label="Recipe information">
+        {sections.length > 0 && <RecipeOutline sections={sections} />}
+        <section className="recipe-about" aria-labelledby="recipe-about-heading"><h2 id="recipe-about-heading">About this recipe</h2><dl><div><dt>Author</dt><dd><RecipeAuthor name={recipe.author} /></dd></div><div><dt>Updated</dt><dd>{new Date(recipe.updated).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</dd></div><div><dt>Difficulty</dt><dd>{recipe.difficulty}</dd></div></dl></section>
+        <details className="recipe-metadata ag-disclosure"><summary>Topics & capabilities<ChevronDown size={14} aria-hidden="true" /></summary><div className="recipe-metadata__tags">{[...new Set([...recipe.useCases, ...recipe.capabilities])].map(value => <Badge key={value} variant="outline">{value}</Badge>)}</div></details>
+        {related.length > 0 && <section className="related-recipes"><h2>Related recipes</h2>{related.map(entry => <Link prefetch={false} key={entry.slug} href={`/recipes/${entry.slug}`}>{entry.title}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</section>}
+      </aside>
     </div>
-  )
-}
-
-function formatDate(iso: string) {
-  const d = new Date(iso)
-  return d.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })
+  </article>
 }

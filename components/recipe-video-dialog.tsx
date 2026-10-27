@@ -28,9 +28,9 @@ export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary;
         )}
         {failed && <p role="alert" className="rounded-md border p-6 text-sm">This video couldn’t load. You can open the original video or read the recipe below.</p>}
         <div className="video-preview__footer">
-          <a href={media.videoUrl} target="_blank" rel="noreferrer" className="video-source-link">Original video <ArrowUpRight aria-hidden="true" /></a>
+          <Button asChild variant="ghost" size="sm"><a href={media.videoUrl} target="_blank" rel="noreferrer">Original video <ArrowUpRight aria-hidden="true" /></a></Button>
           <div className="video-preview__actions">
-            <a href={`/recipes/${recipe.slug}`} className="video-recipe-link">Read recipe</a>
+            <Button asChild variant="outline"><a href={`/recipes/${recipe.slug}`}>Read recipe</a></Button>
             {recipe.demoUrl && <Button asChild><a href={recipe.demoUrl} target="_blank" rel="noreferrer">Try live demo <ArrowUpRight aria-hidden="true" /></a></Button>}
           </div>
         </div>

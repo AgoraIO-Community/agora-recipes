@@ -5,6 +5,7 @@ import "./globals.css"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/lib/site"
+import { themeInitScript } from "@/lib/theme"
 
 const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
@@ -66,13 +67,15 @@ export default function RootLayout({
       data-theme="dark"
       data-scroll-behavior="smooth"
       className="dark bg-background"
+      suppressHydrationWarning
     >
       <head>
         <link rel="describedby" href="/llms.txt" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="dark light" />
+        <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link rel="preload" href="/font/MiSansLatin-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body className="font-sans antialiased min-h-svh flex flex-col">
+      <body id="page-top" className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

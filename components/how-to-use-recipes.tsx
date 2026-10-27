@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { ArrowRight, Search, Wand2, Terminal } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const steps = [
   {
@@ -35,13 +36,13 @@ export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button
+        <Button
           type="button"
-          className={variant === "footer" ? "footer-link" : variant === "text" ? "text-action hero-help" : "action action-secondary"}
+          variant={variant === "footer" ? "link" : variant === "text" ? "ghost" : "outline"}
         >
           {variant === "footer" ? "How to use recipes" : "How to use these recipes"}
           {variant !== "footer" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
-        </button>
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-3xl lg:max-w-4xl">
         <DialogHeader className="pr-6">
@@ -54,7 +55,7 @@ export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "
           </DialogDescription>
         </DialogHeader>
 
-        <ol className="grid gap-4 md:grid-cols-3">
+        <ol className="ag-reading-plane grid gap-4 md:grid-cols-3">
           {steps.map(({ title, description, icon: Icon }) => (
             <li key={title} className="p-5 sm:p-6">
               <div className="flex items-center justify-between" aria-hidden="true">

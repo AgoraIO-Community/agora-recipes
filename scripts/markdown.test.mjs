@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { readFile } from "node:fs/promises"
+import { access, readFile } from "node:fs/promises"
 import test from "node:test"
 import React from "react"
 import { renderToReadableStream } from "react-dom/server"
@@ -13,11 +13,17 @@ async function componentModule(filename) {
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext },
   }).outputText
   compiled = compiled.replace(/^import "server-only";?$/gm, "")
-  for (const [, name] of [...compiled.matchAll(/from "([^"]+)"/g)]) {
+  for (const [, quote, name] of [...compiled.matchAll(/from (["'])([^"']+)\1/g)]) {
     const local = name.startsWith(".") || name.startsWith("@/")
     const moduleUrl = name.startsWith("@/") ? new URL(`../${name.slice(2)}`, import.meta.url) : new URL(name, fileUrl)
-    const resolved = local ? await componentModule(`${moduleUrl}.tsx`) : import.meta.resolve(name)
-    compiled = compiled.replace(`from "${name}"`, `from "${resolved}"`)
+    let resolved
+    if (local) {
+      let filename = `${moduleUrl}.tsx`
+      try { await access(new URL(filename)) }
+      catch { filename = `${moduleUrl}.ts` }
+      resolved = await componentModule(filename)
+    } else resolved = import.meta.resolve(name)
+    compiled = compiled.replace(`from ${quote}${name}${quote}`, `from "${resolved}"`)
   }
   return `data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`
 }
