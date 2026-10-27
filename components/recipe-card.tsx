@@ -17,7 +17,7 @@ export function RecipeCard({ recipe }: { recipe: RecipeSummary }) {
   const labels = (media?.labels ?? recipe.platforms).slice(0, 2)
   const cover = media && (
     <div className="recipe-cover" style={{ "--thumbnail-scale": media.thumbnailScale ?? 1, "--thumbnail-origin": media.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
-      {!imageFailed ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
+      {!imageFailed ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" style={{ objectFit: media.thumbnailFit ?? "cover" }} onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
       {media.videoUrl && <span className="recipe-cover__play" aria-hidden="true"><Play fill="currentColor" /></span>}
       {(media.videoUrl || recipe.demoUrl) && <span className="recipe-cover__label">{media.videoUrl ? media.videoDuration : <>Live demo <ArrowUpRight aria-hidden="true" /></>}</span>}
     </div>

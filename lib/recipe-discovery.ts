@@ -1,6 +1,7 @@
 import type { RecipeMeta } from "./recipes"
 
 export type Showcase = {
+  recommended?: boolean
   slug: string
   title: string
   compactTitle?: string
@@ -11,6 +12,7 @@ export type Showcase = {
   thumbnailSource: string
   thumbnailScale?: number
   thumbnailOrigin?: string
+  thumbnailFit?: "cover" | "contain"
   videoUrl?: string
   videoDuration?: string
   demoNote: string

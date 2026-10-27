@@ -180,5 +180,524 @@
     "demoNote": "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.",
     "labels": ["Gaming", "Whiteboard"],
     "searchTerms": ["drawing game", "draw and guess", "drawguess", "multiplayer", "voice chat", "whiteboard", "FastH3", "Reactor", "video proof"]
+  },
+  {
+    "slug": "agora-flutter-rtc-quickstart",
+    "recommended": false,
+    "title": "Flutter RTC Quickstart",
+    "summary": "Build a cross-platform Flutter video call with Agora RTC.",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-Flutter-Quickstart/ced9b58f58a6a2132a90466d3f1e32f6954c0ef6/screenshot-1.png",
+    "thumbnailAlt": "Flutter RTC sample application screenshot from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-Flutter-Quickstart/ced9b58f58a6a2132a90466d3f1e32f6954c0ef6/screenshot-1.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not captured locally. Live calling requires Agora configuration.",
+    "labels": ["Flutter", "Video calling"],
+    "searchTerms": []
+  },
+  {
+    "slug": "agora-ios-guide",
+    "recommended": false,
+    "title": "iOS RTC Guide",
+    "summary": "Follow an iOS guide for Agora RTC video calling.",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-iOS-Guide/774be8614a04ba0dd21b8d08820182a1d5b0f632/1-basic-set-up/images/0-end-goal.png",
+    "thumbnailAlt": "iOS RTC guide demo screenshot from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-iOS-Guide/774be8614a04ba0dd21b8d08820182a1d5b0f632/1-basic-set-up/images/0-end-goal.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing guide screenshot; not captured locally. Reproduction requires Xcode and Agora configuration.",
+    "labels": ["iOS", "Video calling"],
+    "searchTerms": []
+  },
+  {
+    "slug": "bhaasha-agora",
+    "recommended": false,
+    "title": "Bhaasha",
+    "summary": "Build a multilingual India atlas voice guide with Agora Conversational AI.",
+    "thumbnail": "https://raw.githubusercontent.com/anandwana001/bhaasha-agora/ecd923c58f1b083cdefb03041030a21b01691b2c/art/live-conversation.png",
+    "thumbnailAlt": "Bhaasha live-conversation screenshot provided by the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/anandwana001/bhaasha-agora/ecd923c58f1b083cdefb03041030a21b01691b2c/art/live-conversation.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not a locally verified live session.",
+    "labels": ["Voice AI", "TypeScript"],
+    "searchTerms": []
+  },
+  {
+    "slug": "csharp-rtc-quickstart",
+    "recommended": false,
+    "title": "C# RTC Quickstart",
+    "summary": "Join an Agora RTC channel from a C# sample.",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-C_Sharp_QuickStart/9b3e61e6d800f34de3424dfe57afd77137a8a122/CSharp-API_Example/res/snapshot.png",
+    "thumbnailAlt": "C# RTC API example application screenshot from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-C_Sharp_QuickStart/9b3e61e6d800f34de3424dfe57afd77137a8a122/CSharp-API_Example/res/snapshot.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not captured locally. Native execution requires a compatible C# environment.",
+    "labels": ["C#", "Agora RTC"],
+    "searchTerms": []
+  },
+  {
+    "slug": "flutter-quickstart",
+    "recommended": false,
+    "title": "Flutter Quickstart",
+    "summary": "Build a basic Agora Conversational AI agent with Flutter.",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Conversational-AI/agent-quickstart-flutter/f094945da37bb150bdff56eb804e2a4899cf0f52/art/demo-screenshot-1.png",
+    "thumbnailAlt": "Flutter Conversational AI quickstart conversation UI screenshot from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Conversational-AI/agent-quickstart-flutter/f094945da37bb150bdff56eb804e2a4899cf0f52/art/demo-screenshot-1.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not captured locally. Live sessions require the configured backend.",
+    "labels": ["Flutter", "Voice AI"],
+    "searchTerms": []
+  },
+  {
+    "slug": "pause-with-agora",
+    "recommended": false,
+    "title": "Agora Chrome Plugin",
+    "summary": "Build a Chrome plugin example powered by Agora Conversational AI.",
+    "thumbnail": "https://raw.githubusercontent.com/anandwana001/Agora-Meditation-Plugin/70571d057686dbfc43731ca9e1bb19d4dae0861e/public/Screenshot%202026-04-20%20at%205.59.36%E2%80%AFPM.png",
+    "thumbnailAlt": "Pause with Agora active-session screenshot provided by the Chrome plugin repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/anandwana001/Agora-Meditation-Plugin/70571d057686dbfc43731ca9e1bb19d4dae0861e/public/Screenshot%202026-04-20%20at%205.59.36%E2%80%AFPM.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing extension screenshot; not a locally verified live session.",
+    "labels": ["Chrome extension", "Voice AI"],
+    "searchTerms": []
+  },
+  {
+    "slug": "pillion",
+    "recommended": false,
+    "title": "Pillion: Voice Co-Pilot for Riders",
+    "summary": "A hands-free Hindi and English voice co-pilot that acts on the phone and keeps riders safe.",
+    "thumbnail": "https://raw.githubusercontent.com/jatinvats123/pillion/2bdac8619dff37a2d5ba93f2377e91b57c6058d3/docs/screenshots/ride-dark.png",
+    "thumbnailAlt": "Pillion Android ride screen in dark appearance from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/jatinvats123/pillion/2bdac8619dff37a2d5ba93f2377e91b57c6058d3/docs/screenshots/ride-dark.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing Android screenshot; not captured locally. Live rider features require device and backend configuration.",
+    "labels": ["Android", "Voice AI"],
+    "searchTerms": []
+  },
+  {
+    "slug": "unity-virtual-camera-demos",
+    "recommended": false,
+    "title": "Unity Virtual Camera Demos",
+    "summary": "Use Unity scenes as custom video sources for Agora RTC.",
+    "thumbnail": "https://user-images.githubusercontent.com/1261195/118602946-2e86cc80-b768-11eb-88e9-7d2b05a9a9ca.png",
+    "thumbnailAlt": "Unity SampleMinScene virtual camera sample screenshot linked from the implementation README",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/UnityVirtualCamDemos",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing sample screenshot; not captured locally. Running the scene requires Unity and Agora configuration.",
+    "labels": ["Unity", "Virtual camera"],
+    "searchTerms": []
+  },
+  {
+    "slug": "unity-virtual-camera-prefab",
+    "recommended": false,
+    "title": "Unity Virtual Camera Prefab",
+    "summary": "Publish Unity-rendered camera output through Agora RTC.",
+    "thumbnail": "https://cdn-images-1.medium.com/max/2400/1*htfFBxCHWE_6DWzcyzzpUA.png",
+    "thumbnailAlt": "Unity editor setup image showing the virtual camera prefab in the scene hierarchy",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Unity-Virtual-Camera-Prefab",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing Unity editor setup screenshot, not a live-call or gameplay capture.",
+    "labels": ["Unity", "Virtual camera"],
+    "searchTerms": []
+  },
+  {
+    "slug": "ios-live-shopping-reference-app",
+    "recommended": false,
+    "title": "iOS Live Shopping Reference App",
+    "summary": "Build an iOS live shopping experience with Agora RTC.",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/referenceapp-liveshopping-ios/b3475100da25f30c8bb92fa56a3b74f448838d16/media/ss_customer_storefront.png",
+    "thumbnailAlt": "Customer storefront screenshot from the iOS live-shopping reference application",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/referenceapp-liveshopping-ios/b3475100da25f30c8bb92fa56a3b74f448838d16/media/ss_customer_storefront.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not captured locally. Reproduction requires the iOS project and its services.",
+    "labels": ["iOS", "Live shopping"],
+    "searchTerms": []
+  },
+  {
+    "slug": "agora-breath-companion",
+    "recommended": false,
+    "title": "Breath Companion",
+    "summary": "A guided breathing and voice-agent experience with Agora.",
+    "thumbnail": "/recipes/agora-breath-companion.webp",
+    "thumbnailAlt": "Breath Companion landing page with meditation illustration, mood choices, and breathing goals before starting a session",
+    "thumbnailSource": "https://github.com/anandwana001/agora-breath-companion/tree/66a781859b745f4ff9b9c19a81b47cf8020c5771",
+    "thumbnailFit": "contain",
+    "demoNote": "Locally captured credential-free landing page; no voice session started. Live voice requires Agora configuration.",
+    "labels": ["TypeScript", "Wellness"],
+    "searchTerms": []
+  },
+  {
+    "slug": "daily-mandir-ai",
+    "recommended": false,
+    "title": "Daily Mandir AI",
+    "summary": "A devotional voice companion for daily temple guidance.",
+    "thumbnail": "/recipes/daily-mandir-ai.webp",
+    "thumbnailAlt": "Daily Mandir AI landing page with Guruji illustration and conversation engine and language selectors before a conversation",
+    "thumbnailSource": "https://github.com/anandwana001/daily-mandir-ai/tree/0a541fbff286d8eee30cb071b4e913e914a7144e",
+    "thumbnailFit": "contain",
+    "demoNote": "Locally captured credential-free landing page; no conversation started. Live voice requires service configuration.",
+    "labels": ["TypeScript", "Devotional"],
+    "searchTerms": []
+  },
+  {
+    "slug": "nextjs-quickstart",
+    "recommended": false,
+    "title": "NextJS Quickstart",
+    "summary": "A basic Agora Conversational AI agent with Next.js.",
+    "thumbnail": "/recipes/nextjs-quickstart.webp",
+    "thumbnailAlt": "Agora NextJS Quickstart initial screen with a Start Conversation button and no active voice session",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs/tree/24374411cdd809701e2a39466f4f97d52e23f173",
+    "thumbnailFit": "contain",
+    "demoNote": "Locally captured credential-free start screen; no conversation started. Live voice requires Agora configuration.",
+    "labels": ["TypeScript", "Quickstart"],
+    "searchTerms": []
+  },
+  {
+    "slug": "agent-delegation", "recommended": false,
+    "title": "Delegated Reasoning", "summary": "Keep a voice agent responsive while a second model reasons.",
+    "thumbnail": "/recipes/agent-delegation.webp", "thumbnailAlt": "Delegated Reasoning repository's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Live functionality unverified.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agent-handoff", "recommended": false,
+    "title": "Agent Handoff", "summary": "Route conversations across specialized personas.",
+    "thumbnail": "/recipes/agent-handoff.webp", "thumbnailAlt": "Travel Concierge initial screen before starting an agent handoff conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-handoff", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Live functionality unverified.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-aigc-demo", "recommended": false,
+    "title": "AIGC Demo with Agora RTC", "summary": "Combine AIGC interactions with realtime media.",
+    "thumbnail": "/recipes/agora-aigc-demo.webp", "thumbnailAlt": "AIGC demo setup panel with STT, TTS, LLM and channel settings before joining",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-AIGCDemo", "thumbnailFit": "contain",
+    "demoNote": "Credential-free settings UI with empty conversation area; no session joined.", "labels": ["JavaScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-gemini-mllm-go", "recommended": false,
+    "title": "Gemini MLLM Voice Agent for Go", "summary": "Build a Gemini Live voice agent with Go and Agora.",
+    "thumbnail": "/recipes/agora-gemini-mllm-go.webp", "thumbnailAlt": "Go Gemini MLLM client's model selector and Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-gemini-mllm-go", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Go", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-gemini-mllm-nextjs", "recommended": false,
+    "title": "Gemini MLLM Voice Agent for Next.js", "summary": "Build a Gemini Live voice agent with Next.js and Agora.",
+    "thumbnail": "/recipes/agora-gemini-mllm-nextjs.webp", "thumbnailAlt": "Next.js Gemini MLLM model selector before starting a conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-gemini-mllm-nextjs", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Live functionality unverified.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-gemini-mllm-python", "recommended": false,
+    "title": "Gemini MLLM Voice Agent for Python", "summary": "Build a Gemini Live voice agent with Python and Agora.",
+    "thumbnail": "/recipes/agora-gemini-mllm-python.webp", "thumbnailAlt": "Python Gemini MLLM web client's model selector before a conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-gemini-mllm-python", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-gemma-voice-coach", "recommended": false,
+    "title": "Agora x Gemma Voice Coach", "summary": "Pair Agora voice sessions with local Gemma reasoning.",
+    "thumbnail": "/recipes/agora-gemma-voice-coach.webp", "thumbnailAlt": "Gemma Voice Coach initial dashboard showing missing App ID and unchecked local model status",
+    "thumbnailSource": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach", "thumbnailFit": "contain",
+    "demoNote": "Credential-free setup UI; Agora and local Gemma are not configured or connected.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-matchcast", "recommended": false,
+    "title": "Agora MatchCast", "summary": "Add realtime captions to sports and esports streams.",
+    "thumbnail": "/recipes/agora-matchcast.webp", "thumbnailAlt": "MatchCast standby dashboard with an empty live-feed area and transcript panel",
+    "thumbnailSource": "https://github.com/zicojiao/agora-matchcast", "thumbnailFit": "contain",
+    "demoNote": "Credential-free standby UI; no stream, transcription or live session started.", "labels": ["TypeScript", "Python"], "searchTerms": []
+  },
+  {
+    "slug": "aria-coteacher", "recommended": false,
+    "title": "Aria Co-Teacher", "summary": "An AI-powered co-teacher for virtual classrooms.",
+    "thumbnail": "/recipes/aria-coteacher.webp", "thumbnailAlt": "Aria Voice AI Co-Teacher landing page with Create Classroom and Join Classroom controls",
+    "thumbnailSource": "https://github.com/saksham456456/Aria", "thumbnailFit": "contain",
+    "demoNote": "Credential-free landing page; no classroom, account or voice session created.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "athena", "recommended": false,
+    "title": "Athena", "summary": "Highlight something you do not understand and ask about it out loud.",
+    "thumbnail": "/recipes/athena.webp", "thumbnailAlt": "Athena repository quickstart's initial Start Conversation screen, not an active extension",
+    "thumbnailSource": "https://github.com/agsyna/Athena", "thumbnailFit": "contain",
+    "demoNote": "Repository quickstart screen only; extension and live conversation unverified.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "content-filter", "recommended": false,
+    "title": "Content Filtering", "summary": "Redact unsafe or sensitive agent responses.",
+    "thumbnail": "/recipes/content-filter.webp", "thumbnailAlt": "Content Filter Recipe landing screen before starting a conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-content-filter", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Filtering behavior unverified.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "cross-session-memory", "recommended": false,
+    "title": "Cross-Session Memory", "summary": "Remember returning users across separate calls.",
+    "thumbnail": "/recipes/cross-session-memory.webp", "thumbnailAlt": "Memory Recipe initial screen with an empty optional name field",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-memory", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no name entered or conversation started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "custom-llm", "recommended": false,
+    "title": "Custom LLM", "summary": "Bring your own OpenAI-compatible LLM endpoint.",
+    "thumbnail": "/recipes/custom-llm.webp", "thumbnailAlt": "Custom LLM Recipe initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no custom endpoint or conversation connected.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "custom-modalities", "recommended": false,
+    "title": "Custom Modalities", "summary": "Bring your own LLM and custom voice endpoint.",
+    "thumbnail": "/recipes/custom-modalities.webp", "thumbnailAlt": "Custom LLM-TTS Recipe initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm-tts", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no custom endpoint or conversation connected.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "dynamic-instructions", "recommended": false,
+    "title": "Dynamic Instructions", "summary": "Update the agent's system prompt mid-session.",
+    "thumbnail": "/recipes/dynamic-instructions.webp", "thumbnailAlt": "Instructions Recipe initial screen describing configurable agent instructions",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-instructions", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no live session or instruction update attempted.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "dynamic-tools", "recommended": false,
+    "title": "Dynamic Tool Sets", "summary": "Swap the agent's tools based on context.",
+    "thumbnail": "/recipes/dynamic-tools.webp", "thumbnailAlt": "Smart Home recipe initial screen before starting a device-control conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tools-plus", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no session, tools or physical devices connected.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "filler-words", "recommended": false,
+    "title": "Filler Words & Graceful Exit", "summary": "Smooth latency with filler phrases and a polite goodbye.",
+    "thumbnail": "/recipes/filler-words.webp", "thumbnailAlt": "Filler Words setup UI with disabled controls and a missing backend settings error",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-filler-words", "thumbnailFit": "contain",
+    "demoNote": "Unconfigured UI: filler settings cannot load without the backend. No conversation started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "gemini-agora-agentic-video-nextjs", "recommended": false,
+    "title": "Gemini Agora Agentic Video for Next.js", "summary": "Talk to a video with Gemini understanding and Agora voice AI.",
+    "thumbnail": "/recipes/gemini-agora-agentic-video-nextjs.webp", "thumbnailAlt": "Agentic Video and Voice AI initial UI with an empty video preview and upload controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Gemini-Agora-Agentic-Video-NextJS", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no upload, camera, video analysis or voice session started.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "gemini-agora-voice-agents-go", "recommended": false,
+    "title": "Gemini Agora Voice Agents for Go", "summary": "Build a Gemini-powered voice agent with Go and Agora.",
+    "thumbnail": "/recipes/gemini-agora-voice-agents-go.webp", "thumbnailAlt": "Go Gemini web client's initial voice selector and Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Go", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Go"], "searchTerms": []
+  },
+  {
+    "slug": "gemini-agora-voice-agents-nextjs", "recommended": false,
+    "title": "Gemini Agora Voice Agents for Next.js", "summary": "Build a Gemini-powered voice agent with Next.js and Agora.",
+    "thumbnail": "/recipes/gemini-agora-voice-agents-nextjs.webp", "thumbnailAlt": "Next.js Gemini client's initial voice selector and Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Live functionality unverified.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "gemini-agora-voice-agents-python", "recommended": false,
+    "title": "Gemini Agora Voice Agents for Python", "summary": "Build a Gemini-powered voice agent with Python and Agora.",
+    "thumbnail": "/recipes/gemini-agora-voice-agents-python.webp", "thumbnailAlt": "Python Gemini web client's initial voice selector and Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Python", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Python"], "searchTerms": []
+  },
+  {
+    "slug": "golang-quickstart", "recommended": false,
+    "title": "Golang Quickstart", "summary": "Build a basic Agora Conversational AI agent in Go.",
+    "thumbnail": "/recipes/golang-quickstart.webp", "thumbnailAlt": "Go quickstart web client's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-go", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Go"], "searchTerms": []
+  },
+  {
+    "slug": "interruptions", "recommended": false,
+    "title": "Interruption Handling", "summary": "Tune how the agent yields when the user barges in.",
+    "thumbnail": "/recipes/interruptions.webp", "thumbnailAlt": "Interruptions Recipe initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-interruptions", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Interruption behavior unverified.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "jev-vad", "recommended": false,
+    "title": "Jev VAD: Client-side Turn Detection", "summary": "Use a language-model judge for turn detection and barge-in.",
+    "thumbnail": "/recipes/jev-vad.webp", "thumbnailAlt": "ConvoAI and Jev VAD initial screen before a turn-detection conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/convoai-jev-vad", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no microphone, VAD or live session started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "kaun-katega-taarpati", "recommended": false,
+    "title": "Kaun Katega Taarpati", "summary": "Run a three-player Hinglish voice game show.",
+    "thumbnail": "/recipes/kaun-katega-taarpati.webp", "thumbnailAlt": "Kaun Katega Taarpati initial room creation and reopen screen, before gameplay",
+    "thumbnailSource": "https://github.com/subinsk/kkt", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no room created, players connected or game started.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "labspark-ai", "recommended": false,
+    "title": "LabSpark AI", "summary": "A virtual science laboratory with a real-time Socratic tutor.",
+    "thumbnail": "/recipes/labspark-ai.webp", "thumbnailAlt": "LabSpark AI virtual science laboratory landing page before opening a workbench",
+    "thumbnailSource": "https://github.com/ojha-436/LabSparkAI", "thumbnailFit": "contain",
+    "demoNote": "Credential-free landing page; no account, workbench or tutor conversation started.", "labels": ["JavaScript"], "searchTerms": []
+  },
+  {
+    "slug": "mcp-tools", "recommended": false,
+    "title": "MCP Tools", "summary": "Let Agora orchestrate tools on an MCP server.",
+    "thumbnail": "/recipes/mcp-tools.webp", "thumbnailAlt": "MCP Recipe initial screen with Pipeline and Realtime agent mode choices",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-mcp", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no MCP tools invoked or conversation started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "muse-ai", "recommended": false,
+    "title": "Muse AI", "summary": "A conversational voice AI music co-producer.",
+    "thumbnail": "/recipes/muse-ai.webp", "thumbnailAlt": "Muse AI music co-producer landing page with studio and demo controls",
+    "thumbnailSource": "https://github.com/Molly-Arora02/MUSE-AI-", "thumbnailFit": "contain",
+    "demoNote": "Credential-free landing page; no studio, demo conversation or music session started.", "labels": ["TypeScript", "React"], "searchTerms": []
+  },
+  {
+    "slug": "openai-gpt-live-go", "recommended": false,
+    "title": "OpenAI GPT Live with Go", "summary": "Build a realtime GPT Live voice agent with Agora and Go.",
+    "thumbnail": "/recipes/openai-gpt-live-go.webp", "thumbnailAlt": "Go OpenAI voice web client's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Go", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Go"], "searchTerms": []
+  },
+  {
+    "slug": "openai-gpt-live-nextjs", "recommended": false,
+    "title": "OpenAI GPT Live with Next.js", "summary": "Build a realtime GPT Live voice agent with Agora and Next.js.",
+    "thumbnail": "/recipes/openai-gpt-live-nextjs.webp", "thumbnailAlt": "Next.js OpenAI voice client's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Live functionality unverified.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "openai-gpt-live-python", "recommended": false,
+    "title": "OpenAI GPT Live with Python", "summary": "Build a realtime GPT Live voice agent with Agora and Python.",
+    "thumbnail": "/recipes/openai-gpt-live-python.webp", "thumbnailAlt": "Python OpenAI voice web client's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Python", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Python"], "searchTerms": []
+  },
+  {
+    "slug": "push-to-talk", "recommended": false,
+    "title": "Push-to-Talk", "summary": "Gate the microphone with press-to-talk for deliberate voice turns.",
+    "thumbnail": "/recipes/push-to-talk.webp", "thumbnailAlt": "Push-to-Talk Configuration Required setup screen listing missing environment variable names",
+    "thumbnailSource": "https://github.com/Therealratoshen/recipe-push-to-talk", "thumbnailFit": "contain",
+    "demoNote": "Configuration-required screen, not a working voice UI. No credentials or microphone used.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "python-quickstart", "recommended": false,
+    "title": "Python Quickstart", "summary": "Build a basic Agora Conversational AI agent in Python.",
+    "thumbnail": "/recipes/python-quickstart.webp", "thumbnailAlt": "Python quickstart web client's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-python", "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.", "labels": ["Python"], "searchTerms": []
+  },
+  {
+    "slug": "rag", "recommended": false,
+    "title": "Retrieval-Augmented Generation", "summary": "Ground agent answers in your own knowledge base.",
+    "thumbnail": "/recipes/rag.webp", "thumbnailAlt": "RAG Recipe initial screen before starting a knowledge-base conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-rag", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no knowledge retrieval or live session attempted.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "real-time-transcription-demo", "recommended": false,
+    "title": "Real-Time Transcription Demo", "summary": "Add realtime transcription to Agora RTC sessions.",
+    "thumbnail": "/recipes/real-time-transcription-demo.webp", "thumbnailAlt": "Real-Time Transcription entry form with empty channel and name fields",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-RTT-Demo", "thumbnailFit": "contain",
+    "demoNote": "Credential-free entry UI; tracked env files omitted. No channel joined or transcription started.", "labels": ["JavaScript", "Web"], "searchTerms": []
+  },
+  {
+    "slug": "realtime-translator", "recommended": false,
+    "title": "Real-time Translator", "summary": "Speak in one language and hear another in real time.",
+    "thumbnail": "/recipes/realtime-translator.webp", "thumbnailAlt": "Translator Recipe initial screen before starting a translation conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-translator", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Translation behavior unverified.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "realtime-vision", "recommended": false,
+    "title": "Real-time Vision (MLLM)", "summary": "Realtime voice that can also see your camera.",
+    "thumbnail": "/recipes/realtime-vision.webp", "thumbnailAlt": "Realtime Vision Recipe initial screen before enabling a camera or conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime-vision", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no camera permission or live session started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "realtime-voice", "recommended": false,
+    "title": "Real-time Voice (MLLM)", "summary": "Voice-to-voice with a realtime multimodal model.",
+    "thumbnail": "/recipes/realtime-voice.webp", "thumbnailAlt": "Realtime voice recipe initial screen before starting a conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no active session. Live functionality unverified.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "speaker-lock", "recommended": false,
+    "title": "Speaker Lock", "summary": "Lock onto the primary speaker and ignore other voices.",
+    "thumbnail": "/recipes/speaker-lock.webp", "thumbnailAlt": "Speaker Lock initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-voiceprint", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no microphone or live speaker-lock session started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "tool-calling", "recommended": false,
+    "title": "Tool Calling", "summary": "Give your voice agent callable tools.",
+    "thumbnail": "/recipes/tool-calling.webp", "thumbnailAlt": "Tool Calling Recipe initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tool-calling", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no tools invoked or live conversation started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "trak-voice-ai", "recommended": false,
+    "title": "Trak App Voice AI Integration", "summary": "Control music playback and search tracks using voice AI.",
+    "thumbnail": "/recipes/trak-voice-ai.webp", "thumbnailAlt": "Trak repository voice quickstart screen, not a connected music player",
+    "thumbnailSource": "https://github.com/Saarthak1234/Trak-VoiceAI-Demo", "thumbnailFit": "contain",
+    "demoNote": "Repository quickstart screen only; music playback and live integration unverified.", "labels": ["JavaScript", "Electron"], "searchTerms": []
+  },
+  {
+    "slug": "vision", "recommended": false,
+    "title": "Vision (Camera Input)", "summary": "Let the agent see the user's camera.",
+    "thumbnail": "/recipes/vision.webp", "thumbnailAlt": "Vision Recipe initial screen before enabling a camera or conversation",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-vision", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no camera permission or live session started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "voice-rpg", "recommended": false,
+    "title": "Voice RPG", "summary": "Play a voice-driven tabletop RPG with an AI dungeon master.",
+    "thumbnail": "/recipes/voice-rpg.webp", "thumbnailAlt": "RPG Gaming initial screen before starting an adventure",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-rpg", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no adventure, game tools or conversation started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "watchwise-ai", "recommended": false,
+    "title": "WatchWise AI", "summary": "Build a voice agent for movie and TV discovery.",
+    "thumbnail": "/recipes/watchwise-ai.webp", "thumbnailAlt": "WatchWise landing page with empty movie rails, without a TMDB key or voice session",
+    "thumbnailSource": "https://github.com/anandwana001/watchwise-ai", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI with empty movie rails; TMDB and live voice unconfigured.", "labels": ["TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "web-spatial-audio-demo", "recommended": false,
+    "title": "Web Spatial Audio Demo", "summary": "Build a browser-based spatial audio experience.",
+    "thumbnail": "/recipes/web-spatial-audio-demo.webp", "thumbnailAlt": "Spatial Audio demo initial setup dialog requesting an App ID before entering the scene",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/web-spatial-demo", "thumbnailFit": "contain",
+    "demoNote": "Credential-free setup UI; tracked env files omitted. No spatial audio session joined.", "labels": ["JavaScript", "Web"], "searchTerms": []
+  },
+  {
+    "slug": "webhooks", "recommended": false,
+    "title": "Server-side Webhooks", "summary": "Receive Agora lifecycle events on your server.",
+    "thumbnail": "/recipes/webhooks.webp", "thumbnailAlt": "Webhooks Recipe initial screen with an empty server-side event panel",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-webhooks", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; event panel is empty. No agent or webhook flow started.", "labels": ["Python", "TypeScript"], "searchTerms": []
+  },
+  {
+    "slug": "agora-channel-management", "recommended": false,
+    "title": "Channel Management Sample", "summary": "Inspect channel users and manage RTC privileges.",
+    "thumbnail": "/recipes/agora-channel-management.webp", "thumbnailAlt": "Channel management initial privilege-rule and channel-user forms with no credentials entered",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-channel-management", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no credentials entered, queries submitted or privileges changed.", "labels": ["JavaScript", "Web"], "searchTerms": []
+  },
+  {
+    "slug": "agora-stt", "recommended": false,
+    "title": "Speech-to-Text with Agora RTC", "summary": "Transcribe Agora RTC audio with a speech-to-text workflow.",
+    "thumbnail": "/recipes/agora-stt.webp", "thumbnailAlt": "Realtime transcription and translation initial interface with empty media and transcript areas",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-stt", "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no channel, microphone or transcription session started.", "labels": ["JavaScript", "Web"], "searchTerms": []
+  },
+  {
+    "slug": "agora-voice-web-navigator", "recommended": false,
+    "title": "Agora Voice Web Navigator", "summary": "Voice-controlled browser automation powered by Agora RTC.",
+    "thumbnail": "/recipes/agora-voice-web-navigator.webp", "thumbnailAlt": "Disconnected browser-controller setup interface with an empty browser-output panel",
+    "thumbnailSource": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA", "thumbnailFit": "contain",
+    "demoNote": "Disconnected controller UI; backend unavailable. No browser commands or voice session executed.", "labels": ["JavaScript"], "searchTerms": []
+  },
+  {
+    "slug": "visionos-rtc-quickstart", "recommended": false,
+    "title": "visionOS RTC Quickstart", "summary": "Add Agora RTC to an immersive visionOS sample.",
+    "thumbnail": "/recipes/visionos-rtc-quickstart.webp", "thumbnailAlt": "Author demo GIF frame showing a visionOS video panel with three illustrated participants",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/visionOS-Quickstart/04dd9721a4b346acdffa0fb1df13f85cd09216c8/media/vision-basic-video-call.gif", "thumbnailFit": "contain",
+    "demoNote": "Frame at 2 seconds from the author's existing demo GIF; not a locally verified visionOS session.", "labels": ["visionOS", "Swift"], "searchTerms": []
   }
 ]
