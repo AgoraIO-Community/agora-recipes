@@ -168,8 +168,9 @@ cards keep their natural height instead of stretching to fill neighboring rows.
 
 The media opens the actual video or external live demo; the title opens the
 recipe. Hover and keyboard focus may fade in the title arrow within its reserved
-space. Preview images retain their crop and scale. The play icon stays anchored while
-its label is revealed beside it. Touch controls remain visible. Do not invent
+space. Preview images retain their crop and scale. The default play control
+and its labelled hover state both remain centred within the preview. Touch
+controls remain visible. Do not invent
 favorites, ratings, demo links, or availability claims.
 
 Search and explicit sorts show aligned text rows on desktop and two-column text
@@ -216,9 +217,11 @@ arrows on hover. Reserved-space icons may fade in; feedback otherwise uses text
 color, fill, border, underline, and opacity. Press feedback also keeps geometry
 fixed.
 
-Video cards have one deliberate hover interaction: the play icon stays fixed,
-its label fades in at a reserved offset, and only the decorative glass backing
-extends to fit the text. Mouse hover prepares video metadata; playback begins
+Video cards have one deliberate hover interaction: a centred play icon fades
+into a centred icon-and-label group inside a fixed frame. The decorative glass
+backing expands equally on both sides of the preview centre. Keep each state
+vertically centred; no content slides between positions. Mouse hover prepares
+video metadata; playback begins
 after a continuous two-second dwell, muted and inline. Keep the poster visible
 until playback starts. Leaving, clicking, hiding the page, or removing the card
 cancels the preview and restores the poster. Failed or blocked playback leaves

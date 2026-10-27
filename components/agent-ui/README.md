@@ -16,8 +16,8 @@ Hover, focus, and press preserve the bounds of controls, labels, and icons.
 Cards and images keep their size and crop. Use color, border, underline, and
 opacity for feedback; reserve space for icons that fade in. Keep hover free of
 translation, scaling, and moving arrows. Video previews are the exception:
-the play icon stays anchored, its label fades in, and the decorative glass
-backing extends beside it. A two-second mouse dwell starts muted inline video;
+the centred icon crossfades to a centred icon-and-label group inside a fixed
+frame. The decorative glass backing expands equally to both sides. A two-second mouse dwell starts muted inline video;
 leaving restores the poster. Touch and reduced-motion/data preferences retain
 explicit playback.
 
