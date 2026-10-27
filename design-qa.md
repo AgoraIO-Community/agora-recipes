@@ -9,6 +9,9 @@ site after changes to shared components, theme tokens, or layout.
   browsing stays in two columns without document-level horizontal overflow.
 - Compare component and descendant bounds before, during, and after hover.
   Cards, previews, links, labels, and icons retain their position and size.
+  The video caption may extend its glass backing while its play icon stays fixed.
+- Verify the two-second mouse dwell, muted inline preview, early-leave and
+  unmount cancellation, blocked playback recovery, and explicit touch playback.
 - Exercise keyboard focus, selection, multi-select filters, sorting, empty
   recovery, copy success and failure, and disclosure state changes.
 - Verify full refraction on floating surfaces, readable opaque form and reading

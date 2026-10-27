@@ -113,8 +113,9 @@ Private recipe repositories cannot be fetched by the unauthenticated build scrip
 ### Homepage catalog
 
 All recipes share one catalog. Entries in [`content/showcase.json`](content/showcase.json)
-are recommended first, in array order. The first six are visible immediately;
-the next real recipe titles peek through a faded continuation that expands inline.
+are recommended first, in array order. Curated media entries are visible
+immediately; remaining entries render on demand when the inline continuation
+is expanded.
 Search and filters operate on the entire catalog and reveal every matching result.
 There is no separate event collection or View all destination.
 
@@ -127,7 +128,7 @@ Appearance defaults to dark. The header light/dark toggle saves an explicit choi
 Each recommendation can provide a local `thumbnail`, its `thumbnailSource` and
 `thumbnailAlt`, and an existing `videoUrl`. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
 `compactTitle` and `compactSummary` for a short title and one concise outcome.
-Media cards show the preview, title, summary, author avatar, and up to two selected
+Media cards show the preview, title, summary, author avatar, and one meaningful
 `labels` (one on phones). Guide cards reuse the tagline and platform labels.
 `thumbnailScale` and `thumbnailOrigin` optionally frame existing screenshots to
 exclude browser chrome; the original image and video remain intact.

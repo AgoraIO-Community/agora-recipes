@@ -41,7 +41,10 @@
 .ag-glass:is([data-slot=popover-content],[data-slot=select-content])[data-state=closed] { animation: ag-glass-exit 120ms ease-in; }
 @keyframes ag-glass-enter { from { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } to { transform: none; } }
 @keyframes ag-glass-exit { to { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } }
-@supports not (backdrop-filter: url("#glass-probe")) { .ag-glass::before { background: var(--popover); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+@supports not (backdrop-filter: url("#glass-probe")) {
+  .ag-glass::before { background: var(--popover); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .ag-floating-control::before { background: #101214; }
+}
 @media (prefers-reduced-transparency:reduce), (forced-colors:active) {
   .ag-glass::before { background: var(--popover); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .ag-glass::after { background: none; box-shadow: none; }

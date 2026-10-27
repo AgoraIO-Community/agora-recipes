@@ -168,8 +168,8 @@ cards keep their natural height instead of stretching to fill neighboring rows.
 
 The media opens the actual video or external live demo; the title opens the
 recipe. Hover and keyboard focus may fade in the title arrow within its reserved
-space. Preview images retain their crop and scale; the video play control and
-its icon keep the same bounds in every hover state. Touch controls remain visible. Do not invent
+space. Preview images retain their crop and scale. The play icon stays anchored while
+its label is revealed beside it. Touch controls remain visible. Do not invent
 favorites, ratings, demo links, or availability claims.
 
 Search and explicit sorts show aligned text rows on desktop and two-column text
@@ -210,11 +210,21 @@ scroll horizontally; keep their overflow inside the reading area.
 Use the shared control timing: press 140ms, control feedback 160ms, surfaces
 180–280ms. Selection underlays move for 240ms with `cubic-bezier(.16,1,.3,1)`.
 Hover and keyboard focus keep every component and its contents stationary.
-Cards, images, links, buttons, labels, icons, and media controls retain their
+Cards, images, links, buttons, labels, and icons retain their
 position, size, spacing, and crop. Do not translate, scale, lift, expand, or swap
 arrows on hover. Reserved-space icons may fade in; feedback otherwise uses text
 color, fill, border, underline, and opacity. Press feedback also keeps geometry
 fixed.
+
+Video cards have one deliberate hover interaction: the play icon stays fixed,
+its label fades in at a reserved offset, and only the decorative glass backing
+extends to fit the text. Mouse hover prepares video metadata; playback begins
+after a continuous two-second dwell, muted and inline. Keep the poster visible
+until playback starts. Leaving, clicking, hiding the page, or removing the card
+cancels the preview and restores the poster. Failed or blocked playback leaves
+the manual video action usable. Touch and reduced-motion/data preferences use
+the poster and explicit playback action. Keyboard focus may reveal the label
+but never starts automatic playback.
 
 State changes may animate when they explain an action: selection indicators,
 expanded disclosures, copy confirmation, theme changes, and opening or closing
