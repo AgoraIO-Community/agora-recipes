@@ -1,0 +1,27 @@
+{
+  "title": "Flutter Call Subtitles",
+  "tagline": "Add live subtitles to a Flutter calling experience.",
+  "description": "Flutter tutorial source for displaying transcription during an RTC call. Requires local configuration, Android/iOS platform runners and a compatible transcription backend.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Flutter",
+    "iOS",
+    "Android"
+  ],
+  "useCases": [
+    "Subtitles",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Flutter",
+    "Transcription UI"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/flutter_call_subtitles",
+  "recipeUrl": "https://github.com/AgoraIO-Community/flutter_call_subtitles/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}
