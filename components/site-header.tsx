@@ -38,7 +38,7 @@ export function SiteHeader() {
   }, [pathname])
 
   return (
-    <header className="site-header" data-scrolled={scrolled || open}>
+    <header className="site-header" data-scrolled={scrolled || open} data-detail={pathname.startsWith("/recipes/")}>
       <div className="site-header__content shell">
         <Link href="/" className="site-brand" aria-label="Agora Recipes home">
           <AgoraLogo /><span>Recipes</span>

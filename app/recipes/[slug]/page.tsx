@@ -58,7 +58,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const sections = guideSections(recipe.recipeDocument.markdown)
   const command = `agora init my-${slug} --recipe ${slug}`
 
-  return <article>
+  return <article className="recipe-detail">
     <header className="detail-hero">
       <div className="shell">
         <RecipeBackLink />

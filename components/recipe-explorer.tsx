@@ -86,8 +86,9 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
   const hasFilters = Boolean(filters.query.trim() || filters.topic !== "all" || selectedCount)
   const compact = hasFilters || filters.sort !== "recommended"
   const expanded = params.get("all") === "1"
-  const leading = compact ? filtered : filtered.slice(0, 6)
-  const remaining = compact ? [] : filtered.slice(6)
+  const featuredCount = Math.max(6, filtered.filter(recipe => recipe.recommendedOrder !== undefined).length)
+  const leading = compact ? filtered : filtered.slice(0, featuredCount)
+  const remaining = compact ? [] : filtered.slice(featuredCount)
 
   useCatalogMotion(resultsRef, search, filters.query)
   useEffect(() => {
@@ -211,7 +212,7 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
           replaceCatalogSearch(next)
         }}>
           <summary className="ag-button ag-button-outline ag-control-lg"><span>{expanded ? "Show fewer recipes" : `Explore ${remaining.length} more recipes`}</span><ChevronDown aria-hidden="true" /></summary>
-          <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} compact />)}</div>
+          {expanded && <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} compact />)}</div>}
         </details>}
       </> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>No matching recipes</EmptyTitle><EmptyDescription>Try a broader search or remove a filter above.</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => setFilters(defaultFilters)}>Clear search and filters</Button></Empty>}
     </div>

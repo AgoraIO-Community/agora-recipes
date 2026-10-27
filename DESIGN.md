@@ -159,7 +159,7 @@ The toolbar sticks below the measured header on desktop and scrolls normally on
 phones. Overflowing topics scroll horizontally. Single selection uses the shared
 moving underlay; state must also remain explicit in control semantics.
 
-The six recommendations use three columns on desktop and two at 900px. Phone
+Curated recommendations use three columns on desktop and two at 900px. Phone
 cards remain in two columns. Desktop gaps are 20px; phone gaps are 12px across
 and 16px down. A charcoal tile contains an inset real preview, title, concise
 outcome, author, and one meaningful platform or capability label. Gallery crops
@@ -175,7 +175,8 @@ favorites, ratings, demo links, or availability claims.
 Search and explicit sorts show aligned text rows on desktop and two-column text
 cards on phones. Keep actual demo actions available. Guide-only entries do not
 reserve empty thumbnail space. Search covers the entire catalog, including
-entries under the native inline continuation.
+entries under the native inline continuation. Render continuation rows only
+while expanded, keeping the initial page light as the catalog grows.
 
 The bounded filter sheet has searchable groups, counts, and a fixed action area.
 Platforms and use cases match any selected value; capabilities require all

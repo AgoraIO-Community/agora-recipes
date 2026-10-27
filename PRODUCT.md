@@ -14,7 +14,7 @@ A searchable catalog of Agora voice AI and real-time communication recipes. Reci
 
 ## Capabilities and Constraints
 
-The local catalog includes every recipe. Six existing demo recipes are recommended first, with compact thumbnails and actions. More entries are available through a native inline expansion; search and filters always cover every recipe. Video plays on-site and live demos open externally. There is no event-specific collection or View all destination. No new demo services or deployment are in scope. Catalog and curation remain in the repository; database, upload infrastructure, and expanded contribution flows are deferred.
+The local catalog includes every recipe. Curated demo recipes are recommended first, with compact thumbnails and actions. More entries render on demand through a native inline expansion; search and filters always cover every recipe. Video plays on-site and live demos open externally. There is no event-specific collection or View all destination. No new demo services or deployment are in scope. Catalog and curation remain in the repository; database, upload infrastructure, and expanded contribution flows are deferred.
 
 Appearance defaults to dark on first visit. A header toggle switches between dark and light and remembers an explicit choice locally across pages and reloads; it does not follow the system setting. Platform filters in the refinement sheet support multiple selections. Any recipe can provide an optional HTTPS Demo link, independently of homepage curation. Local search includes descriptions and card summaries, tolerates small typos, and recognizes common English/Chinese domain terms. Search and filters use a compact result list on desktop and two columns on phones. Search, filters, sorting, and catalog expansion are shareable in the URL; returning from a recipe restores the last catalog position. Advanced filters use a bounded sheet with searchable groups and result counts. It does not require a hosted search service.
 
@@ -24,7 +24,7 @@ Use Agora Website typography and solid materials for ordinary controls and compl
 
 ## Evidence on Hand
 
-The approved six recipes are Agora Rotary Dial Phone, Agora Podcasts, Aria Voice Sales Agent, Agora Meeting Copilot, WorldCupVoice, and React Live Video. They have existing screenshots, video, or GIF assets. Meeting Copilot requires an API key for its AI experience. WorldCupVoice has an existing video but no verified public live demo. Public entry pages and video playback were checked; complete voice and multi-device RTC sessions were not verified.
+The curated recipes include Agora Rotary Dial Phone, Agora Podcasts, Aria Voice Sales Agent, Agora Meeting Copilot, WorldCupVoice, React Live Video, Agora Arena, and Draw & Guess. They have existing screenshots, video, or GIF assets. Meeting Copilot requires an API key for its AI experience. WorldCupVoice has an existing video but no verified public live demo. Public entry pages and video playback were checked; complete voice and multi-device RTC sessions were not verified.
 
 ## Product Principles
 

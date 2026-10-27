@@ -27,11 +27,11 @@ test('clearing catalog filters removes obsolete parameters while keeping unrelat
   assert.equal(params.toString(), 'all=1&utm_source=rte')
 })
 
-test('default catalog includes every recipe with the six recommendations first', () => {
+test('default catalog includes every recipe with curated recommendations first', () => {
   const results = discoverRecipes(recipes, defaultFilters)
   assert.equal(results.length, recipes.length)
-  assert.deepEqual(results.slice(0, 6).map(recipe => recipe.slug), curated.map(entry => entry.slug))
-  assert.ok(results.slice(6).every(recipe => recipe.recommendedOrder === undefined))
+  assert.deepEqual(results.slice(0, curated.length).map(recipe => recipe.slug), curated.map(entry => entry.slug))
+  assert.ok(results.slice(curated.length).every(recipe => recipe.recommendedOrder === undefined))
 })
 test('search spans fields, supports multiple words, and includes Chinese aliases', () => {
   assert.ok(search('Python CRM').some(recipe => recipe.slug === 'aria-voice-sales-agent'))
@@ -75,7 +75,7 @@ test('explicit date and alphabetical sorts override pinned order', () => {
   assert.deepEqual(dates, [...dates].sort().reverse())
 })
 test('all curated assets refer to known unique recipes, local posters, and canonical HTTPS media', () => {
-  assert.equal(new Set(curated.map(entry => entry.slug)).size, 6)
+  assert.equal(new Set(curated.map(entry => entry.slug)).size, curated.length)
   for (const entry of curated) {
     assert.ok(recipes.some(recipe => recipe.slug === entry.slug))
     assert.ok(readFileSync(new URL(`../public${entry.thumbnail}`, import.meta.url)).length < 150_000)
