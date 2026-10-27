@@ -1,0 +1,14 @@
+{
+  "title": "Dumpling Booth",
+  "tagline": "Turn a laptop and a TV into a playful voice AI booth.",
+  "description": "Meet a quick-witted dumpling shop host, play one of five conversation games, and receive a gift. Build the dual-screen interface, live captions, timed announcements, and persistent inventory with your own service accounts.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Gaming", "Entertainment", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent", "Live Captions"],
+  "mainRepoUrl": "https://github.com/shczhen/recipe-dumpling-booth",
+  "recipeUrl": "https://github.com/shczhen/recipe-dumpling-booth/blob/main/docs/ai/RECIPE.md",
+  "author": "shczhen",
+  "updated": "2026-10-27",
+  "difficulty": "Advanced"
+}
