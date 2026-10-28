@@ -437,7 +437,10 @@
     "Copy failed. Select the link and copy it manually.": "複製失敗，請選中鏈接手動複製。",
     "Sharing is unavailable. Copy the link instead.": "當前無法打開分享，請複製鏈接。",
     "Submitting to Topic: {topic}": "投稿到 Topic：{topic}",
-    "Share on {platform}": "分享至 {platform}"
+    "Share on {platform}": "分享至 {platform}",
+    "Copying…": "正在複製…",
+    "Try copying again": "重試複製",
+    "What happens after submission?": "投稿後如何審核與發佈？"
   },
   "entries": {
     "ag-iot-ios-app": {

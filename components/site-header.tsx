@@ -20,6 +20,9 @@ export function SiteHeader() {
   const { t, locale } = useI18n()
   const contributeUrl = localePath("/contribute", locale)
   const pathname = usePathname()
+  const sectionPath = localePath(pathname, "en")
+  const inRecipes = sectionPath === "/" || sectionPath.startsWith("/recipes/")
+  const onContribute = sectionPath === "/contribute"
   const [scrolled, setScrolled] = useState(false)
   const [menu, setMenu] = useState({ pathname, open: false })
   const open = menu.pathname === pathname && menu.open
@@ -49,8 +52,8 @@ export function SiteHeader() {
         </Link>
 
         <nav className="desktop-nav" aria-label={t("Main navigation")}>
-          <Button asChild variant={pathname === localePath("/", locale) ? "secondary" : "ghost"}>
-            <Link href={`${localePath("/", locale)}#recipes`} aria-current={pathname === localePath("/", locale) ? "page" : undefined}>{t("Recipes")}</Link>
+          <Button asChild variant={inRecipes ? "secondary" : "ghost"}>
+            <Link href={`${localePath("/", locale)}#recipes`} aria-current={inRecipes ? sectionPath === "/" ? "page" : "location" : undefined}>{t("Recipes")}</Link>
           </Button>
           <Button asChild variant={pathname.includes("/topics") ? "secondary" : "ghost"}><Link href={localePath("/topics", locale)} aria-current={pathname.includes("/topics") ? "page" : undefined}>{t("Topics")}</Link></Button>
           {links.map(([label, href]) => (
@@ -63,8 +66,8 @@ export function SiteHeader() {
         </nav>
 
         <div className="header-actions">
-          <Button asChild variant="ghost" className="header-contribute">
-            <a href={contributeUrl} aria-label={t("Contribute")}>{t("Contribute")}</a>
+          <Button asChild variant={onContribute ? "secondary" : "ghost"} className="header-contribute">
+            <Link href={contributeUrl} aria-label={t("Contribute")} aria-current={onContribute ? "page" : undefined}>{t("Contribute")}</Link>
           </Button>
           <div className="header-language"><LanguageSwitcher /></div>
           <ThemeToggle />
@@ -85,8 +88,8 @@ export function SiteHeader() {
             </PopoverTrigger>
             <PopoverContent align="end" sideOffset={24} collisionPadding={16} className="site-navigation-panel" aria-label={t("Site navigation")}>
               <nav className="mobile-navigation" aria-label={t("Mobile navigation")}>
-                <Button asChild variant={pathname === localePath("/", locale) ? "secondary" : "ghost"}>
-                  <Link href={`${localePath("/", locale)}#recipes`} aria-current={pathname === localePath("/", locale) ? "page" : undefined} onClick={() => setOpen(false)}>{t("Recipes")}</Link>
+                <Button asChild variant={inRecipes ? "secondary" : "ghost"}>
+                  <Link href={`${localePath("/", locale)}#recipes`} aria-current={inRecipes ? sectionPath === "/" ? "page" : "location" : undefined} onClick={() => setOpen(false)}>{t("Recipes")}</Link>
                 </Button>
                 <Button asChild variant={pathname.includes("/topics") ? "secondary" : "ghost"}><Link href={localePath("/topics", locale)} onClick={() => setOpen(false)}>{t("Topics")}</Link></Button>
                 {links.map(([label, href]) => (
@@ -98,8 +101,8 @@ export function SiteHeader() {
                 ))}
 
                 <div className="mobile-navigation__actions">
-                  <Button asChild variant="ghost">
-                    <a href={contributeUrl} aria-label={t("Contribute")} onClick={() => setOpen(false)}>{t("Contribute")}<ArrowUpRight aria-hidden="true" /></a>
+                  <Button asChild variant={onContribute ? "secondary" : "ghost"}>
+                    <a aria-current={onContribute ? "page" : undefined} href={contributeUrl} aria-label={t("Contribute")} onClick={() => setOpen(false)}>{t("Contribute")}<ArrowUpRight aria-hidden="true" /></a>
                   </Button>
                   <Button asChild>
                     <a href={signupUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Get started") })} onClick={() => setOpen(false)}>{t("Get started")}<ArrowUpRight aria-hidden="true" /></a>

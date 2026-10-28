@@ -437,7 +437,10 @@
     "Copy failed. Select the link and copy it manually.": "コピーできませんでした。リンクを選択して手動でコピーしてください。",
     "Sharing is unavailable. Copy the link instead.": "共有画面を開けません。リンクをコピーしてください。",
     "Submitting to Topic: {topic}": "投稿先のトピック：{topic}",
-    "Share on {platform}": "{platform} で共有"
+    "Share on {platform}": "{platform} で共有",
+    "Copying…": "コピー中…",
+    "Try copying again": "コピーを再試行",
+    "What happens after submission?": "投稿後の審査と公開について"
   },
   "entries": {
     "ag-iot-ios-app": {

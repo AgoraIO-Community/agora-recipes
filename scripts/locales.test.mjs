@@ -18,6 +18,7 @@ test('presentation dictionaries use known content identities and consistent UI t
   const slugs = readdirSync(new URL('../content/recipes', import.meta.url), { withFileTypes: true }).filter(e => e.isDirectory() && !e.name.startsWith('.')).map(e => e.name).sort()
   const dictionaries = ['zh-Hans', 'zh-Hant', 'ja'].map(locale => JSON.parse(readFileSync(new URL(`../content/i18n/${locale}.json`, import.meta.url))))
   for (const dictionary of dictionaries) {
+    assert.deepEqual(Object.keys(dictionary).sort(), ["entries", "ui"], "UI feedback must be inside the dictionary loaded by the site")
     assert.ok(Object.keys(dictionary.entries).every(slug => slugs.includes(slug)), "translation keys reference real entries")
     assert.deepEqual(Object.keys(dictionary.ui).sort(), Object.keys(dictionaries[0].ui).sort())
     for (const value of Object.values(dictionary.entries)) assert.ok(value.tagline.trim() && value.description.trim())

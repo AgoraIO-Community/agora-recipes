@@ -33,7 +33,7 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   return <article className="recipe-detail topic-detail">
     <header className="detail-hero"><div className="shell">
       <Button asChild variant="ghost" size="sm" className="detail-back"><Link href={localePath("/topics", locale)}><ArrowLeft aria-hidden="true" />{t("All Topics")}</Link></Button>
-      <div className="detail-meta"><Badge variant="outline">{t(topicStatus(topic))}</Badge>{topic.starts && <span>{topic.starts}{topic.ends && ` – ${topic.ends}`}</span>}</div>
+      {topic.kind === "activity" && <div className="detail-meta"><Badge variant="outline">{t(topicStatus(topic))}</Badge>{topic.starts && <span>{topic.starts}{topic.ends && ` – ${topic.ends}`}</span>}</div>}
       <h1 className="hero-title">{t(topic.title)}</h1><p className="detail-description">{t(topic.summary)}</p>
       <div className="detail-actions"><Button asChild><Link href={`${localePath("/contribute", locale)}?topic=${topic.slug}`}>{t(topic.kind === "activity" && topicStatus(topic) === "Completed" ? "Share related work" : "Contribute to this Topic")}</Link></Button>
         {topic.actions?.map(action => <Button asChild variant="outline" key={action.url}><a href={action.url} target="_blank" rel="noreferrer" data-topic-action={action.type === "source" ? undefined : action.type} data-material={action.type === "source" ? "source" : undefined} data-placement="topic_page">{t(action.label)}<ArrowUpRight aria-hidden="true" /></a></Button>)}

@@ -46,17 +46,22 @@ function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, 
     ).length]))
   }, [recipes, filters, options, facet])
   const matched = options.filter(value => `${value} ${t(value)}`.toLowerCase().includes(query.trim().toLowerCase()))
-  const sorted = [...matched].sort((a, b) => Number(filters[facet].includes(b)) - Number(filters[facet].includes(a)) || (counts[b] - counts[a]) || a.localeCompare(b))
-  const visible = query || showAll ? sorted : sorted.filter(value => counts[value] || filters[facet].includes(value)).slice(0, Math.max(6, filters[facet].length))
+  // Changing a checkbox must not move its row beneath the pointer or focus.
+  const order = useMemo(() => {
+    const totals = Object.fromEntries(options.map(value => [value, recipes.filter(recipe => recipe[facet].includes(value)).length]))
+    return [...options].sort((a, b) => totals[b] - totals[a] || a.localeCompare(b))
+  }, [options, recipes, facet])
+  const sorted = order.filter(value => matched.includes(value))
+  const visible = query || showAll ? sorted : sorted.filter((value, index) => index < 6 || filters[facet].includes(value))
 
   return <details className="catalog-facet-group ag-disclosure" open={initiallyOpen || undefined}>
     <summary>{label}<span>{filters[facet].length ? t("{count} selected", { count: filters[facet].length }) : options.length}<ChevronDown size={15} aria-hidden="true" /></span></summary>
     <fieldset>
       <legend className="sr-only">{label}</legend>
       <p className="catalog-facet-hint">{hint}</p>
-      <InputGroup className="facet-search"><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput aria-label={t("Find {label}", { label })} type="search" placeholder={`${t("Find {label}", { label })}…`} value={query} onChange={event => setQuery(event.target.value)} /></InputGroup>
+      <InputGroup className="facet-search"><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput aria-label={t("Find {label}", { label })} type="search" placeholder={`${t("Find {label}", { label })}…`} value={query} onChange={event => setQuery(event.target.value)} />{query && <InputGroupAddon align="inline-end"><InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => setQuery("")}><X aria-hidden="true" /></InputGroupButton></InputGroupAddon>}</InputGroup>
       <div className="facet-options">
-        {visible.map(value => <label key={value} className="facet-option" data-disabled={!counts[value] && !filters[facet].includes(value)}>
+        {visible.map(value => <label key={value} className="facet-option" data-disabled={!counts[value] && !filters[facet].includes(value)} data-selected={filters[facet].includes(value)}>
           <Checkbox checked={filters[facet].includes(value)} disabled={!counts[value] && !filters[facet].includes(value)} onCheckedChange={() => onChange(value)} />
           <span>{t(value)}</span><span className="facet-option__count">{counts[value]}</span>
         </label>)}
@@ -205,14 +210,14 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
                 </ToggleGroup>
               </fieldset>
               <label className="facet-option catalog-demo-option"><Checkbox checked={filters.previewOnly} onCheckedChange={checked => update("previewOnly", checked === true)} /><span>{t("Has a demo")}</span><span className="facet-option__count">{t("Video or live app")}</span></label>
-              <fieldset className="catalog-category"><legend>{t("Available materials")}</legend><p className="catalog-facet-hint">{t("Matches every selected material.")}</p><div className="facet-options">{[["demo", "Demo"], ["video", "Video"], ["source", "Source"], ["recipe", "Recipe"]].map(([value, label]) => <label key={value} className="facet-option"><Checkbox checked={filters.materials.includes(value)} onCheckedChange={() => update("materials", toggle(filters.materials, value))} /><span>{t(label)}</span></label>)}</div></fieldset>
+              <fieldset className="catalog-category catalog-materials"><legend>{t("Available materials")}</legend><p className="catalog-facet-hint">{t("Matches every selected material.")}</p><div className="facet-options">{[["demo", "Demo"], ["video", "Video"], ["source", "Source"], ["recipe", "Recipe"]].map(([value, label]) => <label key={value} className="facet-option"><Checkbox checked={filters.materials.includes(value)} onCheckedChange={() => update("materials", toggle(filters.materials, value))} /><span>{t(label)}</span></label>)}</div></fieldset>
               <FilterFacet label={t("Platforms & languages")} hint={t("Matches any selected technology.")} facet="platforms" options={options.platforms} recipes={recipes} filters={filters} onChange={value => facet("platforms", value)} initiallyOpen />
               <FilterFacet label={t("Use cases")} hint={t("Matches any selected use case.")} facet="useCases" options={options.useCases} recipes={recipes} filters={filters} onChange={value => facet("useCases", value)} />
               <FilterFacet label={t("Models & capabilities")} hint={t("Matches every selected capability.")} facet="capabilities" options={options.capabilities} recipes={recipes} filters={filters} onChange={value => facet("capabilities", value)} />
             </div>
             <SheetFooter>
               <Button variant="ghost" disabled={!selectedCount && filters.topic === "all"} onClick={() => setFilters({ ...defaultFilters, query: filters.query, sort: filters.sort })}>{t("Reset filters")}</Button>
-              <SheetClose asChild><Button>{t("Show {count} results", { count: filtered.length })}</Button></SheetClose>
+              <SheetClose asChild><Button className="catalog-filter-results"><span key={filtered.length} className="ag-value-change">{t("Show {count} results", { count: filtered.length })}</span></Button></SheetClose>
             </SheetFooter>
           </SheetContent>
         </Sheet>

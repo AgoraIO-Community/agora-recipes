@@ -240,7 +240,10 @@ Disclosures coordinate height and chevron changes. Glass dialogs use a small
 entrance movement while the separate backdrop fades. Avoid autonomous animation and scroll interception.
 Reduced motion keeps every state and action usable without spatial effects.
 
-Keyboard focus uses a 2px cyan outline with 3px offset. Keep native links,
+Ordinary controls use a 2px cyan keyboard outline with 3px offset.
+Menu and select options use that outline inset by 2px so the popup cannot clip it;
+selection remains a checkmark while hover and keyboard highlight identify the
+current action separately. Keep native links,
 buttons, video controls, and Radix semantics. Dialogs cover the header, close
 with Escape, and return focus. Layer order is catalog 30, header 40, popovers and
 dialogs 50, focused skip link 150. Verify desktop, tablet, and narrow phone
@@ -252,3 +255,24 @@ checked language menu. Keep it visible on phones. Share controls are a copy icon
 and a share menu within the primary action group; do not expand platform links
 into a separate toolbar. Guide-language selection belongs beside the reader
 heading, with full option labels in the menu and the actual source language below.
+
+## Interaction continuity
+
+- Keep filter options in a stable base order while their live counts change.
+  Selecting a checkbox must not move that target under the pointer or focus.
+  Material options share a two-column grid; the opaque form body scrolls between
+  the fixed sheet heading and result/reset actions.
+- Topic filters use the shared moving surface indicator. Reader tabs use the same
+  measurement with a 2px underline. Retain Radix arrow-key focus and Space/Enter
+  activation; reduced motion moves directly to the selected state.
+- Copy actions share idle, copying, copied, and recoverable failure states.
+  Reserve label width, retain keyboard focus during the pending operation, block
+  duplicates, and confirm only after the clipboard write succeeds. Success
+  returns to idle after 2.5 seconds; failures remain available for retry.
+- Topic directory cards have one full-area link with a title-based accessible
+  name. Keep every card and icon stationary; color, border, and underline carry
+  hover/focus feedback. Content cards still never carry Topic membership.
+- Contributions show the GitHub form and direct PR as two aligned paths on
+  desktop and one sequence on phones. Keep public-submission guidance visible,
+  place review details in a disclosure, and omit the footer's repeated submission
+  invitation on this page while retaining its resources and legal links.

@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useSyncExternalStore } from "react"
-import { Check, Copy, Share2, ArrowUpRight } from "lucide-react"
+import { Check, Copy, LoaderCircle, Share2, ArrowUpRight } from "lucide-react"
+import { useCopyFeedback } from "@/hooks/use-copy-feedback"
 import { IconButton } from "./ui/icon-button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { useI18n } from "./locale-provider"
@@ -14,20 +15,18 @@ export function ShareActions({ url, title }: { url: string; title: string }) {
   const { t } = useI18n()
   const capture = useAnalytics()
   const native = useSyncExternalStore(subscribe, hasNativeShare, () => false)
-  const [result, setResult] = useState({ url, status: "", error: false })
-  const status = result.url === url ? result.status : ""
-  const failed = Boolean(status && result.error)
-  async function copy() {
-    try { await navigator.clipboard.writeText(url); setResult({ url, status: t("Link copied"), error: false }); capture("share_action", { action: "copy_link", placement: "sharing" }) }
-    catch { setResult({ url, status: t("Copy failed. Select the link and copy it manually."), error: true }) }
-  }
+  const { state, copy } = useCopyFeedback(url, () => capture("share_action", { action: "copy_link", placement: "sharing" }))
+  const [shareError, setShareError] = useState({ url, message: "" })
+  const status = state === "copied" ? t("Link copied") : state === "failed" ? t("Copy failed. Select the link and copy it manually.") : shareError.url === url ? shareError.message : ""
+  const failed = Boolean(status && state !== "copied")
   async function share() {
+    setShareError({ url, message: "" })
     capture("share_action", { action: "native_open", placement: "sharing" })
     try { await navigator.share({ title, url }) }
-    catch (error) { if (!(error instanceof Error && error.name === "AbortError")) setResult({ url, status: t("Sharing is unavailable. Copy the link instead."), error: true }) }
+    catch (error) { if (!(error instanceof Error && error.name === "AbortError")) setShareError({ url, message: t("Sharing is unavailable. Copy the link instead.") }) }
   }
   return <div className="share-actions" data-error={failed || undefined} role="group" aria-label={t("Share this page")}>
-    <IconButton label={status && !failed ? status : t("Copy link")} onClick={copy}>{status && !failed ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}</IconButton>
+    <IconButton label={state === "copying" ? t("Copying…") : status && !failed ? status : t("Copy link")} onClick={() => { setShareError({ url, message: "" }); void copy() }} aria-disabled={state === "copying"} aria-busy={state === "copying"} className="copy-action" data-copy-state={state}><span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span></IconButton>
     <DropdownMenu>
       <DropdownMenuTrigger asChild><IconButton label={t("Share this page")}><Share2 aria-hidden="true" /></IconButton></DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={8} collisionPadding={16}>

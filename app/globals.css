@@ -114,7 +114,7 @@
   button, a { -webkit-tap-highlight-color: transparent; }
   button:not(:disabled), summary { cursor: pointer; }
   button:disabled { opacity: .52; cursor: not-allowed; }
-  :focus-visible { outline: 2px solid var(--ring) !important; outline-offset: 3px; }
+  :focus-visible:not(.ag-menu-item):not(.ag-select-item):not([role=menu]):not([role=listbox]):not([data-slot=select-content]):not([data-slot=dropdown-menu-content]) { outline: 2px solid var(--ring); outline-offset: 3px; }
   ::selection { background: color-mix(in srgb, var(--primary) 30%, transparent); color: var(--foreground); }
   input { caret-color: var(--primary); }
   .ag-input-group .ag-input:focus-visible { outline: none !important; }
@@ -183,12 +183,16 @@
 
 /* Framed, bounded filters with the same controls as the catalog. */
 .catalog-filter-sheet { width: 440px; max-width: calc(100vw - 32px); height: calc(100dvh - 32px); inset-block: 16px; right: 16px; gap: 0; overflow: hidden; }
-.catalog-filter-sheet [data-slot=sheet-header] { gap: 8px; padding: 24px 64px 24px 24px; border-bottom: 1px solid var(--border); }
-.catalog-filter-sheet [data-slot=sheet-title] { font-size: 22px; font-weight: 400; line-height: 1.3; letter-spacing: -.025em; }
-.catalog-filter-sheet [data-slot=sheet-description] { font-size: 14px; line-height: 1.5; }
+.catalog-filter-sheet [data-slot=sheet-header] { gap: 6px; padding: 20px 64px 20px 20px; border-bottom: 1px solid var(--border); }
+.catalog-filter-sheet [data-slot=sheet-title] { font-size: 20px; font-weight: 400; line-height: 1.3; letter-spacing: -.025em; }
+.catalog-filter-sheet [data-slot=sheet-description] { font-size: 13px; line-height: 1.5; }
 .catalog-filter-sheet__body { min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 24px; }
-.catalog-filter-sheet [data-slot=sheet-footer] { flex-direction: row; justify-content: space-between; gap: 16px; padding: 20px 24px; border-top: 1px solid var(--border); }
-.catalog-category legend { margin-bottom: 12px; font-size: 14px; }
+.catalog-filter-sheet [data-slot=sheet-footer] { flex-direction: row; justify-content: space-between; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--border); }
+.catalog-category { padding: 0; margin-top: 20px; }
+.catalog-filter-sheet__body > .catalog-category:first-child { margin-top: 0; }
+.catalog-category legend { margin-bottom: 8px; font-size: 13px; font-weight: 520; }
+.catalog-materials .facet-options { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 8px; }
+.catalog-filter-results { min-width: 164px; font-variant-numeric: tabular-nums; }
 .catalog-category [data-slot=toggle-group] { width: max-content; }
 .catalog-sheet-sort { display: none; }
 .catalog-demo-option { margin-block: 16px; }
@@ -201,9 +205,13 @@
 .ag-disclosure > summary:hover { color: var(--foreground); }
 .catalog-facet-group fieldset { padding-bottom: 20px; }
 .catalog-facet-hint { color: var(--muted-foreground); font-size: 13px; line-height: 1.5; }
-.facet-search { margin-block: 16px 12px; }
-.facet-options { display: grid; }
-.facet-option { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 14px; cursor: pointer; }
+.facet-search { margin-block: 12px 8px; }
+.facet-options { display: grid; gap: 2px; }
+.facet-option { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 6px 8px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: background var(--motion-control),color var(--motion-control); }
+.facet-option:has([data-state=checked]) { background: var(--basic-selected); }
+.facet-option:not([data-disabled=true]):hover { background: var(--basic-selected); }
+.facet-option:has(:focus-visible) { outline: 2px solid var(--ring); outline-offset: -2px; }
+.facet-option .ag-checkbox:focus-visible { outline: none; }
 .facet-option[data-disabled=true] { opacity: .5; cursor: default; }
 .facet-option [data-slot=checkbox] { flex: none; }
 .facet-option__count { margin-left: auto; flex: none; color: var(--muted-foreground); font-size: 12px; font-variant-numeric: tabular-nums; }
@@ -466,6 +474,8 @@ a.recipe-author:hover { color: var(--foreground); }
   .recipe-document-tabs { gap: 12px; margin-bottom: 20px; }
   .recipe-document-actions { gap: 4px; }
   .recipe-document-actions .ag-button { padding-inline: 8px; font-size: 13px; }
+  .recipe-document-actions .copy-action { width: 46px; padding: 0; }
+  .recipe-document-actions .copy-action__label { display: none; }
   .code-block pre { padding: 16px; font-size: 12px; }
   .site-footer { margin-top: 32px; padding-bottom: 16px; }
   .footer-invitation { align-items: start; padding-block: 28px; }
@@ -517,15 +527,27 @@ a.recipe-author:hover { color: var(--foreground); }
 :root[data-theme="light"] .shiki, :root[data-theme="light"] .shiki span { color: var(--shiki-light); font-style: var(--shiki-light-font-style); font-weight: var(--shiki-light-font-weight); text-decoration: var(--shiki-light-text-decoration); }
 
 /* The filter workspace is solid inside its full optical surface; content edges stay aligned. */
-.catalog-filter-sheet__body { margin-inline: 8px; padding-inline: 15px; }
-@media (max-width: 640px) { .catalog-filter-sheet__body { padding-inline: 11px; } }
+.catalog-filter-sheet__body { margin-inline: 6px; padding: 16px 14px; border: 0; border-radius: 8px; }
+@media (max-width: 640px) { .facet-option { min-height: 46px; } }
 
 /* Compact shared actions keep their keyboard names and touch targets. */
 .language-switcher svg { width: 18px; height: 18px; }
 .recipe-source-note { color: var(--muted-foreground); font-size: 13px; line-height: 1.6; margin: 12px 0; }
-.contribute-content { padding-block: 8px 56px; }
-.contribute-content .recipe-guide { max-width: 760px; padding-block: 24px; }
-.contribute-content p { max-width: 760px; margin-block: 12px; line-height: 1.7; }
+.contribute-content { padding-block: 28px 48px; }
+.contribute-methods { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; max-width: 1080px; }
+.contribute-method { display: flex; flex-direction: column; min-width: 0; padding-block: 20px; border-top: 1px solid var(--border); }
+.contribute-method > p { max-width: 54ch; margin-top: 12px; font-size: 14px; line-height: 1.7; }
+.contribute-method__action { margin-top: auto; padding-top: 20px; }
+.github-form-action { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.contribution-topic-context { flex-basis: 100%; color: var(--muted-foreground); font-size: 12px; line-height: 1.5; }
+.contribute-privacy { max-width: 1080px; margin-block: 12px 20px; }
+.contribute-review { max-width: 1080px; border-block: 1px solid var(--border); }
+.contribute-review > p { max-width: 70ch; padding-bottom: 20px; font-size: 14px; line-height: 1.7; color: var(--muted-foreground); }
+@media (max-width: 640px) {
+  .contribute-content { padding-block: 20px 32px; }
+  .contribute-methods { grid-template-columns: 1fr; gap: 12px; }
+  .contribute-method__action .ag-button { width: 100%; }
+}
 @media (max-width: 375px) {
   .site-brand { gap: 8px; }
   .site-brand span { padding-left: 8px; }
@@ -536,13 +558,15 @@ a.recipe-author:hover { color: var(--foreground); }
 .topic-directory { padding-block: 0 56px; }
 .topic-directory__filters { display: flex; max-width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; margin-bottom: 16px; }
 .topic-directory__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.topic-directory__card { min-width: 0; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--card); }
+.topic-directory__card { min-width: 0; padding: 0; border: 1px solid var(--border); border-radius: 16px; background: var(--card); }
 .topic-directory__meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted-foreground); font-size: 12px; }
 .topic-directory__card h2 { margin-block: 12px 8px; font-size: 20px; line-height: 1.3; }
-.topic-directory__card h2 a { display: inline; }
+.topic-directory__link { display: block; height: 100%; padding: 20px; border-radius: inherit; }
 .topic-directory__card h2 svg { display: inline; margin-left: 8px; }
 .topic-directory__card p { color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
-.topic-directory__card a:hover, .topic-directory__card a:focus-visible { color: var(--signal-text); text-decoration: underline; }
+.topic-directory__card { transition: border-color var(--motion-control); }
+.topic-directory__card:has(a:is(:hover,:focus-visible)) { border-color: var(--input); }
+.topic-directory__link:is(:hover,:focus-visible) h2 { color: var(--signal-text); text-decoration: underline; text-underline-offset: 4px; }
 .topic-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; padding-bottom: 24px; }
 .topic-sections .recipe-about { border-top: 1px solid var(--border); padding-top: 24px; }
 .topic-sections p { line-height: 1.7; }
@@ -566,7 +590,7 @@ a.recipe-author:hover { color: var(--foreground); }
 }
 @media (max-width: 640px) {
   .topic-directory__grid, .topic-sections { grid-template-columns: minmax(0, 1fr); }
-  .topic-directory__card { border-radius: 12px; padding: 20px; }
+  .topic-directory__card { border-radius: 12px; }
   .topic-directory__filters { gap: 2px; }
   .topic-directory__filters > button { padding-inline: 10px; }
 }
@@ -581,3 +605,7 @@ a.recipe-author:hover { color: var(--foreground); }
   .document-language [data-slot="select-trigger"] { max-width: min(220px, calc(100vw - 166px)); }
   .share-actions { margin-left: 0; }
 }
+
+/* Clipboard failures remain readable and recoverable beside the action. */
+.copy-error { flex-basis: 100%; color: var(--destructive); font-size: 12px; line-height: 1.6; }
+.code-block__header, .recipe-document-actions { flex-wrap: wrap; }

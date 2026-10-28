@@ -50,6 +50,19 @@ The first functional implementation left new controls too spread out. The owner'
 - Browser checks covered 320px/390px phones and desktop, dark/light controls, Japanese/Traditional Chinese selection, selected-language marking, Escape focus return, native/platform share menu destinations, canonical clipboard output, author-original choice and source returns. Phone headers retained three distinct 46px actions without horizontal overflow.
 - The mechanical design scan reported only the pre-existing neutral Markdown blockquote border; it is source-reading punctuation, not a newly introduced card accent. No dependencies or source-document changes were needed.
 
+## Interaction Consistency Pass — 2026-10-28
+
+The owner's Agora family HTML remains the visual authority. Public Bencho examples were consulted for interaction continuity (selection, copy confirmation, and disclosure feedback); no Bencho component source, library, or dependency was adopted.
+
+- Fixed the clipped popup focus ring at the shared control level. Menu/select options use an inset keyboard ring; the selected-language check remains separate from the current hover/focus highlight. The complete Liquid Glass engine and solid accessibility fallbacks are retained.
+- Filter rows retain a stable base order while live counts and availability change. Selecting Python left all six leading technology rows at exactly the same offsets; Python plus TypeScript returned 59 real results. Material options use a compact two-column grid. Facet search has an empty state and clear action; the body scrolls independently of the fixed result/reset footer.
+- Prompt, Markdown, code, and share-link copying use one small feedback hook. Pending work retains focus and blocks duplicate writes. Successful copies draw a check without changing button width, announce the result, and return to idle after 2.5 seconds. Failures stay available for retry and manual recovery. Real clipboard success and feedback reset were exercised; permission failures were not forced on the user's browser.
+- Reader tabs share a moving 2px underline. Only the selected reader panel is visible. Topic filters use the same surface indicator; arrow-key focus and Space activation were checked. Topic directory links cover their cards; content cards retain zero Topic membership links.
+- Topic detail buttons, activity metadata, and return links use the same control/spacing rules. Recipe detail and contribution navigation now express the current section. The same content reached from a Topic retained its named source return.
+- The contribution page presents form and direct-PR paths with aligned actions, truthful public guidance, a preserved optional Topic reference, and a review disclosure. Phones stack both paths with full-width 46px actions. The footer does not invite users back to the page they are already on.
+- Browser checks covered 1280px desktop, 768px tablet, 390px and 320px phones, dark/light themes, Japanese long labels across all four requested surfaces, selected/disabled/empty/reset states, keyboard dismissal/focus return, and reduced motion. No horizontal overflow was found; reduced-motion disclosure feedback used a 0.001s transition while preserving its open state. No real submission or external share was posted.
+- The locale regression check now rejects UI feedback keys placed outside the dictionary the site actually loads. The design scan reported only the existing neutral Markdown blockquote border, retained as source-reading punctuation.
+
 ## Analytics Audit — 2026-10-28
 
 The authenticated Vercel project lookup confirmed:

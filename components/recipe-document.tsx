@@ -3,6 +3,7 @@
 import { useI18n } from "@/components/locale-provider"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { ArrowUpRight } from "lucide-react"
+import { SelectionIndicator } from "@/components/ui/selection-indicator"
 import { CopyMarkdownButton } from "@/components/copy-markdown-button"
 import { CodePanel } from "@/components/code-panel"
 import { Button } from "@/components/ui/button"
@@ -29,7 +30,7 @@ export function RecipeDocument({ markdown, children, rawUrl }: { markdown: strin
   }, [])
   return <Tabs value={selected} onValueChange={setSelected} className="recipe-document">
     <div className="recipe-document-tabs">
-      <TabsList aria-label={t("Recipe format")}><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
+      <TabsList className="ag-selection-group" data-appearance="underline" aria-label={t("Recipe format")}><SelectionIndicator value={selected} appearance="underline" /><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
       <div className="recipe-document-actions">{rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}<CopyMarkdownButton markdown={markdown} /></div>
     </div>
     <TabsContent value="guide" forceMount hidden={selected !== "guide"} ref={guidePanel}>{children}</TabsContent>

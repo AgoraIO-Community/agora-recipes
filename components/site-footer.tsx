@@ -3,6 +3,7 @@
 import { useI18n } from "@/components/locale-provider"
 import { AgoraLogo } from "@/components/agora-logo"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { localePath } from "@/lib/locales"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 import { HowToUseRecipes } from "@/components/how-to-use-recipes"
@@ -17,10 +18,11 @@ const legal = [
 
 export function SiteFooter() {
   const { t, locale } = useI18n()
+  const isContributing = localePath(usePathname() ?? "/", "en") === "/contribute"
   return (
     <footer className="site-footer">
       <div className="shell">
-        <div className="footer-invitation">
+        {!isContributing && <div className="footer-invitation">
           <div>
             <h2>{t("Share your project.")}</h2>
             <p>{t("Add your Agora project, demo, or guide to the collection.")}</p>
@@ -30,7 +32,7 @@ export function SiteFooter() {
               {t("Contribute on GitHub")}<ArrowUpRight aria-hidden="true" />
             </a>
           </Button>
-        </div>
+        </div>}
         <div className="footer-grid">
           <div className="footer-intro">
             <Link href={localePath("/", locale)} className="site-brand footer-brand" aria-label={t("Agora Recipes home")}>

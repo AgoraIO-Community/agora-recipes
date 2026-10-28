@@ -6,7 +6,7 @@ import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { XIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { IconButton } from '@/components/ui/icon-button'
 import { GlassSurface } from '@/components/agent-ui/glass-surface'
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
@@ -79,7 +79,7 @@ function SheetContent({
       >
         <GlassSurface material="liquid">
           {children}
-          <SheetPrimitive.Close asChild><Button variant="ghost" size="icon" className="absolute top-4 right-4" aria-label={t("Close filters")}><XIcon aria-hidden="true" /></Button></SheetPrimitive.Close>
+          <SheetPrimitive.Close asChild><IconButton className="absolute top-4 right-4" label={t("Close filters")}><XIcon aria-hidden="true" /></IconButton></SheetPrimitive.Close>
         </GlassSurface>
       </SheetPrimitive.Content>
     </SheetPortal>
