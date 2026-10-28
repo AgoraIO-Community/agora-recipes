@@ -11,15 +11,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { localePath } from "@/lib/locales"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { contributionPath } from "@/lib/contributions"
+import { useCatalogSearch } from "@/hooks/use-catalog-location"
 
 const repositoryUrl = "https://github.com/AgoraIO-Community/agora-recipes"
 const signupUrl = "https://sso2.agora.io/en/signup"
 const links = [["Docs", "https://docs.agora.io"], ["GitHub", repositoryUrl]] as const
 
-export function SiteHeader() {
+export function SiteHeader({ topics }: { topics: Record<string, string> }) {
   const { t, locale } = useI18n()
-  const contributeUrl = localePath("/contribute", locale)
   const pathname = usePathname()
+  const contributeUrl = contributionPath(pathname, useCatalogSearch(), locale, topics)
   const sectionPath = localePath(pathname, "en")
   const inRecipes = sectionPath === "/" || sectionPath.startsWith("/recipes/")
   const onContribute = sectionPath === "/contribute"

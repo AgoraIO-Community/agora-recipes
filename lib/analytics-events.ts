@@ -5,7 +5,7 @@ export const eventActions = {
   content_copy: ["prompt", "guide", "cli_command", "code"],
   share_action: ["copy_link", "native_open", "x_open", "linkedin_open"],
   topic_action_open: ["participate", "questions", "replay"],
-  contribution_open: ["github_form", "pr_instructions"],
+  contribution_open: ["github_form", "github_issue", "pr_instructions"],
 } as const
 export type AnalyticsEvent = keyof typeof eventActions
 export type EventDimensions = { action: string; placement?: string; locale?: string; content_slug?: string; topic_slug?: string; result_count?: number }

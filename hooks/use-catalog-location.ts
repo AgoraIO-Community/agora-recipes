@@ -20,8 +20,12 @@ export function useCatalogSearch() {
 }
 
 export function replaceCatalogSearch(params: URLSearchParams) {
+  replaceLocationSearch(params, "#recipes")
+}
+
+export function replaceLocationSearch(params: URLSearchParams, hash = window.location.hash) {
   const search = params.toString()
-  window.history.replaceState(window.history.state, "", `${window.location.pathname}${search ? `?${search}` : ""}#recipes`)
+  window.history.replaceState(window.history.state, "", `${window.location.pathname}${search ? `?${search}` : ""}${hash}`)
   window.dispatchEvent(new Event(locationEvent))
 }
 

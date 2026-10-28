@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 export function CopyTextButton({ text, label = "Copy", subject = "Text", primary = false }: { text: string; label?: string; subject?: string; primary?: boolean }) {
   const { t } = useI18n()
   const capture = useAnalytics()
-  const { state, copy } = useCopyFeedback(text, () => capture("content_copy", { action: subject === "Recipe prompt" || subject === "Prompt" ? "prompt" : subject === "Markdown" ? "guide" : subject === "Agora CLI" ? "cli_command" : "code", placement: primary ? "hero" : "reader" }))
+  const { state, copy } = useCopyFeedback(text, () => capture("content_copy", { action: subject === "Recipe prompt" || subject === "Prompt" || subject === "Submission prompt" ? "prompt" : subject === "Markdown" ? "guide" : subject === "Agora CLI" ? "cli_command" : "code", placement: primary ? "hero" : "reader" }))
   return <>
     <Button type="button" variant={primary ? "default" : "ghost"} size={primary ? "default" : "sm"} onClick={copy} aria-disabled={state === "copying"} aria-busy={state === "copying"} className="copy-action" data-copy-state={state} aria-label={t(state === "copied" ? "{subject} copied" : "Copy {subject}", { subject: t(subject) })}>
       <span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span>

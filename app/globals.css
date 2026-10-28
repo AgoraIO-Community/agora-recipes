@@ -534,19 +534,40 @@ a.recipe-author:hover { color: var(--foreground); }
 .language-switcher svg { width: 18px; height: 18px; }
 .recipe-source-note { color: var(--muted-foreground); font-size: 13px; line-height: 1.6; margin: 12px 0; }
 .contribute-content { padding-block: 28px 48px; }
-.contribute-methods { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; max-width: 1080px; }
-.contribute-method { display: flex; flex-direction: column; min-width: 0; padding-block: 20px; border-top: 1px solid var(--border); }
-.contribute-method > p { max-width: 54ch; margin-top: 12px; font-size: 14px; line-height: 1.7; }
-.contribute-method__action { margin-top: auto; padding-top: 20px; }
-.github-form-action { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
-.contribution-topic-context { flex-basis: 100%; color: var(--muted-foreground); font-size: 12px; line-height: 1.5; }
-.contribute-privacy { max-width: 1080px; margin-block: 12px 20px; }
-.contribute-review { max-width: 1080px; border-block: 1px solid var(--border); }
-.contribute-review > p { max-width: 70ch; padding-bottom: 20px; font-size: 14px; line-height: 1.7; color: var(--muted-foreground); }
+.contribute-workspace { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 48px; max-width: 1120px; }
+.contribute-start,.contribute-checklist { min-width: 0; padding-top: 24px; border-top: 1px solid var(--border); }
+.contribute-topic { display: grid; gap: 8px; margin-bottom: 28px; }
+.contribute-topic > label { font-size: 13px; }
+.contribute-topic .ag-select { width: min(100%,400px); white-space: normal; text-align: left; height: auto; padding-block: 8px; }
+.contribute-topic > p,.contribute-account { color: var(--muted-foreground); font-size: 13px; line-height: 1.6; }
+.contribute-topic a { display: inline-flex; align-items: center; gap: 4px; color: var(--signal-text); text-underline-offset: 4px; }
+.contribute-topic a:hover { text-decoration: underline; }
+.contribute-instructions { max-width: 65ch; margin-top: 12px; color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
+.contribute-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
+.contribute-account { max-width: 65ch; margin-block: 12px 20px; }
+.contribute-prompt,.contribute-recovery { border-top: 1px solid var(--border); }
+.contribute-prompt summary,.contribute-recovery summary,.contribute-pr summary { min-height: 48px; font-size: 14px; }
+.contribute-prompt pre { max-height: 360px; overflow: auto; margin-bottom: 20px; padding: 16px; background: var(--secondary); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.7 var(--font-mono); }
+.contribute-recovery > p,.contribute-pr > p { max-width: 70ch; font-size: 14px; line-height: 1.7; color: var(--muted-foreground); overflow-wrap: anywhere; }
+.contribute-recovery > .ag-button,.contribute-pr > .ag-button { margin-block: 8px 16px; }
+.contribute-checklist ul { display: grid; gap: 20px; margin-top: 20px; }
+.contribute-checklist h3,.contribute-followup h3 { font-size: 15px; line-height: 1.5; }
+.contribute-checklist li p,.contribute-followup li p { margin-top: 4px; color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
+.contribute-checklist > .recipe-source-note { margin-top: 24px; }
+.contribute-followup { max-width: 1120px; padding-top: 28px; margin-top: 32px; border-top: 1px solid var(--border); }
+.contribute-followup ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 28px; margin-top: 20px; list-style-position: inside; }
+.contribute-followup li::marker { color: var(--muted-foreground); font-size: 13px; }
+.contribute-followup h3 { display: inline; }
+.contribute-pr { max-width: 1120px; margin-top: 28px; border-block: 1px solid var(--border); }
+.contribute-privacy { max-width: 1120px; margin-top: 20px; }
+@media (max-width: 900px) { .contribute-workspace { gap: 28px; } }
 @media (max-width: 640px) {
   .contribute-content { padding-block: 20px 32px; }
-  .contribute-methods { grid-template-columns: 1fr; gap: 12px; }
-  .contribute-method__action .ag-button { width: 100%; }
+  .contribute-workspace { grid-template-columns: 1fr; gap: 28px; }
+  .contribute-actions .ag-button { width: 100%; }
+  .contribute-topic .ag-select { width: 100%; }
+  .contribute-followup ol { grid-template-columns: 1fr; gap: 16px; }
+  .contribute-checklist ul { gap: 16px; }
 }
 @media (max-width: 375px) {
   .site-brand { gap: 8px; }

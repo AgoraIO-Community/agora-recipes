@@ -10,6 +10,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/lib/site"
 import { themeInitScript } from "@/lib/theme"
+import { topicNames } from "@/lib/topics"
 
 const shouldLoadAnalytics =
   analyticsEnabled(process.env.NODE_ENV, process.env.VERCEL, process.env.VERCEL_ENV)
@@ -72,6 +73,7 @@ export default function RootLayout({
   children: React.ReactNode; locale?: Locale
 }>) {
   const t = getT(locale)
+  const topics = topicNames(locale)
   return (
     <html
       lang={locale}
@@ -94,11 +96,11 @@ export default function RootLayout({
         </a>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
         <AnalyticsProvider enabled={shouldLoadAnalytics}>
-        <SiteHeader />
+        <SiteHeader topics={topics} />
         <main id="main-content" className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <SiteFooter topics={topics} />
         </AnalyticsProvider>
         </LocaleProvider>
       </body>

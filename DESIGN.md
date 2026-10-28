@@ -209,6 +209,25 @@ immediately. Diagrams redraw with the active shared tokens.
 Prose is at most 68ch. Code and tables may use the wider column and
 scroll horizontally; keep their overflow inside the reading area.
 
+## Contribution journey
+
+Use one preparation flow with a copyable submission prompt and a direct GitHub
+form action. The prompt helps Codex, Cursor, or Claude Code read existing project
+materials and prepare an English Issue draft for the contributor to review;
+it does not edit author files or publish anything. Show the small material
+checklist and the review-to-release steps in the page. Keep direct PR instructions
+in a secondary disclosure, targeting staging. An unavailable GitHub form has a
+regular Issue draft recovery link with the same fields.
+
+Topic association is optional and explicit. Topic-page actions, shared header,
+and footer links carry that Topic. A recipe reached from a validated Topic list
+retains that source when contributing; a direct detail visit or legacy quick
+filter does not guess an association. The contributor can change or clear the
+Topic. Its URL state drives the prompt, GitHub form, recovery draft, reload, and
+website-language changes. Keep the validated returnTo source independent from
+the selected association: changing the Topic must not change where Back returns.
+Technical tags never choose a Topic.
+
 ## Interaction and accessibility
 
 Use the shared control timing: press 140ms, control feedback 160ms, surfaces

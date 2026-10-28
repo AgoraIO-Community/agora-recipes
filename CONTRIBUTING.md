@@ -11,7 +11,7 @@ A GitHub account is required. You can use either path:
 
 Issues are public. Do not include private email addresses, credentials, or other private information. Maintainers request additions in Issue comments, preserve the original submission, and prepare the catalog PR. Submission does not publish automatically. After release, maintainers add the published site link to the Issue.
 
-The Issue form becomes available when `.github/ISSUE_TEMPLATE/submission.yml` reaches the repository's default branch through the normal release process. A staging-only template is not a live submission form. The site contribution page links to the form and the direct PR instructions.
+The Issue form becomes available when `.github/ISSUE_TEMPLATE/submission.yml` reaches the repository's default branch through the normal release process. A staging-only template is not a live submission form. The site contribution page provides a copyable AI prompt, the GitHub form, and direct PR instructions. The prompt prepares an English Issue draft from existing project materials for the contributor to review; it does not modify files or publish an Issue. A regular Issue draft link provides the same fields when the form is unavailable. Topic selection is optional and shared by the prompt, form, and recovery draft. Topic pages and validated Topic-to-detail navigation carry that association into contribution links; direct visits do not guess one.
 
 ## Add Catalog Metadata
 

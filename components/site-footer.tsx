@@ -8,6 +8,8 @@ import { localePath } from "@/lib/locales"
 import { ArrowUp, ArrowUpRight } from "lucide-react"
 import { HowToUseRecipes } from "@/components/how-to-use-recipes"
 import { Button } from "@/components/ui/button"
+import { contributionPath } from "@/lib/contributions"
+import { useCatalogSearch } from "@/hooks/use-catalog-location"
 
 const legal = [
   ["Privacy Policy", "https://www.agora.io/en/privacy-policy/"],
@@ -16,9 +18,11 @@ const legal = [
   ["Acceptable Use Policy", "https://www.agora.io/en/acceptable-use-policy/"],
 ] as const
 
-export function SiteFooter() {
+export function SiteFooter({ topics }: { topics: Record<string, string> }) {
   const { t, locale } = useI18n()
-  const isContributing = localePath(usePathname() ?? "/", "en") === "/contribute"
+  const pathname = usePathname() ?? "/"
+  const isContributing = localePath(pathname, "en") === "/contribute"
+  const contributeUrl = contributionPath(pathname, useCatalogSearch(), locale, topics)
   return (
     <footer className="site-footer">
       <div className="shell">
@@ -28,9 +32,9 @@ export function SiteFooter() {
             <p>{t("Add your Agora project, demo, or guide to the collection.")}</p>
           </div>
           <Button asChild>
-            <a href={localePath("/contribute", locale)}>
-              {t("Contribute on GitHub")}<ArrowUpRight aria-hidden="true" />
-            </a>
+            <Link href={contributeUrl}>
+              {t("Start a submission")}<ArrowUpRight aria-hidden="true" />
+            </Link>
           </Button>
         </div>}
         <div className="footer-grid">

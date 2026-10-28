@@ -35,6 +35,8 @@ for (const locale of locales) {
   assert.equal(rawLink(missing), undefined, `${locale}: missing manual version never substitutes another reader`)
   const contribution = await html(localized('/contribute', locale))
   assert.ok(contribution.includes('data-contribution="github_form"'), `${locale}: GitHub handoff`)
+  assert.ok(contribution.includes('data-contribution="github_issue"'), `${locale}: form-independent Issue recovery`)
+  assert.ok(contribution.includes('Help me prepare an English submission for Agora Recipes'), `${locale}: reviewable AI submission prompt`)
   assert.ok(contribution.includes('data-contribution="pr_instructions"'), `${locale}: direct PR workflow`)
 }
 const image = await fetch(new URL('/social-card.png', origin))

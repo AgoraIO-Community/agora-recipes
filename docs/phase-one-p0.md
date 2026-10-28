@@ -28,7 +28,7 @@ See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contr
 - `npm run lint`: passed, with the pre-existing `components/agora-logo.tsx` image warning.
 - `npm run build`: passed; generated 109 artifacts and 842 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
 - `npx tsc --noEmit`: passed independently of Next's existing build setting.
-- `node --test scripts/*.test.mjs`: 47 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
+- `node --test scripts/*.test.mjs`: 52 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
 - `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 109 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
 - `node scripts/check-phase-one.mjs http://localhost:4181`: passed for all four locales, Topic membership and card restrictions, automatic/manual source language selection and unavailable states, sharing metadata, contribution paths, static social PNG, and existing API schema.
 - Browser checks covered all four site locales, 320px/390px phones, 768px tablet, and desktop. Phone browsing stayed in two columns without horizontal overflow; the phone filter sheet stayed within the viewport.
@@ -68,6 +68,53 @@ The owner's Agora family HTML remains the visual authority. Public Bencho exampl
 Resolved the recommendation/media conflict with staging at `0213352`. The two newly accepted entries, Filler-Free: Live and M5 StickS3 Agora Voice Agent, retain their author metadata and generated documents. StickS3 media moved into its entry; the recommendation list retains ordered slug references. The upstream English Podcast/Rotary covers and their matching alt text/demo notes are preserved. Presentation introductions for both new entries and their new demo notes are translated into the three non-English site locales; author submissions remain unchanged.
 
 After integration, lint (one existing logo warning), independent type checking, all 47 tests, the full 109-artifact build, the final 842-page static rebuild against committed source artifacts, four-locale phase-one checks, and all 109 Recipe compatibility checks passed. Browser rechecks confirmed the current language/focus separation, the updated English cover, named Topic return, no phone overflow, and unchanged technology row order/spacing during multi-selection. Python plus TypeScript now yields 61 results because both incoming entries include Python. Unrelated upstream README refreshes remain excluded.
+
+## AI-Assisted Contribution Journey — 2026-10-28
+
+The earlier site linked directly to GitHub contribution instructions. The first
+phase-one page added form/PR handoffs but gave contributors little help preparing
+materials. The page now provides one preparation flow:
+
+- A copyable English prompt asks Codex, Cursor, or Claude Code to read the project's
+  README and confirmed public material links, prepare an Issue draft for review,
+  and provide a GitHub draft link. It preserves author files, URLs, and credit;
+  it does not edit files or publish anything. The site calls no model service.
+- A material checklist makes the minimum submission clear: a name/introduction,
+  public author credit, and at least one Demo/video/source/guide link. The review,
+  catalog preparation, and post-release link steps are visible on the page.
+- The GitHub form remains available as a direct action. A regular Issue draft
+  recovery link uses the same English fields and does not depend on the form
+  template having reached the default branch. PR contributors retain their
+  staging-based workflow in a secondary disclosure.
+- Topic association is optional and can be changed or cleared. Topic actions and
+  shared header/footer links carry the explicit Topic; a detail opened from a
+  validated Topic source inherits it. Legacy quick filters and direct detail
+  visits do not guess association. The same selected Topic drives the prompt,
+  GitHub form, and recovery draft; refresh and website-language changes retain it.
+- Return navigation uses the existing validated returnTo separately from the
+  selected association. A contribution reached from Topic A can target Topic B
+  while Back still returns to A's exact filtered list. Topic action links retain
+  filters and a scoped scroll snapshot through the existing URL/position helpers.
+- Ordinary controls retain regular weight 400 and 46px phone targets. Existing
+  solid forms, full Liquid Glass menus, saved dark/light appearance, and source
+  author documents remain unchanged. English draft output does not require
+  translated README files or duplicate catalog entries.
+- The seven existing event families remain. Successful submission-prompt copies
+  use content_copy; the regular-Issue recovery adds the bounded github_issue
+  action to contribution_open. No draft, copied text, source query, or account
+  identity enters analytics, and a handoff never claims a successful submission.
+
+Verification: lint (one pre-existing logo warning), independent TypeScript,
+52 tests, the 109-artifact recipe build and 842-page final static build passed.
+Four-locale phase-one and all 109 Recipe compatibility checks passed. Browser
+journeys covered Topic → filtered detail → contribution, actual clipboard
+content, association changes/clearing, independent source returns, refresh,
+language changes, recovery/PR disclosures, dark/light, 320px/390px phones, and a
+768px tablet with long Japanese labels. No horizontal overflow was found.
+The design scan reported only the existing neutral Markdown blockquote border.
+No real test submission, external post, new backend, provider, dependency,
+permission change, or production deployment was made. The live form/reviewer and
+production Analytics release gates below remain open.
 
 ## Analytics Audit — 2026-10-28
 
