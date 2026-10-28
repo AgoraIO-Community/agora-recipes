@@ -93,7 +93,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   if (compact) return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className="recipe-result" data-recipe-slug={recipe.slug} data-compact>
       <div className="recipe-result__content">
-        <Link prefetch={false} href={href} className="recipe-result__details"><h3>{title}</h3><p>{media?.compactSummary ?? recipe.tagline}</p></Link>
+        <Link prefetch={false} href={href} className="recipe-result__details"><h3>{title}</h3><p data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p></Link>
         <div className="recipe-result__technology" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-result__difficulty">{t(recipe.difficulty)}</span>}</div>
       </div>
       <div className="recipe-result__byline"><RecipeAuthor name={recipe.author} />{previewAction || <span>{t(recipe.recipeUrl ? "Recipe guide" : "View project")}</span>}</div>

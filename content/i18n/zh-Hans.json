@@ -486,7 +486,21 @@
     "Read the contribution SOP": "查看投稿与评审规范",
     "Recorded demo · Live viewer needs an active broadcaster": "含录屏 · 实时预览需要直播源",
     "MatchCast author recording showing a live League of Legends match with English captions and transcript.": "MatchCast 作者录屏：英雄联盟直播画面，以及英文字幕和转写。",
-    "Live captions": "实时字幕"
+    "Live captions": "实时字幕",
+    "Conference website": "大会官网",
+    "Conference agenda": "大会议程",
+    "Search projects, guides, or authors": "搜索项目、教程或作者",
+    "Search projects, guides, or authors…": "搜索项目、教程或作者…",
+    "Searching…": "搜索中…",
+    "Searching project details only.": "当前仅搜索项目介绍。",
+    "Retry guide search": "重试教程搜索",
+    "Guide excerpt": "教程摘录",
+    "English Dumpling Booth waiting screen from the author’s local rehearsal.": "Dumpling Booth 作者本地排练的英文等待界面。",
+    "Local rehearsal screenshot. Live voice requires your own service accounts.": "本地排练截图。实时语音需要使用你自己的服务账号。",
+    "1 result": "1 个结果",
+    "Show 1 result": "显示 1 个结果",
+    "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.": "探索 2026 年 10 月 23–24 日声网 iRTE2026 实时智能大会分享的 Demo。",
+    "1 entry": "1 项内容"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -924,6 +938,11 @@
     "m5-sticks3-voice-agent": {
       "tagline": "在 M5StickS3 上运行的 ESP32-S3 随身语音助手。",
       "description": "构建并烧录运行于 M5Stack StickS3 和 StopWatch 的 ESP-IDF 语音客户端，通过局域网内的 FastAPI 控制服务连接 Agora 对话式 AI。"
+    },
+    "dumpling-booth": {
+      "title": "饺子铺",
+      "tagline": "用一台笔记本和电视搭建互动语音 AI 展位。",
+      "description": "与机智的饺子铺老板玩五种对话游戏，体验实时字幕、双屏互动和礼物揭晓。教程介绍如何使用自己的服务账号搭建、排练和定制展位。"
     }
   }
 }

@@ -163,6 +163,12 @@
 .catalog-search .ag-input-group { --control-lg: 48px; }
 .catalog-search__shortcut { padding: 1px 6px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted-foreground); background: var(--muted); font: 12px/1.5 var(--font-sans); white-space: nowrap; }
 .catalog-search input::-webkit-search-cancel-button, .facet-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.catalog-search-status { color: var(--muted-foreground); font-size: 13px; }
+.recipe-result__details p[data-guide-excerpt] { -webkit-line-clamp: 2; }
+@media (max-width: 640px) {
+  .recipe-results > .recipe-result:only-child { grid-column: 1 / -1; }
+  .recipe-results > .recipe-result:only-child p[data-guide-excerpt] { -webkit-line-clamp: 4; }
+}
 .catalog-bar { position: sticky; top: var(--catalog-header-height); z-index: 30; background: var(--background); }
 .catalog-toolbar { display: flex; align-items: center; gap: 24px; padding-block: 8px 12px; }
 .catalog-topics-scroll { min-width: 0; overflow-x: auto; scrollbar-width: none; padding: 4px; margin-left: -4px; }

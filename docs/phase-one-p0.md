@@ -16,7 +16,7 @@ The complete phase-one code is included in the same PR and tracking issue:
 
 - `/topics` and `/topics/<slug>` provide collections and activity archives, optional sections/actions, and edition-scoped awards. Three real initial Topics reference existing entries: an official starter kit, community practice projects, and the completed AI Mobile Coders 2026 event. Pillion's award is explicitly author-reported and linked to the author's source, not presented as organizer-verified.
 - Topic membership is explicit, independent from technical tags and homepage recommendations. Details show associations; content cards never do. Topic filters, expansion, locale, and source scroll state survive detail visits. Direct links retain the catalog fallback.
-- The build confirms reciprocal author language navigation and the same guide/repository/ref. Six current projects expose confirmed English and Simplified Chinese documents. Optional maintainer mappings resolve ambiguity. Source aliases map to canonical script/language IDs without changing filenames or original URLs. Automatic selection uses a confirmed match, English, then the original; a manual choice takes priority. Missing manual versions show a dedicated message with no substituted reader.
+- The build confirms reciprocal author language navigation and the same guide/repository/ref. Seven current projects expose confirmed English and Simplified Chinese documents. Optional maintainer mappings resolve ambiguity. Source aliases map to canonical script/language IDs without changing filenames or original URLs. Automatic selection uses a confirmed match, English, then the original; a manual choice takes priority. Missing manual versions show a dedicated message with no substituted reader.
 - All source documents are fetched at build time. Known version routes and explicit unavailable states for supported languages are static. Selected Raw links, Markdown copying, prompts, outlines, assets, and document alternates use the selected source; the existing Recipe API and original Markdown routes remain unchanged.
 - Share actions use clean localized canonical content URLs, real cover images or the locally generated `/social-card.png`, and native/X/LinkedIn handoffs. Clipboard events require success; platform handoffs do not claim publication.
 - The seven event families use the existing Vercel SDK and the explicitly requested PostHog project (693535). Bounded public dimensions exclude search text, accounts, submissions, copied text, and destination URLs. Search is debounced, hover previews do not count as plays, and actual video plays are counted once per player opening. URL queries/hashes are removed from both page views and custom events before sending.
@@ -26,10 +26,10 @@ See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contr
 ## Local Verification
 
 - `npm run lint`: passed, with the pre-existing `components/agora-logo.tsx` image warning.
-- `npm run build`: passed; generated 109 artifacts and 842 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
+- `npm run build`: passed; generated 110 artifacts and 879 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
 - `npx tsc --noEmit`: passed; Next builds now also reject TypeScript errors.
-- `node --test scripts/*.test.mjs`: 57 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
-- `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 109 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
+- `node --test scripts/*.test.mjs`: 61 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
+- `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 110 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
 - `node scripts/check-phase-one.mjs http://localhost:4181`: passed for all four locales, Topic membership and card restrictions, automatic/manual source language selection and unavailable states, sharing metadata, contribution paths, static social PNG, and existing API schema.
 - Browser checks covered all four site locales, 320px/390px phones, 768px tablet, and desktop. Phone browsing stayed in two columns without horizontal overflow; the phone filter sheet stayed within the viewport.
 - Checked combined search, platform selections, and material filters; refresh and explicit return links retained state. A new-tab link retained its return address. A local catalog return restored a nonzero scroll position. Theme choice survived reload and locale navigation.
@@ -184,6 +184,40 @@ project or its source URLs.
 Recommendation order is editorial, based on usable materials, clear setup, and
 variety. It is not a traffic ranking. Current PR #77 and Issue #78 review screenshots
 use the English interface; original author materials and localized pages remain intact.
+
+## iRTE2026 and live guide search — 2026-10-28
+
+- Incorporated the original Dumpling Booth contribution from PR #76 into #77.
+  Its source repository, submitted guide URL, and author remain intact. Added an
+  attributed English rehearsal cover and four-locale introductions. The normal
+  builder confirmed its English/Simplified Chinese guide relationship.
+- `/topics/irte2026` is an explicit activity archive for the official October
+  23–24 conference, linked to the conference website and agenda. The owner
+  confirmed Dumpling Booth's membership. Other entries are not inferred from tags
+  or repository names. Content cards still carry no Topic badges or links.
+- Search updates after 250 ms of idle input. Enter flushes the draft and Clear
+  acts immediately. IME composition stays local until committed; URL navigation
+  cancels stale drafts. Query updates do not restore an old scroll snapshot while
+  the input is focused. Facets and Topic scopes remain in force.
+- A build-time static `/search-index.json` contains plain text from available
+  original guides and confirmed author versions. It loads once on search intent,
+  separately from the catalog's initial payload. There is no search backend,
+  hosted index, or runtime GitHub request. The client caches normalized fields.
+- Matching covers titles, descriptions, authors, technology/capability metadata,
+  editorial media text, four-locale introductions, Topic names, and guide text.
+  Prefixes, common synonyms, CJK segmentation, and bounded metadata typo tolerance
+  broaden discovery. Exact phrases and titles rank above weak document matches.
+  Guide-only matches include a source excerpt. Missing index requests time out,
+  retain metadata search, and expose retry. Queries/copy text stay out of analytics.
+- Browser verification covered automatic search without Enter, full-guide-only
+  results, Chinese queries, a blocked-index fallback and successful retry, and
+  Topic/detail/back context. Simulated composition events held unfinished input
+  until completion; native OS IME and physical devices remain unverified. At
+  390px, a sole compact result spans the 358px content row for a readable excerpt;
+  multi-result browsing retains two columns.
+- Source text is searchable as included in this build; private repositories,
+  unconfigured documents, and implementation files outside the guides are not indexed.
+  Original author submissions and documents are not rewritten.
 
 ## Release Dependencies
 

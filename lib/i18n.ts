@@ -11,6 +11,9 @@ const dictionaries: Record<Exclude<Locale, "en">, { ui: Messages; entries: Recor
 export function getMessages(locale: Locale): Messages {
   return locale === "en" ? {} : dictionaries[locale].ui
 }
+export function entrySearchTerms(slug: string): string[] {
+  return Object.values(dictionaries).flatMap(dictionary => Object.values(dictionary.entries[slug] ?? {}))
+}
 export function getT(locale: Locale) {
   const messages = getMessages(locale)
   return (key: string, values?: Record<string, string | number>) => translate(messages, key, values)

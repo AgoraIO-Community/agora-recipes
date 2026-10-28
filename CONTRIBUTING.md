@@ -157,6 +157,19 @@ Awards belong to a member within a specific activity edition, with a label and p
 
 Review Topic membership in the catalog PR. A Topic contribution link prefills the existing Topic reference in the GitHub form; it does not publish or create membership automatically. Content cards contain no Topic membership, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.
 
+## Catalog Search
+
+The catalog searches public metadata, every presentation language, explicit Topic
+names, and available guide text. The build exports `/search-index.json` as a
+static asset containing the submitted guide and confirmed author-language versions.
+The browser loads this asset on search intent; no search service or runtime GitHub
+fetch is involved. Adding metadata or a guide updates search through the normal build.
+
+Input commits after 250 ms, with immediate Enter/Clear and IME support. Filters
+still constrain results. Metadata/title relevance takes priority; guide-only matches
+show a source excerpt. The client preserves metadata search and offers retry if the
+static asset is unavailable. Only settled, bounded search-action counts enter analytics.
+
 ## Sharing and Analytics
 
 Content and Topic pages share canonical URLs for the selected site locale, without list-return queries. Real cover images are preferred; `/social-card.png` is a local, statically generated fallback. Native, X, and LinkedIn handoffs open a sharing action; they do not prove a post was published. Copy-link events occur only after clipboard success.

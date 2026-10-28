@@ -1,13 +1,15 @@
 import "server-only"
 import recommendations from "@/content/showcase.json"
 import { getAllEntries } from "@/lib/recipes"
-import { getT, localizeEntry } from "@/lib/i18n"
-import type { Locale } from "@/lib/locales"
+import { entrySearchTerms, getT, localizeEntry } from "@/lib/i18n"
+import { getAllTopics } from "@/lib/topics"
+import { locales, type Locale } from "@/lib/locales"
 import type { RecipeSummary, Showcase } from "@/lib/recipe-discovery"
 
 export function getRecipeSummaries(locale: Locale = "en"): RecipeSummary[] {
   const entries = getAllEntries()
   const t = getT(locale)
+  const topics = getAllTopics()
   const order = new Map<string, number>()
   recommendations.forEach(({ slug }, index) => {
     if (!entries.some(entry => entry.slug === slug) || order.has(slug)) throw new Error(`[showcase] Unknown or duplicate entry slug: ${slug}`)
@@ -26,6 +28,7 @@ export function getRecipeSummaries(locale: Locale = "en"): RecipeSummary[] {
       showcase.thumbnailAlt = t(showcase.thumbnailAlt)
       showcase.demoNote = t(showcase.demoNote)
     }
-    return { ...presentation, ...(locale !== "en" ? { searchTerms: [entry.title, entry.tagline, entry.description] } : {}), ...(showcase ? { showcase } : {}), ...(order.has(entry.slug) ? { recommendedOrder: order.get(entry.slug)! } : {}) }
+    const searchTerms = [entry.title, entry.tagline, entry.description, ...entrySearchTerms(entry.slug), ...topics.filter(topic => topic.members.some(member => member.slug === entry.slug)).flatMap(topic => [topic.slug, topic.title, topic.summary, ...locales.flatMap(language => [getT(language)(topic.title), getT(language)(topic.summary)])])]
+    return { ...presentation, searchTerms, ...(showcase ? { showcase } : {}), ...(order.has(entry.slug) ? { recommendedOrder: order.get(entry.slug)! } : {}) }
   })
 }

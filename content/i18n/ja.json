@@ -486,7 +486,21 @@
     "Read the contribution SOP": "投稿・レビューの手順を読む",
     "Recorded demo · Live viewer needs an active broadcaster": "録画デモあり · ライブ表示には配信元が必要です",
     "MatchCast author recording showing a live League of Legends match with English captions and transcript.": "MatchCast 作者の録画。League of Legends の配信と英語字幕、文字起こし。",
-    "Live captions": "リアルタイム字幕"
+    "Live captions": "リアルタイム字幕",
+    "Conference website": "公式サイト",
+    "Conference agenda": "プログラム",
+    "Search projects, guides, or authors": "プロジェクト、ガイド、作者を検索",
+    "Search projects, guides, or authors…": "プロジェクト、ガイド、作者を検索…",
+    "Searching…": "検索中…",
+    "Searching project details only.": "現在はプロジェクト情報のみを検索しています。",
+    "Retry guide search": "ガイド検索を再試行",
+    "Guide excerpt": "ガイドからの抜粋",
+    "English Dumpling Booth waiting screen from the author’s local rehearsal.": "作者のローカルリハーサルでの Dumpling Booth の英語待機画面。",
+    "Local rehearsal screenshot. Live voice requires your own service accounts.": "ローカルリハーサルの画面です。音声接続には自分のサービスアカウントが必要です。",
+    "1 result": "1 件の結果",
+    "Show 1 result": "1 件の結果を表示",
+    "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.": "2026 年 10 月 23〜24 日の Agora iRTE2026 リアルタイムインテリジェンス・カンファレンスで共有されたデモを探せます。",
+    "1 entry": "1 件のコンテンツ"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -924,6 +938,11 @@
     "m5-sticks3-voice-agent": {
       "tagline": "M5StickS3 で動く、ESP32-S3 搭載の小型音声エージェント。",
       "description": "M5Stack StickS3 と StopWatch 向けの ESP-IDF 音声クライアントをビルドして書き込みます。LAN 内の FastAPI 制御サービスを通じて Agora Conversational AI に接続します。"
+    },
+    "dumpling-booth": {
+      "title": "Dumpling Booth",
+      "tagline": "ノート PC とテレビで、音声 AI の体験ブースを作ります。",
+      "description": "機転の利く餃子店の店主と 5 種類の会話ゲームで遊び、リアルタイム字幕やプレゼントの発表を体験できます。自分のサービスアカウントを使う構築、リハーサル、カスタマイズのガイドです。"
     }
   }
 }

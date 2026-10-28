@@ -305,3 +305,15 @@ heading, with full option labels in the menu and the actual source language belo
   desktop and one sequence on phones. Keep public-submission guidance visible,
   place review details in a disclosure, and omit the footer's repeated submission
   invitation on this page while retaining its resources and legal links.
+
+
+## Search interaction
+
+Keep the existing solid search field and compact catalog. Draft typing is immediate;
+commit results and URL state after 250 ms, flush on Enter, and clear immediately.
+Do not commit during IME composition or restore old scroll snapshots while typing.
+Show pending and failed guide-index states honestly; keep metadata search usable
+with a retry action. Guide-only matches can use two lines of attributed source
+excerpt within the existing result row. A sole compact phone result spans the
+available row and allows four excerpt lines; multiple results keep two columns. Topic search terms do not add membership
+badges or links to content cards.

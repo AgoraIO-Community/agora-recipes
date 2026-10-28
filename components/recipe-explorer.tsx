@@ -3,7 +3,7 @@
 import { useAnalytics } from "@/components/analytics-provider"
 import { useI18n } from "@/components/locale-provider"
 import { usePathname } from "next/navigation"
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
 import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react"
 import { RecipeCard } from "@/components/recipe-card"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
@@ -18,6 +18,7 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
 import { catalogPositionKey, rememberCatalogPosition, replaceCatalogSearch, useCatalogSearch } from "@/hooks/use-catalog-location"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { useGuideSearch } from "@/hooks/use-guide-search"
 import { defaultFilters, discoverRecipes, quickTags, readDiscoveryFilters, writeDiscoveryFilters, type DiscoveryFilters, type RecipeSummary } from "@/lib/recipe-discovery"
 
 const toggle = (values: string[], value: string) => values.includes(value) ? values.filter(item => item !== value) : [...values, value]
@@ -73,7 +74,7 @@ function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, 
   </details>
 }
 
-export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recipes: RecipeSummary[]; embedded?: boolean; topicSlug?: string }) {
+export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topicSlug }: { recipes: RecipeSummary[]; embedded?: boolean; topicSlug?: string }) {
   const { t, locale } = useI18n()
   const capture = useAnalytics()
   const pendingSearch = useRef<string | null>(null)
@@ -82,6 +83,18 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
   const search = useCatalogSearch()
   const params = useMemo(() => new URLSearchParams(search), [search])
   const filters = useMemo(() => readDiscoveryFilters(params), [params])
+  const [query, setQuery] = useState(filters.query)
+  const [previousQuery, setPreviousQuery] = useState(filters.query)
+  // Back/forward and locale URLs replace the draft before a stale value paints.
+  if (previousQuery !== filters.query) {
+    setPreviousQuery(filters.query)
+    setQuery(filters.query)
+  }
+  const [composing, setComposing] = useState(false)
+  const queryTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const guides = useGuideSearch(query)
+  const recipes = useMemo(() => guides.documents ? catalogRecipes.map(recipe => ({ ...recipe, guideSearchText: guides.documents![recipe.slug] })) : catalogRecipes, [catalogRecipes, guides.documents])
+  const searching = composing || query !== filters.query || Boolean(filters.query.trim()) && guides.status !== "ready" && guides.status !== "error"
   const [advanced, setAdvanced] = useState(false)
   const barRef = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
@@ -105,12 +118,28 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
   const remaining = compact ? [] : filtered.slice(featuredCount)
 
   useCatalogMotion(resultsRef, search, filters.query)
+  const commitQuery = useCallback((value: string) => {
+    clearTimeout(queryTimer.current)
+    const current = new URLSearchParams(window.location.search)
+    const latest = readDiscoveryFilters(current)
+    if (latest.query === value) return
+    pendingSearch.current = value
+    const next = writeDiscoveryFilters({ ...latest, query: value }, current)
+    next.delete("all")
+    replaceCatalogSearch(next)
+  }, [])
+  useEffect(() => {
+    if (composing || query === filters.query) return
+    queryTimer.current = setTimeout(() => commitQuery(query), 250)
+    return () => clearTimeout(queryTimer.current)
+  }, [query, filters.query, composing, commitQuery])
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         if (document.querySelector('[role="dialog"]')) return
         event.preventDefault()
         searchRef.current?.focus()
+        searchRef.current?.select()
       }
     }
     document.addEventListener("keydown", shortcut)
@@ -130,6 +159,7 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
 
   useLayoutEffect(() => {
     if (search !== window.location.search) return
+    if (document.activeElement === searchRef.current) return
     try {
       const saved = JSON.parse(sessionStorage.getItem(catalogPositionKey(`${window.location.pathname}${search}#recipes`)) ?? "null")
       if (saved?.href === `${window.location.pathname}${search}#recipes` && Number.isFinite(saved.scroll)) {
@@ -140,13 +170,13 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
   }, [search])
 
   useEffect(() => {
-    if (pendingSearch.current === null || pendingSearch.current !== filters.query) return
+    if (searching || pendingSearch.current === null || pendingSearch.current !== filters.query) return
     const timer = setTimeout(() => {
       capture("catalog_action", { action: "search", placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: filtered.length })
       pendingSearch.current = null
     }, 700)
     return () => clearTimeout(timer)
-  }, [filters.query, filtered.length, capture, topicSlug])
+  }, [filters.query, filtered.length, capture, topicSlug, searching])
 
   function setFilters(next: DiscoveryFilters, action = "filter") {
     if (action !== "search") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
@@ -157,9 +187,9 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
   function update<K extends keyof DiscoveryFilters>(key: K, value: DiscoveryFilters[K]) {
     setFilters({ ...filters, [key]: value }, key === "query" ? "search" : key === "sort" ? "sort" : "filter")
   }
-  function updateQuery(value: string) {
-    pendingSearch.current = value
-    setFilters({ ...filters, query: value }, "search")
+  function updateQuery(value: string, immediate = false) {
+    setQuery(value)
+    if (immediate) { searchRef.current?.focus(); commitQuery(value) }
   }
   function facet(key: FacetKey, value: string) {
     update(key, toggle(filters[key], value))
@@ -181,10 +211,10 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
     <div className="shell catalog-masthead">
       {!embedded && <h1 id="recipes-heading">{t("Explore projects and recipes.")}</h1>}
       {!embedded && <p>{t("Voice AI and real-time apps, with working code.")}</p>}
-      <form role="search" className="catalog-search" onSubmit={event => event.preventDefault()}>
-        <label htmlFor="recipe-search" className="sr-only">{t("Search recipes, descriptions, or authors")}</label>
-        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search recipes, capabilities…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={filters.query} onKeyDown={event => { if (event.key === "Escape") event.currentTarget.blur() }} onChange={event => updateQuery(event.target.value)} />
-          <InputGroupAddon align="inline-end">{filters.query ? <InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => updateQuery("")}><X aria-hidden="true" /></InputGroupButton> : <kbd className="catalog-search__shortcut" aria-hidden="true">⌘ K</kbd>}</InputGroupAddon>
+      <form role="search" className="catalog-search" onSubmit={event => { event.preventDefault(); if (!composing) commitQuery(query) }}>
+        <label htmlFor="recipe-search" className="sr-only">{t("Search projects, guides, or authors")}</label>
+        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search projects, guides, or authors…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={query} onFocus={guides.preload} onCompositionStart={() => setComposing(true)} onCompositionEnd={event => { setComposing(false); setQuery(event.currentTarget.value) }} onKeyDown={event => { if (event.key === "Escape") { if (query) { event.preventDefault(); updateQuery("", true) } else event.currentTarget.blur() } }} onChange={event => updateQuery(event.target.value)} />
+          <InputGroupAddon align="inline-end">{query ? <InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => updateQuery("", true)}><X aria-hidden="true" /></InputGroupButton> : <kbd className="catalog-search__shortcut" aria-hidden="true">⌘ K</kbd>}</InputGroupAddon>
         </InputGroup>
       </form>
     </div>
@@ -217,7 +247,7 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
             </div>
             <SheetFooter>
               <Button variant="ghost" disabled={!selectedCount && filters.topic === "all"} onClick={() => setFilters({ ...defaultFilters, query: filters.query, sort: filters.sort })}>{t("Reset filters")}</Button>
-              <SheetClose asChild><Button className="catalog-filter-results"><span key={filtered.length} className="ag-value-change">{t("Show {count} results", { count: filtered.length })}</span></Button></SheetClose>
+              <SheetClose asChild><Button className="catalog-filter-results"><span key={filtered.length} className="ag-value-change">{filtered.length === 1 ? t("Show 1 result") : t("Show {count} results", { count: filtered.length })}</span></Button></SheetClose>
             </SheetFooter>
           </SheetContent>
         </Sheet>
@@ -231,10 +261,11 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
         <Button variant="ghost" size="sm" onClick={() => setFilters({ ...defaultFilters, query: filters.query })}>{t("Clear filters")}</Button>
       </div>}
       <div className="catalog-results-meta" data-compact={compact}>
-        <h2 id="catalog-results-heading" aria-live="polite" aria-atomic="true">{compact ? t("{count} results", { count: filtered.length }) : t("Explore the collection")}{!compact && <span>{t("{count} entries", { count: recipes.length })}</span>}</h2>
+        <h2 id="catalog-results-heading" aria-live="polite" aria-atomic="true">{searching ? t("Searching…") : compact ? filtered.length === 1 ? t("1 result") : t("{count} results", { count: filtered.length }) : t("Explore the collection")}{!compact && !searching && <span>{recipes.length === 1 ? t("1 entry") : t("{count} entries", { count: recipes.length })}</span>}</h2>
+        {query && guides.status === "error" && <p className="catalog-search-status" role="status">{t("Searching project details only.")} <Button variant="link" size="sm" onClick={guides.retry}>{t("Retry guide search")}</Button></p>}
       </div>
       {filtered.length ? <>
-        <div ref={resultsRef} className={compact ? "recipe-results" : "showcase-grid"}>{leading.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact={compact} />)}</div>
+        <div ref={resultsRef} aria-busy={searching} className={compact ? "recipe-results" : "showcase-grid"}>{leading.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact={compact} />)}</div>
         {remaining.length > 0 && <details className="catalog-continuation" open={expanded} onToggle={event => {
           const open = event.currentTarget.open
           if (open === expanded) return
@@ -246,7 +277,7 @@ export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recip
           <summary className="ag-button ag-button-outline ag-control-lg"><span>{expanded ? t("Show fewer recipes") : t("Explore {count} more recipes", { count: remaining.length })}</span><ChevronDown aria-hidden="true" /></summary>
           {expanded && <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />)}</div>}
         </details>}
-      </> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => setFilters(defaultFilters)}>{t("Clear search and filters")}</Button></Empty>}
+      </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => setFilters(defaultFilters)}>{t("Clear search and filters")}</Button></Empty>}
     </div>
   </section>
 }

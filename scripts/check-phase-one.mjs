@@ -19,6 +19,9 @@ for (const locale of locales) {
   const cards = [...topic.matchAll(/<article[^>]*data-recipe-slug="[^"]+"[^>]*>([\s\S]*?)<\/article>/g)]
   assert.equal(cards.length, 8, `${locale}: explicit Topic members`)
   for (const [, card] of cards) assert.doesNotMatch(card, /href="(?:\/(?:zh-Hans|zh-Hant|ja))?\/topics\//, 'cards do not link Topic membership')
+  const conference = await html(localized('/topics/irte2026', locale))
+  assert.ok(conference.includes('dumpling-booth'), `${locale}: conference explicitly includes the original Dumpling Booth entry`)
+  assert.ok(conference.includes('2026-10-23') && conference.includes('2026-10-24'), `${locale}: verified conference dates`)
   const detailPath = localized('/recipes/agora-rotary-dial-phone', locale)
   const detail = await html(`${detailPath}?returnTo=${encodeURIComponent(localized('/topics/voice-ai-in-practice', locale) + '?q=Rotary#recipes')}`)
   assert.ok(detail.includes(`rel="canonical" href="${new URL(detailPath, publicOrigin).href}"`), `${locale}: clean canonical`)
@@ -46,4 +49,11 @@ assert.equal(Buffer.from(await image.arrayBuffer()).subarray(0, 8).toString('hex
 const api = await fetch(new URL('/api/v1/recipes/python-quickstart', origin)).then(response => response.json())
 assert.equal(api.schemaVersion, 1)
 assert.equal((await fetch(new URL('/topics/unknown-phase-one-topic', origin))).status, 404)
-console.log('Phase-one static page checks passed for four locales, Topics, author documents, sharing metadata, contribution paths, and existing API schema.')
+
+
+const searchAsset = await fetch(new URL('/search-index.json', origin)).then(response => response.json())
+assert.equal(searchAsset.version, 1)
+assert.match(searchAsset.documents['dumpling-booth'], /gift/i, 'the static search asset contains original guide text')
+assert.doesNotMatch(searchAsset.documents['dumpling-booth'], /<script\b/i)
+
+console.log('Phase-one checks passed: four locales, Topic membership and archives, original guides, static search asset, sharing, contribution paths, and Recipe API compatibility.')

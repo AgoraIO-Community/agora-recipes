@@ -23,6 +23,8 @@ export type RecipeSummary = Omit<RecipeMeta, "cli"> & {
   showcase?: Showcase
   recommendedOrder?: number
   searchTerms?: string[]
+  guideSearchText?: string
+  searchExcerpt?: string
 }
 
 export const quickTags = [
@@ -91,33 +93,38 @@ export function entryMaterials(entry: RecipeSummary): string[] {
 }
 
 function normalize(value: string) {
-  return value.normalize("NFKD").replace(/\p{Diacritic}/gu, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()
+  return value.normalize("NFKD").replace(/(\p{Script=Latin})\p{M}+/gu, "$1").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()
 }
 
 // Common recipe vocabulary, shared by query and document normalization.
 const aliases = [
-  ["transcription", "transcribe", "transcript", "transcripts", "speech to text", "stt", "语音转文字", "语音转写", "转写", "转录"],
-  ["translation", "translate", "translator", "翻译"],
+  ["transcription", "transcribe", "transcript", "transcripts", "speech to text", "stt", "语音转文字", "语音转写", "转写", "转录", "轉寫", "轉錄", "captions", "caption", "字幕", "文字起こし"],
+  ["translation", "translate", "translator", "翻译", "翻譯", "翻訳"],
   ["tts", "text to speech", "speech synthesis", "语音合成"],
   ["tool calling", "function calling", "工具调用", "函数调用"],
   ["rag", "retrieval augmented generation", "knowledge base", "知识库", "检索增强"],
   ["crm", "customer relationship management", "客户关系管理", "客户管理"],
   ["assistant", "copilot", "助手"],
-  ["meeting", "meetings", "会议"],
-  ["podcast", "podcasts", "播客"],
+  ["meeting", "meetings", "会议", "會議", "会議"],
+  ["podcast", "podcasts", "播客", "ポッドキャスト"],
   ["vision", "computer vision", "视觉"],
   ["sales", "selling", "销售"],
-  ["voice", "speech", "语音"],
+  ["voice", "speech", "语音", "語音", "音声"],
   ["video", "videos", "视频"],
   ["streaming", "stream", "直播"],
   ["commentary", "commentator", "解说"],
+  ["agent", "agents", "智能体", "智能體", "エージェント"],
+  ["voice agent", "voiceagent", "voice bot", "voicebot"],
+  ["dumpling", "dumplings", "饺子", "餃子"],
+  ["realtime", "real time", "实时", "實時", "リアルタイム"],
+  ["irte2026", "irte 2026", "rte2026", "rte 2026"],
 ]
 const aliasPatterns = aliases.flatMap(([canonical, ...terms]) => terms.map((term) => ({
   canonical,
   term,
-  pattern: new RegExp(/[\u3400-\u9fff]/u.test(term) ? term : `(^| )${term}(?= |$)`, "gu"),
+  pattern: new RegExp(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(term) ? term : `(^| )${term}(?= |$)`, "gu"),
 }))).sort((a, b) => b.term.length - a.term.length)
-const stopWords = new Set("a an the to for of in on with and or is are be this that i me my you your can how do does".split(" "))
+const stopWords = new Set("a an the to for of in on with and or is are be this that i me my you your can how do does it its we our want need looking find please using use 我 我想 我要 想要 想 要 找 个 一个 的 怎么 如何 请 有没有 可以 能 做 吗 有 帮 帮我 使用 用 の を は が に で と です ます したい ください".split(" "))
 
 function searchText(value: string) {
   let text = normalize(value)
@@ -149,33 +156,80 @@ function closeWord(query: string, word: string) {
   return previous[word.length] <= limit
 }
 
-function searchScore(recipe: RecipeSummary, tokens: string[]): number {
-  if (!tokens.length) return 1
+type SearchField = { text: string; words: string[]; weight: number; guide?: boolean }
+const searchFields = new WeakMap<RecipeSummary, SearchField[]>()
+function fieldsFor(recipe: RecipeSummary): SearchField[] {
+  const cached = searchFields.get(recipe)
+  if (cached) return cached
   const fields = [
     { value: [recipe.title, recipe.showcase?.title, recipe.showcase?.compactTitle], weight: 40 },
     { value: [recipe.slug, recipe.author, recipe.mainRepoUrl, ...recipe.tags, ...recipe.platforms, ...recipe.useCases, ...recipe.capabilities, ...(recipe.searchTerms ?? []), ...(recipe.showcase?.searchTerms ?? []), ...(recipe.showcase?.labels ?? [])], weight: 30 },
     { value: [recipe.tagline, recipe.description, recipe.showcase?.summary, recipe.showcase?.compactSummary], weight: 20 },
-  ].map(({ value, weight }) => {
-    const text = searchText(value.filter(Boolean).join(" "))
-    return { text, words: [...new Set(text.split(" "))], weight }
+    { value: [recipe.guideSearchText], weight: 5, guide: true },
+  ].map(({ value, weight, guide }) => {
+    const raw = value.filter(Boolean).join(" ")
+    const text = `${normalize(raw)} ${searchText(raw)}`
+    return { text, words: [...new Set(text.split(" "))], weight, guide }
   })
+  searchFields.set(recipe, fields)
+  return fields
+}
+
+const segmenter = new Intl.Segmenter("zh", { granularity: "word" })
+function queryTokens(query: string): string[] {
+  const words = searchText(query).split(" ").flatMap(word => /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(word) ? [...segmenter.segment(word)].filter(part => part.isWordLike).map(part => part.segment) : [word])
+  return [...new Set(words.filter(word => word && !stopWords.has(word)))]
+}
+
+function fieldScore({ text, words, weight, guide }: SearchField, token: string): number {
+  const cjk = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(token)
+  const exact = cjk ? text.includes(token) : words.some(word => word === token || token.length >= (guide ? 3 : 2) && word.startsWith(token))
+  if (exact) return weight
+  // Typo tolerance stays on concise metadata; arbitrary code/document words do
+  // not create thousands of weak fuzzy matches as the visitor types.
+  return !guide && words.some(word => closeWord(token, word)) ? weight * .3 : 0
+}
+
+function searchScore(recipe: RecipeSummary, tokens: string[]): number {
+  if (!tokens.length) return 1
   let score = 0
   for (const token of tokens) {
-    let best = 0
-    for (const { text, words, weight } of fields) {
-      const exact = token.length <= 2 ? words.includes(token) : token.length === 3 ? words.some((word) => word.startsWith(token)) : text.includes(token)
-      if (exact) best = Math.max(best, weight)
-      else if (best < weight * .3 && words.some((word) => closeWord(token, word))) best = Math.max(best, weight * .3)
-    }
+    const best = Math.max(...fieldsFor(recipe).map(field => fieldScore(field, token)))
     if (!best) return 0
     score += best
   }
-  return score
+  const phrase = tokens.join(" ")
+  const exactPhrase = fieldsFor(recipe).filter(field => field.text.includes(phrase))
+  return score + (exactPhrase.length ? tokens.length * 40 + Math.max(...exactPhrase.map(field => field.weight)) : 0)
+}
+
+function withGuideExcerpt(recipe: RecipeSummary, tokens: string[]): RecipeSummary {
+  if (!recipe.guideSearchText) return recipe
+  const guideToken = tokens.find(token => !fieldsFor(recipe).some(field => !field.guide && fieldScore(field, token)))
+  if (!guideToken) return recipe
+  const lines = recipe.guideSearchText.split(/\n+/).map(line => line.trim()).filter(Boolean)
+  const candidates = lines.map((line, index) => {
+    const text = `${normalize(line)} ${searchText(line)}`
+    return { line, index, count: text.includes(guideToken) ? tokens.filter(token => text.includes(token)).length : 0 }
+  }).filter(line => line.count).sort((a, b) => b.count - a.count || Number(b.line.length >= 55) - Number(a.line.length >= 55))
+  if (!candidates.length) return recipe
+  const chosen = candidates[0]
+  const paragraph = chosen.line.length < 55 ? `${chosen.line} — ${lines[chosen.index + 1] ?? ""}` : chosen.line
+  const positions = tokens.map(token => paragraph.toLowerCase().indexOf(token)).filter(position => position >= 0)
+  const match = positions.length ? Math.min(...positions) : 0
+  let start = Math.max(0, match - 55)
+  const boundary = paragraph.indexOf(" ", start)
+  if (start && boundary >= 0 && boundary < match) start = boundary + 1
+  let end = Math.min(paragraph.length, start + 187)
+  const lastSpace = paragraph.lastIndexOf(" ", end)
+  if (end < paragraph.length && lastSpace > start + 125) end = lastSpace
+  const excerpt = paragraph.slice(start, end).trim()
+  return { ...recipe, searchExcerpt: `${start ? "… " : ""}${excerpt}${paragraph.length > end ? "…" : ""}` }
 }
 
 export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilters): RecipeSummary[] {
   const topic = quickTags.find((tag) => tag.value === filters.topic)
-  const tokens = [...new Set(searchText(filters.query).split(" ").filter((token) => token && !stopWords.has(token)))]
+  const tokens = queryTokens(filters.query)
   return recipes
     .map((recipe) => ({ recipe, score: searchScore(recipe, tokens) }))
     .filter(({ recipe, score }) => {
@@ -194,5 +248,5 @@ export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilt
       if (filters.sort === "updated") return b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
       return b.score - a.score || (a.recipe.recommendedOrder ?? Infinity) - (b.recipe.recommendedOrder ?? Infinity) || b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
     })
-    .map(({ recipe }) => recipe)
+    .map(({ recipe }) => withGuideExcerpt(recipe, tokens))
 }
