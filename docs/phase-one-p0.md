@@ -1,7 +1,7 @@
 # Phase One P0 Verification and Release Notes
 
 Baseline: PR #77 at `bd67fdf1c5acdbbfd015fb8f65b109a3c11eb2d9`.
-Tracking issue: [#78](https://github.com/AgoraIO-Community/agora-recipes/issues/78).
+Implementation continues in [PR #77](https://github.com/AgoraIO-Community/agora-recipes/pull/77). The single tracking issue is [#78](https://github.com/AgoraIO-Community/agora-recipes/issues/78); all phase-one priorities and acceptance checks stay there.
 
 ## Delivered Behavior
 
@@ -12,7 +12,7 @@ Tracking issue: [#78](https://github.com/AgoraIO-Community/agora-recipes/issues/
 - Static site locales: English at existing URLs, plus `zh-Hans`, `zh-Hant`, and `ja`. Editorial introductions are separate from original author metadata and guide documents. Future missing translations fall back to original metadata.
 - GitHub contribution instructions and an English Issue form, with direct PRs still targeting `staging`. No new site accounts or business backend.
 
-P1 remains separate: curated Topic pages and navigation, author README language-version selection, sharing controls, and the seven custom event families in #78.
+P1 remains pending in the same PR and tracking issue: curated Topic pages and navigation, author README language-version selection, sharing controls, and the seven custom event families in #78.
 
 ## Local Verification
 
@@ -54,7 +54,7 @@ The production-only condition remains `NODE_ENV === "production" && VERCEL === "
 
 ## Release Dependencies
 
-1. Review and integrate the PR #77 baseline and this P0 change through `staging`.
+1. Review the consolidated changes in PR #77 and integrate that PR through `staging` when the agreed scope and release acceptance are ready.
 2. Release the Issue template to the repository's default branch through the normal process. Before that release, GitHub cannot render the new form from the site's link. Verify the live form without posting a test submission.
 3. Deploy through the existing production process. Verify locale URLs and confirm real page views in the existing Analytics project. Investigate the no-data result before marking T5 complete.
 4. Assign maintainers for public submission review, translation review, recommendations, and future Topic content. Presently translated introductions should receive editorial review before release.
