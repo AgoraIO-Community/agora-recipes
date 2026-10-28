@@ -26,10 +26,10 @@ See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contr
 ## Local Verification
 
 - `npm run lint`: passed, with the pre-existing `components/agora-logo.tsx` image warning.
-- `npm run build`: passed; generated 107 artifacts and 830 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
+- `npm run build`: passed; generated 109 artifacts and 842 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
 - `npx tsc --noEmit`: passed independently of Next's existing build setting.
 - `node --test scripts/*.test.mjs`: 47 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
-- `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 107 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
+- `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 109 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
 - `node scripts/check-phase-one.mjs http://localhost:4181`: passed for all four locales, Topic membership and card restrictions, automatic/manual source language selection and unavailable states, sharing metadata, contribution paths, static social PNG, and existing API schema.
 - Browser checks covered all four site locales, 320px/390px phones, 768px tablet, and desktop. Phone browsing stayed in two columns without horizontal overflow; the phone filter sheet stayed within the viewport.
 - Checked combined search, platform selections, and material filters; refresh and explicit return links retained state. A new-tab link retained its return address. A local catalog return restored a nonzero scroll position. Theme choice survived reload and locale navigation.
@@ -62,6 +62,12 @@ The owner's Agora family HTML remains the visual authority. Public Bencho exampl
 - The contribution page presents form and direct-PR paths with aligned actions, truthful public guidance, a preserved optional Topic reference, and a review disclosure. Phones stack both paths with full-width 46px actions. The footer does not invite users back to the page they are already on.
 - Browser checks covered 1280px desktop, 768px tablet, 390px and 320px phones, dark/light themes, Japanese long labels across all four requested surfaces, selected/disabled/empty/reset states, keyboard dismissal/focus return, and reduced motion. No horizontal overflow was found; reduced-motion disclosure feedback used a 0.001s transition while preserving its open state. No real submission or external share was posted.
 - The locale regression check now rejects UI feedback keys placed outside the dictionary the site actually loads. The design scan reported only the existing neutral Markdown blockquote border, retained as source-reading punctuation.
+
+## Staging Integration — 2026-10-28
+
+Resolved the recommendation/media conflict with staging at `0213352`. The two newly accepted entries, Filler-Free: Live and M5 StickS3 Agora Voice Agent, retain their author metadata and generated documents. StickS3 media moved into its entry; the recommendation list retains ordered slug references. The upstream English Podcast/Rotary covers and their matching alt text/demo notes are preserved. Presentation introductions for both new entries and their new demo notes are translated into the three non-English site locales; author submissions remain unchanged.
+
+After integration, lint (one existing logo warning), independent type checking, all 47 tests, the full 109-artifact build, the final 842-page static rebuild against committed source artifacts, four-locale phase-one checks, and all 109 Recipe compatibility checks passed. Browser rechecks confirmed the current language/focus separation, the updated English cover, named Topic return, no phone overflow, and unchanged technology row order/spacing during multi-selection. Python plus TypeScript now yields 61 results because both incoming entries include Python. Unrelated upstream README refreshes remain excluded.
 
 ## Analytics Audit — 2026-10-28
 

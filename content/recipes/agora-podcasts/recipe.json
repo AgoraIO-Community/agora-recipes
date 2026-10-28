@@ -16,11 +16,11 @@
     "title": "Agora Podcasts",
     "summary": "Turn a topic into a two-host AI podcast listeners can talk to.",
     "thumbnail": "/recipes/agora-podcasts.webp",
-    "thumbnailAlt": "Agora Podcasts illustrated landing page with its two AI hosts",
+    "thumbnailAlt": "Agora Podcasts English interface with two illustrated AI hosts and podcast creation controls",
     "thumbnailSource": "https://agora-podcasts.vercel.app/",
     "videoUrl": "https://github.com/user-attachments/assets/b624ff06-62d6-41d7-a74e-24cfc73d7ce8",
     "videoDuration": "2:27",
-    "demoNote": "Chinese experience",
+    "demoNote": "English interface",
     "labels": [
       "Voice AI",
       "TypeScript"

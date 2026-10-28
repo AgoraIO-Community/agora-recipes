@@ -440,7 +440,10 @@
     "Share on {platform}": "{platform} で共有",
     "Copying…": "コピー中…",
     "Try copying again": "コピーを再試行",
-    "What happens after submission?": "投稿後の審査と公開について"
+    "What happens after submission?": "投稿後の審査と公開について",
+    "English interface": "英語の画面",
+    "English interface · Microphone needed": "英語の画面 · マイクが必要",
+    "On-device demo video linked from recipe metadata. Same firmware supports StickS3 and StopWatch.": "詳細に実機のデモ動画があります。同じファームウェアが StickS3 と StopWatch に対応します。"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -870,6 +873,14 @@
     "worldcupvoice": {
       "tagline": "スポーツ配信に、映像を理解する AI 音声実況を追加します。",
       "description": "スポーツ配信に、映像を理解する AI 音声実況を追加します。"
+    },
+    "filler-free-live": {
+      "tagline": "口癖や長すぎる説明にその場で気づかせる AI スピーチコーチ。",
+      "description": "Agora Conversational AI と話しながら練習できる Android アプリです。FastAPI バックエンドを使い、ライブのグループコーチングにも対応します。"
+    },
+    "m5-sticks3-voice-agent": {
+      "tagline": "M5StickS3 で動く、ESP32-S3 搭載の小型音声エージェント。",
+      "description": "M5Stack StickS3 と StopWatch 向けの ESP-IDF 音声クライアントをビルドして書き込みます。LAN 内の FastAPI 制御サービスを通じて Agora Conversational AI に接続します。"
     }
   }
 }

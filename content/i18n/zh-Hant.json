@@ -440,7 +440,10 @@
     "Share on {platform}": "分享至 {platform}",
     "Copying…": "正在複製…",
     "Try copying again": "重試複製",
-    "What happens after submission?": "投稿後如何審核與發佈？"
+    "What happens after submission?": "投稿後如何審核與發佈？",
+    "English interface": "英語介面",
+    "English interface · Microphone needed": "英語介面 · 需要麥克風",
+    "On-device demo video linked from recipe metadata. Same firmware supports StickS3 and StopWatch.": "詳情提供裝置示範影片。同一韌體支援 StickS3 和 StopWatch。"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -870,6 +873,14 @@
     "worldcupvoice": {
       "tagline": "爲體育直播添加理解畫面內容的 AI 語音解說。",
       "description": "爲體育直播添加理解畫面內容的 AI 語音解說。"
+    },
+    "filler-free-live": {
+      "tagline": "即時語音教練，幫你減少口頭禪和冗長表達。",
+      "description": "透過 Android 應用程式與 Agora 對話式 AI 即時練習表達。使用 FastAPI 後端，並支援多人即時輔導。"
+    },
+    "m5-sticks3-voice-agent": {
+      "tagline": "在 M5StickS3 上執行的 ESP32-S3 隨身語音助理。",
+      "description": "建置並燒錄適用於 M5Stack StickS3 和 StopWatch 的 ESP-IDF 語音用戶端，透過區域網路內的 FastAPI 控制服務連接 Agora 對話式 AI。"
     }
   }
 }
