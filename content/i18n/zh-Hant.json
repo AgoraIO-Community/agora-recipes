@@ -1,0 +1,818 @@
+{
+  "ui": {
+    "Language": "語言",
+    "Skip to main content": "跳到主要內容",
+    "Docs": "文檔",
+    "Documentation": "開發文檔",
+    "Recipes": "Recipes",
+    "Main navigation": "主導航",
+    "Site navigation": "網站導航",
+    "Mobile navigation": "移動端導航",
+    "Agora Recipes home": "Agora Recipes 首頁",
+    "Contribute": "投稿",
+    "Get started": "開始使用",
+    "Open navigation": "打開導航",
+    "Close navigation": "關閉導航",
+    "{label} (opens in a new tab)": "{label}（在新標籤頁打開）",
+    "Switch to light theme": "切換到淺色主題",
+    "Switch to dark theme": "切換到深色主題",
+    "Share your project.": "分享你做的內容。",
+    "Add your Agora project, demo, or guide to the collection.": "把你的 Agora 項目、Demo 或教程加入目錄。",
+    "Contribute on GitHub": "通過 GitHub 投稿",
+    "Working Voice AI and RTC projects, built with Agora.": "使用 Agora 構建的 Voice AI 與 RTC 項目。",
+    "Explore": "探索",
+    "Browse recipes": "瀏覽內容",
+    "Build with Agora": "使用 Agora 構建",
+    "Agora Console": "Agora 控制檯",
+    "Legal": "法律信息",
+    "Privacy Policy": "隱私政策",
+    "Cookie Policy": "Cookie 政策",
+    "Terms of Service": "服務條款",
+    "Acceptable Use Policy": "可接受使用政策",
+    "Back to top": "返回頂部",
+    "Open-source recipes for building voice agents, transcription, translation, and accessibility workflows with Agora.": "使用 Agora 構建語音智能體、轉寫、翻譯和無障礙應用的開源內容。",
+    "Build voice agents, transcription, translation, and accessibility workflows with Agora.": "使用 Agora 構建語音智能體、轉寫、翻譯和無障礙應用。",
+    "Explore projects and recipes.": "探索項目與實踐教程。",
+    "Voice AI and real-time apps, with working code.": "探索 Voice AI 與實時應用，體驗已有 Demo，閱讀實踐教程。",
+    "Search recipes, descriptions, or authors": "搜索內容、介紹或作者",
+    "Search recipes, capabilities…": "搜索項目、教程、能力…",
+    "Clear search": "清空搜索",
+    "Sort recipes": "內容排序",
+    "Recently updated": "最近更新",
+    "Most relevant": "最相關",
+    "Recommended": "推薦",
+    "A–Z": "按名稱排序",
+    "{count} selected": "已選 {count} 項",
+    "Find {label}": "查找{label}",
+    "No matching options.": "沒有匹配的選項。",
+    "Show all {count}": "顯示全部 {count} 項",
+    "Show fewer": "收起",
+    "Quick filters": "快捷篩選",
+    "All": "全部",
+    "All topics": "全部",
+    "Voice agents": "語音智能體",
+    "Video calling": "視頻通話",
+    "Tool calling": "工具調用",
+    "Transcription": "語音轉寫",
+    "Translation": "翻譯",
+    "Filters": "篩選",
+    "Filters, {count} active": "篩選，已啓用 {count} 項",
+    "Refine recipes": "篩選內容",
+    "Find the right starting point for your project.": "爲你的項目找到合適的起點。",
+    "Sort by": "排序",
+    "Category": "類別",
+    "Recipe category": "內容類別",
+    "Has a demo": "有可體驗的演示",
+    "Video or live app": "視頻或在線應用",
+    "Available materials": "已有材料",
+    "Matches every selected material.": "同時提供所選的全部材料。",
+    "Demo": "Demo",
+    "Video": "視頻",
+    "Source": "源碼",
+    "Recipe": "Recipe",
+    "Platforms & languages": "平臺與開發語言",
+    "Matches any selected technology.": "匹配任意一項所選技術。",
+    "Use cases": "應用場景",
+    "Matches any selected use case.": "匹配任意一項所選場景。",
+    "Models & capabilities": "模型與能力",
+    "Matches every selected capability.": "同時匹配所選的全部能力。",
+    "Reset filters": "重置篩選",
+    "Show {count} results": "查看 {count} 條結果",
+    "Selected filters": "已選篩選條件",
+    "Remove {label} filter": "移除{label}篩選",
+    "Clear filters": "清空篩選",
+    "{count} results": "{count} 條結果",
+    "Explore the collection": "瀏覽內容",
+    "{count} entries": "{count} 條內容",
+    "Show fewer recipes": "收起更多內容",
+    "Explore {count} more recipes": "查看更多 {count} 條內容",
+    "No matching recipes": "沒有匹配的內容",
+    "Try a broader search or remove a filter above.": "嘗試更寬泛的搜索詞，或移除部分篩選條件。",
+    "Clear search and filters": "清空搜索與篩選",
+    "Watch demo": "觀看演示",
+    "Live demo": "體驗 Demo",
+    "Watch {title} demo": "觀看 {title} 演示",
+    "Try {title} demo (opens in a new tab)": "體驗 {title} Demo（在新標籤頁打開）",
+    "Technology and difficulty": "技術與難度",
+    "Recipe guide": "實踐教程",
+    "View project": "查看項目",
+    "Open {title} recipe": "打開 {title} 詳情",
+    "Project preview": "項目預覽",
+    "Try live demo": "體驗 Demo",
+    "{title} demo preview": "{title} 演示預覽",
+    "Your browser does not support video playback. Open the original video below.": "瀏覽器不支持視頻播放，請打開下方原始視頻。",
+    "This video couldn’t load. You can open the original video or view the project below.": "視頻暫時無法加載，可打開原始視頻或查看下方項目。",
+    "Original video": "原始視頻",
+    "Read recipe": "閱讀 Recipe",
+    "Back to recipes": "返回內容列表",
+    "Back to results": "返回篩選結果",
+    "Recipe not found": "未找到內容",
+    "Try demo": "體驗 Demo",
+    "Try demo (opens in a new tab)": "體驗 Demo（在新標籤頁打開）",
+    "Source on GitHub (opens in a new tab)": "GitHub 源碼（在新標籤頁打開）",
+    "Copy recipe prompt": "複製 Recipe 提示詞",
+    "Recipe prompt": "Recipe 提示詞",
+    "Paste the prompt into Cursor, Claude Code, or your coding agent.": "把提示詞粘貼到 Cursor、Claude Code 或其他編程智能體中。",
+    "Recipe sections": "內容章節",
+    "Build with agent": "使用編程智能體構建",
+    "Implementation guide": "實踐教程",
+    "Build with your coding agent": "使用你的編程智能體構建",
+    "View recipe prompt": "查看 Recipe 提示詞",
+    "Start with Agora CLI": "使用 Agora CLI 開始",
+    "Clone this recipe and configure it with an Agora project.": "克隆此 Recipe，並配置 Agora 項目信息。",
+    "View on GitHub": "在 GitHub 查看",
+    "In this guide": "本教程目錄",
+    "Guide contents on mobile": "移動端教程目錄",
+    "Recipe information": "內容信息",
+    "About this recipe": "關於此 Recipe",
+    "About this project": "關於此項目",
+    "Author": "作者",
+    "Updated": "更新時間",
+    "Difficulty": "難度",
+    "Beginner": "入門",
+    "Intermediate": "進階",
+    "Advanced": "高級",
+    "Use cases & capabilities": "應用場景與能力",
+    "Related projects and recipes": "相關項目與教程",
+    "Guide": "教程",
+    "Recipe format": "文檔格式",
+    "Copy markdown": "複製 Markdown",
+    "Copy": "複製",
+    "Text": "文本",
+    "Prompt": "提示詞",
+    "Copied": "已複製",
+    "Copy failed": "複製失敗",
+    "{subject} copied": "已複製{subject}",
+    "Copy {subject}": "複製{subject}",
+    "{subject} copied to clipboard.": "已將{subject}複製到剪貼板。",
+    "Copy failed. Select the text and copy it manually.": "複製失敗，請選中文本後手動複製。",
+    "{label} code": "{label}代碼",
+    "The guide couldn’t be loaded": "教程暫時無法加載",
+    "You can still copy the recipe prompt or open the implementation on GitHub.": "仍可複製 Recipe 提示詞，或前往 GitHub 查看實現。",
+    "Open source guide": "打開原始教程",
+    "Guide language": "教程語言",
+    "Shown as published by its author; website language does not translate the source guide.": "按作者發佈的原文展示，切換網站語言不會翻譯教程全文。",
+    "Close": "關閉",
+    "How to use recipes": "如何使用內容",
+    "How to use these recipes": "如何使用這些內容",
+    "Find your starting point": "找到適合的起點",
+    "Browse projects and recipes, then filter by platform, use case, or available material.": "瀏覽項目與教程，按平臺、場景或已有材料篩選。",
+    "Try it or bring it to your coding agent": "體驗演示或交給編程智能體",
+    "Open an available demo or video. If a recipe is provided, copy its prompt or follow the original guide.": "打開已有的 Demo 或視頻；有 Recipe 時，可以複製提示詞或閱讀原始教程。",
+    "Configure, run, and make it yours": "配置、運行並按需調整",
+    "Follow the author’s setup instructions and test the example before adapting it to your workflow.": "按作者說明完成配置，先驗證示例，再調整爲自己的工作流。",
+    "Explore demos, source, and guides. Each entry shows only the materials its author provides.": "探索 Demo、源碼與教程，每條內容只展示作者實際提供的材料。",
+    "We couldn’t find that recipe.": "沒有找到這條內容。",
+    "This recipe may have moved. Browse the list to find the right sample.": "內容可能已移動，可以返回列表查找其他示例。",
+    "Share what you built": "分享你做的內容",
+    "Submit your existing demo, video, source, or guide. A GitHub account is required.": "提交已有 Demo、視頻、源碼或教程。需要 GitHub 賬號。",
+    "GitHub form": "GitHub 投稿表單",
+    "Open the form on GitHub. Your Issue is public and keeps the original submission, review discussion, and final publication link.": "在 GitHub 打開表單。Issue 對外公開，保留原始提交、評審討論和最終發佈鏈接。",
+    "Open GitHub form": "打開 GitHub 表單",
+    "Direct pull request": "直接提交 PR",
+    "Keep the existing workflow: fork the repository, update catalog metadata, and open a PR to staging. A submission Issue is optional.": "沿用已有流程：Fork 倉庫，修改目錄元數據，並向 staging 提交 PR。無需先創建投稿 Issue。",
+    "Contribution instructions": "貢獻說明",
+    "Submit only public materials. Do not include private email addresses, credentials, or other private information.": "只提交公開材料，不要填寫私人郵箱、密鑰或其他私有信息。",
+    "After submission, follow review in the GitHub Issue. Publication follows a reviewed catalog PR and the existing release process.": "投稿後在 GitHub Issue 中跟進評審。內容通過目錄 PR 評審後，按現有流程發佈。",
+    "A guide, source repository, or four translated submissions are not required for every entry.": "不要求每條內容都有教程、源碼倉庫或四份翻譯。",
+    "Accessibility": "無障礙",
+    "Audio": "音頻",
+    "Audio & Music": "音頻與音樂",
+    "Audio Streaming": "音頻流",
+    "Automation": "自動化",
+    "Browser Automation": "瀏覽器自動化",
+    "Calling": "通話",
+    "Channel Management": "頻道管理",
+    "Chrome Extension": "Chrome 擴展",
+    "Client UX": "客戶端體驗",
+    "Cloud Gaming": "雲遊戲",
+    "Conversation Design": "對話設計",
+    "Conversational AI": "對話式 AI",
+    "Creative Studio": "創作工作室",
+    "Custom LLM": "自定義 LLM",
+    "Custom Media": "自定義媒體",
+    "Custom Video": "自定義視頻",
+    "Customer Support": "客戶支持",
+    "Devotional": "信仰服務",
+    "Education": "教育",
+    "Embedded": "嵌入式設備",
+    "Entertainment": "娛樂",
+    "Gaming": "遊戲",
+    "Health & Wellness": "健康管理",
+    "Healthcare": "醫療健康",
+    "Immersive": "沉浸式體驗",
+    "Interactive Audio": "交互式音頻",
+    "Interactive Streaming": "互動直播",
+    "Knowledge Base": "知識庫",
+    "Live Shopping": "直播購物",
+    "Live Streaming": "直播",
+    "Media Playback": "媒體播放",
+    "Meetings": "會議",
+    "Memory": "記憶",
+    "Model Integration": "模型接入",
+    "Moderation": "內容審覈",
+    "Multi-Agent": "多智能體",
+    "Multimodal": "多模態",
+    "Noise Robustness": "抗噪能力",
+    "Observability": "可觀測性",
+    "Personalization": "個性化",
+    "Quickstart": "入門示例",
+    "RTC Workflow": "RTC 工作流",
+    "Realtime": "實時",
+    "Realtime Media": "實時媒體",
+    "Safety": "安全",
+    "Sales": "銷售",
+    "Service Integration": "服務接入",
+    "Signaling": "信令",
+    "Smart Home": "智能家居",
+    "Spatial Audio": "空間音頻",
+    "Subtitles": "字幕",
+    "Task Automation": "任務自動化",
+    "Tool Use": "工具使用",
+    "Video Calling": "視頻通話",
+    "Vision": "視覺",
+    "Voice Calling": "語音通話",
+    "Voice Chat": "語音聊天",
+    "Wellness": "健康管理",
+    "3D Scene": "3D 場景",
+    "AI Video Generation": "AI 視頻生成",
+    "AI Workflow": "AI 工作流",
+    "AIGC Service": "AIGC 服務",
+    "Agent Handoff": "智能體移交",
+    "Android Accessibility": "Android 無障礙",
+    "Android Widget": "Android 組件",
+    "Audio Processing": "音頻處理",
+    "Audio Video": "音視頻",
+    "Biomarkers": "生物標誌物",
+    "CRM Integration": "CRM 接入",
+    "Channel Control": "頻道控制",
+    "Channel Join": "加入頻道",
+    "Coaching": "指導",
+    "Content Moderation": "內容審覈",
+    "Custom Camera": "自定義攝像頭",
+    "Custom TTS": "自定義 TTS",
+    "Custom Video Source": "自定義視頻源",
+    "Daily Rituals": "日常儀式",
+    "Delegated Reasoning": "委託推理",
+    "Device Calling": "設備通話",
+    "Dynamic Tools": "動態工具",
+    "Filler Words": "填充語",
+    "Function Calling": "函數調用",
+    "Game State": "遊戲狀態",
+    "Group Video": "多人視頻",
+    "Guidance": "引導",
+    "Host Audience": "主播與觀衆",
+    "Humming Service": "Humming 服務",
+    "Integrations": "集成",
+    "Interactive Demo": "交互演示",
+    "Interactive Whiteboard": "交互白板",
+    "Interruptions": "打斷處理",
+    "Latency Smoothing": "延遲平滑",
+    "Live Captions": "實時字幕",
+    "Live Video": "實時視頻",
+    "Lyrics View": "歌詞顯示",
+    "Manual Turn Control": "手動輪次控制",
+    "Mobile": "移動端",
+    "Mobile App": "移動應用",
+    "Music Content Center": "音樂內容中心",
+    "Music Playback": "音樂播放",
+    "Native": "原生應用",
+    "Prompt Injection": "提示詞注入",
+    "Prompt Management": "提示詞管理",
+    "Push to Talk": "按住說話",
+    "Real-Time Audio": "實時音頻",
+    "Real-Time Transcription": "實時轉寫",
+    "Realtime Audio": "實時音頻",
+    "Reference App": "參考應用",
+    "Retrieval": "檢索",
+    "Sentiment Analysis": "情緒分析",
+    "Session Control": "會話控制",
+    "Spatial App": "空間應用",
+    "Speaker Lock": "說話人鎖定",
+    "Speech Translation": "語音翻譯",
+    "Speech-to-Text": "語音轉文字",
+    "Speech-to-Text UI": "轉寫界面",
+    "State Management": "狀態管理",
+    "Tool Calling": "工具調用",
+    "Transcription UI": "轉寫界面",
+    "Turn Detection": "輪次檢測",
+    "Virtual Camera": "虛擬攝像頭",
+    "Voice Agent": "語音智能體",
+    "iOS UI": "iOS 界面",
+    "iOS Widget": "iOS 組件",
+    "Python": "Python",
+    "TypeScript": "TypeScript",
+    "Voice AI": "Voice AI",
+    "Gemini": "Gemini",
+    "Gemini Live": "Gemini Live",
+    "FastAPI": "FastAPI",
+    "Unity": "Unity",
+    "C#": "C#",
+    "Agora RTC": "Agora RTC",
+    "React Native": "React Native",
+    "iOS": "iOS",
+    "Android": "Android",
+    "Go": "Go",
+    "Swift": "Swift",
+    "IoT": "IoT",
+    "RTM": "RTM",
+    "MCP": "MCP",
+    "JavaScript": "JavaScript",
+    "Web": "Web",
+    "Web SDK": "Web SDK",
+    "Vite": "Vite",
+    "React": "React",
+    "Flutter": "Flutter",
+    "OpenAI GPT Live": "OpenAI GPT Live",
+    "visionOS": "visionOS",
+    "Next.js": "Next.js",
+    "SQLite": "SQLite",
+    "Agora Signaling": "Agora Signaling",
+    "STT": "STT",
+    "Rust": "Rust",
+    "TTS": "TTS",
+    "CallKit": "CallKit",
+    "C": "C",
+    "Linux": "Linux",
+    "RAG": "RAG",
+    "MLLM": "MLLM",
+    "Jetpack Compose": "Jetpack Compose",
+    "AIGC": "AIGC",
+    "REST API": "REST API",
+    "Babylon.js": "Babylon.js",
+    "WebXR": "WebXR",
+    "Web Audio API": "Web Audio API",
+    "HTML": "HTML",
+    "Dart": "Dart",
+    "Gemini AI": "Gemini AI",
+    "ESP32": "ESP32",
+    "SwiftUI": "SwiftUI",
+    "MediaIO": "MediaIO",
+    "Electron": "Electron",
+    "Gemini Vision": "Gemini Vision",
+    "TMDB": "TMDB",
+    "Webhooks": "Webhooks",
+    "Three.js": "Three.js",
+    "Recipe metadata": "Recipe 元數據",
+    "Field": "字段",
+    "Value": "值",
+    "Completed task": "已完成任務",
+    "Incomplete task": "未完成任務",
+    "Recipe diagram": "教程圖示",
+    "Scrollable diagram": "可滾動的圖示",
+    "Recipe diagram; text description is available in Diagram source below": "教程圖示，文字描述見下方圖示源碼",
+    "This diagram could not be rendered. Its source is available below.": "無法渲染此圖示，可查看下方源碼。",
+    "Loading diagram…": "正在加載圖示…",
+    "Fit to width": "適應寬度",
+    "View actual size": "查看原始大小",
+    "Diagram source": "圖示源碼",
+    "Close filters": "關閉篩選",
+    "Close dialog": "關閉對話框",
+    "Camera and microphone needed": "需要攝像頭和麥克風",
+    "The existing React Live Video demo entry screen with an Agora logo, channel field, and Connect button": "React Live Video 現有演示入口，包含 Agora 標誌、頻道輸入框和連接按鈕",
+    "English gameplay screenshot. Run the open-source project with your own provider credentials.": "英語遊戲截圖。運行開源項目時需要使用自己的服務商憑證。",
+    "English Agora Arena gameplay showing Emberpaw and Cloudhop with the FastH3 ultimate gauge ready": "英語 Agora Arena 遊戲畫面：Emberpaw 與 Cloudhop，以及已就緒的 FastH3 終極技能進度條",
+    "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.": "英語界面。需要兩名真人玩家才能開始。可選的 AI 挑戰者需要由房主提供 Reactor API 密鑰。",
+    "English Draw & Guess illustrated cover showing a cat sketch becoming video, with Agora Realtime and FastH3 Video Proof labels": "英語 Draw & Guess 插畫封面：貓咪草圖變成視頻，附有 Agora Realtime 和 FastH3 Video Proof 標識",
+    "Microphone needed": "需要麥克風",
+    "Aria live call interface with conversation transcript and call controls": "Aria 實時通話界面，包含對話轉錄和通話控制",
+    "Chinese experience": "中文體驗",
+    "Agora Podcasts illustrated landing page with its two AI hosts": "Agora Podcasts 插畫首頁，展示兩位 AI 主播",
+    "Chinese experience · Microphone needed": "中文體驗 · 需要麥克風",
+    "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe": "Rotary Dial Phone 公開演示：包含電話與保險箱的中文 3D 密室逃脫",
+    "Recorded demo": "演示錄像",
+    "WorldCupVoice World Cup final poster from the implementation repository": "來自實現倉庫的 WorldCupVoice 世界盃決賽海報",
+    "AI demo requires your OpenAI API key": "AI 演示需要使用你自己的 OpenAI API 密鑰",
+    "Existing Meeting Copilot video showing a live meeting alongside a shared task board": "Meeting Copilot 現有視頻：實時會議與共享任務看板並排顯示"
+  },
+  "entries": {
+    "ag-iot-ios-app": {
+      "tagline": "爲 iOS IoT 應用接入 Agora 視頻通話。",
+      "description": "爲 iOS IoT 應用接入 Agora 視頻通話。"
+    },
+    "agent-delegation": {
+      "tagline": "讓第二個模型負責推理和工具調用，同時保持語音智能體及時響應。",
+      "description": "讓第二個模型負責推理和工具調用，同時保持語音智能體及時響應。"
+    },
+    "agent-handoff": {
+      "tagline": "在不同專長的智能體角色之間移交對話。",
+      "description": "在不同專長的智能體角色之間移交對話。"
+    },
+    "agora-aigc-demo": {
+      "tagline": "將 AIGC 交互與 Agora 實時媒體結合。",
+      "description": "將 AIGC 交互與 Agora 實時媒體結合。"
+    },
+    "agora-arena": {
+      "tagline": "用語音創建自己的遊戲必殺技。",
+      "description": "用語音創建自己的遊戲必殺技。"
+    },
+    "agora-breath-companion": {
+      "tagline": "使用 Agora 構建呼吸引導與語音智能體體驗。",
+      "description": "使用 Agora 構建呼吸引導與語音智能體體驗。"
+    },
+    "agora-channel-management": {
+      "tagline": "查看頻道用戶並管理 RTC 用戶權限。",
+      "description": "查看頻道用戶並管理 RTC 用戶權限。"
+    },
+    "agora-drawguess": {
+      "tagline": "和朋友一起畫畫猜詞，與需要用視頻證明答案的 AI 競賽。",
+      "description": "和朋友一起畫畫猜詞，與需要用視頻證明答案的 AI 競賽。"
+    },
+    "agora-flutter-rtc-quickstart": {
+      "tagline": "使用 Agora RTC 構建跨平臺 Flutter 視頻通話。",
+      "description": "使用 Agora RTC 構建跨平臺 Flutter 視頻通話。"
+    },
+    "agora-gemini-mllm-go": {
+      "tagline": "使用 Go、Agora 與 Gemini 3.8 Live MLLM 構建端到端語音智能體。",
+      "description": "使用 Go、Agora 與 Gemini 3.8 Live MLLM 構建端到端語音智能體。"
+    },
+    "agora-gemini-mllm-nextjs": {
+      "tagline": "使用 Next.js、Agora 與 Gemini 3.8 Live MLLM 構建端到端語音智能體。",
+      "description": "使用 Next.js、Agora 與 Gemini 3.8 Live MLLM 構建端到端語音智能體。"
+    },
+    "agora-gemini-mllm-python": {
+      "tagline": "使用 Python、Agora 與 Gemini 3.8 Live MLLM 構建端到端語音智能體。",
+      "description": "使用 Python、Agora 與 Gemini 3.8 Live MLLM 構建端到端語音智能體。"
+    },
+    "agora-gemma-voice-coach": {
+      "tagline": "將 Agora 語音會話與本地 Gemma 推理層結合。",
+      "description": "將 Agora 語音會話與本地 Gemma 推理層結合。"
+    },
+    "agora-humming-service-example": {
+      "tagline": "通過原生移動端示例瞭解 Humming 服務。",
+      "description": "通過原生移動端示例瞭解 Humming 服務。"
+    },
+    "agora-ios-guide": {
+      "tagline": "按 iOS 教程接入 Agora RTC 視頻通話。",
+      "description": "按 iOS 教程接入 Agora RTC 視頻通話。"
+    },
+    "agora-matchcast": {
+      "tagline": "爲體育與電競直播添加 Gemini 實時字幕。",
+      "description": "爲體育與電競直播添加 Gemini 實時字幕。"
+    },
+    "agora-meeting-copilot": {
+      "tagline": "讓 AI 隊友在實時會議中聆聽、回應並執行操作。",
+      "description": "讓 AI 隊友在實時會議中聆聽、回應並執行操作。"
+    },
+    "agora-podcasts": {
+      "tagline": "將任意主題變成可與聽衆對話的雙主持人直播播客。",
+      "description": "將任意主題變成可與聽衆對話的雙主持人直播播客。"
+    },
+    "agora-python-rtc-quickstart": {
+      "tagline": "使用 Python 接入 Agora RTC 工作流。",
+      "description": "使用 Python 接入 Agora RTC 工作流。"
+    },
+    "agora-rn-rtc-quickstart": {
+      "tagline": "使用 Agora RTC 構建跨平臺移動端視頻通話。",
+      "description": "使用 Agora RTC 構建跨平臺移動端視頻通話。"
+    },
+    "agora-rotary-dial-phone": {
+      "tagline": "通過交互式 3D 轉盤電話與實時 AI 角色通話。",
+      "description": "通過交互式 3D 轉盤電話與實時 AI 角色通話。"
+    },
+    "agora-rtc-signaling": {
+      "tagline": "通過信令協調實時 RTC 會話。",
+      "description": "通過信令協調實時 RTC 會話。"
+    },
+    "agora-spatial-voice-chat-tutorial": {
+      "tagline": "使用 Agora RTC 構建空間語音聊天體驗。",
+      "description": "使用 Agora RTC 構建空間語音聊天體驗。"
+    },
+    "agora-stt": {
+      "tagline": "通過語音轉文字工作流轉寫 Agora RTC 音頻。",
+      "description": "通過語音轉文字工作流轉寫 Agora RTC 音頻。"
+    },
+    "agora-voice-web-navigator": {
+      "tagline": "使用 Agora RTC 驅動語音控制的瀏覽器自動化。",
+      "description": "使用 Agora RTC 驅動語音控制的瀏覽器自動化。"
+    },
+    "aigc-service-example-rtc": {
+      "tagline": "將 AIGC 服務流程接入 Agora 實時媒體。",
+      "description": "將 AIGC 服務流程接入 Agora 實時媒體。"
+    },
+    "android-autopilot-voice-agent": {
+      "tagline": "使用 Agora Conversational AI 與 Gemini Vision 免手操作 Android 應用。",
+      "description": "使用 Agora Conversational AI 與 Gemini Vision 免手操作 Android 應用。"
+    },
+    "android-iot-video-calling-app": {
+      "tagline": "爲 Android IoT 應用接入 Agora 視頻通話。",
+      "description": "爲 Android IoT 應用接入 Agora 視頻通話。"
+    },
+    "android-quickstart": {
+      "tagline": "使用 Jetpack Compose 構建原生 Android 語音 AI 客戶端。",
+      "description": "使用 Jetpack Compose 構建原生 Android 語音 AI 客戶端。"
+    },
+    "android-transcription-widget": {
+      "tagline": "在 Android RTC 應用中嵌入語音轉寫組件。",
+      "description": "在 Android RTC 應用中嵌入語音轉寫組件。"
+    },
+    "aria-coteacher": {
+      "tagline": "爲虛擬課堂提供 AI 協同教師。",
+      "description": "爲虛擬課堂提供 AI 協同教師。"
+    },
+    "aria-voice-sales-agent": {
+      "tagline": "讓語音 AI 銷售助手在通話中評估線索、協商並實時寫入 CRM。",
+      "description": "讓語音 AI 銷售助手在通話中評估線索、協商並實時寫入 CRM。"
+    },
+    "athena": {
+      "tagline": "選中不理解的內容，直接用語音提問。",
+      "description": "選中不理解的內容，直接用語音提問。"
+    },
+    "babylonjs-rtc-demo": {
+      "tagline": "在 Babylon.js 場景中接入 Agora RTC 媒體。",
+      "description": "在 Babylon.js 場景中接入 Agora RTC 媒體。"
+    },
+    "bhaasha-agora": {
+      "tagline": "使用 Agora Conversational AI 構建多語言印度地圖語音導覽。",
+      "description": "使用 Agora Conversational AI 構建多語言印度地圖語音導覽。"
+    },
+    "cloud-gaming-rtc-example": {
+      "tagline": "使用 Agora RTC 傳輸交互式雲遊戲媒體。",
+      "description": "使用 Agora RTC 傳輸交互式雲遊戲媒體。"
+    },
+    "content-filter": {
+      "tagline": "過濾智能體回覆中的不安全或敏感內容。",
+      "description": "過濾智能體回覆中的不安全或敏感內容。"
+    },
+    "cross-session-memory": {
+      "tagline": "在不同通話間記住再次訪問的用戶。",
+      "description": "在不同通話間記住再次訪問的用戶。"
+    },
+    "csharp-rtc-quickstart": {
+      "tagline": "通過 C# 示例加入 Agora RTC 頻道。",
+      "description": "通過 C# 示例加入 Agora RTC 頻道。"
+    },
+    "custom-llm": {
+      "tagline": "接入你自己的 OpenAI 兼容 LLM 服務端點。",
+      "description": "接入你自己的 OpenAI 兼容 LLM 服務端點。"
+    },
+    "custom-modalities": {
+      "tagline": "接入自有 LLM 與自定義 TTS 語音。",
+      "description": "接入自有 LLM 與自定義 TTS 語音。"
+    },
+    "daily-mandir-ai": {
+      "tagline": "構建提供每日寺廟導覽的信仰助手。",
+      "description": "構建提供每日寺廟導覽的信仰助手。"
+    },
+    "dynamic-instructions": {
+      "tagline": "在會話進行中更新智能體的系統提示詞。",
+      "description": "在會話進行中更新智能體的系統提示詞。"
+    },
+    "dynamic-tools": {
+      "tagline": "根據當前上下文切換智能體可用的工具。",
+      "description": "根據當前上下文切換智能體可用的工具。"
+    },
+    "echo-panel-voice-ai": {
+      "tagline": "構建對話式語音助手界面。",
+      "description": "構建對話式語音助手界面。"
+    },
+    "esp32-iot-callkit-demo": {
+      "tagline": "使用 Agora 在 ESP32 上驗證嵌入式 IoT 通話。",
+      "description": "使用 Agora 在 ESP32 上驗證嵌入式 IoT 通話。"
+    },
+    "esp32-iot-device-demo": {
+      "tagline": "將 ESP32 設備接入 Agora IoT 通話流程。",
+      "description": "將 ESP32 設備接入 Agora IoT 通話流程。"
+    },
+    "event-observability": {
+      "tagline": "通過實時事件時間線觀察智能體運行狀態。",
+      "description": "通過實時事件時間線觀察智能體運行狀態。"
+    },
+    "filler-words": {
+      "tagline": "通過填充語和禮貌道別緩解等待延遲。",
+      "description": "通過填充語和禮貌道別緩解等待延遲。"
+    },
+    "flutter-call-subtitles": {
+      "tagline": "爲 Flutter 通話體驗添加實時字幕。",
+      "description": "爲 Flutter 通話體驗添加實時字幕。"
+    },
+    "flutter-quickstart": {
+      "tagline": "使用 Flutter 構建基礎 Agora Conversational AI 智能體。",
+      "description": "使用 Flutter 構建基礎 Agora Conversational AI 智能體。"
+    },
+    "gemini-agora-agentic-video-nextjs": {
+      "tagline": "通過 Gemini Agentic Video Understanding 與 Agora 語音 AI 對話瞭解視頻。",
+      "description": "通過 Gemini Agentic Video Understanding 與 Agora 語音 AI 對話瞭解視頻。"
+    },
+    "gemini-agora-voice-agents-go": {
+      "tagline": "使用 Go 與 Agora 構建 Gemini 語音智能體。",
+      "description": "使用 Go 與 Agora 構建 Gemini 語音智能體。"
+    },
+    "gemini-agora-voice-agents-nextjs": {
+      "tagline": "使用 Next.js 與 Agora 構建 Gemini 語音智能體。",
+      "description": "使用 Next.js 與 Agora 構建 Gemini 語音智能體。"
+    },
+    "gemini-agora-voice-agents-python": {
+      "tagline": "使用 Python 與 Agora 構建 Gemini 語音智能體。",
+      "description": "使用 Python 與 Agora 構建 Gemini 語音智能體。"
+    },
+    "golang-quickstart": {
+      "tagline": "使用 Go 構建基礎 Agora Conversational AI 智能體。",
+      "description": "使用 Go 構建基礎 Agora Conversational AI 智能體。"
+    },
+    "group-video-chat": {
+      "tagline": "使用 Agora RTC 構建瀏覽器端多人視頻聊天。",
+      "description": "使用 Agora RTC 構建瀏覽器端多人視頻聊天。"
+    },
+    "hello-agora-vision": {
+      "tagline": "構建沉浸式 visionOS RTC 示例。",
+      "description": "構建沉浸式 visionOS RTC 示例。"
+    },
+    "interruptions": {
+      "tagline": "調整用戶插話時智能體讓出話語權的方式。",
+      "description": "調整用戶插話時智能體讓出話語權的方式。"
+    },
+    "ios-iot-callkit-app": {
+      "tagline": "通過 Agora Link 通話連接 iOS 客戶端與設備。",
+      "description": "通過 Agora Link 通話連接 iOS 客戶端與設備。"
+    },
+    "ios-live-shopping-reference-app": {
+      "tagline": "使用 Agora RTC 構建 iOS 直播購物體驗。",
+      "description": "使用 Agora RTC 構建 iOS 直播購物體驗。"
+    },
+    "ios-lyrics-view-rtc-media": {
+      "tagline": "在 iOS 上同步歌詞界面與 Agora RTC 媒體。",
+      "description": "在 iOS 上同步歌詞界面與 Agora RTC 媒體。"
+    },
+    "ios-transcription-widget": {
+      "tagline": "在 iOS RTC 應用中嵌入實時轉寫界面。",
+      "description": "在 iOS RTC 應用中嵌入實時轉寫界面。"
+    },
+    "iot-callkit-device-demo": {
+      "tagline": "將 IoT 設備接入 Agora CallKit 通話流程。",
+      "description": "將 IoT 設備接入 Agora CallKit 通話流程。"
+    },
+    "jev-vad": {
+      "tagline": "讓語言模型判斷用戶是否說完，以及何時可以插話。",
+      "description": "讓語言模型判斷用戶是否說完，以及何時可以插話。"
+    },
+    "kaun-katega-taarpati": {
+      "tagline": "構建由服務端統一計時的三人 Hinglish 語音問答遊戲。",
+      "description": "構建由服務端統一計時的三人 Hinglish 語音問答遊戲。"
+    },
+    "labspark-ai": {
+      "tagline": "使用 Gemini 實時蘇格拉底式導師構建 AI 虛擬科學實驗室。",
+      "description": "使用 Gemini 實時蘇格拉底式導師構建 AI 虛擬科學實驗室。"
+    },
+    "live-video-react-app": {
+      "tagline": "使用 React 與 Agora RTC 構建實時視頻體驗。",
+      "description": "使用 React 與 Agora RTC 構建實時視頻體驗。"
+    },
+    "mcc-external-service-example": {
+      "tagline": "通過 MCC 探索音樂播放與卡拉 OK 評分。",
+      "description": "通過 MCC 探索音樂播放與卡拉 OK 評分。"
+    },
+    "mcp-tools": {
+      "tagline": "讓 Agora 編排 Model Context Protocol 服務上的工具。",
+      "description": "讓 Agora 編排 Model Context Protocol 服務上的工具。"
+    },
+    "mediaio-camera": {
+      "tagline": "採集並預覽自定義攝像頭視頻，用於 RTC 接入。",
+      "description": "採集並預覽自定義攝像頭視頻，用於 RTC 接入。"
+    },
+    "moodlens-voice-journal": {
+      "tagline": "構建以語音記錄心情的日記應用與情緒夥伴。",
+      "description": "構建以語音記錄心情的日記應用與情緒夥伴。"
+    },
+    "muse-ai": {
+      "tagline": "使用 Agora RTC 構建實時語音 AI 音樂製作夥伴，協助旋律構思。",
+      "description": "使用 Agora RTC 構建實時語音 AI 音樂製作夥伴，協助旋律構思。"
+    },
+    "nextjs-quickstart": {
+      "tagline": "使用 Next.js 構建基礎 Agora Conversational AI 智能體。",
+      "description": "使用 Next.js 構建基礎 Agora Conversational AI 智能體。"
+    },
+    "openai-gpt-live-go": {
+      "tagline": "使用 Agora 與 Go 構建實時 GPT Live 語音智能體。",
+      "description": "使用 Agora 與 Go 構建實時 GPT Live 語音智能體。"
+    },
+    "openai-gpt-live-nextjs": {
+      "tagline": "使用 Agora 與 Next.js 構建實時 GPT Live 語音智能體。",
+      "description": "使用 Agora 與 Next.js 構建實時 GPT Live 語音智能體。"
+    },
+    "openai-gpt-live-python": {
+      "tagline": "使用 Agora 與 Python 構建實時 GPT Live 語音智能體。",
+      "description": "使用 Agora 與 Python 構建實時 GPT Live 語音智能體。"
+    },
+    "pause-with-agora": {
+      "tagline": "構建由 Agora Conversational AI 驅動的 Chrome 插件示例。",
+      "description": "構建由 Agora Conversational AI 驅動的 Chrome 插件示例。"
+    },
+    "pillion": {
+      "tagline": "構建支持印地語和英語的免手操作語音副駕，協助騎行者安全操作手機。",
+      "description": "構建支持印地語和英語的免手操作語音副駕，協助騎行者安全操作手機。"
+    },
+    "push-to-talk": {
+      "tagline": "按住按鈕才啓用麥克風，明確控制語音輪次。",
+      "description": "按住按鈕才啓用麥克風，明確控制語音輪次。"
+    },
+    "python-quickstart": {
+      "tagline": "使用 Python 構建基礎 Agora Conversational AI 智能體。",
+      "description": "使用 Python 構建基礎 Agora Conversational AI 智能體。"
+    },
+    "rag": {
+      "tagline": "讓智能體基於你自己的知識庫回答問題。",
+      "description": "讓智能體基於你自己的知識庫回答問題。"
+    },
+    "real-time-transcription-demo": {
+      "tagline": "爲 Agora RTC 會話添加實時轉寫。",
+      "description": "爲 Agora RTC 會話添加實時轉寫。"
+    },
+    "realtime-translator": {
+      "tagline": "用一種語言說話，實時聽到另一種語言。",
+      "description": "用一種語言說話，實時聽到另一種語言。"
+    },
+    "realtime-vision": {
+      "tagline": "讓實時語音對話同時理解攝像頭畫面。",
+      "description": "讓實時語音對話同時理解攝像頭畫面。"
+    },
+    "realtime-voice": {
+      "tagline": "通過實時多模態模型實現語音到語音對話。",
+      "description": "通過實時多模態模型實現語音到語音對話。"
+    },
+    "recipe-agent-langchain": {
+      "tagline": "在 Agora 語音智能體中使用 LangChain 編排和調用工具。",
+      "description": "在 Agora 語音智能體中使用 LangChain 編排和調用工具。"
+    },
+    "rn-quickstart": {
+      "tagline": "使用 React Native 構建跨平臺語音 AI 客戶端。",
+      "description": "使用 React Native 構建跨平臺語音 AI 客戶端。"
+    },
+    "rtc-custom-camera": {
+      "tagline": "將自定義攝像頭視頻源發佈到 Agora RTC。",
+      "description": "將自定義攝像頭視頻源發佈到 Agora RTC。"
+    },
+    "rust-rtc-quickstart": {
+      "tagline": "使用 Rust 接入 Agora RTC 頻道。",
+      "description": "使用 Rust 接入 Agora RTC 頻道。"
+    },
+    "speaker-lock": {
+      "tagline": "鎖定主要說話人，並忽略其他人的聲音。",
+      "description": "鎖定主要說話人，並忽略其他人的聲音。"
+    },
+    "swiftui-quickstart": {
+      "tagline": "使用 SwiftUI 構建原生 iOS 語音 AI 客戶端。",
+      "description": "使用 SwiftUI 構建原生 iOS 語音 AI 客戶端。"
+    },
+    "thymia-biomarkers": {
+      "tagline": "爲 Agora 語音 AI 工作流添加 Thymia 生物標誌物分析。",
+      "description": "爲 Agora 語音 AI 工作流添加 Thymia 生物標誌物分析。"
+    },
+    "tool-calling": {
+      "tagline": "讓語音智能體調用工具，並通過 SQLite 查詢已有記錄。",
+      "description": "讓語音智能體調用工具，並通過 SQLite 查詢已有記錄。"
+    },
+    "trak-voice-ai": {
+      "tagline": "使用 Agora Voice AI 搜索曲目並控制音樂播放。",
+      "description": "使用 Agora Voice AI 搜索曲目並控制音樂播放。"
+    },
+    "unity-spatial-audio-spaces": {
+      "tagline": "使用 Unity 與 Agora RTC 創建空間音頻場景。",
+      "description": "使用 Unity 與 Agora RTC 創建空間音頻場景。"
+    },
+    "unity-virtual-camera-demos": {
+      "tagline": "將 Unity 場景作爲 Agora RTC 的自定義視頻源。",
+      "description": "將 Unity 場景作爲 Agora RTC 的自定義視頻源。"
+    },
+    "unity-virtual-camera-prefab": {
+      "tagline": "通過 Agora RTC 發佈 Unity 渲染的攝像頭畫面。",
+      "description": "通過 Agora RTC 發佈 Unity 渲染的攝像頭畫面。"
+    },
+    "vision": {
+      "tagline": "讓智能體看到用戶的攝像頭畫面。",
+      "description": "讓智能體看到用戶的攝像頭畫面。"
+    },
+    "visionos-rtc-quickstart": {
+      "tagline": "爲沉浸式 visionOS 示例接入 Agora RTC。",
+      "description": "爲沉浸式 visionOS 示例接入 Agora RTC。"
+    },
+    "voice-rpg": {
+      "tagline": "與 AI 地下城主持人一起玩語音驅動的桌面角色扮演遊戲。",
+      "description": "與 AI 地下城主持人一起玩語音驅動的桌面角色扮演遊戲。"
+    },
+    "watchwise-ai": {
+      "tagline": "構建幫助發現電影與劇集的 Next.js 語音智能體。",
+      "description": "構建幫助發現電影與劇集的 Next.js 語音智能體。"
+    },
+    "web-spatial-audio-demo": {
+      "tagline": "使用 Agora 構建瀏覽器端空間音頻體驗。",
+      "description": "使用 Agora 構建瀏覽器端空間音頻體驗。"
+    },
+    "webhooks": {
+      "tagline": "在你的服務端接收 Agora NCS 生命週期事件。",
+      "description": "在你的服務端接收 Agora NCS 生命週期事件。"
+    },
+    "webxr-rtc-demo": {
+      "tagline": "將 Agora RTC 音視頻帶入 WebXR 場景。",
+      "description": "將 Agora RTC 音視頻帶入 WebXR 場景。"
+    },
+    "wellness-coach": {
+      "tagline": "構建進階健康指導語音 AI 示例。",
+      "description": "構建進階健康指導語音 AI 示例。"
+    },
+    "worldcupvoice": {
+      "tagline": "爲體育直播添加理解畫面內容的 AI 語音解說。",
+      "description": "爲體育直播添加理解畫面內容的 AI 語音解說。"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 'use client'
 
+import { useI18n } from "@/components/locale-provider"
 import * as React from 'react'
 import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { XIcon } from 'lucide-react'
@@ -54,6 +55,7 @@ function SheetContent({
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: 'top' | 'right' | 'bottom' | 'left'
 }) {
+  const { t } = useI18n()
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -77,7 +79,7 @@ function SheetContent({
       >
         <GlassSurface material="liquid">
           {children}
-          <SheetPrimitive.Close asChild><Button variant="ghost" size="icon" className="absolute top-4 right-4" aria-label="Close filters"><XIcon aria-hidden="true" /></Button></SheetPrimitive.Close>
+          <SheetPrimitive.Close asChild><Button variant="ghost" size="icon" className="absolute top-4 right-4" aria-label={t("Close filters")}><XIcon aria-hidden="true" /></Button></SheetPrimitive.Close>
         </GlassSurface>
       </SheetPrimitive.Content>
     </SheetPortal>

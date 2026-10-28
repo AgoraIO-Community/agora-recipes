@@ -1,0 +1,47 @@
+name: Share a project or guide
+description: Submit an Agora demo, video, source repository, or implementation guide.
+title: "[Submission] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share materials that already exist. A demo, video, source repository, or guide is enough; you do not need all four or translated copies.
+        This Issue is public. Do not include private email addresses, credentials, or other private information.
+        Maintainers will review this Issue and prepare a catalog PR. Submission does not publish automatically.
+  - type: input
+    id: title
+    attributes:
+      label: Project or guide name
+    validations:
+      required: true
+  - type: textarea
+    id: introduction
+    attributes:
+      label: Introduction
+      description: Explain what it does and who it helps, in your own language.
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Public author credit
+      description: The person or team to credit on the site. Do not provide a private email address.
+    validations:
+      required: true
+  - type: textarea
+    id: materials
+    attributes:
+      label: Existing material links
+      description: Provide at least one public demo, video, source, or guide URL. Label each link so reviewers know what it opens.
+    validations:
+      required: true
+  - type: input
+    id: topic
+    attributes:
+      label: Existing Topic reference (optional)
+      description: Add an existing activity or collection link, if applicable. A new tag does not create a Topic.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Setup or access notes (optional)
+      description: Note required devices, accounts, or public setup instructions. Never include credentials.

@@ -10,5 +10,29 @@
   "recipeUrl": "https://github.com/zicojiao/agora-arena/blob/main/docs/ai/RECIPE.md",
   "author": "zicojiao",
   "updated": "2026-10-26",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Agora Arena",
+    "compactTitle": "Agora Arena",
+    "summary": "Create your own ultimate moves by voice in a browser fighting game with Agora multiplayer voice chat.",
+    "compactSummary": "Speak your ultimate. Watch it land.",
+    "thumbnail": "/recipes/agora-arena.jpg",
+    "thumbnailAlt": "English Agora Arena gameplay showing Emberpaw and Cloudhop with the FastH3 ultimate gauge ready",
+    "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/agora-arena/4318b3fed5a453a05a04ae14182e88310be16edc/docs/images/fight.jpg",
+    "demoNote": "English gameplay screenshot. Run the open-source project with your own provider credentials.",
+    "labels": [
+      "Gaming",
+      "AI video"
+    ],
+    "searchTerms": [
+      "gaming",
+      "fighting game",
+      "voice chat",
+      "multiplayer",
+      "ultimate moves",
+      "FastH3 Omni",
+      "Reactor",
+      "transcription"
+    ]
+  }
 }

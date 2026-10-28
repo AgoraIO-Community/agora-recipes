@@ -1,0 +1,818 @@
+{
+  "ui": {
+    "Language": "言語",
+    "Skip to main content": "メインコンテンツへ",
+    "Docs": "ドキュメント",
+    "Documentation": "ドキュメント",
+    "Recipes": "Recipes",
+    "Main navigation": "メインナビゲーション",
+    "Site navigation": "サイトナビゲーション",
+    "Mobile navigation": "モバイルナビゲーション",
+    "Agora Recipes home": "Agora Recipes ホーム",
+    "Contribute": "投稿",
+    "Get started": "はじめる",
+    "Open navigation": "ナビゲーションを開く",
+    "Close navigation": "ナビゲーションを閉じる",
+    "{label} (opens in a new tab)": "{label}（新しいタブで開く）",
+    "Switch to light theme": "ライトテーマに切り替える",
+    "Switch to dark theme": "ダークテーマに切り替える",
+    "Share your project.": "あなたのプロジェクトを共有しましょう。",
+    "Add your Agora project, demo, or guide to the collection.": "Agora のプロジェクト、デモ、ガイドを共有できます。",
+    "Contribute on GitHub": "GitHub で投稿",
+    "Working Voice AI and RTC projects, built with Agora.": "Agora で構築された Voice AI と RTC のプロジェクト。",
+    "Explore": "探す",
+    "Browse recipes": "コンテンツを探す",
+    "Build with Agora": "Agora で構築",
+    "Agora Console": "Agora コンソール",
+    "Legal": "法的情報",
+    "Privacy Policy": "プライバシーポリシー",
+    "Cookie Policy": "Cookie ポリシー",
+    "Terms of Service": "利用規約",
+    "Acceptable Use Policy": "利用に関するポリシー",
+    "Back to top": "ページ上部へ",
+    "Open-source recipes for building voice agents, transcription, translation, and accessibility workflows with Agora.": "Agora を使った音声エージェント、文字起こし、翻訳、アクセシビリティのオープンソース事例。",
+    "Build voice agents, transcription, translation, and accessibility workflows with Agora.": "Agora で音声エージェント、文字起こし、翻訳、アクセシビリティ機能を構築します。",
+    "Explore projects and recipes.": "プロジェクトと実践ガイドを探す。",
+    "Voice AI and real-time apps, with working code.": "Voice AI とリアルタイムアプリのデモや実践ガイドを探せます。",
+    "Search recipes, descriptions, or authors": "コンテンツ、説明、作成者を検索",
+    "Search recipes, capabilities…": "プロジェクト、ガイド、機能を検索…",
+    "Clear search": "検索をクリア",
+    "Sort recipes": "並べ替え",
+    "Recently updated": "最近の更新",
+    "Most relevant": "関連度順",
+    "Recommended": "おすすめ",
+    "A–Z": "名前順",
+    "{count} selected": "{count} 件選択中",
+    "Find {label}": "{label}を検索",
+    "No matching options.": "一致する項目がありません。",
+    "Show all {count}": "全 {count} 件を表示",
+    "Show fewer": "表示を減らす",
+    "Quick filters": "クイックフィルター",
+    "All": "すべて",
+    "All topics": "すべて",
+    "Voice agents": "音声エージェント",
+    "Video calling": "ビデオ通話",
+    "Tool calling": "ツール呼び出し",
+    "Transcription": "文字起こし",
+    "Translation": "翻訳",
+    "Filters": "絞り込み",
+    "Filters, {count} active": "絞り込み、{count} 件適用中",
+    "Refine recipes": "コンテンツを絞り込む",
+    "Find the right starting point for your project.": "プロジェクトに合った出発点を見つけましょう。",
+    "Sort by": "並べ替え",
+    "Category": "カテゴリ",
+    "Recipe category": "コンテンツのカテゴリ",
+    "Has a demo": "デモあり",
+    "Video or live app": "動画またはアプリ",
+    "Available materials": "利用できる資料",
+    "Matches every selected material.": "選択した資料をすべて含むコンテンツ。",
+    "Demo": "デモ",
+    "Video": "動画",
+    "Source": "ソースコード",
+    "Recipe": "Recipe",
+    "Platforms & languages": "プラットフォームと言語",
+    "Matches any selected technology.": "選択した技術のいずれかに一致。",
+    "Use cases": "ユースケース",
+    "Matches any selected use case.": "選択した用途のいずれかに一致。",
+    "Models & capabilities": "モデルと機能",
+    "Matches every selected capability.": "選択した機能のすべてに一致。",
+    "Reset filters": "絞り込みをリセット",
+    "Show {count} results": "{count} 件の結果を表示",
+    "Selected filters": "適用中の絞り込み",
+    "Remove {label} filter": "{label}の絞り込みを解除",
+    "Clear filters": "絞り込みをクリア",
+    "{count} results": "{count} 件の結果",
+    "Explore the collection": "コレクションを探す",
+    "{count} entries": "{count} 件のコンテンツ",
+    "Show fewer recipes": "表示を減らす",
+    "Explore {count} more recipes": "さらに {count} 件を見る",
+    "No matching recipes": "一致するコンテンツがありません",
+    "Try a broader search or remove a filter above.": "検索語を変えるか、絞り込み条件を減らしてください。",
+    "Clear search and filters": "検索と絞り込みをクリア",
+    "Watch demo": "デモを見る",
+    "Live demo": "デモを試す",
+    "Watch {title} demo": "{title} のデモを見る",
+    "Try {title} demo (opens in a new tab)": "{title} のデモを試す（新しいタブ）",
+    "Technology and difficulty": "技術と難易度",
+    "Recipe guide": "実践ガイド",
+    "View project": "プロジェクトを見る",
+    "Open {title} recipe": "{title} の詳細を開く",
+    "Project preview": "プロジェクトのプレビュー",
+    "Try live demo": "デモを試す",
+    "{title} demo preview": "{title} のデモプレビュー",
+    "Your browser does not support video playback. Open the original video below.": "動画を再生できません。下のリンクから元の動画を開いてください。",
+    "This video couldn’t load. You can open the original video or view the project below.": "動画を読み込めません。元の動画またはプロジェクトを開いてください。",
+    "Original video": "元の動画",
+    "Read recipe": "Recipe を読む",
+    "Back to recipes": "コンテンツ一覧に戻る",
+    "Back to results": "検索結果に戻る",
+    "Recipe not found": "コンテンツが見つかりません",
+    "Try demo": "デモを試す",
+    "Try demo (opens in a new tab)": "デモを試す（新しいタブ）",
+    "Source on GitHub (opens in a new tab)": "GitHub のソースコード（新しいタブ）",
+    "Copy recipe prompt": "Recipe のプロンプトをコピー",
+    "Recipe prompt": "Recipe のプロンプト",
+    "Paste the prompt into Cursor, Claude Code, or your coding agent.": "プロンプトを Cursor、Claude Code などのコーディングエージェントに貼り付けます。",
+    "Recipe sections": "コンテンツのセクション",
+    "Build with agent": "エージェントで構築",
+    "Implementation guide": "実践ガイド",
+    "Build with your coding agent": "コーディングエージェントで構築",
+    "View recipe prompt": "Recipe のプロンプトを表示",
+    "Start with Agora CLI": "Agora CLI で開始",
+    "Clone this recipe and configure it with an Agora project.": "この Recipe を複製し、Agora プロジェクトを設定します。",
+    "View on GitHub": "GitHub で見る",
+    "In this guide": "このガイドの目次",
+    "Guide contents on mobile": "モバイル用の目次",
+    "Recipe information": "コンテンツ情報",
+    "About this recipe": "この Recipe について",
+    "About this project": "このプロジェクトについて",
+    "Author": "作成者",
+    "Updated": "更新日",
+    "Difficulty": "難易度",
+    "Beginner": "初級",
+    "Intermediate": "中級",
+    "Advanced": "上級",
+    "Use cases & capabilities": "用途と機能",
+    "Related projects and recipes": "関連プロジェクトとガイド",
+    "Guide": "ガイド",
+    "Recipe format": "ドキュメント形式",
+    "Copy markdown": "Markdown をコピー",
+    "Copy": "コピー",
+    "Text": "テキスト",
+    "Prompt": "プロンプト",
+    "Copied": "コピーしました",
+    "Copy failed": "コピーできませんでした",
+    "{subject} copied": "{subject}をコピーしました",
+    "Copy {subject}": "{subject}をコピー",
+    "{subject} copied to clipboard.": "{subject}をクリップボードにコピーしました。",
+    "Copy failed. Select the text and copy it manually.": "コピーできませんでした。テキストを選択して手動でコピーしてください。",
+    "{label} code": "{label} のコード",
+    "The guide couldn’t be loaded": "ガイドを読み込めませんでした",
+    "You can still copy the recipe prompt or open the implementation on GitHub.": "Recipe のプロンプトのコピーや GitHub の実装の確認は可能です。",
+    "Open source guide": "元のガイドを開く",
+    "Guide language": "ガイドの言語",
+    "Shown as published by its author; website language does not translate the source guide.": "作成者が公開した原文です。サイトの言語を変えてもガイド本文は翻訳されません。",
+    "Close": "閉じる",
+    "How to use recipes": "使い方",
+    "How to use these recipes": "コンテンツの使い方",
+    "Find your starting point": "出発点を見つける",
+    "Browse projects and recipes, then filter by platform, use case, or available material.": "プロジェクトとガイドを、技術、用途、資料で絞り込めます。",
+    "Try it or bring it to your coding agent": "デモを試す、またはエージェントで構築する",
+    "Open an available demo or video. If a recipe is provided, copy its prompt or follow the original guide.": "デモや動画を開きます。Recipe がある場合は、プロンプトをコピーするか元のガイドに従ってください。",
+    "Configure, run, and make it yours": "設定し、実行して、自分の用途に合わせる",
+    "Follow the author’s setup instructions and test the example before adapting it to your workflow.": "作成者の手順に従い、サンプルを確認してから自分の用途に合わせてください。",
+    "Explore demos, source, and guides. Each entry shows only the materials its author provides.": "デモ、ソースコード、ガイドを探せます。各項目には実際に提供された資料だけを表示します。",
+    "We couldn’t find that recipe.": "コンテンツが見つかりませんでした。",
+    "This recipe may have moved. Browse the list to find the right sample.": "コンテンツが移動した可能性があります。一覧から探してください。",
+    "Share what you built": "作成したコンテンツを共有する",
+    "Submit your existing demo, video, source, or guide. A GitHub account is required.": "デモ、動画、ソースコード、ガイドを投稿できます。GitHub アカウントが必要です。",
+    "GitHub form": "GitHub 投稿フォーム",
+    "Open the form on GitHub. Your Issue is public and keeps the original submission, review discussion, and final publication link.": "GitHub のフォームを開きます。Issue は公開され、投稿内容、レビュー、公開後のリンクが記録されます。",
+    "Open GitHub form": "GitHub フォームを開く",
+    "Direct pull request": "Pull Request を送る",
+    "Keep the existing workflow: fork the repository, update catalog metadata, and open a PR to staging. A submission Issue is optional.": "リポジトリを Fork し、メタデータを更新して staging に PR を送ります。事前の投稿 Issue は不要です。",
+    "Contribution instructions": "投稿手順",
+    "Submit only public materials. Do not include private email addresses, credentials, or other private information.": "公開できる資料だけを投稿してください。個人のメール、認証情報、非公開情報は含めないでください。",
+    "After submission, follow review in the GitHub Issue. Publication follows a reviewed catalog PR and the existing release process.": "投稿後は GitHub Issue でレビューを確認します。カタログの PR が承認され、既存の手順で公開されます。",
+    "A guide, source repository, or four translated submissions are not required for every entry.": "すべての投稿にガイド、ソースコード、4 言語の翻訳が必要なわけではありません。",
+    "Accessibility": "アクセシビリティ",
+    "Audio": "音声",
+    "Audio & Music": "音声と音楽",
+    "Audio Streaming": "音声配信",
+    "Automation": "自動化",
+    "Browser Automation": "ブラウザー自動操作",
+    "Calling": "通話",
+    "Channel Management": "チャンネル管理",
+    "Chrome Extension": "Chrome 拡張機能",
+    "Client UX": "クライアント体験",
+    "Cloud Gaming": "クラウドゲーム",
+    "Conversation Design": "対話設計",
+    "Conversational AI": "対話型 AI",
+    "Creative Studio": "クリエイティブスタジオ",
+    "Custom LLM": "カスタム LLM",
+    "Custom Media": "カスタムメディア",
+    "Custom Video": "カスタム映像",
+    "Customer Support": "カスタマーサポート",
+    "Devotional": "信仰支援",
+    "Education": "教育",
+    "Embedded": "組み込み機器",
+    "Entertainment": "エンターテインメント",
+    "Gaming": "ゲーム",
+    "Health & Wellness": "健康管理",
+    "Healthcare": "ヘルスケア",
+    "Immersive": "没入型体験",
+    "Interactive Audio": "対話型音声",
+    "Interactive Streaming": "双方向配信",
+    "Knowledge Base": "ナレッジベース",
+    "Live Shopping": "ライブショッピング",
+    "Live Streaming": "ライブ配信",
+    "Media Playback": "メディア再生",
+    "Meetings": "会議",
+    "Memory": "メモリー",
+    "Model Integration": "モデル連携",
+    "Moderation": "コンテンツ管理",
+    "Multi-Agent": "マルチエージェント",
+    "Multimodal": "マルチモーダル",
+    "Noise Robustness": "耐ノイズ性",
+    "Observability": "オブザーバビリティ",
+    "Personalization": "パーソナライズ",
+    "Quickstart": "クイックスタート",
+    "RTC Workflow": "RTC ワークフロー",
+    "Realtime": "リアルタイム",
+    "Realtime Media": "リアルタイムメディア",
+    "Safety": "安全性",
+    "Sales": "営業",
+    "Service Integration": "サービス連携",
+    "Signaling": "シグナリング",
+    "Smart Home": "スマートホーム",
+    "Spatial Audio": "空間音声",
+    "Subtitles": "字幕",
+    "Task Automation": "タスク自動化",
+    "Tool Use": "ツール利用",
+    "Video Calling": "ビデオ通話",
+    "Vision": "ビジョン",
+    "Voice Calling": "音声通話",
+    "Voice Chat": "音声チャット",
+    "Wellness": "ウェルネス",
+    "3D Scene": "3D シーン",
+    "AI Video Generation": "AI 動画生成",
+    "AI Workflow": "AI ワークフロー",
+    "AIGC Service": "AIGC サービス",
+    "Agent Handoff": "エージェント引き継ぎ",
+    "Android Accessibility": "Android アクセシビリティ",
+    "Android Widget": "Android ウィジェット",
+    "Audio Processing": "音声処理",
+    "Audio Video": "音声と映像",
+    "Biomarkers": "バイオマーカー",
+    "CRM Integration": "CRM 連携",
+    "Channel Control": "チャンネル制御",
+    "Channel Join": "チャンネル参加",
+    "Coaching": "コーチング",
+    "Content Moderation": "コンテンツ管理",
+    "Custom Camera": "カスタムカメラ",
+    "Custom TTS": "カスタム TTS",
+    "Custom Video Source": "カスタム映像ソース",
+    "Daily Rituals": "日々の習慣",
+    "Delegated Reasoning": "推論の委任",
+    "Device Calling": "デバイス通話",
+    "Dynamic Tools": "動的ツール",
+    "Filler Words": "つなぎの言葉",
+    "Function Calling": "関数呼び出し",
+    "Game State": "ゲーム状態",
+    "Group Video": "グループビデオ",
+    "Guidance": "ガイド",
+    "Host Audience": "配信者と視聴者",
+    "Humming Service": "Humming サービス",
+    "Integrations": "連携",
+    "Interactive Demo": "操作できるデモ",
+    "Interactive Whiteboard": "インタラクティブホワイトボード",
+    "Interruptions": "割り込み処理",
+    "Latency Smoothing": "遅延の緩和",
+    "Live Captions": "リアルタイム字幕",
+    "Live Video": "ライブ映像",
+    "Lyrics View": "歌詞表示",
+    "Manual Turn Control": "手動ターン制御",
+    "Mobile": "モバイル",
+    "Mobile App": "モバイルアプリ",
+    "Music Content Center": "音楽コンテンツセンター",
+    "Music Playback": "音楽再生",
+    "Native": "ネイティブ",
+    "Prompt Injection": "プロンプトインジェクション",
+    "Prompt Management": "プロンプト管理",
+    "Push to Talk": "プッシュ・トゥ・トーク",
+    "Real-Time Audio": "リアルタイム音声",
+    "Real-Time Transcription": "リアルタイム文字起こし",
+    "Realtime Audio": "リアルタイム音声",
+    "Reference App": "参照アプリ",
+    "Retrieval": "検索",
+    "Sentiment Analysis": "感情分析",
+    "Session Control": "セッション制御",
+    "Spatial App": "空間アプリ",
+    "Speaker Lock": "話者の固定",
+    "Speech Translation": "音声翻訳",
+    "Speech-to-Text": "音声認識",
+    "Speech-to-Text UI": "文字起こし UI",
+    "State Management": "状態管理",
+    "Tool Calling": "ツール呼び出し",
+    "Transcription UI": "文字起こし UI",
+    "Turn Detection": "発話ターン検出",
+    "Virtual Camera": "仮想カメラ",
+    "Voice Agent": "音声エージェント",
+    "iOS UI": "iOS UI",
+    "iOS Widget": "iOS ウィジェット",
+    "Python": "Python",
+    "TypeScript": "TypeScript",
+    "Voice AI": "Voice AI",
+    "Gemini": "Gemini",
+    "Gemini Live": "Gemini Live",
+    "FastAPI": "FastAPI",
+    "Unity": "Unity",
+    "C#": "C#",
+    "Agora RTC": "Agora RTC",
+    "React Native": "React Native",
+    "iOS": "iOS",
+    "Android": "Android",
+    "Go": "Go",
+    "Swift": "Swift",
+    "IoT": "IoT",
+    "RTM": "RTM",
+    "MCP": "MCP",
+    "JavaScript": "JavaScript",
+    "Web": "Web",
+    "Web SDK": "Web SDK",
+    "Vite": "Vite",
+    "React": "React",
+    "Flutter": "Flutter",
+    "OpenAI GPT Live": "OpenAI GPT Live",
+    "visionOS": "visionOS",
+    "Next.js": "Next.js",
+    "SQLite": "SQLite",
+    "Agora Signaling": "Agora Signaling",
+    "STT": "STT",
+    "Rust": "Rust",
+    "TTS": "TTS",
+    "CallKit": "CallKit",
+    "C": "C",
+    "Linux": "Linux",
+    "RAG": "RAG",
+    "MLLM": "MLLM",
+    "Jetpack Compose": "Jetpack Compose",
+    "AIGC": "AIGC",
+    "REST API": "REST API",
+    "Babylon.js": "Babylon.js",
+    "WebXR": "WebXR",
+    "Web Audio API": "Web Audio API",
+    "HTML": "HTML",
+    "Dart": "Dart",
+    "Gemini AI": "Gemini AI",
+    "ESP32": "ESP32",
+    "SwiftUI": "SwiftUI",
+    "MediaIO": "MediaIO",
+    "Electron": "Electron",
+    "Gemini Vision": "Gemini Vision",
+    "TMDB": "TMDB",
+    "Webhooks": "Webhooks",
+    "Three.js": "Three.js",
+    "Recipe metadata": "Recipe のメタデータ",
+    "Field": "項目",
+    "Value": "値",
+    "Completed task": "完了したタスク",
+    "Incomplete task": "未完了のタスク",
+    "Recipe diagram": "ガイドの図",
+    "Scrollable diagram": "スクロールできる図",
+    "Recipe diagram; text description is available in Diagram source below": "ガイドの図。テキストは下のソースで確認できます",
+    "This diagram could not be rendered. Its source is available below.": "図を表示できません。ソースを下に表示します。",
+    "Loading diagram…": "図を読み込み中…",
+    "Fit to width": "幅に合わせる",
+    "View actual size": "実際のサイズで表示",
+    "Diagram source": "図のソース",
+    "Close filters": "絞り込みを閉じる",
+    "Close dialog": "ダイアログを閉じる",
+    "Camera and microphone needed": "カメラとマイクが必要です",
+    "The existing React Live Video demo entry screen with an Agora logo, channel field, and Connect button": "Agora ロゴ、チャンネル入力欄、接続ボタンがある React Live Video デモの開始画面",
+    "English gameplay screenshot. Run the open-source project with your own provider credentials.": "英語のゲーム画面です。オープンソース版の実行には、ご自身のプロバイダー認証情報が必要です。",
+    "English Agora Arena gameplay showing Emberpaw and Cloudhop with the FastH3 ultimate gauge ready": "Emberpaw と Cloudhop、および使用可能な FastH3 必殺技ゲージを表示した英語版 Agora Arena のゲーム画面",
+    "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.": "英語の画面です。開始には人間のプレイヤーが 2 人必要です。任意の AI 対戦相手を使うには、ホストが Reactor API キーを用意する必要があります。",
+    "English Draw & Guess illustrated cover showing a cat sketch becoming video, with Agora Realtime and FastH3 Video Proof labels": "猫のスケッチが動画になる様子と、Agora Realtime および FastH3 Video Proof のラベルを描いた英語版 Draw & Guess の表紙",
+    "Microphone needed": "マイクが必要です",
+    "Aria live call interface with conversation transcript and call controls": "会話の文字起こしと通話操作を備えた Aria の通話画面",
+    "Chinese experience": "中国語のデモです",
+    "Agora Podcasts illustrated landing page with its two AI hosts": "2 人の AI ホストを描いた Agora Podcasts のトップページ",
+    "Chinese experience · Microphone needed": "中国語のデモです · マイクが必要です",
+    "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe": "電話と金庫がある中国語の 3D 脱出ゲーム、Rotary Dial Phone の公開デモ",
+    "Recorded demo": "デモ動画",
+    "WorldCupVoice World Cup final poster from the implementation repository": "実装リポジトリにある WorldCupVoice のワールドカップ決勝ポスター",
+    "AI demo requires your OpenAI API key": "AI デモにはご自身の OpenAI API キーが必要です",
+    "Existing Meeting Copilot video showing a live meeting alongside a shared task board": "ライブ会議と共有タスクボードを並べた Meeting Copilot の既存動画"
+  },
+  "entries": {
+    "ag-iot-ios-app": {
+      "tagline": "iOS の IoT アプリに Agora のビデオ通話を組み込みます。",
+      "description": "iOS の IoT アプリに Agora のビデオ通話を組み込みます。"
+    },
+    "agent-delegation": {
+      "tagline": "別のモデルに推論とツール呼び出しを委任し、音声エージェントの応答性を保ちます。",
+      "description": "別のモデルに推論とツール呼び出しを委任し、音声エージェントの応答性を保ちます。"
+    },
+    "agent-handoff": {
+      "tagline": "専門の異なるエージェント間で会話を引き継ぎます。",
+      "description": "専門の異なるエージェント間で会話を引き継ぎます。"
+    },
+    "agora-aigc-demo": {
+      "tagline": "AIGC の対話機能と Agora のリアルタイムメディアを組み合わせます。",
+      "description": "AIGC の対話機能と Agora のリアルタイムメディアを組み合わせます。"
+    },
+    "agora-arena": {
+      "tagline": "音声で自分だけのゲームの必殺技を作ります。",
+      "description": "音声で自分だけのゲームの必殺技を作ります。"
+    },
+    "agora-breath-companion": {
+      "tagline": "Agora で呼吸ガイドと音声エージェントの体験を構築します。",
+      "description": "Agora で呼吸ガイドと音声エージェントの体験を構築します。"
+    },
+    "agora-channel-management": {
+      "tagline": "チャンネルのユーザーを確認し、RTC の権限を管理します。",
+      "description": "チャンネルのユーザーを確認し、RTC の権限を管理します。"
+    },
+    "agora-drawguess": {
+      "tagline": "友人とお絵描きクイズを楽しみ、動画で答えを証明する AI と競います。",
+      "description": "友人とお絵描きクイズを楽しみ、動画で答えを証明する AI と競います。"
+    },
+    "agora-flutter-rtc-quickstart": {
+      "tagline": "Agora RTC でクロスプラットフォームの Flutter ビデオ通話を構築します。",
+      "description": "Agora RTC でクロスプラットフォームの Flutter ビデオ通話を構築します。"
+    },
+    "agora-gemini-mllm-go": {
+      "tagline": "Go、Agora、Gemini 3.8 Live MLLM でエンドツーエンドの音声エージェントを構築します。",
+      "description": "Go、Agora、Gemini 3.8 Live MLLM でエンドツーエンドの音声エージェントを構築します。"
+    },
+    "agora-gemini-mllm-nextjs": {
+      "tagline": "Next.js、Agora、Gemini 3.8 Live MLLM でエンドツーエンドの音声エージェントを構築します。",
+      "description": "Next.js、Agora、Gemini 3.8 Live MLLM でエンドツーエンドの音声エージェントを構築します。"
+    },
+    "agora-gemini-mllm-python": {
+      "tagline": "Python、Agora、Gemini 3.8 Live MLLM でエンドツーエンドの音声エージェントを構築します。",
+      "description": "Python、Agora、Gemini 3.8 Live MLLM でエンドツーエンドの音声エージェントを構築します。"
+    },
+    "agora-gemma-voice-coach": {
+      "tagline": "Agora の音声セッションとローカルの Gemma 推論を組み合わせます。",
+      "description": "Agora の音声セッションとローカルの Gemma 推論を組み合わせます。"
+    },
+    "agora-humming-service-example": {
+      "tagline": "ネイティブのモバイルサンプルで Humming サービスを試します。",
+      "description": "ネイティブのモバイルサンプルで Humming サービスを試します。"
+    },
+    "agora-ios-guide": {
+      "tagline": "iOS 向けガイドに沿って Agora RTC のビデオ通話を組み込みます。",
+      "description": "iOS 向けガイドに沿って Agora RTC のビデオ通話を組み込みます。"
+    },
+    "agora-matchcast": {
+      "tagline": "スポーツや e スポーツの配信に Gemini のリアルタイム字幕を追加します。",
+      "description": "スポーツや e スポーツの配信に Gemini のリアルタイム字幕を追加します。"
+    },
+    "agora-meeting-copilot": {
+      "tagline": "リアルタイム会議で AI のチームメイトが聞き取り、応答し、操作を実行します。",
+      "description": "リアルタイム会議で AI のチームメイトが聞き取り、応答し、操作を実行します。"
+    },
+    "agora-podcasts": {
+      "tagline": "任意の話題を、視聴者が会話に参加できる 2 人司会のライブポッドキャストにします。",
+      "description": "任意の話題を、視聴者が会話に参加できる 2 人司会のライブポッドキャストにします。"
+    },
+    "agora-python-rtc-quickstart": {
+      "tagline": "Python で Agora RTC のワークフローに接続します。",
+      "description": "Python で Agora RTC のワークフローに接続します。"
+    },
+    "agora-rn-rtc-quickstart": {
+      "tagline": "Agora RTC でクロスプラットフォームのモバイルビデオ通話を構築します。",
+      "description": "Agora RTC でクロスプラットフォームのモバイルビデオ通話を構築します。"
+    },
+    "agora-rotary-dial-phone": {
+      "tagline": "操作できる 3D ダイヤル式電話からリアルタイムの AI キャラクターに電話します。",
+      "description": "操作できる 3D ダイヤル式電話からリアルタイムの AI キャラクターに電話します。"
+    },
+    "agora-rtc-signaling": {
+      "tagline": "シグナリングでリアルタイムの RTC セッションを連携します。",
+      "description": "シグナリングでリアルタイムの RTC セッションを連携します。"
+    },
+    "agora-spatial-voice-chat-tutorial": {
+      "tagline": "Agora RTC で空間音声チャットを構築します。",
+      "description": "Agora RTC で空間音声チャットを構築します。"
+    },
+    "agora-stt": {
+      "tagline": "音声認識のワークフローで Agora RTC の音声を文字に起こします。",
+      "description": "音声認識のワークフローで Agora RTC の音声を文字に起こします。"
+    },
+    "agora-voice-web-navigator": {
+      "tagline": "Agora RTC を使い、音声でブラウザーを自動操作します。",
+      "description": "Agora RTC を使い、音声でブラウザーを自動操作します。"
+    },
+    "aigc-service-example-rtc": {
+      "tagline": "AIGC サービスの処理を Agora のリアルタイムメディアに接続します。",
+      "description": "AIGC サービスの処理を Agora のリアルタイムメディアに接続します。"
+    },
+    "android-autopilot-voice-agent": {
+      "tagline": "Agora Conversational AI と Gemini Vision で Android アプリをハンズフリー操作します。",
+      "description": "Agora Conversational AI と Gemini Vision で Android アプリをハンズフリー操作します。"
+    },
+    "android-iot-video-calling-app": {
+      "tagline": "Android の IoT アプリに Agora のビデオ通話を追加します。",
+      "description": "Android の IoT アプリに Agora のビデオ通話を追加します。"
+    },
+    "android-quickstart": {
+      "tagline": "Jetpack Compose でネイティブの Android 音声 AI クライアントを構築します。",
+      "description": "Jetpack Compose でネイティブの Android 音声 AI クライアントを構築します。"
+    },
+    "android-transcription-widget": {
+      "tagline": "Android の RTC アプリに文字起こしウィジェットを組み込みます。",
+      "description": "Android の RTC アプリに文字起こしウィジェットを組み込みます。"
+    },
+    "aria-coteacher": {
+      "tagline": "オンライン教室向けの AI 共同教師を構築します。",
+      "description": "オンライン教室向けの AI 共同教師を構築します。"
+    },
+    "aria-voice-sales-agent": {
+      "tagline": "音声 AI 営業担当が通話中に見込み客を評価し、交渉し、CRM に記録します。",
+      "description": "音声 AI 営業担当が通話中に見込み客を評価し、交渉し、CRM に記録します。"
+    },
+    "athena": {
+      "tagline": "分からない部分を選択し、声に出して質問できます。",
+      "description": "分からない部分を選択し、声に出して質問できます。"
+    },
+    "babylonjs-rtc-demo": {
+      "tagline": "Babylon.js のシーンに Agora RTC のメディアを組み込みます。",
+      "description": "Babylon.js のシーンに Agora RTC のメディアを組み込みます。"
+    },
+    "bhaasha-agora": {
+      "tagline": "Agora Conversational AI で多言語対応のインド地図音声ガイドを構築します。",
+      "description": "Agora Conversational AI で多言語対応のインド地図音声ガイドを構築します。"
+    },
+    "cloud-gaming-rtc-example": {
+      "tagline": "Agora RTC で対話型クラウドゲームのメディアを配信します。",
+      "description": "Agora RTC で対話型クラウドゲームのメディアを配信します。"
+    },
+    "content-filter": {
+      "tagline": "エージェントの応答に含まれる安全でない内容や機密情報を除去します。",
+      "description": "エージェントの応答に含まれる安全でない内容や機密情報を除去します。"
+    },
+    "cross-session-memory": {
+      "tagline": "通話をまたいで再訪したユーザーの情報を記憶します。",
+      "description": "通話をまたいで再訪したユーザーの情報を記憶します。"
+    },
+    "csharp-rtc-quickstart": {
+      "tagline": "C# のサンプルから Agora RTC チャンネルに参加します。",
+      "description": "C# のサンプルから Agora RTC チャンネルに参加します。"
+    },
+    "custom-llm": {
+      "tagline": "独自の OpenAI 互換 LLM エンドポイントを接続します。",
+      "description": "独自の OpenAI 互換 LLM エンドポイントを接続します。"
+    },
+    "custom-modalities": {
+      "tagline": "独自の LLM とカスタム TTS 音声を接続します。",
+      "description": "独自の LLM とカスタム TTS 音声を接続します。"
+    },
+    "daily-mandir-ai": {
+      "tagline": "毎日のお寺の案内を提供する信仰支援アシスタントを構築します。",
+      "description": "毎日のお寺の案内を提供する信仰支援アシスタントを構築します。"
+    },
+    "dynamic-instructions": {
+      "tagline": "セッション中にエージェントのシステムプロンプトを更新します。",
+      "description": "セッション中にエージェントのシステムプロンプトを更新します。"
+    },
+    "dynamic-tools": {
+      "tagline": "状況に応じてエージェントが利用できるツールを切り替えます。",
+      "description": "状況に応じてエージェントが利用できるツールを切り替えます。"
+    },
+    "echo-panel-voice-ai": {
+      "tagline": "対話型の音声アシスタントのインターフェースを構築します。",
+      "description": "対話型の音声アシスタントのインターフェースを構築します。"
+    },
+    "esp32-iot-callkit-demo": {
+      "tagline": "Agora を使い、ESP32 で組み込み IoT 通話を試作します。",
+      "description": "Agora を使い、ESP32 で組み込み IoT 通話を試作します。"
+    },
+    "esp32-iot-device-demo": {
+      "tagline": "ESP32 デバイスを Agora IoT の通話ワークフローに接続します。",
+      "description": "ESP32 デバイスを Agora IoT の通話ワークフローに接続します。"
+    },
+    "event-observability": {
+      "tagline": "リアルタイムのイベントタイムラインでエージェントの動作を確認します。",
+      "description": "リアルタイムのイベントタイムラインでエージェントの動作を確認します。"
+    },
+    "filler-words": {
+      "tagline": "つなぎの言葉と丁寧な終了表現で、応答待ちの体験を整えます。",
+      "description": "つなぎの言葉と丁寧な終了表現で、応答待ちの体験を整えます。"
+    },
+    "flutter-call-subtitles": {
+      "tagline": "Flutter の通話にリアルタイム字幕を追加します。",
+      "description": "Flutter の通話にリアルタイム字幕を追加します。"
+    },
+    "flutter-quickstart": {
+      "tagline": "Flutter で基本的な Agora Conversational AI エージェントを構築します。",
+      "description": "Flutter で基本的な Agora Conversational AI エージェントを構築します。"
+    },
+    "gemini-agora-agentic-video-nextjs": {
+      "tagline": "Gemini Agentic Video Understanding と Agora の音声 AI で動画について対話します。",
+      "description": "Gemini Agentic Video Understanding と Agora の音声 AI で動画について対話します。"
+    },
+    "gemini-agora-voice-agents-go": {
+      "tagline": "Go と Agora で Gemini の音声エージェントを構築します。",
+      "description": "Go と Agora で Gemini の音声エージェントを構築します。"
+    },
+    "gemini-agora-voice-agents-nextjs": {
+      "tagline": "Next.js と Agora で Gemini の音声エージェントを構築します。",
+      "description": "Next.js と Agora で Gemini の音声エージェントを構築します。"
+    },
+    "gemini-agora-voice-agents-python": {
+      "tagline": "Python と Agora で Gemini の音声エージェントを構築します。",
+      "description": "Python と Agora で Gemini の音声エージェントを構築します。"
+    },
+    "golang-quickstart": {
+      "tagline": "Go で基本的な Agora Conversational AI エージェントを構築します。",
+      "description": "Go で基本的な Agora Conversational AI エージェントを構築します。"
+    },
+    "group-video-chat": {
+      "tagline": "Agora RTC でブラウザー向けのグループビデオチャットを構築します。",
+      "description": "Agora RTC でブラウザー向けのグループビデオチャットを構築します。"
+    },
+    "hello-agora-vision": {
+      "tagline": "没入型の visionOS RTC サンプルを構築します。",
+      "description": "没入型の visionOS RTC サンプルを構築します。"
+    },
+    "interruptions": {
+      "tagline": "ユーザーが話し始めたときに、エージェントが発話を譲る動作を調整します。",
+      "description": "ユーザーが話し始めたときに、エージェントが発話を譲る動作を調整します。"
+    },
+    "ios-iot-callkit-app": {
+      "tagline": "Agora Link の通話で iOS クライアントとデバイスを接続します。",
+      "description": "Agora Link の通話で iOS クライアントとデバイスを接続します。"
+    },
+    "ios-live-shopping-reference-app": {
+      "tagline": "Agora RTC で iOS のライブショッピングを構築します。",
+      "description": "Agora RTC で iOS のライブショッピングを構築します。"
+    },
+    "ios-lyrics-view-rtc-media": {
+      "tagline": "iOS で歌詞表示と Agora RTC のメディアを同期します。",
+      "description": "iOS で歌詞表示と Agora RTC のメディアを同期します。"
+    },
+    "ios-transcription-widget": {
+      "tagline": "iOS の RTC アプリにリアルタイム文字起こし UI を組み込みます。",
+      "description": "iOS の RTC アプリにリアルタイム文字起こし UI を組み込みます。"
+    },
+    "iot-callkit-device-demo": {
+      "tagline": "IoT デバイスを Agora CallKit の通話フローに接続します。",
+      "description": "IoT デバイスを Agora CallKit の通話フローに接続します。"
+    },
+    "jev-vad": {
+      "tagline": "言語モデルがユーザーの発話完了と割り込みのタイミングを判断します。",
+      "description": "言語モデルがユーザーの発話完了と割り込みのタイミングを判断します。"
+    },
+    "kaun-katega-taarpati": {
+      "tagline": "サーバーが時間を管理する、3 人参加の Hinglish 音声クイズを構築します。",
+      "description": "サーバーが時間を管理する、3 人参加の Hinglish 音声クイズを構築します。"
+    },
+    "labspark-ai": {
+      "tagline": "Gemini のリアルタイム対話型指導を備えた AI 仮想科学実験室を構築します。",
+      "description": "Gemini のリアルタイム対話型指導を備えた AI 仮想科学実験室を構築します。"
+    },
+    "live-video-react-app": {
+      "tagline": "React と Agora RTC でライブビデオを構築します。",
+      "description": "React と Agora RTC でライブビデオを構築します。"
+    },
+    "mcc-external-service-example": {
+      "tagline": "MCC で音楽再生とカラオケ採点を試します。",
+      "description": "MCC で音楽再生とカラオケ採点を試します。"
+    },
+    "mcp-tools": {
+      "tagline": "Agora から Model Context Protocol サーバーのツールを連携します。",
+      "description": "Agora から Model Context Protocol サーバーのツールを連携します。"
+    },
+    "mediaio-camera": {
+      "tagline": "RTC 連携向けにカスタムカメラの映像を取得し、プレビューします。",
+      "description": "RTC 連携向けにカスタムカメラの映像を取得し、プレビューします。"
+    },
+    "moodlens-voice-journal": {
+      "tagline": "音声で気分を記録する日記アプリと、感情に寄り添うアシスタントを構築します。",
+      "description": "音声で気分を記録する日記アプリと、感情に寄り添うアシスタントを構築します。"
+    },
+    "muse-ai": {
+      "tagline": "Agora RTC でリアルタイムの音声 AI 音楽制作パートナーを構築し、メロディーの発想を支援します。",
+      "description": "Agora RTC でリアルタイムの音声 AI 音楽制作パートナーを構築し、メロディーの発想を支援します。"
+    },
+    "nextjs-quickstart": {
+      "tagline": "Next.js で基本的な Agora Conversational AI エージェントを構築します。",
+      "description": "Next.js で基本的な Agora Conversational AI エージェントを構築します。"
+    },
+    "openai-gpt-live-go": {
+      "tagline": "Agora と Go でリアルタイムの GPT Live 音声エージェントを構築します。",
+      "description": "Agora と Go でリアルタイムの GPT Live 音声エージェントを構築します。"
+    },
+    "openai-gpt-live-nextjs": {
+      "tagline": "Agora と Next.js でリアルタイムの GPT Live 音声エージェントを構築します。",
+      "description": "Agora と Next.js でリアルタイムの GPT Live 音声エージェントを構築します。"
+    },
+    "openai-gpt-live-python": {
+      "tagline": "Agora と Python でリアルタイムの GPT Live 音声エージェントを構築します。",
+      "description": "Agora と Python でリアルタイムの GPT Live 音声エージェントを構築します。"
+    },
+    "pause-with-agora": {
+      "tagline": "Agora Conversational AI を使う Chrome 拡張機能のサンプルを構築します。",
+      "description": "Agora Conversational AI を使う Chrome 拡張機能のサンプルを構築します。"
+    },
+    "pillion": {
+      "tagline": "ヒンディー語と英語に対応するハンズフリー音声アシスタントで、ライダーの安全なスマートフォン操作を支援します。",
+      "description": "ヒンディー語と英語に対応するハンズフリー音声アシスタントで、ライダーの安全なスマートフォン操作を支援します。"
+    },
+    "push-to-talk": {
+      "tagline": "ボタンを押している間だけマイクを有効にし、発話を制御します。",
+      "description": "ボタンを押している間だけマイクを有効にし、発話を制御します。"
+    },
+    "python-quickstart": {
+      "tagline": "Python で基本的な Agora Conversational AI エージェントを構築します。",
+      "description": "Python で基本的な Agora Conversational AI エージェントを構築します。"
+    },
+    "rag": {
+      "tagline": "独自のナレッジベースを使ってエージェントに回答させます。",
+      "description": "独自のナレッジベースを使ってエージェントに回答させます。"
+    },
+    "real-time-transcription-demo": {
+      "tagline": "Agora RTC のセッションにリアルタイム文字起こしを追加します。",
+      "description": "Agora RTC のセッションにリアルタイム文字起こしを追加します。"
+    },
+    "realtime-translator": {
+      "tagline": "一つの言語で話し、別の言語の音声をリアルタイムで聞けます。",
+      "description": "一つの言語で話し、別の言語の音声をリアルタイムで聞けます。"
+    },
+    "realtime-vision": {
+      "tagline": "リアルタイムの音声対話でカメラの映像も理解できるようにします。",
+      "description": "リアルタイムの音声対話でカメラの映像も理解できるようにします。"
+    },
+    "realtime-voice": {
+      "tagline": "リアルタイムのマルチモーダルモデルで音声対音声の会話を実現します。",
+      "description": "リアルタイムのマルチモーダルモデルで音声対音声の会話を実現します。"
+    },
+    "recipe-agent-langchain": {
+      "tagline": "Agora の音声エージェント内で LangChain を使い、ツールを連携します。",
+      "description": "Agora の音声エージェント内で LangChain を使い、ツールを連携します。"
+    },
+    "rn-quickstart": {
+      "tagline": "React Native でクロスプラットフォームの音声 AI クライアントを構築します。",
+      "description": "React Native でクロスプラットフォームの音声 AI クライアントを構築します。"
+    },
+    "rtc-custom-camera": {
+      "tagline": "カスタムカメラの映像を Agora RTC に配信します。",
+      "description": "カスタムカメラの映像を Agora RTC に配信します。"
+    },
+    "rust-rtc-quickstart": {
+      "tagline": "Rust で Agora RTC チャンネルに接続します。",
+      "description": "Rust で Agora RTC チャンネルに接続します。"
+    },
+    "speaker-lock": {
+      "tagline": "主な話者に固定し、ほかの人の声を無視します。",
+      "description": "主な話者に固定し、ほかの人の声を無視します。"
+    },
+    "swiftui-quickstart": {
+      "tagline": "SwiftUI でネイティブの iOS 音声 AI クライアントを構築します。",
+      "description": "SwiftUI でネイティブの iOS 音声 AI クライアントを構築します。"
+    },
+    "thymia-biomarkers": {
+      "tagline": "Agora の音声 AI ワークフローに Thymia のバイオマーカー分析を追加します。",
+      "description": "Agora の音声 AI ワークフローに Thymia のバイオマーカー分析を追加します。"
+    },
+    "tool-calling": {
+      "tagline": "音声エージェントにツールを追加し、SQLite の記録を参照できるようにします。",
+      "description": "音声エージェントにツールを追加し、SQLite の記録を参照できるようにします。"
+    },
+    "trak-voice-ai": {
+      "tagline": "Agora Voice AI で曲を検索し、音楽再生を操作します。",
+      "description": "Agora Voice AI で曲を検索し、音楽再生を操作します。"
+    },
+    "unity-spatial-audio-spaces": {
+      "tagline": "Unity と Agora RTC で空間音声の場を作ります。",
+      "description": "Unity と Agora RTC で空間音声の場を作ります。"
+    },
+    "unity-virtual-camera-demos": {
+      "tagline": "Unity のシーンを Agora RTC のカスタム映像として使います。",
+      "description": "Unity のシーンを Agora RTC のカスタム映像として使います。"
+    },
+    "unity-virtual-camera-prefab": {
+      "tagline": "Unity が描画するカメラ映像を Agora RTC で配信します。",
+      "description": "Unity が描画するカメラ映像を Agora RTC で配信します。"
+    },
+    "vision": {
+      "tagline": "エージェントがユーザーのカメラ映像を見られるようにします。",
+      "description": "エージェントがユーザーのカメラ映像を見られるようにします。"
+    },
+    "visionos-rtc-quickstart": {
+      "tagline": "没入型の visionOS サンプルに Agora RTC を組み込みます。",
+      "description": "没入型の visionOS サンプルに Agora RTC を組み込みます。"
+    },
+    "voice-rpg": {
+      "tagline": "AI のゲームマスターと、音声で操作するテーブルトーク RPG を楽しめます。",
+      "description": "AI のゲームマスターと、音声で操作するテーブルトーク RPG を楽しめます。"
+    },
+    "watchwise-ai": {
+      "tagline": "映画や番組を探す Next.js の音声エージェントを構築します。",
+      "description": "映画や番組を探す Next.js の音声エージェントを構築します。"
+    },
+    "web-spatial-audio-demo": {
+      "tagline": "Agora でブラウザー向けの空間音声体験を構築します。",
+      "description": "Agora でブラウザー向けの空間音声体験を構築します。"
+    },
+    "webhooks": {
+      "tagline": "自分のサーバーで Agora NCS のライフサイクルイベントを受信します。",
+      "description": "自分のサーバーで Agora NCS のライフサイクルイベントを受信します。"
+    },
+    "webxr-rtc-demo": {
+      "tagline": "WebXR のシーンに Agora RTC の音声と映像を組み込みます。",
+      "description": "WebXR のシーンに Agora RTC の音声と映像を組み込みます。"
+    },
+    "wellness-coach": {
+      "tagline": "健康を支援する高度な音声 AI コーチのサンプルを構築します。",
+      "description": "健康を支援する高度な音声 AI コーチのサンプルを構築します。"
+    },
+    "worldcupvoice": {
+      "tagline": "スポーツ配信に、映像を理解する AI 音声実況を追加します。",
+      "description": "スポーツ配信に、映像を理解する AI 音声実況を追加します。"
+    }
+  }
+}

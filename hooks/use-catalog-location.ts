@@ -1,9 +1,10 @@
 "use client"
 
 import { useSyncExternalStore } from "react"
+import { catalogReturnPath, type Locale } from "@/lib/locales"
 
 const locationEvent = "recipes:location"
-export const catalogPositionKey = "recipes:catalog-position"
+export const catalogPositionKey = (href: string) => `recipes:catalog-position:${href}`
 
 function subscribe(callback: () => void) {
   window.addEventListener("popstate", callback)
@@ -26,20 +27,11 @@ export function replaceCatalogSearch(params: URLSearchParams) {
 
 export function rememberCatalogPosition() {
   try {
-    sessionStorage.setItem(catalogPositionKey, JSON.stringify({
-      href: `${window.location.pathname}${window.location.search}#recipes`,
-      scroll: window.scrollY,
-    }))
-  } catch { /* Browsing and URL filters also work without session storage. */ }
+    const href = `${window.location.pathname}${window.location.search}#recipes`
+    sessionStorage.setItem(catalogPositionKey(href), JSON.stringify({ href, scroll: window.scrollY }))
+  } catch { /* URL state and list anchors work without session storage. */ }
 }
 
-export function getCatalogReturnHref(): string {
-  try {
-    const saved = JSON.parse(sessionStorage.getItem(catalogPositionKey) ?? "null")
-    if (typeof saved?.href === "string") {
-      const url = new URL(saved.href, window.location.origin)
-      if (url.origin === window.location.origin && url.pathname === "/") return `${url.pathname}${url.search}#recipes`
-    }
-  } catch { /* Fall back to the complete catalog. */ }
-  return "/#recipes"
+export function getCatalogReturnHref(search = "", locale: Locale = "en"): string {
+  return catalogReturnPath(new URLSearchParams(search).get("returnTo"), locale)
 }

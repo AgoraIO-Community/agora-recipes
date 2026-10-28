@@ -516,3 +516,15 @@ a.recipe-author:hover { color: var(--foreground); }
 /* The filter workspace is solid inside its full optical surface; content edges stay aligned. */
 .catalog-filter-sheet__body { margin-inline: 8px; padding-inline: 15px; }
 @media (max-width: 640px) { .catalog-filter-sheet__body { padding-inline: 11px; } }
+
+/* Reuse the existing solid controls and bounded navigation for locale selection. */
+.language-switcher { width: 112px; font-size: 12px; }
+.mobile-navigation__language { display: none; }
+.recipe-source-note { color: var(--muted-foreground); font-size: 13px; line-height: 1.6; margin: 12px 0; }
+.contribute-content { padding-block: 8px 56px; }
+.contribute-content .recipe-guide { max-width: 760px; padding-block: 24px; }
+.contribute-content p { max-width: 760px; margin-block: 12px; line-height: 1.7; }
+@media (max-width: 640px) {
+  .header-language { display: none; }
+  .mobile-navigation__language { display: block; }
+}

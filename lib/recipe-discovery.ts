@@ -22,6 +22,7 @@ export type RecipeSummary = Omit<RecipeMeta, "cli"> & {
   slug: string
   showcase?: Showcase
   recommendedOrder?: number
+  searchTerms?: string[]
 }
 
 export const quickTags = [
@@ -40,16 +41,17 @@ export type DiscoveryFilters = {
   platforms: string[]
   useCases: string[]
   capabilities: string[]
+  materials: string[]
   previewOnly: boolean
   sort: "recommended" | "updated" | "title"
 }
 
 export const defaultFilters: DiscoveryFilters = {
   query: "", topic: "all", category: "all",
-  platforms: [], useCases: [], capabilities: [], previewOnly: false, sort: "recommended",
+  platforms: [], useCases: [], capabilities: [], materials: [], previewOnly: false, sort: "recommended",
 }
 
-const filterParams = ["q", "topic", "category", "platform", "useCase", "capability", "demo", "sort"]
+const filterParams = ["q", "topic", "category", "platform", "useCase", "capability", "demo", "sort", "material"]
 
 export function readDiscoveryFilters(params: URLSearchParams): DiscoveryFilters {
   const values = (key: string) => [...new Set(params.getAll(key).filter(Boolean))]
@@ -63,6 +65,7 @@ export function readDiscoveryFilters(params: URLSearchParams): DiscoveryFilters 
     platforms: values("platform"),
     useCases: values("useCase"),
     capabilities: values("capability"),
+    materials: values("material").filter(value => ["demo", "video", "source", "recipe"].includes(value)),
     previewOnly: params.get("demo") === "1",
     sort: sort === "updated" || sort === "title" ? sort : "recommended",
   }
@@ -77,9 +80,14 @@ export function writeDiscoveryFilters(filters: DiscoveryFilters, current = new U
   for (const value of filters.platforms) params.append("platform", value)
   for (const value of filters.useCases) params.append("useCase", value)
   for (const value of filters.capabilities) params.append("capability", value)
+  for (const value of filters.materials) params.append("material", value)
   if (filters.previewOnly) params.set("demo", "1")
   if (filters.sort !== "recommended") params.set("sort", filters.sort)
   return params
+}
+
+export function entryMaterials(entry: RecipeSummary): string[] {
+  return [...(entry.demoUrl ? ["demo"] : []), ...(entry.showcase?.videoUrl || entry.media?.videoUrl ? ["video"] : []), ...(entry.mainRepoUrl ? ["source"] : []), ...(entry.recipeUrl ? ["recipe"] : [])]
 }
 
 function normalize(value: string) {
@@ -145,7 +153,7 @@ function searchScore(recipe: RecipeSummary, tokens: string[]): number {
   if (!tokens.length) return 1
   const fields = [
     { value: [recipe.title, recipe.showcase?.title, recipe.showcase?.compactTitle], weight: 40 },
-    { value: [recipe.slug, recipe.author, recipe.mainRepoUrl, ...recipe.tags, ...recipe.platforms, ...recipe.useCases, ...recipe.capabilities, ...(recipe.showcase?.searchTerms ?? []), ...(recipe.showcase?.labels ?? [])], weight: 30 },
+    { value: [recipe.slug, recipe.author, recipe.mainRepoUrl, ...recipe.tags, ...recipe.platforms, ...recipe.useCases, ...recipe.capabilities, ...(recipe.searchTerms ?? []), ...(recipe.showcase?.searchTerms ?? []), ...(recipe.showcase?.labels ?? [])], weight: 30 },
     { value: [recipe.tagline, recipe.description, recipe.showcase?.summary, recipe.showcase?.compactSummary], weight: 20 },
   ].map(({ value, weight }) => {
     const text = searchText(value.filter(Boolean).join(" "))
@@ -178,6 +186,7 @@ export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilt
         (!filters.useCases.length || filters.useCases.some((useCase) => recipe.useCases.includes(useCase))) &&
         (!filters.capabilities.length || filters.capabilities.every((capability) => recipe.capabilities.includes(capability))) &&
         (!filters.previewOnly || Boolean(recipe.showcase?.videoUrl || recipe.demoUrl)) &&
+        (!filters.materials.length || filters.materials.every(material => entryMaterials(recipe).includes(material))) &&
         (!topic?.terms.length || topic.terms.some((term) => topics.includes(normalize(term))))
     })
     .sort((a, b) => {

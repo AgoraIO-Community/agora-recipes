@@ -9,7 +9,7 @@ const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { w
   .map(({ name: slug }) => {
     const metadata = JSON.parse(readFileSync(new URL(`../content/recipes/${slug}/recipe.json`, import.meta.url)))
     const recommendedOrder = curated.findIndex(entry => entry.slug === slug)
-    return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { recommendedOrder, showcase: curated[recommendedOrder] }) }
+    return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { recommendedOrder, showcase: metadata.media }) }
   })
 const search = (query, extra = {}) => discoverRecipes(recipes, { ...defaultFilters, query, ...extra })
 
@@ -76,7 +76,8 @@ test('explicit date and alphabetical sorts override pinned order', () => {
 })
 test('all curated assets refer to known unique recipes, local posters, and canonical HTTPS media', () => {
   assert.equal(new Set(curated.map(entry => entry.slug)).size, curated.length)
-  for (const entry of curated) {
+  for (const recommendation of curated) {
+    const entry = { slug: recommendation.slug, ...recipes.find(recipe => recipe.slug === recommendation.slug).media }
     assert.ok(recipes.some(recipe => recipe.slug === entry.slug))
     assert.ok(readFileSync(new URL(`../public${entry.thumbnail}`, import.meta.url)).length < 150_000)
     for (const url of [entry.demoUrl, entry.videoUrl].filter(Boolean)) {
@@ -102,4 +103,16 @@ test('demo availability is independent of homepage recommendations', () => {
   assert.equal(discoverRecipes([fixture], { ...defaultFilters, previewOnly: true }).length, 1)
   assert.equal(discoverRecipes([{ ...fixture, demoUrl: undefined }], { ...defaultFilters, previewOnly: true }).length, 0)
   assert.ok(recipes.filter(recipe => recipe.demoUrl).length >= 5)
+})
+
+
+test('materials combine without treating them as exclusive content types', () => {
+  const fixtures = [
+    { ...recipes[0], slug: 'all', demoUrl: 'https://example.com', recipeUrl: 'https://example.com/guide', mainRepoUrl: 'https://github.com/example/project', showcase: { videoUrl: 'https://example.com/video.mp4' } },
+    { ...recipes[0], slug: 'demo-only', demoUrl: 'https://example.com', recipeUrl: undefined, mainRepoUrl: undefined, showcase: undefined },
+  ]
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, materials: ['demo'] }).map(r => r.slug).sort(), ['all', 'demo-only'])
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, materials: ['demo', 'recipe'] }).map(r => r.slug), ['all'])
+  const filters = { ...defaultFilters, materials: ['video', 'source'] }
+  assert.deepEqual(readDiscoveryFilters(writeDiscoveryFilters(filters)), filters)
 })

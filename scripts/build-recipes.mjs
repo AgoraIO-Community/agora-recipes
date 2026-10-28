@@ -58,9 +58,13 @@ async function getRecipeSlugs(contentDir) {
 async function buildRecipeArtifact({ slug, contentDir }) {
   const metaPath = path.join(contentDir, slug, "recipe.json")
   const meta = JSON.parse(await fs.readFile(metaPath, "utf8"))
-  const recipeRawUrl = githubViewUrlToRawUrl(meta.recipeUrl)
+  if (meta.recipeUrl && !meta.mainRepoUrl) {
+    const match = meta.recipeUrl.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//)
+    if (match) meta.mainRepoUrl = `https://github.com/${match[1]}`
+  }
+  const recipeRawUrl = githubViewUrlToRawUrl(meta.recipeUrl ?? "")
   const recipeViewUrl = rawGithubUrlToViewUrl(recipeRawUrl)
-  const { markdown, fetchError } = await fetchRecipeMarkdown(recipeRawUrl)
+  const { markdown, fetchError } = recipeRawUrl ? await fetchRecipeMarkdown(recipeRawUrl) : { markdown: "", fetchError: null }
   const normalizedMarkdown = markdown
     ? expandMarkdownLinks(markdown, recipeViewUrl)
     : ""
@@ -86,6 +90,7 @@ async function buildRecipeArtifact({ slug, contentDir }) {
 }
 
 function buildPrimaryPrompt({ meta, recipeDocument }) {
+  if (!meta.recipeUrl) return ""
   return `You are implementing the "${meta.title}" recipe in this project.
 
 Read the recipe markdown first:

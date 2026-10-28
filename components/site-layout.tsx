@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import "@/app/globals.css"
+import { LocaleProvider } from "@/components/locale-provider"
+import { getMessages, getT } from "@/lib/i18n"
+import type { Locale } from "@/lib/locales"
 
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
@@ -10,7 +13,7 @@ import { themeInitScript } from "@/lib/theme"
 const shouldLoadAnalytics =
   process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   metadataBase: siteUrl,
   title: {
     default: "Agora Voice AI Recipes",
@@ -50,6 +53,12 @@ export const metadata: Metadata = {
   },
 }
 
+export function siteMetadata(locale: Locale): Metadata {
+  const t = getT(locale)
+  return { ...baseMetadata, description: t(String(baseMetadata.description)), openGraph: { ...baseMetadata.openGraph, description: t("Build voice agents, transcription, translation, and accessibility workflows with Agora.") } }
+}
+export const metadata = siteMetadata("en")
+
 export const viewport: Viewport = {
   themeColor: "#000000",
   width: "device-width",
@@ -57,18 +66,21 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout({
-  children,
+  children, locale = "en",
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode; locale?: Locale
 }>) {
+  const t = getT(locale)
   return (
     <html
-      lang="en"
+      lang={locale}
       data-theme="dark"
       data-scroll-behavior="smooth"
       className="dark bg-background"
       suppressHydrationWarning
     >
+      {/* Shared document markup used by both Next.js root layouts. */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
         <link rel="describedby" href="/llms.txt" />
         <meta name="color-scheme" content="dark light" />
@@ -77,13 +89,15 @@ export default function RootLayout({
       </head>
       <body id="page-top" className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">
-          Skip to main content
+          {t("Skip to main content")}
         </a>
+        <LocaleProvider locale={locale} messages={getMessages(locale)}>
         <SiteHeader />
         <main id="main-content" className="flex-1">
           {children}
         </main>
         <SiteFooter />
+        </LocaleProvider>
         {shouldLoadAnalytics && <Analytics />}
       </body>
     </html>

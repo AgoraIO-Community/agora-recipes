@@ -1,117 +1,122 @@
-# Submit a Recipe
+# Share a Project or Guide
 
-This repo is the catalog site for Voice AI recipes. Recipe implementations live in their own GitHub repositories; this repo stores metadata that points to each implementation and recipe markdown file.
+This repository is the Agora Recipes catalog. Implementations and author documents stay in their existing repositories. One catalog entry can provide a Demo, video, source repository, implementation guide, or any combination of them. You do not need a separate project record for an existing recipe.
 
-## Submission Flow
+## Submit on GitHub
 
-1. Fork `AgoraIO-Community/agora-recipes`.
-2. Create a branch in your fork from `staging`.
-3. Add one recipe metadata file under `content/recipes/<slug>/recipe.json`.
-4. Run `npm run build` to fetch the recipe markdown and generate static artifacts.
-5. Open a pull request from your fork back to the upstream `staging` branch.
+A GitHub account is required. You can use either path:
 
-Do not open recipe submissions against `main` unless a maintainer asks you to.
+- Open the **Share a project or guide** Issue form. Provide a public introduction, author credit, and at least one existing material link. You can write in your own language. No translated copies are required.
+- Fork this repository, create a branch from `staging`, and submit metadata through a PR to upstream `staging`. A submission Issue is optional for direct PRs.
 
-## Create `recipe.json`
+Issues are public. Do not include private email addresses, credentials, or other private information. Maintainers request additions in Issue comments, preserve the original submission, and prepare the catalog PR. Submission does not publish automatically. After release, maintainers add the published site link to the Issue.
 
-Choose a stable kebab-case slug. The folder name becomes the route:
+The Issue form becomes available when `.github/ISSUE_TEMPLATE/submission.yml` reaches the repository's default branch through the normal release process. A staging-only template is not a live submission form. The site contribution page links to the form and the direct PR instructions.
+
+## Add Catalog Metadata
+
+Choose a stable kebab-case slug. Its folder determines the existing detail URL:
 
 ```text
 content/recipes/
-  python-quickstart/
+  my-project/
     recipe.json
 ```
 
-Start from `templates/recipe.json`:
+For a guide, start from `templates/recipe.json`. For a Demo without a guide, start from `templates/demo.json`. Keep the historical folder and filename for all entry types; no code registration is needed.
+
+A minimal Demo entry:
 
 ```json
 {
-  "title": "Python Quickstart",
-  "tagline": "Build a basic Agora Conversational AI agent in Python.",
-  "description": "Set up the Python quickstart agent, configure credentials, and run a minimal voice AI workflow.",
+  "title": "My Agora Demo",
+  "tagline": "A short description of what visitors can try.",
+  "description": "Explain the project and who it helps.",
   "tags": ["voice-ai"],
-  "platforms": ["Python"],
-  "useCases": ["Quickstart", "Voice AI"],
-  "capabilities": ["Conversational AI", "Voice Agent", "Python"],
-  "mainRepoUrl": "https://github.com/OWNER/REPO",
-  "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
-  "author": "Agora",
-  "updated": "2026-05-28",
-  "difficulty": "Beginner"
+  "platforms": ["Web"],
+  "useCases": [],
+  "capabilities": [],
+  "demoUrl": "https://example.com/demo",
+  "author": "Your public name or team",
+  "updated": "2026-10-28"
 }
 ```
 
-Required string fields:
+Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. The date must be a valid `YYYY-MM-DD` date.
 
-- `title`
-- `tagline`
-- `description`
-- `mainRepoUrl`
-- `recipeUrl`
-- `author`
-- `updated`
-- `difficulty`
+Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Tags must contain `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
 
-Required array fields:
+Provide at least one material:
 
-- `tags`
-- `platforms`
-- `useCases`
-- `capabilities`
+| Field | Destination |
+| --- | --- |
+| `demoUrl` | An existing web Demo or native distribution page, such as TestFlight. |
+| `media.videoUrl` | An existing video that can be played in the site player. |
+| `mainRepoUrl` | The implementation repository root. |
+| `recipeUrl` | The public Markdown guide to render. Prefer a GitHub `blob` URL. |
 
-`difficulty` must be `Beginner`, `Intermediate`, or `Advanced`.
-`tags` must contain `voice-ai`, `rtc`, or both so the recipe appears under the correct landing-page selection.
+Material URLs must use absolute HTTPS URLs without embedded credentials. Omit unavailable materials. A thumbnail by itself is not a playable material.
 
-Use clear platform labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`. Reuse existing `useCases` and `capabilities` where practical so filters stay useful.
+When `recipeUrl` is present, `difficulty` is required and must be `Beginner`, `Intermediate`, or `Advanced`. For a standalone GitHub guide, the loader can infer `mainRepoUrl` from the guide's repository. A guide outside GitHub needs an explicit `mainRepoUrl`. `cli` configuration is only valid on entries with a guide. Entries without guides do not expose a guide reader or recipe prompt and stay outside Recipe-specific API and Markdown responses.
 
-## Recipe URL Requirements
+## Media and Recommendations
 
-Optional `demoUrl` adds a **Try demo** link on the recipe page and catalog card.
-Use an absolute HTTPS URL for an existing web demo or native distribution page
-such as TestFlight, without embedded credentials. Omit it when no usable demo
-exists. Demo links work independently of homepage recommendations.
+Keep media in the entry's `recipe.json`, independently of recommendation:
 
-`mainRepoUrl` should point to the implementation repository root:
-
-```text
-https://github.com/OWNER/REPO
+```json
+{
+  "media": {
+    "thumbnail": "/showcase/my-project.webp",
+    "thumbnailAlt": "Describe the actual project screen.",
+    "thumbnailSource": "https://github.com/OWNER/REPO/blob/main/screenshot.png",
+    "videoUrl": "https://example.com/existing-demo.mp4",
+    "demoNote": "Microphone needed",
+    "labels": ["Voice agent"]
+  }
+}
 ```
 
-`recipeUrl` should point to the GitHub `blob` URL for the markdown file the catalog should render:
+The fragment above is optional metadata, not a complete entry. Use real images and videos. Keep `demoNote` accurate about supported languages, devices, accounts, and API-key requirements. Images can use a local public path or an HTTPS URL; keep posters below 150 KB where practical. Optional `compactTitle`, `compactSummary`, `videoDuration`, `thumbnailScale`, and `thumbnailOrigin` retain the existing media-card presentation options.
 
-```text
-https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md
-```
+`content/showcase.json` contains only an ordered list of recommended `{ "slug": "..." }` references. Removing a recommendation does not remove its media or catalog entry. Do not duplicate media fields there. Content cards do not show Topic membership. Existing `?topic=` quick filters are catalog filters; they do not create curated Topics.
 
-The recipe repository and markdown file must be public at build time. Private repos usually fail as `404 Not Found` because the build fetches raw GitHub URLs without authentication.
+## Website Languages
 
-## Generated Content
+The website supports `en`, `zh-Hans`, `zh-Hant`, and `ja`. English uses the existing unprefixed URLs. Other site languages use a locale prefix. `/zh-CN/...` redirects to `/zh-Hans/...`; author filenames are not renamed.
 
-Do not hand-write files under `content/generated/recipes/`.
+Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit four translations.
 
-Run:
+The site language does not translate or rewrite the author guide. This release renders the submitted document as published. Selecting available author README language versions is separate follow-up work.
+
+## Build and Verify
+
+Do not add local guide Markdown for a new entry or hand-edit `content/generated/recipes/`.
 
 ```bash
 npm run build
 ```
 
-The build runs `npm run recipes:build`, which:
+The build runs `npm run recipes:build`. It fetches only configured guides, expands relative Markdown links from their actual source location, and writes generated artifacts. Demo-, video-, and source-only entries do not fetch a guide or produce a missing-guide error. A private or unavailable guide records a fetch error while leaving the entry metadata usable. No runtime GitHub fetch is needed for reading.
 
-1. Reads every `content/recipes/<slug>/recipe.json`.
-2. Converts `recipeUrl` from a GitHub `blob` URL to a raw GitHub URL.
-3. Fetches the recipe markdown.
-4. Expands relative markdown links into absolute GitHub links.
-5. Writes `content/generated/recipes/<slug>.json`.
+Commit the generated artifact for a new or changed guide with its metadata. Avoid unrelated generated refreshes in a focused PR.
 
-Generated artifacts include the source links, fetched markdown, and the copyable prompt used on the recipe page. Commit the generated artifact with your recipe metadata so the static site can render the recipe page.
+For TypeScript, React, styling, or routing changes, also run:
+
+```bash
+npm run lint
+npx tsc --noEmit
+node --test scripts/*.test.mjs
+```
+
+After building, start the site and run `node scripts/check-llm-discovery.mjs http://localhost:3000` to check the existing guide discovery contract.
 
 ## PR Checklist
 
-- `content/recipes/<slug>/recipe.json` is valid JSON.
-- The slug is kebab-case.
-- `mainRepoUrl` opens the implementation repo.
-- `recipeUrl` opens a public GitHub markdown file.
-- The recipe markdown's relative links resolve correctly from that markdown file's folder.
-- `updated` uses `YYYY-MM-DD`.
-- `npm run build` succeeds.
-- The PR targets `staging`.
+- Metadata is valid JSON; the slug is stable and kebab-case.
+- Each supplied material opens a real public destination.
+- Guide-relative links resolve from that guide's folder.
+- Original author credit and submissions remain intact.
+- Unavailable materials are omitted; content cards contain no Topic membership.
+- `npm run build` succeeds, plus lint and type checks for code changes.
+- The PR targets upstream `staging`, with an English title and description.
+- The description links the related implementation or Demo and lists verification commands.

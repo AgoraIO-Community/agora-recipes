@@ -1,6 +1,6 @@
 # Voice AI Recipes Catalog
 
-This is a Next.js catalog site for Agora Voice AI recipes. Recipe implementations live in separate GitHub repositories; this repo stores catalog metadata, fetches each recipe's markdown during build, and renders static recipe pages.
+This is the Next.js catalog for Agora Voice AI and RTC projects and guides. One entry can provide a Demo, video, source repository, and/or Recipe. Implementations and author documents stay in their existing repositories. This site stores metadata and presentation translations, fetches configured guides at build time, and renders static pages without a new content backend or site accounts.
 
 ## Local Development
 
@@ -10,22 +10,19 @@ npm run dev
 
 Open http://localhost:3000.
 
-## Adding Recipes
+## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full submission flow. In short:
+See [CONTRIBUTING.md](./CONTRIBUTING.md). A GitHub account is required. Submit existing materials with the GitHub Issue form, or fork this repository and send a metadata PR to upstream `staging`. Direct PRs do not require an Issue.
 
-1. Fork this repo and create a branch from `staging`.
-2. Create `content/recipes/<slug>/recipe.json`.
-3. Use `templates/recipe.json` as the starting point.
-4. Set `mainRepoUrl` to the implementation repository.
-5. Set `recipeUrl` to the GitHub `blob` URL for the markdown recipe file.
-6. Run:
+Keep entries in `content/recipes/<slug>/recipe.json`. Use `templates/recipe.json` for a guide or `templates/demo.json` for a Demo-only entry. Provide at least one material; do not invent missing materials or create a duplicate project record for an existing recipe.
 
-```bash
-npm run build
-```
+`npm run build` fetches only configured guide Markdown and writes `content/generated/recipes/`. GitHub activates Issue forms from the default branch, so the new form must pass through the normal release before the site handoff is live.
 
-The build runs `npm run recipes:build`, which fetches the configured markdown, expands relative markdown links to absolute GitHub links, and writes generated artifacts under `content/generated/recipes/`.
+## Website Languages
+
+English keeps the existing unprefixed URLs. `zh-Hans`, `zh-Hant`, and `ja` use locale prefixes; `/zh-CN/...` redirects to Simplified Chinese. Navigation, controls, metadata labels, and entry introductions use separate presentation dictionaries in `content/i18n/`. Missing entry translations fall back to the original metadata. The author guide and source links are unchanged; author README language selection is follow-up work.
+
+Catalog detail links carry a validated `returnTo` address with the source locale, search, filters, and expansion state. Local scroll snapshots are scoped to that address. Direct detail links return to the catalog without inheriting an unrelated visit. Query context is excluded from canonical URLs.
 
 ## Recipes API
 
@@ -41,7 +38,7 @@ include `recipeRawUrl` and `primaryPrompt`, which the Agora CLI can return as
 setup guidance after cloning a recipe. Every response includes
 `schemaVersion: 1`; consumers must reject unsupported schema versions.
 
-Only recipes whose `author` is exactly `Agora` are exposed. When present, the
+Only entries with guides whose `author` is exactly `Agora` are exposed. Demo-, video-, and source-only entries remain outside this Recipe API. When present, the
 `cli.env` object is the source of truth for the example file, target file, and
 credential variable names; the CLI does not guess these values from the
 recipe's language or checked-out files.
@@ -58,7 +55,7 @@ and Markdown links all use this origin.
 - `/recipes/<slug>/index.md` provides recipe metadata, source links, the fetched
   implementation guide, and its implementation prompt. Missing documents are
   explicitly marked unavailable; unknown slugs return HTTP 404.
-- `/sitemap.xml` lists the homepage and every recipe page.
+- `/sitemap.xml` lists all localized home, contribution, and content detail pages.
 - `/robots.txt` allows crawling and points to the sitemap.
 
 HTML pages advertise their Markdown alternate and `/llms.txt`; the footer also
@@ -106,13 +103,15 @@ For TypeScript, React, styling, or routing changes:
 ```bash
 npm run lint
 npm run build
+npx tsc --noEmit
+node --test scripts/*.test.mjs
 ```
 
 Private recipe repositories cannot be fetched by the unauthenticated build script. Make the repo public or expect the generated artifact to contain a fetch error for that recipe's markdown.
 
 ### Homepage catalog
 
-All recipes share one catalog. Entries in [`content/showcase.json`](content/showcase.json)
+All entries share one catalog. References in [`content/showcase.json`](content/showcase.json)
 are recommended first, in array order. Curated media entries are visible
 immediately; remaining entries render on demand when the inline continuation
 is expanded.
@@ -125,8 +124,7 @@ terms, such as `speech to text` / `语音转文字`. The default sort ranks exac
 ahead of approximate ones. Matching runs locally without a search service.
 Appearance defaults to dark. The header light/dark toggle saves an explicit choice locally and applies it across pages and reloads, including code blocks and diagrams. First visits use dark regardless of the system setting. Platform choices in the refinement sheet support multi-select (OR); use cases also use OR, while selected capabilities must all match.
 
-Each recommendation can provide a local `thumbnail`, its `thumbnailSource` and
-`thumbnailAlt`, and an existing `videoUrl`. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
+Each entry can provide `media.thumbnail`, `media.thumbnailSource`, `media.thumbnailAlt`, and an existing `media.videoUrl` in its own `recipe.json`. The recommendation file contains only ordered slug references. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
 `compactTitle` and `compactSummary` for a short title and one concise outcome.
 Media cards show the preview, title, summary, author avatar, and one meaningful
 `labels` (one on phones). Guide cards reuse the tagline and platform labels.
@@ -135,7 +133,7 @@ exclude browser chrome; the original image and video remain intact.
 Keep `demoNote` truthful about language, microphones, cameras, and API-key
 requirements; it remains visible in recipe details and video players. Video
 cards open the on-site player, which also offers the existing external live demo;
-image cards open their live demo directly. Recipe links always lead to the guide.
+image cards open their live demo directly. Title and text links always lead to the same content detail page; its guide appears only when configured.
 Recipe detail pages show the optional Demo action whether or not they are recommended.
 
 Verified author profiles and local avatar sources are maintained in
@@ -146,7 +144,7 @@ public entry screen because its original recording mostly contains empty tiles.
 
 Posters stay below 150 KB each; videos remain externally hosted with canonical
 URLs rather than expiring signed redirects. Removing a recommendation leaves the
-recipe in the catalog. The required recipe metadata and public API are unchanged; `demoUrl` is optional.
+recipe in the catalog. Existing guide metadata and public API contracts remain compatible. New entries may omit a guide, repository, and difficulty when those materials do not apply. Material filters combine selected requirements with AND; platform selections continue to use OR.
 
 The Recipes design system uses the Agora wordmark, local typography, and shared
 dark/light tokens. Ordinary controls and reading surfaces are solid; floating

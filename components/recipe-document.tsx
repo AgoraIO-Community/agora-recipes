@@ -1,5 +1,6 @@
 "use client"
 
+import { useI18n } from "@/components/locale-provider"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { CopyMarkdownButton } from "@/components/copy-markdown-button"
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export function RecipeDocument({ markdown, children, rawUrl }: { markdown: string; children: ReactNode; rawUrl?: string }) {
+  const { t } = useI18n()
   const [selected, setSelected] = useState("guide")
   const guidePanel = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -27,7 +29,7 @@ export function RecipeDocument({ markdown, children, rawUrl }: { markdown: strin
   }, [])
   return <Tabs value={selected} onValueChange={setSelected} className="recipe-document">
     <div className="recipe-document-tabs">
-      <TabsList aria-label="Recipe format"><TabsTrigger value="guide">Guide</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
+      <TabsList aria-label={t("Recipe format")}><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
       <div className="recipe-document-actions">{rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}<CopyMarkdownButton markdown={markdown} /></div>
     </div>
     <TabsContent value="guide" forceMount hidden={selected !== "guide"} ref={guidePanel}>{children}</TabsContent>

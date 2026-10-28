@@ -1,13 +1,11 @@
 import type { MetadataRoute } from "next"
-import { getAllRecipes } from "@/lib/recipes"
+import { getAllEntries } from "@/lib/recipes"
 import { absoluteUrl } from "@/lib/site"
-
+import { locales, localePath } from "@/lib/locales"
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { url: absoluteUrl("/") },
-    ...getAllRecipes().map((recipe) => ({
-      url: absoluteUrl(`/recipes/${recipe.slug}`),
-      lastModified: recipe.updated,
-    })),
-  ]
+  return locales.flatMap(locale => [
+    { url: absoluteUrl(localePath("/", locale)) },
+    { url: absoluteUrl(localePath("/contribute", locale)) },
+    ...getAllEntries().map(entry => ({ url: absoluteUrl(localePath(`/recipes/${entry.slug}`, locale)), lastModified: entry.updated })),
+  ])
 }

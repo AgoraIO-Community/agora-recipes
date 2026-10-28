@@ -1,11 +1,13 @@
 "use client"
 
+import { useI18n } from "@/components/locale-provider"
 import { useEffect, useState } from "react"
 import { SelectionIndicator } from "@/components/ui/selection-indicator"
 
 type Section = { title: string; id: string }
 
 export function RecipeOutline({ sections }: { sections: Section[] }) {
+  const { t } = useI18n()
   const [current, setCurrent] = useState("build")
   useEffect(() => {
     let frame = 0
@@ -29,9 +31,9 @@ export function RecipeOutline({ sections }: { sections: Section[] }) {
       window.removeEventListener("resize", schedule)
     }
   }, [sections])
-  const entries = [{ title: "Build with agent", id: "build" }, ...sections]
+  const entries = [{ title: t("Build with agent"), id: "build" }, ...sections]
   return <nav className="guide-outline ag-selection-group" aria-labelledby="guide-outline-heading">
-    <h2 id="guide-outline-heading">In this guide</h2><SelectionIndicator value={current} />
+    <h2 id="guide-outline-heading">{t("In this guide")}</h2><SelectionIndicator value={current} />
     {entries.map(section => <a key={section.id} href={`#${section.id}`} data-state={current === section.id ? "active" : "inactive"} aria-current={current === section.id ? "location" : undefined}>{section.title}</a>)}
   </nav>
 }

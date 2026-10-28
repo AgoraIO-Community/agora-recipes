@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@/components/locale-provider"
 import * as React from "react";
 import { XIcon } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -56,6 +57,7 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
 }) {
+  const { t } = useI18n()
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
@@ -76,7 +78,7 @@ function DialogContent({
                 variant="ghost"
                 size="icon"
                 className="absolute right-3 top-3"
-                aria-label="Close dialog"
+                aria-label={t("Close dialog")}
               >
                 <XIcon data-icon="inline-start" />
               </Button>
@@ -106,6 +108,7 @@ function DialogFooter({
 }: React.ComponentProps<"div"> & {
   showCloseButton?: boolean;
 }) {
+  const { t } = useI18n()
   return (
     <div
       data-slot="dialog-footer"
@@ -118,7 +121,7 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close asChild>
-          <Button variant="outline">Close</Button>
+          <Button variant="outline">{t("Close")}</Button>
         </DialogPrimitive.Close>
       )}
     </div>
