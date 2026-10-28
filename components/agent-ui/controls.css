@@ -28,7 +28,7 @@
     justify-content: center; gap: 8px; height: var(--control-size,var(--control-md));
     min-height: var(--control-size,var(--control-md)); padding: 0 12px;
     border: 1px solid transparent; border-radius: var(--radius); font-size: 13px;
-    font-weight: 520; line-height: 20px; white-space: nowrap; text-decoration: none;
+    font-weight: 400; line-height: 20px; white-space: nowrap; text-decoration: none;
     transition: opacity 140ms var(--ease-out),background var(--motion-control),
       color var(--motion-control),border-color var(--motion-control);
   }

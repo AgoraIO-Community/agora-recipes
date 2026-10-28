@@ -80,17 +80,20 @@ use opaque accessibility fallbacks. Reduced motion removes spatial feedback.
 ## Typography and geometry
 
 MiSans Latin is bundled locally at weights 380 and 520, matching the Agora
-website. Use the regular face for body text and the semibold face for key titles.
+website. Use the regular face at CSS weight 400 for interface text, including
+titles, navigation, buttons, and cards. Use size and spacing for hierarchy;
+reserve semibold for emphasis inside authored reading content. Do not reintroduce
+semibold interface labels when adding controls.
 Monospace is reserved for code and commands.
 
 | Element | Desktop | Phone |
 | --- | --- | --- |
-| Catalog title | 40px, weight 520, line height 1.1 | 30px |
+| Catalog title | 40px, weight 400, line height 1.1 | 30px |
 | Recipe title | 44px maximum | 30px |
-| Showcase title | 18px, weight 520 | 15px |
+| Showcase title | 18px, weight 400 | 15px |
 | Body / guide | 16px, line height 1.7 | 16px |
 | Description / metadata | 12–15px by role | 12–15px |
-| Footer invitation | 28px, weight 520 | 24px |
+| Footer invitation | 28px, weight 400 | 24px |
 
 Use the 4px spacing rhythm: 8–12px inside small groups, 16–24px between related
 parts, and 28–40px between sections. Compactness comes from grouping and
@@ -116,7 +119,7 @@ starts. Avoid independent fractional columns or distributed spacing for them.
 The header has a 64px content height, becoming 60px at 640px, plus its 1px seam.
 Keep that height stable across scrolling and navigation states. The official
 wordmark and Recipes label share a vertical separator. Header and footer use
-the same 86px wordmark and label: 15px semibold on desktop, 14px on phones. Align
+the same 86px wordmark and label: 15px regular on desktop, 14px on phones. Align
 the visual center of the wordmark's main letter body with the Recipes text,
 excluding the long g descender. The current asset needs a 7.5px optical offset,
 reduced to 7px on phones. Do not align the full SVG box or only its baseline. On desktop, center the
