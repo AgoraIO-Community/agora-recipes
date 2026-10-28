@@ -96,7 +96,7 @@ export function SiteHeader() {
                     </a>
                   </Button>
                 ))}
-                <div className="mobile-navigation__language"><LanguageSwitcher /></div>
+
                 <div className="mobile-navigation__actions">
                   <Button asChild variant="ghost">
                     <a href={contributeUrl} aria-label={t("Contribute")} onClick={() => setOpen(false)}>{t("Contribute")}<ArrowUpRight aria-hidden="true" /></a>

@@ -4,7 +4,7 @@ import { ShareActions } from "@/components/share-actions"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { getAllTopics, getTopic, topicStatus } from "@/lib/topics"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { getT } from "@/lib/i18n"
@@ -32,13 +32,13 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   const awards = topic.members.filter(member => member.award)
   return <article className="recipe-detail topic-detail">
     <header className="detail-hero"><div className="shell">
-      <Button asChild variant="ghost" size="sm" className="detail-back"><Link href={localePath("/topics", locale)}>{t("All Topics")}</Link></Button>
+      <Button asChild variant="ghost" size="sm" className="detail-back"><Link href={localePath("/topics", locale)}><ArrowLeft aria-hidden="true" />{t("All Topics")}</Link></Button>
       <div className="detail-meta"><Badge variant="outline">{t(topicStatus(topic))}</Badge>{topic.starts && <span>{topic.starts}{topic.ends && ` – ${topic.ends}`}</span>}</div>
       <h1 className="hero-title">{t(topic.title)}</h1><p className="detail-description">{t(topic.summary)}</p>
       <div className="detail-actions"><Button asChild><Link href={`${localePath("/contribute", locale)}?topic=${topic.slug}`}>{t(topic.kind === "activity" && topicStatus(topic) === "Completed" ? "Share related work" : "Contribute to this Topic")}</Link></Button>
         {topic.actions?.map(action => <Button asChild variant="outline" key={action.url}><a href={action.url} target="_blank" rel="noreferrer" data-topic-action={action.type === "source" ? undefined : action.type} data-material={action.type === "source" ? "source" : undefined} data-placement="topic_page">{t(action.label)}<ArrowUpRight aria-hidden="true" /></a></Button>)}
+        <ShareActions url={absoluteUrl(localePath(`/topics/${slug}`, locale))} title={t(topic.title)} />
       </div>
-      <ShareActions url={absoluteUrl(localePath(`/topics/${slug}`, locale))} title={t(topic.title)} />
       {topicStatus(topic) === "Completed" && <p className="recipe-source-note">{t("This activity has ended. Its materials remain available; general catalog submissions are still open.")}</p>}
     </div></header>
     {(topic.sections?.length || awards.length) ? <div className="shell topic-sections">

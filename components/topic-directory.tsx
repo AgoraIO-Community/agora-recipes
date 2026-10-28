@@ -18,9 +18,9 @@ export function TopicDirectory({ topics }: { topics: { slug: string; title: stri
     </ToggleGroup>
     <p role="status" className="recipe-source-note">{t("{count} Topics", { count: visible.length })}</p>
     <div className="topic-directory__grid">{visible.map(topic => <article key={topic.slug} className="topic-directory__card">
-      <Badge variant="outline">{t(topic.status)}</Badge>
+      <div className="topic-directory__meta"><Badge variant="outline">{t(topic.status)}</Badge><span>{t("{count} entries", { count: topic.count })}</span></div>
       <h2><Link href={localePath(`/topics/${topic.slug}`, locale)}>{topic.title}<ArrowUpRight size={18} aria-hidden="true" /></Link></h2>
-      <p>{topic.summary}</p><span className="recipe-source-note">{t("{count} entries", { count: topic.count })}</span>
+      <p>{topic.summary}</p>
     </article>)}</div>
     {!visible.length && <p className="recipe-source-note">{t("No Topics in this view yet.")}</p>}
   </section>

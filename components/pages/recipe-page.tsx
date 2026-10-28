@@ -106,8 +106,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               {recipe.recipeUrl && <CopyTextButton text={recipe.primaryPrompt} label="Copy recipe prompt" subject="Recipe prompt" primary />}
               {recipe.demoUrl && <Button asChild variant="outline"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try demo (opens in a new tab)")}>{t("Try demo")}<ArrowUpRight aria-hidden="true" /></a></Button>}
               {recipe.mainRepoUrl && <Button asChild variant="ghost"><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer" aria-label={t("Source on GitHub (opens in a new tab)")}>GitHub<ArrowUpRight aria-hidden="true" /></a></Button>}
+              <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} />
             </div>
-            <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} />
             {recipe.recipeUrl && <p className="detail-agent-hint">{t("Paste the prompt into Cursor, Claude Code, or your coding agent.")}</p>}
           </div>
           <RecipePreview recipe={summary} />
@@ -125,10 +125,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           {recipe.cli && <details id="recipe-cli" className="recipe-disclosure ag-disclosure"><summary>{t("Start with Agora CLI")}<ChevronDown size={15} aria-hidden="true" /></summary><p className="recipe-cli-hint">{t("Clone this recipe and configure it with an Agora project.")}</p><CodePanel code={command} label="Agora CLI" /></details>}
         </section>
         <section aria-labelledby="recipe-markdown-heading" className="recipe-guide">
-          <div className="recipe-guide__heading"><h2 id="recipe-markdown-heading" className="detail-title">{t("Implementation guide")}</h2><Button asChild variant="ghost" size="sm"><a href={recipe.recipeDocument.viewUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></Button></div>
-          {options.length > 2 && <DocumentLanguageSwitcher slug={slug} selected={selected.manual ? selected.key : "auto"} options={options} />}
-          <p className="recipe-source-note">{t("Document language: {language}", { language: t(languageName) })}{!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}</p>
-          <p className="recipe-source-note">{t("Shown as published by its author; website language does not translate the source guide.")}</p>
+          <div className="recipe-guide__heading"><h2 id="recipe-markdown-heading" className="detail-title">{t("Implementation guide")}</h2><div className="recipe-guide__tools">{options.length > 2 && <DocumentLanguageSwitcher slug={slug} selected={selected.manual ? selected.key : "auto"} options={options} />}<Button asChild variant="ghost" size="sm"><a href={recipe.recipeDocument.viewUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
+          <p className="recipe-source-note recipe-source-context">{t("Document language: {language}", { language: t(languageName) })}{!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}<span>{t("Shown as published by its author; website language does not translate the source guide.")}</span></p>
           {selected.manual && !selectedDocument.markdown && <p role="alert">{t("This guide version is unavailable")}. {t("No other author version has been selected automatically.")}</p>}
           {sections.length > 0 && <details className="mobile-guide-outline ag-disclosure"><summary>{t("In this guide")}<ChevronDown size={15} aria-hidden="true" /></summary><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></details>}
           <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl}>

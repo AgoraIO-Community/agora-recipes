@@ -96,9 +96,9 @@ Use the 4px spacing rhythm: 8–12px inside small groups, 16–24px between rela
 parts, and 28–40px between sections. Compactness comes from grouping and
 progressive disclosure. Preserve readable text and distinct section spacing.
 
-Controls have 6px corners; grouped trays use 10px. Project tiles and floating
+Controls have 6px corners; grouped trays use 8px. Project tiles and floating
 panels use 16px; phone tiles and select menus use 12px. Media actions use 10px.
-Metadata chips use 4px. Desktop control heights are 32/40/44px; phone and
+Metadata chips use 4px. Desktop control heights are 32/36/44px; phone and
 coarse-pointer actions retain at least 46px targets. Search is 48px.
 
 All pages share one shell, at most 1504px including gutters. Header, catalog,
@@ -120,7 +120,7 @@ the same 86px wordmark and label: 15px semibold on desktop, 14px on phones. Alig
 the visual center of the wordmark's main letter body with the Recipes text,
 excluding the long g descender. The current asset needs a 7.5px optical offset,
 reduced to 7px on phones. Do not align the full SVG box or only its baseline. On desktop, center the
-Recipes / Docs / GitHub navigation between the brand and right-hand actions.
+Recipes / Topics / Docs / GitHub navigation between the brand and right-hand actions.
 The smaller navigation controls use a 1px optical offset to share the brand
 label's baseline. Recipes carries the collection context; Contribute is secondary
 to Get started.
@@ -130,7 +130,7 @@ header action row; the footer retains its contribution link. On phones, the
 toggle replaces the GitHub shortcut, which remains in the navigation panel.
 
 At 900px the main links move into a bounded floating navigation panel. On phones,
-keep the theme toggle and menu button in the header; GitHub remains in the panel. Opening navigation must
+keep the language, theme, and menu icon buttons in the header; GitHub remains in the panel. Opening navigation must
 not shift page content. Use the existing Popover for outside dismissal, Escape,
 and focus return. Close it on navigation and when returning to desktop width.
 The phone panel shares the page's left and right gutters; tablet panels stay
@@ -191,8 +191,8 @@ and source actions follow in priority. Use actual preview media and truthful
 setup requirements. Full prompts and CLI commands remain available in native
 disclosures rather than repeating the primary action in a separate pitch.
 
-Inside the shared page shell, the desktop guide uses a 240px left contents rail
-and 72px gap. Reduce these at
+Inside the shared page shell, the desktop guide uses a 216px left contents rail
+and 48px gap. Reduce these at
 intermediate widths; on phones the rail follows the content and a local contents
 disclosure sits near the guide. The current section uses `aria-current` and the
 shared moving selection underlay. Anchors must clear the sticky header.
@@ -246,3 +246,9 @@ with Escape, and return focus. Layer order is catalog 30, header 40, popovers an
 dialogs 50, focused skip link 150. Verify desktop, tablet, and narrow phone
 layouts, touch, keyboard, empty recovery, copy failures, and reduced motion when
 changing these patterns.
+
+Header language selection is an icon action with a named tooltip and a compact,
+checked language menu. Keep it visible on phones. Share controls are a copy icon
+and a share menu within the primary action group; do not expand platform links
+into a separate toolbar. Guide-language selection belongs beside the reader
+heading, with full option labels in the menu and the actual source language below.

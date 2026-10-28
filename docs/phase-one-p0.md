@@ -39,6 +39,17 @@ See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contr
 
 Browser emulation does not verify physical devices, complete microphone/camera sessions, or third-party Demo availability for every visitor.
 
+## Compact UI Refinement — 2026-10-28
+
+The first functional implementation left new controls too spread out. The owner's Agora family standalone reference informed this refinement; it is reference material, not application code or a replacement for the existing site identity.
+
+- Shared solid controls now use 32/36/44px desktop sizes, matching text and icon actions. Phone/coarse-pointer targets stay at least 46px. Existing card crops, two-column phone browsing, opaque reading surfaces, dark default, and saved theme remain.
+- Language selection is a persistent header icon on desktop and phone. A named tooltip and checked four-language menu expose the current selection. The menu reuses the complete Liquid Glass engine and Radix keyboard/dismissal behavior. Nonmodal menus do not lock the page or change its width. Compact header actions also retain Docs/GitHub navigation at intermediate desktop widths.
+- Shared icon actions also provide theme and copy/share affordances. Sharing platforms live inside a compact menu beside the primary actions. Successful copying changes the icon to a check and announces the result; failures retain a readable recovery link.
+- The author-document selector is a compact shared Select beside the reading heading. The actual document language and preservation note remain visible. Topic cards group their status and entry count; header, catalog, and detail spacing follow the same compact scale.
+- Browser checks covered 320px/390px phones and desktop, dark/light controls, Japanese/Traditional Chinese selection, selected-language marking, Escape focus return, native/platform share menu destinations, canonical clipboard output, author-original choice and source returns. Phone headers retained three distinct 46px actions without horizontal overflow.
+- The mechanical design scan reported only the pre-existing neutral Markdown blockquote border; it is source-reading punctuation, not a newly introduced card accent. No dependencies or source-document changes were needed.
+
 ## Analytics Audit — 2026-10-28
 
 The authenticated Vercel project lookup confirmed:
