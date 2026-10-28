@@ -9,7 +9,8 @@ const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { w
   .map(({ name: slug }) => {
     const metadata = JSON.parse(readFileSync(new URL(`../content/recipes/${slug}/recipe.json`, import.meta.url)))
     const recommendedOrder = curated.findIndex(entry => entry.slug === slug)
-    return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { recommendedOrder, showcase: metadata.media }) }
+    // Media remains searchable when an entry leaves the editorial recommendations.
+    return { ...metadata, slug, ...(metadata.media ? { showcase: metadata.media } : {}), ...(recommendedOrder < 0 ? {} : { recommendedOrder }) }
   })
 const search = (query, extra = {}) => discoverRecipes(recipes, { ...defaultFilters, query, ...extra })
 

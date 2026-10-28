@@ -483,7 +483,10 @@
     "Start a submission": "投稿を始める",
     "Ended activities ({count})": "終了したイベント（{count}）",
     "This activity has ended. You can still share related work for its archive.": "このイベントは終了しています。関連する作品をアーカイブに追加する投稿は可能です。",
-    "Read the contribution SOP": "投稿・レビューの手順を読む"
+    "Read the contribution SOP": "投稿・レビューの手順を読む",
+    "Recorded demo · Live viewer needs an active broadcaster": "録画デモあり · ライブ表示には配信元が必要です",
+    "MatchCast author recording showing a live League of Legends match with English captions and transcript.": "MatchCast 作者の録画。League of Legends の配信と英語字幕、文字起こし。",
+    "Live captions": "リアルタイム字幕"
   },
   "entries": {
     "ag-iot-ios-app": {

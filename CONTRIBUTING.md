@@ -118,6 +118,8 @@ Keep media in the entry's `recipe.json`, independently of recommendation:
 
 The fragment above is optional metadata, not a complete entry. Use real images and videos. Keep `demoNote` accurate about supported languages, devices, accounts, and API-key requirements. Images can use a local public path or an HTTPS URL; keep posters below 150 KB where practical. Optional `compactTitle`, `compactSummary`, `videoDuration`, `thumbnailScale`, and `thumbnailOrigin` retain the existing media-card presentation options.
 
+Recommendation order is editorial. Prioritize usable materials, clear access requirements, useful guides, and a mix of use cases and platforms. Language alone does not determine the order. Do not describe editorial recommendations as popularity rankings without verified analytics.
+
 `content/showcase.json` contains only an ordered list of recommended `{ "slug": "..." }` references. Removing a recommendation does not remove its media or catalog entry. Do not duplicate media fields there. Content cards do not show Topic membership. Existing `?topic=` quick filters are catalog filters; they do not create curated Topics.
 
 ## Website Languages

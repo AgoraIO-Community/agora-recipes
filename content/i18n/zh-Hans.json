@@ -483,7 +483,10 @@
     "Start a submission": "开始投稿",
     "Ended activities ({count})": "已结束的活动（{count}）",
     "This activity has ended. You can still share related work for its archive.": "活动已结束，仍可补充与它相关的历史作品。",
-    "Read the contribution SOP": "查看投稿与评审规范"
+    "Read the contribution SOP": "查看投稿与评审规范",
+    "Recorded demo · Live viewer needs an active broadcaster": "含录屏 · 实时预览需要直播源",
+    "MatchCast author recording showing a live League of Legends match with English captions and transcript.": "MatchCast 作者录屏：英雄联盟直播画面，以及英文字幕和转写。",
+    "Live captions": "实时字幕"
   },
   "entries": {
     "ag-iot-ios-app": {

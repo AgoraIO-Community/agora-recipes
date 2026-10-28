@@ -166,6 +166,25 @@ The implementation retains the original `NODE_ENV === "production" && VERCEL ===
   query/clipboard/profile fields were removed, and anonymous transport fields remained.
   No test event reached the production project.
 
+## Featured content and English review evidence — 2026-10-28
+
+The editorial recommendation list now starts with Agora Podcasts, Meeting Copilot,
+Rotary Dial Phone, the existing English Draw & Guess, MatchCast, and Arena. StickS3,
+WorldCupVoice, and React Live Video complete the nine recommendations. Aria remains
+in the complete catalog with its existing URL and materials.
+
+MatchCast now exposes the author's 42-second English recording, a compact frame
+from that recording, and its public viewer preview. The preview needs an active
+broadcaster; the recorded example is available without starting a live session.
+The cover is below 150 KB and cites the original recording. Arena's hosted preview
+requires a playtest password, so it does not gain an unrestricted Demo action.
+The separate, newer Chinese Draw & Guess does not replace the submitted English
+project or its source URLs.
+
+Recommendation order is editorial, based on usable materials, clear setup, and
+variety. It is not a traffic ranking. Current PR #77 and Issue #78 review screenshots
+use the English interface; original author materials and localized pages remain intact.
+
 ## Release Dependencies
 
 1. Review the consolidated changes in PR #77 and integrate that PR through `staging` when the agreed scope and release acceptance are ready.
