@@ -79,7 +79,7 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
     {media.videoUrl && <div className="recipe-cover__play" aria-hidden="true"><div className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></div></div>}
     {(media.videoUrl || recipe.demoUrl) && <Badge className="recipe-cover__label ag-overlay">{media.videoUrl ? (media.videoDuration || t("Video")) : <>{t("Live demo")} <ArrowUpRight aria-hidden="true" /></>}</Badge>}
   </div>
-  return media.videoUrl ? <DialogTrigger asChild><button type="button" className="recipe-cover-link" aria-label={t("Watch {title} demo", { title })} onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <a href={recipe.demoUrl} target="_blank" rel="noreferrer" className="recipe-cover-link" aria-label={t("Try {title} demo (opens in a new tab)", { title })} title={media.demoNote}>{cover}</a> : <Link prefetch={false} href={href} className="recipe-cover-link">{cover}</Link>
+  return media.videoUrl ? <DialogTrigger asChild><button type="button" className="recipe-cover-link" aria-label={t("Watch {title} demo", { title })} onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" className="recipe-cover-link" aria-label={t("Try {title} demo (opens in a new tab)", { title })} title={media.demoNote}>{cover}</a> : <Link prefetch={false} href={href} className="recipe-cover-link">{cover}</Link>
 }
 
 export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: RecipeSummary; compact?: boolean; returnTo?: string }) {
@@ -88,7 +88,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const media = recipe.showcase
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
-  const previewAction = media?.videoUrl ? <DialogTrigger asChild><Button variant="ghost" size="sm" aria-label={t("Watch {title} demo", { title })}><Play aria-hidden="true" />{t("Video")}</Button></DialogTrigger> : recipe.demoUrl ? <Button asChild variant="ghost" size="sm"><a href={recipe.demoUrl} target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{t("Live demo")}<ArrowUpRight aria-hidden="true" /></a></Button> : null
+  const previewAction = media?.videoUrl ? <DialogTrigger asChild><Button variant="ghost" size="sm" aria-label={t("Watch {title} demo", { title })}><Play aria-hidden="true" />{t("Video")}</Button></DialogTrigger> : recipe.demoUrl ? <Button asChild variant="ghost" size="sm"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{t("Live demo")}<ArrowUpRight aria-hidden="true" /></a></Button> : null
 
   if (compact) return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className="recipe-result" data-recipe-slug={recipe.slug} data-compact>

@@ -86,7 +86,40 @@ The website supports `en`, `zh-Hans`, `zh-Hant`, and `ja`. English uses the exis
 
 Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit four translations.
 
-The site language does not translate or rewrite the author guide. This release renders the submitted document as published. Selecting available author README language versions is separate follow-up work.
+The site language does not translate or rewrite the author guide. At build time, the catalog follows explicit author language links only when they point to the same guide in the same GitHub repository/ref and link back to the submitted document. A matching filename alone is not sufficient. Current-language labels and reciprocal navigation identify the source language; ambiguous `中文` stays `zh` rather than being assumed Simplified or Traditional.
+
+Source aliases such as `zh-CN` → `zh-Hans`, `zh-TW` / `zh-HK` → `zh-Hant`, and `jp` → `ja` are site interpretation only. Author filenames and submitted URLs remain unchanged. The reader uses a confirmed language/script match, then English, then the submitted original. Manual selection takes priority and has a directly addressable route. Missing manual versions show an explicit unavailable message with no alternate reader. Raw, Markdown copying, the prompt, assets, and the outline follow the selected document. Existing Recipe API and `/recipes/<slug>/index.md` responses keep the submitted original.
+
+For a relationship maintainers have confirmed but author navigation cannot identify, add a small override to `content/document-languages.json`:
+
+```json
+{
+  "my-project": {
+    "originalLanguage": "en",
+    "versions": {
+      "ja": "https://github.com/OWNER/REPO/blob/main/docs/ja/README.md"
+    }
+  }
+}
+```
+
+Replace the example slug and URL with verified material. This mapping is optional. Missing translations do not block publication or require an external translation service.
+
+## Topics and Activities
+
+Maintain Topics in `content/topics/<slug>/topic.json`, using `templates/topic.json` as a starting point. Members reference existing catalog slugs; tags and filter labels do not create membership. One entry can belong to several Topics without another entry record.
+
+Collections do not need dates. Activities can supply `starts`, `ends`, `status` (`upcoming`, `active`, or `completed`), external `actions`, and optional `sections`. Action types are `participate`, `questions`, `replay`, and `source`. Longer original sections can declare their actual `language` and a `sourceUrl`. Short titles, summaries, and controls use the existing presentation dictionaries.
+
+Awards belong to a member within a specific activity edition, with a label and public `sourceUrl`. Label author-reported credit clearly; do not present it as an organizer-confirmed result. Keep completed activity pages and their materials. Registration, questions, and replays remain on existing external tools.
+
+Review Topic membership in the catalog PR. A Topic contribution link prefills the existing Topic reference in the GitHub form; it does not publish or create membership automatically. Content cards contain no Topic membership, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.
+
+## Sharing and Analytics
+
+Content and Topic pages share canonical URLs for the selected site locale, without list-return queries. Real cover images are preferred; `/social-card.png` is a local, statically generated fallback. Native, X, and LinkedIn handoffs open a sharing action; they do not prove a post was published. Copy-link events occur only after clipboard success.
+
+The existing Vercel project is the only analytics destination. Both page views and custom events require `NODE_ENV=production`, `VERCEL=1`, and `VERCEL_ENV=production`. The seven event families and allowed dimensions are defined in `lib/analytics-events.ts`. Search events are debounced; raw queries, account identity, copied text, and submissions are excluded. Hover previews do not emit plays, and GitHub handoffs are contribution-open events rather than submission success. Actual production ingestion remains a release verification step.
 
 ## Build and Verify
 
@@ -108,7 +141,7 @@ npx tsc --noEmit
 node --test scripts/*.test.mjs
 ```
 
-After building, start the site and run `node scripts/check-llm-discovery.mjs http://localhost:3000` to check the existing guide discovery contract.
+After building, start the site and run `node scripts/check-llm-discovery.mjs http://localhost:3000` for guide compatibility and `node scripts/check-phase-one.mjs http://localhost:3000` for four-locale Topics, document selection, sharing metadata, contribution paths, and the static image fallback.
 
 ## PR Checklist
 

@@ -1,6 +1,7 @@
 import "server-only"
 import fs from "node:fs"
 import path from "node:path"
+import type { DocumentLanguages } from "./documents"
 import type { Showcase } from "./recipe-discovery"
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "recipes")
@@ -28,6 +29,7 @@ type GeneratedRecipeArtifact = {
     recipeRawUrl: string
   }
   recipeDocument: RecipeDocument
+  documentLanguages?: DocumentLanguages
   primaryPrompt: string
 }
 
@@ -65,6 +67,7 @@ export type CatalogEntry = RecipeMeta & {
   slug: string
   generatedAt?: string
   recipeDocument: RecipeDocument
+  documentLanguages?: DocumentLanguages
   primaryPrompt: string
 }
 
@@ -242,7 +245,7 @@ function rawGithubUrlToViewUrl(rawUrl: string): string {
   return `https://github.com/${org}/${repo}/blob/${branch}/${filePath}`
 }
 
-function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument): string {
+export function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument): string {
   if (!meta.recipeUrl) return ""
   return `You are implementing the "${meta.title}" recipe in this project.
 
@@ -322,6 +325,7 @@ function loadRecipesFromDisk(): CatalogEntry[] {
       slug,
       generatedAt: generated?.generatedAt,
       recipeDocument,
+      ...(generated?.documentLanguages ? { documentLanguages: generated.documentLanguages } : {}),
       primaryPrompt:
         generated?.primaryPrompt ?? buildPrimaryPrompt(meta, recipeDocument),
       ...meta,

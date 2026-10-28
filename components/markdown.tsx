@@ -1,3 +1,4 @@
+import { headingId } from "@/lib/headings"
 import { translate, type Messages } from "@/lib/locales"
 import * as React from "react"
 import ReactMarkdown, { defaultUrlTransform, type Components } from "react-markdown"
@@ -166,10 +167,6 @@ function parseFrontmatter(lines: string[]): FrontmatterField[] {
   return fields
 }
 
-function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-")
+function slugify(value: string): string {
+  return headingId(value)
 }

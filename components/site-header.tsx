@@ -49,9 +49,10 @@ export function SiteHeader() {
         </Link>
 
         <nav className="desktop-nav" aria-label={t("Main navigation")}>
-          <Button asChild variant="secondary">
+          <Button asChild variant={pathname === localePath("/", locale) ? "secondary" : "ghost"}>
             <Link href={`${localePath("/", locale)}#recipes`} aria-current={pathname === localePath("/", locale) ? "page" : undefined}>{t("Recipes")}</Link>
           </Button>
+          <Button asChild variant={pathname.includes("/topics") ? "secondary" : "ghost"}><Link href={localePath("/topics", locale)} aria-current={pathname.includes("/topics") ? "page" : undefined}>{t("Topics")}</Link></Button>
           {links.map(([label, href]) => (
             <Button asChild variant="ghost" key={label}>
               <a href={href} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t(label) })}>
@@ -84,9 +85,10 @@ export function SiteHeader() {
             </PopoverTrigger>
             <PopoverContent align="end" sideOffset={24} collisionPadding={16} className="site-navigation-panel" aria-label={t("Site navigation")}>
               <nav className="mobile-navigation" aria-label={t("Mobile navigation")}>
-                <Button asChild variant="secondary">
+                <Button asChild variant={pathname === localePath("/", locale) ? "secondary" : "ghost"}>
                   <Link href={`${localePath("/", locale)}#recipes`} aria-current={pathname === localePath("/", locale) ? "page" : undefined} onClick={() => setOpen(false)}>{t("Recipes")}</Link>
                 </Button>
+                <Button asChild variant={pathname.includes("/topics") ? "secondary" : "ghost"}><Link href={localePath("/topics", locale)} onClick={() => setOpen(false)}>{t("Topics")}</Link></Button>
                 {links.map(([label, href]) => (
                   <Button asChild variant="ghost" key={label}>
                     <a href={href} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t(label) })} onClick={() => setOpen(false)}>

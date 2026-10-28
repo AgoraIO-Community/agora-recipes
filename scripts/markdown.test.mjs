@@ -22,7 +22,7 @@ async function componentModule(filename) {
       try { await access(new URL(filename)) }
       catch { filename = `${moduleUrl}.ts` }
       resolved = await componentModule(filename)
-    } else resolved = import.meta.resolve(name)
+    } else resolved = import.meta.resolve(name === "next/navigation" ? "next/navigation.js" : name)
     compiled = compiled.replace(`from ${quote}${name}${quote}`, `from "${resolved}"`)
   }
   return `data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`
@@ -86,4 +86,10 @@ test("routes Mermaid fences to a diagram while leaving regular code alone", asyn
   assert.match(html, /Diagram source/)
   assert.match(html.replace(/<\/?span\b[^>]*>/g, ""), /const value = 1/)
   assert.match(html, /aria-label="Copy js"/)
+})
+
+test('Chinese and Japanese guide headings retain usable anchors for the selected document outline', async () => {
+  const html = await render('## 使用方法\n\n## はじめに', { headingOffset: 1 })
+  assert.match(html, /id="使用方法"/)
+  assert.match(html, /id="はじめに"/)
 })

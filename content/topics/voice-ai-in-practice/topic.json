@@ -1,0 +1,31 @@
+{
+  "title": "Voice AI in practice",
+  "summary": "Explore community projects that turn real-time voice into useful and playful experiences.",
+  "kind": "collection",
+  "members": [
+    {
+      "slug": "aria-voice-sales-agent"
+    },
+    {
+      "slug": "agora-rotary-dial-phone"
+    },
+    {
+      "slug": "agora-podcasts"
+    },
+    {
+      "slug": "agora-meeting-copilot"
+    },
+    {
+      "slug": "pillion"
+    },
+    {
+      "slug": "agora-arena"
+    },
+    {
+      "slug": "agora-drawguess"
+    },
+    {
+      "slug": "worldcupvoice"
+    }
+  ]
+}

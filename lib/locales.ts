@@ -15,14 +15,15 @@ export function translate(messages: Messages, key: string, values: Record<string
   return (messages[key] ?? key).replace(/\{(\w+)\}/g, (match, name: string) => String(values[name] ?? match))
 }
 
-// Keep return navigation separate from content identity. P1 can extend this
-// allow-list when real Topic routes exist; arbitrary local/external URLs fail.
+// Return destinations are list routes only. Content identity and canonical URLs
+// never depend on the list that opened an entry.
 export function catalogReturnPath(value: string | null | undefined, locale: Locale = "en"): string {
   const fallback = `${localePath("/", locale)}#recipes`
   if (!value || !value.startsWith("/") || value.startsWith("//")) return fallback
   try {
     const url = new URL(value, "https://catalog.invalid")
-    if (url.origin !== "https://catalog.invalid" || !/^\/(en|zh-Hans|zh-Hant|ja)?\/?$/.test(url.pathname)) return fallback
+    const path = localePath(url.pathname, "en")
+    if (url.origin !== "https://catalog.invalid" || (path !== "/" && !/^\/topics\/[a-z0-9]+(?:-[a-z0-9]+)*\/?$/.test(path))) return fallback
     return `${url.pathname}${url.search}#recipes`
   } catch { return fallback }
 }

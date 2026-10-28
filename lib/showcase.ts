@@ -13,7 +13,7 @@ export function getRecipeSummaries(locale: Locale = "en"): RecipeSummary[] {
     if (!entries.some(entry => entry.slug === slug) || order.has(slug)) throw new Error(`[showcase] Unknown or duplicate entry slug: ${slug}`)
     order.set(slug, index)
   })
-  return entries.map(({ cli: _cli, recipeDocument: _document, primaryPrompt: _prompt, generatedAt: _generated, media, ...entry }) => {
+  return entries.map(({ cli: _cli, recipeDocument: _document, documentLanguages: _languages, primaryPrompt: _prompt, generatedAt: _generated, media, ...entry }) => {
     const showcase: Showcase | undefined = media && (media.thumbnail || media.videoUrl) ? {
       slug: entry.slug, title: entry.title, summary: entry.description,
       thumbnail: "", thumbnailAlt: entry.title, thumbnailSource: "", demoNote: "",

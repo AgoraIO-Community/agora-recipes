@@ -1,5 +1,6 @@
 "use client"
 
+import { useAnalytics } from "@/components/analytics-provider"
 import { useI18n } from "@/components/locale-provider"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { Check, Copy } from "lucide-react"
@@ -8,6 +9,7 @@ import { cn } from "@/lib/utils"
 
 export function CopyTextButton({ text, label = "Copy", subject = "Text", primary = false }: { text: string; label?: string; subject?: string; primary?: boolean }) {
   const { t } = useI18n()
+  const capture = useAnalytics()
   const [result, setResult] = useState<{ text: string; status: "idle" | "copied" | "failed" }>({ text, status: "idle" })
   const state = result.text === text ? result.status : "idle"
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -20,6 +22,7 @@ export function CopyTextButton({ text, label = "Copy", subject = "Text", primary
     try { await navigator.clipboard.writeText(text); status = "copied" }
     catch { status = "failed" }
     if (current !== request.current) return
+    if (status === "copied") capture("content_copy", { action: subject === "Recipe prompt" || subject === "Prompt" ? "prompt" : subject === "Markdown" ? "guide" : subject === "Agora CLI" ? "cli_command" : "code", placement: primary ? "hero" : "reader" })
     setResult({ text, status })
     timer.current = setTimeout(() => setResult({ text, status: "idle" }), 2500)
   }

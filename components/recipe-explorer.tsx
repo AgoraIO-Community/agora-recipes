@@ -1,5 +1,6 @@
 "use client"
 
+import { useAnalytics } from "@/components/analytics-provider"
 import { useI18n } from "@/components/locale-provider"
 import { usePathname } from "next/navigation"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
@@ -67,8 +68,10 @@ function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, 
   </details>
 }
 
-export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
+export function RecipeExplorer({ recipes, embedded = false, topicSlug }: { recipes: RecipeSummary[]; embedded?: boolean; topicSlug?: string }) {
   const { t, locale } = useI18n()
+  const capture = useAnalytics()
+  const pendingSearch = useRef<string | null>(null)
   const pathname = usePathname()
   const mobile = useIsMobile()
   const search = useCatalogSearch()
@@ -131,13 +134,27 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
     } catch { /* A fresh catalog remains usable when storage is unavailable. */ }
   }, [search])
 
-  function setFilters(next: DiscoveryFilters) {
+  useEffect(() => {
+    if (pendingSearch.current === null || pendingSearch.current !== filters.query) return
+    const timer = setTimeout(() => {
+      capture("catalog_action", { action: "search", placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: filtered.length })
+      pendingSearch.current = null
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [filters.query, filtered.length, capture, topicSlug])
+
+  function setFilters(next: DiscoveryFilters, action = "filter") {
+    if (action !== "search") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
     const nextParams = writeDiscoveryFilters(next, params)
     nextParams.delete("all")
     replaceCatalogSearch(nextParams)
   }
   function update<K extends keyof DiscoveryFilters>(key: K, value: DiscoveryFilters[K]) {
-    setFilters({ ...filters, [key]: value })
+    setFilters({ ...filters, [key]: value }, key === "query" ? "search" : key === "sort" ? "sort" : "filter")
+  }
+  function updateQuery(value: string) {
+    pendingSearch.current = value
+    setFilters({ ...filters, query: value }, "search")
   }
   function facet(key: FacetKey, value: string) {
     update(key, toggle(filters[key], value))
@@ -155,14 +172,14 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
     ...(filters.previewOnly ? [{ key: "demo", label: t("Has a demo"), remove: () => update("previewOnly", false) }] : []),
   ]
 
-  return <section id="recipes" className="catalog" aria-labelledby="recipes-heading" onClickCapture={captureNavigation} onAuxClickCapture={captureNavigation}>
+  return <section id="recipes" className={embedded ? "catalog catalog--embedded" : "catalog"} aria-label={embedded ? t("Topic entries") : undefined} aria-labelledby={embedded ? undefined : "recipes-heading"} onClickCapture={captureNavigation} onAuxClickCapture={captureNavigation}>
     <div className="shell catalog-masthead">
-      <h1 id="recipes-heading">{t("Explore projects and recipes.")}</h1>
-      <p>{t("Voice AI and real-time apps, with working code.")}</p>
+      {!embedded && <h1 id="recipes-heading">{t("Explore projects and recipes.")}</h1>}
+      {!embedded && <p>{t("Voice AI and real-time apps, with working code.")}</p>}
       <form role="search" className="catalog-search" onSubmit={event => event.preventDefault()}>
         <label htmlFor="recipe-search" className="sr-only">{t("Search recipes, descriptions, or authors")}</label>
-        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search recipes, capabilities…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={filters.query} onKeyDown={event => { if (event.key === "Escape") event.currentTarget.blur() }} onChange={event => update("query", event.target.value)} />
-          <InputGroupAddon align="inline-end">{filters.query ? <InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => update("query", "")}><X aria-hidden="true" /></InputGroupButton> : <kbd className="catalog-search__shortcut" aria-hidden="true">⌘ K</kbd>}</InputGroupAddon>
+        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search recipes, capabilities…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={filters.query} onKeyDown={event => { if (event.key === "Escape") event.currentTarget.blur() }} onChange={event => updateQuery(event.target.value)} />
+          <InputGroupAddon align="inline-end">{filters.query ? <InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => updateQuery("")}><X aria-hidden="true" /></InputGroupButton> : <kbd className="catalog-search__shortcut" aria-hidden="true">⌘ K</kbd>}</InputGroupAddon>
         </InputGroup>
       </form>
     </div>
@@ -216,6 +233,7 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
         {remaining.length > 0 && <details className="catalog-continuation" open={expanded} onToggle={event => {
           const open = event.currentTarget.open
           if (open === expanded) return
+          capture("catalog_action", { action: open ? "expand" : "collapse", placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug })
           const next = new URLSearchParams(params)
           if (open) next.set("all", "1"); else next.delete("all")
           replaceCatalogSearch(next)

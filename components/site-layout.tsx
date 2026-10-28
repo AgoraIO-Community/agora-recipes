@@ -1,5 +1,6 @@
+import { analyticsEnabled } from "@/lib/analytics-events"
+import { AnalyticsProvider } from "@/components/analytics-provider"
 import type { Metadata, Viewport } from "next"
-import { Analytics } from "@vercel/analytics/next"
 import "@/app/globals.css"
 import { LocaleProvider } from "@/components/locale-provider"
 import { getMessages, getT } from "@/lib/i18n"
@@ -11,7 +12,7 @@ import { siteUrl } from "@/lib/site"
 import { themeInitScript } from "@/lib/theme"
 
 const shouldLoadAnalytics =
-  process.env.NODE_ENV === "production" && process.env.VERCEL === "1"
+  analyticsEnabled(process.env.NODE_ENV, process.env.VERCEL, process.env.VERCEL_ENV)
 
 const baseMetadata: Metadata = {
   metadataBase: siteUrl,
@@ -92,13 +93,14 @@ export default function RootLayout({
           {t("Skip to main content")}
         </a>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
+        <AnalyticsProvider enabled={shouldLoadAnalytics}>
         <SiteHeader />
         <main id="main-content" className="flex-1">
           {children}
         </main>
         <SiteFooter />
+        </AnalyticsProvider>
         </LocaleProvider>
-        {shouldLoadAnalytics && <Analytics />}
       </body>
     </html>
   )

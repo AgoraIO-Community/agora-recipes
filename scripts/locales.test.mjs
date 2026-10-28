@@ -47,3 +47,11 @@ test('presentation translation preserves original documents and falls back for a
   }
   assert.deepEqual(original, snapshot)
 })
+
+test('Topic return targets retain the exact source list and reject lookalike or escaping routes', () => {
+  for (const locale of locales) {
+    const href = `${localePath('/topics/voice-ai-in-practice', locale)}?q=voice&platform=Python&material=demo&all=1#recipes`
+    assert.equal(catalogReturnPath(href, locale), href)
+    for (const bad of ['/entopics/voice-ai', '/topics/a/b', '/ja/topics/../contribute', '/ja/topics/a%2fb', '//example.com/topics/a']) assert.equal(catalogReturnPath(bad, locale), `${localePath('/', locale)}#recipes`)
+  }
+})

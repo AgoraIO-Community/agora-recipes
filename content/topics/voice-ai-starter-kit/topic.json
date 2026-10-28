@@ -1,0 +1,29 @@
+{
+  "title": "Voice AI starter kit",
+  "summary": "Start with official guides for a first agent, then add tools and handoffs.",
+  "kind": "collection",
+  "members": [
+    {
+      "slug": "python-quickstart"
+    },
+    {
+      "slug": "nextjs-quickstart"
+    },
+    {
+      "slug": "tool-calling"
+    },
+    {
+      "slug": "agent-handoff"
+    },
+    {
+      "slug": "rag"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Agora developer documentation",
+      "url": "https://docs.agora.io",
+      "type": "source"
+    }
+  ]
+}

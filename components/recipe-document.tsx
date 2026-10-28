@@ -30,7 +30,7 @@ export function RecipeDocument({ markdown, children, rawUrl }: { markdown: strin
   return <Tabs value={selected} onValueChange={setSelected} className="recipe-document">
     <div className="recipe-document-tabs">
       <TabsList aria-label={t("Recipe format")}><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
-      <div className="recipe-document-actions">{rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}<CopyMarkdownButton markdown={markdown} /></div>
+      <div className="recipe-document-actions">{rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}<CopyMarkdownButton markdown={markdown} /></div>
     </div>
     <TabsContent value="guide" forceMount hidden={selected !== "guide"} ref={guidePanel}>{children}</TabsContent>
     <TabsContent value="markdown" forceMount hidden={selected !== "markdown"}><CodePanel code={markdown} label="Markdown" wrap /></TabsContent>

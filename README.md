@@ -20,9 +20,17 @@ Keep entries in `content/recipes/<slug>/recipe.json`. Use `templates/recipe.json
 
 ## Website Languages
 
-English keeps the existing unprefixed URLs. `zh-Hans`, `zh-Hant`, and `ja` use locale prefixes; `/zh-CN/...` redirects to Simplified Chinese. Navigation, controls, metadata labels, and entry introductions use separate presentation dictionaries in `content/i18n/`. Missing entry translations fall back to the original metadata. The author guide and source links are unchanged; author README language selection is follow-up work.
+English keeps the existing unprefixed URLs. `zh-Hans`, `zh-Hant`, and `ja` use locale prefixes; `/zh-CN/...` redirects to Simplified Chinese. Navigation, controls, metadata labels, and entry introductions use separate presentation dictionaries in `content/i18n/`. Missing entry translations fall back to the original metadata. Author guides and submitted source links remain unchanged. The build confirms author language navigation and reciprocal same-guide links; optional maintainer mappings resolve ambiguity. The reader uses an exact language/script match, then English, then the original, while an explicit manual choice takes priority. Raw, copied content/prompts, and outlines follow that version. Recipe API and Markdown discovery remain on the submitted original.
 
 Catalog detail links carry a validated `returnTo` address with the source locale, search, filters, and expansion state. Local scroll snapshots are scoped to that address. Direct detail links return to the catalog without inheriting an unrelated visit. Query context is excluded from canonical URLs.
+
+## Topics, Sharing, and Measurement
+
+`/topics` lists curated collections and activities; `/topics/<slug>` reuses the catalog cards and filters. Maintain explicit membership and optional activity dates/actions/sections/edition awards in `content/topics/`. Topic membership appears on detail and Topic pages, with a compact shared header link. Content cards never show membership, and the homepage gains no large Topic banner. Legacy `?topic=` quick filters remain independent.
+
+Detail and Topic pages offer copy-link and suitable native/platform sharing handoffs. Canonical/social metadata uses the chosen website locale, actual media when available, and one statically built PNG fallback. List-return queries are excluded from shared URLs.
+
+The seven minimal event families use the existing Vercel SDK and project, only on actual Vercel production deployments. Raw searches, submissions, copied text, and account identity are excluded. Hover previews do not count as deliberate plays, and GitHub handoffs do not count as successful submissions. Actual dashboard ingestion and the live GitHub form remain release gates. See [verification and release notes](docs/phase-one-p0.md).
 
 ## Recipes API
 
