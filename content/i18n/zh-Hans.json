@@ -480,7 +480,10 @@
     "Read the PR contribution guide": "查看 PR 贡献指南",
     "Topic or activity (optional)": "关联 Topic / 活动（可选）",
     "Prepare your submission with AI": "用 AI 整理投稿",
-    "Start a submission": "开始投稿"
+    "Start a submission": "开始投稿",
+    "Ended activities ({count})": "已结束的活动（{count}）",
+    "This activity has ended. You can still share related work for its archive.": "活动已结束，仍可补充与它相关的历史作品。",
+    "Read the contribution SOP": "查看投稿与评审规范"
   },
   "entries": {
     "ag-iot-ios-app": {

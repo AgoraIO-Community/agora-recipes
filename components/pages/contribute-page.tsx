@@ -2,7 +2,7 @@ import { absoluteUrl } from "@/lib/site"
 import { GitHubFormLink } from "@/components/github-form-link"
 import { RecipeBackLink } from "@/components/recipe-back-link"
 import { contributionRepository } from "@/lib/contributions"
-import { topicNames } from "@/lib/topics"
+import { getAllTopics, topicNames, topicStatus } from "@/lib/topics"
 import type { Metadata } from "next"
 import { ArrowUpRight, GitPullRequest, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -17,11 +17,12 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
   const { locale = "en" } = await params
   const t = getT(locale)
   const topics = topicNames(locale)
+  const completedTopics = getAllTopics().filter(topic => topicStatus(topic) === "Completed").map(topic => topic.slug)
   return <article className="recipe-detail contribute-page">
     <header className="detail-hero"><div className="shell"><RecipeBackLink topics={topics} /><h1 className="hero-title">{t("Share your Agora project")}</h1><p className="detail-description">{t("A demo, video, source repository, or guide is enough. Bring what you already have.")}</p></div></header>
     <div className="shell contribute-content">
       <div className="contribute-workspace">
-        <section className="contribute-start" aria-label={t("Prepare your submission")}><GitHubFormLink topics={topics} siteOrigin={absoluteUrl("/")} /></section>
+        <section className="contribute-start" aria-label={t("Prepare your submission")}><GitHubFormLink topics={topics} completedTopics={completedTopics} siteOrigin={absoluteUrl("/")} /></section>
         <aside className="contribute-checklist" aria-labelledby="contribute-prepare-heading">
           <h2 id="contribute-prepare-heading" className="detail-title">{t("What to bring")}</h2>
           <ul>
@@ -37,7 +38,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
         <li><h3>{t("Follow the review in your Issue")}</h3><p>{t("Maintainers ask for any missing details in the same GitHub conversation.")}</p></li>
         <li><h3>{t("We prepare the catalog entry")}</h3><p>{t("Maintainers review the materials and Topic association, keeping your original submission and author credit.")}</p></li>
         <li><h3>{t("Get the published link")}</h3><p>{t("After review and release, maintainers add the site link to your Issue. Submitting does not publish automatically.")}</p></li>
-      </ol></section>
+      </ol><Button asChild variant="link"><a href={`${contributionRepository}/blob/staging/CONTRIBUTING.md#contribution-sop`} target="_blank" rel="noreferrer">{t("Read the contribution SOP")}<ArrowUpRight aria-hidden="true" /></a></Button></section>
       <details className="contribute-pr ag-disclosure"><summary>{t("Prefer to contribute with a pull request?")}<ChevronDown size={15} aria-hidden="true" /></summary><p>{t("Fork the catalog, create a branch from staging, and add content/recipes/<your-slug>/recipe.json. Use templates/demo.json for a demo or templates/recipe.json for a guide. Build and open a PR to staging; no submission Issue is required.")}</p><Button asChild variant="link"><a href={`${contributionRepository}/blob/staging/CONTRIBUTING.md`} data-contribution="pr_instructions" target="_blank" rel="noreferrer"><GitPullRequest aria-hidden="true" />{t("Read the PR contribution guide")}<ArrowUpRight aria-hidden="true" /></a></Button></details>
       <p className="contribute-privacy recipe-source-note">{t("Submit only public materials. Do not include private email addresses, credentials, or other private information.")}</p>
     </div>

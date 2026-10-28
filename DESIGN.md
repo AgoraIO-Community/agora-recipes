@@ -219,7 +219,14 @@ checklist and the review-to-release steps in the page. Keep direct PR instructio
 in a secondary disclosure, targeting staging. An unavailable GitHub form has a
 regular Issue draft recovery link with the same fields.
 
-Topic association is optional and explicit. Topic-page actions, shared header,
+Topic association is optional and explicit. Current collections and activities
+are offered first; ended activities stay in a collapsed group within the same menu. An inherited or
+manually selected ended activity remains visible with its ended status, and its
+checked historical choice is visible when the menu opens. Expand history in place
+on phones and desktop; do not require a side menu to reach archived activities. Ordinary
+collections and entries are not hidden merely because they were published earlier.
+
+Topic-page actions, shared header,
 and footer links carry that Topic. A recipe reached from a validated Topic list
 retains that source when contributing; a direct detail visit or legacy quick
 filter does not guess an association. The contributor can change or clear the

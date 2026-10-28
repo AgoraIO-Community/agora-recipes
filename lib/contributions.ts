@@ -40,7 +40,7 @@ export function contributionMaterials(locale: Locale, siteOrigin: string, topic?
 Add the project name.
 
 ### Introduction
-Explain what it does and who it helps.
+Explain in English what it does and who it helps. Keep source documents in their original language.
 
 ### Public author credit
 Add the public name or team to credit.

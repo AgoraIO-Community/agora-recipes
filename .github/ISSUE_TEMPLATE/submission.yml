@@ -8,6 +8,8 @@ body:
         Share materials that already exist. A demo, video, source repository, or guide is enough; you do not need all four or translated copies.
         This Issue is public. Do not include private email addresses, credentials, or other private information.
         Maintainers will review this Issue and prepare a catalog PR. Submission does not publish automatically.
+        Use English for the Issue title and introduction. Keep original project names, author credit, documents, and links unchanged.
+        Prefer a direct PR? Follow CONTRIBUTING.md and target staging; a submission Issue is not required.
   - type: input
     id: title
     attributes:
@@ -18,7 +20,7 @@ body:
     id: introduction
     attributes:
       label: Introduction
-      description: Explain what it does and who it helps, in your own language.
+      description: Explain in English what it does and who it helps. Your source documents can stay in their original language.
     validations:
       required: true
   - type: input
@@ -39,7 +41,7 @@ body:
     id: topic
     attributes:
       label: Existing Topic reference (optional)
-      description: Add an existing activity or collection link, if applicable. A new tag does not create a Topic.
+      description: Add an existing activity or collection link, if applicable. Ended activities can reference related historical work; this is not event registration. A technical tag does not create a Topic.
   - type: textarea
     id: notes
     attributes:

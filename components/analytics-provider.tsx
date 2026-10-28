@@ -1,27 +1,43 @@
 "use client"
 
-import { createContext, Suspense, useCallback, useContext, useEffect, type ReactNode } from "react"
+import { createContext, Suspense, useCallback, useContext, useEffect, useRef, type ReactNode } from "react"
 import { usePathname } from "next/navigation"
 import { Analytics } from "@vercel/analytics/next"
 import { track } from "@vercel/analytics"
 import { useI18n } from "./locale-provider"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
-import { catalogReturnPath, localePath } from "@/lib/locales"
 import { analyticsUrl, createAnalyticsEvent, type AnalyticsEvent, type EventDimensions } from "@/lib/analytics-events"
+import { pageContext, posthogProperties } from "@/lib/posthog-events"
+import { capturePosthog } from "@/lib/posthog-client"
 
-const AnalyticsContext = createContext(false)
+const AnalyticsContext = createContext<{ enabled: boolean; topics: readonly string[] }>({ enabled: false, topics: [] })
 export function useAnalytics() {
-  const enabled = useContext(AnalyticsContext)
+  const { enabled, topics } = useContext(AnalyticsContext)
   const { locale } = useI18n()
   const pathname = usePathname() ?? "/"
   const search = useCatalogSearch()
   return useCallback((name: AnalyticsEvent, dimensions: EventDimensions) => {
     if (!enabled) return
-    const path = localePath(pathname, "en")
-    const source = catalogReturnPath(new URLSearchParams(search).get("returnTo"), locale)
-    const event = createAnalyticsEvent(name, { ...dimensions, locale, content_slug: dimensions.content_slug ?? path.match(/^\/recipes\/([a-z0-9-]+)/)?.[1], topic_slug: dimensions.topic_slug ?? path.match(/^\/topics\/([a-z0-9-]+)/)?.[1] ?? source.match(/\/topics\/([a-z0-9-]+)/)?.[1] })
-    if (event) { try { track(event.name, event.properties) } catch { /* Analytics cannot block the visitor action. */ } }
-  }, [enabled, locale, pathname, search])
+    const context = pageContext(pathname, search, topics)
+    const event = createAnalyticsEvent(name, { ...context, ...dimensions, locale })
+    if (!event) return
+    try { track(event.name, event.properties) } catch { /* Analytics cannot block the visitor action. */ }
+    capturePosthog(event.name, { ...posthogProperties(context, event.name, event.properties), $current_url: analyticsUrl(window.location.href) })
+  }, [enabled, locale, pathname, search, topics])
+}
+
+function PageAnalytics() {
+  const pathname = usePathname() ?? "/"
+  const { topics } = useContext(AnalyticsContext)
+  const previousPath = useRef<string | undefined>(undefined)
+  useEffect(() => {
+    // Filters and submission association changes are not additional page views.
+    if (previousPath.current === pathname) return
+    previousPath.current = pathname
+    const context = pageContext(pathname, window.location.search, topics)
+    capturePosthog("$pageview", { ...posthogProperties(context, "$pageview"), $current_url: analyticsUrl(window.location.href) })
+  }, [pathname, topics])
+  return null
 }
 
 function LinkAnalytics() {
@@ -43,6 +59,6 @@ function LinkAnalytics() {
   }, [capture])
   return null
 }
-export function AnalyticsProvider({ enabled, children }: { enabled: boolean; children: ReactNode }) {
-  return <AnalyticsContext.Provider value={enabled}>{children}{enabled && <><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
+export function AnalyticsProvider({ enabled, topics, children }: { enabled: boolean; topics: readonly string[]; children: ReactNode }) {
+  return <AnalyticsContext.Provider value={{ enabled, topics }}>{children}{enabled && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
 }

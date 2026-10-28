@@ -12,7 +12,7 @@ async function load(topics) {
     for (const [slug, topic] of Object.entries(topics)) { const dir = path.join(root, 'content/topics', slug); await mkdir(dir, { recursive: true }); await writeFile(path.join(dir, 'topic.json'), JSON.stringify(topic)) }
     const compiled = ts.transpileModule(source.replaceAll('process.cwd()', JSON.stringify(root)), { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
     const loaded = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
-    return { topics: loaded.getAllTopics(), matches: loaded.getEntryTopics('shared-entry') }
+    return { topics: loaded.getAllTopics(), matches: loaded.getEntryTopics('shared-entry'), completed: loaded.getAllTopics().filter(topic => loaded.topicStatus(topic) === 'Completed').map(topic => topic.slug) }
   } finally { await rm(root, { recursive: true, force: true }) }
 }
 const base = { title: 'A real collection', summary: 'Related work', kind: 'collection', members: [{ slug: 'shared-entry' }] }
@@ -28,4 +28,15 @@ test('completed activity editions keep dates, original source references, and at
   const activity = { ...base, kind: 'activity', status: 'completed', starts: '2026-01-01', ends: '2026-01-02', members: [{ slug: 'shared-entry', award: { label: 'Author-reported award', sourceUrl: 'https://example.com/source' } }] }
   assert.equal((await load({ archive: activity })).topics[0].status, 'completed')
   await assert.rejects(load({ archive: { ...activity, starts: '2026-02-01' } }), /date order/)
+})
+
+test('only ended activities are archived; ordinary collections remain current', async () => {
+  const result = await load({
+    collection: base,
+    ended: { ...base, kind: 'activity', ends: '2020-01-01' },
+    completed: { ...base, kind: 'activity', status: 'completed' },
+    upcoming: { ...base, kind: 'activity', status: 'upcoming' },
+    ongoing: { ...base, kind: 'activity', status: 'active' },
+  })
+  assert.deepEqual(result.completed.sort(), ['completed', 'ended'])
 })

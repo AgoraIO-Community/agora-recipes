@@ -6,12 +6,52 @@ This repository is the Agora Recipes catalog. Implementations and author documen
 
 A GitHub account is required. You can use either path:
 
-- Open the **Share a project or guide** Issue form. Provide a public introduction, author credit, and at least one existing material link. You can write in your own language. No translated copies are required.
+- Open the **Share a project or guide** Issue form. Provide an English introduction, public author credit, and at least one existing material link. Original documents can stay in their existing languages; four translated copies are not required.
 - Fork this repository, create a branch from `staging`, and submit metadata through a PR to upstream `staging`. A submission Issue is optional for direct PRs.
 
 Issues are public. Do not include private email addresses, credentials, or other private information. Maintainers request additions in Issue comments, preserve the original submission, and prepare the catalog PR. Submission does not publish automatically. After release, maintainers add the published site link to the Issue.
 
 The Issue form becomes available when `.github/ISSUE_TEMPLATE/submission.yml` reaches the repository's default branch through the normal release process. A staging-only template is not a live submission form. The site contribution page provides a copyable AI prompt, the GitHub form, and direct PR instructions. The prompt prepares an English Issue draft from existing project materials for the contributor to review; it does not modify files or publish an Issue. A regular Issue draft link provides the same fields when the form is unavailable. Topic selection is optional and shared by the prompt, form, and recovery draft. Topic pages and validated Topic-to-detail navigation carry that association into contribution links; direct visits do not guess one.
+
+## Contribution SOP
+
+Both entry paths use the same review and release process. Direct PR contributors
+keep the original fork/metadata/build workflow; an Issue and AI assistance are optional.
+
+| Stage | Issue submission | Direct PR | Owner |
+| --- | --- | --- | --- |
+| Prepare | Use the Issue form or optional AI prompt to prepare the same public fields. | Fork, branch from `staging`, and use the existing metadata templates. | Contributor |
+| Submit | Review and submit the public Issue. | Build and open a PR to upstream `staging`. No preliminary Issue is required. | Contributor |
+| Review | Request missing details in the same Issue; prepare the catalog PR and reference the Issue. | Review the submitted metadata and request changes in that PR. | Maintainer |
+| Release | Release through the existing process; add the published site URL to the Issue, then close it. | Release through the same process; add the published site URL to the PR. | Maintainer |
+
+Use English Issue/PR titles and review summaries. Preserve original project names,
+author credit, submissions, README files, and source URLs. For an older submission
+in another language, add an English review summary without rewriting the author's text.
+
+Before approving, the maintainer checks:
+
+1. At least one supplied material is public and usable. List real device/account
+   requirements; omit unavailable materials instead of inventing them.
+2. Author credit is correct. Reuse an existing entry when updating a published
+   project; do not create a second identity just for its guide or translation.
+3. Any Topic association is explicit and uses an existing Topic. Current Topics
+   appear first in the site selector; ended activities are grouped separately.
+   Historical work may still reference an ended activity, without claiming new
+   registration or an award. Technical tags do not create membership.
+4. Metadata and generated guide artifacts pass the checks below. Content changes
+   require `npm run build`; code changes also require lint and independent types.
+5. The PR targets `staging` and references the original Issue with `Refs #NUMBER`
+   when one exists. Do not automatically close a submission before its site page
+   has been released. Keep review discussion and the published link in that record.
+
+The `Catalog checks` GitHub Actions workflow runs lint, behavioral tests, the full build, independent TypeScript checks, and rendered-route checks for PRs targeting `staging`. The build no longer skips TypeScript errors. These checks do not deploy the site or publish submissions.
+
+Templates: `.github/ISSUE_TEMPLATE/submission.yml` for submission Issues,
+`.github/PULL_REQUEST_TEMPLATE.md` for PR descriptions, and
+`templates/demo.json` / `templates/recipe.json` for catalog metadata. The AI prompt
+and regular-Issue recovery use the same Issue fields; neither creates a separate
+intake system. Template activation on GitHub follows the repository's normal release.
 
 ## Add Catalog Metadata
 
@@ -119,9 +159,16 @@ Review Topic membership in the catalog PR. A Topic contribution link prefills th
 
 Content and Topic pages share canonical URLs for the selected site locale, without list-return queries. Real cover images are preferred; `/social-card.png` is a local, statically generated fallback. Native, X, and LinkedIn handoffs open a sharing action; they do not prove a post was published. Copy-link events occur only after clipboard success.
 
-The existing Vercel project is the only analytics destination. Both page views and custom events require `NODE_ENV=production`, `VERCEL=1`, and `VERCEL_ENV=production`. The seven event families and allowed dimensions are defined in `lib/analytics-events.ts`. Search events are debounced; raw queries, account identity, copied text, and submissions are excluded. Hover previews do not emit plays, and GitHub handoffs are contribution-open events rather than submission success. Actual production ingestion remains a release verification step.
+PostHog project `recipes.agora.io` (`693535`) measures content use and Topic engagement; the existing Vercel analytics remain. Both destinations require `NODE_ENV=production`, `VERCEL=1`, and `VERCEL_ENV=production`. The seven event families and allowed dimensions are defined in `lib/analytics-events.ts`. Search events are debounced; raw queries, account identity, copied text, and submissions are excluded. Hover previews do not emit plays, and GitHub handoffs are contribution-open events rather than submission success. The lazy PostHog client captures explicit page views and the same seven action families, with no autocapture, session replay, person profiles, or site backend. Production builds require its two public environment variables. See [the measurement contract and release checks](docs/analytics.md). Actual production ingestion remains a release verification step.
 
 ## Build and Verify
+
+CI pins pnpm 12.15.0 and installs the committed lockfile with
+`pnpm install --frozen-lockfile --ignore-scripts`. `pnpm-workspace.yaml` explicitly
+denies the known optional dependency install scripts (`core-js`, `sharp`, and
+`unrs-resolver`); the verified build uses distributed artifacts. Unreviewed future
+scripts still fail under pnpm's default strict policy. No dependency-age exception
+or global policy override is needed.
 
 Do not add local guide Markdown for a new entry or hand-edit `content/generated/recipes/`.
 

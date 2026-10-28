@@ -538,10 +538,19 @@ a.recipe-author:hover { color: var(--foreground); }
 .contribute-start,.contribute-checklist { min-width: 0; padding-top: 24px; border-top: 1px solid var(--border); }
 .contribute-topic { display: grid; gap: 8px; margin-bottom: 28px; }
 .contribute-topic > label { font-size: 13px; }
-.contribute-topic .ag-select { width: min(100%,400px); white-space: normal; text-align: left; height: auto; padding-block: 8px; }
+.contribute-topic .ag-select { width: min(100%,400px); text-align: left; }
+.contribute-topic .basic-button-content { min-width: 0; width: 100%; }
+.contribute-topic .ag-select [data-slot=select-icon] { flex: none; width: 14px; height: 14px; color: var(--muted-foreground); transition: transform var(--motion-control); }
+.contribute-topic .ag-select[data-state=open] [data-slot=select-icon] { transform: rotate(180deg); }
 .contribute-topic > p,.contribute-account { color: var(--muted-foreground); font-size: 13px; line-height: 1.6; }
 .contribute-topic a { display: inline-flex; align-items: center; gap: 4px; color: var(--signal-text); text-underline-offset: 4px; }
 .contribute-topic a:hover { text-decoration: underline; }
+.contribute-topic-value { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.contribute-topic-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.contribute-topic-status { flex: none; color: var(--muted-foreground); white-space: nowrap; }
+.contribute-topic-menu { width: min(400px,var(--radix-dropdown-menu-trigger-width)); }
+.contribute-topic-history > svg { transition: transform var(--motion-control); }
+.contribute-topic-history[aria-expanded=true] > svg { transform: rotate(180deg); }
 .contribute-instructions { max-width: 65ch; margin-top: 12px; color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
 .contribute-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
 .contribute-account { max-width: 65ch; margin-block: 12px 20px; }
@@ -558,6 +567,7 @@ a.recipe-author:hover { color: var(--foreground); }
 .contribute-followup ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 28px; margin-top: 20px; list-style-position: inside; }
 .contribute-followup li::marker { color: var(--muted-foreground); font-size: 13px; }
 .contribute-followup h3 { display: inline; }
+.contribute-followup > .ag-button { margin-top: 12px; }
 .contribute-pr { max-width: 1120px; margin-top: 28px; border-block: 1px solid var(--border); }
 .contribute-privacy { max-width: 1120px; margin-top: 20px; }
 @media (max-width: 900px) { .contribute-workspace { gap: 28px; } }

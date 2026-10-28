@@ -19,23 +19,23 @@ The complete phase-one code is included in the same PR and tracking issue:
 - The build confirms reciprocal author language navigation and the same guide/repository/ref. Six current projects expose confirmed English and Simplified Chinese documents. Optional maintainer mappings resolve ambiguity. Source aliases map to canonical script/language IDs without changing filenames or original URLs. Automatic selection uses a confirmed match, English, then the original; a manual choice takes priority. Missing manual versions show a dedicated message with no substituted reader.
 - All source documents are fetched at build time. Known version routes and explicit unavailable states for supported languages are static. Selected Raw links, Markdown copying, prompts, outlines, assets, and document alternates use the selected source; the existing Recipe API and original Markdown routes remain unchanged.
 - Share actions use clean localized canonical content URLs, real cover images or the locally generated `/social-card.png`, and native/X/LinkedIn handoffs. Clipboard events require success; platform handoffs do not claim publication.
-- The seven event families use the existing Vercel SDK and project. Bounded public dimensions exclude search text, accounts, submissions, copied text, and destination URLs. Search is debounced, hover previews do not count as plays, and actual video plays are counted once per player opening. URL queries/hashes are removed from both page views and custom events before sending.
+- The seven event families use the existing Vercel SDK and the explicitly requested PostHog project (693535). Bounded public dimensions exclude search text, accounts, submissions, copied text, and destination URLs. Search is debounced, hover previews do not count as plays, and actual video plays are counted once per player opening. URL queries/hashes are removed from both page views and custom events before sending.
 
-See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contribution review, and verification commands. No dependency, lockfile, site account, business backend, or external analytics provider was added.
+See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contribution review, and verification commands. The requested PostHog browser SDK is the only new analytics dependency. No site account or business backend was added. See [the current measurement contract](analytics.md).
 
 ## Local Verification
 
 - `npm run lint`: passed, with the pre-existing `components/agora-logo.tsx` image warning.
 - `npm run build`: passed; generated 109 artifacts and 842 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
-- `npx tsc --noEmit`: passed independently of Next's existing build setting.
-- `node --test scripts/*.test.mjs`: 52 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
+- `npx tsc --noEmit`: passed; Next builds now also reject TypeScript errors.
+- `node --test scripts/*.test.mjs`: 57 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
 - `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 109 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
 - `node scripts/check-phase-one.mjs http://localhost:4181`: passed for all four locales, Topic membership and card restrictions, automatic/manual source language selection and unavailable states, sharing metadata, contribution paths, static social PNG, and existing API schema.
 - Browser checks covered all four site locales, 320px/390px phones, 768px tablet, and desktop. Phone browsing stayed in two columns without horizontal overflow; the phone filter sheet stayed within the viewport.
 - Checked combined search, platform selections, and material filters; refresh and explicit return links retained state. A new-tab link retained its return address. A local catalog return restored a nonzero scroll position. Theme choice survived reload and locale navigation.
 - Final browser checks also covered 901px/1101px header breakpoints, two different Topic returns for Pillion, filtered Topic returns after refresh and in a new tab, manual author-language selection across site locales, clean clipboard share URLs, activity archive attribution, and Topic-prefilled GitHub form links. Local preview loaded no Analytics scripts.
 - Temporary Demo-, source-, and video-only entries rendered without a guide or prompt. Their source/Demo actions and video player used real existing destinations. These clearly labeled fixtures were removed before the final build.
-- Existing metadata values and author credit are unchanged apart from relocating the existing media fields into entry metadata. No lockfile or dependency changes. Unrelated generated-document refreshes are excluded from the commit.
+- Existing metadata values and author credit are unchanged apart from relocating the existing media fields into entry metadata. The PostHog SDK and its installer-generated lockfile changes are included. Unrelated generated-document refreshes are excluded from the commit.
 
 Browser emulation does not verify physical devices, complete microphone/camera sessions, or third-party Demo availability for every visitor.
 
@@ -116,7 +116,7 @@ No real test submission, external post, new backend, provider, dependency,
 permission change, or production deployment was made. The live form/reviewer and
 production Analytics release gates below remain open.
 
-## Analytics Audit — 2026-10-28
+## Earlier Vercel Analytics Audit — 2026-10-28
 
 The authenticated Vercel project lookup confirmed:
 
@@ -138,14 +138,40 @@ Both page-view queries returned **No data found for this period**. The 30-day qu
 
 The existing Enterprise plan supports custom events according to [Vercel's documentation](https://vercel.com/docs/analytics/custom-events), and the account exposes their metric. The seven event families are implemented and their guards, payloads, and redaction passed local tests. No synthetic production event was sent. Actual event ingestion remains unverified and keeps T9 release acceptance open.
 
-The implementation retains the original `NODE_ENV === "production" && VERCEL === "1"` checks and additionally requires `VERCEL_ENV === "production"` for both page views and custom events. Local development, local production builds, and Vercel preview deployments do not inject Analytics. No provider, project, billing, or hosting settings were changed.
+The implementation retains the original `NODE_ENV === "production" && VERCEL === "1"` checks and additionally requires `VERCEL_ENV === "production"` for both page views and custom events. Local development, local production builds, and Vercel preview deployments do not inject Analytics. That earlier audit changed no hosting settings. The later, explicitly requested PostHog integration below adds only its public production environment values.
+
+## Contribution SOP and PostHog — 2026-10-28
+
+- The native Issue form, regular-Issue recovery, optional AI prompt, direct PR
+  template, and CONTRIBUTING SOP now use the same material/credit/Topic fields.
+  Issues/PRs use English summaries; author materials and older submissions remain
+  intact. There is no mandatory Issue before a direct PR.
+- Only ended activities collapse under “Ended activities” in the contribution
+  selector. The group expands within the same menu on desktop and phone. A
+  preselected ended activity remains visible with its status and checked option.
+- Builds no longer ignore TypeScript failures. A pinned, read-only GitHub Actions
+  workflow verifies staging PRs without deployment or secrets.
+- PostHog SDK 1.439.0 is lazy loaded only in real production. The verified public
+  project token/ingestion host are configured in the existing Vercel project's
+  Production environment. No production deployment or permission change was made.
+- The seven native insights in [Recipes usage and Topic engagement](https://us.posthog.com/project/693535/dashboard/2270627)
+  cover entry views/use, use types, Topic audience/engagement, contribution handoffs,
+  and activity destinations. All returned **no data** at setup; no synthetic event
+  was sent to production. Full metric definitions and remaining release checks
+  are in [analytics.md](analytics.md).
+- New tests cover ended-activity classification, independent selected/source Topic
+  attribution, real use versus preparation, and the SDK payload boundary. A temporary
+  browser harness bundled the actual SDK with a fake token and local-only collector:
+  page-view/use/preparation events arrived, Topic A/B attribution was distinct,
+  query/clipboard/profile fields were removed, and anonymous transport fields remained.
+  No test event reached the production project.
 
 ## Release Dependencies
 
 1. Review the consolidated changes in PR #77 and integrate that PR through `staging` when the agreed scope and release acceptance are ready.
 2. The fork preview check reports **Authorization required to deploy**. An Agora GDXE team member must authorize the preview; local implementation does not change hosting permissions.
 3. Release the Issue template to the repository's default branch through the normal process. Before that release, GitHub cannot render the new form from the site's link. Verify the live form without posting a test submission.
-4. Deploy through the existing production process. Verify locale URLs and confirm real page views and deliberate custom events in the existing Analytics project. Investigate the no-data result before marking T5 complete.
+4. Deploy through the existing production process. Verify locale URLs, real PostHog page views/actions, Topic attribution, and the existing Vercel collection. Use [the production acceptance procedure](analytics.md#release-verification). Keep T5/T9 open until actual ingestion is verified.
 5. Assign maintainers for public submission review, translation review, recommendations, and future Topic content. Presently translated introductions should receive editorial review before release.
 
 No production deployment, merge to staging/main, analytics activation, plan change, or public submission is performed by the local implementation checks. Production collection health and actual custom-event ingestion remain release gates; locally verified payloads are not dashboard ingestion evidence.

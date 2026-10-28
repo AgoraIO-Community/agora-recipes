@@ -20,7 +20,7 @@ Appearance defaults to dark on first visit. A header toggle switches between dar
 
 Entries may provide any combination of Demo, video, source, and Recipe. Only configured guides are fetched during builds. Entries without guides remain outside Recipe-specific APIs and Markdown routes. Media is editable in entry metadata; the recommendation file owns ordered slug references only. Material filters use AND while platform selections retain OR.
 
-Content cards never show curated Topic names, badges, or links. Curated Topic pages use explicit entry membership, optional activity sections and edition awards, and the shared header navigation. Confirmed author README language selection, localized sharing, and seven minimal analytics event families extend the same build and component patterns. Keep legacy `?topic=` quick filters independent from future curated Topics. See [P0 verification and release notes](docs/phase-one-p0.md) for build/browser verification, the existing Analytics audit, and remaining release dependencies.
+Content cards never show curated Topic names, badges, or links. Curated Topic pages use explicit entry membership, optional activity sections and edition awards, and the shared header navigation. Confirmed author README language selection, localized sharing, and seven bounded analytics event families sent to the existing Vercel project and the requested PostHog project extend the same build and component patterns. Keep legacy `?topic=` quick filters independent from future curated Topics. See [P0 verification and release notes](docs/phase-one-p0.md) for build/browser verification, the existing Analytics audit, and remaining release dependencies.
 
 ## Brand Commitments
 

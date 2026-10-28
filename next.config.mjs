@@ -4,9 +4,6 @@ const nextConfig = {
   async redirects() {
     return [{ source: "/zh-CN/:path*", destination: "/zh-Hans/:path*", permanent: true }]
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     unoptimized: true,
   },
