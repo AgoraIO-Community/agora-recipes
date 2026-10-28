@@ -220,5 +220,32 @@
       "stick",
       "badge"
     ]
+  },
+  {
+    "slug": "sahara-healthcare-companion",
+    "title": "Sahara Healthcare Companion",
+    "compactTitle": "Sahara Companion",
+    "summary": "Multilingual voice companion and autonomous emergency lifeline for elderly care with NEWS2 clinical triage.",
+    "compactSummary": "Voice health companion & emergency lifeline.",
+    "thumbnail": "/recipes/sahara-healthcare-companion.webp",
+    "thumbnailAlt": "Sahara Voice AI Healthcare Companion slide showing elderly healthcare crisis and full-duplex voice companion overview",
+    "thumbnailSource": "https://raw.githubusercontent.com/ace-ify/sahara-app/main/deck/1.png",
+    "demoNote": "Expo React Native mobile client with FastAPI backend and Agora Conversational AI.",
+    "labels": [
+      "Voice AI",
+      "Healthcare"
+    ],
+    "searchTerms": [
+      "sahara",
+      "healthcare",
+      "elderly care",
+      "voice companion",
+      "conversational ai",
+      "news2",
+      "emergency",
+      "triage",
+      "hindi",
+      "lifeline"
+    ]
   }
 ]
