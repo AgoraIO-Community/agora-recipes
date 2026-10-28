@@ -2,7 +2,7 @@ export type Theme = "dark" | "light"
 
 export const THEME_STORAGE_KEY = "recipes:theme"
 export const THEME_CHANGE_EVENT = "recipes:theme-change"
-export const THEME_COLORS = { dark: "#000000", light: "#f8f9fb" } as const
+export const THEME_COLORS = { dark: "#000000", light: "#fcf9f8" } as const
 
 export function applyTheme(theme: Theme) {
   const root = document.documentElement

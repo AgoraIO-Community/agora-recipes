@@ -20,14 +20,19 @@ export function useCatalogMotion(ref: RefObject<HTMLDivElement | null>, state: s
     })
     const last = previous.current
     if (last && last.query === query && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const tokens = getComputedStyle(document.documentElement)
+      const time = tokens.getPropertyValue("--ds-duration-standard").trim()
+      // Computed CSS may serialize 360ms as .36s.
+      const duration = time.endsWith("ms") ? Number.parseFloat(time) : time.endsWith("s") ? Number.parseFloat(time) * 1000 : 360
+      const easing = tokens.getPropertyValue("--ease-out").trim() || "cubic-bezier(.16,1,.3,1)"
       for (const { card, position } of measured) {
         const before = last.positions.get(card.dataset.recipeSlug!)
         if (before) {
           const x = before.x - position.x, y = before.y - position.y
           if (Math.abs(x) + Math.abs(y) < 1) continue
-          animations.current.push(card.animate([{ transform: `translate(${x}px,${y}px)` }, { transform: "translate(0,0)" }], { duration: 280, easing: "cubic-bezier(.2,.8,.2,1)" }))
+          animations.current.push(card.animate([{ transform: `translate(${x}px,${y}px)` }, { transform: "translate(0,0)" }], { duration, easing }))
         } else {
-          animations.current.push(card.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 220, easing: "cubic-bezier(.2,.8,.2,1)" }))
+          animations.current.push(card.animate([{ opacity: 0 }, { opacity: 1 }], { duration, easing }))
         }
       }
     }

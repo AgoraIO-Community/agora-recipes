@@ -56,7 +56,14 @@ function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, 
   const visible = query || showAll ? sorted : sorted.filter((value, index) => index < 6 || filters[facet].includes(value))
 
   return <details className="catalog-facet-group ag-disclosure" open={initiallyOpen || undefined}>
-    <summary>{label}<span>{filters[facet].length ? t("{count} selected", { count: filters[facet].length }) : options.length}<ChevronDown size={15} aria-hidden="true" /></span></summary>
+    <summary onKeyDown={event => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return
+      const summaries = Array.from(event.currentTarget.parentElement!.parentElement!.querySelectorAll<HTMLElement>(".catalog-facet-group > summary"))
+      const index = summaries.indexOf(event.currentTarget)
+      const next = event.key === "Home" ? 0 : event.key === "End" ? summaries.length - 1 : (index + (event.key === "ArrowDown" ? 1 : -1) + summaries.length) % summaries.length
+      event.preventDefault()
+      summaries[next]?.focus()
+    }}>{label}<span>{filters[facet].length ? t("{count} selected", { count: filters[facet].length }) : options.length}<ChevronDown size={15} aria-hidden="true" /></span></summary>
     <fieldset>
       <legend className="sr-only">{label}</legend>
       <p className="catalog-facet-hint">{hint}</p>
@@ -213,7 +220,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
       {!embedded && <p>{t("Voice AI and real-time apps, with working code.")}</p>}
       <form role="search" className="catalog-search" onSubmit={event => { event.preventDefault(); if (!composing) commitQuery(query) }}>
         <label htmlFor="recipe-search" className="sr-only">{t("Search projects, guides, or authors")}</label>
-        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search projects, guides, or authors…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={query} onFocus={guides.preload} onCompositionStart={() => setComposing(true)} onCompositionEnd={event => { setComposing(false); setQuery(event.currentTarget.value) }} onKeyDown={event => { if (event.key === "Escape") { if (query) { event.preventDefault(); updateQuery("", true) } else event.currentTarget.blur() } }} onChange={event => updateQuery(event.target.value)} />
+        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search projects, guides, or authors…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={query} onFocus={guides.preload} onCompositionStart={() => setComposing(true)} onCompositionEnd={event => { setComposing(false); setQuery(event.currentTarget.value) }} onKeyDown={event => { if (!event.nativeEvent.isComposing && event.key === "Escape") { if (query) { event.preventDefault(); updateQuery("", true) } else event.currentTarget.blur() } }} onChange={event => updateQuery(event.target.value)} />
           <InputGroupAddon align="inline-end">{query ? <InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => updateQuery("", true)}><X aria-hidden="true" /></InputGroupButton> : <kbd className="catalog-search__shortcut" aria-hidden="true">⌘ K</kbd>}</InputGroupAddon>
         </InputGroup>
       </form>
@@ -277,7 +284,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
           <summary className="ag-button ag-button-outline ag-control-lg"><span>{expanded ? t("Show fewer recipes") : t("Explore {count} more recipes", { count: remaining.length })}</span><ChevronDown aria-hidden="true" /></summary>
           {expanded && <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />)}</div>}
         </details>}
-      </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => setFilters(defaultFilters)}>{t("Clear search and filters")}</Button></Empty>}
+      </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => { setFilters(defaultFilters); searchRef.current?.focus() }}>{t("Clear search and filters")}</Button></Empty>}
     </div>
   </section>
 }

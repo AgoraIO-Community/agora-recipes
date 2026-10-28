@@ -26,7 +26,7 @@ export function ShareActions({ url, title }: { url: string; title: string }) {
     catch (error) { if (!(error instanceof Error && error.name === "AbortError")) setShareError({ url, message: t("Sharing is unavailable. Copy the link instead.") }) }
   }
   return <div className="share-actions" data-error={failed || undefined} role="group" aria-label={t("Share this page")}>
-    <IconButton label={state === "copying" ? t("Copying…") : status && !failed ? status : t("Copy link")} onClick={() => { setShareError({ url, message: "" }); void copy() }} aria-disabled={state === "copying"} aria-busy={state === "copying"} className="copy-action" data-copy-state={state}><span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span></IconButton>
+    <IconButton label={state === "copying" ? t("Copying…") : status && !failed ? status : t("Copy link")} onClick={() => { setShareError({ url, message: "" }); void copy() }} busy={state === "copying"} busyIndicator={false} className="copy-action" data-copy-state={state}><span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span></IconButton>
     <DropdownMenu>
       <DropdownMenuTrigger asChild><IconButton label={t("Share this page")}><Share2 aria-hidden="true" /></IconButton></DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={8} collisionPadding={16}>

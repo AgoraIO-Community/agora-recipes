@@ -28,7 +28,7 @@ See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contr
 - `npm run lint`: passed, with the pre-existing `components/agora-logo.tsx` image warning.
 - `npm run build`: passed; generated 110 artifacts and 879 static pages. New Topic, guide-version, and social-image routes are static; the only dynamic routes are the existing Recipe APIs.
 - `npx tsc --noEmit`: passed; Next builds now also reject TypeScript errors.
-- `node --test scripts/*.test.mjs`: 61 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
+- `node --test scripts/*.test.mjs`: 64 passed. Coverage includes optional materials, Topic membership/validation, reciprocal source-language discovery, current-language indicators and code-example exclusion, script-aware fallback, missing manual versions, original-document preservation, Unicode headings, material filters, URL state, production guards, event dimensions, and URL redaction.
 - `node scripts/check-llm-discovery.mjs http://localhost:4181`: passed for all 110 existing guides, including Markdown, canonical URLs, sitemap coverage, and missing-slug responses.
 - `node scripts/check-phase-one.mjs http://localhost:4181`: passed for all four locales, Topic membership and card restrictions, automatic/manual source language selection and unavailable states, sharing metadata, contribution paths, static social PNG, and existing API schema.
 - Browser checks covered all four site locales, 320px/390px phones, 768px tablet, and desktop. Phone browsing stayed in two columns without horizontal overflow; the phone filter sheet stayed within the viewport.
@@ -218,6 +218,41 @@ use the English interface; original author materials and localized pages remain 
 - Source text is searchable as included in this build; private repositories,
   unconfigured documents, and implementation files outside the guides are not indexed.
   Original author submissions and documents are not rewritten.
+
+## Agent UI component alignment — 2026-10-28
+
+- The owner-selected Agent UI documentation replaces the older standalone HTML.
+  DESIGN.md records the reference and pinned source revision. Existing Recipes
+  primitives adopt its semantic palette, 32/40/44px control scale, regular 14px
+  labels (13px compact), and shared 200/360/600ms timing. Weight 400, stationary
+  hover, 46px phone targets, and the complete floating GlassSurface remain owner
+  requirements. No additional component runtime or dependency was installed.
+- Shared Button busy state keeps the label, geometry, and focus, while blocking
+  repeated action and slotted-link click handlers. Explicit disabled buttons stay
+  native. Copy controls reuse this behavior with their own four-state feedback,
+  avoiding duplicate spinners. Existing variant names remain compatible.
+- Filter disclosure headings support Up/Down/Home/End and native Enter/Space;
+  groups remain independently open. Reader tabs keep their keyboard semantics.
+  Empty-result reset now returns focus to search. Escape does not clear composing
+  input. Catalog reordering reads the same motion token, including computed seconds.
+- Browser checks covered the catalog, detail, Topic, contribution, filter sheet,
+  language menu, and live search. Regular controls measured 40px/14px/400. Light
+  canvas and browser theme color both use #fcf9f8. The 320px Japanese contribution
+  page and 768px Traditional Chinese Topic had no horizontal overflow; phone
+  contribution actions measured 46px high and 288px wide at 320px.
+- A held clipboard test retained focus and the same 211.77px button width through
+  pending/success; a programmatic repeat made only one write. An injected clipboard
+  rejection showed retry/manual-copy guidance and selectable original text. Reload
+  removed the harness, and a real recipe-prompt copy succeeded. Native OS permission
+  dialogs and physical devices are not claimed as tested.
+- Language keyboard focus stayed inset by 2px; Escape returned focus to its icon.
+  The inherited completed iRTE2026 option remained checked and visible. English
+  desktop/phone, dark/light, and state screenshots are in PR #77.
+- Lint (one existing logo warning), independent types, 64 tests, the 110-artifact /
+  879-page build, four-locale rendered checks, and all 110-guide compatibility
+  checks passed. The mechanical scan reported only the existing neutral Markdown
+  blockquote border, retained as a reading convention; no new primary finding.
+  Unrelated generated guide refreshes were excluded from this UI change.
 
 ## Release Dependencies
 

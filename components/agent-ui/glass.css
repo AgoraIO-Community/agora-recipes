@@ -27,18 +27,18 @@
 /* Opacity animation on a glass ancestor creates a backdrop root in Chromium,
    preventing its optical layer from sampling the page. Move the glass itself;
    the separate modal overlay owns the fade. No persistent animation fill. */
-.ag-glass[data-slot=dialog-content][data-state=open] { animation: ag-glass-enter 240ms var(--ease-out); }
-.ag-glass[data-slot=dialog-content][data-state=closed] { animation: ag-glass-exit 140ms ease-in; }
+.ag-glass[data-slot=dialog-content][data-state=open] { animation: ag-glass-enter var(--motion-surface) var(--ease-out); }
+.ag-glass[data-slot=dialog-content][data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
 .ag-glass[data-slot=sheet-content] { --glass-enter-x: 24px; --glass-enter-y: 0px; }
 .ag-glass[data-slot=sheet-content][data-side=left] { --glass-enter-x: -24px; }
 .ag-glass[data-slot=sheet-content][data-side=bottom] { --glass-enter-x: 0px; --glass-enter-y: 24px; }
 .ag-glass[data-slot=sheet-content][data-side=top] { --glass-enter-x: 0px; --glass-enter-y: -24px; }
-.ag-glass[data-slot=sheet-content][data-state=open] { animation: ag-glass-enter 280ms var(--ease-out); }
-.ag-glass[data-slot=sheet-content][data-state=closed] { animation: ag-glass-exit 160ms ease-in; }
+.ag-glass[data-slot=sheet-content][data-state=open] { animation: ag-glass-enter var(--motion-surface) var(--ease-out); }
+.ag-glass[data-slot=sheet-content][data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
 .ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content]) { --glass-enter-y: -4px; }
 .ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-side=top] { --glass-enter-y: 4px; }
-.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=open] { animation: ag-glass-enter 180ms var(--ease-out); }
-.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=closed] { animation: ag-glass-exit 120ms ease-in; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=open] { animation: ag-glass-enter var(--motion-control) var(--ease-out); }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
 @keyframes ag-glass-enter { from { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } to { transform: none; } }
 @keyframes ag-glass-exit { to { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } }
 @supports not (backdrop-filter: url("#glass-probe")) {

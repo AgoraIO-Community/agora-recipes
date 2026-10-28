@@ -13,7 +13,7 @@ export function CopyTextButton({ text, label = "Copy", subject = "Text", primary
   const capture = useAnalytics()
   const { state, copy } = useCopyFeedback(text, () => capture("content_copy", { action: subject === "Recipe prompt" || subject === "Prompt" || subject === "Submission prompt" ? "prompt" : subject === "Markdown" ? "guide" : subject === "Agora CLI" ? "cli_command" : "code", placement: primary ? "hero" : "reader" }))
   return <>
-    <Button type="button" variant={primary ? "default" : "ghost"} size={primary ? "default" : "sm"} onClick={copy} aria-disabled={state === "copying"} aria-busy={state === "copying"} className="copy-action" data-copy-state={state} aria-label={t(state === "copied" ? "{subject} copied" : "Copy {subject}", { subject: t(subject) })}>
+    <Button type="button" variant={primary ? "primary" : "quiet"} size={primary ? "default" : "sm"} onClick={copy} busy={state === "copying"} busyIndicator={false} className="copy-action" data-copy-state={state} aria-label={t(state === "copied" ? "{subject} copied" : "Copy {subject}", { subject: t(subject) })}>
       <span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span>
       <span className="copy-action__label"><span aria-hidden={state !== "idle"}>{t(label)}</span><span aria-hidden={state !== "copied"}>{t("Copied")}</span><span aria-hidden={state !== "failed"}>{t("Try copying again")}</span><span aria-hidden={state !== "copying"}>{t("Copying…")}</span></span>
     </Button>

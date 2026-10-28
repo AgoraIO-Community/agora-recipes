@@ -5,6 +5,17 @@ trying their demos, and following their implementation guides. Keep the interfac
 in the Agora website family: official cyan wordmark, local MiSans typography,
 quiet charcoal controls, and real project media.
 
+## Current reference
+
+The owner-selected [Agent UI component reference](https://agent-ui-theta-drab.vercel.app/?member=basic&appearance=dark&doc=button)
+replaces the earlier standalone HTML as the primary component reference. Token
+and component semantics were checked against the source snapshot
+`shczhen/agent-ui@c59fa2c954d036c4428b17b0f2f8150f12fb7ed2`.
+Adapt those semantics in the existing shared Recipes components. Keep the owner's
+regular interface weight 400, stationary hover, complete floating GlassSurface,
+compact catalog layout, and 46px phone targets. These take priority over different
+source-demo typography, moving arrows, and documentation-page geometry.
+
 ## System ownership
 
 This guide defines the visual and interaction rules for Recipes. Shared tokens
@@ -34,17 +45,17 @@ the current page. Tabs from the same origin synchronize explicit changes.
 
 | Role | Dark (default) | Light | Usage |
 | --- | --- | --- | --- |
-| Canvas | `#000000` | `#f8f9fb` | Page background |
-| Secondary | `#101010` | `#f0f2f5` | Footer and recessed areas |
-| Surface | `#121212` | `#ffffff` | Project tiles and panels |
-| Raised / muted | `#1a1a1a` | `#e9edf2` | Hover and quiet metadata surfaces |
-| Text | `#fcf9f8` | `#20252b` | Main text |
-| Secondary text | `#b3b3b3` | `#59636d` | Descriptions, metadata, secondary links |
-| Border | `#292929` | `#d9dee4` | Structural seams and panel edges |
-| Input edge | `#484848` | `#89949f` | Fields and brand separator |
+| Canvas | `#000000` | `#fcf9f8` | Page background |
+| Secondary | `#0a0a0a` | `#ffffff` | Footer and recessed areas |
+| Surface | `#1a1a1a` | `#ffffff` | Project tiles and panels |
+| Raised / muted | `#242424` | `#f0eeec` | Hover and quiet metadata surfaces |
+| Text | `#fcf9f8` | `#0f0f0f` | Main text |
+| Secondary text | `#b3b3b3` | `#626262` | Descriptions, metadata, secondary links |
+| Border | `#383838` | `#d6d6d6` | Structural seams and panel edges |
+| Input edge | `#626262` | `#8b8581` | Fields and brand separator |
 | Agora cyan | `#00c2ff` | `#00c2ff` | Official wordmark and brand signal |
-| Link text | `#00c2ff` | `#006c93` | Readable links on each canvas |
-| Focus | `#a0faff` | `#007da8` | Keyboard outline |
+| Link text | `#00c2ff` | `#075c9a` | Readable links on each canvas |
+| Focus | `#a0faff` | `#075c9a` | Keyboard outline |
 | Error | `#ff7b7b` | `#b42335` | Failure feedback |
 
 Use the two materials by role:
@@ -99,9 +110,10 @@ Use the 4px spacing rhythm: 8–12px inside small groups, 16–24px between rela
 parts, and 28–40px between sections. Compactness comes from grouping and
 progressive disclosure. Preserve readable text and distinct section spacing.
 
-Controls have 6px corners; grouped trays use 8px. Project tiles and floating
+Regular controls use 14px text; compact 32px actions use 13px. All interface
+labels use weight 400. Controls have 6px corners; grouped trays use 8px. Project tiles and floating
 panels use 16px; phone tiles and select menus use 12px. Media actions use 10px.
-Metadata chips use 4px. Desktop control heights are 32/36/44px; phone and
+Metadata chips use 4px. Desktop control heights are 32/40/44px; phone and
 coarse-pointer actions retain at least 46px targets. Search is 48px.
 
 All pages share one shell, at most 1504px including gutters. Header, catalog,
@@ -237,8 +249,8 @@ Technical tags never choose a Topic.
 
 ## Interaction and accessibility
 
-Use the shared control timing: press 140ms, control feedback 160ms, surfaces
-180–280ms. Selection underlays move for 240ms with `cubic-bezier(.16,1,.3,1)`.
+Use the shared control timing: control feedback 200ms and surfaces/selection 360ms. Longer
+content may use the 600ms slow token when needed. Selection underlays move for 360ms with `cubic-bezier(.16,1,.3,1)`.
 Hover and keyboard focus keep every component and its contents stationary.
 Cards, images, links, buttons, labels, and icons retain their
 position, size, spacing, and crop. Do not translate, scale, lift, expand, or swap
@@ -262,6 +274,14 @@ State changes may animate when they explain an action: selection indicators,
 expanded disclosures, copy confirmation, theme changes, and opening or closing
 floating surfaces. These transitions start from an explicit state change rather
 than pointer hover. Feedback is local, reversible, and honors reduced motion.
+
+The shared Button accepts `busy`, marks the action busy/unavailable, retains its
+accessible name and keyboard focus, and blocks repeated activation before child
+link handlers. Its overlay progress icon preserves geometry. Explicit `disabled`
+remains native; slotted unavailable links block navigation. Copy controls opt out
+of the generic spinner and use their existing local idle/pending/success/failure
+feedback. Primary/secondary/quiet express hierarchy; existing variant names remain
+compatible.
 
 Copy actions reserve their text width across idle, success, and failure. The
 copy icon transitions into a drawn check, with accessible status feedback.
@@ -289,6 +309,8 @@ heading, with full option labels in the menu and the actual source language belo
 
 - Keep filter options in a stable base order while their live counts change.
   Selecting a checkbox must not move that target under the pointer or focus.
+  Filter disclosure headings support Up/Down/Home/End without collapsing other
+  selected groups. Native Enter/Space toggles the focused group.
   Material options share a two-column grid; the opaque form body scrolls between
   the fixed sheet heading and result/reset actions.
 - Topic filters use the shared moving surface indicator. Reader tabs use the same
