@@ -21,6 +21,8 @@ for (const locale of locales) {
   for (const [, card] of cards) assert.doesNotMatch(card, /href="(?:\/(?:zh-Hans|zh-Hant|ja|hi|es|pt-BR))?\/topics\//, 'cards do not link Topic membership')
   const conference = await html(localized('/topics/irte2026', locale))
   assert.ok(conference.includes('dumpling-booth'), `${locale}: conference explicitly includes the original Dumpling Booth entry`)
+  const conferenceMembers = [...conference.matchAll(/<article[^>]*data-recipe-slug="([^"]+)"/g)].map(match => match[1]).sort()
+  assert.deepEqual(conferenceMembers, ['dumpling-booth', 'agora-drawguess', 'agora-arena', 'agora-rotary-dial-phone', 'm5-sticks3-voice-agent'].sort(), `${locale}: owner-confirmed demos and the author-confirmed workshop are all present`)
   assert.ok(conference.includes('2026-10-23') && conference.includes('2026-10-24'), `${locale}: verified conference dates`)
   const detailPath = localized('/recipes/agora-rotary-dial-phone', locale)
   const detail = await html(`${detailPath}?returnTo=${encodeURIComponent(localized('/topics/voice-ai-in-practice', locale) + '?q=Rotary#recipes')}`)

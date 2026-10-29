@@ -8,13 +8,19 @@
   direct action labels, and clearer original-guide fallback messages. Preserve
   author product names, credit, URLs, and source documents. Shorten the phone
   homepage title to avoid splitting the main phrase.
-- Replace text-only Topic directory cards with real member screenshots, an
-  official quickstart recording still, and the organizer's original event poster.
+- Replace text-only Topic directory cards with original #VoiceAI / #StartHere
+  illustrations, adapted official iRTE2026 art without Chinese subtitle/venue
+  copy, and the hackathon organizer's original event poster.
   Keep image provenance in Topic metadata. Optional compact presentation fields
   shorten the directory without changing detail-page names and background.
   Keep a two-column image directory, quiet count/status metadata, regular 400
   typography, and stationary hover. Phone cards omit the extra summary and put
   count/status on separate lines. Recipe cards still have no Topic membership.
+- iRTE2026 now includes Dumpling Booth, Draw & Guess, Agora Arena, Rotary Dial
+  Phone, and the author's confirmed RTE2026 Workshop M5 StickS3 project. DashLens
+  is a confirmed hackathon candidate in pending #66. Per the owner's decision,
+  wait for #66 to merge before adding it to the catalog/Topic. Preserve the
+  independent contributor PR. See [membership evidence and art prompts](topic-art.md).
 - Local cover validation rejects missing assets, unsafe paths, absent alt text,
   and unsafe source attribution. A failed image retains its geometry and uses
   the static social card. No new dependency or backend is required.

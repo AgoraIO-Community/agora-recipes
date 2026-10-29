@@ -24,6 +24,10 @@ Content cards never show curated Topic names, badges, or links. Curated Topic pa
 
 ## Brand Commitments
 
+Topic covers express a curated theme with original #Topic illustrations or
+attributed activity artwork. They do not depict an individual recipe's interface
+or create technical tags. Keep author screenshots and recordings on recipe cards.
+
 Use Agora Website typography and solid materials for ordinary controls and complete Liquid Glass for floating actions, menus, and dialogs. Use a short centered recipe introduction and search, followed by one topic and action toolbar. Secondary technology, use-case, and capability filters belong in the refinement sheet. Provide complete system-selected light and dark appearances, use real media and opaque reading surfaces, and keep phone cards in two columns. Compactness comes from clear grouping and progressive disclosure, with readable text and space between groups. Controls share 6px corners and neutral solid states; showcase surfaces use 16px corners on desktop and 12px on phones. Keep forms and reading opaque inside floating surfaces. Light floating panels use one continuous opaque interior, with the complete optical effect confined to a narrow outer rim; menu selection uses a quiet neutral fill. Keep cards, images, links, controls, labels, and icons stationary on hover. Use color, border, underline, and opacity for hover feedback; reserve motion for explicit state changes and honor reduced motion. Avoid ambient animation. English is the default. Navigation, controls, and entry introductions also support zh-Hans, zh-Hant, ja, hi, es, and pt-BR through separate presentation dictionaries. Author credit, submitted URLs, and original guide documents remain unchanged.
 
 ## Evidence on Hand

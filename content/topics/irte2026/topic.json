@@ -9,6 +9,18 @@
   "members": [
     {
       "slug": "dumpling-booth"
+    },
+    {
+      "slug": "agora-drawguess"
+    },
+    {
+      "slug": "agora-arena"
+    },
+    {
+      "slug": "agora-rotary-dial-phone"
+    },
+    {
+      "slug": "m5-sticks3-voice-agent"
     }
   ],
   "actions": [
@@ -25,8 +37,8 @@
   ],
   "compactSummary": "Demos from Agora’s iRTE2026 conference.",
   "cover": {
-    "src": "/recipes/dumpling-booth.jpg",
-    "alt": "Dumpling Booth, a demo shared at iRTE2026.",
-    "sourceUrl": "https://raw.githubusercontent.com/shczhen/recipe-dumpling-booth/2379ebf199c01a6a1f7f0b1f56632de1aa2d346b/docs/assets/guest-en.png"
+    "src": "/topics/irte2026.jpg",
+    "alt": "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.",
+    "sourceUrl": "https://www.shengwang.cn/rteconf/rte-2026/home/hero-kv-poster.jpg"
   }
 }

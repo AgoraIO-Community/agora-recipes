@@ -30,8 +30,8 @@
   ],
   "compactSummary": "Working voice apps, games, and tools.",
   "cover": {
-    "src": "/recipes/agora-rotary-dial-phone.webp",
-    "alt": "The Fortune Line rotary phone game, a project in this collection.",
-    "sourceUrl": "https://rotary-dial-phone.vercel.app/"
+    "src": "/topics/voice-ai-in-practice.jpg",
+    "alt": "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.",
+    "sourceUrl": "https://github.com/AgoraIO-Community/agora-recipes/pull/77"
   }
 }

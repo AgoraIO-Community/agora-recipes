@@ -158,15 +158,18 @@ retain the full `title` and `summary`. Add their English keys to all presentatio
 dictionaries. Optional `cover` contains `src`, `alt`, and a public HTTPS
 `sourceUrl` for attribution. Use an existing local image under `/recipes/` or
 `/topics/` (JPG, PNG, or WebP), with a translated factual alt description. The
-loader rejects missing files and uncredited covers. Prefer real member screenshots
-or organizer artwork; do not invent event branding. Missing or failed images use
+loader rejects missing files and uncredited covers. Use thematic illustrations
+for collection identity or real organizer artwork for an activity; do not invent
+official event branding. Missing or failed images use
 the static social card. Historical posters can contain expired registration copy;
 the activity's current status and source rules remain authoritative.
 
-The starter-kit cover is a still from the official Next.js quickstart recording,
-with its source commit pinned in `cover.sourceUrl`. The 2026 hackathon cover is
-the organizer's original poster. Practice and iRTE2026 reuse existing member media.
-Author screenshots, source guides, URLs, and credit are not rewritten.
+The two collection covers use original generated #Topic illustrations. iRTE2026
+uses the official conference artwork with its Chinese subtitle and venue callout
+removed; the hackathon retains its organizer poster. See
+[art provenance, generation prompts, and membership evidence](docs/topic-art.md).
+Author screenshots, source guides, URLs, and credit are not rewritten. A pending
+catalog contribution cannot become a Topic member until it enters the catalog.
 
 Awards belong to a member within a specific activity edition, with a label and public `sourceUrl`. Label author-reported credit clearly; do not present it as an organizer-confirmed result. Keep completed activity pages and their materials. Registration, questions, and replays remain on existing external tools.
 
