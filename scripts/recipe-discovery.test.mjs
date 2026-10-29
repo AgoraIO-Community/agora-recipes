@@ -9,17 +9,15 @@ const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { w
   .map(({ name: slug }) => {
     const metadata = JSON.parse(readFileSync(new URL(`../content/recipes/${slug}/recipe.json`, import.meta.url)))
     const recommendedOrder = curated.findIndex(entry => entry.slug === slug)
-    return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { showcase: curated[recommendedOrder], ...(curated[recommendedOrder].recommended === false ? {} : { recommendedOrder }) }) }
+    return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { recommendedOrder, showcase: curated[recommendedOrder] }) }
   })
 const search = (query, extra = {}) => discoverRecipes(recipes, { ...defaultFilters, query, ...extra })
 
-test('default catalog includes every recipe with images first and curated order preserved', () => {
+test('default catalog includes every recipe with curated recommendations first', () => {
   const results = discoverRecipes(recipes, defaultFilters)
   assert.equal(results.length, recipes.length)
-  const imageCount = recipes.filter(recipe => recipe.showcase?.thumbnail).length
-  assert.ok(results.slice(0, imageCount).every(recipe => recipe.showcase?.thumbnail))
-  assert.ok(results.slice(imageCount).every(recipe => !recipe.showcase?.thumbnail))
-  assert.deepEqual(results.filter(recipe => recipe.recommendedOrder !== undefined).map(recipe => recipe.slug), curated.filter(entry => entry.recommended !== false).map(entry => entry.slug))
+  assert.deepEqual(results.slice(0, curated.length).map(recipe => recipe.slug), curated.map(entry => entry.slug))
+  assert.ok(results.slice(curated.length).every(recipe => recipe.recommendedOrder === undefined))
 })
 test('search spans fields, supports multiple words, and includes Chinese aliases', () => {
   assert.ok(search('Python CRM').some(recipe => recipe.slug === 'aria-voice-sales-agent'))
@@ -56,28 +54,11 @@ test('exact title and description matches rank ahead of approximate matches', ()
   ]
   assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, query: 'transcription' }).map(recipe => recipe.slug), ['title', 'description', 'fuzzy'])
 })
-test('explicit date and alphabetical sorts apply within image groups', () => {
+test('explicit date and alphabetical sorts override pinned order', () => {
   const alphabetical = search('', { sort: 'title' })
-  const expected = [true, false].flatMap(hasImage => recipes.filter(recipe => Boolean(recipe.showcase?.thumbnail) === hasImage).map(recipe => recipe.title).sort((a, b) => a.localeCompare(b)))
-  assert.deepEqual(alphabetical.map(recipe => recipe.title), expected)
-  for (const hasImage of [true, false]) {
-    const dates = search('', { sort: 'updated' }).filter(recipe => Boolean(recipe.showcase?.thumbnail) === hasImage).map(recipe => recipe.updated)
-    assert.deepEqual(dates, [...dates].sort().reverse())
-  }
-})
-test('thumbnail presence takes priority over recommendation, date and title', () => {
-  const base = { ...recipes[0], showcase: undefined, recommendedOrder: undefined }
-  const fixtures = [
-    { ...base, slug: 'no-image', title: 'Aardvark', updated: '2026-12-31', recommendedOrder: 0, showcase: { thumbnail: '' } },
-    { ...base, slug: 'image-beta', title: 'Beta', updated: '2026-01-01', recommendedOrder: 1, showcase: { thumbnail: '/recipes/beta.webp' } },
-    { ...base, slug: 'image-alpha', title: 'Alpha', updated: '2026-02-01', recommendedOrder: 2, showcase: { thumbnail: '/recipes/alpha.webp' } },
-    { ...base, slug: 'no-showcase', title: 'Zulu', updated: '2025-01-01' },
-  ]
-  for (const sort of ['recommended', 'updated', 'title']) {
-    const results = discoverRecipes(fixtures, { ...defaultFilters, sort })
-    assert.deepEqual(results.slice(0, 2).map(recipe => recipe.slug), sort === 'recommended' ? ['image-beta', 'image-alpha'] : ['image-alpha', 'image-beta'])
-    assert.deepEqual(results.slice(2).map(recipe => recipe.slug), ['no-image', 'no-showcase'])
-  }
+  assert.deepEqual(alphabetical.map(recipe => recipe.title), recipes.map(recipe => recipe.title).sort((a, b) => a.localeCompare(b)))
+  const dates = search('', { sort: 'updated' }).map(recipe => recipe.updated)
+  assert.deepEqual(dates, [...dates].sort().reverse())
 })
 test('all curated assets refer to known unique recipes, local posters, and canonical HTTPS media', () => {
   assert.equal(new Set(curated.map(entry => entry.slug)).size, curated.length)

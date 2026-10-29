@@ -1,18 +1,16 @@
 import type { RecipeMeta } from "./recipes"
 
 export type Showcase = {
-  recommended?: boolean
   slug: string
   title: string
   compactTitle?: string
   compactSummary?: string
   summary: string
-  thumbnail?: string
-  thumbnailAlt?: string
+  thumbnail: string
+  thumbnailAlt: string
   thumbnailSource: string
   thumbnailScale?: number
   thumbnailOrigin?: string
-  thumbnailFit?: "cover" | "contain"
   videoUrl?: string
   videoDuration?: string
   demoNote: string
@@ -150,8 +148,6 @@ export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilt
         (!topic?.terms.length || topic.terms.some((term) => topics.includes(normalize(term))))
     })
     .sort((a, b) => {
-      const imageOrder = Number(Boolean(b.recipe.showcase?.thumbnail)) - Number(Boolean(a.recipe.showcase?.thumbnail))
-      if (imageOrder) return imageOrder
       if (filters.sort === "title") return a.recipe.title.localeCompare(b.recipe.title)
       if (filters.sort === "updated") return b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
       return b.score - a.score || (a.recipe.recommendedOrder ?? Infinity) - (b.recipe.recommendedOrder ?? Infinity) || b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
