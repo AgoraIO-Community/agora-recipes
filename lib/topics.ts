@@ -10,6 +10,9 @@ export type Topic = {
   slug: string
   title: string
   summary: string
+  compactTitle?: string
+  compactSummary?: string
+  cover?: { src: string; alt: string; sourceUrl: string }
   kind: "collection" | "activity"
   starts?: string
   ends?: string
@@ -34,6 +37,11 @@ export function getAllTopics(): Topic[] {
     const fail = (field: string): never => { throw new Error(`[topics] ${file.name}: invalid ${field}`) }
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(topic.slug)) fail("slug")
     for (const field of ["title", "summary"] as const) if (typeof topic[field] !== "string" || !topic[field].trim()) fail(field)
+    for (const field of ["compactTitle", "compactSummary"] as const) if (topic[field] !== undefined && (typeof topic[field] !== "string" || !topic[field].trim())) fail(field)
+    if (topic.cover !== undefined) {
+      const cover = topic.cover
+      if (!cover || typeof cover.src !== "string" || !/^\/(?:topics|recipes)\/[a-z0-9-]+\.(?:jpg|png|webp)$/.test(cover.src) || !fs.existsSync(path.join(process.cwd(), "public", cover.src)) || typeof cover.alt !== "string" || !cover.alt.trim() || !https(cover.sourceUrl)) fail("cover")
+    }
     if (!["collection", "activity"].includes(topic.kind)) fail("kind")
     if (topic.status && !["upcoming", "active", "completed"].includes(topic.status)) fail("status")
     for (const field of ["starts", "ends"] as const) if (topic[field] && (!/^\d{4}-\d{2}-\d{2}$/.test(topic[field]) || new Date(topic[field]).toISOString().slice(0, 10) !== topic[field])) fail(field)

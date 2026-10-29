@@ -598,14 +598,18 @@ a.recipe-author:hover { color: var(--foreground); }
 
 /* Topics reuse the catalog controls and stationary, opaque reading surfaces. */
 .topic-directory { padding-block: 0 56px; }
-.topic-directory__filters { display: flex; max-width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; margin-bottom: 16px; }
-.topic-directory__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.topic-directory__filters { display: flex; max-width: 100%; overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; margin-bottom: 16px; scrollbar-width: thin; }
+.topic-directory__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .topic-directory__card { min-width: 0; padding: 0; border: 1px solid var(--border); border-radius: 16px; background: var(--card); }
-.topic-directory__meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted-foreground); font-size: 12px; }
-.topic-directory__card h2 { margin-block: 12px 8px; font-size: 20px; line-height: 1.3; }
-.topic-directory__link { display: block; height: 100%; padding: 20px; border-radius: inherit; }
-.topic-directory__card h2 svg { display: inline; margin-left: 8px; }
-.topic-directory__card p { color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
+.topic-directory__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: auto; padding-top: 12px; color: var(--muted-foreground); font-size: 12px; line-height: 1.5; }
+.topic-directory__meta > span + span::before { content: "/"; padding-right: 12px; }
+.topic-directory__link { display: flex; flex-direction: column; height: 100%; border-radius: inherit; }
+.topic-directory__cover { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 15px 15px 0 0; background: var(--muted); }
+.topic-directory__cover img { object-fit: cover; }
+.topic-directory__body { display: flex; flex: 1; flex-direction: column; padding: 20px; }
+.topic-directory__card h2 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0; font-size: 20px; line-height: 1.4; }
+.topic-directory__card h2 svg { flex: none; align-self: center; }
+.topic-directory__summary { margin-top: 8px; color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
 .topic-directory__card { transition: border-color var(--motion-control); }
 .topic-directory__card:has(a:is(:hover,:focus-visible)) { border-color: var(--input); }
 .topic-directory__link:is(:hover,:focus-visible) h2 { color: var(--signal-text); text-decoration: underline; text-underline-offset: 4px; }
@@ -628,11 +632,19 @@ a.recipe-author:hover { color: var(--foreground); }
 .share-feedback { flex-basis: 100%; color: var(--destructive); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
 .share-feedback a { color: var(--signal-text); text-decoration: underline; }
 @media (max-width: 900px) {
-  .topic-directory__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topic-directory__grid { gap: 16px; }
 }
 @media (max-width: 640px) {
-  .topic-directory__grid, .topic-sections { grid-template-columns: minmax(0, 1fr); }
+  .topic-directory__grid { gap: 16px 12px; }
+  .topic-sections { grid-template-columns: minmax(0, 1fr); }
   .topic-directory__card { border-radius: 12px; }
+  .topic-directory__cover { border-radius: 11px 11px 0 0; }
+  .topic-directory__body { padding: 12px; }
+  .topic-directory__card h2 { gap: 4px; font-size: 15px; }
+  .topic-directory__card h2 svg { display: none; }
+  .topic-directory__summary { display: none; }
+  .topic-directory__meta { display: grid; gap: 2px; font-size: 11px; }
+  .topic-directory__meta > span + span::before { content: none; }
   .topic-directory__filters { gap: 2px; }
   .topic-directory__filters > button { padding-inline: 10px; }
 }

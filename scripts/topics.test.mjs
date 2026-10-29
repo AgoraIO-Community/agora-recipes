@@ -6,9 +6,10 @@ import test from 'node:test'
 import ts from 'typescript'
 
 const source = (await readFile(new URL('../lib/topics.ts', import.meta.url), 'utf8')).replace('import "server-only"', '').replace('import { getAllEntries } from "./recipes"', 'const getAllEntries = () => [{ slug: "shared-entry" }]') .replace('import { getT } from "./i18n"', 'const getT = () => value => value')
-async function load(topics) {
+async function load(topics, assets = []) {
   const root = await mkdtemp(path.join(tmpdir(), 'recipes-topics-'))
   try {
+    for (const asset of assets) { const file = path.join(root, 'public', asset); await mkdir(path.dirname(file), { recursive: true }); await writeFile(file, 'test image') }
     for (const [slug, topic] of Object.entries(topics)) { const dir = path.join(root, 'content/topics', slug); await mkdir(dir, { recursive: true }); await writeFile(path.join(dir, 'topic.json'), JSON.stringify(topic)) }
     const compiled = ts.transpileModule(source.replaceAll('process.cwd()', JSON.stringify(root)), { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
     const loaded = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
@@ -16,6 +17,16 @@ async function load(topics) {
   } finally { await rm(root, { recursive: true, force: true }) }
 }
 const base = { title: 'A real collection', summary: 'Related work', kind: 'collection', members: [{ slug: 'shared-entry' }] }
+test('directory presentation retains the full Topic identity and requires a local, attributed cover', async () => {
+  const cover = { src: '/topics/example.jpg', alt: 'Original project screen', sourceUrl: 'https://example.com/source' }
+  const topic = { ...base, compactTitle: 'Short name', compactSummary: 'Short introduction', cover }
+  const result = await load({ example: topic }, [cover.src])
+  assert.equal(result.topics[0].title, base.title)
+  assert.equal(result.topics[0].compactTitle, 'Short name')
+  assert.deepEqual(result.topics[0].cover, cover)
+  for (const invalid of [null, { ...cover, src: 'https://example.com/image.jpg' }, { ...cover, src: '/topics/../secrets.jpg' }, { ...cover, src: '/topics/missing.jpg' }, { ...cover, alt: '' }, { ...cover, sourceUrl: 'javascript:alert(1)' }]) await assert.rejects(load({ example: { ...topic, cover: invalid } }, [cover.src]), /invalid cover/)
+  await assert.rejects(load({ example: { ...base, compactTitle: '' } }), /invalid compactTitle/)
+})
 test('explicit membership connects the same entry to several Topics without duplicate entry identities', async () => {
   const result = await load({ 'first-topic': base, 'second-topic': { ...base, title: 'Second' } })
   assert.deepEqual(result.matches.map(topic => topic.slug), ['first-topic', 'second-topic'])

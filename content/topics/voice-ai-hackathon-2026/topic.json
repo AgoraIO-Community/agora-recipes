@@ -34,5 +34,12 @@
       "language": "en",
       "sourceUrl": "https://aimobilecoders.com/hackathons/voice-ai-hackathon"
     }
-  ]
+  ],
+  "compactTitle": "Voice AI Hackathon 2026",
+  "compactSummary": "Projects from the 2026 Voice AI challenge.",
+  "cover": {
+    "src": "/topics/voice-ai-hackathon-2026.jpg",
+    "alt": "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.",
+    "sourceUrl": "https://aimobilecoders.com/hackathons/voice-ai-hackathon"
+  }
 }

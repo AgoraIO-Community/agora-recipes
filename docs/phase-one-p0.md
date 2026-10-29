@@ -1,5 +1,40 @@
 # Phase One Verification and Release Notes
 
+## Japanese review and Topic presentation — 2026-10-29
+
+- Revise 202 existing Japanese interface messages and all 110 project
+  introductions against the submitted English metadata. Use short outcome-led
+  taglines, distinct descriptions, consistent implementation-guide terminology,
+  direct action labels, and clearer original-guide fallback messages. Preserve
+  author product names, credit, URLs, and source documents. Shorten the phone
+  homepage title to avoid splitting the main phrase.
+- Replace text-only Topic directory cards with real member screenshots, an
+  official quickstart recording still, and the organizer's original event poster.
+  Keep image provenance in Topic metadata. Optional compact presentation fields
+  shorten the directory without changing detail-page names and background.
+  Keep a two-column image directory, quiet count/status metadata, regular 400
+  typography, and stationary hover. Phone cards omit the extra summary and put
+  count/status on separate lines. Recipe cards still have no Topic membership.
+- Local cover validation rejects missing assets, unsafe paths, absent alt text,
+  and unsafe source attribution. A failed image retains its geometry and uses
+  the static social card. No new dependency or backend is required.
+- Lint passes with the existing logo-image warning. All **71 tests**, the normal
+  **110-artifact build**, the final **1,503-page build** against committed author
+  artifacts, seven-locale rendered checks, and **110 original-guide/API checks**
+  pass. The design scan reports only the existing neutral Markdown blockquote
+  border, outside the changed Topic presentation.
+- Browser checks cover desktop light/dark, 768px tablet, 320px/390px phones,
+  Japanese home/Topic/detail/contribution/filter text, activity/collection
+  filters, keyboard card entry, unchanged source-guide fallback, Topic returns
+  and contribution prefills, and a deliberately blocked cover's image fallback.
+  Reduced-motion interaction retains native navigation. English screenshots are
+  attached to #77; Japanese QA captures remain local.
+- Hindi (`hi`), Spanish (`es`), and Brazilian Portuguese (`pt-BR`) are AI-assisted
+  drafts awaiting native-speaker review.
+  This Japanese pass is an editorial self-review, not native-speaker sign-off.
+  Production analytics ingestion and live GitHub form acceptance remain release
+  checks; the Vercel preview still requires Agora GDXE authorization.
+
 ## Light popup refinement — 2026-10-29
 
 - Light menus, selects, navigation popovers, dialogs, and filter sheets share one

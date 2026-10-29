@@ -153,6 +153,21 @@ Maintain Topics in `content/topics/<slug>/topic.json`, using `templates/topic.js
 
 Collections do not need dates. Activities can supply `starts`, `ends`, `status` (`upcoming`, `active`, or `completed`), external `actions`, and optional `sections`. Action types are `participate`, `questions`, `replay`, and `source`. Longer original sections can declare their actual `language` and a `sourceUrl`. Short titles, summaries, and controls use the existing presentation dictionaries.
 
+Directory cards can use optional `compactTitle` and `compactSummary`; detail pages
+retain the full `title` and `summary`. Add their English keys to all presentation
+dictionaries. Optional `cover` contains `src`, `alt`, and a public HTTPS
+`sourceUrl` for attribution. Use an existing local image under `/recipes/` or
+`/topics/` (JPG, PNG, or WebP), with a translated factual alt description. The
+loader rejects missing files and uncredited covers. Prefer real member screenshots
+or organizer artwork; do not invent event branding. Missing or failed images use
+the static social card. Historical posters can contain expired registration copy;
+the activity's current status and source rules remain authoritative.
+
+The starter-kit cover is a still from the official Next.js quickstart recording,
+with its source commit pinned in `cover.sourceUrl`. The 2026 hackathon cover is
+the organizer's original poster. Practice and iRTE2026 reuse existing member media.
+Author screenshots, source guides, URLs, and credit are not rewritten.
+
 Awards belong to a member within a specific activity edition, with a label and public `sourceUrl`. Label author-reported credit clearly; do not present it as an organizer-confirmed result. Keep completed activity pages and their materials. Registration, questions, and replays remain on existing external tools.
 
 Review Topic membership in the catalog PR. A Topic contribution link prefills the existing Topic reference in the GitHub form; it does not publish or create membership automatically. Content cards contain no Topic membership, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.

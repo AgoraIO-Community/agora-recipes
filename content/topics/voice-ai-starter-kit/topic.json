@@ -25,5 +25,11 @@
       "url": "https://docs.agora.io",
       "type": "source"
     }
-  ]
+  ],
+  "compactSummary": "Build your first voice agent.",
+  "cover": {
+    "src": "/topics/voice-ai-starter-kit.jpg",
+    "alt": "Voice agent and transcript from the official Agora Next.js quickstart.",
+    "sourceUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs/blob/24374411cdd809701e2a39466f4f97d52e23f173/.github/assets/Conversation-Ai-Client.gif"
+  }
 }

@@ -213,6 +213,16 @@ selected values. Search, filters, sorting, and loaded count live in the URL
 reset the batch count. Returning from a recipe restores the same conditions,
 loaded entries, and scroll position. Search still covers the entire catalog.
 
+## Topic directory
+
+Use two columns of real member screenshots or organizer artwork, at a steady
+16:9 ratio. A short title, one-line introduction, entry count, and current status
+are enough for the directory. Keep the full name, background, dates, and source
+references on the detail page. On phones, keep two compact columns and omit the
+extra introduction. Do not crop out essential content by zooming media on hover.
+Titles and arrows stay stationary; feedback uses the existing border and underline.
+Recipe cards still contain no Topic names or membership badges.
+
 ## Recipe pages and reading
 
 Lead with the outcome, technology, author, and Copy recipe prompt action. Demo

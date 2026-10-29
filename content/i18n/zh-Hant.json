@@ -499,10 +499,19 @@
     "1 result": "1 項結果",
     "Show 1 result": "顯示 1 項結果",
     "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.": "探索 2026 年 10 月 23–24 日聲網 iRTE2026 即時智能大會分享的 Demo。",
-    "1 entry": "1 項內容",
+    "1 entry": "1 個專案",
     "Loading more projects…": "正在載入更多專案…",
     "All {count} projects shown": "已顯示全部 {count} 個專案",
-    "Add device or account requirements if needed. Keep your original materials; translations are not required.": "如有設備或帳號要求，請一併說明。原始材料保持原樣，無需另行準備翻譯。"
+    "Add device or account requirements if needed. Keep your original materials; translations are not required.": "如有設備或帳號要求，請一併說明。原始材料保持原樣，無需另行準備翻譯。",
+    "Working voice apps, games, and tools.": "語音應用、遊戲和實用工具。",
+    "Build your first voice agent.": "從零打造第一個語音智慧代理。",
+    "Demos from Agora’s iRTE2026 conference.": "Agora iRTE2026 大會上的開發者展示。",
+    "Projects from the 2026 Voice AI challenge.": "2026 語音 AI 挑戰賽的參賽專案。",
+    "Voice AI Hackathon 2026": "語音 AI 黑客松 2026",
+    "The Fortune Line rotary phone game, a project in this collection.": "本主題收錄的旋轉撥號電話遊戲 The Fortune Line。",
+    "Voice agent and transcript from the official Agora Next.js quickstart.": "Agora 官方 Next.js 入門專案的語音代理與轉錄畫面。",
+    "Dumpling Booth, a demo shared at iRTE2026.": "iRTE2026 上展示的 Dumpling Booth 示範。",
+    "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "Agora 與 AI Mobile Coders 語音 AI 黑客松的原始海報；報名已結束。"
   },
   "entries": {
     "ag-iot-ios-app": {
