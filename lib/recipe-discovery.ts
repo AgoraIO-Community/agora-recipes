@@ -93,29 +93,29 @@ export function entryMaterials(entry: RecipeSummary): string[] {
 }
 
 function normalize(value: string) {
-  return value.normalize("NFKD").replace(/(\p{Script=Latin})\p{M}+/gu, "$1").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()
+  return value.normalize("NFKD").replace(/(\p{Script=Latin})\p{M}+/gu, "$1").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{M}\p{N}]+/gu, " ").trim()
 }
 
 // Common recipe vocabulary, shared by query and document normalization.
 const aliases = [
-  ["transcription", "transcribe", "transcript", "transcripts", "speech to text", "stt", "语音转文字", "语音转写", "转写", "转录", "轉寫", "轉錄", "captions", "caption", "字幕", "文字起こし"],
-  ["translation", "translate", "translator", "翻译", "翻譯", "翻訳"],
+  ["transcription", "transcribe", "transcript", "transcripts", "speech to text", "stt", "语音转文字", "语音转写", "转写", "转录", "轉寫", "轉錄", "captions", "caption", "字幕", "文字起こし", "transcripcion", "transcricao", "ट्रांसक्रिप्शन"],
+  ["translation", "translate", "translator", "翻译", "翻譯", "翻訳", "traduccion", "traducao", "अनुवाद"],
   ["tts", "text to speech", "speech synthesis", "语音合成"],
   ["tool calling", "function calling", "工具调用", "函数调用"],
   ["rag", "retrieval augmented generation", "knowledge base", "知识库", "检索增强"],
   ["crm", "customer relationship management", "客户关系管理", "客户管理"],
   ["assistant", "copilot", "助手"],
-  ["meeting", "meetings", "会议", "會議", "会議"],
-  ["podcast", "podcasts", "播客", "ポッドキャスト"],
+  ["meeting", "meetings", "会议", "會議", "会議", "reunion", "reuniones", "reuniao", "reunioes", "मीटिंग"],
+  ["podcast", "podcasts", "播客", "ポッドキャスト", "पॉडकास्ट"],
   ["vision", "computer vision", "视觉"],
   ["sales", "selling", "销售"],
-  ["voice", "speech", "语音", "語音", "音声"],
-  ["video", "videos", "视频"],
+  ["voice", "speech", "语音", "語音", "音声", "voz", "वॉइस", "आवाज़"],
+  ["video", "videos", "视频", "videollamada", "videollamadas", "videochamada", "videochamadas", "वीडियो"],
   ["streaming", "stream", "直播"],
   ["commentary", "commentator", "解说"],
-  ["agent", "agents", "智能体", "智能體", "エージェント"],
+  ["agent", "agents", "智能体", "智能體", "エージェント", "agente", "agentes", "एजेंट"],
   ["voice agent", "voiceagent", "voice bot", "voicebot"],
-  ["dumpling", "dumplings", "饺子", "餃子"],
+  ["dumpling", "dumplings", "饺子", "餃子", "डम्पलिंग"],
   ["realtime", "real time", "实时", "實時", "リアルタイム"],
   ["irte2026", "irte 2026", "rte2026", "rte 2026"],
 ]
@@ -124,7 +124,7 @@ const aliasPatterns = aliases.flatMap(([canonical, ...terms]) => terms.map((term
   term,
   pattern: new RegExp(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u.test(term) ? term : `(^| )${term}(?= |$)`, "gu"),
 }))).sort((a, b) => b.term.length - a.term.length)
-const stopWords = new Set("a an the to for of in on with and or is are be this that i me my you your can how do does it its we our want need looking find please using use 我 我想 我要 想要 想 要 找 个 一个 的 怎么 如何 请 有没有 可以 能 做 吗 有 帮 帮我 使用 用 の を は が に で と です ます したい ください".split(" "))
+const stopWords = new Set("a an the to for of in on with and or is are be this that i me my you your can how do does it its we our want need looking find please using use 我 我想 我要 想要 想 要 找 个 一个 的 怎么 如何 请 有没有 可以 能 做 吗 有 帮 帮我 使用 用 の を は が に で と です ます したい ください de del el la los las para con y un una en que um uma os as e com मैं मुझे एक के की और में से करना बनाना चाहिए क्या कैसे".split(" "))
 
 function searchText(value: string) {
   let text = normalize(value)
@@ -249,4 +249,11 @@ export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilt
       return b.score - a.score || (a.recipe.recommendedOrder ?? Infinity) - (b.recipe.recommendedOrder ?? Infinity) || b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
     })
     .map(({ recipe }) => withGuideExcerpt(recipe, tokens))
+}
+
+export const CATALOG_BATCH_SIZE = 12
+export function catalogVisibleCount(params: URLSearchParams, total: number) {
+  if (params.get("all") === "1") return total // Existing shared list URLs remain valid.
+  const requested = Number(params.get("loaded"))
+  return Math.min(total, Number.isSafeInteger(requested) && requested >= CATALOG_BATCH_SIZE ? requested : CATALOG_BATCH_SIZE)
 }

@@ -30,7 +30,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
             <li><h3>{t("At least one public link")}</h3><p>{t("A working demo, video, source repository, or guide. You do not need all four.")}</p></li>
             <li><h3>{t("Your public author credit")}</h3><p>{t("The name or team you want shown on the site.")}</p></li>
           </ul>
-          <p className="recipe-source-note">{t("Add device or account requirements if needed. Keep your original materials; four translations are not required.")}</p>
+          <p className="recipe-source-note">{t("Add device or account requirements if needed. Keep your original materials; translations are not required.")}</p>
           <Button asChild variant="link"><a href={localePath("/recipes/agora-rotary-dial-phone", locale)}>{t("See a published example")}<ArrowUpRight aria-hidden="true" /></a></Button>
         </aside>
       </div>

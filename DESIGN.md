@@ -1,6 +1,6 @@
 # Agora Recipes design guide
 
-Recipes is a compact catalog, dark by default, for finding working Voice AI and RTC projects,
+Recipes is a compact catalog that follows the system theme, for finding working Voice AI and RTC projects,
 trying their demos, and following their implementation guides. Keep the interface
 in the Agora website family: official cyan wordmark, local MiSans typography,
 quiet charcoal controls, and real project media.
@@ -34,16 +34,14 @@ application assets unless the interface actually uses them.
 
 ## Color and material
 
-First visits use dark, regardless of the system setting. The header toggle
-switches between dark and light and saves an explicit choice in `recipes:theme`.
-Apply a saved choice before paint on every route. Theme changes keep the same
-layout, typography, imagery, and component geometry.
+Follow `prefers-color-scheme` before first paint on every route and on live system
+changes. There is no manual theme control. Ignore previous `recipes:theme`
+overrides. Theme changes keep the same layout, typography, imagery, and geometry.
 
 The theme covers the catalog, filters, reading, dialogs, native browser surfaces,
-syntax highlighting, and diagrams. Storage failures leave the toggle usable for
-the current page. Tabs from the same origin synchronize explicit changes.
+syntax highlighting, and diagrams. Theme selection does not depend on storage.
 
-| Role | Dark (default) | Light | Usage |
+| Role | Dark | Light | Usage |
 | --- | --- | --- | --- |
 | Canvas | `#000000` | `#fcf9f8` | Page background |
 | Secondary | `#0a0a0a` | `#ffffff` | Footer and recessed areas |
@@ -140,12 +138,16 @@ The smaller navigation controls use a 1px optical offset to share the brand
 label's baseline. Recipes carries the collection context; Contribute is secondary
 to Get started.
 The header gains its seam after scrolling and retains an opaque theme canvas. Keep the
-sun/moon toggle visible in the header. At 1100px, Contribute moves out of the
-header action row; the footer retains its contribution link. On phones, the
-toggle replaces the GitHub shortcut, which remains in the navigation panel.
+search available after its original position scrolls away: move the same input
+into the header slot and replace desktop navigation with it. Preserve the draft,
+focus, composition, debounce, and keyboard shortcut. Keep a filter icon beside
+the docked input; closing its sheet returns focus there without scrolling.
+At 1100px, Contribute moves out of the header action row; the footer retains its
+contribution link. On phones, the docked search replaces the brand while language
+and navigation remain available. The header keeps its original height.
 
 At 900px the main links move into a bounded floating navigation panel. On phones,
-keep the language, theme, and menu icon buttons in the header; GitHub remains in the panel. Opening navigation must
+keep the language and menu icon buttons in the header; GitHub remains in the panel. Opening navigation must
 not shift page content. Use the existing Popover for outside dismissal, Escape,
 and focus return. Close it on navigation and when returning to desktop width.
 The phone panel shares the page's left and right gutters; tablet panels stay
@@ -191,13 +193,17 @@ favorites, ratings, demo links, or availability claims.
 Search and explicit sorts show aligned text rows on desktop and two-column text
 cards on phones. Keep actual demo actions available. Guide-only entries do not
 reserve empty thumbnail space. Search covers the entire catalog, including
-entries under the native inline continuation. Render continuation rows only
-while expanded, keeping the initial page light as the catalog grows.
+entries not yet visible. Render the first 12 entries and automatically reveal
+batches of 12 as the visitor approaches the end. Announce loading/end status
+without moving keyboard focus. Where IntersectionObserver is unavailable, show
+all matches. There is no click-to-load control.
 
 The bounded filter sheet has searchable groups, counts, and a fixed action area.
 Platforms and use cases match any selected value; capabilities require all
-selected values. Search, filters, sorting, and continuation state live in the
-URL. Returning from a recipe restores the catalog conditions and scroll position.
+selected values. Search, filters, sorting, and loaded count live in the URL
+(`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions
+reset the batch count. Returning from a recipe restores the same conditions,
+loaded entries, and scroll position. Search still covers the entire catalog.
 
 ## Recipe pages and reading
 

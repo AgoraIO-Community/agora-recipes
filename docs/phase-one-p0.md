@@ -1,5 +1,54 @@
 # Phase One Verification and Release Notes
 
+## Hermes review alignment — 2026-10-29
+
+This section supersedes historical theme, four-language, and manual catalog
+continuation decisions below. The current implementation:
+
+- Always follows the system theme before paint and on live changes; removes the
+  manual toggle and ignores old saved overrides.
+- Adds Hindi (`hi`), Spanish (`es`), and Brazilian Portuguese (`pt-BR`) to the
+  existing four locales. All 110 introductions and shared UI strings are covered.
+  Author titles, credit, links, and original guides remain unchanged. Reciprocal
+  author language navigation also recognizes the new languages. Missing guide
+  versions retain the existing confirmed-language → English → original fallback.
+- Automatically reveals 12 catalog entries at a time as the visitor approaches
+  the end. `loaded` retains progress in the URL; legacy `all=1` links still work.
+  New search/filter/sort conditions reset progress. Search covers all entries.
+- Docks the same search input into the header after it leaves view, preserving
+  draft, focus, composition, and debounce. The docked filter action uses the same
+  bounded refinement sheet and receives focus after dismissal.
+- Retains Topics, card restrictions, contribution SOP, source returns, sharing,
+  original-document APIs, and the production-only analytics boundary. Adds only
+  the bounded `catalog_action:load_more` action to the existing event family.
+
+Verification for this revision:
+
+- Lint passes with the existing Agora logo image warning; independent TypeScript
+  checking and all 70 tests pass.
+- The normal build generates 110 guide artifacts. The final static build against
+  committed author artifacts generates 1,503 pages; unrelated upstream README
+  refreshes are excluded.
+- Seven-locale phase-one checks and all 110 original-guide/API compatibility
+  checks pass.
+- Browser checks cover desktop, 768px tablet, 390px and 320px phones; all three new
+  languages; live system-theme changes and old-override rejection; single-input
+  docking/undocking with focus and value retained; automatic 12 → 24 → 36 batches;
+  unique results; selected filters and locale URLs; scoped detail return and reload;
+  and docked-sheet focus return without a scroll jump. Original English guide
+  fallback remains available in new-language details. No horizontal overflow was
+  found. Fresh PR/Issue evidence uses the English interface.
+- The mechanical design check reports only the existing neutral 2px Markdown
+  blockquote rule, not a colored card accent. No new material exception is added.
+- Native OS IME and physical-device acceptance are not claimed. Existing
+  composition guards remain; docking moves the same DOM input rather than
+  replacing it.
+Release gates remain unchanged: the GitHub form/workflow must be checked after
+merge, and PostHog/Vercel production ingestion must be observed before closing
+tracking tasks T3, T5, and T9. The preview authorization gate is external to this
+change; do not claim a production release.
+
+
 Baseline: PR #77 at `bd67fdf1c5acdbbfd015fb8f65b109a3c11eb2d9`.
 Implementation continues in [PR #77](https://github.com/AgoraIO-Community/agora-recipes/pull/77). The single tracking issue is [#78](https://github.com/AgoraIO-Community/agora-recipes/issues/78); all phase-one priorities and acceptance checks stay there.
 

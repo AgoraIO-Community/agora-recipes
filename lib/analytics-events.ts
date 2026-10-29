@@ -1,5 +1,5 @@
 export const eventActions = {
-  catalog_action: ["search", "filter", "sort", "expand", "collapse"],
+  catalog_action: ["search", "filter", "sort", "expand", "collapse", "load_more"],
   material_open: ["demo", "source", "video_original"],
   video_play: ["play"],
   content_copy: ["prompt", "guide", "cli_command", "code"],
@@ -19,7 +19,7 @@ export function analyticsEnabled(nodeEnv?: string, vercel?: string, environment?
 export function createAnalyticsEvent(name: AnalyticsEvent, input: EventDimensions) {
   if (!Object.hasOwn(eventActions, name) || !(eventActions[name] as readonly string[]).includes(input.action)) return undefined
   const properties: Record<string, string | number> = { action: input.action }
-  if (["en", "zh-Hans", "zh-Hant", "ja"].includes(input.locale ?? "")) properties.locale = input.locale!
+  if (["en", "zh-Hans", "zh-Hant", "ja", "hi", "es", "pt-BR"].includes(input.locale ?? "")) properties.locale = input.locale!
   for (const key of ["content_slug", "topic_slug", "source_topic_slug"] as const) if (input[key] && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(input[key]) && input[key].length <= 100) properties[key] = input[key]
   if (["catalog", "topic_list", "catalog_card", "hero", "reader", "player", "topic_page", "contribution", "sharing"].includes(input.placement ?? "")) properties.placement = input.placement!
   if (Number.isSafeInteger(input.result_count) && input.result_count! >= 0) properties.result_count = input.result_count!

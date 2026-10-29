@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 
 const origin = process.argv[2] ?? 'http://localhost:3000'
 const publicOrigin = process.env.SITE_URL ?? 'https://recipes.agora.io'
-const locales = ['en', 'zh-Hans', 'zh-Hant', 'ja']
+const locales = ['en', 'zh-Hans', 'zh-Hant', 'ja', 'hi', 'es', 'pt-BR']
 const localized = (path, locale) => locale === 'en' ? path : `/${locale}${path === '/' ? '' : path}`
 async function html(path) { const response = await fetch(new URL(path, origin)); assert.equal(response.status, 200, path); return response.text() }
 const rawLink = source => source.match(/class="recipe-document-actions"[\s\S]*?<a[^>]*href="([^"]+)"/)?.[1]
@@ -18,7 +18,7 @@ for (const locale of locales) {
   const topic = await html(localized('/topics/voice-ai-in-practice', locale))
   const cards = [...topic.matchAll(/<article[^>]*data-recipe-slug="[^"]+"[^>]*>([\s\S]*?)<\/article>/g)]
   assert.equal(cards.length, 8, `${locale}: explicit Topic members`)
-  for (const [, card] of cards) assert.doesNotMatch(card, /href="(?:\/(?:zh-Hans|zh-Hant|ja))?\/topics\//, 'cards do not link Topic membership')
+  for (const [, card] of cards) assert.doesNotMatch(card, /href="(?:\/(?:zh-Hans|zh-Hant|ja|hi|es|pt-BR))?\/topics\//, 'cards do not link Topic membership')
   const conference = await html(localized('/topics/irte2026', locale))
   assert.ok(conference.includes('dumpling-booth'), `${locale}: conference explicitly includes the original Dumpling Booth entry`)
   assert.ok(conference.includes('2026-10-23') && conference.includes('2026-10-24'), `${locale}: verified conference dates`)
@@ -56,4 +56,4 @@ assert.equal(searchAsset.version, 1)
 assert.match(searchAsset.documents['dumpling-booth'], /gift/i, 'the static search asset contains original guide text')
 assert.doesNotMatch(searchAsset.documents['dumpling-booth'], /<script\b/i)
 
-console.log('Phase-one checks passed: four locales, Topic membership and archives, original guides, static search asset, sharing, contribution paths, and Recipe API compatibility.')
+console.log('Phase-one checks passed: seven locales, Topic membership and archives, original guides, static search asset, sharing, contribution paths, and Recipe API compatibility.')

@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { localePath } from "@/lib/locales"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { contributionPath } from "@/lib/contributions"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
 
@@ -67,12 +66,13 @@ export function SiteHeader({ topics }: { topics: Record<string, string> }) {
           ))}
         </nav>
 
+        <div className="header-search-slot" aria-hidden="true" />
+
         <div className="header-actions">
           <Button asChild variant={onContribute ? "secondary" : "ghost"} className="header-contribute">
             <Link href={contributeUrl} aria-label={t("Contribute")} aria-current={onContribute ? "page" : undefined}>{t("Contribute")}</Link>
           </Button>
           <div className="header-language"><LanguageSwitcher /></div>
-          <ThemeToggle />
           <Button asChild className="header-cta">
             <a href={signupUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Get started") })}>{t("Get started")}<ArrowUpRight aria-hidden="true" /></a>
           </Button>

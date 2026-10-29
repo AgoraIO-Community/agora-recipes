@@ -7,7 +7,7 @@ import { IconButton } from "@/components/ui/icon-button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { locales, localePath, isLocale, catalogReturnPath } from "@/lib/locales"
 
-const names = { en: "English", "zh-Hans": "简体中文", "zh-Hant": "繁體中文", ja: "日本語" }
+const names = { en: "English", "zh-Hans": "简体中文", "zh-Hant": "繁體中文", ja: "日本語", hi: "हिन्दी", es: "Español", "pt-BR": "Português (Brasil)" }
 
 export function LanguageSwitcher() {
   const pathname = usePathname()

@@ -3,10 +3,10 @@ import { readFileSync, readdirSync } from 'node:fs'
 import test from 'node:test'
 import { locales, localePath, catalogReturnPath, translate } from '../lib/locales.ts'
 
-test('all four site locales keep the existing English URLs and preserve localized paths', () => {
+test('all seven site locales keep the existing English URLs and preserve localized paths', () => {
   assert.equal(localePath('/recipes/python-quickstart', 'en'), '/recipes/python-quickstart')
   for (const locale of locales) {
-    assert.equal(localePath('/zh-Hans/recipes/python-quickstart', locale), locale === 'en' ? '/recipes/python-quickstart' : `/${locale}/recipes/python-quickstart`)
+    for (const source of locales) assert.equal(localePath(`/${source}/recipes/python-quickstart`, locale), locale === 'en' ? '/recipes/python-quickstart' : `/${locale}/recipes/python-quickstart`)
   }
 })
 test('return targets preserve list state and reject external or unrelated destinations', () => {
@@ -16,13 +16,17 @@ test('return targets preserve list state and reject external or unrelated destin
 })
 test('presentation dictionaries use known content identities and consistent UI terms', () => {
   const slugs = readdirSync(new URL('../content/recipes', import.meta.url), { withFileTypes: true }).filter(e => e.isDirectory() && !e.name.startsWith('.')).map(e => e.name).sort()
-  const dictionaries = ['zh-Hans', 'zh-Hant', 'ja'].map(locale => JSON.parse(readFileSync(new URL(`../content/i18n/${locale}.json`, import.meta.url))))
+  const dictionaries = locales.filter(locale => locale !== 'en').map(locale => JSON.parse(readFileSync(new URL(`../content/i18n/${locale}.json`, import.meta.url))))
   for (const dictionary of dictionaries) {
     assert.deepEqual(Object.keys(dictionary).sort(), ["entries", "ui"], "UI feedback must be inside the dictionary loaded by the site")
-    assert.ok(Object.keys(dictionary.entries).every(slug => slugs.includes(slug)), "translation keys reference real entries")
+    assert.deepEqual(Object.keys(dictionary.entries).sort(), slugs, "every current entry has a translated introduction")
     assert.deepEqual(Object.keys(dictionary.ui).sort(), Object.keys(dictionaries[0].ui).sort())
     for (const value of Object.values(dictionary.entries)) assert.ok(value.tagline.trim() && value.description.trim())
     assert.equal(translate(dictionary.ui, 'Show {count} results', { count: 12 }).includes('12'), true)
+    for (const [key, value] of Object.entries(dictionary.ui)) {
+      assert.ok(value.trim(), key)
+      assert.deepEqual([...value.matchAll(/\{\w+\}/g)].map(match => match[0]).sort(), [...key.matchAll(/\{\w+\}/g)].map(match => match[0]).sort(), `placeholders: ${key}`)
+    }
   }
 })
 
@@ -32,7 +36,7 @@ test('presentation translation preserves original documents and falls back for a
   const helperUrl = `data:text/javascript;base64,${Buffer.from(helpers).toString('base64')}`
   const source = readFileSync(new URL('../lib/i18n.ts', import.meta.url), 'utf8')
     .replace('import "server-only"', '')
-    .replace(/import (simplified|traditional|japanese) from "@\/content\/i18n\/([^\"]+)"/g, (_, name, file) => `const ${name} = ${readFileSync(new URL(`../content/i18n/${file}`, import.meta.url), 'utf8')}`)
+    .replace(/import (simplified|traditional|japanese|hindi|spanish|portuguese) from "@\/content\/i18n\/([^\"]+)"/g, (_, name, file) => `const ${name} = ${readFileSync(new URL(`../content/i18n/${file}`, import.meta.url), 'utf8')}`)
     .replace('from "./locales"', `from "${helperUrl}"`)
   const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
   const { localizeEntry } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)

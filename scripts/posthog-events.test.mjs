@@ -10,6 +10,14 @@ const { pageContext, posthogProperties, sanitizePosthogEvent } = await import(`d
 const topics = ['topic-a', 'topic-b']
 const fromA = `returnTo=${encodeURIComponent('/zh-Hans/topics/topic-a?q=private#recipes')}`
 
+test('Hindi, Spanish and Brazilian Portuguese retain locale and independent Topic context', () => {
+  for (const locale of ['hi', 'es', 'pt-BR']) {
+    const source = `returnTo=${encodeURIComponent(`/${locale}/topics/topic-a?loaded=24#recipes`)}`
+    assert.deepEqual(pageContext(`/${locale}/contribute`, `?topic=topic-b&${source}`, topics), { locale, page_type: 'contribute', topic_slug: 'topic-b', source_topic_slug: 'topic-a' })
+    assert.equal(pageContext(`/${locale}/recipes/example`, '', topics).content_slug, 'example')
+  }
+})
+
 test('selected association and source Topic remain independent, including clear and direct visits', () => {
   assert.deepEqual(pageContext('/zh-Hans/contribute', `?topic=topic-b&${fromA}`, topics), { locale: 'zh-Hans', page_type: 'contribute', topic_slug: 'topic-b', source_topic_slug: 'topic-a' })
   assert.deepEqual(pageContext('/contribute', `?${fromA}`, topics), { locale: 'en', page_type: 'contribute', source_topic_slug: 'topic-a' })

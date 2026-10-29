@@ -6,7 +6,7 @@ This repository is the Agora Recipes catalog. Implementations and author documen
 
 A GitHub account is required. You can use either path:
 
-- Open the **Share a project or guide** Issue form. Provide an English introduction, public author credit, and at least one existing material link. Original documents can stay in their existing languages; four translated copies are not required.
+- Open the **Share a project or guide** Issue form. Provide an English introduction, public author credit, and at least one existing material link. Original documents can stay in their existing languages; translated copies are not required.
 - Fork this repository, create a branch from `staging`, and submit metadata through a PR to upstream `staging`. A submission Issue is optional for direct PRs.
 
 Issues are public. Do not include private email addresses, credentials, or other private information. Maintainers request additions in Issue comments, preserve the original submission, and prepare the catalog PR. Submission does not publish automatically. After release, maintainers add the published site link to the Issue.
@@ -124,9 +124,9 @@ Recommendation order is editorial. Prioritize usable materials, clear access req
 
 ## Website Languages
 
-The website supports `en`, `zh-Hans`, `zh-Hant`, and `ja`. English uses the existing unprefixed URLs. Other site languages use a locale prefix. `/zh-CN/...` redirects to `/zh-Hans/...`; author filenames are not renamed.
+The website supports `en`, `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR`. English uses the existing unprefixed URLs. Other site languages use a locale prefix. `/zh-CN/...` redirects to `/zh-Hans/...`; author filenames are not renamed.
 
-Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit four translations.
+Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit translations. Maintainers provide the seven-language presentation separately; original author files and URLs stay unchanged.
 
 The site language does not translate or rewrite the author guide. At build time, the catalog follows explicit author language links only when they point to the same guide in the same GitHub repository/ref and link back to the submitted document. A matching filename alone is not sufficient. Current-language labels and reciprocal navigation identify the source language; ambiguous `中文` stays `zh` rather than being assumed Simplified or Traditional.
 
@@ -203,7 +203,7 @@ npx tsc --noEmit
 node --test scripts/*.test.mjs
 ```
 
-After building, start the site and run `node scripts/check-llm-discovery.mjs http://localhost:3000` for guide compatibility and `node scripts/check-phase-one.mjs http://localhost:3000` for four-locale Topics, document selection, sharing metadata, contribution paths, and the static image fallback.
+After building, start the site and run `node scripts/check-llm-discovery.mjs http://localhost:3000` for guide compatibility and `node scripts/check-phase-one.mjs http://localhost:3000` for seven-locale Topics, document selection, sharing metadata, contribution paths, and the static image fallback.
 
 ## PR Checklist
 

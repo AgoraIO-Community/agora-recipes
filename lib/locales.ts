@@ -1,4 +1,4 @@
-export const locales = ["en", "zh-Hans", "zh-Hant", "ja"] as const
+export const locales = ["en", "zh-Hans", "zh-Hant", "ja", "hi", "es", "pt-BR"] as const
 export type Locale = typeof locales[number]
 export type Messages = Record<string, string>
 
@@ -7,7 +7,7 @@ export function isLocale(value: string): value is Locale {
 }
 
 export function localePath(path: string, locale: Locale): string {
-  const unprefixed = path.replace(/^\/(en|zh-Hans|zh-Hant|ja)(?=\/|$|[?#])/, "") || "/"
+  const unprefixed = path.replace(/^\/(en|zh-Hans|zh-Hant|ja|hi|es|pt-BR)(?=\/|$|[?#])/, "") || "/"
   return locale === "en" ? unprefixed : `/${locale}${unprefixed === "/" ? "" : unprefixed}`
 }
 

@@ -28,6 +28,10 @@ proxy, runtime GitHub fetch, or site account is required.
 
 ## Measurement contract
 
+Locales are `en`, `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR`.
+Automatic loading uses the existing `catalog_action:load_more` event, with no raw
+query or new event family.
+
 Every event carries `site=agora-recipes` and `measurement_version=1`. Public
 context is bounded to locale, page type, stable content slug, selected/context
 Topic slug, source Topic slug, action, placement, and result count where applicable.
@@ -60,7 +64,7 @@ Direct links and legacy homepage `?topic=` quick filters do not invent a source.
 Only validated local source URLs and known Topic identities are accepted.
 
 The other bounded events remain `catalog_action` (debounced search/applied
-filter/sort/expand), `share_action` (successful link copy or sharing handoff),
+filter/sort/automatic `load_more`; legacy expand/collapse values remain accepted), `share_action` (successful link copy or sharing handoff),
 `material_open`, `video_play`, `content_copy`, `topic_action_open`, and
 `contribution_open`. Allowed actions are defined in `lib/analytics-events.ts`.
 

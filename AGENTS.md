@@ -12,8 +12,8 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 
 ### Owner UI decisions — do not regress
 
-- Default to dark on first visit. Keep the header light/dark toggle and remember explicit choices locally across pages and reloads. Read DESIGN.md when changing theme colors or shared control materials.
-- Keep the Agora site header and navigation on the homepage and recipe detail pages. The compact centered title and search lead into one topic toolbar and the media directory. Platform, use-case, and capability filters belong in the bounded refinement sheet. Keep secondary links in the footer; avoid ambient animation.
+- Follow the system light/dark preference before first paint and on live changes. Do not add a manual theme toggle or restore previously saved overrides. Read DESIGN.md when changing theme colors or shared control materials.
+- Keep the Agora site header and navigation on the homepage and recipe detail pages. The compact centered title and search lead into one topic toolbar and the media directory. Dock the same search input in the header after it scrolls out of view; keep its draft and focus. Automatically reveal catalog batches on scroll and retain loaded count and source scroll position for returns. Platform, use-case, and capability filters belong in the bounded refinement sheet. Keep secondary links in the footer; avoid ambient animation.
 - Ordinary controls use solid materials: solid buttons, inputs, neutral selections, and underline reader tabs. Floating media actions, menus, and dialogs use the complete Liquid Glass optical engine; do not substitute blur-only shells. Form and reading planes stay opaque, with solid accessibility fallbacks. Keep cards, images, links, labels, and icons stationary on hover and focus; use color, border, underline, and opacity for feedback. Read DESIGN.md for material, geometry, and motion rules. Metadata tags remain noninteractive; preserve platform multi-select and compact two-column phone browsing.
 
 ### Implementation practices

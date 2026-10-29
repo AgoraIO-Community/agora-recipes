@@ -467,7 +467,6 @@
     "A working demo, video, source repository, or guide. You do not need all four.": "動くデモ、動画、ソースリポジトリ、ガイドのいずれか。すべてを揃える必要はありません。",
     "Your public author credit": "表示したい作者名",
     "The name or team you want shown on the site.": "サイトに掲載する個人名またはチーム名。",
-    "Add device or account requirements if needed. Keep your original materials; four translations are not required.": "必要な機器やアカウントがあれば補足してください。元の資料はそのままで、4言語への翻訳は不要です。",
     "See a published example": "掲載済みの例を見る",
     "Follow the review in your Issue": "Issue でレビューを確認",
     "Maintainers ask for any missing details in the same GitHub conversation.": "不足する情報があれば、メンテナーが同じ GitHub の会話で確認します。",
@@ -500,7 +499,10 @@
     "1 result": "1 件の結果",
     "Show 1 result": "1 件の結果を表示",
     "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.": "2026 年 10 月 23〜24 日の Agora iRTE2026 リアルタイムインテリジェンス・カンファレンスで共有されたデモを探せます。",
-    "1 entry": "1 件のコンテンツ"
+    "1 entry": "1 件のコンテンツ",
+    "Loading more projects…": "プロジェクトをさらに読み込み中…",
+    "All {count} projects shown": "全 {count} 件を表示しました",
+    "Add device or account requirements if needed. Keep your original materials; translations are not required.": "必要な機器やアカウントがあれば補足してください。元の資料はそのままで、翻訳は不要です。"
   },
   "entries": {
     "ag-iot-ios-app": {

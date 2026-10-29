@@ -467,7 +467,6 @@
     "A working demo, video, source repository, or guide. You do not need all four.": "可用的 Demo、视频、源码仓库或教程，不必四样齐全。",
     "Your public author credit": "希望展示的作者名",
     "The name or team you want shown on the site.": "网站上显示的个人或团队名称。",
-    "Add device or account requirements if needed. Keep your original materials; four translations are not required.": "有设备或账号要求的话，一并说明。原始材料保持原样，不需要准备四份翻译。",
     "See a published example": "看看已收录的项目",
     "Follow the review in your Issue": "在 Issue 中跟进评审",
     "Maintainers ask for any missing details in the same GitHub conversation.": "如需补充材料，维护者会在同一条 GitHub 讨论中说明。",
@@ -500,7 +499,10 @@
     "1 result": "1 个结果",
     "Show 1 result": "显示 1 个结果",
     "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.": "探索 2026 年 10 月 23–24 日声网 iRTE2026 实时智能大会分享的 Demo。",
-    "1 entry": "1 项内容"
+    "1 entry": "1 项内容",
+    "Loading more projects…": "正在加载更多项目…",
+    "All {count} projects shown": "已显示全部 {count} 个项目",
+    "Add device or account requirements if needed. Keep your original materials; translations are not required.": "有设备或账号要求的话，一并说明。原始材料保持原样，不需要另行准备翻译。"
   },
   "entries": {
     "ag-iot-ios-app": {

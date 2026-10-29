@@ -10,11 +10,11 @@ export type PageContext = {
 
 /** Route context contains public catalog identities, never arbitrary URL parameters. */
 export function pageContext(pathname: string, search: string, topics: readonly string[]): PageContext {
-  const locale = pathname.match(/^\/(zh-Hans|zh-Hant|ja)(?:\/|$)/)?.[1] ?? "en"
-  const path = pathname.replace(/^\/(en|zh-Hans|zh-Hant|ja)(?=\/|$)/, "") || "/"
+  const locale = pathname.match(/^\/(zh-Hans|zh-Hant|ja|hi|es|pt-BR)(?:\/|$)/)?.[1] ?? "en"
+  const path = pathname.replace(/^\/(en|zh-Hans|zh-Hant|ja|hi|es|pt-BR)(?=\/|$)/, "") || "/"
   const params = new URLSearchParams(search)
   const topicAt = (path: string) => {
-    const slug = path.replace(/^\/(en|zh-Hans|zh-Hant|ja)(?=\/|$)/, "").match(/^\/topics\/([a-z0-9-]+)\/?$/)?.[1]
+    const slug = path.replace(/^\/(en|zh-Hans|zh-Hant|ja|hi|es|pt-BR)(?=\/|$)/, "").match(/^\/topics\/([a-z0-9-]+)\/?$/)?.[1]
     return slug && topics.includes(slug) ? slug : undefined
   }
   let source: string | undefined

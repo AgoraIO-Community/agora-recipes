@@ -14,6 +14,22 @@ test('source language aliases keep script distinctions without changing filename
   assert.equal(authorLanguageLinks('**English** · [简体中文](README.zh-CN.md)', sourceUrl)[0].url, chineseUrl)
 })
 
+test('new author language links are confirmed reciprocally without renaming submitted files', async () => {
+  for (const [label, filename, locale] of [['हिन्दी', 'README.hi.md', 'hi'], ['Español', 'README.es.md', 'es'], ['Português (Brasil)', 'README.pt-BR.md', 'pt-BR']]) {
+    const translatedUrl = `https://github.com/example/project/blob/main/${filename}`
+    const result = await discoverDocumentLanguages({ sourceUrl, markdown: `**English** · [${label}](${filename})`, fetchDocument: async url => {
+      assert.equal(url, translatedUrl)
+      return { markdown: `**${label}** · [English](README.md)\n# Original author translation`, viewUrl: url }
+    } })
+    assert.equal(result.versions[locale].viewUrl, translatedUrl)
+    assert.equal(result.versions[locale].verifiedBy, 'author-navigation')
+    const entry = { recipeDocument: original, documentLanguages: result }
+    assert.equal(selectDocument(entry, locale).document, result.versions[locale])
+    assert.equal(selectDocument(entry, 'zh-Hant').document, original)
+  }
+  assert.equal(normalizeDocumentLocale('Português'), 'pt', 'generic Portuguese does not invent a Brazilian regional version')
+})
+
 test('automatic versions require author navigation, the same guide, and a reciprocal link', async () => {
   const markdown = '**English** · [简体中文](README.zh-CN.md)'
   const calls = []

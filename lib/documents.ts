@@ -16,7 +16,7 @@ export function selectDocument(entry: CatalogEntry, locale: string, manual?: str
 }
 
 export function documentLanguageName(language?: string): string {
-  return ({ en: "English", "zh-Hans": "简体中文", "zh-Hant": "繁體中文", ja: "日本語", zh: "中文" } as Record<string, string>)[language ?? ""] ?? language ?? "Language not specified"
+  return ({ en: "English", "zh-Hans": "简体中文", "zh-Hant": "繁體中文", ja: "日本語", hi: "हिन्दी", es: "Español", "pt-BR": "Português (Brasil)", pt: "Português", zh: "中文" } as Record<string, string>)[language ?? ""] ?? language ?? "Language not specified"
 }
 
 export function documentPath(slug: string, key?: string): string {

@@ -59,3 +59,6 @@ block repeated actions and slotted navigation. `busyIndicator={false}` allows th
 copy control's existing four states to render once. Explicit disabled buttons keep
 native semantics. Existing variant names remain compatible with primary, secondary,
 and quiet roles. Filter disclosure keyboard navigation retains independent groups.
+
+Theme selection follows the operating system before paint and on live changes.
+Shared controls do not expose a manual theme override.

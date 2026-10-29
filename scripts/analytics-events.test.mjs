@@ -14,6 +14,10 @@ test('all seven event families retain only bounded public dimensions', () => {
     assert.doesNotMatch(JSON.stringify(result), /private|secret|token/)
   }
 })
+
+test('automatic loading uses the existing bounded event family in all new locales', () => {
+  for (const locale of ['hi', 'es', 'pt-BR']) assert.deepEqual(createAnalyticsEvent('catalog_action', { action: 'load_more', locale, placement: 'catalog', result_count: 110 }).properties, { action: 'load_more', locale, placement: 'catalog', result_count: 110 })
+})
 test('false success and hover-preview events cannot enter the public vocabulary', () => {
   assert.equal(createAnalyticsEvent('submission_success', { action: 'success' }), undefined)
   assert.equal(createAnalyticsEvent('contribution_open', { action: 'submission_success' }), undefined)

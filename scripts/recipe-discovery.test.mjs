@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync } from 'node:fs'
 import { test } from 'node:test'
-import { defaultFilters, discoverRecipes, readDiscoveryFilters, writeDiscoveryFilters } from '../lib/recipe-discovery.ts'
+import { catalogVisibleCount, defaultFilters, discoverRecipes, readDiscoveryFilters, writeDiscoveryFilters } from '../lib/recipe-discovery.ts'
 
 const curated = JSON.parse(readFileSync(new URL('../content/showcase.json', import.meta.url)))
 const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { withFileTypes: true })
@@ -13,6 +13,25 @@ const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { w
     return { ...metadata, slug, ...(metadata.media ? { showcase: metadata.media } : {}), ...(recommendedOrder < 0 ? {} : { recommendedOrder }) }
   })
 const search = (query, extra = {}) => discoverRecipes(recipes, { ...defaultFilters, query, ...extra })
+
+test('automatic batches survive shared URLs and stay bounded by the filtered result count', () => {
+  for (const value of ['', 'loaded=bad', 'loaded=-1', 'loaded=12.5', 'loaded=Infinity', 'loaded=9007199254740992']) assert.equal(catalogVisibleCount(new URLSearchParams(value), 110), 12)
+  assert.equal(catalogVisibleCount(new URLSearchParams('loaded=36'), 110), 36)
+  assert.equal(catalogVisibleCount(new URLSearchParams('loaded=120'), 110), 110)
+  assert.equal(catalogVisibleCount(new URLSearchParams('loaded=36'), 8), 8)
+  assert.equal(catalogVisibleCount(new URLSearchParams(), 0), 0)
+  assert.equal(catalogVisibleCount(new URLSearchParams('all=1'), 110), 110, 'old expanded catalog links remain valid')
+})
+
+test('new language introductions and domain terms are searchable without losing Hindi vowel marks', () => {
+  const localized = ['hi', 'es', 'pt-BR'].flatMap(locale => {
+    const dictionary = JSON.parse(readFileSync(new URL(`../content/i18n/${locale}.json`, import.meta.url)))
+    return recipes.map(recipe => ({ ...recipe, ...dictionary.entries[recipe.slug] }))
+  })
+  for (const query of ['transcripción', 'transcrição', 'मीटिंग', 'पॉडकास्ट']) assert.ok(discoverRecipes(localized, { ...defaultFilters, query }).length, query)
+  const fixtures = ['की', 'का'].map((title, index) => ({ ...recipes[0], slug: `hindi-${index}`, title, tagline: '', description: '', tags: [], platforms: [], useCases: [], capabilities: [], author: '', mainRepoUrl: '' }))
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, query: 'का' }).map(recipe => recipe.slug), ['hindi-1'])
+})
 
 test('shared catalog URLs preserve combined filters, Unicode queries, and their results', () => {
   const filters = { ...defaultFilters, query: '会议 Gemini', topic: 'voice', platforms: ['Python', 'iOS'], useCases: ['Meetings'], capabilities: ['Gemini', 'STT'], previewOnly: true, sort: 'updated' }

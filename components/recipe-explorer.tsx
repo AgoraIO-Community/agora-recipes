@@ -5,6 +5,7 @@ import { useI18n } from "@/components/locale-provider"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
 import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react"
+import { CatalogSearch } from "@/components/catalog-search"
 import { RecipeCard } from "@/components/recipe-card"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -19,7 +20,7 @@ import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/u
 import { catalogPositionKey, rememberCatalogPosition, replaceCatalogSearch, useCatalogSearch } from "@/hooks/use-catalog-location"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useGuideSearch } from "@/hooks/use-guide-search"
-import { defaultFilters, discoverRecipes, quickTags, readDiscoveryFilters, writeDiscoveryFilters, type DiscoveryFilters, type RecipeSummary } from "@/lib/recipe-discovery"
+import { CATALOG_BATCH_SIZE, catalogVisibleCount, defaultFilters, discoverRecipes, quickTags, readDiscoveryFilters, writeDiscoveryFilters, type DiscoveryFilters, type RecipeSummary } from "@/lib/recipe-discovery"
 
 const toggle = (values: string[], value: string) => values.includes(value) ? values.filter(item => item !== value) : [...values, value]
 type FacetKey = "platforms" | "useCases" | "capabilities"
@@ -106,6 +107,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   const barRef = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
+  const sentinel = useRef<HTMLDivElement>(null)
+  const filterInvoker = useRef<HTMLButtonElement | null>(null)
   const filtered = useMemo(() => discoverRecipes(recipes, filters), [recipes, filters])
   const options = useMemo(() => {
     const platforms = [...new Set(recipes.flatMap(recipe => recipe.platforms))].sort()
@@ -119,10 +122,36 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   const selectedCount = filters.platforms.length + filters.useCases.length + filters.capabilities.length + filters.materials.length + Number(filters.category !== "all") + Number(filters.previewOnly)
   const hasFilters = Boolean(filters.query.trim() || filters.topic !== "all" || selectedCount)
   const compact = hasFilters || filters.sort !== "recommended"
-  const expanded = params.get("all") === "1"
+  const visibleCount = catalogVisibleCount(params, filtered.length)
+  const hasMore = visibleCount < filtered.length
+  const visible = filtered.slice(0, visibleCount)
   const featuredCount = Math.max(6, filtered.filter(recipe => recipe.recommendedOrder !== undefined).length)
-  const leading = compact ? filtered : filtered.slice(0, featuredCount)
-  const remaining = compact ? [] : filtered.slice(featuredCount)
+  const leading = compact ? visible : visible.slice(0, featuredCount)
+  const remaining = compact ? [] : visible.slice(featuredCount)
+
+  useEffect(() => {
+    const target = sentinel.current
+    if (!hasMore || !target || searching) return
+    const load = () => {
+      const next = new URLSearchParams(window.location.search)
+      const count = Math.min(visibleCount + CATALOG_BATCH_SIZE, filtered.length)
+      next.set("loaded", String(count))
+      next.delete("all")
+      replaceCatalogSearch(next)
+      capture("catalog_action", { action: "load_more", placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: filtered.length })
+    }
+    if (typeof window.IntersectionObserver === "undefined") {
+      const next = new URLSearchParams(window.location.search)
+      next.set("loaded", String(filtered.length))
+      replaceCatalogSearch(next)
+      return
+    }
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); load() }
+    }, { rootMargin: "0px 0px 400px 0px" })
+    observer.observe(target)
+    return () => observer.disconnect()
+  }, [hasMore, visibleCount, filtered.length, searching, capture, topicSlug])
 
   useCatalogMotion(resultsRef, search, filters.query)
   const commitQuery = useCallback((value: string) => {
@@ -133,6 +162,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     pendingSearch.current = value
     const next = writeDiscoveryFilters({ ...latest, query: value }, current)
     next.delete("all")
+    next.delete("loaded")
     replaceCatalogSearch(next)
   }, [])
   useEffect(() => {
@@ -166,7 +196,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
 
   useLayoutEffect(() => {
     if (search !== window.location.search) return
-    if (document.activeElement === searchRef.current) return
+    if (document.activeElement === searchRef.current || searching) return
     try {
       const saved = JSON.parse(sessionStorage.getItem(catalogPositionKey(`${window.location.pathname}${search}#recipes`)) ?? "null")
       if (saved?.href === `${window.location.pathname}${search}#recipes` && Number.isFinite(saved.scroll)) {
@@ -174,7 +204,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
         return () => cancelAnimationFrame(frame)
       }
     } catch { /* A fresh catalog remains usable when storage is unavailable. */ }
-  }, [search])
+  }, [search, searching, filtered.length])
 
   useEffect(() => {
     if (searching || pendingSearch.current === null || pendingSearch.current !== filters.query) return
@@ -189,6 +219,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     if (action !== "search") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
     const nextParams = writeDiscoveryFilters(next, params)
     nextParams.delete("all")
+    nextParams.delete("loaded")
     replaceCatalogSearch(nextParams)
   }
   function update<K extends keyof DiscoveryFilters>(key: K, value: DiscoveryFilters[K]) {
@@ -218,12 +249,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     <div className="shell catalog-masthead">
       {!embedded && <h1 id="recipes-heading">{t("Explore projects and recipes.")}</h1>}
       {!embedded && <p>{t("Voice AI and real-time apps, with working code.")}</p>}
-      <form role="search" className="catalog-search" onSubmit={event => { event.preventDefault(); if (!composing) commitQuery(query) }}>
-        <label htmlFor="recipe-search" className="sr-only">{t("Search projects, guides, or authors")}</label>
-        <InputGroup><InputGroupAddon><Search aria-hidden="true" /></InputGroupAddon><InputGroupInput ref={searchRef} id="recipe-search" type="search" placeholder={t("Search projects, guides, or authors…")} aria-keyshortcuts="Meta+K Control+K" autoComplete="off" value={query} onFocus={guides.preload} onCompositionStart={() => setComposing(true)} onCompositionEnd={event => { setComposing(false); setQuery(event.currentTarget.value) }} onKeyDown={event => { if (!event.nativeEvent.isComposing && event.key === "Escape") { if (query) { event.preventDefault(); updateQuery("", true) } else event.currentTarget.blur() } }} onChange={event => updateQuery(event.target.value)} />
-          <InputGroupAddon align="inline-end">{query ? <InputGroupButton size="icon-sm" aria-label={t("Clear search")} onClick={() => updateQuery("", true)}><X aria-hidden="true" /></InputGroupButton> : <kbd className="catalog-search__shortcut" aria-hidden="true">⌘ K</kbd>}</InputGroupAddon>
-        </InputGroup>
-      </form>
+      <CatalogSearch value={query} composing={composing} inputRef={searchRef} onChange={updateQuery} onComposition={setComposing} onSubmit={() => commitQuery(query)} onFocus={guides.preload} filterCount={selectedCount} onFilter={button => { filterInvoker.current = button; setAdvanced(true) }} />
     </div>
     <div ref={barRef} className="catalog-bar">
       <div className="shell catalog-toolbar">
@@ -235,8 +261,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
         </div>
         <div className="catalog-toolbar-actions">
         <Sheet open={advanced} onOpenChange={setAdvanced}>
-          <SheetTrigger asChild><Button variant="outline" className="catalog-filter-trigger" aria-label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" />{t("Filters")}{selectedCount > 0 && <Badge>{selectedCount}</Badge>}</Button></SheetTrigger>
-          <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet">
+          <SheetTrigger asChild><Button variant="outline" className="catalog-filter-trigger" onClick={() => { filterInvoker.current = null }} aria-label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" />{t("Filters")}{selectedCount > 0 && <Badge>{selectedCount}</Badge>}</Button></SheetTrigger>
+          <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" onCloseAutoFocus={event => { if (filterInvoker.current?.isConnected) { event.preventDefault(); filterInvoker.current.focus() } }}>
             <SheetHeader><SheetTitle>{t("Refine recipes")}</SheetTitle><SheetDescription>{t("Find the right starting point for your project.")}</SheetDescription></SheetHeader>
             <div className="catalog-filter-sheet__body ag-reading-plane">
               <div className="catalog-sheet-sort"><span>{t("Sort by")}</span><CatalogSort value={filters.sort} query={filters.query} onChange={value => update("sort", value)} /></div>
@@ -273,17 +299,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
       </div>
       {filtered.length ? <>
         <div ref={resultsRef} aria-busy={searching} className={compact ? "recipe-results" : "showcase-grid"}>{leading.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact={compact} />)}</div>
-        {remaining.length > 0 && <details className="catalog-continuation" open={expanded} onToggle={event => {
-          const open = event.currentTarget.open
-          if (open === expanded) return
-          capture("catalog_action", { action: open ? "expand" : "collapse", placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug })
-          const next = new URLSearchParams(params)
-          if (open) next.set("all", "1"); else next.delete("all")
-          replaceCatalogSearch(next)
-        }}>
-          <summary className="ag-button ag-button-outline ag-control-lg"><span>{expanded ? t("Show fewer recipes") : t("Explore {count} more recipes", { count: remaining.length })}</span><ChevronDown aria-hidden="true" /></summary>
-          {expanded && <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />)}</div>}
-        </details>}
+        {remaining.length > 0 && <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />)}</div>}
+        {filtered.length > CATALOG_BATCH_SIZE && <div ref={sentinel} className="catalog-load-status" role="status" aria-live="polite">{hasMore ? t("Loading more projects…") : t("All {count} projects shown", { count: filtered.length })}</div>}
       </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => { setFilters(defaultFilters); searchRef.current?.focus() }}>{t("Clear search and filters")}</Button></Empty>}
     </div>
   </section>

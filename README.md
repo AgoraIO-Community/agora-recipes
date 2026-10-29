@@ -20,9 +20,9 @@ Keep entries in `content/recipes/<slug>/recipe.json`. Use `templates/recipe.json
 
 ## Website Languages
 
-English keeps the existing unprefixed URLs. `zh-Hans`, `zh-Hant`, and `ja` use locale prefixes; `/zh-CN/...` redirects to Simplified Chinese. Navigation, controls, metadata labels, and entry introductions use separate presentation dictionaries in `content/i18n/`. Missing entry translations fall back to the original metadata. Author guides and submitted source links remain unchanged. The build confirms author language navigation and reciprocal same-guide links; optional maintainer mappings resolve ambiguity. The reader uses an exact language/script match, then English, then the original, while an explicit manual choice takes priority. Raw, copied content/prompts, and outlines follow that version. Recipe API and Markdown discovery remain on the submitted original.
+English keeps the existing unprefixed URLs. `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR` use locale prefixes; `/zh-CN/...` redirects to Simplified Chinese. Navigation, controls, metadata labels, and entry introductions use separate presentation dictionaries in `content/i18n/`. Missing entry translations fall back to the original metadata. Author guides and submitted source links remain unchanged. The build confirms author language navigation and reciprocal same-guide links; optional maintainer mappings resolve ambiguity. The reader uses an exact language/script match, then English, then the original, while an explicit manual choice takes priority. Raw, copied content/prompts, and outlines follow that version. Recipe API and Markdown discovery remain on the submitted original.
 
-Catalog detail links carry a validated `returnTo` address with the source locale, search, filters, and expansion state. Local scroll snapshots are scoped to that address. Direct detail links return to the catalog without inheriting an unrelated visit. Query context is excluded from canonical URLs.
+Catalog detail links carry a validated `returnTo` address with the source locale, search, filters, and loaded count. Local scroll snapshots are scoped to that address. Direct detail links return to the catalog without inheriting an unrelated visit. Query context is excluded from canonical URLs.
 
 ## Topics, Sharing, and Measurement
 
@@ -120,9 +120,8 @@ Private recipe repositories cannot be fetched by the unauthenticated build scrip
 ### Homepage catalog
 
 All entries share one catalog. References in [`content/showcase.json`](content/showcase.json)
-are recommended first, in array order. Curated media entries are visible
-immediately; remaining entries render on demand when the inline continuation
-is expanded.
+are recommended first, in array order. The first 12 entries are visible immediately; batches of 12 appear automatically
+as the visitor approaches the end. The URL retains loaded count for source returns.
 Search and filters operate on the entire catalog and reveal every matching result.
 There is no separate event collection or View all destination.
 
@@ -130,7 +129,7 @@ Search covers titles, descriptions, card summaries, authors, and recipe metadata
 It tolerates small spelling mistakes and recognizes common English/Chinese domain
 terms, such as `speech to text` / `语音转文字`. The default sort ranks exact matches
 ahead of approximate ones. Matching runs locally without a search service.
-Appearance defaults to dark. The header light/dark toggle saves an explicit choice locally and applies it across pages and reloads, including code blocks and diagrams. First visits use dark regardless of the system setting. Platform choices in the refinement sheet support multi-select (OR); use cases also use OR, while selected capabilities must all match.
+Appearance follows the system before paint and on live changes, including code blocks and diagrams. No manual theme control or saved override applies. The same search input docks in the header after it scrolls away, with a filter action; draft, focus, and debounce are preserved. Platform choices in the refinement sheet support multi-select (OR); use cases also use OR, while selected capabilities must all match.
 
 Each entry can provide `media.thumbnail`, `media.thumbnailSource`, `media.thumbnailAlt`, and an existing `media.videoUrl` in its own `recipe.json`. The recommendation file contains only ordered slug references. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
 `compactTitle` and `compactSummary` for a short title and one concise outcome.
