@@ -136,7 +136,7 @@ export function RecipeExplorer({ recipes }: { recipes: RecipeSummary[] }) {
         </fieldset>)}
       </div>}
       <div className="catalog-results-meta" data-filtered={hasFilters || filters.sort !== "recommended"}>
-        <p role="status" aria-atomic="true">Showing <span className="text-foreground">{visibleRecipes.length}</span> of {filtered.length} {filtered.length === 1 ? "recipe" : "recipes"}<span className="catalog-sort-status"> · {filters.sort === "recommended" ? "Recommended first" : filters.sort === "updated" ? "Recently updated" : "A–Z"}</span></p>
+        <p role="status" aria-atomic="true">Showing <span className="text-foreground">{visibleRecipes.length}</span> of {filtered.length} {filtered.length === 1 ? "recipe" : "recipes"}<span className="catalog-sort-status"> · Images first · {filters.sort === "recommended" ? "Recommended" : filters.sort === "updated" ? "Recently updated" : "A–Z"}</span></p>
         {(hasFilters || filters.sort !== "recommended") && <button type="button" className="text-action catalog-reset" onClick={() => setFilters(defaultFilters)}>Clear filters</button>}
       </div>
       {filtered.length ? <>

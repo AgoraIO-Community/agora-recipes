@@ -1,0 +1,14 @@
+{
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs",
+  "sourceRevision": "24374411cdd809701e2a39466f4f97d52e23f173",
+  "sourceUrl": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs/tree/24374411cdd809701e2a39466f4f97d52e23f173",
+  "capturedAt": "2026-10-27",
+  "captureUrl": "http://127.0.0.1:4313/",
+  "captureTool": "agent-browser 0.38.2 / Chromium",
+  "width": 1200,
+  "height": 800,
+  "sha256": "87e2dc81521ba1b962fadd6ff18df11ea3524a059174f58f0656a91a24a04c78",
+  "originalPngSha256": "dc4545434a94b0ad94f3e71c659b6ccfc7212bf9212467f52bf6e16683d6b405",
+  "state": "Credential-free initial start screen; no conversation started",
+  "notes": "Unmodified source UI served locally with Next.js dev, an empty credential environment, and no env file. Fonts loaded before capture. Native Next.js dev indicator retained. Start Conversation was not clicked. No credentials, microphone permission, mocked responses, or invented conversation. Visually reviewed; lossless WebP conversion without resizing or cropping. Catalog rendering and owner approval pending."
+}

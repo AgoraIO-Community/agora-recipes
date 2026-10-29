@@ -9,12 +9,12 @@ import type { RecipeSummary } from "@/lib/recipe-discovery"
 
 export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
   const media = recipe.showcase
-  if (!media) return null
+  if (!media || (!media.thumbnail && !media.videoUrl)) return null
   return (
     <section className="flex flex-col gap-4" aria-labelledby="recipe-preview-title">
       <h2 id="recipe-preview-title" className="detail-title">See it in action</h2>
       <RecipeVideoDialog recipe={recipe}>
-        <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} className="w-full rounded-[2px]" />
+        {media.thumbnail && <Image src={media.thumbnail} alt={media.thumbnailAlt ?? media.title} width={1280} height={720} className="w-full rounded-[2px]" />}
         <div className="flex flex-wrap gap-2">
           {media.videoUrl && <DialogTrigger asChild><Button variant="outline" className="min-h-11"><Play aria-hidden="true" /> Watch demo · {media.videoDuration}</Button></DialogTrigger>}
         </div>

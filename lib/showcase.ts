@@ -5,7 +5,7 @@ import type { RecipeSummary, Showcase } from "@/lib/recipe-discovery"
 
 export function getRecipeSummaries(): RecipeSummary[] {
   const recipes = getAllRecipes()
-  const curated = new Map<string, { showcase: Showcase; recommendedOrder: number }>()
+  const curated = new Map<string, { showcase: Showcase; recommendedOrder?: number }>()
   entries.forEach((entry, index) => {
     if (!recipes.some((recipe) => recipe.slug === entry.slug) || curated.has(entry.slug)) {
       throw new Error(`[showcase] Unknown or duplicate recipe slug: ${entry.slug}`)
@@ -13,7 +13,10 @@ export function getRecipeSummaries(): RecipeSummary[] {
     for (const url of [entry.videoUrl, entry.thumbnailSource]) {
       if (url && !url.startsWith("https://")) throw new Error(`[showcase] Expected HTTPS URL for ${entry.slug}`)
     }
-    curated.set(entry.slug, { showcase: entry, recommendedOrder: index })
+    curated.set(entry.slug, {
+      showcase: { ...entry, thumbnailFit: entry.thumbnailFit === "contain" ? "contain" : "cover" },
+      ...(entry.recommended === false ? {} : { recommendedOrder: index }),
+    })
   })
   return recipes.map(({ slug, title, tagline, description, tags, platforms, useCases, capabilities, mainRepoUrl, recipeUrl, demoUrl, author, updated, difficulty }) => ({
     slug, title, tagline, description, tags, platforms, useCases, capabilities, mainRepoUrl, recipeUrl, demoUrl, author, updated, difficulty,

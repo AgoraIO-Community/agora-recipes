@@ -1,0 +1,14 @@
+{
+  "sourceRepository": "https://github.com/anandwana001/daily-mandir-ai",
+  "sourceRevision": "0a541fbff286d8eee30cb071b4e913e914a7144e",
+  "sourceUrl": "https://github.com/anandwana001/daily-mandir-ai/tree/0a541fbff286d8eee30cb071b4e913e914a7144e",
+  "capturedAt": "2026-10-27",
+  "captureUrl": "http://127.0.0.1:4312/",
+  "captureTool": "agent-browser 0.38.2 / Chromium",
+  "width": 1440,
+  "height": 1100,
+  "sha256": "3a12f765d79394922c7db79bd2cb8d82b98b0dc300440b3cc10220170feb64b7",
+  "originalPngSha256": "a039b1d76ace882939653bfe86ef106cbd3b2f5bd340dd3cb43d0a8b5c0cf518",
+  "state": "Credential-free landing page; no conversation started",
+  "notes": "Unmodified source UI served locally with Next.js dev --webpack, an empty credential environment, and no env file. Visible Guruji artwork loaded. Waiting for all images timed out because some below-viewport external book covers remained unloaded; only the reviewed initial viewport was captured. Greeting and date are supplied by the original UI, not evidence of a live agent response. Native Next.js dev indicator retained. No credentials, microphone permission, mocks, or live API invocation. Visually reviewed; lossless WebP conversion without resizing or cropping. Catalog rendering and owner approval pending."
+}
