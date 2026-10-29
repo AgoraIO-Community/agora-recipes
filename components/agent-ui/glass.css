@@ -24,6 +24,19 @@
   .ag-floating-control > svg:not(.ag-filter-defs) { width: 16px; height: 16px; flex: none; }
   .liquid-modal-overlay { background: rgb(0 0 0/.32); }
 }
+/* A stationary opaque backing unifies light panel sections, including overflow.
+   The full optical engine keeps a quiet edge without imagery behind text. */
+:root[data-theme=light] .ag-glass-panel {
+  --basic-selected: var(--muted);
+  --glass-elevation: 0 12px 32px rgb(0 0 0/.1),0 2px 6px rgb(0 0 0/.04);
+  background: var(--popover);
+  border-color: color-mix(in srgb,var(--foreground) 10%,transparent);
+}
+:root[data-theme=light] .ag-glass-panel::after {
+  background: none;
+  box-shadow: none;
+}
+:root[data-theme=light] .ag-glass-panel .ag-selection { box-shadow: none; }
 /* Opacity animation on a glass ancestor creates a backdrop root in Chromium,
    preventing its optical layer from sampling the page. Move the glass itself;
    the separate modal overlay owns the fade. No persistent animation fill. */

@@ -80,6 +80,14 @@ alternative material. Keep the optical and highlight layers behind foreground
 content. Forms and long instructions inside floating surfaces have an opaque
 reading plane. Do not add glass to ordinary controls or reading surfaces.
 
+In light mode, floating panels use one continuous opaque interior across their
+header, content, and footer. Keep the complete optical engine with a quiet edge.
+The opaque backing belongs to the panel itself so scrolling never moves its
+reading plane or exposes background imagery behind menu text. Do not split the
+filter sheet into glass headers/footers around a white form block. Use neutral
+muted selection fills without an extra selection shadow inside these panels.
+Media-overlay actions retain their existing optical material in both themes.
+
 Move glass surfaces during entry and exit; fade the separate modal backdrop.
 Animating opacity or filter on a glass ancestor can stop the browser from sampling
 the page behind it. Do not leave animation fill or `will-change: opacity` on

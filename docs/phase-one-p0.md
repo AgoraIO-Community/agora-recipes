@@ -1,5 +1,25 @@
 # Phase One Verification and Release Notes
 
+## Light popup refinement — 2026-10-29
+
+- Light menus, selects, navigation popovers, dialogs, and filter sheets share one
+  stationary opaque backing. Header, reading area, and footer no longer expose
+  different backgrounds. Menu overflow does not move the backing or an inner
+  outline through the items.
+- Light popup selections use the existing muted neutral fill without an extra
+  selection shadow. The outer edge and elevation are quieter. The full optical
+  engine remains; dark panels and floating actions over media keep their rules.
+- Lint passes with the existing Agora logo warning. The normal 110-artifact build
+  and final 1,503-page build against committed author artifacts pass. The design
+  scan for the changed shared stylesheet reports no findings. No new JavaScript,
+  translations, dependencies, content records, or backend changes are required.
+- Browser checks cover the desktop filter sheet, selected/reset states, language
+  and contribution menus, author-language select, help dialog, 390px phone sheet,
+  320px navigation, and a 640×360 scrolling language menu. Native Escape restores
+  trigger focus. High contrast and reduced transparency disable the optical
+  filter and retain an opaque surface. Dark appearance retains its original
+  transparent shell/highlight rules. English before/after evidence is in #77.
+
 ## Hermes review alignment — 2026-10-29
 
 This section supersedes historical theme, four-language, and manual catalog
