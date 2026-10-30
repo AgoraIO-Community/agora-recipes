@@ -27,5 +27,31 @@
   "author": "Dylan Luo",
   "updated": "2026-10-26",
   "difficulty": "Intermediate",
-  "demoUrl": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo/releases/download/demo-video/sticks3-agora-demo.mp4"
+  "demoUrl": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo/releases/download/demo-video/sticks3-agora-demo.mp4",
+  "media": {
+    "title": "M5 StickS3 Agora Voice Agent",
+    "compactTitle": "StickS3 Voice Agent",
+    "summary": "Pocket ESP32-S3 voice agent on M5StickS3 and StopWatch with Agora Conversational AI.",
+    "compactSummary": "StickS3 / StopWatch voice agent.",
+    "thumbnail": "/recipes/m5-sticks3-voice-agent.jpg",
+    "thumbnailAlt": "Semi-realistic cover showing M5Stack StickS3 and StopWatch with bilingual Agora Voice Agent title",
+    "thumbnailSource": "https://github.com/Ocean-lhy/RTE2026-StickS3-Demo",
+    "demoNote": "On-device demo video linked from recipe metadata. Same firmware supports StickS3 and StopWatch.",
+    "labels": [
+      "Embedded",
+      "Voice AI"
+    ],
+    "searchTerms": [
+      "sticks3",
+      "stopwatch",
+      "m5stack",
+      "esp32",
+      "esp-idf",
+      "rtsa",
+      "voice agent",
+      "embedded",
+      "stick",
+      "badge"
+    ]
+  }
 }

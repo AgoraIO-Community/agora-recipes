@@ -1,6 +1,6 @@
 # Voice AI Recipes Catalog
 
-This is a Next.js catalog site for Agora Voice AI recipes. Recipe implementations live in separate GitHub repositories; this repo stores catalog metadata, fetches each recipe's markdown during build, and renders static recipe pages.
+This is the Next.js catalog for Agora Voice AI and RTC projects and guides. One entry can provide a Demo, video, source repository, and/or Recipe. Implementations and author documents stay in their existing repositories. This site stores metadata and presentation translations, fetches configured guides at build time, and renders static pages without a new content backend or site accounts.
 
 ## Local Development
 
@@ -10,22 +10,27 @@ npm run dev
 
 Open http://localhost:3000.
 
-## Adding Recipes
+## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full submission flow. In short:
+See [CONTRIBUTING.md](./CONTRIBUTING.md). A GitHub account is required. Submit existing materials with the GitHub Issue form, or fork this repository and send a metadata PR to upstream `staging`. Direct PRs do not require an Issue.
 
-1. Fork this repo and create a branch from `staging`.
-2. Create `content/recipes/<slug>/recipe.json`.
-3. Use `templates/recipe.json` as the starting point.
-4. Set `mainRepoUrl` to the implementation repository.
-5. Set `recipeUrl` to the GitHub `blob` URL for the markdown recipe file.
-6. Run:
+Keep entries in `content/recipes/<slug>/recipe.json`. Use `templates/recipe.json` for a guide or `templates/demo.json` for a Demo-only entry. Provide at least one material; do not invent missing materials or create a duplicate project record for an existing recipe.
 
-```bash
-npm run build
-```
+`npm run build` fetches only configured guide Markdown and writes `content/generated/recipes/`. GitHub activates Issue forms from the default branch, so the new form must pass through the normal release before the site handoff is live.
 
-The build runs `npm run recipes:build`, which fetches the configured markdown, expands relative markdown links to absolute GitHub links, and writes generated artifacts under `content/generated/recipes/`.
+## Website Languages
+
+English keeps the existing unprefixed URLs. `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR` use locale prefixes; `/zh-CN/...` redirects to Simplified Chinese. Navigation, controls, metadata labels, and entry introductions use separate presentation dictionaries in `content/i18n/`. Missing entry translations fall back to the original metadata. Author guides and submitted source links remain unchanged. The build confirms author language navigation and reciprocal same-guide links; optional maintainer mappings resolve ambiguity. The reader uses an exact language/script match, then English, then the original, while an explicit manual choice takes priority. Raw, copied content/prompts, and outlines follow that version. Recipe API and Markdown discovery remain on the submitted original.
+
+Catalog detail links carry a validated `returnTo` address with the source locale, search, filters, and loaded count. Local scroll snapshots are scoped to that address. Direct detail links return to the catalog without inheriting an unrelated visit. Query context is excluded from canonical URLs.
+
+## Topics, Sharing, and Measurement
+
+`/topics` lists curated collections and activities; `/topics/<slug>` reuses the catalog cards and filters. Maintain explicit membership and optional activity dates/actions/sections/edition awards in `content/topics/`. Topic membership appears on detail and Topic pages, with a compact shared header link. Content cards never show membership, and the homepage gains no large Topic banner. Legacy `?topic=` quick filters remain independent.
+
+Detail and Topic pages offer copy-link and suitable native/platform sharing handoffs. Canonical/social metadata uses the chosen website locale, actual media when available, and one statically built PNG fallback. List-return queries are excluded from shared URLs.
+
+The seven minimal event families use the existing Vercel SDK and project, only on actual Vercel production deployments. Raw searches, submissions, copied text, and account identity are excluded. Hover previews do not count as deliberate plays, and GitHub handoffs do not count as successful submissions. Actual dashboard ingestion and the live GitHub form remain release gates. See [verification and release notes](docs/phase-one-p0.md).
 
 ## Recipes API
 
@@ -41,7 +46,7 @@ include `recipeRawUrl` and `primaryPrompt`, which the Agora CLI can return as
 setup guidance after cloning a recipe. Every response includes
 `schemaVersion: 1`; consumers must reject unsupported schema versions.
 
-Only recipes whose `author` is exactly `Agora` are exposed. When present, the
+Only entries with guides whose `author` is exactly `Agora` are exposed. Demo-, video-, and source-only entries remain outside this Recipe API. When present, the
 `cli.env` object is the source of truth for the example file, target file, and
 credential variable names; the CLI does not guess these values from the
 recipe's language or checked-out files.
@@ -58,7 +63,7 @@ and Markdown links all use this origin.
 - `/recipes/<slug>/index.md` provides recipe metadata, source links, the fetched
   implementation guide, and its implementation prompt. Missing documents are
   explicitly marked unavailable; unknown slugs return HTTP 404.
-- `/sitemap.xml` lists the homepage and every recipe page.
+- `/sitemap.xml` lists all localized home, contribution, and content detail pages.
 - `/robots.txt` allows crawling and points to the sitemap.
 
 HTML pages advertise their Markdown alternate and `/llms.txt`; the footer also
@@ -106,15 +111,17 @@ For TypeScript, React, styling, or routing changes:
 ```bash
 npm run lint
 npm run build
+npx tsc --noEmit
+node --test scripts/*.test.mjs
 ```
 
 Private recipe repositories cannot be fetched by the unauthenticated build script. Make the repo public or expect the generated artifact to contain a fetch error for that recipe's markdown.
 
 ### Homepage catalog
 
-All recipes share one catalog. Entries in [`content/showcase.json`](content/showcase.json)
-are recommended first, in array order. The first six are visible immediately;
-the next real recipe titles peek through a faded continuation that expands inline.
+All entries share one catalog. References in [`content/showcase.json`](content/showcase.json)
+are recommended first, in array order. The first 12 entries are visible immediately; batches of 12 appear automatically
+as the visitor approaches the end. The URL retains loaded count for source returns.
 Search and filters operate on the entire catalog and reveal every matching result.
 There is no separate event collection or View all destination.
 
@@ -122,19 +129,18 @@ Search covers titles, descriptions, card summaries, authors, and recipe metadata
 It tolerates small spelling mistakes and recognizes common English/Chinese domain
 terms, such as `speech to text` / `语音转文字`. The default sort ranks exact matches
 ahead of approximate ones. Matching runs locally without a search service.
-Appearance is fixed to dark on every page, including code blocks and diagrams. There is no light mode, system-following behavior, theme selector, or saved-choice override. Platform choices are visible and multi-select (OR); use cases also use OR, while selected capabilities must all match.
+Appearance follows the system before paint and on live changes, including code blocks and diagrams. No manual theme control or saved override applies. The same search input docks in the header after it scrolls away, with a filter action; draft, focus, and debounce are preserved. Platform choices in the refinement sheet support multi-select (OR); use cases also use OR, while selected capabilities must all match.
 
-Each recommendation can provide a local `thumbnail`, its `thumbnailSource` and
-`thumbnailAlt`, and an existing `videoUrl`. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
+Each entry can provide `media.thumbnail`, `media.thumbnailSource`, `media.thumbnailAlt`, and an existing `media.videoUrl` in its own `recipe.json`. The recommendation file contains only ordered slug references. Any recipe can optionally add an absolute HTTPS `demoUrl` in its own `recipe.json`, including a web demo or TestFlight page. Omit the field when no public demo exists. Use
 `compactTitle` and `compactSummary` for a short title and one concise outcome.
-Media cards show the preview, title, summary, author avatar, and up to two selected
+Media cards show the preview, title, summary, author avatar, and one meaningful
 `labels` (one on phones). Guide cards reuse the tagline and platform labels.
 `thumbnailScale` and `thumbnailOrigin` optionally frame existing screenshots to
 exclude browser chrome; the original image and video remain intact.
 Keep `demoNote` truthful about language, microphones, cameras, and API-key
 requirements; it remains visible in recipe details and video players. Video
 cards open the on-site player, which also offers the existing external live demo;
-image cards open their live demo directly. Recipe links always lead to the guide.
+image cards open their live demo directly. Title and text links always lead to the same content detail page; its guide appears only when configured.
 Recipe detail pages show the optional Demo action whether or not they are recommended.
 
 Verified author profiles and local avatar sources are maintained in
@@ -145,10 +151,20 @@ public entry screen because its original recording mostly contains empty tiles.
 
 Posters stay below 150 KB each; videos remain externally hosted with canonical
 URLs rather than expiring signed redirects. Removing a recommendation leaves the
-recipe in the catalog. The required recipe metadata and public API are unchanged; `demoUrl` is optional.
+recipe in the catalog. Existing guide metadata and public API contracts remain compatible. New entries may omit a guide, repository, and difficulty when those materials do not apply. Material filters combine selected requirements with AND; platform selections continue to use OR.
 
-Official fonts, colors, and the reading page follow Omja's [design refresh (#68)](https://github.com/AgoraIO-Community/agora-recipes/pull/68), alongside the compact media catalog and local discovery from [#70](https://github.com/AgoraIO-Community/agora-recipes/pull/70). The Agora site header is retained, followed directly by search, topics, and platforms. Secondary navigation is also available in the footer. Lightweight media cards retain rounded previews with copy underneath. The hero and particle runtime are removed. Search and selected controls use the supplied [agent-ui Glass material](components/agent-ui/README.md), with static reflections, independent text, and accessible fallbacks. Normal recipe links do not prefetch large implementation documents on initial browsing.
+The Recipes design system uses the Agora wordmark, local typography, and shared
+dark/light tokens. Ordinary controls and reading surfaces are solid; floating
+media actions, menus, and dialogs use complete Liquid Glass. A centered title
+and search lead into one topic toolbar and project tiles; phones retain two
+columns. Cards, images, links, labels, and icons stay in place on hover. Color,
+border, underline, and opacity provide feedback; motion accompanies explicit
+state changes such as selection, disclosure, and copy confirmation. Normal
+recipe links do not prefetch large implementation documents during initial
+browsing. DESIGN.md documents the palette, geometry, responsive layouts,
+components, and interaction rules. Component integration lives in
+`components/agent-ui/README.md`.
 
 Verification: `node --test scripts/markdown.test.mjs scripts/recipe-discovery.test.mjs scripts/recipes-meta.test.mjs` (Node 22.18+ or Node 24+),
 `npm run lint`, `pnpm exec tsc --noEmit --incremental false`, and `npm run build`.
-The ESLint config retains narrowly scoped exceptions for existing shadcn templates.
+The ESLint config retains narrowly scoped exceptions for existing UI templates.

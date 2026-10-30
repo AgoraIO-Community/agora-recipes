@@ -1,139 +1,367 @@
----
-name: Agora Recipes
-description: Search-first recipe discovery with Agora typography and agent-ui liquid glass controls.
-colors:
-  signal: "#00c2ff"
-  signal-ink: "#04111d"
-  canvas-dark: "#000000"
-  card-dark: "#0a0a0a"
-  card-hover-dark: "#1a1a1a"
-  ink-dark: "#fcf9f8"
-  muted-dark: "#b3b3b3"
-  line-dark: "#383838"
-  control-dark: "#626262"
-  focus-dark: "#a0faff"
-  code-bg-dark: "#0a1114"
-  code-header-dark: "#12191c"
-  code-text-dark: "#e6edf3"
-  code-border-dark: "#2c2c2c"
-  footer-bg: "#050708"
-  footer-ink: "#f3f6f7"
-  glass-fill-dark: "rgba(28, 31, 34, .62)"
-  glass-highlight-dark: "rgba(255, 255, 255, .3)"
-  glass-low-edge-dark: "rgba(0, 0, 0, .5)"
-  glass-control-dark: "rgba(255, 255, 255, .075)"
-  glass-control-hover-dark: "rgba(255, 255, 255, .13)"
-typography:
-  headline: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "clamp(2.25rem, 3.055556vw, 2.75rem)", "fontWeight": 400, "lineHeight": 0.94, "letterSpacing": "-0.04em"}
-  title: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "20px", "fontWeight": 400, "lineHeight": 1.2, "letterSpacing": "-0.025em"}
-  body: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "16px", "fontWeight": 400, "lineHeight": 1.58}
-  small: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "13px", "fontWeight": 400, "lineHeight": 1.5}
-  label: {"fontFamily": "MiSansLatin, MiSans, Helvetica Neue, Arial, sans-serif", "fontSize": "13px", "fontWeight": 500, "lineHeight": 1.5}
-  code: {"fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace", "fontSize": "13px", "fontWeight": 400, "lineHeight": 1.5}
-rounded: { square: "0px", technical: "2px", search: "12px", search-phone: "12px", sort: "12px", selection: "12px", preview: "12px", metadata: "4px", circular: "50%" }
-spacing: { base: "4px", sm: "8px", md: "12px", gutter-phone: "16px", gap: "20px", lg: "24px", section: "32px", wide: "48px", footer: "64px" }
-components:
-  button-primary: {"backgroundColor": "{colors.signal}", "textColor": "{colors.signal-ink}", "typography": "{typography.label}", "rounded": "{rounded.technical}", "padding": "12px 20px"}
-  button-outline: {"typography": "{typography.label}", "rounded": "{rounded.technical}", "padding": "12px 20px"}
-  directory-filter: {"typography": "{typography.label}", "rounded": "{rounded.selection}", "padding": "0 12px"}
-  search: {"rounded": "{rounded.search}", "height": "50px"}
-  search-phone: {"rounded": "{rounded.search-phone}", "height": "46px"}
-  sort: {"rounded": "{rounded.sort}", "padding": "0 12px"}
-  media-preview: {"rounded": "{rounded.preview}"}
-  guide-card: {"backgroundColor": "{colors.card-dark}", "rounded": "{rounded.preview}"}
-  metadata: {"rounded": "{rounded.metadata}", "padding": "2px 6px"}
----
+# Agora Recipes design guide
 
-# Design System: Agora Recipes
+Recipes is a compact catalog that follows the system theme, for finding working Voice AI and RTC projects,
+trying their demos, and following their implementation guides. Keep the interface
+in the Agora website family: official cyan wordmark, local MiSans typography,
+quiet charcoal controls, and real project media.
 
-## Overview
+## Current reference
 
-**Creative North Star: "The Agora Website Directory"**
+The owner-selected [Agent UI component reference](https://agent-ui-theta-drab.vercel.app/?member=basic&appearance=dark&doc=button)
+replaces the earlier standalone HTML as the primary component reference. Token
+and component semantics were checked against the source snapshot
+`shczhen/agent-ui@c59fa2c954d036c4428b17b0f2f8150f12fb7ed2`.
+Adapt those semantics in the existing shared Recipes components. Keep the owner's
+regular interface weight 400, stationary hover, complete floating GlassSurface,
+compact catalog layout, and 46px phone targets. These take priority over different
+source-demo typography, moving arrows, and documentation-page geometry.
 
-Recipes retains the Agora site header and opens directly into discovery below it. Agora Website typography, black surfaces, lightweight media previews, and official cyan signals pair with the supplied agent-ui liquid glass controls. Rounded search and static reflective selections provide the material character while independent foreground text stays clear.
+## System ownership
 
-This Recipes-scoped record preserves the website fonts, palette, and detail reader from Omja’s #68 and the media/discovery work from #70. The homepage retains the site header and navigation, followed by search with no introduction, hero, or ambient animation. Secondary navigation is also in the footer. The implemented CSS is normative where older website-directory guidance differed.
+This guide defines the visual and interaction rules for Recipes. Shared tokens
+and components apply across the catalog, filters, recipe pages, and navigation.
 
-**Key Characteristics:**
-- MiSans Latin, Agora website colors, and readable implementation guides.
-- Search first, with static liquid glass controls and solid accessibility fallbacks.
-- Real media, visible platform selection, and compact two-column phone browsing.
+- `app/globals.css` owns page layout, typography, and reading styles.
+- `components/agent-ui/controls.css` owns solid control materials, sizes, and states.
+- `components/agent-ui/glass.css` and `glass-surface.tsx` own floating Liquid Glass.
+- `components/ui/` provides the shared interactive primitives.
+- Recipe metadata and existing media remain the source of titles, authors,
+  platforms, durations, and demo availability.
 
-Provenance: [Omja #68](https://github.com/AgoraIO-Community/agora-recipes/pull/68) (`da99e784`) and [media/discovery #70](https://github.com/AgoraIO-Community/agora-recipes/pull/70) (`6afa3d9`). The restored [agent-ui material](components/agent-ui/README.md) comes from the user-supplied [`shczhen/agent-ui` source](https://github.com/shczhen/agent-ui/tree/9ca9d39be0037adf34a8984b1ab3a8383df0477c) (`9ca9d39be0037adf34a8984b1ab3a8383df0477c`). Its measured refraction map and separate RGB displacement are retained; pointer-following light and ambient animation are omitted. The [font attribution](public/font/README.md) records unmodified `misans@4.1.0/lib/Latin/` faces and the [MiSans license source](https://hyperos.mi.com/font/en/). Preserve per-asset media provenance when replacing files.
+Extend these patterns rather than adding page-specific button, input, tab, or
+select skins. Design proposals and temporary review captures do not belong in
+application assets unless the interface actually uses them.
 
-## Colors
+## Color and material
 
-### Primary
-Official Signal is the action fill, detail-navigation logo, reader-tab underline, and graphic accent. Signal Ink carries text on that fill. Primary hover uses warm ink with dark text.
+Follow `prefers-color-scheme` before first paint on every route and on live system
+changes. There is no manual theme control. Ignore previous `recipes:theme`
+overrides. Theme changes keep the same layout, typography, imagery, and geometry.
 
-**The Signal Rule.** Keep official cyan for action fills, active rules, links, and graphics on the dark canvas; body copy remains neutral.
+The theme covers the catalog, filters, reading, dialogs, native browser surfaces,
+syntax highlighting, and diagrams. Theme selection does not depend on storage.
 
-### Neutral
-Canvas, card, and hover planes step upward from black. Muted ink distinguishes secondary information; decorative lines and stronger control boundaries have separate roles. The footer and code use their dark surface and ink tokens. System appearance does not change the site.
+| Role | Dark | Light | Usage |
+| --- | --- | --- | --- |
+| Canvas | `#000000` | `#fcf9f8` | Page background |
+| Secondary | `#0a0a0a` | `#ffffff` | Footer and recessed areas |
+| Surface | `#1a1a1a` | `#ffffff` | Project tiles and panels |
+| Raised / muted | `#242424` | `#f0eeec` | Hover and quiet metadata surfaces |
+| Text | `#fcf9f8` | `#0f0f0f` | Main text |
+| Secondary text | `#b3b3b3` | `#626262` | Descriptions, metadata, secondary links |
+| Border | `#383838` | `#d6d6d6` | Structural seams and panel edges |
+| Input edge | `#626262` | `#8b8581` | Fields and brand separator |
+| Agora cyan | `#00c2ff` | `#00c2ff` | Official wordmark and brand signal |
+| Link text | `#00c2ff` | `#075c9a` | Readable links on each canvas |
+| Focus | `#a0faff` | `#075c9a` | Keyboard outline |
+| Error | `#ff7b7b` | `#b42335` | Failure feedback |
 
-## Typography
+Use the two materials by role:
 
-**Display and Body Font:** MiSansLatin, with MiSans, Helvetica Neue, Arial, and sans-serif fallbacks. **Code Font:** system monospace. Local font faces retain source weights (380 and 520); UI styles request (400), (500), and (600), with font synthesis disabled.
+| Role | Material | Treatment |
+| --- | --- | --- |
+| Buttons, inputs, search, filter items, toggles, copy | Solid controls | Solid fills, clear edges, independent text |
+| Guide / Markdown tabs | Underline tabs | Cyan current indicator, no surrounding tray |
+| Cards, reading, code, filter form body | Solid | Opaque, stable reading contrast |
+| Sticky header and topic toolbar | Solid | Theme canvas with a structural seam |
+| Video play control, demo action over media | Liquid Glass | Full refraction over the actual image |
+| Navigation, select menu, modal, bounded filter sheet | Liquid Glass | Full refraction with solid controls inside |
 
-Use regular weight and tight tracking for headings. Detail hero headings use headline; the homepage has no visible display heading above search. Media-card titles use (17px/1.35) at weight (500), becoming (16px/1.35) on phones. Detail section headings retain (20px/1.08) with (-0.035em) tracking. Card summaries are (13px/1.5), reducing to (12px) on phones; author and metadata text are (12px). Reader prose uses body with a maximum measure (68ch); code can extend wider. Avoid promoting existing uppercase technical metadata into a new decorative eyebrow convention.
+Primary buttons use foreground fill and opposite canvas ink: warm white in dark,
+charcoal in light. Hover uses the theme's readable Agora signal color. Secondary
+actions use a bordered neutral fill; quiet actions gain that fill on hover.
+Selected toggle underlays use a neutral raised surface. Media metadata labels
+use solid dark fill and light text.
 
-## Layout
+Liquid Glass means the complete geometry-sized SVG displacement map, separate
+red/green/blue refraction, edge highlights, transmission, and elevation. Reuse
+`GlassSurface material="liquid"`; a translucent blur-only shell is not an
+alternative material. Keep the optical and highlight layers behind foreground
+content. Forms and long instructions inside floating surfaces have an opaque
+reading plane. Do not add glass to ordinary controls or reading surfaces.
 
-**Integrated designUpdate behavior:** the catalog renders 12 matching recipes
-initially and appends batches of 12 when the bottom sentinel comes within
-400px of the viewport. This supersedes the six-card disclosure described below;
-there is no View more interaction. Search, topics, sorting, and facets reset
-the batch. Browsers without IntersectionObserver render all matching recipes.
-Keep staging's media cards, discovery controls, fixed dark theme, and responsive
-grid. The detail reader retains the recent 1200px content width, 260px rail,
-32px gap, and bordered document with 24px padding (16px on phones). Its header
-uses an 80%-opaque background at the top and 58% on scroll with 12px blur and
-1.15 saturation, preserving the requested see-through navigation treatment.
+In light mode, floating panels use one continuous opaque interior across their
+header, content, and footer. Keep the complete optical engine with a quiet edge.
+The opaque backing belongs to the panel itself so scrolling never moves its
+reading plane or exposes background imagery behind menu text. Do not split the
+filter sheet into glass headers/footers around a white form block. Use neutral
+muted selection fills without an extra selection shadow inside these panels.
+Media-overlay actions retain their existing optical material in both themes.
 
-The shell uses a content width up to (1600px), plus gutters of (clamp(24px, 4vw, 64px)); phones at or below (640px) use (16px) gutters. Site navigation is (62px) tall, becoming (58px) at (900px), and remains visible on the homepage. Search follows immediately with phone top padding (6px). On larger screens its sticky offset tracks the measured header, including the mobile menu.
+Move glass surfaces during entry and exit; fade the separate modal backdrop.
+Animating opacity or filter on a glass ancestor can stop the browser from sampling
+the page behind it. Do not leave animation fill or `will-change: opacity` on
+these surfaces. Reduced transparency, forced colors, and unsupported filtering
+use opaque accessibility fallbacks. Reduced motion removes spatial feedback.
 
-Search and topics stick beneath the site header on larger screens. On phones, only the site header stays fixed; search and filters scroll with the catalog. Phone search padding is (6px 0), with a (4px) gap before topics. Visible platforms follow; advanced facets expand inline. The media grid has three columns and (20px) gaps, changing directly to two columns at (640px), with (12px) horizontal and (16px) vertical gaps. The first six recommendations lead; a fading native disclosure previews subsequent real entries. Search/filter results bypass that initial truncation. Media stays (16:9).
+## Typography and geometry
 
-Detail pages use a main column and (240–280px) sticky rail with a (clamp(24px, 3vw, 60px)) gap. At (900px), the layout becomes one column, capped at (688px), with the rail flowing after the content.
+MiSans Latin is bundled locally at weights 380 and 520, matching the Agora
+website. Use the regular face at CSS weight 400 for interface text, including
+titles, navigation, buttons, and cards. Use size and spacing for hierarchy;
+reserve semibold for emphasis inside authored reading content. Do not reintroduce
+semibold interface labels when adding controls.
+Monospace is reserved for code and commands.
 
-## Elevation & Depth
+| Element | Desktop | Phone |
+| --- | --- | --- |
+| Catalog title | 40px, weight 400, line height 1.1 | 30px |
+| Recipe title | 44px maximum | 30px |
+| Showcase title | 18px, weight 400 | 15px |
+| Body / guide | 16px, line height 1.7 | 16px |
+| Description / metadata | 12–15px by role | 12–15px |
+| Footer invitation | 28px, weight 400 | 24px |
 
-**The Matte Surface Rule.** Media entries show rounded previews with text directly below, without a large filled card plane. Guide entries and dialogs use matte tonal planes without drop shadows. Reserve refraction, specular rims, and restrained elevation for the supplied glass controls.
+Use the 4px spacing rhythm: 8–12px inside small groups, 16–24px between related
+parts, and 28–40px between sections. Compactness comes from grouping and
+progressive disclosure. Preserve readable text and distinct section spacing.
 
-The detail header and sticky catalog bar use translucent backgrounds with (20px) blur and (1.15) saturation. Search uses its dark glass fill, a static specular rim, and low elevation. Chromium applies the original measured map with RGB displacement scales (-50/-47/-44), followed by (5px) blur and (1.4) saturation; the frosted path uses (7px) blur. Selected filters and sort use (8px) blur with (1.3) saturation. Foreground input text remains outside the filtered backdrop. Reduced transparency, forced colors, and unsupported backdrop filtering have readable solid fallbacks. Code has an inset signal rule (3px). Layer order is catalog bar (60), header (80), dialog overlay (100), dialog content (110), and focused skip link (150); dialogs must cover both sticky surfaces.
+Regular controls use 14px text; compact 32px actions use 13px. All interface
+labels use weight 400. Controls have 6px corners; grouped trays use 8px. Project tiles and floating
+panels use 16px; phone tiles and select menus use 12px. Media actions use 10px.
+Metadata chips use 4px. Desktop control heights are 32/40/44px; phone and
+coarse-pointer actions retain at least 46px targets. Search is 48px.
 
-State changes use the shared easing, with (200ms) color transitions and (360ms) header changes. Fine-pointer action hover lifts (2px); media title links change color without moving. Homepage material has no pointer-following light, particle renderer, or autoplay. Glass reflections are static; only interaction states transition. Reduced motion shortens transitions and disables hover translation.
+All pages share one shell, at most 1504px including gutters. Header, catalog,
+recipe overview, guide layout, and footer use the same outer edges. Gutters scale
+up to 60px and become 16px at 640px. Keep prose constrained inside the reading
+column rather than narrowing the entire detail page.
 
-## Shapes
+`--page-columns` and `--page-column-gap` define the shared column grid: three
+columns with 20px gaps on desktop, two with 16px gaps at 900px, and 12px horizontal
+gaps at 640px. Footer resources and legal links align to these catalog column
+starts. Avoid independent fractional columns or distributed spacing for them.
 
-Search, selected filters, sorting, preview corners, guide cards, and continuation previews share a (12px) corner treatment. Shared website/detail controls, dialogs, and code retain technical (2px) corners. Metadata labels use (4px) corners. Hairlines and specular rims are (1px). Author avatars and video-play markers remain circular.
+## Header and footer
 
-## Components
+The header has a 64px content height, becoming 60px at 640px, plus its 1px seam.
+Keep that height stable across scrolling and navigation states. The official
+wordmark and Recipes label share a vertical separator. Header and footer use
+the same 86px wordmark and label: 15px regular on desktop, 14px on phones. Align
+the visual center of the wordmark's main letter body with the Recipes text,
+excluding the long g descender. The current asset needs a 7.5px optical offset,
+reduced to 7px on phones. Do not align the full SVG box or only its baseline. On desktop, center the
+Recipes / Topics / Docs / GitHub navigation between the brand and right-hand actions.
+The smaller navigation controls use a 1px optical offset to share the brand
+label's baseline. Recipes carries the collection context; Contribute is secondary
+to Get started.
+The header gains its seam after scrolling and retains an opaque theme canvas. Keep the
+search available after its original position scrolls away: move the same input
+into the header slot and replace desktop navigation with it. Preserve the draft,
+focus, composition, debounce, and keyboard shortcut. Keep a filter icon beside
+the docked input; closing its sheet returns focus there without scrolling.
+At 1100px, Contribute moves out of the header action row; the footer retains its
+contribution link. On phones, the docked search replaces the brand while language
+and navigation remain available. The header keeps its original height.
 
-### Buttons and fields
-Primary buttons pair Signal with Signal Ink; outline buttons use the control boundary and neutral text; text actions use the theme's signal-text role. Shared actions have (46px) minimum targets, (12px 20px) padding, and visible focus. Focus is a (2px) outline with (3px) offset. Search uses the restored liquid GlassSurface, (16px) input text, and independent foreground controls: height (50px), reducing to (46px) on phones. A visible outer focus outline replaces an input-level ring so it does not obscure the glass rim.
+At 900px the main links move into a bounded floating navigation panel. On phones,
+keep the language and menu icon buttons in the header; GitHub remains in the panel. Opening navigation must
+not shift page content. Use the existing Popover for outside dismissal, Escape,
+and focus return. Close it on navigation and when returning to desktop width.
+The phone panel shares the page's left and right gutters; tablet panels stay
+bounded and align to the right gutter.
 
-### Directory filters and metadata
-**The Directory Control Rule.** Keep unselected filters quiet and transparent. Selected filters use rounded glass fill, a static highlight and low edge, a faint boundary, and readable neutral ink. Quiet tinted metadata labels remain noninteractive.
+The footer has three distinct rows: a short contribution invitation, a resource
+directory, and a quiet copyright/legal line. The invitation links to the existing
+GitHub contribution guide. Group links under Explore and Build with Agora.
+On desktop, the three resource columns follow the project grid. Their headings
+share a 44px row and 20px line height with the brand label; resource links use
+consistent 36px rows. The invitation action aligns to its heading baseline.
 
-Quick topics and visible platform choices scroll horizontally when needed. Platforms and use cases match any selected value (OR); capabilities match every selected value (AND). Secondary platforms use More; type/use-case/capability controls expand inline. Has a demo and native sorting sit at the top of the expanded Filters panel. Result status and reset stay compact; on phones the default result status is visually hidden, then appears after search, filtering, or a sorting change. It remains available to screen readers. The empty state explains the mismatch and provides a clear reset.
+At 900px, span the brand across the footer and keep two resource columns. On
+phones, also stack the invitation. Legal links use those same two column starts;
+phone and coarse-pointer links retain 46px targets. Back to top is a native anchor
+aligned to the shell's right edge. Do not compensate with negative margins.
 
-### Media cards and continuation
-Media bodies use desktop padding (10px 2px 0), reducing to (8px 2px 0) with a (4px) content gap on phones. Phone title/summary links size to their content rather than reserving a fixed-height text block. Guide entries retain (16px) internal spacing. Titles and summaries each clamp to two lines. Author links retain a (46px) target and a (20px) avatar with initials fallback. Show at most two metadata labels, reducing to one on phones. Video covers open on-site playback; non-video demo covers open the existing external demo; titles open the guide. Guide-only entries use the same text and author hierarchy without fabricated media. Native inline continuation reveals the remaining catalog in place.
+## Catalog and discovery
 
-### Navigation, dialogs, and reading
-All pages retain the official wordmark and website header; desktop navigation becomes a keyboard-operable menu at (900px). The homepage places search directly below the header, with secondary navigation also in the footer. Appearance is fixed to dark without a selector. Video and help dialogs use the shared corrected layers, (46px) close targets, scrollable content, and focus restoration. Video includes native controls, setup notes, original-source and recipe links, optional HTTPS demo actions, and a load-failure fallback. Optional Demo links belong to recipe metadata independently of curation. Detail reading preserves true Rendered/Raw tabs, Shiki dark highlighting, copy feedback, horizontal code scrolling, and the narrower prose measure.
+Lead with a short centered introduction and a search field up to 610px wide.
+Command/Control K focuses search. One topic/action toolbar follows; platforms,
+use cases, and capabilities belong in the refinement sheet. Sorting moves into
+the sheet at 900px. Show active conditions above the result count.
 
-## Do's and Don'ts
+The toolbar sticks below the measured header on desktop and scrolls normally on
+phones. Overflowing topics scroll horizontally. Single selection uses the shared
+moving underlay; state must also remain explicit in control semantics.
 
-### Do:
-- **Do** render dark from the initial HTML, including controls, code, diagrams, and browser chrome, regardless of system or saved preferences.
-- **Do** preserve real thumbnails, source attribution, setup notes, and truthful demo availability.
-- **Do** keep visible focus, 46px control targets, keyboard disclosure, reduced-motion support, and solid glass fallbacks.
-- **Do** keep all recipes in one catalog; search and filters must reach beyond the initial recommendations.
+Curated recommendations use three columns on desktop and two at 900px. Phone
+cards remain in two columns. Desktop gaps are 20px; phone gaps are 12px across
+and 16px down. A charcoal tile contains an inset real preview, title, concise
+outcome, author, and one meaningful platform or capability label. Gallery crops
+are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin. Guide
+cards keep their natural height instead of stretching to fill neighboring rows.
 
-### Don't:
-- **Don't** remove the site header or add an intro, hero, particles, ambient animation, pointer-following light, or theme selector.
-- **Don't** add glass backgrounds behind recipe descriptions or the detail reader.
-- **Don't** use the small-text companion blue as a replacement brand fill.
-- **Don't** fabricate media, live demos, or a separate View all destination.
+The media opens the actual video or external live demo; the title opens the
+recipe. Hover and keyboard focus may fade in the title arrow within its reserved
+space. Preview images retain their crop and scale. The default play control
+and its labelled hover state both remain centred within the preview. Touch
+controls remain visible. Do not invent
+favorites, ratings, demo links, or availability claims.
+
+Search and explicit sorts show aligned text rows on desktop and two-column text
+cards on phones. Keep actual demo actions available. Guide-only entries do not
+reserve empty thumbnail space. Search covers the entire catalog, including
+entries not yet visible. Render the first 12 entries and automatically reveal
+batches of 12 as the visitor approaches the end. Announce loading/end status
+without moving keyboard focus. Where IntersectionObserver is unavailable, show
+all matches. There is no click-to-load control.
+
+The bounded filter sheet has searchable groups, counts, and a fixed action area.
+Platforms and use cases match any selected value; capabilities require all
+selected values. Search, filters, sorting, and loaded count live in the URL
+(`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions
+reset the batch count. Returning from a recipe restores the same conditions,
+loaded entries, and scroll position. Search still covers the entire catalog.
+
+## Topic directory
+
+Use two columns of thematic illustrations or organizer artwork, at a steady
+16:9 ratio. A short title, one-line introduction, entry count, and current status
+are enough for the directory. Keep the full name, background, dates, and source
+references on the detail page. On phones, keep two compact columns and omit the
+extra introduction. Do not crop out essential content by zooming media on hover.
+Titles and arrows stay stationary; feedback uses the existing border and underline.
+Collection art can use a clear #Topic identity; it does not act as a technical
+tag. Keep the hackathon organizer poster and the adapted official iRTE2026 art.
+Recipe cards still contain no Topic names or membership badges.
+
+## Recipe pages and reading
+
+Lead with the outcome, technology, author, and Copy recipe prompt action. Demo
+and source actions follow in priority. Use actual preview media and truthful
+setup requirements. Full prompts and CLI commands remain available in native
+disclosures rather than repeating the primary action in a separate pitch.
+
+Inside the shared page shell, the desktop guide uses a 216px left contents rail
+and 48px gap. Reduce these at
+intermediate widths; on phones the rail follows the content and a local contents
+disclosure sits near the guide. The current section uses `aria-current` and the
+shared moving selection underlay. Anchors must clear the sticky header.
+
+Guide / Markdown, Raw, and Copy share one toolbar. Preserve the fetched source
+document and assets. Center source introduction wrappers within the reading
+column. Exposed edge links remove extra inline padding so Back to recipes,
+section navigation, and right-hand document actions follow the content edges.
+Code is highlighted once with light/dark variables; CSS switches its palette
+immediately. Diagrams redraw with the active shared tokens.
+Prose is at most 68ch. Code and tables may use the wider column and
+scroll horizontally; keep their overflow inside the reading area.
+
+## Contribution journey
+
+Use one preparation flow with a copyable submission prompt and a direct GitHub
+form action. The prompt helps Codex, Cursor, or Claude Code read existing project
+materials and prepare an English Issue draft for the contributor to review;
+it does not edit author files or publish anything. Show the small material
+checklist and the review-to-release steps in the page. Keep direct PR instructions
+in a secondary disclosure, targeting staging. An unavailable GitHub form has a
+regular Issue draft recovery link with the same fields.
+
+Topic association is optional and explicit. Current collections and activities
+are offered first; ended activities stay in a collapsed group within the same menu. An inherited or
+manually selected ended activity remains visible with its ended status, and its
+checked historical choice is visible when the menu opens. Expand history in place
+on phones and desktop; do not require a side menu to reach archived activities. Ordinary
+collections and entries are not hidden merely because they were published earlier.
+
+Topic-page actions, shared header,
+and footer links carry that Topic. A recipe reached from a validated Topic list
+retains that source when contributing; a direct detail visit or legacy quick
+filter does not guess an association. The contributor can change or clear the
+Topic. Its URL state drives the prompt, GitHub form, recovery draft, reload, and
+website-language changes. Keep the validated returnTo source independent from
+the selected association: changing the Topic must not change where Back returns.
+Technical tags never choose a Topic.
+
+## Interaction and accessibility
+
+Use the shared control timing: control feedback 200ms and surfaces/selection 360ms. Longer
+content may use the 600ms slow token when needed. Selection underlays move for 360ms with `cubic-bezier(.16,1,.3,1)`.
+Hover and keyboard focus keep every component and its contents stationary.
+Cards, images, links, buttons, labels, and icons retain their
+position, size, spacing, and crop. Do not translate, scale, lift, expand, or swap
+arrows on hover. Reserved-space icons may fade in; feedback otherwise uses text
+color, fill, border, underline, and opacity. Press feedback also keeps geometry
+fixed.
+
+Video cards have one deliberate hover interaction: a centred play icon fades
+into a centred icon-and-label group inside a fixed frame. The decorative glass
+backing expands equally on both sides of the preview centre. Keep each state
+vertically centred; no content slides between positions. Mouse hover prepares
+video metadata; playback begins
+after a continuous two-second dwell, muted and inline. Keep the poster visible
+until playback starts. Leaving, clicking, hiding the page, or removing the card
+cancels the preview and restores the poster. Failed or blocked playback leaves
+the manual video action usable. Touch and reduced-motion/data preferences use
+the poster and explicit playback action. Keyboard focus may reveal the label
+but never starts automatic playback.
+
+State changes may animate when they explain an action: selection indicators,
+expanded disclosures, copy confirmation, theme changes, and opening or closing
+floating surfaces. These transitions start from an explicit state change rather
+than pointer hover. Feedback is local, reversible, and honors reduced motion.
+
+The shared Button accepts `busy`, marks the action busy/unavailable, retains its
+accessible name and keyboard focus, and blocks repeated activation before child
+link handlers. Its overlay progress icon preserves geometry. Explicit `disabled`
+remains native; slotted unavailable links block navigation. Copy controls opt out
+of the generic spinner and use their existing local idle/pending/success/failure
+feedback. Primary/secondary/quiet express hierarchy; existing variant names remain
+compatible.
+
+Copy actions reserve their text width across idle, success, and failure. The
+copy icon transitions into a drawn check, with accessible status feedback.
+Disclosures coordinate height and chevron changes. Glass dialogs use a small
+entrance movement while the separate backdrop fades. Avoid autonomous animation and scroll interception.
+Reduced motion keeps every state and action usable without spatial effects.
+
+Ordinary controls use a 2px cyan keyboard outline with 3px offset.
+Menu and select options use that outline inset by 2px so the popup cannot clip it;
+selection remains a checkmark while hover and keyboard highlight identify the
+current action separately. Keep native links,
+buttons, video controls, and Radix semantics. Dialogs cover the header, close
+with Escape, and return focus. Layer order is catalog 30, header 40, popovers and
+dialogs 50, focused skip link 150. Verify desktop, tablet, and narrow phone
+layouts, touch, keyboard, empty recovery, copy failures, and reduced motion when
+changing these patterns.
+
+Header language selection is an icon action with a named tooltip and a compact,
+checked language menu. Keep it visible on phones. Share controls are a copy icon
+and a share menu within the primary action group; do not expand platform links
+into a separate toolbar. Guide-language selection belongs beside the reader
+heading, with full option labels in the menu and the actual source language below.
+
+## Interaction continuity
+
+- Keep filter options in a stable base order while their live counts change.
+  Selecting a checkbox must not move that target under the pointer or focus.
+  Filter disclosure headings support Up/Down/Home/End without collapsing other
+  selected groups. Native Enter/Space toggles the focused group.
+  Material options share a two-column grid; the opaque form body scrolls between
+  the fixed sheet heading and result/reset actions.
+- Topic filters use the shared moving surface indicator. Reader tabs use the same
+  measurement with a 2px underline. Retain Radix arrow-key focus and Space/Enter
+  activation; reduced motion moves directly to the selected state.
+- Copy actions share idle, copying, copied, and recoverable failure states.
+  Reserve label width, retain keyboard focus during the pending operation, block
+  duplicates, and confirm only after the clipboard write succeeds. Success
+  returns to idle after 2.5 seconds; failures remain available for retry.
+- Topic directory cards have one full-area link with a title-based accessible
+  name. Keep every card and icon stationary; color, border, and underline carry
+  hover/focus feedback. Content cards still never carry Topic membership.
+- Contributions show the GitHub form and direct PR as two aligned paths on
+  desktop and one sequence on phones. Keep public-submission guidance visible,
+  place review details in a disclosure, and omit the footer's repeated submission
+  invitation on this page while retaining its resources and legal links.
+
+
+## Search interaction
+
+Keep the existing solid search field and compact catalog. Draft typing is immediate;
+commit results and URL state after 250 ms, flush on Enter, and clear immediately.
+Do not commit during IME composition or restore old scroll snapshots while typing.
+Show pending and failed guide-index states honestly; keep metadata search usable
+with a retry action. Guide-only matches can use two lines of attributed source
+excerpt within the existing result row. A sole compact phone result spans the
+available row and allows four excerpt lines; multiple results keep two columns. Topic search terms do not add membership
+badges or links to content cards.

@@ -1,6 +1,8 @@
 import "server-only"
 import fs from "node:fs"
 import path from "node:path"
+import type { DocumentLanguages } from "./documents"
+import type { Showcase } from "./recipe-discovery"
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "recipes")
 const GENERATED_DIR = path.join(process.cwd(), "content", "generated", "recipes")
@@ -27,6 +29,7 @@ type GeneratedRecipeArtifact = {
     recipeRawUrl: string
   }
   recipeDocument: RecipeDocument
+  documentLanguages?: DocumentLanguages
   primaryPrompt: string
 }
 
@@ -38,12 +41,13 @@ export type RecipeMeta = {
   platforms: string[]
   useCases: string[]
   capabilities: string[]
-  mainRepoUrl: string
-  recipeUrl: string
+  mainRepoUrl?: string
+  recipeUrl?: string
   demoUrl?: string
+  media?: Partial<Omit<Showcase, "slug">>
   author: string
   updated: string
-  difficulty: Difficulty
+  difficulty?: Difficulty
   cli?: RecipeCLIConfig
 }
 
@@ -59,11 +63,18 @@ export type RecipeCLIConfig = {
   runCommand?: string
 }
 
-export type Recipe = RecipeMeta & {
+export type CatalogEntry = RecipeMeta & {
   slug: string
   generatedAt?: string
   recipeDocument: RecipeDocument
+  documentLanguages?: DocumentLanguages
   primaryPrompt: string
+}
+
+export type Recipe = CatalogEntry & { mainRepoUrl: string; recipeUrl: string; difficulty: Difficulty }
+
+export function hasRecipe(entry: CatalogEntry): entry is Recipe {
+  return Boolean(entry.recipeUrl)
 }
 
 export type FilterOptions = {
@@ -78,11 +89,8 @@ const REQUIRED_STRING_FIELDS: (keyof RecipeMeta)[] = [
   "title",
   "tagline",
   "description",
-  "mainRepoUrl",
-  "recipeUrl",
   "author",
   "updated",
-  "difficulty",
 ]
 
 const REQUIRED_ARRAY_FIELDS: (keyof RecipeMeta)[] = [
@@ -108,7 +116,7 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
   const m = meta as Record<string, unknown>
 
   for (const field of REQUIRED_STRING_FIELDS) {
-    if (typeof m[field] !== "string" || (m[field] as string).length === 0) {
+    if (typeof m[field] !== "string" || (m[field] as string).trim().length === 0) {
       throw new Error(
         `[recipes] ${slug}/recipe.json is missing required string field "${field}"`,
       )
@@ -116,12 +124,14 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
   }
 
   for (const field of REQUIRED_ARRAY_FIELDS) {
-    if (!Array.isArray(m[field])) {
+    if (!Array.isArray(m[field]) || !(m[field] as unknown[]).every(value => typeof value === "string" && value.trim().length > 0)) {
       throw new Error(
         `[recipes] ${slug}/recipe.json field "${field}" must be an array`,
       )
     }
   }
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(m.updated)) || !Number.isFinite(Date.parse(String(m.updated))) || new Date(String(m.updated)).toISOString().slice(0, 10) !== m.updated) throw new Error(`[recipes] ${slug}/recipe.json updated must be a valid YYYY-MM-DD date`)
 
   const tags = m.tags as unknown[]
   if (
@@ -135,7 +145,7 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
     )
   }
 
-  if (!VALID_DIFFICULTIES.includes(m.difficulty as Difficulty)) {
+  if ((m.recipeUrl || m.difficulty !== undefined) && !VALID_DIFFICULTIES.includes(m.difficulty as Difficulty)) {
     throw new Error(
       `[recipes] ${slug}/recipe.json difficulty must be one of ${VALID_DIFFICULTIES.join(
         ", ",
@@ -143,16 +153,53 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
     )
   }
 
-  if (m.demoUrl !== undefined) {
+  for (const field of ["mainRepoUrl", "recipeUrl", "demoUrl"] as const) {
+    if (m[field] === undefined) continue
     let valid = false
     try {
-      const url = new URL(m.demoUrl as string)
-      valid = typeof m.demoUrl === "string" && url.protocol === "https:" && !url.username && !url.password
-    } catch { /* A malformed optional demo link is a content error. */ }
-    if (!valid) throw new Error(`[recipes] ${slug}/recipe.json demoUrl must be an absolute HTTPS URL without credentials`)
+      const url = new URL(m[field] as string)
+      valid = typeof m[field] === "string" && url.protocol === "https:" && !url.username && !url.password
+    } catch { /* A malformed material link is a content error. */ }
+    if (!valid) throw new Error(`[recipes] ${slug}/recipe.json ${field} must be an absolute HTTPS URL without credentials`)
   }
+  if (m.recipeUrl && !m.mainRepoUrl) {
+    const match = String(m.recipeUrl).match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//)
+    if (!match) throw new Error(`[recipes] ${slug}/recipe.json needs mainRepoUrl for a guide outside GitHub`)
+    m.mainRepoUrl = `https://github.com/${match[1]}`
+  }
+  if (m.media !== undefined) {
+    if (!m.media || typeof m.media !== "object" || Array.isArray(m.media)) throw new Error(`[recipes] ${slug}/recipe.json media must be an object`)
+    const media = m.media as Record<string, unknown>
+    for (const field of ["title", "compactTitle", "summary", "compactSummary", "thumbnailAlt", "videoDuration", "demoNote", "thumbnailOrigin"]) {
+      if (media[field] !== undefined && typeof media[field] !== "string") throw new Error(`[recipes] ${slug}/recipe.json media.${field} must be a string`)
+    }
+    for (const field of ["labels", "searchTerms"]) {
+      if (media[field] !== undefined && (!Array.isArray(media[field]) || !(media[field] as unknown[]).every(value => typeof value === "string"))) throw new Error(`[recipes] ${slug}/recipe.json media.${field} must be an array of strings`)
+    }
+    if (media.thumbnailScale !== undefined && (typeof media.thumbnailScale !== "number" || !Number.isFinite(media.thumbnailScale) || media.thumbnailScale <= 0)) throw new Error(`[recipes] ${slug}/recipe.json media.thumbnailScale must be positive`)
+
+    for (const field of ["videoUrl", "thumbnailSource"] as const) {
+      if (media[field] === undefined) continue
+      let valid = false
+      try { const url = new URL(String(media[field])); valid = typeof media[field] === "string" && url.protocol === "https:" && !url.username && !url.password } catch {}
+      if (!valid) throw new Error(`[recipes] ${slug}/recipe.json media.${field} must be an absolute HTTPS URL without credentials`)
+    }
+    if (media.thumbnail !== undefined) {
+      let valid = false
+      if (typeof media.thumbnail === "string") {
+        try {
+          const url = new URL(media.thumbnail, "https://catalog.invalid")
+          const local = media.thumbnail.startsWith("/") && !media.thumbnail.startsWith("//") && url.origin === "https://catalog.invalid"
+          valid = (local || media.thumbnail.startsWith("https://")) && url.protocol === "https:" && !url.username && !url.password
+        } catch { /* A malformed image reference is a content error. */ }
+      }
+      if (!valid) throw new Error(`[recipes] ${slug}/recipe.json media.thumbnail must be a local path or HTTPS URL without credentials`)
+    }
+  }
+  if (!m.recipeUrl && !m.mainRepoUrl && !m.demoUrl && !(m.media as Record<string, unknown> | undefined)?.videoUrl) throw new Error(`[recipes] ${slug}/recipe.json needs a Demo, video, source repository, or recipe`)
 
   if (m.cli !== undefined) {
+    if (!m.recipeUrl) throw new Error(`[recipes] ${slug}/recipe.json cli requires a recipeUrl`)
     if (!m.cli || typeof m.cli !== "object") {
       throw new Error(`[recipes] ${slug}/recipe.json field "cli" must be an object`)
     }
@@ -198,7 +245,8 @@ function rawGithubUrlToViewUrl(rawUrl: string): string {
   return `https://github.com/${org}/${repo}/blob/${branch}/${filePath}`
 }
 
-function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument): string {
+export function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument): string {
+  if (!meta.recipeUrl) return ""
   return `You are implementing the "${meta.title}" recipe in this project.
 
 Read the recipe markdown first:
@@ -232,9 +280,9 @@ function loadGeneratedArtifact(slug: string): GeneratedRecipeArtifact | null {
   }
 }
 
-let _cache: Recipe[] | null = null
+let _cache: CatalogEntry[] | null = null
 
-function loadRecipesFromDisk(): Recipe[] {
+function loadRecipesFromDisk(): CatalogEntry[] {
   if (!fs.existsSync(CONTENT_DIR)) {
     throw new Error(
       `[recipes] content directory not found at ${CONTENT_DIR}. ` +
@@ -247,7 +295,7 @@ function loadRecipesFromDisk(): Recipe[] {
     .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
     .map((entry) => entry.name)
 
-  const recipes: Recipe[] = slugs.map((slug) => {
+  const recipes: CatalogEntry[] = slugs.map((slug) => {
     const metaPath = path.join(CONTENT_DIR, slug, "recipe.json")
 
     if (!fs.existsSync(metaPath)) {
@@ -264,12 +312,12 @@ function loadRecipesFromDisk(): Recipe[] {
     }
     assertValidMeta(slug, meta)
 
-    const generated = loadGeneratedArtifact(slug)
+    const generated = meta.recipeUrl ? loadGeneratedArtifact(slug) : null
     const fallbackDocument = {
-      rawUrl: githubViewUrlToRawUrl(meta.recipeUrl),
-      viewUrl: rawGithubUrlToViewUrl(githubViewUrlToRawUrl(meta.recipeUrl)),
+      rawUrl: githubViewUrlToRawUrl(meta.recipeUrl ?? ""),
+      viewUrl: rawGithubUrlToViewUrl(githubViewUrlToRawUrl(meta.recipeUrl ?? "")),
       markdown: "",
-      fetchError: "Run npm run recipes:build to fetch this recipe.",
+      ...(meta.recipeUrl ? { fetchError: "Run npm run recipes:build to fetch this recipe." } : {}),
     }
     const recipeDocument = generated?.recipeDocument ?? fallbackDocument
 
@@ -277,6 +325,7 @@ function loadRecipesFromDisk(): Recipe[] {
       slug,
       generatedAt: generated?.generatedAt,
       recipeDocument,
+      ...(generated?.documentLanguages ? { documentLanguages: generated.documentLanguages } : {}),
       primaryPrompt:
         generated?.primaryPrompt ?? buildPrimaryPrompt(meta, recipeDocument),
       ...meta,
@@ -287,9 +336,17 @@ function loadRecipesFromDisk(): Recipe[] {
   return recipes
 }
 
-export function getAllRecipes(): Recipe[] {
+export function getAllEntries(): CatalogEntry[] {
   if (!_cache) _cache = loadRecipesFromDisk()
   return _cache
+}
+
+export function getAllRecipes(): Recipe[] {
+  return getAllEntries().filter(hasRecipe)
+}
+
+export function getEntry(slug: string): CatalogEntry | undefined {
+  return getAllEntries().find(entry => entry.slug === slug)
 }
 
 export function getRecipe(slug: string): Recipe | undefined {
@@ -306,7 +363,7 @@ function uniqueSorted(values: string[], order?: readonly string[]): string[] {
   return [...set].sort((a, b) => a.localeCompare(b))
 }
 
-function buildFilterOptions(recipes: Recipe[]): FilterOptions {
+function buildFilterOptions(recipes: CatalogEntry[]): FilterOptions {
   return {
     platforms: uniqueSorted(
       recipes.flatMap((r) => r.platforms),
@@ -318,7 +375,7 @@ function buildFilterOptions(recipes: Recipe[]): FilterOptions {
 }
 
 export function getFilterOptionsByTag(): FilterOptionsByTag {
-  const recipes = getAllRecipes()
+  const recipes = getAllEntries()
   return {
     "voice-ai": buildFilterOptions(
       recipes.filter((recipe) => recipe.tags.includes("voice-ai")),
@@ -329,11 +386,11 @@ export function getFilterOptionsByTag(): FilterOptionsByTag {
   }
 }
 
-export function getRelatedRecipes(slug: string, limit = 3): Recipe[] {
-  const current = getRecipe(slug)
+export function getRelatedEntries(slug: string, limit = 3): CatalogEntry[] {
+  const current = getEntry(slug)
   if (!current) return []
 
-  return getAllRecipes()
+  return getAllEntries()
     .filter((r) => r.slug !== slug)
     .map((r) => {
       const cap = r.capabilities.filter((c) => current.capabilities.includes(c)).length
@@ -344,4 +401,8 @@ export function getRelatedRecipes(slug: string, limit = 3): Recipe[] {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map((s) => s.recipe)
+}
+
+export function getRelatedRecipes(slug: string, limit = 3): Recipe[] {
+  return getRelatedEntries(slug, getAllEntries().length).filter(hasRecipe).slice(0, limit)
 }

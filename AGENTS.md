@@ -12,9 +12,9 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 
 ### Owner UI decisions — do not regress
 
-- Do not add a light/dark/system switcher, theme menu, or theme-setting UI. Appearance is fixed to dark on every page, regardless of system settings or saved preferences.
-- Keep the Agora site header and navigation on the homepage and recipe detail pages. Search, quick topics, visible platform filters, and the media directory follow the header immediately. The homepage has no introduction, hero, or ambient animation. Secondary links also remain in the footer.
-- Homepage controls use the supplied agent-ui Glass material: a shared 12px corner treatment for search, restrained glass selections and sorting, readable independent text, and solid accessibility fallbacks. Metadata tags remain noninteractive. Preserve visible multi-select platforms and compact two-column phone browsing.
+- Follow the system light/dark preference before first paint and on live changes. Do not add a manual theme toggle or restore previously saved overrides. Read DESIGN.md when changing theme colors or shared control materials.
+- Keep the Agora site header and navigation on the homepage and recipe detail pages. The compact centered title and search lead into one topic toolbar and the media directory. Dock the same search input in the header after it scrolls out of view; keep its draft and focus. Automatically reveal catalog batches on scroll and retain loaded count and source scroll position for returns. Platform, use-case, and capability filters belong in the bounded refinement sheet. Keep secondary links in the footer; avoid ambient animation.
+- Ordinary controls use solid materials: solid buttons, inputs, neutral selections, and underline reader tabs. Floating media actions, menus, and dialogs use the complete Liquid Glass optical engine; do not substitute blur-only shells. Form and reading planes stay opaque, with solid accessibility fallbacks. Keep cards, images, links, labels, and icons stationary on hover and focus; use color, border, underline, and opacity for feedback. Read DESIGN.md for material, geometry, and motion rules. Metadata tags remain noninteractive; preserve platform multi-select and compact two-column phone browsing.
 
 ### Implementation practices
 
