@@ -220,5 +220,28 @@
       "stick",
       "badge"
     ]
+  },
+  {
+    "slug": "trick-or-take",
+    "title": "Trick or Take",
+    "summary": "Steal Halloween candy with friends. Release before Lily turns around or lose it all.",
+    "thumbnail": "/recipes/trick-or-take.webp",
+    "thumbnailAlt": "Trick or Take Halloween characters stealing candy while Lily turns with a broom",
+    "thumbnailSource": "https://trickortake.com/party/assets/og-home-v3-en.png",
+    "demoNote": "Free browser game · Optional microphone for voice chat",
+    "labels": [
+      "Gaming",
+      "Agora RTC"
+    ],
+    "searchTerms": [
+      "Halloween",
+      "candy",
+      "multiplayer",
+      "RTM",
+      "万圣节",
+      "偷糖"
+    ],
+    "compactTitle": "Trick or Take",
+    "compactSummary": "Steal candy. Talk with friends."
   }
 ]
