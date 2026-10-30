@@ -346,6 +346,13 @@ a.recipe-author:hover { color: var(--foreground); }
 .skip-link { position: fixed; top: 8px; left: 8px; z-index: 150; display: flex; align-items: center; min-height: 44px; padding: 8px 16px; color: var(--primary-foreground); background: var(--primary); transform: translateY(-200%); }
 .skip-link:focus { transform: none; }
 .video-preview__footer, .video-preview__actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.recipe-video-player { position: relative; aspect-ratio: 16 / 9; width: 100%; overflow: hidden; border-radius: 6px; background: #000; }
+.recipe-video-player--embedded { min-height: 200px; }
+.recipe-video-player__frame, .recipe-video-player iframe { width: 100%; height: 100%; }
+.recipe-video-player iframe { display: block; border: 0; }
+.recipe-video-player__loading { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; background: #000; color: #fff; font-size: 14px; }
+.recipe-video-error { display: grid; justify-items: start; gap: 16px; padding: 24px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
+.recipe-video-error p { margin: 0; }
 
 /* A contribution invitation, resource directory, and quiet legal line. */
 .site-footer { margin-top: 40px; padding-bottom: 20px; background: var(--secondary); border-top: 1px solid var(--border); }
