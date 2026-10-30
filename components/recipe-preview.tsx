@@ -16,7 +16,7 @@ export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
       <RecipeVideoDialog recipe={recipe}>
         <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} className="w-full rounded-[2px]" />
         <div className="flex flex-wrap gap-2">
-          {media.videoUrl && <DialogTrigger asChild><Button variant="outline" className="min-h-11"><Play aria-hidden="true" /> Watch demo · {media.videoDuration}</Button></DialogTrigger>}
+          {media.videoUrl && <DialogTrigger asChild><Button variant="outline" className="min-h-11"><Play aria-hidden="true" /> Watch demo{media.videoDuration && <> · {media.videoDuration}</>}</Button></DialogTrigger>}
         </div>
       </RecipeVideoDialog>
     </section>

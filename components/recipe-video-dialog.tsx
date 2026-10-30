@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { youtubeEmbedUrl } from "@/lib/video"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 
 export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary; children: ReactNode }) {
@@ -11,6 +12,7 @@ export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary;
   const [failed, setFailed] = useState(false)
   const media = recipe.showcase
   if (!media?.videoUrl) return children
+  const youtubeUrl = youtubeEmbedUrl(media.videoUrl)
 
   return (
     <Dialog open={open} onOpenChange={(next) => { setOpen(next); setFailed(false) }}>
@@ -20,7 +22,10 @@ export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary;
           <DialogTitle className="font-brand text-xl leading-tight">{media.compactTitle ?? media.title}</DialogTitle>
           <DialogDescription>{media.demoNote}</DialogDescription>
         </DialogHeader>
-        {open && !failed && (
+        {open && youtubeUrl && (
+          <iframe src={youtubeUrl} title={`${media.title} gameplay video`} className="aspect-video w-full rounded-md bg-black" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
+        )}
+        {open && !youtubeUrl && !failed && (
           <video key={media.videoUrl} controls playsInline preload="metadata" poster={media.thumbnail} className="aspect-video w-full rounded-md bg-black" onError={() => setFailed(true)}>
             <source src={media.videoUrl} type="video/mp4" />
             Your browser does not support video playback. Open the original video below.
