@@ -953,6 +953,10 @@
     "worldcupvoice": {
       "tagline": "Comentários esportivos com IA.",
       "description": "Um comentarista observa vídeo Agora RTC, descreve a jogada a partir de quadros e devolve voz sintetizada e transcrição sincronizada ao canal."
+    },
+    "trick-or-take": {
+      "tagline": "Roube doces com amigos em um jogo de Halloween de 60 segundos no navegador.",
+      "description": "Dispute em salas de 2 a 6 jogadores para pegar doces sem ser flagrado. O chat de voz opcional da Agora RTC permite conversar enquanto a Agora RTM avisa sobre mudanças na sala. Cloudflare Worker e D1 controlam o estado do jogo e a pontuação."
     }
   }
 }

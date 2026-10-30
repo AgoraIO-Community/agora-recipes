@@ -1,0 +1,50 @@
+{
+  "title": "Trick or Take",
+  "tagline": "Steal candy with friends in a 60-second Halloween browser game.",
+  "description": "Compete in 2–6 player rooms to collect candy without getting caught. Optional Agora RTC voice chat lets friends talk while Agora RTM sends room-change notifications, backed by an authoritative Cloudflare Worker and D1.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Web",
+    "JavaScript"
+  ],
+  "useCases": [
+    "Gaming",
+    "Realtime"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Agora Signaling",
+    "Cloudflare Workers",
+    "Canvas 2D"
+  ],
+  "mainRepoUrl": "https://github.com/zicojiao/trick-or-take",
+  "recipeUrl": "https://github.com/zicojiao/trick-or-take/blob/main/README.md",
+  "demoUrl": "https://trickortake.com/",
+  "author": "zicojiao",
+  "updated": "2026-10-30",
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Trick or Take",
+    "summary": "Steal Halloween candy with friends. Release before Lily turns around or lose it all.",
+    "thumbnail": "/recipes/trick-or-take.webp",
+    "thumbnailAlt": "Trick or Take Halloween characters stealing candy while Lily turns with a broom",
+    "thumbnailSource": "https://trickortake.com/party/assets/og-home-v3-en.png",
+    "demoNote": "Free browser game · Optional microphone for voice chat",
+    "labels": [
+      "Gaming",
+      "Agora RTC"
+    ],
+    "searchTerms": [
+      "Halloween",
+      "candy",
+      "multiplayer",
+      "RTM",
+      "万圣节",
+      "偷糖"
+    ],
+    "compactTitle": "Trick or Take",
+    "compactSummary": "Steal candy. Talk with friends."
+  }
+}

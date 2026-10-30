@@ -953,6 +953,10 @@
     "worldcupvoice": {
       "tagline": "Comentarios deportivos con IA.",
       "description": "Un comentarista observa vídeo Agora RTC, describe la jugada a partir de fotogramas y devuelve voz sintetizada y transcripción sincronizada al canal."
+    },
+    "trick-or-take": {
+      "tagline": "Roba caramelos con amigos en un juego de Halloween de 60 segundos para el navegador.",
+      "description": "Compite en salas de 2 a 6 jugadores para recoger caramelos sin que te atrapen. El chat de voz opcional de Agora RTC permite hablar mientras Agora RTM avisa de los cambios en la sala. Cloudflare Worker y D1 gestionan el estado del juego y la puntuación."
     }
   }
 }
