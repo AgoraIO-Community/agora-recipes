@@ -70,6 +70,13 @@ filter/sort/automatic `load_more`; legacy expand/collapse values remain accepted
 
 ## Data boundary
 
+Native video `play` events and the official YouTube IFrame API's PLAYING state
+feed the same bounded `video_play` event, once per dialog opening. Opening a
+dialog, initializing the embedded player, a provider error, and muted hover
+previews do not count as playback. Video URLs and provider query parameters are
+not analytics dimensions. External original-video handoffs remain separate
+`material_open:video_original` actions and do not prove successful playback.
+
 Autocapture, session replay, heatmaps, performance/exception capture, and remote
 feature-flag requests are disabled in this client. No `identify` call or person
 profile is created. The SDK's `before_send` allowlist retains anonymous transport,

@@ -296,6 +296,14 @@ the manual video action usable. Touch and reduced-motion/data preferences use
 the poster and explicit playback action. Keyboard focus may reveal the label
 but never starts automatic playback.
 
+Video hosting stays in `media.videoUrl`. Direct browser-playable HTTPS files
+(including storage/CDN hosts) retain native playback and the delayed hover
+preview. YouTube video links retain the poster on hover and load their official
+privacy-enhanced player only when the dialog opens. Do not autoplay an external
+embed or load provider scripts from catalog cards. Keep the original-video link,
+localized loading/error/retry states, and actual-play-only measurement. Embedded
+players have a 200px minimum height; the bounded dialog scrolls on short screens.
+
 State changes may animate when they explain an action: selection indicators,
 expanded disclosures, copy confirmation, theme changes, and opening or closing
 floating surfaces. These transitions start from an explicit state change rather

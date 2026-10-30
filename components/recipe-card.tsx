@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 import { localePath } from "@/lib/locales"
 import { cn } from "@/lib/utils"
+import { videoSource } from "@/lib/video"
 
 function prefersExplicitPlayback() {
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
@@ -29,7 +30,8 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const hovered = useRef(false)
   const media = recipe.showcase
-  const videoUrl = media?.videoUrl
+  const source = media?.videoUrl ? videoSource(media.videoUrl) : undefined
+  const videoUrl = source?.kind === "file" ? source.url : undefined
   const stopPreview = useCallback(() => {
     hovered.current = false
     clearTimeout(hoverTimer.current)
