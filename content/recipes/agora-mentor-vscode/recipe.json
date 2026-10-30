@@ -1,0 +1,28 @@
+{
+  "title": "VS Code Voice Mentor",
+  "tagline": "Discuss selected code with an AI mentor using voice or text.",
+  "description": "Run a VS Code extension that sends selected code and nearby context to an Agora conversational agent. Use text chat inside the editor or a browser microphone companion with transcripts streamed back into the extension.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Developer Tools",
+    "Education",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "VS Code",
+    "Agora RTC",
+    "Agora RTM"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/agora-mentor-vscode",
+  "recipeUrl": "https://github.com/anandwana001/agora-mentor-vscode/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-10-23",
+  "difficulty": "Intermediate"
+}

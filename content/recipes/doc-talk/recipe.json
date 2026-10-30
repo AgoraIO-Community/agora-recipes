@@ -1,0 +1,29 @@
+{
+  "title": "DocTalk Documentation Assistant",
+  "tagline": "Add a voice assistant that answers questions from your documentation.",
+  "description": "Self-host an Agora voice assistant and embed its lightweight widget in a documentation site. The agent retrieves relevant documentation through MCP and MiniSearch while users speak and receive spoken answers.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript",
+    "JavaScript"
+  ],
+  "useCases": [
+    "Voice AI",
+    "Knowledge Base",
+    "RAG"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "MCP",
+    "RAG",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/doc-talk",
+  "recipeUrl": "https://github.com/anandwana001/doc-talk/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-10-23",
+  "difficulty": "Intermediate"
+}
