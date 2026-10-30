@@ -1,0 +1,958 @@
+{
+  "ui": {
+    "Language": "Idioma",
+    "Skip to main content": "Ir al contenido principal",
+    "Docs": "Documentación",
+    "Documentation": "Documentación",
+    "Recipes": "Recipes",
+    "Main navigation": "Navegación principal",
+    "Site navigation": "Navegación del sitio",
+    "Mobile navigation": "Navegación móvil",
+    "Agora Recipes home": "Inicio de Agora Recipes",
+    "Contribute": "Contribuir",
+    "Get started": "Empezar",
+    "Open navigation": "Abrir navegación",
+    "Close navigation": "Cerrar navegación",
+    "{label} (opens in a new tab)": "{label} (se abre en otra pestaña)",
+    "Switch to light theme": "Cambiar al tema claro",
+    "Switch to dark theme": "Cambiar al tema oscuro",
+    "Share your project.": "Comparte tu proyecto.",
+    "Add your Agora project, demo, or guide to the collection.": "Añade tu proyecto, demo o guía de Agora a la colección.",
+    "Contribute on GitHub": "Contribuir en GitHub",
+    "Working Voice AI and RTC projects, built with Agora.": "Proyectos funcionales de IA de voz y RTC creados con Agora.",
+    "Explore": "Explorar",
+    "Browse recipes": "Explorar Recipes",
+    "Build with Agora": "Crea con Agora",
+    "Agora Console": "Consola de Agora",
+    "Legal": "Información legal",
+    "Privacy Policy": "Política de privacidad",
+    "Cookie Policy": "Política de cookies",
+    "Terms of Service": "Términos de servicio",
+    "Acceptable Use Policy": "Política de uso aceptable",
+    "Back to top": "Volver arriba",
+    "Open-source recipes for building voice agents, transcription, translation, and accessibility workflows with Agora.": "Recipes de código abierto para crear agentes de voz, transcripción, traducción y funciones de accesibilidad con Agora.",
+    "Build voice agents, transcription, translation, and accessibility workflows with Agora.": "Crea agentes de voz, transcripción, traducción y funciones de accesibilidad con Agora.",
+    "Explore projects and recipes.": "Explora proyectos y Recipes.",
+    "Voice AI and real-time apps, with working code.": "IA de voz y apps en tiempo real, con código funcional.",
+    "Search recipes, descriptions, or authors": "Buscar Recipes, descripciones o autores",
+    "Search recipes, capabilities…": "Buscar Recipes, funciones…",
+    "Clear search": "Borrar búsqueda",
+    "Sort recipes": "Ordenar Recipes",
+    "Recently updated": "Actualizados recientemente",
+    "Most relevant": "Más relevantes",
+    "Recommended": "Recomendados",
+    "A–Z": "A–Z",
+    "{count} selected": "{count} seleccionados",
+    "Find {label}": "Buscar {label}",
+    "No matching options.": "No hay opciones que coincidan.",
+    "Show all {count}": "Mostrar los {count}",
+    "Show fewer": "Mostrar menos",
+    "Quick filters": "Filtros rápidos",
+    "All": "Todos",
+    "All topics": "Todos los temas",
+    "Voice agents": "Agentes de voz",
+    "Video calling": "Videollamadas",
+    "Tool calling": "Tool Calling",
+    "Transcription": "Transcripción",
+    "Translation": "Traducción",
+    "Filters": "Filtros",
+    "Filters, {count} active": "Filtros, {count} activos",
+    "Refine recipes": "Filtrar Recipes",
+    "Find the right starting point for your project.": "Encuentra el punto de partida adecuado para tu proyecto.",
+    "Sort by": "Ordenar por",
+    "Category": "Categoría",
+    "Recipe category": "Categoría de Recipe",
+    "Has a demo": "Tiene demo",
+    "Video or live app": "Vídeo o app en vivo",
+    "Available materials": "Materiales disponibles",
+    "Matches every selected material.": "Incluye todos los materiales seleccionados.",
+    "Demo": "Demo",
+    "Video": "Vídeo",
+    "Source": "Código fuente",
+    "Recipe": "Recipe",
+    "Platforms & languages": "Plataformas y lenguajes",
+    "Matches any selected technology.": "Coincide con alguna de las tecnologías seleccionadas.",
+    "Use cases": "Casos de uso",
+    "Matches any selected use case.": "Coincide con alguno de los casos de uso seleccionados.",
+    "Models & capabilities": "Modelos y funciones",
+    "Matches every selected capability.": "Incluye todas las funciones seleccionadas.",
+    "Reset filters": "Restablecer filtros",
+    "Show {count} results": "Mostrar {count} resultados",
+    "Selected filters": "Filtros seleccionados",
+    "Remove {label} filter": "Quitar filtro {label}",
+    "Clear filters": "Borrar filtros",
+    "{count} results": "{count} resultados",
+    "Explore the collection": "Explora la colección",
+    "{count} entries": "{count} proyectos",
+    "Show fewer recipes": "Mostrar menos Recipes",
+    "Explore {count} more recipes": "Explorar {count} Recipes más",
+    "No matching recipes": "No hay Recipes que coincidan",
+    "Try a broader search or remove a filter above.": "Prueba otra búsqueda o quita un filtro.",
+    "Clear search and filters": "Borrar búsqueda y filtros",
+    "Watch demo": "Ver demo",
+    "Live demo": "Demo en vivo",
+    "Watch {title} demo": "Ver demo de {title}",
+    "Try {title} demo (opens in a new tab)": "Probar demo de {title} (se abre en otra pestaña)",
+    "Technology and difficulty": "Tecnología y dificultad",
+    "Recipe guide": "Guía de Recipe",
+    "View project": "Ver proyecto",
+    "Open {title} recipe": "Abrir Recipe de {title}",
+    "Project preview": "Vista previa del proyecto",
+    "Try live demo": "Probar demo en vivo",
+    "{title} demo preview": "Vista previa de la demo de {title}",
+    "Your browser does not support video playback. Open the original video below.": "Tu navegador no permite reproducir este vídeo. Abre el vídeo original a continuación.",
+    "This video couldn’t load. You can open the original video or view the project below.": "No se pudo cargar el vídeo. Puedes abrir el original o ver el proyecto a continuación.",
+    "Original video": "Vídeo original",
+    "Read recipe": "Leer Recipe",
+    "Back to recipes": "Volver a Recipes",
+    "Back to results": "Volver a los resultados",
+    "Recipe not found": "Recipe no encontrada",
+    "Try demo": "Probar demo",
+    "Try demo (opens in a new tab)": "Probar demo (se abre en otra pestaña)",
+    "Source on GitHub (opens in a new tab)": "Código en GitHub (se abre en otra pestaña)",
+    "Copy recipe prompt": "Copiar prompt de Recipe",
+    "Recipe prompt": "Prompt de Recipe",
+    "Paste the prompt into Cursor, Claude Code, or your coding agent.": "Pega el prompt en Cursor, Claude Code o tu agente de programación.",
+    "Recipe sections": "Secciones de Recipe",
+    "Build with agent": "Crear con un agente",
+    "Implementation guide": "Guía de implementación",
+    "Build with your coding agent": "Crea con tu agente de programación",
+    "View recipe prompt": "Ver prompt de Recipe",
+    "Start with Agora CLI": "Empezar con Agora CLI",
+    "Clone this recipe and configure it with an Agora project.": "Clona esta Recipe y configúrala con un proyecto de Agora.",
+    "View on GitHub": "Ver en GitHub",
+    "In this guide": "En esta guía",
+    "Guide contents on mobile": "Índice en móvil",
+    "Recipe information": "Información de Recipe",
+    "About this recipe": "Acerca de esta Recipe",
+    "About this project": "Acerca de este proyecto",
+    "Author": "Autor",
+    "Updated": "Actualizado",
+    "Difficulty": "Dificultad",
+    "Beginner": "Principiante",
+    "Intermediate": "Intermedio",
+    "Advanced": "Avanzado",
+    "Use cases & capabilities": "Casos de uso y funciones",
+    "Related projects and recipes": "Proyectos y Recipes relacionados",
+    "Guide": "Guía",
+    "Recipe format": "Formato de Recipe",
+    "Copy markdown": "Copiar Markdown",
+    "Copy": "Copiar",
+    "Text": "Texto",
+    "Prompt": "Prompt",
+    "Copied": "Copiado",
+    "Copy failed": "Error al copiar",
+    "{subject} copied": "{subject} copiado",
+    "Copy {subject}": "Copiar {subject}",
+    "{subject} copied to clipboard.": "{subject} copiado al portapapeles.",
+    "Copy failed. Select the text and copy it manually.": "No se pudo copiar. Selecciona el texto y cópialo manualmente.",
+    "{label} code": "Código de {label}",
+    "The guide couldn’t be loaded": "No se pudo cargar la guía",
+    "You can still copy the recipe prompt or open the implementation on GitHub.": "Aún puedes copiar el prompt o abrir la implementación en GitHub.",
+    "Open source guide": "Abrir guía original",
+    "Guide language": "Idioma de la guía",
+    "Shown as published by its author; website language does not translate the source guide.": "Se muestra tal como la publicó su autor. El idioma del sitio no traduce la guía original.",
+    "Close": "Cerrar",
+    "How to use recipes": "Cómo usar Recipes",
+    "How to use these recipes": "Cómo usar estas Recipes",
+    "Find your starting point": "Encuentra un punto de partida",
+    "Browse projects and recipes, then filter by platform, use case, or available material.": "Explora proyectos y Recipes y filtra por plataforma, uso o material disponible.",
+    "Try it or bring it to your coding agent": "Pruébalo o llévalo a tu agente de programación",
+    "Open an available demo or video. If a recipe is provided, copy its prompt or follow the original guide.": "Abre una demo o un vídeo disponible. Si hay una Recipe, copia su prompt o sigue la guía original.",
+    "Configure, run, and make it yours": "Configura, ejecuta y adáptalo",
+    "Follow the author’s setup instructions and test the example before adapting it to your workflow.": "Sigue las instrucciones del autor y prueba el ejemplo antes de adaptarlo.",
+    "Explore demos, source, and guides. Each entry shows only the materials its author provides.": "Explora demos, código y guías. Cada proyecto muestra solo los materiales que ofrece su autor.",
+    "We couldn’t find that recipe.": "No encontramos esa Recipe.",
+    "This recipe may have moved. Browse the list to find the right sample.": "Puede que se haya movido. Busca otro ejemplo en la lista.",
+    "Share what you built": "Comparte lo que has creado",
+    "Submit your existing demo, video, source, or guide. A GitHub account is required.": "Envía tu demo, vídeo, código o guía. Necesitas una cuenta de GitHub.",
+    "GitHub form": "Formulario de GitHub",
+    "Open the form on GitHub. Your Issue is public and keeps the original submission, review discussion, and final publication link.": "Abre el formulario en GitHub. El Issue es público y conserva tu envío, los comentarios y el enlace final publicado.",
+    "Open GitHub form": "Abrir formulario de GitHub",
+    "Direct pull request": "Pull request directo",
+    "Keep the existing workflow: fork the repository, update catalog metadata, and open a PR to staging. A submission Issue is optional.": "Sigue el flujo habitual: crea un fork, actualiza los metadatos y abre un PR a staging. El Issue de envío es opcional.",
+    "Contribution instructions": "Instrucciones para contribuir",
+    "Submit only public materials. Do not include private email addresses, credentials, or other private information.": "Envía solo material público. No incluyas correos privados, credenciales ni otros datos privados.",
+    "After submission, follow review in the GitHub Issue. Publication follows a reviewed catalog PR and the existing release process.": "Sigue la revisión en tu Issue de GitHub. La publicación requiere un PR revisado y el proceso habitual de lanzamiento.",
+    "A guide, source repository, or four translated submissions are not required for every entry.": "No todos los proyectos necesitan guía, repositorio o envíos en cuatro idiomas.",
+    "Accessibility": "Accesibilidad",
+    "Audio": "Audio",
+    "Audio & Music": "Audio y música",
+    "Audio Streaming": "Streaming de audio",
+    "Automation": "Automatización",
+    "Browser Automation": "Automatización del navegador",
+    "Calling": "Llamadas",
+    "Channel Management": "Gestión de canales",
+    "Chrome Extension": "Extensión de Chrome",
+    "Client UX": "Experiencia del cliente",
+    "Cloud Gaming": "Juegos en la nube",
+    "Conversation Design": "Diseño de conversaciones",
+    "Conversational AI": "IA conversacional",
+    "Creative Studio": "Estudio creativo",
+    "Custom LLM": "LLM personalizado",
+    "Custom Media": "Medios personalizados",
+    "Custom Video": "Vídeo personalizado",
+    "Customer Support": "Atención al cliente",
+    "Devotional": "Devoción",
+    "Education": "Educación",
+    "Embedded": "Sistemas integrados",
+    "Entertainment": "Entretenimiento",
+    "Gaming": "Juegos",
+    "Health & Wellness": "Salud y bienestar",
+    "Healthcare": "Atención sanitaria",
+    "Immersive": "Experiencias inmersivas",
+    "Interactive Audio": "Audio interactivo",
+    "Interactive Streaming": "Streaming interactivo",
+    "Knowledge Base": "Base de conocimientos",
+    "Live Shopping": "Compras en vivo",
+    "Live Streaming": "Emisión en vivo",
+    "Media Playback": "Reproducción multimedia",
+    "Meetings": "Reuniones",
+    "Memory": "Memoria",
+    "Model Integration": "Integración de modelos",
+    "Moderation": "Moderación",
+    "Multi-Agent": "Varios agentes",
+    "Multimodal": "Multimodal",
+    "Noise Robustness": "Resistencia al ruido",
+    "Observability": "Observabilidad",
+    "Personalization": "Personalización",
+    "Quickstart": "Inicio rápido",
+    "RTC Workflow": "Flujo de RTC",
+    "Realtime": "Tiempo real",
+    "Realtime Media": "Medios en tiempo real",
+    "Safety": "Seguridad",
+    "Sales": "Ventas",
+    "Service Integration": "Integración de servicios",
+    "Signaling": "Señalización",
+    "Smart Home": "Hogar inteligente",
+    "Spatial Audio": "Audio espacial",
+    "Subtitles": "Subtítulos",
+    "Task Automation": "Automatización de tareas",
+    "Tool Use": "Uso de herramientas",
+    "Video Calling": "Videollamadas",
+    "Vision": "Visión",
+    "Voice Calling": "Llamadas de voz",
+    "Voice Chat": "Chat de voz",
+    "Wellness": "Bienestar",
+    "3D Scene": "Escena 3D",
+    "AI Video Generation": "Generación de vídeo con IA",
+    "AI Workflow": "Flujo de IA",
+    "AIGC Service": "Servicio AIGC",
+    "Agent Handoff": "Transferencia entre agentes",
+    "Android Accessibility": "Accesibilidad de Android",
+    "Android Widget": "Widget de Android",
+    "Audio Processing": "Procesamiento de audio",
+    "Audio Video": "Audio y vídeo",
+    "Biomarkers": "Biomarcadores",
+    "CRM Integration": "Integración de CRM",
+    "Channel Control": "Control de canales",
+    "Channel Join": "Entrada al canal",
+    "Coaching": "Entrenamiento",
+    "Content Moderation": "Moderación de contenido",
+    "Custom Camera": "Cámara personalizada",
+    "Custom TTS": "TTS personalizado",
+    "Custom Video Source": "Fuente de vídeo personalizada",
+    "Daily Rituals": "Rutinas diarias",
+    "Delegated Reasoning": "Razonamiento delegado",
+    "Device Calling": "Llamadas a dispositivos",
+    "Dynamic Tools": "Herramientas dinámicas",
+    "Filler Words": "Muletillas",
+    "Function Calling": "Llamadas a funciones",
+    "Game State": "Estado del juego",
+    "Group Video": "Vídeo en grupo",
+    "Guidance": "Orientación",
+    "Host Audience": "Anfitrión y audiencia",
+    "Humming Service": "Servicio Humming",
+    "Integrations": "Integraciones",
+    "Interactive Demo": "Demo interactiva",
+    "Interactive Whiteboard": "Pizarra interactiva",
+    "Interruptions": "Interrupciones",
+    "Latency Smoothing": "Suavizado de latencia",
+    "Live Captions": "Subtítulos en vivo",
+    "Live Video": "Vídeo en vivo",
+    "Lyrics View": "Vista de letras",
+    "Manual Turn Control": "Control manual de turnos",
+    "Mobile": "Móvil",
+    "Mobile App": "App móvil",
+    "Music Content Center": "Centro de contenido musical",
+    "Music Playback": "Reproducción de música",
+    "Native": "Nativo",
+    "Prompt Injection": "Inyección de prompts",
+    "Prompt Management": "Gestión de prompts",
+    "Push to Talk": "Pulsar para hablar",
+    "Real-Time Audio": "Audio en tiempo real",
+    "Real-Time Transcription": "Transcripción en tiempo real",
+    "Realtime Audio": "Audio en tiempo real",
+    "Reference App": "App de referencia",
+    "Retrieval": "Recuperación de información",
+    "Sentiment Analysis": "Análisis de sentimiento",
+    "Session Control": "Control de sesiones",
+    "Spatial App": "App espacial",
+    "Speaker Lock": "Identificación del hablante principal",
+    "Speech Translation": "Traducción de voz",
+    "Speech-to-Text": "Voz a texto",
+    "Speech-to-Text UI": "Interfaz de voz a texto",
+    "State Management": "Gestión de estado",
+    "Tool Calling": "Tool Calling",
+    "Transcription UI": "Interfaz de transcripción",
+    "Turn Detection": "Detección de turnos",
+    "Virtual Camera": "Cámara virtual",
+    "Voice Agent": "Agente de voz",
+    "iOS UI": "Interfaz de iOS",
+    "iOS Widget": "Widget de iOS",
+    "Python": "Python",
+    "TypeScript": "TypeScript",
+    "Voice AI": "Voice AI",
+    "Gemini": "Gemini",
+    "Gemini Live": "Gemini Live",
+    "FastAPI": "FastAPI",
+    "Unity": "Unity",
+    "C#": "C#",
+    "Agora RTC": "Agora RTC",
+    "React Native": "React Native",
+    "iOS": "iOS",
+    "Android": "Android",
+    "Go": "Go",
+    "Swift": "Swift",
+    "IoT": "IoT",
+    "RTM": "RTM",
+    "MCP": "MCP",
+    "JavaScript": "JavaScript",
+    "Web": "Web",
+    "Web SDK": "Web SDK",
+    "Vite": "Vite",
+    "React": "React",
+    "Flutter": "Flutter",
+    "OpenAI GPT Live": "OpenAI GPT Live",
+    "visionOS": "visionOS",
+    "Next.js": "Next.js",
+    "SQLite": "SQLite",
+    "Agora Signaling": "Agora Signaling",
+    "STT": "STT",
+    "Rust": "Rust",
+    "TTS": "TTS",
+    "CallKit": "CallKit",
+    "C": "C",
+    "Linux": "Linux",
+    "RAG": "RAG",
+    "MLLM": "MLLM",
+    "Jetpack Compose": "Jetpack Compose",
+    "AIGC": "AIGC",
+    "REST API": "REST API",
+    "Babylon.js": "Babylon.js",
+    "WebXR": "WebXR",
+    "Web Audio API": "Web Audio API",
+    "HTML": "HTML",
+    "Dart": "Dart",
+    "Gemini AI": "Gemini AI",
+    "ESP32": "ESP32",
+    "SwiftUI": "SwiftUI",
+    "MediaIO": "MediaIO",
+    "Electron": "Electron",
+    "Gemini Vision": "Gemini Vision",
+    "TMDB": "TMDB",
+    "Webhooks": "Webhooks",
+    "Three.js": "Three.js",
+    "Recipe metadata": "Metadatos de Recipe",
+    "Field": "Campo",
+    "Value": "Valor",
+    "Completed task": "Tarea completada",
+    "Incomplete task": "Tarea incompleta",
+    "Recipe diagram": "Diagrama de Recipe",
+    "Scrollable diagram": "Diagrama desplazable",
+    "Recipe diagram; text description is available in Diagram source below": "Diagrama de Recipe; hay una descripción en Fuente del diagrama",
+    "This diagram could not be rendered. Its source is available below.": "No se pudo mostrar el diagrama. Su fuente está disponible abajo.",
+    "Loading diagram…": "Cargando diagrama…",
+    "Fit to width": "Ajustar al ancho",
+    "View actual size": "Ver tamaño real",
+    "Diagram source": "Fuente del diagrama",
+    "Close filters": "Cerrar filtros",
+    "Close dialog": "Cerrar diálogo",
+    "Camera and microphone needed": "Necesita cámara y micrófono",
+    "The existing React Live Video demo entry screen with an Agora logo, channel field, and Connect button": "Pantalla inicial de React Live Video con el logo de Agora, el campo de canal y el botón Conectar",
+    "English gameplay screenshot. Run the open-source project with your own provider credentials.": "Captura del juego en inglés. Ejecuta el proyecto con tus propias credenciales.",
+    "English Agora Arena gameplay showing Emberpaw and Cloudhop with the FastH3 ultimate gauge ready": "Juego de Agora Arena en inglés con Emberpaw, Cloudhop y el medidor FastH3 listo",
+    "English interface. Two human players are needed to start. The optional AI challenger requires a host-provided Reactor API key.": "Interfaz en inglés. Se necesitan dos personas para empezar. El rival de IA opcional necesita una clave de Reactor del anfitrión.",
+    "English Draw & Guess illustrated cover showing a cat sketch becoming video, with Agora Realtime and FastH3 Video Proof labels": "Portada de Draw & Guess en inglés con un dibujo de gato convertido en vídeo y etiquetas Agora Realtime y FastH3 Video Proof",
+    "Microphone needed": "Necesita micrófono",
+    "Aria live call interface with conversation transcript and call controls": "Llamada de Aria con transcripción y controles de llamada",
+    "Chinese experience": "Experiencia en chino",
+    "Agora Podcasts illustrated landing page with its two AI hosts": "Portada ilustrada de Agora Podcasts con sus dos presentadores de IA",
+    "Chinese experience · Microphone needed": "Experiencia en chino · Necesita micrófono",
+    "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe": "Demo pública de Rotary Dial Phone: sala de escape 3D en chino con teléfono y caja fuerte",
+    "Recorded demo": "Demo grabada",
+    "WorldCupVoice World Cup final poster from the implementation repository": "Póster de la final del Mundial de WorldCupVoice del repositorio original",
+    "AI demo requires your OpenAI API key": "La demo de IA necesita tu clave de OpenAI",
+    "Existing Meeting Copilot video showing a live meeting alongside a shared task board": "Vídeo de Meeting Copilot con una reunión en vivo y un tablero de tareas compartido",
+    "Topics": "Topics",
+    "Explore collections, activities, and community work.": "Explora colecciones, actividades y proyectos de la comunidad.",
+    "Filter Topics": "Filtrar Topics",
+    "Collections": "Colecciones",
+    "Activities": "Actividades",
+    "Past activities": "Actividades pasadas",
+    "Collection": "Colección",
+    "Ongoing": "En curso",
+    "Upcoming": "Próxima",
+    "Completed": "Finalizada",
+    "{count} Topics": "{count} Topics",
+    "No Topics in this view yet.": "Aún no hay Topics en esta vista.",
+    "Topic entries": "Proyectos del Topic",
+    "All Topics": "Todos los Topics",
+    "Topic not found": "Topic no encontrado",
+    "In these Topics": "En estos Topics",
+    "Back to {topic}": "Volver a {topic}",
+    "Contribute to this Topic": "Contribuir a este Topic",
+    "Share related work": "Compartir un proyecto relacionado",
+    "This activity has ended. Its materials remain available; general catalog submissions are still open.": "Esta actividad ha terminado. Los materiales siguen disponibles y aún puedes enviar proyectos al catálogo.",
+    "Source material language: {language}": "Idioma del material original: {language}",
+    "Read the original material": "Leer el material original",
+    "Results & awards": "Resultados y premios",
+    "Awards belong to this activity edition. Follow each source for its original credit.": "Los premios corresponden a esta edición. Consulta cada fuente para ver el reconocimiento original.",
+    "Award source": "Fuente del premio",
+    "1st place · author-reported": "Primer puesto · según el autor",
+    "Voice AI starter kit": "Primeros pasos con IA de voz",
+    "Start with official guides for a first agent, then add tools and handoffs.": "Empieza con las guías oficiales para crear un agente y luego añade herramientas y transferencias.",
+    "Voice AI in practice": "IA de voz en la práctica",
+    "Explore community projects that turn real-time voice into useful and playful experiences.": "Explora proyectos de la comunidad que convierten la voz en experiencias útiles y divertidas.",
+    "Agora Voice AI Hackathon 2026 · AI Mobile Coders": "Agora Voice AI Hackathon 2026 · AI Mobile Coders",
+    "Revisit the completed online challenge and a catalog project whose author credits this edition.": "Revisa el reto online finalizado y un proyecto cuyo autor lo relaciona con esta edición.",
+    "Agora developer documentation": "Documentación para desarrolladores de Agora",
+    "Event details & rules": "Detalles y reglas de la actividad",
+    "Organizer community": "Comunidad organizadora",
+    "Activity archive": "Archivo de la actividad",
+    "Automatic for website language": "Según el idioma del sitio",
+    "Submitted original": "Original enviado",
+    "Language not specified": "Idioma sin especificar",
+    "Unavailable": "No disponible",
+    "Document language: {language}": "Idioma del documento: {language}",
+    "The requested language is unavailable; showing the available author version.": "Ese idioma no está disponible; se muestra una versión disponible del autor.",
+    "This guide version is unavailable": "Esta versión de la guía no está disponible",
+    "No other author version has been selected automatically.": "No se seleccionó otra versión automáticamente.",
+    "The requested author document is not available. No other version was selected automatically.": "El documento solicitado no está disponible. No se seleccionó otra versión automáticamente.",
+    "Choose an available guide version": "Elegir una versión disponible",
+    "Share this page": "Compartir esta página",
+    "Copy link": "Copiar enlace",
+    "Share": "Compartir",
+    "Link copied": "Enlace copiado",
+    "Copy failed. Select the link and copy it manually.": "No se pudo copiar. Selecciona el enlace y cópialo manualmente.",
+    "Sharing is unavailable. Copy the link instead.": "No se puede compartir. Copia el enlace.",
+    "Submitting to Topic: {topic}": "Envío al Topic: {topic}",
+    "Share on {platform}": "Compartir en {platform}",
+    "Copying…": "Copiando…",
+    "Try copying again": "Intentar copiar de nuevo",
+    "What happens after submission?": "¿Qué pasa después del envío?",
+    "English interface": "Interfaz en inglés",
+    "English interface · Microphone needed": "Interfaz en inglés · Necesita micrófono",
+    "On-device demo video linked from recipe metadata. Same firmware supports StickS3 and StopWatch.": "Vídeo en el dispositivo enlazado desde los metadatos. El mismo firmware funciona en StickS3 y StopWatch.",
+    "Share your Agora project": "Comparte tu proyecto de Agora",
+    "A demo, video, source repository, or guide is enough. Bring what you already have.": "Una demo, vídeo, repositorio o guía es suficiente. Comparte lo que ya tienes.",
+    "Prepare your submission": "Preparar el envío",
+    "General catalog submission": "Envío al catálogo general",
+    "Included in both the prompt and GitHub submission.": "Se incluye en el prompt y en el envío de GitHub.",
+    "View this Topic": "Ver este Topic",
+    "No matching Topic? You can still share your project.": "¿No encuentras un Topic? Puedes compartir tu proyecto igualmente.",
+    "Paste the prompt into Codex, Cursor, or Claude Code in your project. It will use your README and public links to prepare an English submission for you to review.": "Pega el prompt en Codex, Cursor o Claude Code dentro de tu proyecto. Usará el README y los enlaces públicos para preparar un envío en inglés que podrás revisar.",
+    "Copy submission prompt": "Copiar prompt de envío",
+    "Submission prompt": "Prompt de envío",
+    "Fill it in on GitHub": "Rellenar en GitHub",
+    "Ready to write it yourself? Use the GitHub form. A GitHub account is required to submit; your Issue will be public.": "¿Prefieres escribirlo tú? Usa el formulario de GitHub. Necesitas una cuenta y el Issue será público.",
+    "View the submission prompt": "Ver prompt de envío",
+    "GitHub form not opening?": "¿No se abre el formulario de GitHub?",
+    "Use a regular GitHub Issue with the same fields already filled in. Review and replace the instructions before submitting.": "Usa un Issue normal con los mismos campos ya preparados. Revisa y sustituye las instrucciones antes de enviarlo.",
+    "Open a submission draft": "Abrir borrador de envío",
+    "What to bring": "Qué necesitas",
+    "A name and a short introduction": "Nombre y breve descripción",
+    "What does it do, and who can use it?": "¿Qué hace y quién puede usarlo?",
+    "At least one public link": "Al menos un enlace público",
+    "A working demo, video, source repository, or guide. You do not need all four.": "Una demo funcional, un vídeo, código o una guía. No necesitas los cuatro.",
+    "Your public author credit": "Tu nombre público de autor",
+    "The name or team you want shown on the site.": "El nombre o equipo que quieres mostrar en el sitio.",
+    "See a published example": "Ver un ejemplo publicado",
+    "Follow the review in your Issue": "Sigue la revisión en tu Issue",
+    "Maintainers ask for any missing details in the same GitHub conversation.": "El equipo pedirá los datos que falten en la misma conversación de GitHub.",
+    "We prepare the catalog entry": "Preparamos el proyecto para el catálogo",
+    "Maintainers review the materials and Topic association, keeping your original submission and author credit.": "Revisamos los materiales y el Topic, conservando tu envío original y el crédito del autor.",
+    "Get the published link": "Recibe el enlace publicado",
+    "After review and release, maintainers add the site link to your Issue. Submitting does not publish automatically.": "Tras la revisión y publicación, añadimos el enlace a tu Issue. El envío no publica automáticamente.",
+    "Prefer to contribute with a pull request?": "¿Prefieres enviar un pull request?",
+    "Fork the catalog, create a branch from staging, and add content/recipes/<your-slug>/recipe.json. Use templates/demo.json for a demo or templates/recipe.json for a guide. Build and open a PR to staging; no submission Issue is required.": "Crea un fork y una rama desde staging. Añade content/recipes/<your-slug>/recipe.json; usa templates/demo.json para demos o templates/recipe.json para guías. Compila y abre un PR a staging. No hace falta un Issue previo.",
+    "Read the PR contribution guide": "Leer guía de contribución por PR",
+    "Topic or activity (optional)": "Topic o actividad (opcional)",
+    "Prepare your submission with AI": "Prepara tu envío con IA",
+    "Start a submission": "Empezar un envío",
+    "Ended activities ({count})": "Actividades finalizadas ({count})",
+    "This activity has ended. You can still share related work for its archive.": "Esta actividad ha terminado. Puedes seguir compartiendo proyectos para su archivo.",
+    "Read the contribution SOP": "Leer el proceso de contribución",
+    "Recorded demo · Live viewer needs an active broadcaster": "Demo grabada · El visor en vivo necesita un emisor activo",
+    "MatchCast author recording showing a live League of Legends match with English captions and transcript.": "Grabación del autor de MatchCast con una partida de League of Legends, subtítulos y transcripción en inglés.",
+    "Live captions": "Subtítulos en vivo",
+    "Conference website": "Sitio de la conferencia",
+    "Conference agenda": "Programa de la conferencia",
+    "Search projects, guides, or authors": "Buscar proyectos, guías o autores",
+    "Search projects, guides, or authors…": "Buscar proyectos, guías o autores…",
+    "Searching…": "Buscando…",
+    "Searching project details only.": "Solo se busca en los datos del proyecto.",
+    "Retry guide search": "Reintentar búsqueda en guías",
+    "Guide excerpt": "Fragmento de la guía",
+    "English Dumpling Booth waiting screen from the author’s local rehearsal.": "Pantalla de espera de Dumpling Booth en inglés durante el ensayo local del autor.",
+    "Local rehearsal screenshot. Live voice requires your own service accounts.": "Captura de un ensayo local. La voz en vivo necesita tus propias cuentas de servicio.",
+    "1 result": "1 resultado",
+    "Show 1 result": "Mostrar 1 resultado",
+    "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.": "Explora demos de iRTE2026 de Agora, celebrada el 23 y 24 de octubre de 2026.",
+    "1 entry": "1 proyecto",
+    "Loading more projects…": "Cargando más proyectos…",
+    "All {count} projects shown": "Se muestran los {count} proyectos",
+    "Add device or account requirements if needed. Keep your original materials; translations are not required.": "Indica los dispositivos o cuentas necesarios. Conserva los materiales originales; no se requieren traducciones.",
+    "Working voice apps, games, and tools.": "Apps de voz, juegos y herramientas en funcionamiento.",
+    "Build your first voice agent.": "Crea tu primer agente de voz.",
+    "Demos from Agora’s iRTE2026 conference.": "Demos de la conferencia iRTE2026 de Agora.",
+    "Projects from the 2026 Voice AI challenge.": "Proyectos del desafío de IA de voz de 2026.",
+    "Voice AI Hackathon 2026": "Hackathon de IA de voz 2026",
+    "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "Cartel original del hackathon de IA de voz de Agora y AI Mobile Coders; las inscripciones están cerradas.",
+    "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "Cartel pixel art #VoiceAI con un teléfono, un mando de videojuegos, un micrófono y bocadillos de conversación.",
+    "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "Cartel pixel art #StartHere con un portátil, un micrófono y un altavoz.",
+    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "Imagen de la conferencia iRTE2026 con su globo pixelado y la fecha original del 23 al 24 de octubre."
+  },
+  "entries": {
+    "ag-iot-ios-app": {
+      "tagline": "Añade videollamadas con Agora a una app IoT de iOS.",
+      "description": "Referencia de Agora Link para encontrar dispositivos IoT ya configurados y ver sus transmisiones. Necesita SDK de dispositivo, bibliotecas IoT y credenciales compatibles."
+    },
+    "agent-delegation": {
+      "tagline": "Mantén la conversación mientras otro modelo razona y usa herramientas.",
+      "description": "Agente GPT Live de voz bidireccional que delega el razonamiento y las herramientas a un modelo Responses (gpt-6-astra) por MCP, sin detener la conversación."
+    },
+    "agent-handoff": {
+      "tagline": "Pasa la conversación entre asistentes especializados.",
+      "description": "Un asistente de viajes transfiere la conversación entre recepción, reservas y ayuda, según la intención y el estado del itinerario."
+    },
+    "agora-aigc-demo": {
+      "tagline": "Combina AIGC con los medios en tiempo real de Agora.",
+      "description": "Ejemplos de AIGC en la nube y asistentes de enseñanza para Web, Android e iOS. Cada ejemplo necesita su SDK de servicio y configuración compatibles."
+    },
+    "agora-arena": {
+      "tagline": "Di tu ataque especial. Mira cómo acierta.",
+      "description": "Crea un juego de lucha con chat de voz por RTC y controles sincronizados por RTM. OpenAI transcribe el ataque hablado y Reactor FastH3 Omni genera una escena que ven ambos jugadores."
+    },
+    "agora-breath-companion": {
+      "tagline": "Crea una experiencia de respiración guiada con un agente de voz.",
+      "description": "Usa el ejemplo Breath Companion de Next.js para crear una experiencia de bienestar con transcripción, visualización del agente y datos de latencia en tiempo real de Agora Conversational AI."
+    },
+    "agora-channel-management": {
+      "tagline": "Consulta usuarios del canal y gestiona sus permisos RTC.",
+      "description": "Probador de API REST en el navegador para consultar usuarios y crear, actualizar o borrar reglas de permisos en un proyecto de prueba."
+    },
+    "agora-drawguess": {
+      "tagline": "Dibuja. Adivina. Vence a FastH3.",
+      "description": "Juego de dibujo multijugador con Agora Whiteboard, voz y vídeo por RTC y salas por RTM. El rival FastH3 opcional debe acertar, generar un vídeo y pasar una revisión visual independiente."
+    },
+    "agora-flutter-rtc-quickstart": {
+      "tagline": "Crea videollamadas multiplataforma con Flutter y Agora RTC.",
+      "description": "Configura Agora RTC en móviles y comprueba el audio y vídeo local y remoto dentro de un canal de prueba."
+    },
+    "agora-gemini-mllm-go": {
+      "tagline": "Crea un agente de voz Gemini 3.8 Live con Go y Agora.",
+      "description": "App web de voz con Go y Gin: Gemini 3.8 Live entiende y genera voz de principio a fin, mientras Agora ofrece comunicación RTC y RTM en tiempo real."
+    },
+    "agora-gemini-mllm-nextjs": {
+      "tagline": "Crea un agente de voz Gemini 3.8 Live con Next.js y Agora.",
+      "description": "App de voz en el navegador donde Gemini 3.8 Live entiende y genera voz de principio a fin y Agora ofrece comunicación RTC y RTM en tiempo real."
+    },
+    "agora-gemini-mllm-python": {
+      "tagline": "Crea un agente de voz Gemini 3.8 Live con Python y Agora.",
+      "description": "App web de voz con FastAPI: Gemini 3.8 Live entiende y genera voz de principio a fin, mientras Agora ofrece comunicación RTC y RTM en tiempo real."
+    },
+    "agora-gemma-voice-coach": {
+      "tagline": "Combina sesiones de voz Agora con razonamiento Gemma local.",
+      "description": "Demo Next.js que se conecta a Agora Conversational AI, transmite transcripciones y estado de llamada, y envía el razonamiento a un endpoint Gemma local."
+    },
+    "agora-humming-service-example": {
+      "tagline": "Explora Humming con ejemplos móviles nativos.",
+      "description": "Referencias de audio de Humming para Android e iOS. Necesitan el SDK de servicio y la configuración de proyecto compatibles."
+    },
+    "agora-ios-guide": {
+      "tagline": "Sigue la guía de videollamadas Agora RTC para iOS.",
+      "description": "Guía para entrar en canales Agora RTC, mostrar vídeo local y remoto y manejar las notificaciones del ciclo de vida del canal."
+    },
+    "agora-matchcast": {
+      "tagline": "Subtítulos en directo para partidas.",
+      "description": "Envía el audio de Agora RTC a Gemini 3.5 Transcribe y devuelve los subtítulos a los espectadores mediante un flujo de datos de Agora."
+    },
+    "agora-meeting-copilot": {
+      "tagline": "Convierte reuniones en tareas.",
+      "description": "App de reuniones Agora RTC con un compañero OpenAI GPT-Live-1. Responde a una frase de activación, crea transcripciones con identificación de hablantes y gestiona un tablero Kanban por voz. Fastify mantiene las claves fuera del navegador."
+    },
+    "agora-podcasts": {
+      "tagline": "Un podcast con el que puedes hablar.",
+      "description": "Crea un pódcast a partir de un tema, notas o un artículo. Agora RTC lo transmite y permite que los oyentes hagan preguntas por voz antes de seguir escuchando."
+    },
+    "agora-python-rtc-quickstart": {
+      "tagline": "Conecta Python con un flujo de Agora RTC.",
+      "description": "Inicio rápido de Python para ejecutar un ejemplo sencillo de Agora RTC y comprobar la conexión con canales en tiempo real."
+    },
+    "agora-rn-rtc-quickstart": {
+      "tagline": "Crea videollamadas móviles con React Native y Agora RTC.",
+      "description": "Inicio rápido para entrar en canales Agora RTC, mostrar vídeo local y remoto y liberar el motor RTC nativo."
+    },
+    "agora-rotary-dial-phone": {
+      "tagline": "Un escape room de voz en 3D.",
+      "description": "Crea un teléfono Three.js que inicia una llamada Agora Conversational AI al marcar, con audio RTC, estados RTM opcionales, tickets firmados y limpieza de recursos resistente a fallos."
+    },
+    "agora-rtc-signaling": {
+      "tagline": "Coordina sesiones RTC con señalización.",
+      "description": "Ejemplo para coordinar el estado de canales Agora RTC y las interacciones entre participantes mediante señalización."
+    },
+    "agora-spatial-voice-chat-tutorial": {
+      "tagline": "Crea chat de voz espacial con Agora RTC.",
+      "description": "Tutorial Unity que une salas sincronizadas con Photon PUN y voz posicional de Agora. Usa las versiones históricas de Unity y SDK indicadas por el autor."
+    },
+    "agora-stt": {
+      "tagline": "Transcribe el audio de Agora RTC.",
+      "description": "Ejemplo que captura audio de Agora RTC y muestra cómo convertirlo en texto en tiempo real."
+    },
+    "agora-voice-web-navigator": {
+      "tagline": "Controla el navegador por voz con Agora RTC.",
+      "description": "Asistente de automatización del navegador controlado por voz en tiempo real mediante canales de Agora RTC."
+    },
+    "aigc-service-example-rtc": {
+      "tagline": "Conecta servicios AIGC con los medios en tiempo real de Agora.",
+      "description": "Referencias nativas Android e iOS para unir AIGC y RTC. Necesitan acceso al SDK histórico del servicio compatible."
+    },
+    "android-autopilot-voice-agent": {
+      "tagline": "Controla apps Android por voz con Agora y Gemini Vision.",
+      "description": "Asistente autónomo que usa Agora Conversational AI para hablar y Gemini Vision con Android Accessibility API para tocar, deslizar, escribir y navegar sin manos."
+    },
+    "android-iot-video-calling-app": {
+      "tagline": "Añade videollamadas Agora a una app IoT de Android.",
+      "description": "Referencia de Agora Link para añadir dispositivos configurados por NodeId y ver sus transmisiones. Necesita SDK IoT y configuración de servicio compatibles."
+    },
+    "android-quickstart": {
+      "tagline": "Crea un cliente de IA de voz Android con Jetpack Compose.",
+      "description": "Cliente Kotlin y Jetpack Compose para Agora Conversational AI. Gestiona RTC/RTM y muestra transcripción con el toolkit oficial de Android; se conecta al backend Python incluido sin claves en el cliente."
+    },
+    "android-transcription-widget": {
+      "tagline": "Añade un widget de transcripción a una app Android RTC.",
+      "description": "Widget Android que muestra la transcripción junto al audio y vídeo en tiempo real de Agora."
+    },
+    "aria-coteacher": {
+      "tagline": "Un profesor asistente de IA para aulas virtuales.",
+      "description": "Configura un aula virtual con un profesor asistente de IA usando Next.js, Agora Voice AI, Groq y Supabase."
+    },
+    "aria-voice-sales-agent": {
+      "tagline": "Un agente de ventas por voz que negocia y actualiza el CRM durante la llamada.",
+      "description": "Aria atiende llamadas de ventas B2B: consulta una base de conocimientos, responde dudas de precios, negocia, recuerda el contexto, actualiza el CRM, reserva reuniones y deriva a una persona con un resumen escrito."
+    },
+    "athena": {
+      "tagline": "Selecciona lo que no entiendes y pregunta por voz.",
+      "description": "Extensión de Chrome que lee contigo. Selecciona un fragmento y pregunta: Athena lo explica en contexto o te hace preguntas y actualiza un mapa de comprensión en vivo."
+    },
+    "babylonjs-rtc-demo": {
+      "tagline": "Añade medios Agora RTC a una escena Babylon.js.",
+      "description": "Demo 3D en el navegador que combina el renderizado Babylon.js con audio y vídeo Agora RTC en una escena compartida."
+    },
+    "bhaasha-agora": {
+      "tagline": "Crea una guía de voz multilingüe sobre India con Agora.",
+      "description": "Explora los estados de India con un atlas lingüístico guiado por conversación, hecho con Next.js y Agora Conversational AI, con mapa interactivo, transcripción y métricas en vivo."
+    },
+    "cloud-gaming-rtc-example": {
+      "tagline": "Usa Agora RTC para juegos interactivos en la nube.",
+      "description": "Referencias móviles nativas para iniciar un juego en la nube, recibir vídeo RTC y enviar controles. Necesitan acceso al servicio de juegos en la nube."
+    },
+    "content-filter": {
+      "tagline": "Oculta contenido inseguro o sensible en las respuestas del agente.",
+      "description": "Filtra y oculta partes de la respuesta mediante un endpoint LLM personalizado antes de que lleguen al usuario."
+    },
+    "cross-session-memory": {
+      "tagline": "Recuerda a los usuarios entre llamadas distintas.",
+      "description": "Guarda el historial antes de que el agente termine y añádelo a la siguiente sesión para recordar a quien regresa."
+    },
+    "csharp-rtc-quickstart": {
+      "tagline": "Entra en un canal Agora RTC desde C#.",
+      "description": "Inicio rápido de C# para conectar con Agora RTC y comprobar la publicación y recepción básica de audio o vídeo en tiempo real."
+    },
+    "custom-llm": {
+      "tagline": "Usa tu propio endpoint LLM compatible con OpenAI.",
+      "description": "Controla el agente con un LLM compatible con OpenAI alojado por ti y conserva el flujo completo de voz."
+    },
+    "custom-modalities": {
+      "tagline": "Usa tu propio LLM y una voz TTS personalizada.",
+      "description": "Personaliza tanto el razonamiento LLM como la voz TTS del agente con los proveedores que elijas."
+    },
+    "daily-mandir-ai": {
+      "tagline": "Crea un asistente de voz para las rutinas del templo.",
+      "description": "Compañero de IA de voz para rutinas diarias de mandir, orientación devocional y conversaciones sobre la oración."
+    },
+    "dumpling-booth": {
+      "tagline": "Convierte un portátil y un televisor en un puesto interactivo de IA de voz.",
+      "description": "Conoce a la anfitriona, juega a uno de cinco juegos de conversación y recibe un regalo. Crea dos pantallas, subtítulos en vivo, avisos programados e inventario persistente con tus propias cuentas de servicio."
+    },
+    "dynamic-instructions": {
+      "tagline": "Actualiza el prompt del agente durante la sesión.",
+      "description": "Usa variables de plantilla y un endpoint de actualización para cambiar las instrucciones del agente sin reiniciarlo."
+    },
+    "dynamic-tools": {
+      "tagline": "Cambia las herramientas del agente según el contexto.",
+      "description": "Agente de hogar inteligente cuyas herramientas cambian con el modo de la habitación, con escenas activadas por palabras clave."
+    },
+    "echo-panel-voice-ai": {
+      "tagline": "Crea una interfaz de asistente de voz conversacional.",
+      "description": "Configura EchoPanel y sus credenciales y ejecuta un flujo de conversación por voz en tiempo real."
+    },
+    "esp32-iot-callkit-demo": {
+      "tagline": "Prueba llamadas IoT en ESP32 con Agora.",
+      "description": "Ejemplo ESP32 IoT CallKit para llamadas desde dispositivos conectados a clientes que usan Agora."
+    },
+    "esp32-iot-device-demo": {
+      "tagline": "Conecta un ESP32 con un flujo de llamadas IoT de Agora.",
+      "description": "Ejemplo ESP32 para unir hardware integrado y clientes Agora en llamadas IoT."
+    },
+    "event-observability": {
+      "tagline": "Muestra los eventos del agente en una línea de tiempo en vivo.",
+      "description": "Recibe eventos RTM de estado, métricas, errores y transcripción y muéstralos en una sola línea de tiempo web."
+    },
+    "filler-free-live": {
+      "tagline": "Un entrenador de voz de IA que interrumpe muletillas y divagaciones.",
+      "description": "App Android con un agente Agora Conversational AI para entrenar el habla en vivo, un backend FastAPI y sesiones de entrenamiento en grupo."
+    },
+    "filler-words": {
+      "tagline": "Disimula la espera con frases de apoyo y una despedida amable.",
+      "description": "Configura frases fijas durante el tiempo de respuesta y una despedida antes de que el agente salga."
+    },
+    "flutter-call-subtitles": {
+      "tagline": "Añade subtítulos en vivo a llamadas Flutter.",
+      "description": "Tutorial para mostrar transcripción durante llamadas RTC. Necesita configuración local, proyectos Android/iOS y un backend de transcripción compatible."
+    },
+    "flutter-quickstart": {
+      "tagline": "Crea un agente básico Agora Conversational AI con Flutter.",
+      "description": "Configura el ejemplo Flutter y su entorno para ejecutar un flujo de IA de voz multiplataforma."
+    },
+    "gemini-agora-agentic-video-nextjs": {
+      "tagline": "Habla sobre un vídeo con Gemini y la IA de voz de Agora.",
+      "description": "App Next.js donde se suben o graban vídeos, Gemini encuentra momentos con marcas de tiempo y un agente Agora Conversational AI conversa sobre lo sucedido."
+    },
+    "gemini-agora-voice-agents-go": {
+      "tagline": "Crea un agente de voz Gemini con Go y Agora.",
+      "description": "Agente Go que usa Gemini para la conversación y Agora para la interacción por voz en tiempo real."
+    },
+    "gemini-agora-voice-agents-nextjs": {
+      "tagline": "Crea un agente de voz Gemini con Next.js y Agora.",
+      "description": "Experiencia de IA de voz en el navegador que usa Gemini para la conversación y Agora para la voz en tiempo real."
+    },
+    "gemini-agora-voice-agents-python": {
+      "tagline": "Crea un agente de voz Gemini con Python y Agora.",
+      "description": "Agente Python que usa Gemini para la conversación y Agora para la interacción por voz en tiempo real."
+    },
+    "golang-quickstart": {
+      "tagline": "Crea un agente básico Agora Conversational AI en Go.",
+      "description": "Configura el agente de inicio rápido Go, añade las credenciales y ejecuta un flujo mínimo de IA de voz."
+    },
+    "group-video-chat": {
+      "tagline": "Crea chat de vídeo en grupo con Agora RTC en el navegador.",
+      "description": "Chat en JavaScript que entra en un canal Agora RTC, publica medios locales y muestra a los demás participantes."
+    },
+    "hello-agora-vision": {
+      "tagline": "Crea un ejemplo RTC inmersivo para visionOS.",
+      "description": "Ejemplo visionOS que utiliza Agora RTC para comunicación en tiempo real dentro de una app inmersiva de Apple."
+    },
+    "interruptions": {
+      "tagline": "Ajusta cómo el agente deja hablar al usuario.",
+      "description": "Configura las interrupciones basadas en VAD para que el agente se detenga y escuche cuando el usuario hable encima."
+    },
+    "ios-iot-callkit-app": {
+      "tagline": "Conecta clientes iOS y dispositivos mediante Agora Link.",
+      "description": "Biblioteca CallKit y demo iOS para llamadas entre cuentas o dispositivos, notificaciones y medios en vivo. Necesita el servicio IoT configurado."
+    },
+    "ios-live-shopping-reference-app": {
+      "tagline": "Crea compras en vivo en iOS con Agora RTC.",
+      "description": "Referencia iOS con vídeo de vendedores, selección de productos y compras. Necesita configurar Agora y los servicios externos de comercio, autenticación y medios utilizados."
+    },
+    "ios-lyrics-view-rtc-media": {
+      "tagline": "Sincroniza letras con los medios Agora RTC en iOS.",
+      "description": "Demo de karaoke iOS con letras sincronizadas y puntuación de tono durante la reproducción. Necesita servicios musicales y RTC compatibles y archivos de prueba."
+    },
+    "ios-transcription-widget": {
+      "tagline": "Añade una interfaz de transcripción a una app RTC de iOS.",
+      "description": "Referencia iOS de subtítulos para transcripción y traducción en vivo. Necesita backend compatible y ajustar el inicializador de configuración antes de compilar."
+    },
+    "iot-callkit-device-demo": {
+      "tagline": "Conecta un dispositivo IoT con llamadas Agora CallKit.",
+      "description": "Referencia Agora Link para Linux que llama, responde y cuelga con móviles configurados. Necesita credenciales de activación y un SDK IoT compatible."
+    },
+    "jev-vad": {
+      "tagline": "Decide con un modelo cuándo el usuario termina de hablar o interrumpe.",
+      "description": "Controla los turnos de Agora desde el navegador: la energía del micrófono inicia el turno y Jev de TypeSafe analiza la transcripción para cerrarlo o distinguir una interrupción real de una respuesta breve."
+    },
+    "kaun-katega-taarpati": {
+      "tagline": "Un concurso de voz Hinglish con tres jugadores y reloj controlado por el servidor.",
+      "description": "Un agente Agora presenta el juego a tres concursantes. Un endpoint LLM añade el estado real y ejecuta las herramientas; una llamada PSTN permite pedir ayuda humana."
+    },
+    "labspark-ai": {
+      "tagline": "Laboratorio de ciencias 3D con tutor de voz Gemini en tiempo real.",
+      "description": "Laboratorio interactivo para NCERT de 6.º a 10.º, con tutor Gemini, exámenes orales de práctica, voz multilingüe y control de interrupciones."
+    },
+    "live-video-react-app": {
+      "tagline": "Transmite vídeo a una audiencia en directo.",
+      "description": "Ejemplo React para emitir como anfitrión, reproducir como espectador y configurar canales Agora RTC en el navegador."
+    },
+    "m5-sticks3-voice-agent": {
+      "tagline": "Un agente de voz para StickS3 y StopWatch.",
+      "description": "Compila y carga un cliente ESP-IDF para StickS3 y StopWatch que habla con Agora Conversational AI mediante un pequeño servicio FastAPI en tu red local."
+    },
+    "mcc-external-service-example": {
+      "tagline": "Explora música y puntuación de karaoke con MCC.",
+      "description": "Ejemplos Android e iOS de Music Content Center para precarga, reproducción y puntuación de tono con RTC. Necesitan credenciales y permisos del proveedor musical."
+    },
+    "mcp-tools": {
+      "tagline": "Permite que Agora use herramientas de un servidor MCP.",
+      "description": "Expón herramientas mediante un servidor MCP con HTTP transmisible para que el LLM gestionado de Agora las invoque durante la conversación."
+    },
+    "mediaio-camera": {
+      "tagline": "Captura y muestra vídeo de una cámara personalizada para RTC.",
+      "description": "Referencia Android MediaIO para captura, vista previa y ciclo de vida de la cámara, útil al adaptar fotogramas propios para publicación RTC."
+    },
+    "moodlens-voice-journal": {
+      "tagline": "Un diario de ánimo por voz y compañero emocional.",
+      "description": "Crea un compañero de IA que escucha tu día, analiza el sentimiento en el dispositivo en tiempo real y representa visualmente tu estado emocional."
+    },
+    "muse-ai": {
+      "tagline": "Un coproductor musical de IA con voz y Agora RTC.",
+      "description": "Convierte melodías cantadas e ideas habladas en propuestas musicales en tiempo real, con varias personalidades productoras, datos de tono, prompts y un entorno de síntesis Web Audio."
+    },
+    "nextjs-quickstart": {
+      "tagline": "Crea un agente básico Agora Conversational AI con Next.js.",
+      "description": "Configura el inicio rápido Next.js y el entorno necesario para ejecutar una conversación de IA de voz en el navegador."
+    },
+    "openai-gpt-live-go": {
+      "tagline": "Crea un agente GPT Live con Agora y Go.",
+      "description": "Ejecuta un agente OpenAI GPT Live en un canal Agora con backend Go y cliente de conversación en el navegador."
+    },
+    "openai-gpt-live-nextjs": {
+      "tagline": "Crea un agente GPT Live con Agora y Next.js.",
+      "description": "Ejecuta OpenAI GPT Live desde rutas de servidor Next.js y conéctalo a un cliente de conversación Agora en el navegador."
+    },
+    "openai-gpt-live-python": {
+      "tagline": "Crea un agente GPT Live con Agora y Python.",
+      "description": "Ejecuta OpenAI GPT Live en un canal Agora con backend FastAPI y cliente de conversación en el navegador."
+    },
+    "pause-with-agora": {
+      "tagline": "Crea una extensión Chrome con Agora Conversational AI.",
+      "description": "Ejemplo que combina la interfaz de una extensión del navegador con un pequeño servicio API y Agora Conversational AI."
+    },
+    "pillion": {
+      "tagline": "Un copiloto de voz hindi e inglés que ayuda a los conductores sin usar las manos.",
+      "description": "App Android para repartidores y mototaxis. Un agente Agora habla hindi, inglés o Hinglish y usa RTM para ETA, SMS y llamadas. Comprueba accidentes con speak/think y conecta con la familia mediante Web SDK durante un SOS."
+    },
+    "push-to-talk": {
+      "tagline": "Activa el micrófono solo al pulsar para hablar.",
+      "description": "Cliente web Agora Conversational AI que publica audio únicamente al activar el botón, con modos de mantener pulsado o alternar."
+    },
+    "python-quickstart": {
+      "tagline": "Crea un agente básico Agora Conversational AI en Python.",
+      "description": "Configura el agente de inicio rápido Python, añade las credenciales y ejecuta un flujo mínimo de IA de voz."
+    },
+    "rag": {
+      "tagline": "Basa las respuestas del agente en tu propia documentación.",
+      "description": "Recupera contenido de una colección dentro de la app e inserta el contexto para que el agente responda a partir de tus documentos."
+    },
+    "real-time-transcription-demo": {
+      "tagline": "Añade transcripción en tiempo real a sesiones Agora RTC.",
+      "description": "Demo que convierte el audio hablado de una sesión Agora RTC en texto en vivo."
+    },
+    "realtime-translator": {
+      "tagline": "Habla en un idioma y escucha otro en tiempo real.",
+      "description": "Traductor de voz a voz que transcribe el idioma original y genera voz en el idioma de destino."
+    },
+    "realtime-vision": {
+      "tagline": "Voz en tiempo real que también puede ver tu cámara.",
+      "description": "Modelo multimodal con voz y cámara para preguntar sobre lo que ve. Necesitas tu propia clave de OpenAI."
+    },
+    "realtime-voice": {
+      "tagline": "Voz a voz con un modelo multimodal en tiempo real.",
+      "description": "Sustituye el flujo STT → LLM → TTS por un solo modelo de voz en tiempo real. Necesitas tu propia clave de OpenAI."
+    },
+    "recipe-agent-langchain": {
+      "tagline": "Usa LangChain para coordinar herramientas en un agente Agora.",
+      "description": "Conecta herramientas coordinadas por LangChain con la voz en tiempo real de Agora mediante un puente LLM personalizado compatible con OpenAI."
+    },
+    "rn-quickstart": {
+      "tagline": "Crea un cliente de IA de voz multiplataforma con React Native.",
+      "description": "Cliente React Native TypeScript para Agora Conversational AI que adapta motores RTC/RTM al toolkit web y muestra transcripción en vivo, conectado al backend Python incluido sin claves en el cliente."
+    },
+    "rtc-custom-camera": {
+      "tagline": "Publica una cámara personalizada en Agora RTC.",
+      "description": "Ejemplo que publica fuentes de vídeo no estándar dentro de un canal Agora RTC."
+    },
+    "rust-rtc-quickstart": {
+      "tagline": "Conecta Rust con un canal Agora RTC.",
+      "description": "Inicio rápido Rust para explorar conexiones con canales Agora RTC y flujos nativos de comunicación en tiempo real."
+    },
+    "speaker-lock": {
+      "tagline": "Escucha al hablante principal e ignora otras voces.",
+      "description": "Usa Agora Speaker Lock para centrarse en el primer hablante claro y reducir las voces de fondo."
+    },
+    "swiftui-quickstart": {
+      "tagline": "Crea un cliente nativo de IA de voz para iOS con SwiftUI.",
+      "description": "Cliente SwiftUI para Agora Conversational AI. Gestiona RTC/RTM y muestra transcripción con el toolkit oficial de iOS; se conecta al backend Python incluido sin claves en el cliente."
+    },
+    "thymia-biomarkers": {
+      "tagline": "Añade análisis de biomarcadores Thymia a un flujo de IA de voz.",
+      "description": "Integra un flujo avanzado de biomarcadores con un ejemplo de agente conversacional Agora."
+    },
+    "tool-calling": {
+      "tagline": "Dale herramientas al agente y guarda resultados en SQLite.",
+      "description": "Agente de voz que ejecuta funciones internas, guarda sus resultados en SQLite y los recuerda en turnos posteriores."
+    },
+    "trak-voice-ai": {
+      "tagline": "Controla música y busca canciones con Agora Voice AI.",
+      "description": "Añade Agora Conversational Voice AI a una app musical Electron para controlar el audio sin usar las manos."
+    },
+    "unity-spatial-audio-spaces": {
+      "tagline": "Crea espacios de audio espacial en Unity con Agora RTC.",
+      "description": "Ejemplo Unity para salas de audio espacial y espacios interactivos de comunicación en tiempo real."
+    },
+    "unity-virtual-camera-demos": {
+      "tagline": "Usa escenas Unity como vídeo personalizado para Agora RTC.",
+      "description": "Demos Unity para publicar escenas renderizadas, avatares o cámaras virtuales en flujos Agora RTC."
+    },
+    "unity-virtual-camera-prefab": {
+      "tagline": "Publica la cámara renderizada de Unity mediante Agora RTC.",
+      "description": "Prefab Unity que envía vídeo renderizado a un canal Agora RTC como fuente de medios personalizada."
+    },
+    "vision": {
+      "tagline": "Permite que el agente vea la cámara del usuario.",
+      "description": "Publica fotogramas de cámara para que un LLM multimodal gestionado responda a preguntas sobre lo que ve."
+    },
+    "visionos-rtc-quickstart": {
+      "tagline": "Añade Agora RTC a una experiencia inmersiva visionOS.",
+      "description": "Inicio rápido para entrar en un canal Agora RTC desde una app inmersiva de Apple visionOS."
+    },
+    "voice-rpg": {
+      "tagline": "Juega a un RPG de mesa por voz con un director de juego de IA.",
+      "description": "Director de juego con LLM gestionado y servidor MCP con estado, personajes, combate y herramientas de dados."
+    },
+    "watchwise-ai": {
+      "tagline": "Crea un agente de voz Next.js para descubrir cine y series.",
+      "description": "Configura WatchWise y las credenciales de Agora y TMDB para ejecutar un asistente web de voz que muestra películas y series."
+    },
+    "web-spatial-audio-demo": {
+      "tagline": "Crea audio espacial en el navegador con Agora.",
+      "description": "Demo web que sitúa a participantes en tiempo real dentro de una escena de audio inmersiva Agora RTC."
+    },
+    "webhooks": {
+      "tagline": "Recibe eventos del ciclo de vida de Agora NCS en tu servidor.",
+      "description": "Receptor de notificaciones del servidor de Agora con una línea de tiempo SSE de los eventos del agente."
+    },
+    "webxr-rtc-demo": {
+      "tagline": "Añade audio y vídeo Agora RTC a una escena WebXR.",
+      "description": "Ejemplo WebXR que integra medios Agora RTC en experiencias inmersivas de comunicación dentro del navegador."
+    },
+    "wellness-coach": {
+      "tagline": "Crea un ejemplo avanzado de entrenador de bienestar por voz.",
+      "description": "Usa la Recipe de ejemplo de terapeuta como punto de partida para una experiencia guiada de bienestar."
+    },
+    "worldcupvoice": {
+      "tagline": "Comentarios deportivos con IA.",
+      "description": "Un comentarista observa vídeo Agora RTC, describe la jugada a partir de fotogramas y devuelve voz sintetizada y transcripción sincronizada al canal."
+    }
+  }
+}

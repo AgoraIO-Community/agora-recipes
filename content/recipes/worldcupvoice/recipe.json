@@ -23,5 +23,29 @@
   "recipeUrl": "https://github.com/zicojiao/worldcupvoice/blob/main/README.md",
   "author": "zicojiao",
   "updated": "2026-09-01",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "WorldCupVoice",
+    "summary": "An AI commentator that watches a sports stream and calls the action out loud.",
+    "thumbnail": "/recipes/worldcupvoice.webp",
+    "thumbnailAlt": "WorldCupVoice World Cup final poster from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/zicojiao/worldcupvoice/main/public/worldcup-final-poster.jpg",
+    "videoUrl": "https://github.com/user-attachments/assets/307ca759-29f7-40d8-b3be-e9d5e5104e48",
+    "videoDuration": "0:40",
+    "demoNote": "Recorded demo",
+    "labels": [
+      "Vision",
+      "Sports"
+    ],
+    "searchTerms": [
+      "足球",
+      "体育",
+      "解说",
+      "sports",
+      "football",
+      "vision"
+    ],
+    "compactTitle": "WorldCupVoice",
+    "compactSummary": "AI sports commentary."
+  }
 }

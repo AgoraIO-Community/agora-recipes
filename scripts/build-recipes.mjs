@@ -1,8 +1,11 @@
+import { discoverDocumentLanguages } from "../lib/document-languages.mjs"
 import fs from "node:fs/promises"
 import path from "node:path"
 
 const ROOT_DIR = process.cwd()
 const CONTENT_DIR = path.join(ROOT_DIR, "content", "recipes")
+const languageMappings = JSON.parse(await fs.readFile(new URL("../content/document-languages.json", import.meta.url), "utf8"))
+const fetchCache = new Map()
 const OUTPUT_DIR = path.join(ROOT_DIR, "content", "generated", "recipes")
 
 async function main() {
@@ -58,9 +61,15 @@ async function getRecipeSlugs(contentDir) {
 async function buildRecipeArtifact({ slug, contentDir }) {
   const metaPath = path.join(contentDir, slug, "recipe.json")
   const meta = JSON.parse(await fs.readFile(metaPath, "utf8"))
-  const recipeRawUrl = githubViewUrlToRawUrl(meta.recipeUrl)
+  if (meta.recipeUrl && !meta.mainRepoUrl) {
+    const match = meta.recipeUrl.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\//)
+    if (match) meta.mainRepoUrl = `https://github.com/${match[1]}`
+  }
+  const recipeRawUrl = githubViewUrlToRawUrl(meta.recipeUrl ?? "")
   const recipeViewUrl = rawGithubUrlToViewUrl(recipeRawUrl)
-  const { markdown, fetchError } = await fetchRecipeMarkdown(recipeRawUrl)
+  const { markdown, fetchError } = recipeRawUrl ? await fetchRecipeMarkdown(recipeRawUrl) : { markdown: "", fetchError: null }
+  const languageInfo = recipeRawUrl ? await discoverDocumentLanguages({ sourceUrl: recipeViewUrl, markdown, mapping: languageMappings[slug], fetchDocument: fetchDocumentVersion }) : undefined
+  const documentLanguages = languageInfo && (languageInfo.originalLanguage || Object.keys(languageInfo.versions).length) ? languageInfo : undefined
   const normalizedMarkdown = markdown
     ? expandMarkdownLinks(markdown, recipeViewUrl)
     : ""
@@ -81,11 +90,13 @@ async function buildRecipeArtifact({ slug, contentDir }) {
       recipeRawUrl,
     },
     recipeDocument,
+    ...(documentLanguages ? { documentLanguages } : {}),
     primaryPrompt: buildPrimaryPrompt({ meta, recipeDocument }),
   }
 }
 
 function buildPrimaryPrompt({ meta, recipeDocument }) {
+  if (!meta.recipeUrl) return ""
   return `You are implementing the "${meta.title}" recipe in this project.
 
 Read the recipe markdown first:
@@ -137,7 +148,18 @@ async function fetchRequiredText(url, label) {
   return res.text()
 }
 
+async function fetchDocumentVersion(viewUrl) {
+  const rawUrl = githubViewUrlToRawUrl(viewUrl)
+  const { markdown, fetchError } = await fetchRecipeMarkdown(rawUrl)
+  return { rawUrl, viewUrl, markdown: markdown ? expandMarkdownLinks(markdown, viewUrl) : "", ...(fetchError ? { fetchError } : {}) }
+}
+
 async function fetchRecipeMarkdown(url) {
+  if (!fetchCache.has(url)) fetchCache.set(url, fetchRecipeMarkdownOnce(url))
+  return fetchCache.get(url)
+}
+
+async function fetchRecipeMarkdownOnce(url) {
   try {
     return {
       markdown: await fetchRequiredText(url, "recipe"),

@@ -6,8 +6,9 @@ import { CodePanel } from "@/components/code-panel"
 const highlight = cache(async (code: string,language: string) => {
   return codeToHtml(code,{
   lang: Object.hasOwn(bundledLanguages, language) ? language as keyof typeof bundledLanguages : "text",
-  theme: "github-dark-default",
-  transformers: [{ pre(node) { node.properties.tabindex = 0; node.properties.role = "region"; node.properties["aria-label"] = `${language || "Text"} code` } }],
+  themes: { dark: "github-dark-default", light: "github-light" },
+  defaultColor: false,
+  transformers: [{ pre(node) { node.properties.tabindex = 0; node.properties.role = "group"; node.properties["aria-label"] = `${language || "Text"} code` } }],
   })
 })
 

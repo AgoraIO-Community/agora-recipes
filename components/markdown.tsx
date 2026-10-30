@@ -1,3 +1,5 @@
+import { headingId } from "@/lib/headings"
+import { translate, type Messages } from "@/lib/locales"
 import * as React from "react"
 import ReactMarkdown, { defaultUrlTransform, type Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -11,11 +13,14 @@ export function Markdown({
   source,
   headingOffset = 0,
   sourceUrl,
+  messages = {},
 }: {
   source: string
   headingOffset?: number
   sourceUrl?: string
+  messages?: Messages
 }) {
+  const t = (key: string) => translate(messages, key)
   const lines = source.replace(/\r\n/g, "\n").split("\n")
   let fields: FrontmatterField[] = []
   let body = source
@@ -47,7 +52,7 @@ export function Markdown({
       </a>
     ),
     table: ({ children }) => <div className="overflow-x-auto"><table>{children}</table></div>,
-    input: ({ checked, disabled, type }) => <input type={type} disabled={disabled} checked={checked} readOnly aria-label={checked ? "Completed task" : "Incomplete task"} />,
+    input: ({ checked, disabled, type }) => <input type={type} disabled={disabled} checked={checked} readOnly aria-label={t(checked ? "Completed task" : "Incomplete task")} />,
   }
   for (const level of [1, 2, 3, 4, 5, 6] as const) {
     components[`h${level}`] = ({ children, node }) => {
@@ -59,7 +64,7 @@ export function Markdown({
 
   return (
     <div className="prose-recipe">
-      {fields.length > 0 ? <FrontmatterTable fields={fields} /> : null}
+      {fields.length > 0 ? <FrontmatterTable fields={fields} messages={messages} /> : null}
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSanitize]}
@@ -90,15 +95,16 @@ function nodeText(node: { type: string; value?: string; children?: typeof node[]
 
 type FrontmatterField = { name: string; values: string[] }
 
-function FrontmatterTable({ fields }: { fields: FrontmatterField[] }) {
+function FrontmatterTable({ fields, messages }: { fields: FrontmatterField[]; messages: Messages }) {
+  const t = (key: string) => translate(messages, key)
   return (
     <div className="overflow-x-auto">
       <table className="recipe-frontmatter" data-recipe-frontmatter>
-        <caption className="sr-only">Recipe metadata</caption>
+        <caption className="sr-only">{t("Recipe metadata")}</caption>
         <thead>
           <tr>
-            <th scope="col">Field</th>
-            <th scope="col">Value</th>
+            <th scope="col">{t("Field")}</th>
+            <th scope="col">{t("Value")}</th>
           </tr>
         </thead>
         <tbody>
@@ -161,10 +167,6 @@ function parseFrontmatter(lines: string[]): FrontmatterField[] {
   return fields
 }
 
-function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-")
+function slugify(value: string): string {
+  return headingId(value)
 }
