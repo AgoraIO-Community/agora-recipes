@@ -1,5 +1,34 @@
 # Phase One Verification and Release Notes
 
+## Language reviewer feedback — 2026-10-30
+
+- Akshay's first look found no Hindi issues. Jay's first look found the Spanish
+  wording good except for the technical term **Tool Calling**. Keep that term in
+  English in both the quick filter and capability labels.
+- Yan's first look found the Brazilian Portuguese menus and short introductions
+  acceptable. Use **Receitas** and **Tópicos**, including related navigation,
+  help, filter, detail, and contribution wording. Dictionary keys, content IDs,
+  author product names, URLs, and submitted documents remain unchanged.
+- Yan could not open detail pages during his first review. The public preview
+  currently opens a Portuguese catalog entry and its original guide normally;
+  the reported access problem was not reproduced. His deeper review is pending.
+  These are initial human reviews of AI-assisted drafts, not complete sign-off.
+  The Japanese pass below remains an editorial self-review.
+- Akshay also proposed two Indian hackathon Topics, weekly selections, a
+  leaderboard, and joint challenges. The owner replied that the two hackathons
+  and these ideas should follow the initial launch. Record that follow-up in
+  #78; do not invent activity membership or expand this PR's implementation.
+- This review status supersedes the pending-review statement below. The shared
+  preview is now public; production analytics and the live GitHub form retain
+  their existing release checks.
+- Verification: all 71 existing tests, lint (one existing logo-image warning),
+  TypeScript, the normal 110-artifact build, and the final 1,503-page build pass.
+  Seven-locale rendered checks and all 110 original-guide/API checks pass. Every
+  Portuguese detail route returns HTTP 200. Browser checks cover Portuguese
+  catalog/detail access, Topic-to-detail return, inherited contribution context,
+  desktop and narrow-phone wording without horizontal overflow, and the Spanish
+  Tool Calling quick filter. Exclude unrelated upstream guide refreshes.
+
 ## Japanese review and Topic presentation — 2026-10-29
 
 - Revise 202 existing Japanese interface messages and all 110 project
