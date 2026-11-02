@@ -28,7 +28,34 @@ async function componentModule(filename) {
   return `data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`
 }
 const { Markdown } = await import(await componentModule("../components/markdown.tsx"))
+const { RecipeDocument } = await import(await componentModule("../components/recipe-document.tsx"))
 const render = async (source, props = {}) => new Response(await renderToReadableStream(React.createElement(Markdown, { source, ...props }))).text()
+
+test("an unavailable guide keeps language recovery and source actions without empty document controls", async () => {
+  const html = await new Response(await renderToReadableStream(React.createElement(RecipeDocument, {
+    markdown: "",
+    rawUrl: "https://raw.githubusercontent.com/example/project/main/README.ja.md",
+    sourceUrl: "https://github.com/example/project/blob/main/README.ja.md",
+    languageControl: React.createElement("button", { "aria-label": "Guide language" }, "日本語"),
+  }, React.createElement("p", null, "The guide couldn’t be loaded")))).text()
+  assert.match(html, /aria-label="Guide language"/)
+  assert.match(html, /日本語/)
+  assert.match(html, /data-slot="dropdown-menu-trigger"/)
+  assert.match(html, />Markdown source</)
+  assert.match(html, /The guide couldn’t be loaded/)
+  assert.doesNotMatch(html, /role="tablist"|Copy markdown|data-slot="tabs-content"/)
+})
+
+test("an available guide retains its view switcher and copy action", async () => {
+  const html = await new Response(await renderToReadableStream(React.createElement(RecipeDocument, {
+    markdown: "# Guide",
+  }, React.createElement("h2", null, "Guide content")))).text()
+  assert.match(html, /role="tablist"/)
+  assert.match(html, /Copy markdown/)
+  assert.match(html, /Guide content/)
+  const panels = html.match(/<div[^>]*role="tabpanel"[^>]*>/g)
+  assert.ok(panels.some(panel => panel.includes('hidden=""')))
+})
 
 test("renders README HTML wrappers, line breaks, and expandable details", async () => {
   const html = await render('<div align="center">\n\n# Hello\n\n</div>\n\nOne<br/>Two\n\n<details><summary>More</summary>Details</details>')

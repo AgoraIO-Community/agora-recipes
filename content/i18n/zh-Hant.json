@@ -120,6 +120,8 @@
     "View recipe prompt": "查看 Recipe 提示詞",
     "Prompt & CLI": "提示詞與 CLI",
     "Guide options": "閱讀選項",
+    "Markdown source": "Markdown 來源文件",
+    "Open raw Markdown": "開啟原始 Markdown",
     "Start with Agora CLI": "使用 Agora CLI 開始",
     "Clone this recipe and configure it with an Agora project.": "克隆此 Recipe，並配置 Agora 項目信息。",
     "View on GitHub": "在 GitHub 查看",

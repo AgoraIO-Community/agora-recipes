@@ -2,16 +2,16 @@
 
 import { useI18n } from "@/components/locale-provider"
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import { ArrowUpRight, Ellipsis } from "lucide-react"
-import { SelectionIndicator } from "@/components/ui/selection-indicator"
+import { ArrowUpRight, ChevronDown } from "lucide-react"
 import { CopyMarkdownButton } from "@/components/copy-markdown-button"
 import { CodePanel } from "@/components/code-panel"
-import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IconButton } from "@/components/ui/icon-button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuGroup, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
-export function RecipeDocument({ markdown, children, rawUrl, sourceUrl, languageControl, sourceNote }: { markdown: string; children: ReactNode; rawUrl?: string; sourceUrl?: string; languageControl?: ReactNode; sourceNote?: string }) {
+export function RecipeDocument({ markdown, children, rawUrl, sourceUrl, languageControl }: { markdown: string; children: ReactNode; rawUrl?: string; sourceUrl?: string; languageControl?: ReactNode }) {
   const { t } = useI18n()
   const [selected, setSelected] = useState("guide")
   const guidePanel = useRef<HTMLDivElement>(null)
@@ -30,26 +30,31 @@ export function RecipeDocument({ markdown, children, rawUrl, sourceUrl, language
     document.addEventListener("click", revealGuide)
     return () => document.removeEventListener("click", revealGuide)
   }, [])
-  if (!markdown) return <div className="recipe-document">{children}</div>
-  return <Tabs value={selected} onValueChange={setSelected} className="recipe-document">
-    <div className="recipe-document-tabs">
-      <TabsList className="ag-selection-group" data-appearance="underline" aria-label={t("Recipe format")}><SelectionIndicator value={selected} appearance="underline" /><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
-      <div className="recipe-document-actions">
+  return <Tabs value={selected} onValueChange={setSelected} className="recipe-document" data-unavailable={!markdown || undefined}>
+    {(markdown || languageControl || sourceUrl || rawUrl) && <div className="recipe-document-tabs">
+      {markdown && <TabsList variant="segmented" aria-label={t("Recipe format")}><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>}
+      <div className="recipe-document-tools">
         {languageControl}
-        {rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}
-        <CopyMarkdownButton markdown={markdown} />
-        {sourceUrl && <DropdownMenu>
-          <DropdownMenuTrigger asChild><IconButton label={t("Guide options")} size="icon-sm"><Ellipsis aria-hidden="true" /></IconButton></DropdownMenuTrigger>
-          <DropdownMenuContent align="end" collisionPadding={16} className="recipe-document-menu">
-            <DropdownMenuItem asChild><a href={sourceUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></DropdownMenuItem>
-            <DropdownMenuSeparator />
-            {sourceNote && <DropdownMenuLabel className="recipe-document-note">{sourceNote}</DropdownMenuLabel>}
-            <DropdownMenuLabel className="recipe-document-note">{t("Shown as published by its author; website language does not translate the source guide.")}</DropdownMenuLabel>
-          </DropdownMenuContent>
-        </DropdownMenu>}
+        {(markdown || sourceUrl || rawUrl) && <ButtonGroup className="recipe-document-actions" aria-label={t("Markdown source")} data-document-raw-url={rawUrl}>
+          {markdown && <CopyMarkdownButton markdown={markdown} />}
+          {(sourceUrl || rawUrl) && <DropdownMenu>
+            <DropdownMenuTrigger asChild>{markdown
+              ? <IconButton label={t("Markdown source")} variant="outline" size="icon-sm"><ChevronDown aria-hidden="true" /></IconButton>
+              : <Button variant="outline" size="sm">{t("Markdown source")}<ChevronDown aria-hidden="true" /></Button>}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" collisionPadding={16} className="recipe-document-menu">
+              <DropdownMenuGroup>
+                {sourceUrl && <DropdownMenuItem asChild><a href={sourceUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></DropdownMenuItem>}
+                {rawUrl && <DropdownMenuItem asChild><a href={rawUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("Open raw Markdown")}<ArrowUpRight aria-hidden="true" /></a></DropdownMenuItem>}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>}
+        </ButtonGroup>}
       </div>
-    </div>
-    <TabsContent value="guide" forceMount hidden={selected !== "guide"} ref={guidePanel}>{children}</TabsContent>
-    <TabsContent value="markdown" forceMount hidden={selected !== "markdown"}><CodePanel code={markdown} label="Markdown" wrap copyable={false} /></TabsContent>
+    </div>}
+    {markdown ? <>
+      <TabsContent value="guide" forceMount hidden={selected !== "guide"} ref={guidePanel}>{children}</TabsContent>
+      <TabsContent value="markdown" forceMount hidden={selected !== "markdown"}><CodePanel code={markdown} label="Markdown" wrap copyable={false} /></TabsContent>
+    </> : children}
   </Tabs>
 }

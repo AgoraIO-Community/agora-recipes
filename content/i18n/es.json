@@ -120,6 +120,8 @@
     "View recipe prompt": "Ver prompt de Recipe",
     "Prompt & CLI": "Prompt y CLI",
     "Guide options": "Opciones de la guía",
+    "Markdown source": "Archivo Markdown",
+    "Open raw Markdown": "Abrir Markdown sin formato",
     "Start with Agora CLI": "Empezar con Agora CLI",
     "Clone this recipe and configure it with an Agora project.": "Clona esta Recipe y configúrala con un proyecto de Agora.",
     "View on GitHub": "Ver en GitHub",

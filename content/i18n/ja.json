@@ -120,6 +120,8 @@
     "View recipe prompt": "実装用プロンプトを見る",
     "Prompt & CLI": "プロンプトと CLI",
     "Guide options": "ガイドのオプション",
+    "Markdown source": "Markdown のソース",
+    "Open raw Markdown": "Markdown の原文を開く",
     "Start with Agora CLI": "Agora CLIで始める",
     "Clone this recipe and configure it with an Agora project.": "このサンプルを複製し、Agoraプロジェクトの設定を行います。",
     "View on GitHub": "GitHub で見る",

@@ -65,7 +65,6 @@ export function Markdown({
 
   return (
     <div className="prose-recipe">
-      {fields.length > 0 ? <details className="recipe-frontmatter-disclosure ag-disclosure"><summary>{t("Recipe metadata")}<ChevronDown size={15} aria-hidden="true" /></summary><FrontmatterTable fields={fields} messages={messages} /></details> : null}
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSanitize]}
@@ -86,6 +85,7 @@ export function Markdown({
       >
         {body}
       </ReactMarkdown>
+      {fields.length > 0 ? <details className="recipe-frontmatter-disclosure ag-disclosure"><summary>{t("Recipe metadata")}<ChevronDown size={15} aria-hidden="true" /></summary><FrontmatterTable fields={fields} messages={messages} /></details> : null}
     </div>
   )
 }

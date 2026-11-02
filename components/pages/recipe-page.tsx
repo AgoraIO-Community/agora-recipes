@@ -13,9 +13,8 @@ import { ArrowUpRight, ChevronDown } from "lucide-react"
 import { getAllEntries, getAllRecipes, getEntry, getRelatedEntries, buildPrimaryPrompt } from "@/lib/recipes"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { RecipeBackLink } from "@/components/recipe-back-link"
-import { CopyPrompt } from "@/components/copy-prompt"
+import { RecipeStartActions } from "@/components/recipe-start-actions"
 import { RecipeDocument } from "@/components/recipe-document"
-import { CodePanel, CopyTextButton } from "@/components/code-panel"
 import { Markdown } from "@/components/markdown"
 import { RecipePreview } from "@/components/recipe-preview"
 import { RecipeOutline } from "@/components/recipe-outline"
@@ -103,22 +102,11 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <p className="detail-description">{recipe.tagline}</p>
             <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /></div>
             <div className="detail-actions detail-actions--recipe">
-              {recipe.recipeUrl && <CopyTextButton text={recipe.primaryPrompt} label="Copy recipe prompt" subject="Recipe prompt" primary />}
+              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />}
               {recipe.demoUrl && <Button asChild variant="outline"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try demo (opens in a new tab)")}>{t("Try demo")}<ArrowUpRight aria-hidden="true" /></a></Button>}
-              {recipe.mainRepoUrl && <Button asChild variant="ghost"><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer" aria-label={t("Source on GitHub (opens in a new tab)")}>GitHub<ArrowUpRight aria-hidden="true" /></a></Button>}
+              {recipe.mainRepoUrl && <Button asChild variant="outline"><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer" aria-label={t("Source on GitHub (opens in a new tab)")}>GitHub<ArrowUpRight aria-hidden="true" /></a></Button>}
               <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} compact />
             </div>
-            {recipe.recipeUrl && <section id="build" aria-labelledby="prompt-heading" className="recipe-start">
-              <h2 id="prompt-heading" className="sr-only">{t("Build with your coding agent")}</h2>
-              <details className="recipe-setup ag-disclosure">
-                <summary>{t(recipe.cli ? "Prompt & CLI" : "View recipe prompt")}<ChevronDown size={14} aria-hidden="true" /></summary>
-                <div className="recipe-setup__content">
-                  <p className="recipe-cli-hint">{t("Paste the prompt into Cursor, Claude Code, or your coding agent.")}</p>
-                  <CopyPrompt prompt={recipe.primaryPrompt} />
-                  {recipe.cli && <div id="recipe-cli" className="recipe-setup__cli"><h3>{t("Start with Agora CLI")}</h3><p className="recipe-cli-hint">{t("Clone this recipe and configure it with an Agora project.")}</p><CodePanel code={command} label="Agora CLI" /></div>}
-                </div>
-              </details>
-            </section>}
           </div>
           <RecipePreview recipe={summary} />
         </div>
@@ -130,8 +118,8 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           <h2 id="recipe-guide-heading" className="sr-only">{t("Implementation guide")}</h2>
           {sections.length > 0 && <details className="mobile-guide-outline ag-disclosure"><summary>{t("In this guide")}<ChevronDown size={15} aria-hidden="true" /></summary><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></details>}
           <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl} sourceUrl={recipe.recipeDocument.viewUrl}
-            languageControl={options.length > 2 ? <DocumentLanguageSwitcher key="document-language" slug={slug} selected={selected.manual ? selected.key : "auto"} label={t(languageName)} options={options} /> : undefined}
-            sourceNote={selected.language ? `${t("Document language: {language}", { language: t(languageName) })}${!selected.manual && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}` : undefined}>
+            languageControl={options.length > 2 ? <DocumentLanguageSwitcher key="document-language" slug={slug} selected={selected.manual ? selected.key : "auto"} label={t(languageName)}
+              description={`${t("Document language: {language}", { language: t(languageName) })}${!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}`} options={options} /> : undefined}>
 
             {recipe.recipeDocument.markdown ? <div lang={selected.language}><Markdown messages={getMessages(locale)} source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /></div> : <div className="recipe-document-error"><h3>{t("The guide couldn’t be loaded")}</h3><p>{t("You can still copy the recipe prompt or open the implementation on GitHub.")}</p><a href={selectedDocument.viewUrl || recipe.recipeUrl} target="_blank" rel="noreferrer">{t("Open source guide")}<ArrowUpRight size={14} aria-hidden="true" /></a></div>}
           </RecipeDocument>
