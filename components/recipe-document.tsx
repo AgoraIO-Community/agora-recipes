@@ -9,7 +9,7 @@ import { CodePanel } from "@/components/code-panel"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export function RecipeDocument({ markdown, children, rawUrl }: { markdown: string; children: ReactNode; rawUrl?: string }) {
+export function RecipeDocument({ markdown, children, rawUrl, sourceUrl }: { markdown: string; children: ReactNode; rawUrl?: string; sourceUrl?: string }) {
   const { t } = useI18n()
   const [selected, setSelected] = useState("guide")
   const guidePanel = useRef<HTMLDivElement>(null)
@@ -28,12 +28,13 @@ export function RecipeDocument({ markdown, children, rawUrl }: { markdown: strin
     document.addEventListener("click", revealGuide)
     return () => document.removeEventListener("click", revealGuide)
   }, [])
+  if (!markdown) return <div className="recipe-document">{children}</div>
   return <Tabs value={selected} onValueChange={setSelected} className="recipe-document">
     <div className="recipe-document-tabs">
       <TabsList className="ag-selection-group" data-appearance="underline" aria-label={t("Recipe format")}><SelectionIndicator value={selected} appearance="underline" /><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>
-      <div className="recipe-document-actions">{rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}<CopyMarkdownButton markdown={markdown} /></div>
+      <div className="recipe-document-actions">{sourceUrl && <Button asChild variant="ghost" size="sm"><a href={sourceUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></Button>}{rawUrl && <Button asChild variant="ghost" size="sm"><a href={rawUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">Raw<ArrowUpRight aria-hidden="true" /></a></Button>}<CopyMarkdownButton markdown={markdown} /></div>
     </div>
     <TabsContent value="guide" forceMount hidden={selected !== "guide"} ref={guidePanel}>{children}</TabsContent>
-    <TabsContent value="markdown" forceMount hidden={selected !== "markdown"}><CodePanel code={markdown} label="Markdown" wrap /></TabsContent>
+    <TabsContent value="markdown" forceMount hidden={selected !== "markdown"}><CodePanel code={markdown} label="Markdown" wrap copyable={false} /></TabsContent>
   </Tabs>
 }

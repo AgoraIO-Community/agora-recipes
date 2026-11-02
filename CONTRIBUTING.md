@@ -82,7 +82,7 @@ A minimal Demo entry:
 }
 ```
 
-Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. The date must be a valid `YYYY-MM-DD` date.
+Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. Write the catalog title, tagline, and description in English, preserving original project names and author credit. The date must be a valid `YYYY-MM-DD` date. Additional languages are welcome but optional; a new entry does not need any files in `content/i18n/`.
 
 Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Tags must contain `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
 
@@ -126,7 +126,7 @@ Recommendation order is editorial. Prioritize usable materials, clear access req
 
 The website supports `en`, `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR`. English uses the existing unprefixed URLs. Other site languages use a locale prefix. `/zh-CN/...` redirects to `/zh-Hans/...`; author filenames are not renamed.
 
-Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit translations. Maintainers provide the seven-language presentation separately; original author files and URLs stay unchanged.
+Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit translations or language mappings. Maintainers may add presentation translations separately; missing translations must not block an English-only submission or PR. Original author files and URLs stay unchanged.
 
 The site language does not translate or rewrite the author guide. At build time, the catalog follows explicit author language links only when they point to the same guide in the same GitHub repository/ref and link back to the submitted document. A matching filename alone is not sufficient. Current-language labels and reciprocal navigation identify the source language; ambiguous `中文` stays `zh` rather than being assumed Simplified or Traditional.
 
@@ -154,8 +154,8 @@ Maintain Topics in `content/topics/<slug>/topic.json`, using `templates/topic.js
 Collections do not need dates. Activities can supply `starts`, `ends`, `status` (`upcoming`, `active`, or `completed`), external `actions`, and optional `sections`. Action types are `participate`, `questions`, `replay`, and `source`. Longer original sections can declare their actual `language` and a `sourceUrl`. Short titles, summaries, and controls use the existing presentation dictionaries.
 
 Directory cards can use optional `compactTitle` and `compactSummary`; detail pages
-retain the full `title` and `summary`. Add their English keys to all presentation
-dictionaries. Optional `cover` contains `src`, `alt`, and a public HTTPS
+retain the full `title` and `summary`. English is required; additional presentation translations are optional and fall
+back to English when absent. Optional `cover` contains `src`, `alt`, and a public HTTPS
 `sourceUrl` for attribution. Use an existing local image under `/recipes/` or
 `/topics/` (JPG, PNG, or WebP), with a translated factual alt description. The
 loader rejects missing files and uncredited covers. Use thematic illustrations

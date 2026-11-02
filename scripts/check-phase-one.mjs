@@ -6,7 +6,7 @@ const publicOrigin = process.env.SITE_URL ?? 'https://recipes.agora.io'
 const locales = ['en', 'zh-Hans', 'zh-Hant', 'ja', 'hi', 'es', 'pt-BR']
 const localized = (path, locale) => locale === 'en' ? path : `/${locale}${path === '/' ? '' : path}`
 async function html(path) { const response = await fetch(new URL(path, origin)); assert.equal(response.status, 200, path); return response.text() }
-const rawLink = source => source.match(/class="recipe-document-actions"[\s\S]*?<a[^>]*href="([^"]+)"/)?.[1]
+const rawLink = source => source.match(/<a\b[^>]*href="([^"]+)"[^>]*>Raw<svg/)?.[1]
 const original = JSON.parse(await readFile(new URL('../content/generated/recipes/agora-rotary-dial-phone.json', import.meta.url), 'utf8'))
 assert.ok(original.documentLanguages?.versions['zh-Hans'], 'real author-navigation translation was built')
 for (const locale of locales) {

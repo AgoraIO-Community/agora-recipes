@@ -14,12 +14,13 @@ test('return targets preserve list state and reject external or unrelated destin
   for (const value of ['//example.com', 'https://example.com', '/contribute', '/recipes/x', '/\\example.com', '/ja/../contribute', '/%2f%2fexample.com']) assert.equal(catalogReturnPath(value, 'ja'), '/ja#recipes')
   assert.equal(catalogReturnPath(undefined, 'zh-Hans'), '/zh-Hans#recipes')
 })
-test('presentation dictionaries use known content identities and consistent UI terms', () => {
+test('optional presentation translations reference known entries and use consistent UI terms', () => {
   const slugs = readdirSync(new URL('../content/recipes', import.meta.url), { withFileTypes: true }).filter(e => e.isDirectory() && !e.name.startsWith('.')).map(e => e.name).sort()
   const dictionaries = locales.filter(locale => locale !== 'en').map(locale => JSON.parse(readFileSync(new URL(`../content/i18n/${locale}.json`, import.meta.url))))
   for (const dictionary of dictionaries) {
     assert.deepEqual(Object.keys(dictionary).sort(), ["entries", "ui"], "UI feedback must be inside the dictionary loaded by the site")
-    assert.deepEqual(Object.keys(dictionary.entries).sort(), slugs, "every current entry has a translated introduction")
+    // New English-only entries do not need records in any presentation dictionary.
+    for (const slug of Object.keys(dictionary.entries)) assert.ok(slugs.includes(slug), `translation references an existing entry: ${slug}`)
     assert.deepEqual(Object.keys(dictionary.ui).sort(), Object.keys(dictionaries[0].ui).sort())
     for (const value of Object.values(dictionary.entries)) assert.ok(value.tagline.trim() && value.description.trim())
     assert.equal(translate(dictionary.ui, 'Show {count} results', { count: 12 }).includes('12'), true)

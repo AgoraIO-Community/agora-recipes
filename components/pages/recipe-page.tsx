@@ -109,27 +109,23 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} />
             </div>
             {recipe.recipeUrl && <p className="detail-agent-hint">{t("Paste the prompt into Cursor, Claude Code, or your coding agent.")}</p>}
+            {recipe.recipeUrl && <section id="build" aria-labelledby="prompt-heading" className="recipe-start">
+              <h2 id="prompt-heading" className="sr-only">{t("Build with your coding agent")}</h2>
+              <details className="recipe-disclosure ag-disclosure"><summary>{t("View recipe prompt")}<ChevronDown size={15} aria-hidden="true" /></summary><CopyPrompt prompt={recipe.primaryPrompt} /></details>
+              {recipe.cli && <details id="recipe-cli" className="recipe-disclosure ag-disclosure"><summary>{t("Start with Agora CLI")}<ChevronDown size={15} aria-hidden="true" /></summary><p className="recipe-cli-hint">{t("Clone this recipe and configure it with an Agora project.")}</p><CodePanel code={command} label="Agora CLI" /></details>}
+            </section>}
           </div>
           <RecipePreview recipe={summary} />
         </div>
-        {recipe.recipeUrl && <nav className="detail-jump-nav" aria-label={t("Recipe sections")}>
-          <Button asChild variant="ghost" size="sm"><a href="#build">{t("Build with agent")}</a></Button><Button asChild variant="ghost" size="sm"><a href="#recipe-markdown-heading">{t("Implementation guide")}</a></Button>{recipe.cli && <Button asChild variant="ghost" size="sm"><a href="#recipe-cli">Agora CLI</a></Button>}
-        </nav>}
       </div>
     </header>
     <div className="shell detail-layout">
       <div className="detail-main">{recipe.recipeUrl ? <>
-        <section id="build" aria-labelledby="prompt-heading" className="recipe-start">
-          <h2 id="prompt-heading" className="sr-only">{t("Build with your coding agent")}</h2>
-          <details className="recipe-disclosure ag-disclosure"><summary>{t("View recipe prompt")}<ChevronDown size={15} aria-hidden="true" /></summary><CopyPrompt prompt={recipe.primaryPrompt} /></details>
-          {recipe.cli && <details id="recipe-cli" className="recipe-disclosure ag-disclosure"><summary>{t("Start with Agora CLI")}<ChevronDown size={15} aria-hidden="true" /></summary><p className="recipe-cli-hint">{t("Clone this recipe and configure it with an Agora project.")}</p><CodePanel code={command} label="Agora CLI" /></details>}
-        </section>
         <section aria-labelledby="recipe-markdown-heading" className="recipe-guide">
-          <div className="recipe-guide__heading"><h2 id="recipe-markdown-heading" className="detail-title">{t("Implementation guide")}</h2><div className="recipe-guide__tools">{options.length > 2 && <DocumentLanguageSwitcher slug={slug} selected={selected.manual ? selected.key : "auto"} options={options} />}<Button asChild variant="ghost" size="sm"><a href={recipe.recipeDocument.viewUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
-          <p className="recipe-source-note recipe-source-context">{t("Document language: {language}", { language: t(languageName) })}{!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}<span>{t("Shown as published by its author; website language does not translate the source guide.")}</span></p>
-          {selected.manual && !selectedDocument.markdown && <p role="alert">{t("This guide version is unavailable")}. {t("No other author version has been selected automatically.")}</p>}
+          <div className="recipe-guide__heading"><h2 id="recipe-markdown-heading" className="detail-title">{t("Implementation guide")}</h2><div className="recipe-guide__tools">{options.length > 2 && <DocumentLanguageSwitcher slug={slug} selected={selected.manual ? selected.key : "auto"} options={options} />}</div></div>
+          <p className="recipe-source-note recipe-source-context">{selected.language && t("Document language: {language}", { language: t(languageName) })}{!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}<span>{t("Shown as published by its author; website language does not translate the source guide.")}</span></p>
           {sections.length > 0 && <details className="mobile-guide-outline ag-disclosure"><summary>{t("In this guide")}<ChevronDown size={15} aria-hidden="true" /></summary><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></details>}
-          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl}>
+          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl} sourceUrl={recipe.recipeDocument.viewUrl}>
             {recipe.recipeDocument.markdown ? <div lang={selected.language}><Markdown messages={getMessages(locale)} source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /></div> : <div className="recipe-document-error"><h3>{t("The guide couldn’t be loaded")}</h3><p>{t("You can still copy the recipe prompt or open the implementation on GitHub.")}</p><a href={selectedDocument.viewUrl || recipe.recipeUrl} target="_blank" rel="noreferrer">{t("Open source guide")}<ArrowUpRight size={14} aria-hidden="true" /></a></div>}
           </RecipeDocument>
         </section>

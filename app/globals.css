@@ -284,7 +284,7 @@ a.recipe-author:hover { color: var(--foreground); }
 .detail-title { font-size: 20px; font-weight: 400; line-height: 1.3; letter-spacing: -.02em; }
 .detail-hero { padding-top: 20px; }
 .detail-back { margin-bottom: 16px; padding-inline: 0; }
-.detail-overview { display: grid; gap: 32px; }
+.detail-overview { display: grid; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
 .detail-overview--media { grid-template-columns: minmax(0,1fr) 420px; align-items: center; gap: 40px; }
 .detail-overview__content { min-width: 0; }
 .detail-description { max-width: 72ch; margin-top: 12px; color: var(--muted-foreground); font-size: 16px; line-height: 1.65; }
@@ -297,15 +297,13 @@ a.recipe-author:hover { color: var(--foreground); }
 .detail-preview__fallback { display: flex; align-items: center; justify-content: center; gap: 12px; height: 100%; padding: 16px; color: var(--muted-foreground); font-size: 14px; }
 .detail-preview__action { position: absolute; bottom: 12px; left: 12px; }
 .detail-preview > p { padding: 10px 6px 2px; color: var(--muted-foreground); font-size: 12px; line-height: 1.5; }
-.detail-jump-nav { display: flex; gap: 8px; margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
-.detail-jump-nav > .ag-button:first-child { padding-left: 0; }
 .detail-layout { display: grid; grid-template-columns: 216px minmax(0,1fr); gap: 48px; padding-top: 28px; }
 .detail-main { grid-column: 2; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
 .detail-rail { grid-column: 1; grid-row: 1; position: sticky; top: calc(var(--header-height) + 28px); align-self: start; display: flex; flex-direction: column; gap: 28px; max-height: calc(100dvh - var(--header-height) - 56px); overflow-y: auto; }
 .detail-rail > :not(:first-child) { padding-top: 20px; border-top: 1px solid var(--border); }
-.recipe-start { min-width: 0; }
+.recipe-start { min-width: 0; max-width: 68ch; margin-top: 20px; border-top: 1px solid var(--border); }
 .recipe-disclosure { border-bottom: 1px solid var(--border); }
-.recipe-disclosure > summary { color: var(--muted-foreground); }
+.recipe-disclosure > summary { min-height: 44px; color: var(--muted-foreground); }
 .recipe-disclosure[open] > summary { color: var(--foreground); }
 .recipe-disclosure > .code-block { margin-bottom: 20px; }
 .recipe-cli-hint { margin-bottom: 16px; color: var(--muted-foreground); font-size: 13px; }
@@ -341,7 +339,7 @@ a.recipe-author:hover { color: var(--foreground); }
 .code-block--wrap pre code { width: auto; }
 .recipe-document-tabs { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
 .recipe-document-actions { display: flex; align-items: center; gap: 8px; }
-.recipe-guide__heading > .ag-button { padding-inline: 0; }
+.recipe-document-actions > .ag-button { padding-inline: 8px; }
 .recipe-document-actions .ag-button:last-child { padding-right: 0; }
 .skip-link { position: fixed; top: 8px; left: 8px; z-index: 150; display: flex; align-items: center; min-height: 44px; padding: 8px 16px; color: var(--primary-foreground); background: var(--primary); transform: translateY(-200%); }
 .skip-link:focus { transform: none; }
@@ -470,19 +468,19 @@ a.recipe-author:hover { color: var(--foreground); }
   .detail-agent-hint { font-size: 12px; }
   .detail-preview__action { bottom: 10px; left: 10px; }
   .detail-preview > p { padding-top: 8px; }
-  .detail-jump-nav { gap: 4px; margin-top: 20px; padding-bottom: 12px; }
-  .detail-jump-nav .ag-button { padding-inline: 10px; font-size: 12px; }
+  .recipe-disclosure > summary { min-height: 46px; }
   .detail-layout { grid-template-columns: 1fr; gap: 32px; padding-top: 16px; }
   .detail-main { grid-column: auto; gap: 28px; }
   .detail-title { font-size: 20px; }
   .recipe-guide__heading { gap: 8px; margin-bottom: 16px; }
-  .recipe-guide__heading > .ag-button { padding-inline: 0; font-size: 12px; }
   .mobile-guide-outline { display: block; margin-bottom: 16px; border-block: 1px solid var(--border); }
   .mobile-guide-outline nav { display: flex; flex-direction: column; padding-bottom: 16px; }
   .mobile-guide-outline nav a { display: flex; align-items: center; min-height: 44px; color: var(--muted-foreground); font-size: 13px; }
   .detail-rail { grid-column: auto; grid-row: auto; position: static; max-height: none; overflow: visible; gap: 24px; padding-top: 28px; border-top: 1px solid var(--border); }
   .guide-outline { display: none; }
   .recipe-document-tabs { gap: 12px; margin-bottom: 20px; }
+  .recipe-document-tabs > [role=tablist] { width: 100%; }
+  .recipe-document-actions { width: 100%; justify-content: flex-end; }
   .recipe-document-actions { gap: 4px; }
   .recipe-document-actions .ag-button { padding-inline: 8px; font-size: 13px; }
   .recipe-document-actions .copy-action { width: 46px; padding: 0; }
@@ -527,6 +525,8 @@ a.recipe-author:hover { color: var(--foreground); }
 .prose-recipe td,.prose-recipe th { padding: 12px 16px; border: 1px solid var(--border); text-align: left; }
 .prose-recipe th { background: var(--secondary); font-weight: 520; }
 .prose-recipe .recipe-frontmatter { min-width: 36rem; margin-top: 0; }
+.prose-recipe .recipe-frontmatter-disclosure { margin-block: 0 24px; padding: 0; border-inline: 0; border-radius: 0; background: transparent; }
+.prose-recipe .recipe-frontmatter-disclosure > summary { min-height: 46px; margin: 0; font-weight: 400; }
 .prose-recipe .recipe-frontmatter th[scope="row"] { width: 12rem; vertical-align: top; }
 .prose-recipe .recipe-frontmatter td ul { list-style: none; margin: 0; }
 .prose-recipe hr { border-top: 1px solid var(--border); margin: 36px 0; }
@@ -547,7 +547,7 @@ a.recipe-author:hover { color: var(--foreground); }
 .contribute-content { padding-block: 28px 48px; }
 .contribute-workspace { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 48px; max-width: 1120px; }
 .contribute-start,.contribute-checklist { min-width: 0; padding-top: 24px; border-top: 1px solid var(--border); }
-.contribute-topic { display: grid; gap: 8px; margin-bottom: 28px; }
+.contribute-topic { display: grid; gap: 8px; margin-top: 24px; }
 .contribute-topic > label { font-size: 13px; }
 .contribute-topic .ag-select { width: min(100%,400px); text-align: left; }
 .contribute-topic .basic-button-content { min-width: 0; width: 100%; }

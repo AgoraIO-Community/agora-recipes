@@ -27,6 +27,8 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
     replaceLocationSearch(params)
   }
   return <>
+    <h2 className="detail-title">{t("Prepare your submission with AI")}</h2>
+    <p className="contribute-instructions">{t("Paste the prompt into Codex, Cursor, or Claude Code in your project. It will use your README and public links to prepare an English submission for you to review.")}</p>
     <div className="contribute-topic">
       <label id="contribution-topic-label" htmlFor="contribution-topic">{t("Topic or activity (optional)")}</label>
       <DropdownMenu onOpenChange={open => setShowCompleted(open && selectedCompleted)}>
@@ -44,8 +46,6 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
       </DropdownMenu>
       <p id="contribution-topic-hint">{topic ? <>{selectedCompleted ? t("This activity has ended. You can still share related work for its archive.") : t("Included in both the prompt and GitHub submission.")} <Link href={localePath(`/topics/${topic}`, locale)}>{t("View this Topic")}<ArrowUpRight size={13} aria-hidden="true" /></Link></> : t("No matching Topic? You can still share your project.")}</p>
     </div>
-    <h2 className="detail-title">{t("Prepare your submission with AI")}</h2>
-    <p className="contribute-instructions">{t("Paste the prompt into Codex, Cursor, or Claude Code in your project. It will use your README and public links to prepare an English submission for you to review.")}</p>
     <div className="contribute-actions">
       <CopyTextButton text={prompt} label="Copy submission prompt" subject="Submission prompt" primary />
       <Button asChild variant="outline"><a href={formUrl} target="_blank" rel="noreferrer" data-contribution="github_form"><Github aria-hidden="true" />{t("Fill it in on GitHub")}<ArrowUpRight aria-hidden="true" /></a></Button>

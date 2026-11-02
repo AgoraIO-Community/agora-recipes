@@ -21,10 +21,10 @@ export function CopyTextButton({ text, label = "Copy", subject = "Text", primary
   </>
 }
 
-export function CodePanel({ code, label = "Text", wrap = false, children }: { code: string; label?: string; wrap?: boolean; children?: ReactNode }) {
+export function CodePanel({ code, label = "Text", wrap = false, copyable = true, children }: { code: string; label?: string; wrap?: boolean; copyable?: boolean; children?: ReactNode }) {
   const { t } = useI18n()
   return <div className={cn("code-block", wrap && "code-block--wrap")}>
-    <div className="code-block__header"><span className="code-block__label">{t(label)}</span><CopyTextButton text={code} subject={label} /></div>
+    {copyable && <div className="code-block__header"><span className="code-block__label">{t(label)}</span><CopyTextButton text={code} subject={label} /></div>}
     {children || <pre role="group" tabIndex={0} aria-label={t("{label} code", { label: t(label) })}><code>{code}</code></pre>}
   </div>
 }
