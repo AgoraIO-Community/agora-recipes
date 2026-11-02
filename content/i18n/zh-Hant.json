@@ -118,6 +118,8 @@
     "Implementation guide": "實踐教程",
     "Build with your coding agent": "使用你的編程智能體構建",
     "View recipe prompt": "查看 Recipe 提示詞",
+    "Prompt & CLI": "提示詞與 CLI",
+    "Guide options": "閱讀選項",
     "Start with Agora CLI": "使用 Agora CLI 開始",
     "Clone this recipe and configure it with an Agora project.": "克隆此 Recipe，並配置 Agora 項目信息。",
     "View on GitHub": "在 GitHub 查看",

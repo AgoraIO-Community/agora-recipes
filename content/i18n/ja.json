@@ -118,6 +118,8 @@
     "Implementation guide": "実装ガイド",
     "Build with your coding agent": "コーディングAIで実装する",
     "View recipe prompt": "実装用プロンプトを見る",
+    "Prompt & CLI": "プロンプトと CLI",
+    "Guide options": "ガイドのオプション",
     "Start with Agora CLI": "Agora CLIで始める",
     "Clone this recipe and configure it with an Agora project.": "このサンプルを複製し、Agoraプロジェクトの設定を行います。",
     "View on GitHub": "GitHub で見る",
