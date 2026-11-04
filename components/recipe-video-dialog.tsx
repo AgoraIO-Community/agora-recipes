@@ -1,37 +1,51 @@
 "use client"
 
-import { useState, type ReactNode } from "react"
+import { useAnalytics } from "@/components/analytics-provider"
+import { useI18n } from "@/components/locale-provider"
+import { catalogReturnPath, localePath } from "@/lib/locales"
+import { useCatalogSearch } from "@/hooks/use-catalog-location"
+import { useCallback, useRef, useState, type ReactNode } from "react"
+import { RecipeVideoPlayer } from "@/components/recipe-video-player"
 import { ArrowUpRight } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 
-export function RecipeVideoDialog({ recipe, children }: { recipe: RecipeSummary; children: ReactNode }) {
+export function RecipeVideoDialog({ recipe, children, detailHref }: { recipe: RecipeSummary; children: ReactNode; detailHref?: string }) {
+  const { t, locale } = useI18n()
+  const source = new URLSearchParams(useCatalogSearch()).get("returnTo")
+  const defaultHref = localePath(`/recipes/${recipe.slug}`, locale) + (source ? `?returnTo=${encodeURIComponent(catalogReturnPath(source, locale))}` : "")
+  const capture = useAnalytics()
+  const played = useRef(false)
   const [open, setOpen] = useState(false)
   const [failed, setFailed] = useState(false)
+  const onError = useCallback(() => { if (open) setFailed(true) }, [open])
+  const onPlay = useCallback(() => {
+    if (!open || played.current) return
+    played.current = true
+    capture("video_play", { action: "play", placement: "player", content_slug: recipe.slug })
+  }, [capture, recipe.slug, open])
   const media = recipe.showcase
   if (!media?.videoUrl) return children
 
   return (
-    <Dialog open={open} onOpenChange={(next) => { setOpen(next); setFailed(false) }}>
+    <Dialog open={open} onOpenChange={(next) => { setOpen(next); if (next) { setFailed(false); played.current = false } }}>
       {children}
-      <DialogContent className="video-preview max-h-[90dvh] overflow-y-auto sm:max-w-5xl">
+      <DialogContent data-recipe-slug={recipe.slug} className="video-preview max-h-[90dvh] overflow-y-auto sm:max-w-5xl">
         <DialogHeader className="pr-8 text-left">
           <DialogTitle className="font-brand text-xl leading-tight">{media.compactTitle ?? media.title}</DialogTitle>
           <DialogDescription>{media.demoNote}</DialogDescription>
         </DialogHeader>
-        {open && !failed && (
-          <video key={media.videoUrl} controls playsInline preload="metadata" poster={media.thumbnail} className="aspect-video w-full rounded-md bg-black" onError={() => setFailed(true)}>
-            <source src={media.videoUrl} type="video/mp4" />
-            Your browser does not support video playback. Open the original video below.
-          </video>
+        {/* The portal owns exit teardown; active stops playback while preserving the player frame. */}
+        {!failed && (
+          <RecipeVideoPlayer key={media.videoUrl} active={open} url={media.videoUrl} title={t("Watch {title} demo", { title: media.compactTitle ?? media.title })} poster={media.thumbnail} onPlay={onPlay} onError={onError} />
         )}
-        {failed && <p role="alert" className="rounded-md border p-6 text-sm">This video couldn’t load. You can open the original video or read the recipe below.</p>}
+        {failed && <div className="recipe-video-error"><p role="alert">{t("This video couldn’t load. You can open the original video or view the project below.")}</p><Button variant="outline" size="sm" onClick={() => setFailed(false)}>{t("Try again")}</Button></div>}
         <div className="video-preview__footer">
-          <a href={media.videoUrl} target="_blank" rel="noreferrer" className="video-source-link">Original video <ArrowUpRight aria-hidden="true" /></a>
+          <Button asChild variant="ghost" size="sm"><a href={media.videoUrl} data-material="video_original" data-placement="player" target="_blank" rel="noreferrer">{t("Original video")} <ArrowUpRight aria-hidden="true" /></a></Button>
           <div className="video-preview__actions">
-            <a href={`/recipes/${recipe.slug}`} className="video-recipe-link">Read recipe</a>
-            {recipe.demoUrl && <Button asChild><a href={recipe.demoUrl} target="_blank" rel="noreferrer">Try live demo <ArrowUpRight aria-hidden="true" /></a></Button>}
+            <Button asChild variant="outline"><a href={detailHref ?? defaultHref}>{t(recipe.recipeUrl ? "Read recipe" : "View project")}</a></Button>
+            {recipe.demoUrl && <Button asChild><a href={recipe.demoUrl} data-material="demo" data-placement="player" target="_blank" rel="noreferrer">{t("Try live demo")} <ArrowUpRight aria-hidden="true" /></a></Button>}
           </div>
         </div>
       </DialogContent>

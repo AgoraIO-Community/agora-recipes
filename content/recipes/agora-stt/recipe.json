@@ -22,5 +22,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-stt/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Speech-to-Text with Agora RTC",
+    "summary": "Transcribe Agora RTC audio with a speech-to-text workflow.",
+    "thumbnail": "/recipes/agora-stt.webp",
+    "thumbnailAlt": "Realtime transcription and translation initial interface with empty media and transcript areas",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-stt",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no channel, microphone or transcription session started.",
+    "labels": [
+      "JavaScript",
+      "Web"
+    ],
+    "searchTerms": []
+  }
 }

@@ -10,5 +10,18 @@
   "recipeUrl": "https://github.com/agsyna/Athena/blob/main/docs/ai/RECIPE.md",
   "author": "agsyna",
   "updated": "2026-09-07",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Athena",
+    "summary": "Highlight something you do not understand and ask about it out loud.",
+    "thumbnail": "/recipes/athena-call.webp",
+    "thumbnailAlt": "Athena quickstart's real call interface showing the agent's greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/agsyna/Athena",
+    "thumbnailFit": "contain",
+    "demoNote": "Real quickstart call with an agent greeting and silent virtual microphone. The browser extension highlighting workflow was not tested.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

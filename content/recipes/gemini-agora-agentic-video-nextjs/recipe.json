@@ -24,5 +24,18 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Gemini-Agora-Agentic-Video-NextJS/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-02",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Gemini Agora Agentic Video for Next.js",
+    "summary": "Talk to a video with Gemini understanding and Agora voice AI.",
+    "thumbnail": "/recipes/gemini-agora-agentic-video-nextjs.webp",
+    "thumbnailAlt": "Agentic Video and Voice AI initial UI with an empty video preview and upload controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Gemini-Agora-Agentic-Video-NextJS",
+    "thumbnailFit": "contain",
+    "demoNote": "Original upload/analyze flow attempted with Google configuration and a generated six-second test pattern. Analysis did not finish within the retry deadline, so no call capture was accepted; initial UI retained.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

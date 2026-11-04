@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync, readdirSync } from 'node:fs'
 import { test } from 'node:test'
-import { defaultFilters, discoverRecipes } from '../lib/recipe-discovery.ts'
+import { catalogVisibleCount, defaultFilters, discoverRecipes, readDiscoveryFilters, writeDiscoveryFilters } from '../lib/recipe-discovery.ts'
 
 const curated = JSON.parse(readFileSync(new URL('../content/showcase.json', import.meta.url)))
 const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { withFileTypes: true })
@@ -9,17 +9,49 @@ const recipes = readdirSync(new URL('../content/recipes/', import.meta.url), { w
   .map(({ name: slug }) => {
     const metadata = JSON.parse(readFileSync(new URL(`../content/recipes/${slug}/recipe.json`, import.meta.url)))
     const recommendedOrder = curated.findIndex(entry => entry.slug === slug)
-    return { ...metadata, slug, ...(recommendedOrder < 0 ? {} : { showcase: curated[recommendedOrder], ...(curated[recommendedOrder].recommended === false ? {} : { recommendedOrder }) }) }
+    // Media remains searchable when an entry leaves the editorial recommendations.
+    return { ...metadata, slug, ...(metadata.media ? { showcase: metadata.media } : {}), ...(recommendedOrder < 0 ? {} : { recommendedOrder }) }
   })
 const search = (query, extra = {}) => discoverRecipes(recipes, { ...defaultFilters, query, ...extra })
 
-test('default catalog includes every recipe with images first and curated order preserved', () => {
+test('automatic batches survive shared URLs and stay bounded by the filtered result count', () => {
+  for (const value of ['', 'loaded=bad', 'loaded=-1', 'loaded=12.5', 'loaded=Infinity', 'loaded=9007199254740992']) assert.equal(catalogVisibleCount(new URLSearchParams(value), 110), 12)
+  assert.equal(catalogVisibleCount(new URLSearchParams('loaded=36'), 110), 36)
+  assert.equal(catalogVisibleCount(new URLSearchParams('loaded=120'), 110), 110)
+  assert.equal(catalogVisibleCount(new URLSearchParams('loaded=36'), 8), 8)
+  assert.equal(catalogVisibleCount(new URLSearchParams(), 0), 0)
+  assert.equal(catalogVisibleCount(new URLSearchParams('all=1'), 110), 110, 'old expanded catalog links remain valid')
+})
+
+test('new language introductions and domain terms are searchable without losing Hindi vowel marks', () => {
+  const localized = ['hi', 'es', 'pt-BR'].flatMap(locale => {
+    const dictionary = JSON.parse(readFileSync(new URL(`../content/i18n/${locale}.json`, import.meta.url)))
+    return recipes.map(recipe => ({ ...recipe, ...dictionary.entries[recipe.slug] }))
+  })
+  for (const query of ['transcripción', 'transcrição', 'मीटिंग', 'पॉडकास्ट']) assert.ok(discoverRecipes(localized, { ...defaultFilters, query }).length, query)
+  const fixtures = ['की', 'का'].map((title, index) => ({ ...recipes[0], slug: `hindi-${index}`, title, tagline: '', description: '', tags: [], platforms: [], useCases: [], capabilities: [], author: '', mainRepoUrl: '' }))
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, query: 'का' }).map(recipe => recipe.slug), ['hindi-1'])
+})
+
+test('shared catalog URLs preserve combined filters, Unicode queries, and their results', () => {
+  const filters = { ...defaultFilters, query: '会议 Gemini', topic: 'voice', platforms: ['Python', 'iOS'], useCases: ['Meetings'], capabilities: ['Gemini', 'STT'], previewOnly: true, sort: 'updated' }
+  const restored = readDiscoveryFilters(new URLSearchParams(writeDiscoveryFilters(filters).toString()))
+  assert.deepEqual(restored, filters)
+  assert.deepEqual(discoverRecipes(recipes, restored), discoverRecipes(recipes, filters))
+})
+test('invalid single-value URL filters fall back safely and repeated values are deduplicated', () => {
+  assert.deepEqual(readDiscoveryFilters(new URLSearchParams('topic=unknown&category=invalid&sort=invalid&platform=Python&platform=Python&platform=')), { ...defaultFilters, platforms: ['Python'] })
+})
+test('clearing catalog filters removes obsolete parameters while keeping unrelated URL state', () => {
+  const params = writeDiscoveryFilters(defaultFilters, new URLSearchParams('q=python&platform=Python&capability=STT&demo=1&sort=title&all=1&utm_source=rte'))
+  assert.equal(params.toString(), 'all=1&utm_source=rte')
+})
+
+test('default catalog includes every recipe with curated recommendations first', () => {
   const results = discoverRecipes(recipes, defaultFilters)
   assert.equal(results.length, recipes.length)
-  const imageCount = recipes.filter(recipe => recipe.showcase?.thumbnail).length
-  assert.ok(results.slice(0, imageCount).every(recipe => recipe.showcase?.thumbnail))
-  assert.ok(results.slice(imageCount).every(recipe => !recipe.showcase?.thumbnail))
-  assert.deepEqual(results.filter(recipe => recipe.recommendedOrder !== undefined).map(recipe => recipe.slug), curated.filter(entry => entry.recommended !== false).map(entry => entry.slug))
+  assert.deepEqual(results.slice(0, curated.length).map(recipe => recipe.slug), curated.map(entry => entry.slug))
+  assert.ok(results.slice(curated.length).every(recipe => recipe.recommendedOrder === undefined))
 })
 test('search spans fields, supports multiple words, and includes Chinese aliases', () => {
   assert.ok(search('Python CRM').some(recipe => recipe.slug === 'aria-voice-sales-agent'))
@@ -56,32 +88,16 @@ test('exact title and description matches rank ahead of approximate matches', ()
   ]
   assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, query: 'transcription' }).map(recipe => recipe.slug), ['title', 'description', 'fuzzy'])
 })
-test('explicit date and alphabetical sorts apply within image groups', () => {
+test('explicit date and alphabetical sorts override pinned order', () => {
   const alphabetical = search('', { sort: 'title' })
-  const expected = [true, false].flatMap(hasImage => recipes.filter(recipe => Boolean(recipe.showcase?.thumbnail) === hasImage).map(recipe => recipe.title).sort((a, b) => a.localeCompare(b)))
-  assert.deepEqual(alphabetical.map(recipe => recipe.title), expected)
-  for (const hasImage of [true, false]) {
-    const dates = search('', { sort: 'updated' }).filter(recipe => Boolean(recipe.showcase?.thumbnail) === hasImage).map(recipe => recipe.updated)
-    assert.deepEqual(dates, [...dates].sort().reverse())
-  }
-})
-test('thumbnail presence takes priority over recommendation, date and title', () => {
-  const base = { ...recipes[0], showcase: undefined, recommendedOrder: undefined }
-  const fixtures = [
-    { ...base, slug: 'no-image', title: 'Aardvark', updated: '2026-12-31', recommendedOrder: 0, showcase: { thumbnail: '' } },
-    { ...base, slug: 'image-beta', title: 'Beta', updated: '2026-01-01', recommendedOrder: 1, showcase: { thumbnail: '/recipes/beta.webp' } },
-    { ...base, slug: 'image-alpha', title: 'Alpha', updated: '2026-02-01', recommendedOrder: 2, showcase: { thumbnail: '/recipes/alpha.webp' } },
-    { ...base, slug: 'no-showcase', title: 'Zulu', updated: '2025-01-01' },
-  ]
-  for (const sort of ['recommended', 'updated', 'title']) {
-    const results = discoverRecipes(fixtures, { ...defaultFilters, sort })
-    assert.deepEqual(results.slice(0, 2).map(recipe => recipe.slug), sort === 'recommended' ? ['image-beta', 'image-alpha'] : ['image-alpha', 'image-beta'])
-    assert.deepEqual(results.slice(2).map(recipe => recipe.slug), ['no-image', 'no-showcase'])
-  }
+  assert.deepEqual(alphabetical.map(recipe => recipe.title), recipes.map(recipe => recipe.title).sort((a, b) => a.localeCompare(b)))
+  const dates = search('', { sort: 'updated' }).map(recipe => recipe.updated)
+  assert.deepEqual(dates, [...dates].sort().reverse())
 })
 test('all curated assets refer to known unique recipes, local posters, and canonical HTTPS media', () => {
   assert.equal(new Set(curated.map(entry => entry.slug)).size, curated.length)
-  for (const entry of curated) {
+  for (const recommendation of curated) {
+    const entry = { slug: recommendation.slug, ...recipes.find(recipe => recipe.slug === recommendation.slug).media }
     assert.ok(recipes.some(recipe => recipe.slug === entry.slug))
     assert.ok(readFileSync(new URL(`../public${entry.thumbnail}`, import.meta.url)).length < 150_000)
     for (const url of [entry.demoUrl, entry.videoUrl].filter(Boolean)) {
@@ -107,4 +123,16 @@ test('demo availability is independent of homepage recommendations', () => {
   assert.equal(discoverRecipes([fixture], { ...defaultFilters, previewOnly: true }).length, 1)
   assert.equal(discoverRecipes([{ ...fixture, demoUrl: undefined }], { ...defaultFilters, previewOnly: true }).length, 0)
   assert.ok(recipes.filter(recipe => recipe.demoUrl).length >= 5)
+})
+
+
+test('materials combine without treating them as exclusive content types', () => {
+  const fixtures = [
+    { ...recipes[0], slug: 'all', demoUrl: 'https://example.com', recipeUrl: 'https://example.com/guide', mainRepoUrl: 'https://github.com/example/project', showcase: { videoUrl: 'https://example.com/video.mp4' } },
+    { ...recipes[0], slug: 'demo-only', demoUrl: 'https://example.com', recipeUrl: undefined, mainRepoUrl: undefined, showcase: undefined },
+  ]
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, materials: ['demo'] }).map(r => r.slug).sort(), ['all', 'demo-only'])
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, materials: ['demo', 'recipe'] }).map(r => r.slug), ['all'])
+  const filters = { ...defaultFilters, materials: ['video', 'source'] }
+  assert.deepEqual(readDiscoveryFilters(writeDiscoveryFilters(filters)), filters)
 })

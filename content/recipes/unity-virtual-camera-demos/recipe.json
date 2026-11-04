@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/UnityVirtualCamDemos/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Unity Virtual Camera Demos",
+    "summary": "Use Unity scenes as custom video sources for Agora RTC.",
+    "thumbnail": "/recipes/unity-virtual-camera-demos.png",
+    "thumbnailAlt": "Unity SampleMinScene virtual camera sample screenshot linked from the implementation README",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/UnityVirtualCamDemos",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing sample screenshot; not captured locally. Running the scene requires Unity and Agora configuration.",
+    "labels": [
+      "Unity",
+      "Virtual camera"
+    ],
+    "searchTerms": []
+  }
 }

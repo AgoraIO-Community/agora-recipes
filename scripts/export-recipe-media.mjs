@@ -7,7 +7,6 @@ import { fileURLToPath } from "node:url"
 // Usage: node scripts/export-recipe-media.mjs [destination]
 const root = fileURLToPath(new URL("../", import.meta.url))
 const destination = path.resolve(process.argv[2] ?? path.join(root, "marketing/recipe-media"))
-const entries = new Map(JSON.parse(await fs.readFile(path.join(root, "content/showcase.json"), "utf8")).map(e => [e.slug, e]))
 const records = []
 const captureRecords = []
 for (const filename of await fs.readdir(path.join(root, "public/recipes"))) {
@@ -20,7 +19,7 @@ await fs.mkdir(path.join(destination, "images"), { recursive: true })
 
 for (const slug of (await fs.readdir(path.join(root, "content/recipes"))).filter(s => !s.startsWith(".")).sort()) {
   const recipe = JSON.parse(await fs.readFile(path.join(root, "content/recipes", slug, "recipe.json"), "utf8"))
-  const media = entries.get(slug)
+  const media = recipe.media
   if (!media?.thumbnail) throw new Error(`Missing active thumbnail: ${slug}`)
   let bytes
   let extension

@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-C_Sharp_QuickStart/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "C# RTC Quickstart",
+    "summary": "Join an Agora RTC channel from a C# sample.",
+    "thumbnail": "/recipes/csharp-rtc-quickstart.png",
+    "thumbnailAlt": "C# RTC API example application screenshot from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-C_Sharp_QuickStart/9b3e61e6d800f34de3424dfe57afd77137a8a122/CSharp-API_Example/res/snapshot.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not captured locally. Native execution requires a compatible C# environment.",
+    "labels": [
+      "C#",
+      "Agora RTC"
+    ],
+    "searchTerms": []
+  }
 }

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { readFile } from "node:fs/promises"
+import { access, readFile } from "node:fs/promises"
 import test from "node:test"
 import React from "react"
 import { renderToReadableStream } from "react-dom/server"
@@ -13,16 +13,49 @@ async function componentModule(filename) {
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext },
   }).outputText
   compiled = compiled.replace(/^import "server-only";?$/gm, "")
-  for (const [, name] of [...compiled.matchAll(/from "([^"]+)"/g)]) {
+  for (const [, quote, name] of [...compiled.matchAll(/from (["'])([^"']+)\1/g)]) {
     const local = name.startsWith(".") || name.startsWith("@/")
     const moduleUrl = name.startsWith("@/") ? new URL(`../${name.slice(2)}`, import.meta.url) : new URL(name, fileUrl)
-    const resolved = local ? await componentModule(`${moduleUrl}.tsx`) : import.meta.resolve(name)
-    compiled = compiled.replace(`from "${name}"`, `from "${resolved}"`)
+    let resolved
+    if (local) {
+      let filename = `${moduleUrl}.tsx`
+      try { await access(new URL(filename)) }
+      catch { filename = `${moduleUrl}.ts` }
+      resolved = await componentModule(filename)
+    } else resolved = import.meta.resolve(name === "next/navigation" ? "next/navigation.js" : name)
+    compiled = compiled.replace(`from ${quote}${name}${quote}`, `from "${resolved}"`)
   }
   return `data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`
 }
 const { Markdown } = await import(await componentModule("../components/markdown.tsx"))
+const { RecipeDocument } = await import(await componentModule("../components/recipe-document.tsx"))
 const render = async (source, props = {}) => new Response(await renderToReadableStream(React.createElement(Markdown, { source, ...props }))).text()
+
+test("an unavailable guide keeps language recovery and source actions without empty document controls", async () => {
+  const html = await new Response(await renderToReadableStream(React.createElement(RecipeDocument, {
+    markdown: "",
+    rawUrl: "https://raw.githubusercontent.com/example/project/main/README.ja.md",
+    sourceUrl: "https://github.com/example/project/blob/main/README.ja.md",
+    languageControl: React.createElement("button", { "aria-label": "Guide language" }, "日本語"),
+  }, React.createElement("p", null, "The guide couldn’t be loaded")))).text()
+  assert.match(html, /aria-label="Guide language"/)
+  assert.match(html, /日本語/)
+  assert.match(html, /data-slot="dropdown-menu-trigger"/)
+  assert.match(html, />Markdown source</)
+  assert.match(html, /The guide couldn’t be loaded/)
+  assert.doesNotMatch(html, /role="tablist"|Copy markdown|data-slot="tabs-content"/)
+})
+
+test("an available guide retains its view switcher and copy action", async () => {
+  const html = await new Response(await renderToReadableStream(React.createElement(RecipeDocument, {
+    markdown: "# Guide",
+  }, React.createElement("h2", null, "Guide content")))).text()
+  assert.match(html, /role="tablist"/)
+  assert.match(html, /Copy markdown/)
+  assert.match(html, /Guide content/)
+  const panels = html.match(/<div[^>]*role="tabpanel"[^>]*>/g)
+  assert.ok(panels.some(panel => panel.includes('hidden=""')))
+})
 
 test("renders README HTML wrappers, line breaks, and expandable details", async () => {
   const html = await render('<div align="center">\n\n# Hello\n\n</div>\n\nOne<br/>Two\n\n<details><summary>More</summary>Details</details>')
@@ -80,4 +113,10 @@ test("routes Mermaid fences to a diagram while leaving regular code alone", asyn
   assert.match(html, /Diagram source/)
   assert.match(html.replace(/<\/?span\b[^>]*>/g, ""), /const value = 1/)
   assert.match(html, /aria-label="Copy js"/)
+})
+
+test('Chinese and Japanese guide headings retain usable anchors for the selected document outline', async () => {
+  const html = await render('## 使用方法\n\n## はじめに', { headingOffset: 1 })
+  assert.match(html, /id="使用方法"/)
+  assert.match(html, /id="はじめに"/)
 })

@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/anandwana001/bhaasha-agora/blob/main/docs/ai/RECIPE.md",
   "author": "anandwana001",
   "updated": "2026-06-22",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Bhaasha",
+    "summary": "Build a multilingual India atlas voice guide with Agora Conversational AI.",
+    "thumbnail": "/recipes/bhaasha-agora.png",
+    "thumbnailAlt": "Bhaasha live-conversation screenshot provided by the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/anandwana001/bhaasha-agora/ecd923c58f1b083cdefb03041030a21b01691b2c/art/live-conversation.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not a locally verified live session.",
+    "labels": [
+      "Voice AI",
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

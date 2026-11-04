@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/jatinvats123/pillion/blob/main/docs/ai/RECIPE.md",
   "author": "jatinvats123",
   "updated": "2026-10-08",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Pillion: Voice Co-Pilot for Riders",
+    "summary": "A hands-free Hindi and English voice co-pilot that acts on the phone and keeps riders safe.",
+    "thumbnail": "/recipes/pillion.png",
+    "thumbnailAlt": "Pillion Android ride screen in dark appearance from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/jatinvats123/pillion/2bdac8619dff37a2d5ba93f2377e91b57c6058d3/docs/screenshots/ride-dark.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing Android screenshot; not captured locally. Live rider features require device and backend configuration.",
+    "labels": [
+      "Android",
+      "Voice AI"
+    ],
+    "searchTerms": []
+  }
 }

@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Vision (Camera Input)",
+    "summary": "Let the agent see the user's camera.",
+    "thumbnail": "/recipes/vision-catalog-call.webp",
+    "thumbnailAlt": "Vision Recipe real call interface with an agent greeting and a clearly synthetic camera test pattern beside the visualizer",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-vision",
+    "thumbnailFit": "contain",
+    "demoNote": "Original backend and real RTC call with an agent greeting. Camera is Chromium's synthetic test pattern, not personal video; image understanding was not exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

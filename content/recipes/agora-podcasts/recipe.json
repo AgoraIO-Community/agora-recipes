@@ -11,5 +11,27 @@
   "demoUrl": "https://agora-podcasts.vercel.app/",
   "author": "zicojiao",
   "updated": "2026-09-24",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Agora Podcasts",
+    "summary": "Turn a topic into a two-host AI podcast listeners can talk to.",
+    "thumbnail": "/recipes/agora-podcasts.webp",
+    "thumbnailAlt": "Agora Podcasts English interface with two illustrated AI hosts and podcast creation controls",
+    "thumbnailSource": "https://agora-podcasts.vercel.app/",
+    "videoUrl": "https://github.com/user-attachments/assets/b624ff06-62d6-41d7-a74e-24cfc73d7ce8",
+    "videoDuration": "2:27",
+    "demoNote": "English interface",
+    "labels": [
+      "Voice AI",
+      "TypeScript"
+    ],
+    "searchTerms": [
+      "播客",
+      "双人",
+      "podcast",
+      "education"
+    ],
+    "compactTitle": "Agora Podcasts",
+    "compactSummary": "A podcast you can talk to."
+  }
 }

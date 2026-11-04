@@ -10,5 +10,18 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/HelloAgoraVision/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Hello Agora Vision",
+    "summary": "A visionOS sample that uses Agora RTC for real-time communication inside an immersive Apple platform app.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/HelloAgoraVision/tree/ebab69574cf4b341c494ce040a7318244c6ef77a",
+    "labels": [
+      "visionOS",
+      "Swift"
+    ],
+    "thumbnail": "/recipes/hello-agora-vision-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of Hello Agora Vision; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+  }
 }

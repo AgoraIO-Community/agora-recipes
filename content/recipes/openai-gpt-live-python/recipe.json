@@ -21,5 +21,18 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "OpenAI GPT Live with Python",
+    "summary": "Build a realtime GPT Live voice agent with Agora and Python.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Python/tree/a2fb17653f986f82d3842c90c3d12e466f8a1ca9",
+    "thumbnailFit": "contain",
+    "demoNote": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+    "labels": [
+      "Python"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/openai-gpt-live-python-initial-2026-11-04.webp",
+    "thumbnailAlt": "OpenAI GPT Live with Python: original local initial interface, not a connected session"
   }
 }

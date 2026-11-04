@@ -45,7 +45,10 @@ images. To update an illustration, capture the corresponding HTML at 1600 × 900
 with `agent-browser`, review it, update its catalog WebP and provenance sidecar,
 then run the export command. Keep the PNG in `originals/`.
 
-The exporter copies **active** images from `content/showcase.json`; it does not
+This package is the original 107-recipe snapshot. Following the staging merge,
+the exporter reads **active** images from each recipe's `media` metadata (the
+featured order remains in `content/showcase.json`). It reports any newer recipe
+without an image instead of silently skipping it. It does not
 copy every historical file from `public/recipes/`. It can also export to another
 folder: `node scripts/export-recipe-media.mjs /path/to/handoff` (copy the HTML,
 originals, this README and capture audit too if a full source handoff is needed).

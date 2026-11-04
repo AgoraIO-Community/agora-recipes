@@ -1,0 +1,8 @@
+{
+  "title": "TODO: Topic title",
+  "summary": "TODO: Explain what connects these entries.",
+  "kind": "collection",
+  "members": [{ "slug": "TODO-existing-entry-slug" }],
+  "actions": [],
+  "sections": []
+}

@@ -1,0 +1,16 @@
+{
+  "title": "TODO: Project title",
+  "tagline": "TODO: Short one-line introduction.",
+  "description": "TODO: Explain the project and who it helps.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "Web"
+  ],
+  "useCases": [],
+  "capabilities": [],
+  "demoUrl": "https://example.com/demo",
+  "author": "TODO: Public author or team",
+  "updated": "2026-10-28"
+}

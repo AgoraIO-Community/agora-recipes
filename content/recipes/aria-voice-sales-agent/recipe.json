@@ -11,5 +11,28 @@
   "demoUrl": "https://aria.aroice.in/",
   "author": "Aryan-Techie",
   "updated": "2026-09-10",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Aria Sales Agent",
+    "summary": "A voice sales agent that answers questions and updates your CRM during the call.",
+    "thumbnail": "/recipes/aria-voice-sales-agent.webp",
+    "thumbnailAlt": "Aria live call interface with conversation transcript and call controls",
+    "thumbnailSource": "https://raw.githubusercontent.com/Aryan-Techie/aria/main/assets/screenshot-live-call.png",
+    "demoNote": "Microphone needed",
+    "labels": [
+      "Tool calling",
+      "Python"
+    ],
+    "searchTerms": [
+      "销售",
+      "客服",
+      "CRM",
+      "sales",
+      "tool calling"
+    ],
+    "compactTitle": "Aria Sales Agent",
+    "compactSummary": "Calls that update your CRM.",
+    "thumbnailScale": 1.173,
+    "thumbnailOrigin": "50% 85%"
+  }
 }

@@ -1,0 +1,45 @@
+{
+  "title": "Agora Voice AI Hackathon 2026 · AI Mobile Coders",
+  "summary": "Revisit the completed online challenge and a catalog project whose author credits this edition.",
+  "kind": "activity",
+  "starts": "2026-08-01",
+  "ends": "2026-10-03",
+  "status": "completed",
+  "sourceUrl": "https://aimobilecoders.com/hackathons/voice-ai-hackathon",
+  "members": [
+    {
+      "slug": "pillion",
+      "award": {
+        "label": "1st place · author-reported",
+        "sourceUrl": "https://github.com/jatinvats123/pillion/blob/main/docs/ai/RECIPE.md"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "label": "Event details & rules",
+      "url": "https://aimobilecoders.com/hackathons/voice-ai-hackathon",
+      "type": "source"
+    },
+    {
+      "label": "Organizer community",
+      "url": "https://aimobilecoders.com",
+      "type": "questions"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Activity archive",
+      "body": "The organizer lists this online challenge as closed, with judging and the winners announcement scheduled for 3 October 2026. Original rules and announcements remain on the organizer site.",
+      "language": "en",
+      "sourceUrl": "https://aimobilecoders.com/hackathons/voice-ai-hackathon"
+    }
+  ],
+  "compactTitle": "Voice AI Hackathon 2026",
+  "compactSummary": "Projects from the 2026 Voice AI challenge.",
+  "cover": {
+    "src": "/topics/voice-ai-hackathon-2026.jpg",
+    "alt": "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.",
+    "sourceUrl": "https://aimobilecoders.com/hackathons/voice-ai-hackathon"
+  }
+}

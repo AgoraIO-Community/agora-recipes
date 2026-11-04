@@ -19,5 +19,18 @@
       "appIdKey": "AGORA_APP_ID",
       "appCertificateKey": "AGORA_APP_CERTIFICATE"
     }
+  },
+  "media": {
+    "title": "Android AutoPilot Voice Action Agent",
+    "summary": "An autonomous Android voice assistant that uses Agora Conversational AI for real-time speech interaction and Gemini Vision via Android Accessibility API to tap, swipe, type, and navigate apps hands-free.",
+    "thumbnailSource": "https://github.com/Shariq1912/AgoraActionAgent/tree/dfe98d8d10480ab859a86ffa8212460af3e72bc2",
+    "labels": [
+      "Android",
+      "Python"
+    ],
+    "thumbnail": "/recipes/android-autopilot-voice-agent-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of Android AutoPilot Voice Action Agent; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
   }
 }

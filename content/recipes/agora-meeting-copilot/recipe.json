@@ -18,5 +18,30 @@
   "demoUrl": "https://agora-meeting-copilot.vercel.app/",
   "author": "zicojiao",
   "updated": "2026-09-12",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Meeting Copilot",
+    "summary": "Bring an AI teammate into a video meeting to listen, respond, and manage tasks.",
+    "thumbnail": "/recipes/agora-meeting-copilot.webp",
+    "thumbnailAlt": "Existing Meeting Copilot video showing a live meeting alongside a shared task board",
+    "thumbnailSource": "https://github.com/user-attachments/assets/0376ad2c-0a1f-4d9b-b9fa-b452b982e4e2",
+    "videoUrl": "https://github.com/user-attachments/assets/0376ad2c-0a1f-4d9b-b9fa-b452b982e4e2",
+    "videoDuration": "1:10",
+    "demoNote": "AI demo requires your OpenAI API key",
+    "labels": [
+      "Tool calling",
+      "TypeScript"
+    ],
+    "searchTerms": [
+      "会议",
+      "转写",
+      "copilot",
+      "transcription",
+      "kanban"
+    ],
+    "compactTitle": "Meeting Copilot",
+    "compactSummary": "Turn meeting talk into tasks.",
+    "thumbnailScale": 1.22,
+    "thumbnailOrigin": "50% 74%"
+  }
 }

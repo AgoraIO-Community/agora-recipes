@@ -1,5 +1,21 @@
 # Recipe image inventory
 
+## Staging merge compatibility
+
+The `recipeImages` PR preserves staging's current content model: image records
+now live in each `content/recipes/<slug>/recipe.json` under `media`.
+`content/showcase.json` contains staging's featured slug order only. The 98 image
+records missing from staging were migrated without replacing existing media,
+recipe text, videos, featured order or newer cover selections. Referenced original
+images and their provenance removed by staging's earlier image revert were
+restored where needed; rejected error captures were not reactivated.
+
+The counts, fixed-dark design and offline export below describe the original
+107-recipe capture snapshot, not today's expanded staging catalog or its updated
+theme/controls. Newer staging recipes and UI changes are preserved. The existing
+marketing package remains that dated snapshot; its exporter now reads recipe
+`media` and reports recipes without thumbnails rather than inventing new assets.
+
 Updated: 2026-11-04. This inventory covers the **107 local catalog entries**,
 not a separately verified production deployment.
 
