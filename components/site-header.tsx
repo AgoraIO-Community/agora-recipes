@@ -15,7 +15,7 @@ import { useCatalogSearch } from "@/hooks/use-catalog-location"
 
 const repositoryUrl = "https://github.com/AgoraIO-Community/agora-recipes"
 const signupUrl = "https://sso2.agora.io/en/signup"
-const links = [["Docs", "https://docs.agora.io"], ["GitHub", repositoryUrl]] as const
+const links = [["Docs", "https://docs.agora.io/en"], ["GitHub", repositoryUrl], ["Discord", "https://discord.gg/uhkxjDpJsN"]] as const
 
 export function SiteHeader({ topics }: { topics: Record<string, string> }) {
   const { t, locale } = useI18n()
