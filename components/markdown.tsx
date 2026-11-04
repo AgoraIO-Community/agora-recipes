@@ -7,6 +7,7 @@ import rehypeRaw from "rehype-raw"
 import rehypeSanitize from "rehype-sanitize"
 import { MermaidDiagram } from "./mermaid-diagram"
 import { HighlightedCode } from "./highlighted-code"
+import { ChevronDown } from "lucide-react"
 
 // Parse embedded README HTML, then sanitize it before creating React elements.
 export function Markdown({
@@ -64,7 +65,6 @@ export function Markdown({
 
   return (
     <div className="prose-recipe">
-      {fields.length > 0 ? <FrontmatterTable fields={fields} messages={messages} /> : null}
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSanitize]}
@@ -85,6 +85,7 @@ export function Markdown({
       >
         {body}
       </ReactMarkdown>
+      {fields.length > 0 ? <details className="recipe-frontmatter-disclosure ag-disclosure"><summary>{t("Recipe metadata")}<ChevronDown size={15} aria-hidden="true" /></summary><FrontmatterTable fields={fields} messages={messages} /></details> : null}
     </div>
   )
 }

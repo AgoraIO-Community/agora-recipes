@@ -61,7 +61,7 @@ Use the two materials by role:
 | Role | Material | Treatment |
 | --- | --- | --- |
 | Buttons, inputs, search, filter items, toggles, copy | Solid controls | Solid fills, clear edges, independent text |
-| Guide / Markdown tabs | Underline tabs | Cyan current indicator, no surrounding tray |
+| Guide / Markdown and source actions | Connected solid controls | Neutral selected view; explicit Copy Markdown split action |
 | Cards, reading, code, filter form body | Solid | Opaque, stable reading contrast |
 | Sticky header and topic toolbar | Solid | Theme canvas with a structural seam |
 | Video play control, demo action over media | Liquid Glass | Full refraction over the actual image |
@@ -229,8 +229,10 @@ Recipe cards still contain no Topic names or membership badges.
 
 Lead with the outcome, technology, author, and Copy recipe prompt action. Demo
 and source actions follow in priority. Use actual preview media and truthful
-setup requirements. Full prompts and CLI commands remain available in native
-disclosures rather than repeating the primary action in a separate pitch.
+setup requirements. The prompt copy action and its setup chevron form one primary split button.
+The chevron opens a bounded Popover containing the prompt and, when supported,
+an Agora CLI tab. Keep the complete GlassSurface with opaque code planes; do
+not add a separate setup link or accordion row below the buttons.
 
 Inside the shared page shell, the desktop guide uses a 216px left contents rail
 and 48px gap. Reduce these at
@@ -238,7 +240,19 @@ intermediate widths; on phones the rail follows the content and a local contents
 disclosure sits near the guide. The current section uses `aria-current` and the
 shared moving selection underlay. Anchors must clear the sticky header.
 
-Guide / Markdown, Raw, and Copy share one toolbar. Preserve the fetched source
+The recipe overview uses the full shared shell width and starts at the page gutter.
+On wide guide-only pages, place metadata at the left and primary actions at the
+right of the overview’s final row. Keep media previews in the existing right column.
+
+The document is an opaque reading panel. Its header separates view choice from
+document actions: Guide / Markdown form a solid segmented tab group at the left;
+Copy Markdown and its source chevron form one split action at the right. The
+source menu contains View on GitHub and Open raw Markdown, with no generic More
+menu or standalone Raw control. Keep author-language selection with the document
+actions and put fallback details in its tooltip. Preserve Radix tab semantics and
+keyboard navigation. Use the full available main column while constraining prose
+to 68ch inside the panel. Place
+optional machine metadata after the authored guide, not before its introduction. Preserve the fetched source
 document and assets. Center source introduction wrappers within the reading
 column. Exposed edge links remove extra inline padding so Back to recipes,
 section navigation, and right-hand document actions follow the content edges.

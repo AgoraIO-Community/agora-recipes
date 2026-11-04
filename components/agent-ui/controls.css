@@ -42,6 +42,8 @@
   .ag-button svg:not(.ag-filter-defs), .ag-toggle svg { width: 16px; height: 16px; stroke-width: 1.6; flex: none; }
   .ag-icon-button { width: var(--control-size,var(--control-md)); padding: 0; }
   .ag-button-primary { color: var(--basic-action-ink); background: var(--basic-action); }
+  .ag-button-group-separator { background: var(--border); }
+  .ag-button-group[data-appearance=primary] > .ag-button-group-separator { background: color-mix(in srgb,var(--basic-action) 75%,var(--basic-action-ink)); }
   .ag-button-outline, .ag-button-secondary { color: var(--foreground); background: var(--basic-fill); border-color: var(--border); }
   .ag-button-ghost, .ag-button-link { color: var(--muted-foreground); background: transparent; }
   .ag-button-link { padding-inline: 0; }
@@ -99,6 +101,13 @@
   .ag-tab::after { content: ""; position: absolute; inset: auto 0 -1px; height: 2px; background: var(--signal-text); transform: scaleX(0); transform-origin: left; transition: transform var(--motion-surface) var(--ease-out); }
   .ag-tab[data-state=active] { color: var(--foreground); }
   .ag-tab[data-state=active]::after { transform: scaleX(1); }
+  .ag-tabs-list.ag-tabs-segmented { gap: 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--basic-fill); }
+  :where(.ag-tabs-segmented) > .ag-tab { min-height: calc(var(--control-sm) - 2px); padding: 0 12px; }
+  .ag-tabs-segmented > .ag-tab + .ag-tab { border-left: 1px solid var(--border); }
+  .ag-tabs-segmented > .ag-tab:first-child { border-radius: calc(var(--radius) - 1px) 0 0 calc(var(--radius) - 1px); }
+  .ag-tabs-segmented > .ag-tab:last-child { border-radius: 0 calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0; }
+  .ag-tabs-segmented > .ag-tab[data-state=active] { background: var(--muted); color: var(--foreground); }
+  .ag-tabs-segmented > .ag-tab::after { display: none; }
   [data-slot=tabs-content] { display: flow-root; min-block-size: 6rem; }
   [data-slot=tabs-content][hidden] { display: none; }
   [data-slot=tabs-content][data-state=active] { animation: ag-content-reveal var(--motion-control) var(--ease-out); }
