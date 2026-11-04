@@ -228,7 +228,7 @@ static asset is unavailable. Only settled, bounded search-action counts enter an
 
 Content and Topic pages share canonical URLs for the selected site locale, without list-return queries. Real cover images are preferred; `/social-card.png` is a local, statically generated fallback. Native, X, and LinkedIn handoffs open a sharing action; they do not prove a post was published. Copy-link events occur only after clipboard success.
 
-PostHog project `recipes.agora.io` (`693535`) measures content use and Topic engagement; the existing Vercel analytics remain. Both destinations require `NODE_ENV=production`, `VERCEL=1`, and `VERCEL_ENV=production`. The seven event families and allowed dimensions are defined in `lib/analytics-events.ts`. Search events are debounced; raw queries, account identity, copied text, and submissions are excluded. Hover previews do not emit plays, and GitHub handoffs are contribution-open events rather than submission success. The lazy PostHog client captures explicit page views and the same seven action families, with no autocapture, session replay, person profiles, or site backend. Production builds require its two public environment variables. See [the measurement contract and release checks](docs/analytics.md). Actual production ingestion remains a release verification step.
+The site records bounded usage events in production. Raw search queries, account identity, copied text, and submission contents are excluded. Reuse the existing event families when adding interactions: hover previews do not count as plays, copying counts only after success, and opening GitHub does not prove a submission. See [analytics behavior and verification](docs/analytics.md) for code-level guidance.
 
 ## Build and Verify
 

@@ -158,7 +158,7 @@ The complete phase-one code is included in the same PR and tracking issue:
 - The build confirms reciprocal author language navigation and the same guide/repository/ref. Seven current projects expose confirmed English and Simplified Chinese documents. Optional maintainer mappings resolve ambiguity. Source aliases map to canonical script/language IDs without changing filenames or original URLs. Automatic selection uses a confirmed match, English, then the original; a manual choice takes priority. Missing manual versions show a dedicated message with no substituted reader.
 - All source documents are fetched at build time. Known version routes and explicit unavailable states for supported languages are static. Selected Raw links, Markdown copying, prompts, outlines, assets, and document alternates use the selected source; the existing Recipe API and original Markdown routes remain unchanged.
 - Share actions use clean localized canonical content URLs, real cover images or the locally generated `/social-card.png`, and native/X/LinkedIn handoffs. Clipboard events require success; platform handoffs do not claim publication.
-- The seven event families use the existing Vercel SDK and the explicitly requested PostHog project (693535). Bounded public dimensions exclude search text, accounts, submissions, copied text, and destination URLs. Search is debounced, hover previews do not count as plays, and actual video plays are counted once per player opening. URL queries/hashes are removed from both page views and custom events before sending.
+- The seven event families use the existing Vercel and PostHog SDKs. Bounded public dimensions exclude search text, accounts, submissions, copied text, and destination URLs. Search is debounced, hover previews do not count as plays, and actual video plays are counted once per player opening. URL queries/hashes are removed from both page views and custom events before sending.
 
 See CONTRIBUTING.md for Topic metadata, optional source-language mappings, contribution review, and verification commands. The requested PostHog browser SDK is the only new analytics dependency. No site account or business backend was added. See [the current measurement contract](analytics.md).
 
@@ -255,29 +255,12 @@ No real test submission, external post, new backend, provider, dependency,
 permission change, or production deployment was made. The live form/reviewer and
 production Analytics release gates below remain open.
 
-## Earlier Vercel Analytics Audit — 2026-10-28
+## Analytics verification
 
-The authenticated Vercel project lookup confirmed:
-
-- Team: `agora-gdxe` (Enterprise).
-- Project: `v0-voice-ai-recipes`, linked to `AgoraIO-Community/agora-recipes`; production branch `main`.
-- Existing production deployment is ready. Its stable alias is `v0-voice-ai-recipes.vercel.app`.
-- Project metadata contains a Web Analytics ID. This alone does not prove collection.
-- The account's `vercel.analytics` metrics schema exposes both `page_view.count` and `event.count`.
-
-Read-only queries against the existing project:
-
-```bash
-vercel metrics schema vercel.analytics --scope agora-gdxe
-vercel metrics vercel.analytics.page_view.count --since 7d --granularity 1d --project v0-voice-ai-recipes --prod --scope agora-gdxe
-vercel metrics vercel.analytics.page_view.count --since 30d --group-by environment --group-by requestHostname --project v0-voice-ai-recipes --scope agora-gdxe
-```
-
-Both page-view queries returned **No data found for this period**. The 30-day query covered 2026-09-28 through the audit time on 2026-10-28 (UTC), across environments. The final 7-day recheck (2026-10-21 04:00 through 2026-10-28 08:00 UTC) also returned no data. Collection is therefore **not verified healthy**. Keep T5 open until the production release has confirmed page views in the existing dashboard or metrics API. Do not describe the installed SDK or Analytics ID as proof of traffic.
-
-The existing Enterprise plan supports custom events according to [Vercel's documentation](https://vercel.com/docs/analytics/custom-events), and the account exposes their metric. The seven event families are implemented and their guards, payloads, and redaction passed local tests. No synthetic production event was sent. Actual event ingestion remains unverified and keeps T9 release acceptance open.
-
-The implementation retains the original `NODE_ENV === "production" && VERCEL === "1"` checks and additionally requires `VERCEL_ENV === "production"` for both page views and custom events. Local development, local production builds, and Vercel preview deployments do not inject Analytics. That earlier audit changed no hosting settings. The later, explicitly requested PostHog integration below adds only its public production environment values.
+The analytics SDKs and local checks do not establish that production collection
+is healthy. Verify actual page views and deliberate actions after release, and
+confirm that local and preview environments send no events. See the
+[measurement contract and release checks](analytics.md).
 
 ## Contribution SOP and PostHog — 2026-10-28
 
@@ -293,11 +276,9 @@ The implementation retains the original `NODE_ENV === "production" && VERCEL ===
 - PostHog SDK 1.439.0 is lazy loaded only in real production. The verified public
   project token/ingestion host are configured in the existing Vercel project's
   Production environment. No production deployment or permission change was made.
-- The seven native insights in [Recipes usage and Topic engagement](https://us.posthog.com/project/693535/dashboard/2270627)
-  cover entry views/use, use types, Topic audience/engagement, contribution handoffs,
-  and activity destinations. All returned **no data** at setup; no synthetic event
-  was sent to production. Full metric definitions and remaining release checks
-  are in [analytics.md](analytics.md).
+- Analytics cover entry views/use, use types, Topic audience/engagement,
+  contribution handoffs, and activity destinations. Full metric definitions and
+  release checks are in [analytics.md](analytics.md).
 - New tests cover ended-activity classification, independent selected/source Topic
   attribution, real use versus preparation, and the SDK payload boundary. A temporary
   browser harness bundled the actual SDK with a fake token and local-only collector:

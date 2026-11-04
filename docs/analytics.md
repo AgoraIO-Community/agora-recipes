@@ -1,19 +1,11 @@
 # Recipes analytics
 
-## Project and configuration
+## Deployment configuration
 
-PostHog destination: [project **401062**](https://us.posthog.com/project/401062/home),
-US Cloud. Production entry points (`website`, `sso`, `console`, `recipes`, and
-`cli`) share this project and use the `app` property to distinguish their events.
-Filter Recipes data by `app=recipes` and
-`environment=production`. Other applications in the project retain their own
-collection settings.
-
-The former **recipes.agora.io** project, **693535**, and its
-[Recipes usage and Topic engagement dashboard](https://us.posthog.com/project/693535/dashboard/2270627)
-retain historical data. This integration sends to one configured project; it does
-not duplicate new events into the former project or move its historical events.
-The existing Vercel analytics retain the same seven action families.
+Analytics destinations are configured through hosting environment variables.
+The application sends to one configured PostHog destination, alongside the
+existing Vercel analytics. Filter Recipes events by `app=recipes` and
+`environment=production`.
 
 Set these **public browser SDK values** in the existing hosting project's Production
 environment and in ignored `.env.local` when needed. Remove these variables from
@@ -21,11 +13,10 @@ Preview and Development scopes. Never use a personal API key:
 
 ```text
 NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN=<public project token from PostHog project settings>
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+NEXT_PUBLIC_POSTHOG_HOST=<ingestion host from PostHog project settings>
 ```
 
-The verified values are configured in Vercel project `agora-gdxe/v0-voice-ai-recipes`,
-Production only. A build embeds these values, so changes require the normal release.
+A build embeds these values, so changes require the normal release.
 The client runs only when `NODE_ENV=production`, `VERCEL=1`, and
 `VERCEL_ENV=production`, and the browser is on the canonical HTTPS origin from
 `SITE_URL` (default `https://recipes.agora.io`). A production deployment's generated
@@ -66,17 +57,8 @@ the SDK's `before_send` boundary. Caller values and persisted super-properties
 cannot overwrite them. These are event properties, not person properties: a
 person may use multiple applications.
 
-Authenticated entry points must identify with the same canonical SSO UID in this
-shared project, without an app-specific prefix or separate per-app ID. On logout,
-those authenticated applications reset their identity. Recipes currently has no
-login/session integration: its header links to external SSO signup, so this change
-does not add an `identify` call or claim cross-app logged-in attribution. A future
-Recipes authentication integration must obtain the UID from a trusted session,
-enable identified profiles, and allow the SDK's identity-link event through the
-sanitizer before invoking `identify(uid)`. It must retain the forced `app=recipes`
-event property and leave logged-out visitors anonymous.
-
-Recipes unique counts currently use a persistent anonymous browser identity, without a person
+Recipes has no login/session integration and does not call `identify`.
+Unique counts use a persistent anonymous browser identity, without a person
 profile. One person using different browsers/devices or clearing storage can be
 counted again. Use the unique aggregation across the union of use/engagement
 events; do not add per-event unique counts, which would count the same visitor
@@ -118,13 +100,13 @@ counts; installed code and environment configuration are not evidence of ingesti
 
 ## Release verification
 
-1. Configure the public token for project 401062 and the US ingestion host in
+1. Configure the destination's public SDK token and ingestion host in
    the hosting project's Production scope only. Review and release through the
    existing staging/production process; environment edits alone do not update an
    already-built deployment. Do not change account permissions or billing.
 2. Visit real production pages, including a Topic, its entry, and contribution.
    Make deliberate use actions. Verify `$pageview` and the seven relevant action
-   families in project 401062; filter by `app=recipes` and
+   families in the configured destination; filter by `app=recipes` and
    `environment=production`, and inspect bounded context and clean URLs.
 3. Confirm a single pathname navigation produces one view and changing filters
    does not. Successful copying counts once; failed copying and hover previews
@@ -140,13 +122,9 @@ counts; installed code and environment configuration are not evidence of ingesti
    links using the contribution SOP. No webhook, reporting database, or synthetic
    submission is needed for this phase.
 
-At the former project's setup on 2026-10-28, PostHog reported no ingested events. All seven saved insights
-returned no data with no query warnings. The dashboard is ready for the release;
-this is not a claim that production collection is already healthy. On 2026-11-04,
-the former project's host schema included `127.0.0.1:4183`, and Vercel variables
-were scoped to both Production and Preview. The migration adds the independent
-browser-origin boundary and removes Preview access to SDK configuration. This
-does not delete historical test traffic or change older, already-built deployments.
+Local checks and installed SDKs do not establish production ingestion. Verify
+collection after release. Configuration changes do not update older, already-built
+deployments or remove historical events.
 
 References: [PostHog Next.js](https://posthog.com/docs/libraries/next-js),
 [SDK configuration](https://posthog.com/docs/libraries/js/config), and
