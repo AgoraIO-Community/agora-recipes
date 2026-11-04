@@ -177,9 +177,12 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 ## Catalog and discovery
 
 Lead with a short centered introduction and a search field up to 610px wide.
-Command/Control K focuses search. One topic/action toolbar follows; platforms,
-use cases, and capabilities belong in the refinement sheet. Sorting moves into
-the sheet at 900px. Show active conditions above the result count.
+Command/Control K focuses search. One category/topic/action toolbar follows, with
+All / Voice AI / RTC always visible; platforms, use cases, and capabilities
+belong in the refinement sheet. Sorting, the explicit card/list view selection,
+and topic shortcuts move into the sheet at 900px. Show active conditions above
+the result count. Topic shortcuts and recommendations are editorial selections,
+not automatically ranked categories. Keep the curated order until reviewed.
 
 The toolbar sticks below the measured header on desktop and scrolls normally on
 phones. Overflowing topics scroll horizontally. Single selection uses the shared
@@ -210,8 +213,14 @@ and its labelled hover state both remain centred within the preview. Touch
 controls remain visible. Do not invent
 favorites, ratings, demo links, or availability claims.
 
-Search and explicit sorts show aligned text rows on desktop and two-column text
-cards on phones. Keep actual demo actions available. Guide-only entries do not
+Search, filters, and explicit sorts retain the selected layout. Cards are the
+default; only the explicit view control switches to aligned text rows on desktop
+and two-column text cards on phones. Store this choice as `view=list` in shared
+URLs and preserve it when clearing filters. Keep actual demo actions available.
+Most popular sorts by the committed GitHub-star snapshot and shows its date;
+unknown counts follow zero-star repositories. Refresh with `npm run stars:refresh`
+using the maintainer’s GitHub CLI login; neither builds nor visitors require a
+GitHub credential. Guide-only entries do not
 reserve empty thumbnail space. Search covers the entire catalog, including
 entries not yet visible. Render the first 12 entries and automatically reveal
 batches of 12 as the visitor approaches the end. Announce loading/end status
@@ -398,6 +407,6 @@ commit results and URL state after 250 ms, flush on Enter, and clear immediately
 Do not commit during IME composition or restore old scroll snapshots while typing.
 Show pending and failed guide-index states honestly; keep metadata search usable
 with a retry action. Guide-only matches can use two lines of attributed source
-excerpt within the existing result row. A sole compact phone result spans the
+excerpt within the selected card or result row. A sole compact phone result spans the
 available row and allows four excerpt lines; multiple results keep two columns. Topic search terms do not add membership
 badges or links to content cards.

@@ -177,6 +177,11 @@
 .catalog-topics-scroll { min-width: 0; overflow-x: auto; scrollbar-width: none; padding: 4px; margin-left: -4px; }
 .catalog-topics { min-width: max-content; }
 .catalog-toolbar-actions { display: flex; align-items: center; gap: 12px; flex: none; margin-left: auto; }
+.catalog-categories { flex: none; }
+.catalog-view .ag-toggle { width: 36px; padding-inline: 0; }
+.catalog-view svg { width: 16px; height: 16px; }
+.catalog-sheet-view, .catalog-sheet-topics { display: none; }
+.catalog-sort-note { margin: -4px 0 16px; color: var(--muted-foreground); font-size: 12px; line-height: 1.5; }
 .catalog-filter-trigger { gap: 8px; }
 .catalog-selected { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-block: 12px 0; }
 .catalog-results-meta { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 5px 16px; }
@@ -411,6 +416,11 @@ a.recipe-author:hover { color: var(--foreground); }
   .footer-top { grid-column: 2; }
   .footer-legal { grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: repeat(var(--page-columns),minmax(0,1fr)); column-gap: var(--page-column-gap); padding-right: 0; }
   .catalog-toolbar-sort { display: none; }
+  .catalog-toolbar-view, .catalog-topics-scroll { display: none; }
+  .catalog-sheet-view { display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 14px; }
+  .catalog-sheet-view .catalog-view .ag-toggle { width: 46px; min-width: 46px; }
+  .catalog-sheet-topics { display: block; min-inline-size: 0; }
+  .catalog-sheet-topics [data-slot=toggle-group] { width: 100%; min-width: 0; flex-wrap: wrap; }
   .catalog-sheet-sort { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; font-size: 14px; }
   .catalog-sheet-sort .ag-select { width: 190px; }
   .detail-overview--media { grid-template-columns: minmax(0,1fr) 260px; gap: 24px; }

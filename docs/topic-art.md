@@ -19,6 +19,33 @@ Generated source PNGs remain in the local image-generation archive. The applicat
 - `agora-drawguess`, `agora-arena`, and `agora-rotary-dial-phone`: owner-confirmed conference demos on 2026-10-29. Existing projects and author credit remain unchanged.
 - `m5-sticks3-voice-agent`: the [author README](https://github.com/Ocean-lhy/RTE2026-StickS3-Demo/blob/main/README.md) explicitly identifies the project as part of RTE2026 Workshop; original catalog contribution is #75.
 
+## Agora Builder Series membership
+
+The initial collection follows Akshay Nandwana’s original catalog contributions,
+without inferring participation from technology tags or other hackathons:
+
+- `pause-with-agora`: [PR #9](https://github.com/AgoraIO-Community/agora-recipes/pull/9).
+- `agora-breath-companion`: [PR #10](https://github.com/AgoraIO-Community/agora-recipes/pull/10).
+- `bhaasha-agora`: [PR #11](https://github.com/AgoraIO-Community/agora-recipes/pull/11).
+- `daily-mandir-ai`: [PR #15](https://github.com/AgoraIO-Community/agora-recipes/pull/15).
+- `watchwise-ai`: [PR #16](https://github.com/AgoraIO-Community/agora-recipes/pull/16).
+- `agora-gemma-voice-coach`: [PR #17](https://github.com/AgoraIO-Community/agora-recipes/pull/17).
+
+These public PRs verify authorship, implementation links, and the initial
+contribution history. They do not establish event dates, awards, or an exhaustive
+series roster; the collection makes none of those claims. The collection uses
+the existing branded fallback cover until series-specific artwork is supplied.
+
+## M5 English cover
+
+`public/recipes/m5-sticks3-voice-agent-en.jpg` is an English adaptation of the
+existing author cover, made with the built-in imagegen tool on 2026-11-04. The
+source cover and implementation repository remain unchanged. The edit prompt:
+
+```text
+Use case: text-localization. Edit target: the supplied landscape M5Stack Agora Voice Agent cover. Make an English-only catalog cover by removing precisely the Chinese line below the title ('声网语音智能体 · 支持 StickS3 / StopWatch') and the small Chinese line below the English subtitle ('双设备同一固件'). Reconstruct the dark smoky background seamlessly where those lines were. Preserve the English headline 'Agora Voice Agent on M5Stack', the English subtitle 'Supports M5Stack StickS3 & StopWatch', every device and its labels, proportions and positions, the cyan sound waves, lighting, colors, and 16:9 framing. Do not add any new lettering, objects, interface, logos, badges, claims, or redesign. This is a localized derivative of the author cover, not a new product rendering.
+```
+
 ## Hackathon membership audit
 
 - `pillion` is in the catalog. The author attributes it to the Agora Voice AI Hackathon 2026 / AI Mobile Coders and reports first place. Keep the credit explicitly author-reported.

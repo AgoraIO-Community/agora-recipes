@@ -118,7 +118,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details">
           <h3><span>{title}</span><ArrowUpRight className="showcase-card__arrow" aria-hidden="true" /></h3>
-          <p className="showcase-card__summary">{media?.compactSummary ?? recipe.tagline}</p>
+          <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p>
         </Link>
         {!featured && technology}
         {previewActions}

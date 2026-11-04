@@ -517,7 +517,16 @@
     "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "AgoraとAI Mobile Codersによる音声AIハッカソンの当時のポスター。参加登録は終了しています。",
     "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "電話、ゲームコントローラー、マイク、会話の吹き出しを描いた、ピクセルアートの「#VoiceAI」ポスター。",
     "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "ノートPC、マイク、スピーカーを描いた、ピクセルアートの「#StartHere」ポスター。",
-    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "ピクセル状の地球と開催日10月23〜24日を配したiRTE2026の公式ビジュアル。"
+    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "ピクセル状の地球と開催日10月23〜24日を配したiRTE2026の公式ビジュアル。",
+    "Most popular": "人気順",
+    "View recipes": "表示形式",
+    "Card view": "カード表示",
+    "List view": "リスト表示",
+    "Recommendations are hand-picked. Other projects follow by update date.": "おすすめは手動で選んでいます。その他のプロジェクトは更新日順です。",
+    "Sorted by GitHub stars · Updated {date}": "GitHub スター数順 · {date} 更新",
+    "Early community projects by Akshay Nandwana.": "Akshay Nandwana による初期のコミュニティプロジェクト。",
+    "Explore Akshay Nandwana’s early community projects: guided breathing, meditation, translation, movie discovery, a voice companion, and voice coaching.": "呼吸ガイド、瞑想、翻訳、映画探し、音声パートナー、音声コーチなど、Akshay Nandwana による初期のコミュニティプロジェクトを紹介します。",
+    "Explore Akshay’s projects": "Akshay のプロジェクトを見る"
   },
   "entries": {
     "ag-iot-ios-app": {
