@@ -62,7 +62,7 @@ export function SiteFooter({ topics }: { topics: Record<string, string> }) {
                 ["Documentation", "https://docs.agora.io/en"],
                 ["Agora Console", "https://console.agora.io"],
                 ["GitHub", "https://github.com/AgoraIO-Community/agora-recipes"],
-                ["Discord", "https://discord.gg/uhkxjDpJsN"],
+                ["Discord", "https://discord.gg/rX3f5pqZ3s"],
               ].map(([label, href]) => (
                 <li key={t(label)}>
                   <a className="footer-link" href={href} target="_blank" rel="noreferrer"
