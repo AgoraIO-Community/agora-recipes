@@ -1,0 +1,26 @@
+{
+  "title": "iOS IoT Video Calling App",
+  "tagline": "Add Agora-powered video calling to an iOS IoT app.",
+  "description": "An iOS Agora Link reference for discovering provisioned IoT devices and viewing their audio/video streams. Requires matching device SDKs, IoT libraries and service credentials.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "iOS",
+    "Swift"
+  ],
+  "useCases": [
+    "IoT",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Mobile App",
+    "Device Calling"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/ag-iot-ios-app",
+  "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-ios-app/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}

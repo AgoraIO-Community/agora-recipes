@@ -1,56 +1,66 @@
-/* GlassSurface material mechanics from shczhen/agent-ui @ 9ca9d39. */
-.catalog {
-  --radius-surface: 12px;
-  --glass-fill: rgba(28, 31, 34, .62);
-  --glass-highlight: rgba(255, 255, 255, .3);
-  --glass-light: rgba(225, 242, 248, .09);
-  --glass-bloom: rgba(255, 255, 255, .04);
-  --glass-low-edge: rgba(0, 0, 0, .5);
-  --glass-elevation: 0 6px 18px rgba(0, 0, 0, .14);
-  --control-glass-fill: rgba(255, 255, 255, .075);
-  --control-glass-hover: rgba(255, 255, 255, .13);
+/* Complete Liquid Glass material for floating surfaces.
+   The three-channel SVG displacement engine is in glass-surface.tsx. */
+:root {
+  --glass-fill: color-mix(in srgb,var(--popover) 62%,transparent);
+  --glass-highlight: rgb(255 255 255/.42);
+  --glass-low-edge: rgb(0 0 0/.32);
+  --glass-light: rgb(255 255 255/.14);
+  --glass-elevation: 0 8px 26px rgb(0 0 0/.16),0 2px 5px rgb(0 0 0/.08);
 }
-.ag-glass { position: relative; isolation: isolate; border-radius: var(--radius-surface); box-shadow: var(--glass-elevation); }
-.ag-glass::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; background: var(--glass-fill); -webkit-backdrop-filter: blur(7px) saturate(1.4); backdrop-filter: var(--glass-filter, blur(7px) saturate(1.4)); }
-.ag-glass::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 1px 0 var(--glass-highlight), inset 1px 0 0 rgba(255,255,255,.12), inset 0 -1px 0 var(--glass-low-edge); background: radial-gradient(ellipse at 24% 0%, var(--glass-light), transparent 65%), linear-gradient(145deg, var(--glass-highlight), transparent 38%, transparent 68%, var(--glass-bloom)); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; padding: 1px; }
-.ag-filter-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
-.catalog .catalog-search { display: block; border: 0; border-radius: var(--radius-surface); background: transparent; padding: 0; }
-.catalog-search__field { display: flex; align-items: center; min-width: 0; gap: 12px; padding-left: 16px; }
-.catalog-search:focus-within { outline: 2px solid var(--ring); outline-offset: 3px; }
-.catalog-search input:focus-visible { outline: none !important; box-shadow: none !important; }
-.catalog .catalog-filter { min-height: 46px; padding: 0 12px; border: 1px solid transparent; border-radius: 12px; color: var(--muted-foreground); background: transparent; transition: color 140ms, background 140ms; }
-.catalog .catalog-filter:hover { color: var(--foreground); background: var(--control-glass-fill); border-color: transparent; }
-.catalog .catalog-filter[aria-pressed="true"], .catalog .catalog-filter[data-active="true"], .catalog .catalog-filter[data-state="open"] {
-  color: var(--foreground);
-  background: linear-gradient(155deg, rgba(255,255,255,.1), transparent 60%), var(--control-glass-fill);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), inset 0 -1px 0 var(--glass-low-edge), 0 2px 6px rgba(0,0,0,.06);
-  border-color: color-mix(in srgb, var(--foreground) 13%, transparent);
-  -webkit-backdrop-filter: blur(8px) saturate(1.3);
-  backdrop-filter: blur(8px) saturate(1.3);
+:root[data-theme=light] {
+  --glass-highlight: rgb(255 255 255/.9);
+  --glass-low-edge: rgb(30 40 50/.2);
+  --glass-light: rgb(255 255 255/.3);
+  --glass-elevation: 0 8px 26px rgb(20 30 40/.12),0 2px 5px rgb(20 30 40/.06);
 }
-.catalog .catalog-filter:focus-visible { outline-offset: 2px; }
-.catalog .catalog-sort { padding: 0 12px; border: 1px solid color-mix(in srgb, var(--foreground) 13%, transparent); border-radius: 12px; background: var(--control-glass-fill); box-shadow: inset 0 1px 0 var(--glass-highlight), inset 0 -1px 0 var(--glass-low-edge); -webkit-backdrop-filter: blur(8px) saturate(1.3); backdrop-filter: blur(8px) saturate(1.3); }
-.catalog .catalog-sort svg { right: 12px; }
-.catalog .catalog-sort select { padding-right: 24px; }
-.catalog .catalog-sort:hover { background: var(--control-glass-hover); }
-.catalog .catalog-sort:focus-within { outline: 2px solid var(--ring); outline-offset: 3px; }
-.catalog-sort select:focus-visible { outline: none !important; box-shadow: none !important; }
-.catalog .catalog-advanced { border-radius: 12px; }
-.catalog-platform-menu { border-radius: 12px; padding: 6px; background: var(--popover); }
-@supports not (backdrop-filter: blur(1px)) { .ag-glass::before { background: var(--secondary); } }
-@media (prefers-reduced-transparency: reduce) {
-  .ag-glass::before { background: var(--secondary); -webkit-backdrop-filter: none; backdrop-filter: none; }
+@layer components {
+  .ag-glass { position: relative; isolation: isolate; border-radius: var(--radius-surface); box-shadow: var(--glass-elevation); background: transparent; }
+  .ag-glass::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; background: var(--glass-fill); -webkit-backdrop-filter: var(--glass-filter,blur(7px) saturate(1.4)); backdrop-filter: var(--glass-filter,blur(7px) saturate(1.4)); }
+  .ag-glass::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; box-shadow: inset 0 1px 0 var(--glass-highlight),inset 1px 0 0 rgb(255 255 255/.24),inset 0 -1px 0 var(--glass-low-edge); background: radial-gradient(ellipse at 24% 0%,var(--glass-light),transparent 66%); }
+  .ag-filter-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
+  .ag-glass-panel { border: 1px solid color-mix(in srgb,var(--foreground) 20%,transparent); }
+  .ag-glass-panel > [data-slot=dialog-header] [data-slot=dialog-description], .ag-glass-panel > [data-slot=sheet-header] [data-slot=sheet-description], .ag-glass .ag-button-ghost { color: var(--foreground); }
+  .ag-floating-control { --glass-fill: rgb(10 12 14/.62); --glass-highlight: rgb(255 255 255/.5); --glass-low-edge: rgb(0 0 0/.45); display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; padding: 0 12px; border-radius: 10px; color: #fcf9f8; font-size: 13px; line-height: 20px; }
+  .ag-floating-control > svg:not(.ag-filter-defs) { width: 16px; height: 16px; flex: none; }
+  .liquid-modal-overlay { background: rgb(0 0 0/.32); }
+}
+/* A stationary opaque backing unifies light panel sections, including overflow.
+   The full optical engine keeps a quiet edge without imagery behind text. */
+:root[data-theme=light] .ag-glass-panel {
+  --basic-selected: var(--muted);
+  --glass-elevation: 0 12px 32px rgb(0 0 0/.1),0 2px 6px rgb(0 0 0/.04);
+  background: var(--popover);
+  border-color: color-mix(in srgb,var(--foreground) 10%,transparent);
+}
+:root[data-theme=light] .ag-glass-panel::after {
+  background: none;
+  box-shadow: none;
+}
+:root[data-theme=light] .ag-glass-panel .ag-selection { box-shadow: none; }
+/* Opacity animation on a glass ancestor creates a backdrop root in Chromium,
+   preventing its optical layer from sampling the page. Move the glass itself;
+   the separate modal overlay owns the fade. No persistent animation fill. */
+.ag-glass[data-slot=dialog-content][data-state=open] { animation: ag-glass-enter var(--motion-surface) var(--ease-out); }
+.ag-glass[data-slot=dialog-content][data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
+.ag-glass[data-slot=sheet-content] { --glass-enter-x: 24px; --glass-enter-y: 0px; }
+.ag-glass[data-slot=sheet-content][data-side=left] { --glass-enter-x: -24px; }
+.ag-glass[data-slot=sheet-content][data-side=bottom] { --glass-enter-x: 0px; --glass-enter-y: 24px; }
+.ag-glass[data-slot=sheet-content][data-side=top] { --glass-enter-x: 0px; --glass-enter-y: -24px; }
+.ag-glass[data-slot=sheet-content][data-state=open] { animation: ag-glass-enter var(--motion-surface) var(--ease-out); }
+.ag-glass[data-slot=sheet-content][data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content]) { --glass-enter-y: -4px; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-side=top] { --glass-enter-y: 4px; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=open] { animation: ag-glass-enter var(--motion-control) var(--ease-out); }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
+@keyframes ag-glass-enter { from { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } to { transform: none; } }
+@keyframes ag-glass-exit { to { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } }
+@supports not (backdrop-filter: url("#glass-probe")) {
+  .ag-glass::before { background: var(--popover); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .ag-floating-control::before { background: #101214; }
+}
+@media (prefers-reduced-transparency:reduce), (forced-colors:active) {
+  .ag-glass::before { background: var(--popover); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .ag-glass::after { background: none; box-shadow: none; }
-  .catalog .catalog-filter[aria-pressed="true"], .catalog .catalog-filter[data-active="true"], .catalog .catalog-filter[data-state="open"], .catalog .catalog-sort { background: var(--secondary); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
-@media (forced-colors: active) {
-  .ag-glass::before { background: Canvas; backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .ag-glass::after { background: none; box-shadow: none; mask: none; padding: 0; border: 1px solid CanvasText; }
-  .catalog .catalog-filter[aria-pressed="true"], .catalog .catalog-filter[data-active="true"], .catalog .catalog-filter[data-state="open"], .catalog .catalog-sort { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none; }
-}
-@media (max-width: 640px) {
-  .catalog .catalog-filter { padding-inline: 10px; }
-  .catalog .catalog-result-controls { gap: 4px; }
-  .catalog .catalog-sort { padding-inline: 10px; }
-  .catalog .catalog-sort svg { right: 8px; }
+  .ag-glass { outline: 1px solid var(--input); }
+  .ag-floating-control::before { background: #101214; }
 }

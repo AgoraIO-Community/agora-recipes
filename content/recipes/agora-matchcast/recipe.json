@@ -2,7 +2,9 @@
   "title": "Agora MatchCast",
   "tagline": "Add real-time Gemini captions to live sports and esports streams.",
   "description": "Build a live captioning pipeline that sends Agora RTC audio to Gemini 3.5 Transcribe and publishes the resulting captions back to viewers over an Agora data stream.",
-  "tags": ["voice-ai"],
+  "tags": [
+    "voice-ai"
+  ],
   "platforms": [
     "TypeScript",
     "Python"
@@ -21,6 +23,31 @@
   "mainRepoUrl": "https://github.com/zicojiao/agora-matchcast",
   "recipeUrl": "https://github.com/zicojiao/agora-matchcast/blob/main/README.md",
   "author": "zicojiao",
-  "updated": "2026-09-01",
-  "difficulty": "Advanced"
+  "updated": "2026-10-28",
+  "difficulty": "Advanced",
+  "demoUrl": "https://agora-matchcast.vercel.app/",
+  "media": {
+    "title": "Agora MatchCast",
+    "compactTitle": "MatchCast",
+    "summary": "Caption live sports and esports with Agora RTC and Gemini transcription.",
+    "compactSummary": "Live captions for live matches.",
+    "thumbnail": "/recipes/agora-matchcast.jpg",
+    "thumbnailAlt": "MatchCast author recording showing a live League of Legends match with English captions and transcript.",
+    "thumbnailSource": "https://github.com/user-attachments/assets/b5218c04-f34d-43e5-b10f-7bb4335b834f",
+    "thumbnailOrigin": "65% 50%",
+    "videoUrl": "https://github.com/user-attachments/assets/b5218c04-f34d-43e5-b10f-7bb4335b834f",
+    "videoDuration": "0:42",
+    "demoNote": "Recorded demo \u00b7 Live viewer needs an active broadcaster",
+    "labels": [
+      "Live captions",
+      "Python"
+    ],
+    "searchTerms": [
+      "sports",
+      "esports",
+      "live captions",
+      "transcription",
+      "Gemini"
+    ]
+  }
 }

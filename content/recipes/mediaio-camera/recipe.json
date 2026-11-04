@@ -1,0 +1,25 @@
+{
+  "title": "Android Custom Camera Source",
+  "tagline": "Capture and preview custom camera video for RTC integration.",
+  "description": "An Android MediaIO reference for camera capture, preview and lifecycle handling, with source to inspect when adapting custom frames for RTC publishing.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android"
+  ],
+  "useCases": [
+    "Custom Video",
+    "Video Calling"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Custom Camera",
+    "MediaIO"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/MediaIO-Camera",
+  "recipeUrl": "https://github.com/AgoraIO-Community/MediaIO-Camera/blob/master/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}

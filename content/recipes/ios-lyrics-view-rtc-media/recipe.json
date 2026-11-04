@@ -1,0 +1,26 @@
+{
+  "title": "iOS Lyrics View with RTC Media",
+  "tagline": "Synchronize lyrics UI with Agora RTC media on iOS.",
+  "description": "An iOS karaoke component demo for lyric synchronization and pitch scoring alongside media playback. Requires compatible music/RTC services and test assets.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "iOS",
+    "Swift"
+  ],
+  "useCases": [
+    "Media Playback",
+    "Interactive Audio"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Lyrics View",
+    "iOS UI"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/LrcView-iOS",
+  "recipeUrl": "https://github.com/AgoraIO-Community/LrcView-iOS/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}

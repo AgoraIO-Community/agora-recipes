@@ -1,0 +1,44 @@
+{
+  "title": "iRTE2026",
+  "summary": "Explore demos shared at Agora’s iRTE2026 Real-Time Intelligence Conference on October 23–24, 2026.",
+  "kind": "activity",
+  "starts": "2026-10-23",
+  "ends": "2026-10-24",
+  "status": "completed",
+  "sourceUrl": "https://www.shengwang.cn/rteconf/",
+  "members": [
+    {
+      "slug": "dumpling-booth"
+    },
+    {
+      "slug": "agora-drawguess"
+    },
+    {
+      "slug": "agora-arena"
+    },
+    {
+      "slug": "agora-rotary-dial-phone"
+    },
+    {
+      "slug": "m5-sticks3-voice-agent"
+    }
+  ],
+  "actions": [
+    {
+      "label": "Conference website",
+      "url": "https://www.shengwang.cn/rteconf/",
+      "type": "source"
+    },
+    {
+      "label": "Conference agenda",
+      "url": "https://www.shengwang.cn/rteconf/agenda",
+      "type": "source"
+    }
+  ],
+  "compactSummary": "Demos from Agora’s iRTE2026 conference.",
+  "cover": {
+    "src": "/topics/irte2026.jpg",
+    "alt": "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.",
+    "sourceUrl": "https://www.shengwang.cn/rteconf/rte-2026/home/hero-kv-poster.jpg"
+  }
+}

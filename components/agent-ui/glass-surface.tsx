@@ -14,8 +14,7 @@ import { cn } from "@/lib/utils";
 export type GlassMaterial = "liquid" | "frosted" | "solid";
 
 // Geometry only: channel ramps bend the sampled backdrop toward a neutral core.
-// The mechanism was inspected on OpenDesign's public header; the 12px contour
-// and independent foreground belong to this system, not its capsule navigation.
+// The contour follows the surface radius; foreground content stays independent.
 export function makeDisplacementMap(
   width: number,
   height: number,
@@ -31,9 +30,10 @@ export function GlassSurface({
   className,
   style,
   material,
+  "data-slot": slot = "glass-surface",
   ref: forwardedRef,
   ...props
-}: ComponentProps<"div"> & { material?: GlassMaterial }) {
+}: ComponentProps<"div"> & { material?: GlassMaterial; "data-slot"?: string }) {
   const id = `glass-${useId().replaceAll(":", "").replaceAll("«", "").replaceAll("»", "")}`;
   const ref = useRef<HTMLDivElement>(null);
   const attachRef = useCallback(
@@ -63,7 +63,7 @@ export function GlassSurface({
     <div
       {...props}
       ref={attachRef}
-      data-slot="glass-surface"
+      data-slot={slot}
       data-material={material}
       className={cn("ag-glass", className)}
       style={

@@ -1,0 +1,26 @@
+{
+  "title": "Humming Service Example",
+  "tagline": "Explore the Humming service with native mobile samples.",
+  "description": "Android and iOS references for Humming service audio workflows. Requires the compatible service SDK and project configuration.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android",
+    "iOS"
+  ],
+  "useCases": [
+    "Service Integration",
+    "RTC Workflow"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Humming Service",
+    "Audio Processing"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example",
+  "recipeUrl": "https://github.com/AgoraIO-Community/Agora-HummingService-Example/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}

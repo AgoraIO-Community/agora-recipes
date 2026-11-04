@@ -1,0 +1,26 @@
+{
+  "title": "Channel Management Sample",
+  "tagline": "Inspect channel users and manage RTC user privileges.",
+  "description": "A browser REST API tester for querying channel users and creating, updating or deleting user-privilege rules in a test project.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "JavaScript",
+    "Web"
+  ],
+  "useCases": [
+    "Channel Management",
+    "Moderation"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "REST API",
+    "Channel Control"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-channel-management",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-channel-management/blob/main/docs/ai/RECIPE.md",
+  "author": "Agora",
+  "updated": "2026-10-21",
+  "difficulty": "Intermediate"
+}

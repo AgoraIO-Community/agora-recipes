@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pnpm run recipes:build",
+    "prebuild": "node scripts/build-recipes.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -50,6 +50,7 @@
     "lucide-react": "^0.564.0",
     "mermaid": "^12.0.0",
     "next": "16.2.6",
+    "posthog-js": "1.439.0",
     "react": "^19",
     "react-day-picker": "9.13.2",
     "react-dom": "^19",

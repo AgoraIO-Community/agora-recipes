@@ -11,5 +11,26 @@
   "demoUrl": "https://main--scintillating-druid-f6d860.netlify.app/",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "React Live Video",
+    "summary": "Publish a live video stream and let an audience join, built with React and Agora RTC.",
+    "thumbnail": "/recipes/live-video-react-app.webp",
+    "thumbnailAlt": "The existing React Live Video demo entry screen with an Agora logo, channel field, and Connect button",
+    "thumbnailSource": "https://main--scintillating-druid-f6d860.netlify.app/",
+    "demoNote": "Camera and microphone needed",
+    "labels": [
+      "React",
+      "Live video"
+    ],
+    "searchTerms": [
+      "视频",
+      "直播",
+      "RTC",
+      "video calling",
+      "streaming"
+    ],
+    "compactTitle": "React Live Video",
+    "compactSummary": "Stream to a live audience."
+  }
 }
