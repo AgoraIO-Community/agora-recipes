@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "slug": "filler-free-live",
+  "generatedAt": "2026-10-16T06:53:22.964Z",
+  "source": {
+    "mainRepoUrl": "https://github.com/madhuri-sharma921/Filler-Free",
+    "recipeUrl": "https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/RECIPE.md",
+    "recipeRawUrl": "https://raw.githubusercontent.com/madhuri-sharma921/Filler-Free/main/docs/RECIPE.md"
+  },
+  "recipeDocument": {
+    "rawUrl": "https://raw.githubusercontent.com/madhuri-sharma921/Filler-Free/main/docs/RECIPE.md",
+    "viewUrl": "https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/RECIPE.md",
+    "markdown": "# Filler-Free: Live\n\nA real-time AI speech coach for Android. An Agora Conversational AI agent\nlistens while you speak, interrupts filler words and rambling, and can coach\na live group session with video.\n\n## What you'll build\n\n- Android app (Kotlin, Jetpack Compose)\n- FastAPI backend that starts and manages the Agora Conversational AI agent\n- Live group coaching: a \"Go Live\" session with speaker and mentor video feeds,\n  built on Agora Interactive Live Streaming\n\n## Prerequisites\n\n- An Agora account with an App ID and App Certificate\n- The AI provider keys listed in [setup.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/setup.md)\n- Android Studio\n- Python 3 (see [backend-runbook.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/backend-runbook.md) for the exact version)\n- A real Android device (a second device is needed to test group sessions)\n\n## Setup\n\n1. Backend: follow [backend-runbook.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/backend-runbook.md).\n2. Android app and credentials: follow [setup.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/setup.md).\n3. If your phone can't reach a backend on your computer, see\n   [local-tunnels.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/local-tunnels.md).\n4. Start the backend, then run the app, then start a coaching session.\n\n## How it works\n\n1. The app asks the backend for a session. The backend generates the Agora\n   token and starts the Conversational AI agent in the channel.\n2. The agent listens to your speech in real time and speaks up when it\n   detects filler words or rambling.\n3. In group mode, one user goes live and others join the same session as\n   audience, so a mentor can watch and coach.\n\nMore detail is in [architecture.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/architecture.md).\n\n## Troubleshooting\n\nSee [troubleshooting.md](https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/troubleshooting.md).\n"
+  },
+  "primaryPrompt": "You are implementing the \"Filler-Free: Live\" recipe in this project.\n\nRead the recipe markdown first:\nhttps://raw.githubusercontent.com/madhuri-sharma921/Filler-Free/main/docs/RECIPE.md\n\nUse the source repository for cross-reference:\nhttps://github.com/madhuri-sharma921/Filler-Free\n\nBuild this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies."
+}

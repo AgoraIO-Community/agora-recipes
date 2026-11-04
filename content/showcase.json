@@ -51,9 +51,9 @@
     "title": "Agora Rotary Dial Phone",
     "summary": "Dial into a 3D escape room and talk to an AI character. See how voice can become part of the experience.",
     "thumbnail": "/recipes/agora-rotary-dial-phone.webp",
-    "thumbnailAlt": "The public Rotary Dial Phone demo, a Chinese 3D escape room with a telephone and safe",
+    "thumbnailAlt": "The Fortune Line English interface with a 3D rotary telephone, locked safe, and game instructions",
     "thumbnailSource": "https://rotary-dial-phone.vercel.app/",
-    "demoNote": "Chinese experience · Microphone needed",
+    "demoNote": "English interface · Microphone needed",
     "labels": [
       "3D",
       "Voice AI"
