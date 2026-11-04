@@ -142,7 +142,8 @@ the visual center of the wordmark's main letter body with the Recipes text,
 excluding the long g descender. The current asset needs a 7.5px optical offset,
 reduced to 7px on phones. Do not align the full SVG box or only its baseline. On desktop, center the
 Recipes / Topics / Docs / GitHub / Discord navigation between the brand and right-hand actions.
-The smaller navigation controls use a 1px optical offset to share the brand
+Between 901px and 1200px, navigation buttons use 8px horizontal padding to keep
+translated labels clear of the brand and actions. The smaller navigation controls use a 1px optical offset to share the brand
 label's baseline. Recipes carries the collection context; Contribute is secondary
 to Get started.
 The header gains its seam after scrolling and retains an opaque theme canvas. Keep the

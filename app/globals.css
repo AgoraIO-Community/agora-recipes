@@ -389,6 +389,9 @@ a.recipe-author:hover { color: var(--foreground); }
 .footer-legal a { display: flex; align-items: center; min-height: 36px; font-size: 12px; line-height: 20px; color: var(--muted-foreground); transition: color var(--motion-control); }
 .footer-top { grid-column: 3; grid-row: 1; justify-self: end; padding-inline: 0; font-size: 12px; color: var(--muted-foreground); }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .desktop-nav .ag-button { padding-inline: 8px; }
+}
 @media (max-width: 1100px) {
   .header-contribute { display: none; }
   .catalog-toolbar { gap: 16px; }
