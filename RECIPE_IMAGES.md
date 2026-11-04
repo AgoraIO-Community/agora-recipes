@@ -1,9 +1,91 @@
 # Recipe image inventory
 
-Updated: 2026-10-28. This inventory covers the **107 local catalog entries**,
+Updated: 2026-11-04. This inventory covers the **107 local catalog entries**,
 not a separately verified production deployment.
 
-## Progress
+## Current coverage — 107 of 107
+
+Every catalog recipe now has an active, local thumbnail. This pass filled the
+**43 missing images** with **7 original local initial-screen screenshots** and
+**36 explicitly labeled HTML illustrations**. The existing 64 images were kept;
+the ten previously remote-linked PNGs were downloaded without resizing or
+retouching. Rejected historical call/error screenshots remain unlisted.
+
+The owner explicitly approved illustrations for UI recipes that cannot be run
+here, as well as genuinely nonvisual recipes. The artwork follows the existing
+dark/cyan catalog identity; no page layout, discovery controls, recommendation
+flags, SDK implementation or recipe content was changed.
+
+### Local execution and limitations
+
+- Fresh source revisions were inspected for all 43 missing entries.
+- **14 original browser frontends/static apps were launched locally.** The
+  Python-backed examples ran their original frontends only, not configured Python
+  services. These are not full-stack or live-provider success claims.
+- **RTC Signaling** was blocked during installation by the unavailable
+  `agora-rtm-sdk@2.2.0.1` version; no alternate version was substituted.
+- **28 native/hardware recipes** were source-inspected but not launched: the
+  required simulators, native toolchains, SDK runtime or physical devices are not
+  available. No large SDKs were installed just to manufacture a screenshot.
+- **Group Video Chat** rendered its genuine Join Channel form on a retry without
+  the browser's WebRTC-disabling domain filter. Babylon.js and WebXR remained
+  visually blank on that same kind of retry, so their screenshots were rejected.
+- Gemma, Push-to-Talk and Navigator exposed setup/disconnection warnings; the
+  Thymia and Wellness avatar clients failed resolving `@agora/agent-ui-kit` after
+  script-disabled installation. Those diagnostic screenshots were not shipped.
+- No credentials, microphone/camera permissions, fabricated participants,
+  transcripts, UI-state forcing or live/paid provider sessions were used.
+
+### New screenshot entries
+
+| Recipe slug | Captured state |
+| --- | --- |
+| `agent-delegation` | Original Start Conversation page; no delegated reasoning session |
+| `agora-gemini-mllm-nextjs` | Original Gemini model selector; no Live conversation |
+| `openai-gpt-live-nextjs` | Original Start Conversation page; no GPT Live conversation |
+| `openai-gpt-live-python` | Original web client's initial page; no Python/provider session |
+| `realtime-vision` | Original Realtime Vision entry page; no camera or conversation |
+| `realtime-voice` | Original Realtime entry page; no conversation |
+| `group-video-chat` | Original Join Channel form; channel blank, no joined room |
+
+Screenshots preserve the full 1440 × 1000 browser frame, including original
+development chrome. Illustrations are 1600 × 900 conceptual diagrams with the
+visible label **“Illustration · not an app screenshot”**. They are not API sequence
+specifications, mocked product interfaces or proof of functioning sessions.
+
+### Shareable marketing handoff
+
+Open **`marketing/recipe-media/index.html`** to browse all 107 images offline.
+The folder includes active image files, 43 full-resolution new PNG originals,
+43 editable fallback HTML artboards, a source/hash manifest and the complete
+per-recipe capture audit. Each new catalog WebP also has a provenance sidecar
+and embedded image description. Third-party source attribution and rights still
+apply; export is not a new license for external campaign use.
+
+- `marketing/recipe-media/capture-audit.json`: exact source revisions, launched
+  versus not-launched scope, decisions and toolchain blockers for every missing
+  entry.
+- `marketing/recipe-media/manifest.json`: all 107 active images, media types,
+  SHA-256 hashes, sources and limitations.
+- `content/recipe-illustrations.json` and
+  `scripts/render-recipe-illustrations.mjs`: editable illustration definitions.
+- `scripts/export-recipe-media.mjs`: regenerate the active-media handoff, excluding
+  rejected/historical assets and private runtime files.
+
+All 107 local image files decode and match their exported SHA-256 hashes. The
+new IoT media cards were checked in the real catalog at desktop and phone sizes.
+Phone browsing through the entire catalog rendered **107 cards, 107 image
+elements, zero image fallbacks and no horizontal overflow**. Independent finish
+review returned **ship** within this media-only scope; compact thumbnail labels
+are intentionally supplemented by the surrounding recipe copy. The mechanical
+design detector ran in degraded regex mode and reported only the intentional
+portable Arial fallback, not a comprehensive accessibility verdict.
+No catalog production build, lint, test suite, commit or push was run.
+
+The standalone ZIP handoff is at `../agora-recipes-media.zip` (12.7 MiB), containing
+only `marketing/recipe-media/`, not the repository or temporary runtime files.
+
+## Previous progress — historical as of 2026-10-28
 
 - **8 pre-existing image entries** in the original inventory; later replacements
   are recorded below, with original files preserved.

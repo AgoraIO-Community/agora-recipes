@@ -1,0 +1,15 @@
+{
+  "slug": "agora-python-rtc-quickstart",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Python RTC Quickstart, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-Python-QuickStart at 3eaedd9696af1e19d54e5246bfc10ca94db43543. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-python-rtc-quickstart.html.",
+  "createdAt": "2026-11-04T15:16:55.836Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-Python-QuickStart",
+  "sourceRevision": "3eaedd9696af1e19d54e5246bfc10ca94db43543",
+  "width": 1600,
+  "height": 900,
+  "sha256": "592b2821b5d1b44c0b5ea9ebd8366fa2c7d27b1c74543c4f882632850e0c5d9f",
+  "original": "originals/agora-python-rtc-quickstart.png",
+  "htmlSource": "illustrations/agora-python-rtc-quickstart.html",
+  "localLaunch": null,
+  "decision": "Source inspected. The documented native agorartc module is not installed in the local Python runtime; native SDK/Xcode setup is unavailable. App not launched."
+}

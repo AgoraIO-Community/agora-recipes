@@ -1,0 +1,15 @@
+{
+  "slug": "ag-iot-ios-app",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for iOS IoT Video Calling App, based on its catalog metadata and source https://github.com/AgoraIO-Community/ag-iot-ios-app at 137b56ec84fd2649948ae612b04e8a98346ab14a. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/ag-iot-ios-app.html.",
+  "createdAt": "2026-11-04T15:16:55.209Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/ag-iot-ios-app",
+  "sourceRevision": "137b56ec84fd2649948ae612b04e8a98346ab14a",
+  "width": 1600,
+  "height": 900,
+  "sha256": "41c252c44e7794d805a02e09e014d35d7331b0144e1d27c5627f2d29d38fabc5",
+  "original": "originals/ag-iot-ios-app.png",
+  "htmlSource": "illustrations/ag-iot-ios-app.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

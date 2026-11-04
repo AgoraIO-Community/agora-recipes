@@ -1,0 +1,15 @@
+{
+  "slug": "rust-rtc-quickstart",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Rust RTC Quickstart, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-Rust-QuickStart at 0948e42f8a6ebbe2d698bf680bd2f96d4ee3c915. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/rust-rtc-quickstart.html.",
+  "createdAt": "2026-11-04T15:16:58.714Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-Rust-QuickStart",
+  "sourceRevision": "0948e42f8a6ebbe2d698bf680bd2f96d4ee3c915",
+  "width": 1600,
+  "height": 900,
+  "sha256": "83c51ea0cb973241b2389464868fa9da5b04c7f457e7c096704e094bebd27452",
+  "original": "originals/rust-rtc-quickstart.png",
+  "htmlSource": "illustrations/rust-rtc-quickstart.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Rust/cargo and the native Agora runtime are unavailable. App not launched."
+}

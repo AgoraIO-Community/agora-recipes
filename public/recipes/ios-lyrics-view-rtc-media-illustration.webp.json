@@ -1,0 +1,15 @@
+{
+  "slug": "ios-lyrics-view-rtc-media",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for iOS Lyrics View with RTC Media, based on its catalog metadata and source https://github.com/AgoraIO-Community/LrcView-iOS at 61d7eb544cb3149cb93741d8abafe452b09223ae. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/ios-lyrics-view-rtc-media.html.",
+  "createdAt": "2026-11-04T15:16:57.021Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/LrcView-iOS",
+  "sourceRevision": "61d7eb544cb3149cb93741d8abafe452b09223ae",
+  "width": 1600,
+  "height": 900,
+  "sha256": "7d2f9ea926b1a2605b16e502b37a37eb89d83f982da016046dbcf0834d8f1682",
+  "original": "originals/ios-lyrics-view-rtc-media.png",
+  "htmlSource": "illustrations/ios-lyrics-view-rtc-media.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

@@ -1,0 +1,26 @@
+{
+  "slug": "babylonjs-rtc-demo",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Babylon.js RTC Demo, based on its catalog metadata and source https://github.com/AgoraIO-Community/AgoraBabylonJS at 576927943f3e772988e4c4d89054cfcfd5ed946a. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/babylonjs-rtc-demo.html.",
+  "createdAt": "2026-11-04T15:16:56.495Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/AgoraBabylonJS",
+  "sourceRevision": "576927943f3e772988e4c4d89054cfcfd5ed946a",
+  "width": 1600,
+  "height": 900,
+  "sha256": "a483239a9adfeb686d673afeba14a13b9a10b9617a2494beff2add08647d3551",
+  "original": "originals/babylonjs-rtc-demo.png",
+  "htmlSource": "illustrations/babylonjs-rtc-demo.html",
+  "localLaunch": {
+    "command": [
+      "python3",
+      "-m",
+      "http.server",
+      "4400",
+      "--bind",
+      "127.0.0.1"
+    ],
+    "scope": "original static UI; no camera, microphone, provider or remote session",
+    "httpStatus": null
+  },
+  "decision": "Original static app served and opened, including a retry without WebRTC containment. Canvas exists but the scene remains blank and call controls are disabled. Blank image rejected."
+}

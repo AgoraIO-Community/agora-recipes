@@ -1,0 +1,15 @@
+{
+  "slug": "moodlens-voice-journal",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for MoodLens - Voice AI Mood Journal, based on its catalog metadata and source https://github.com/sandy10/voice_ai_agent at 33f7a19237a0155e75ecda84acdc0c0808560fa6. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/moodlens-voice-journal.html.",
+  "createdAt": "2026-11-04T15:16:57.343Z",
+  "sourceRepository": "https://github.com/sandy10/voice_ai_agent",
+  "sourceRevision": "33f7a19237a0155e75ecda84acdc0c0808560fa6",
+  "width": 1600,
+  "height": 900,
+  "sha256": "2d525015cf90b6cb586617cf35b043c480f718afc6a61f14a4157462e46ca438",
+  "original": "originals/moodlens-voice-journal.png",
+  "htmlSource": "illustrations/moodlens-voice-journal.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

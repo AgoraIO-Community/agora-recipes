@@ -1,0 +1,15 @@
+{
+  "slug": "agora-spatial-voice-chat-tutorial",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Spatial Voice Chat Tutorial, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial at 865170b24a6dfcaf583a10dd67e2775e8c3f32d6. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-spatial-voice-chat-tutorial.html.",
+  "createdAt": "2026-11-04T15:16:56.040Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial",
+  "sourceRevision": "865170b24a6dfcaf583a10dd67e2775e8c3f32d6",
+  "width": 1600,
+  "height": 900,
+  "sha256": "579489b7f53e9a727fe80fbef75e1c9e0120f2dd9fd0efdf9a25c4d4e1b9bb29",
+  "original": "originals/agora-spatial-voice-chat-tutorial.png",
+  "htmlSource": "illustrations/agora-spatial-voice-chat-tutorial.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Unity Editor and the project SDK runtime are unavailable. App not launched."
+}

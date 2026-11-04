@@ -1,0 +1,15 @@
+{
+  "slug": "agora-rtc-signaling",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for RTC Signaling Sample, based on its catalog metadata and source https://github.com/AgoraIO-Community/agora-rtc-signaling at 56c2af4acead964db9303c5c06c1454707c67801. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-rtc-signaling.html.",
+  "createdAt": "2026-11-04T15:16:55.970Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/agora-rtc-signaling",
+  "sourceRevision": "56c2af4acead964db9303c5c06c1454707c67801",
+  "width": 1600,
+  "height": 900,
+  "sha256": "87b14129bba3460dc93d894f0cf1e736741959dbc426d5cf6720c701bb46c0a6",
+  "original": "originals/agora-rtc-signaling.png",
+  "htmlSource": "illustrations/agora-rtc-signaling.html",
+  "localLaunch": null,
+  "decision": "Original dependency installation fails: agora-rtm-sdk@2.2.0.1 is unavailable (npm ETARGET). No SDK version was substituted."
+}

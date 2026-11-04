@@ -1,0 +1,28 @@
+{
+  "slug": "push-to-talk",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Push-to-Talk, based on its catalog metadata and source https://github.com/Therealratoshen/recipe-push-to-talk at 8fc5b348fffd5c30eae464bef423f07b0408620e. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/push-to-talk.html.",
+  "createdAt": "2026-11-04T15:16:57.818Z",
+  "sourceRepository": "https://github.com/Therealratoshen/recipe-push-to-talk",
+  "sourceRevision": "8fc5b348fffd5c30eae464bef423f07b0408620e",
+  "width": 1600,
+  "height": 900,
+  "sha256": "bf5d9e8005e531151b31de4c21c05e5438c33c5df4b88238da4a03fc1d35f4d1",
+  "original": "originals/push-to-talk.png",
+  "htmlSource": "illustrations/push-to-talk.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4395"
+    ],
+    "scope": "credential-free initial UI only; no session started",
+    "httpStatus": null
+  },
+  "decision": "Original application launched; it displays Configuration Required for Agora/LLM/TTS settings. Setup-only screenshot rejected."
+}
