@@ -88,15 +88,18 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const { t, locale } = useI18n()
   const href = localePath(`/recipes/${recipe.slug}`, locale) + (returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : "")
   const media = recipe.showcase
+  const featured = Boolean(media && recipe.recommendedOrder !== undefined)
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
   const previewAction = media?.videoUrl ? <DialogTrigger asChild><Button variant="ghost" size="sm" aria-label={t("Watch {title} demo", { title })}><Play aria-hidden="true" />{t("Video")}</Button></DialogTrigger> : recipe.demoUrl ? <Button asChild variant="ghost" size="sm"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{t("Live demo")}<ArrowUpRight aria-hidden="true" /></a></Button> : null
+
+  const technology = <div className="recipe-technologies" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-technologies__difficulty">{t(recipe.difficulty)}</span>}</div>
 
   if (compact) return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className="recipe-result" data-recipe-slug={recipe.slug} data-compact>
       <div className="recipe-result__content">
         <Link prefetch={false} href={href} className="recipe-result__details"><h3>{title}</h3><p data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p></Link>
-        <div className="recipe-result__technology" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-result__difficulty">{t(recipe.difficulty)}</span>}</div>
+        {technology}
       </div>
       <div className="recipe-result__byline"><RecipeAuthor name={recipe.author} />{previewAction || <span>{t(recipe.recipeUrl ? "Recipe guide" : "View project")}</span>}</div>
       <Button asChild variant="ghost" size="icon" className="recipe-result__arrow"><Link prefetch={false} href={href} aria-label={t("Open {title} recipe", { title })}><ArrowUpRight aria-hidden="true" /></Link></Button>
@@ -105,15 +108,15 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
 
 
   return <RecipeVideoDialog recipe={recipe} detailHref={href}>
-    <article className={cn("showcase-card", !media && "showcase-card--guide")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
+    <article className={cn("showcase-card", !featured && "showcase-card--directory")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
       {media && <RecipeCover recipe={recipe} title={title} href={href} />}
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details">
-          <h3>{title}<ArrowUpRight className="showcase-card__arrow" aria-hidden="true" /></h3>
+          <h3><span>{title}</span><ArrowUpRight className="showcase-card__arrow" aria-hidden="true" /></h3>
           <p className="showcase-card__summary">{media?.compactSummary ?? recipe.tagline}</p>
         </Link>
-        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{label && <Badge>{t(label)}</Badge>}</div>
-        {!media && previewAction}
+        {!featured && technology}
+        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{featured && label && <Badge>{t(label)}</Badge>}{!media && previewAction}</div>
       </div>
     </article>
   </RecipeVideoDialog>
