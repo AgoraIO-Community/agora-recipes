@@ -1,14 +1,17 @@
 "use client"
 
 import { sanitizePosthogEvent } from "./posthog-events"
+import { analyticsOriginAllowed } from "./analytics-events"
 
 let client: Promise<typeof import("posthog-js/dist/module.slim").default> | undefined
 
-export function capturePosthog(event: string, properties: Record<string, unknown>) {
+export function capturePosthog(event: string, properties: Record<string, unknown>, productionOrigin: string) {
+  if (typeof window === "undefined" || !analyticsOriginAllowed(window.location.href, productionOrigin)) return
   const token = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST
   if (!token || !host) return
-  // This function is called only behind the server's real-production gate.
+  // Both the server deployment gate and the browser origin gate must pass
+  // before loading the SDK, including its initialization requests.
   client ??= import("posthog-js/dist/module.slim").then(({ default: posthog }) => {
     posthog.init(token, {
       api_host: host,
