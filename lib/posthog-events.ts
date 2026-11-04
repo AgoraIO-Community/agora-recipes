@@ -40,11 +40,13 @@ const useKinds: Record<string, string> = {
   "content_copy:cli_command": "cli_copy", "content_copy:code": "code_copy",
 }
 
+const applicationProperties = { app: "recipes", site: "agora-recipes", environment: "production" } as const
+
 export function posthogProperties(context: PageContext, name: AnalyticsEvent | "$pageview", properties: Record<string, string | number> = {}) {
   const combined = { ...context, ...properties }
   const use = combined.content_slug && useKinds[`${name}:${properties.action}`]
   const engagement = Boolean(combined.source_topic_slug && (use || name === "topic_action_open" || name === "contribution_open" || (name === "content_copy" && context.page_type === "contribute" && properties.action === "prompt")))
-  return { ...combined, site: "agora-recipes", measurement_version: 1, is_recipe_use: Boolean(use), is_topic_engagement: engagement, ...(use && { recipe_use_kind: use }) }
+  return { ...combined, ...applicationProperties, measurement_version: 1, is_recipe_use: Boolean(use), is_topic_engagement: engagement, ...(use && { recipe_use_kind: use }) }
 }
 
 // Keep anonymous transport/session identity and bounded measurements. Discard SDK
@@ -52,11 +54,13 @@ export function posthogProperties(context: PageContext, name: AnalyticsEvent | "
 const allowedProperties = new Set([
   "token", "distinct_id", "$device_id", "$session_id", "$window_id", "$lib", "$lib_version", "$insert_id", "$time",
   "$is_identified", "$process_person_profile", "$current_url", "$pathname", "$host", "$browser", "$browser_version", "$os", "$os_version", "$device_type",
-  "site", "measurement_version", "locale", "page_type", "content_slug", "topic_slug", "source_topic_slug", "action", "placement", "result_count", "is_recipe_use", "recipe_use_kind", "is_topic_engagement",
+  "app", "site", "environment", "measurement_version", "locale", "page_type", "content_slug", "topic_slug", "source_topic_slug", "action", "placement", "result_count", "is_recipe_use", "recipe_use_kind", "is_topic_engagement",
 ])
 export function sanitizePosthogEvent<T extends { event: string; properties: Record<string, unknown> }>(event: T): T | null {
   if (event.event !== "$pageview" && !Object.hasOwn(eventActions, event.event)) return null
   const properties = Object.fromEntries(Object.entries(event.properties).filter(([key]) => allowedProperties.has(key)))
   if (typeof properties.$current_url === "string") properties.$current_url = analyticsUrl(properties.$current_url)
-  return { ...event, properties }
+  // Enforce the shared-project dimensions at the final SDK boundary as well:
+  // callers and persisted super-properties cannot relabel Recipes events.
+  return { ...event, properties: { ...properties, ...applicationProperties } }
 }

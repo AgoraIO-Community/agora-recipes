@@ -10,6 +10,20 @@ const { pageContext, posthogProperties, sanitizePosthogEvent } = await import(`d
 const topics = ['topic-a', 'topic-b']
 const fromA = `returnTo=${encodeURIComponent('/zh-Hans/topics/topic-a?q=private#recipes')}`
 
+test('every PostHog event enforces the Recipes app and production dimensions at both boundaries', () => {
+  const context = pageContext('/recipes/example', '', topics)
+  for (const event of ['$pageview', 'catalog_action', 'material_open', 'video_play', 'content_copy', 'share_action', 'topic_action_open', 'contribution_open']) {
+    const properties = posthogProperties(context, event, { app: 'console', site: 'another-app', environment: 'preview' })
+    assert.equal(properties.app, 'recipes')
+    assert.equal(properties.environment, 'production')
+    assert.equal(properties.site, 'agora-recipes')
+    const sanitized = sanitizePosthogEvent({ event, properties: { ...properties, app: 'cli', site: 'another-app', environment: 'development' } })
+    assert.equal(sanitized.properties.app, 'recipes')
+    assert.equal(sanitized.properties.site, 'agora-recipes')
+    assert.equal(sanitized.properties.environment, 'production')
+  }
+})
+
 test('Hindi, Spanish and Brazilian Portuguese retain locale and independent Topic context', () => {
   for (const locale of ['hi', 'es', 'pt-BR']) {
     const source = `returnTo=${encodeURIComponent(`/${locale}/topics/topic-a?loaded=24#recipes`)}`

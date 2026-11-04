@@ -141,8 +141,9 @@ the same 86px wordmark and label: 15px regular on desktop, 14px on phones. Align
 the visual center of the wordmark's main letter body with the Recipes text,
 excluding the long g descender. The current asset needs a 7.5px optical offset,
 reduced to 7px on phones. Do not align the full SVG box or only its baseline. On desktop, center the
-Recipes / Topics / Docs / GitHub navigation between the brand and right-hand actions.
-The smaller navigation controls use a 1px optical offset to share the brand
+Recipes / Topics / Docs / GitHub / Discord navigation between the brand and right-hand actions.
+Between 901px and 1200px, navigation buttons use 8px horizontal padding to keep
+translated labels clear of the brand and actions. The smaller navigation controls use a 1px optical offset to share the brand
 label's baseline. Recipes carries the collection context; Contribute is secondary
 to Get started.
 The header gains its seam after scrolling and retains an opaque theme canvas. Keep the
@@ -184,15 +185,26 @@ The toolbar sticks below the measured header on desktop and scrolls normally on
 phones. Overflowing topics scroll horizontally. Single selection uses the shared
 moving underlay; state must also remain explicit in control semantics.
 
-Curated recommendations use three columns on desktop and two at 900px. Phone
+Default catalog browsing starts with the curated media gallery, followed by a
+directory grid. Both grids use three columns on desktop and two at 900px. Phone
 cards remain in two columns. Desktop gaps are 20px; phone gaps are 12px across
 and 16px down. A charcoal tile contains an inset real preview, title, concise
 outcome, author, and one meaningful platform or capability label. Gallery crops
-are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin. Guide
-cards keep their natural height instead of stretching to fill neighboring rows.
+are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
+Directory cards share one layout for title, summary, technology, difficulty,
+author, and available preview actions, with equal heights within each row.
+Keep actual media as a full-width cover on desktop and phones. Cap covers at
+240px high and summaries at two lines; titles use up to two lines on desktop
+and three on phones. Cards stretch to the tallest card within their own row,
+with authors aligned at the bottom. Text-only rows keep their natural height;
+do not reserve an empty image plane or shrink real covers into corner thumbnails.
+Bound media and copy rather than clipping a whole card's content or controls.
 
-The media opens the actual video or external live demo; the title opens the
-recipe. Hover and keyboard focus may fade in the title arrow within its reserved
+The cover and title open the recipe details. A separate centred play control
+opens the inline video dialog; search results use a labelled Video action.
+An explicit Live demo link remains available in either layout whenever a demo
+exists. Only that link opens an external demo. Hover and keyboard focus may
+fade in the title arrow within its reserved
 space. Preview images retain their crop and scale. The default play control
 and its labelled hover state both remain centred within the preview. Touch
 controls remain visible. Do not invent
@@ -223,7 +235,9 @@ extra introduction. Do not crop out essential content by zooming media on hover.
 Titles and arrows stay stationary; feedback uses the existing border and underline.
 Collection art can use a clear #Topic identity; it does not act as a technical
 tag. Keep the hackathon organizer poster and the adapted official iRTE2026 art.
-Recipe cards still contain no Topic names or membership badges.
+Recipe cards still contain no Topic names or membership badges. Activities shows
+ongoing and upcoming activities; Past activities shows completed activities only.
+All includes both groups and collections.
 
 ## Recipe pages and reading
 

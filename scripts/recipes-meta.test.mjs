@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises"
+import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import test from "node:test"
@@ -9,6 +9,16 @@ import ts from "typescript"
 // a test-runner dependency or importing Next's server-only marker into Node.
 const source = (await readFile(new URL("../lib/recipes.ts", import.meta.url), "utf8")).replace('import "server-only"', "")
 const valid = JSON.parse(await readFile(new URL("../content/recipes/aria-voice-sales-agent/recipe.json", import.meta.url), "utf8"))
+
+test("catalog live-demo links never navigate to downloadable video files", async () => {
+  const root = new URL("../content/recipes/", import.meta.url)
+  for (const directory of await readdir(root, { withFileTypes: true })) {
+    if (!directory.isDirectory() || directory.name.startsWith(".")) continue
+    const entry = JSON.parse(await readFile(new URL(`${directory.name}/recipe.json`, root), "utf8"))
+    if (!entry.demoUrl) continue
+    assert.doesNotMatch(new URL(entry.demoUrl).pathname, /\.(?:mp4|webm|mov|m4v)$/i, `${directory.name}: recordings belong in media.videoUrl, not demoUrl`)
+  }
+})
 
 async function load(meta, catalog = false) {
   const root = await mkdtemp(path.join(tmpdir(), "recipes-meta-"))

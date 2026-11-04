@@ -125,9 +125,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   const visibleCount = catalogVisibleCount(params, filtered.length)
   const hasMore = visibleCount < filtered.length
   const visible = filtered.slice(0, visibleCount)
-  const featuredCount = Math.max(6, filtered.filter(recipe => recipe.recommendedOrder !== undefined).length)
-  const leading = compact ? visible : visible.slice(0, featuredCount)
-  const remaining = compact ? [] : visible.slice(featuredCount)
+  const featured = compact ? [] : visible.filter(recipe => recipe.recommendedOrder !== undefined)
+  const directory = compact ? [] : visible.filter(recipe => recipe.recommendedOrder === undefined)
 
   useEffect(() => {
     const target = sentinel.current
@@ -298,8 +297,12 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
         {query && guides.status === "error" && <p className="catalog-search-status" role="status">{t("Searching project details only.")} <Button variant="link" size="sm" onClick={guides.retry}>{t("Retry guide search")}</Button></p>}
       </div>
       {filtered.length ? <>
-        <div ref={resultsRef} aria-busy={searching} className={compact ? "recipe-results" : "showcase-grid"}>{leading.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact={compact} />)}</div>
-        {remaining.length > 0 && <div className="recipe-results catalog-rest">{remaining.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />)}</div>}
+        <div ref={resultsRef} aria-busy={searching} className={compact ? "recipe-results" : "catalog-cards"}>
+          {compact ? visible.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />) : <>
+            {featured.length > 0 && <div className="showcase-grid">{featured.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} />)}</div>}
+            {directory.length > 0 && <div className="showcase-grid directory-grid">{directory.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} />)}</div>}
+          </>}
+        </div>
         {filtered.length > CATALOG_BATCH_SIZE && <div ref={sentinel} className="catalog-load-status" role="status" aria-live="polite">{hasMore ? t("Loading more projects…") : t("All {count} projects shown", { count: filtered.length })}</div>}
       </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => { setFilters(defaultFilters); searchRef.current?.focus() }}>{t("Clear search and filters")}</Button></Empty>}
     </div>

@@ -1,24 +1,27 @@
 # Recipes analytics
 
-## Project and configuration
+## Deployment configuration
 
-PostHog project: **recipes.agora.io**, **693535**, US Cloud, project timezone UTC.
-[Recipes usage and Topic engagement](https://us.posthog.com/project/693535/dashboard/2270627)
-contains seven native insights. Its default period is the last 30 days. The existing
-Vercel analytics remain connected to the same seven action families.
+Analytics destinations are configured through hosting environment variables.
+The application sends to one configured PostHog destination, alongside the
+existing Vercel analytics. Filter Recipes events by `app=recipes` and
+`environment=production`.
 
 Set these **public browser SDK values** in the existing hosting project's Production
-environment and in ignored `.env.local` when needed. Never use a personal API key:
+environment and in ignored `.env.local` when needed. Remove these variables from
+Preview and Development scopes. Never use a personal API key:
 
 ```text
 NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN=<public project token from PostHog project settings>
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+NEXT_PUBLIC_POSTHOG_HOST=<ingestion host from PostHog project settings>
 ```
 
-The verified values are configured in Vercel project `agora-gdxe/v0-voice-ai-recipes`,
-Production only. A build embeds these values, so changes require the normal release.
+A build embeds these values, so changes require the normal release.
 The client runs only when `NODE_ENV=production`, `VERCEL=1`, and
-`VERCEL_ENV=production`. Local builds, development, and previews do not capture.
+`VERCEL_ENV=production`, and the browser is on the canonical HTTPS origin from
+`SITE_URL` (default `https://recipes.agora.io`). A production deployment's generated
+URL, a preview, or a locally served copy of production assets does not initialize
+either analytics SDK. Local builds, development, and previews do not capture.
 A real-production build fails clearly if either value is missing.
 
 The pinned 1.439.0 slim SDK loads lazily; first events wait for initialization. The site sends one
@@ -32,7 +35,8 @@ Locales are `en`, `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR`.
 Automatic loading uses the existing `catalog_action:load_more` event, with no raw
 query or new event family.
 
-Every event carries `site=agora-recipes` and `measurement_version=1`. Public
+Every event carries `app=recipes`, `site=agora-recipes`, `environment=production`, and
+`measurement_version=1`. Public
 context is bounded to locale, page type, stable content slug, selected/context
 Topic slug, source Topic slug, action, placement, and result count where applicable.
 
@@ -48,6 +52,12 @@ Topic slug, source Topic slug, action, placement, and result count where applica
 | Direct PR guidance | `contribution_open:pr_instructions`. | Opening instructions does not prove a PR was created. |
 | Activity destination opens | `topic_action_open`: `participate`, `questions`, `replay`, or `source`. | External tools own registration/completion. |
 
+`app`, `site`, and `environment` are forced after caller properties and again in
+the SDK's `before_send` boundary. Caller values and persisted super-properties
+cannot overwrite them. These are event properties, not person properties: a
+person may use multiple applications.
+
+Recipes has no login/session integration and does not call `identify`.
 Unique counts use a persistent anonymous browser identity, without a person
 profile. One person using different browsers/devices or clearing storage can be
 counted again. Use the unique aggregation across the union of use/engagement
@@ -90,26 +100,31 @@ counts; installed code and environment configuration are not evidence of ingesti
 
 ## Release verification
 
-1. Review and release PR #77 through the existing staging/production process.
-   This change does not deploy or change account permissions/billing.
+1. Configure the destination's public SDK token and ingestion host in
+   the hosting project's Production scope only. Review and release through the
+   existing staging/production process; environment edits alone do not update an
+   already-built deployment. Do not change account permissions or billing.
 2. Visit real production pages, including a Topic, its entry, and contribution.
    Make deliberate use actions. Verify `$pageview` and the seven relevant action
-   families in project 693535; inspect bounded context and clean URLs.
+   families in the configured destination; filter by `app=recipes` and
+   `environment=production`, and inspect bounded context and clean URLs.
 3. Confirm a single pathname navigation produces one view and changing filters
    does not. Successful copying counts once; failed copying and hover previews
    do not produce use events.
 4. Check Topic A → detail → contribution, change association to B, then clear it.
    Confirm independent source/association fields in captured events and dashboard
    breakdowns. Also confirm direct visits have no inferred source.
-5. Confirm local/development/preview visits send no events. Recheck Vercel collection
+5. Confirm local/development/preview visits send no events, including a copy of
+   a production build served on localhost and the generated production deployment
+   URL. Recheck Vercel collection
    alongside PostHog. Do not mark tracking Issue T5/T9 complete before real ingestion.
 6. Determine actual submissions and publications from GitHub Issues/PRs and release
    links using the contribution SOP. No webhook, reporting database, or synthetic
    submission is needed for this phase.
 
-At setup on 2026-10-28, PostHog reported no ingested events. All seven saved insights
-returned no data with no query warnings. The dashboard is ready for the release;
-this is not a claim that production collection is already healthy.
+Local checks and installed SDKs do not establish production ingestion. Verify
+collection after release. Configuration changes do not update older, already-built
+deployments or remove historical events.
 
 References: [PostHog Next.js](https://posthog.com/docs/libraries/next-js),
 [SDK configuration](https://posthog.com/docs/libraries/js/config), and
