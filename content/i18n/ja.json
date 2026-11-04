@@ -103,6 +103,8 @@
     "Your browser does not support video playback. Open the original video below.": "このブラウザーでは動画を再生できません。下のリンクから元の動画を開いてください。",
     "This video couldn’t load. You can open the original video or view the project below.": "動画を読み込めませんでした。元の動画かプロジェクトの詳細をご覧ください。",
     "Original video": "元の動画",
+    "Loading video…": "動画を読み込んでいます…",
+    "Try again": "再試行",
     "Read recipe": "実装ガイドを読む",
     "Back to recipes": "一覧に戻る",
     "Back to results": "検索結果に戻る",

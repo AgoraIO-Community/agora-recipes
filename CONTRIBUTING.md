@@ -91,7 +91,7 @@ Provide at least one material:
 | Field | Destination |
 | --- | --- |
 | `demoUrl` | An existing web Demo or native distribution page, such as TestFlight. |
-| `media.videoUrl` | An existing video that can be played in the site player. |
+| `media.videoUrl` | A YouTube video URL or a direct browser-playable video on an HTTPS storage/CDN host. |
 | `mainRepoUrl` | The implementation repository root. |
 | `recipeUrl` | The public Markdown guide to render. Prefer a GitHub `blob` URL. |
 
@@ -117,6 +117,42 @@ Keep media in the entry's `recipe.json`, independently of recommendation:
 ```
 
 The fragment above is optional metadata, not a complete entry. Use real images and videos. Keep `demoNote` accurate about supported languages, devices, accounts, and API-key requirements. Images can use a local public path or an HTTPS URL; keep posters below 150 KB where practical. Optional `compactTitle`, `compactSummary`, `videoDuration`, `thumbnailScale`, and `thumbnailOrigin` retain the existing media-card presentation options.
+
+### Video hosting
+
+Keep using **`media.videoUrl`**. No provider field or uploaded copy is required:
+
+```json
+{ "videoUrl": "https://www.youtube.com/watch?v=KwlDBXsbCUM" }
+```
+
+The link above is Zico's Trick or Take video, shown only as a URL example. Use a
+video that belongs to your own submitted project. YouTube `watch`, `youtu.be`,
+`shorts`, `live`, and `embed` video links are recognized; optional `t`/`start`
+timestamps are retained. The [official IFrame API](https://developers.google.com/youtube/iframe_api_reference)
+loads only after a visitor opens the player. Playback requires a separate play
+action, and only actual playback counts as `video_play`. The player uses
+[privacy-enhanced embeds](https://support.google.com/youtube/answer/171780)
+and keeps an original-video link available. Private, removed, region-restricted,
+or embedding-disabled videos can still fail; the dialog offers retry/recovery.
+
+Direct MP4/WebM files use the browser's native player. S3, R2, a CDN, or another
+HTTPS host works without a host allowlist. Keep the existing `thumbnail` as the
+poster. For example:
+
+```json
+{ "videoUrl": "https://your-bucket.s3.amazonaws.com/demo.mp4" }
+```
+
+Use a durable public HTTPS URL, a browser-supported codec, the correct video
+Content-Type, and byte-range support for seeking. A storage console/share page
+is not a direct video URL; expiring signed URLs are unsuitable for this static
+catalog. No storage credentials belong in metadata. HLS/DASH streaming manifests
+and other providers' watch pages need a future player adapter. Add provider URL
+recognition in `lib/video.ts` and its player in `components/recipe-video-player.tsx`;
+the catalog contract and cards do not change. Existing GitHub video links remain
+compatible. Hover previews apply only to direct files; YouTube keeps its poster
+until the visitor opens the dialog.
 
 Recommendation order is editorial. Prioritize usable materials, clear access requirements, useful guides, and a mix of use cases and platforms. Language alone does not determine the order. Do not describe editorial recommendations as popularity rankings without verified analytics.
 
