@@ -1,0 +1,14 @@
+{
+  "title": "Desktop Pet",
+  "tagline": "Build a playful macOS companion you can interact with and talk to.",
+  "description": "Create a floating desktop pet with rice-feeding animations, a draggable foxtail game, and real-time voice chat through Agora. Follow the source-based macOS setup and customize STT, LLM, and TTS providers with your own service accounts.",
+  "tags": ["voice-ai"],
+  "platforms": ["TypeScript", "macOS"],
+  "useCases": ["Entertainment", "Voice AI"],
+  "capabilities": ["Conversational AI", "Voice Agent"],
+  "mainRepoUrl": "https://github.com/SyunWong/desktop-pet",
+  "recipeUrl": "https://github.com/SyunWong/desktop-pet/blob/main/README.md",
+  "author": "SyunWong",
+  "updated": "2026-11-04",
+  "difficulty": "Intermediate"
+}
