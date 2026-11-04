@@ -139,8 +139,9 @@ Media cards show the preview, title, summary, author avatar, and one meaningful
 exclude browser chrome; the original image and video remain intact.
 Keep `demoNote` truthful about language, microphones, cameras, and API-key
 requirements; it remains visible in recipe details and video players. Video
-cards open the on-site player, which also offers the existing external live demo;
-image cards open their live demo directly. Title and text links always lead to the same content detail page; its guide appears only when configured.
+play controls open the on-site player, which also offers the existing external live demo.
+Card covers, title, and text links lead to the same content detail page; its guide
+appears only when configured. A separate Live demo link opens the external demo.
 Recipe detail pages show the optional Demo action whether or not they are recommended.
 
 Verified author profiles and local avatar sources are maintained in
