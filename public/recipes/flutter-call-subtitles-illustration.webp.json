@@ -1,0 +1,15 @@
+{
+  "slug": "flutter-call-subtitles",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Flutter Call Subtitles, based on its catalog metadata and source https://github.com/AgoraIO-Community/flutter_call_subtitles at 8947f14bcb53e10a12aa003f75cc70a923d18ff2. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/flutter-call-subtitles.html.",
+  "createdAt": "2026-11-04T15:16:56.790Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/flutter_call_subtitles",
+  "sourceRevision": "8947f14bcb53e10a12aa003f75cc70a923d18ff2",
+  "width": 1600,
+  "height": 900,
+  "sha256": "0c0339579ae88ccd81e47aaa84a6d973dd7f41fc46064856e90fb354872cfb4b",
+  "original": "originals/flutter-call-subtitles.png",
+  "htmlSource": "illustrations/flutter-call-subtitles.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Flutter and native simulators are unavailable. App not launched."
+}

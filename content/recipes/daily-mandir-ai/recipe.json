@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/anandwana001/daily-mandir-ai/blob/main/docs/ai/RECIPE.md",
   "author": "anandwana001",
   "updated": "2026-06-25",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "Daily Mandir AI",
+    "summary": "A devotional voice companion for daily temple guidance.",
+    "thumbnail": "/recipes/daily-mandir-ai-catalog-call.webp",
+    "thumbnailAlt": "Daily Mandir Bhagavad Gita call interface with the agent's genuine greeting, transcript and microphone controls",
+    "thumbnailSource": "https://github.com/anandwana001/daily-mandir-ai/tree/0a541fbff286d8eee30cb071b4e913e914a7144e",
+    "thumbnailFit": "contain",
+    "demoNote": "Real Bhagavad Gita call with an agent greeting and silent virtual microphone. Guruji Sarvam mode and multilingual conversation were not tested.",
+    "labels": [
+      "TypeScript",
+      "Devotional"
+    ],
+    "searchTerms": []
+  }
 }

@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Dynamic Tool Sets",
+    "summary": "Swap the agent's tools based on context.",
+    "thumbnail": "/recipes/dynamic-tools-clean-call.webp",
+    "thumbnailAlt": "Smart Home recipe real call interface with its original greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tools-plus",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC call using the project's bundled smart-home demo service through a restricted temporary tunnel. Greeting received; no physical device or tool mutation was performed.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

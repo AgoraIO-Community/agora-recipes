@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Jev VAD: Client-side Turn Detection",
+    "summary": "Use a language-model judge for turn detection and barge-in.",
+    "thumbnail": "/recipes/jev-vad-call.webp",
+    "thumbnailAlt": "Jev VAD real call interface with live-turn detection panel, transcript rail, agent visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/convoai-jev-vad",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC call and managed-agent start, using a silent virtual microphone. Transcript is empty; TypeSafe-backed VAD judgments were not verified.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

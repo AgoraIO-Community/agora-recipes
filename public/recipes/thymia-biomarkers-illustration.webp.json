@@ -1,0 +1,28 @@
+{
+  "slug": "thymia-biomarkers",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Thymia Biomarkers, based on its catalog metadata and source https://github.com/AgoraIO-Conversational-AI/agent-samples at 873c53238a21edcd7f4e9d7cff91cf1d33484c9e. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/thymia-biomarkers.html.",
+  "createdAt": "2026-11-04T15:16:58.844Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/agent-samples",
+  "sourceRevision": "873c53238a21edcd7f4e9d7cff91cf1d33484c9e",
+  "width": 1600,
+  "height": 900,
+  "sha256": "a9b3f69e2e4285c5eeb0080252515139fe1e7523ec92ffb0657621e97e1620c9",
+  "original": "originals/thymia-biomarkers.png",
+  "htmlSource": "illustrations/thymia-biomarkers.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4413"
+    ],
+    "scope": "original frontend only; backend credentials unavailable; no session started",
+    "httpStatus": 500
+  },
+  "decision": "Original avatar client launched with NEXT_PUBLIC_ENABLE_THYMIA=true. HTTP 500: @agora/agent-ui-kit cannot resolve after script-disabled dependency installation. No diagnostic screen used as artwork."
+}

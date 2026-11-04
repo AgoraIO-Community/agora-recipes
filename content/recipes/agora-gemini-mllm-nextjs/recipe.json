@@ -21,5 +21,18 @@
     },
     "installCommand": "pnpm install",
     "runCommand": "pnpm dev"
+  },
+  "media": {
+    "title": "Gemini MLLM Voice Agent for Next.js",
+    "summary": "Build a Gemini Live voice agent with Next.js and Agora.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-gemini-mllm-nextjs/tree/7fca94bbcb7dd3dd43fb538018c381e2fcdfe0af",
+    "thumbnailFit": "contain",
+    "demoNote": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/agora-gemini-mllm-nextjs-initial-2026-11-04.webp",
+    "thumbnailAlt": "Gemini MLLM Voice Agent for Next.js: original local initial interface, not a connected session"
   }
 }

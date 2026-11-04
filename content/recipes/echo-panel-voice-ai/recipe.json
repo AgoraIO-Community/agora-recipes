@@ -10,5 +10,17 @@
   "recipeUrl": "https://github.com/madhuri-sharma921/EchoPanel/blob/main/README.md",
   "author": "Madhuri Sharma",
   "updated": "2026-09-16",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "EchoPanel Voice AI",
+    "summary": "Set up EchoPanel, configure credentials, and run a real-time conversational voice workflow.",
+    "thumbnailSource": "https://github.com/madhuri-sharma921/EchoPanel/tree/fc09c3074a4385fe81a77ae4ea3f3d2d73ce8609",
+    "labels": [
+      "Android"
+    ],
+    "thumbnail": "/recipes/echo-panel-voice-ai-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of EchoPanel Voice AI; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+  }
 }

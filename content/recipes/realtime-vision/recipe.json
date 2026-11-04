@@ -35,5 +35,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Real-time Vision (MLLM)",
+    "summary": "Realtime voice that can also see your camera.",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime-vision/tree/8abb257cc2fe297c52bc64b48bd7979b135d1430",
+    "thumbnailFit": "contain",
+    "demoNote": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/realtime-vision-initial-2026-11-04.webp",
+    "thumbnailAlt": "Real-time Vision (MLLM): original local initial interface, not a connected session"
   }
 }

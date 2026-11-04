@@ -1,0 +1,15 @@
+{
+  "slug": "android-quickstart",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Android Quickstart, based on its catalog metadata and source https://github.com/AgoraIO-Conversational-AI/recipe-client-android-quickstart at 7bfb2c55e78769835a1369bbb6c4505ebfc98d13. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/android-quickstart.html.",
+  "createdAt": "2026-11-04T15:16:56.361Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/recipe-client-android-quickstart",
+  "sourceRevision": "7bfb2c55e78769835a1369bbb6c4505ebfc98d13",
+  "width": 1600,
+  "height": 900,
+  "sha256": "7a5288a33a99ac0a8191bad796651ab63fd53f7d608bbeacda2d1a817d719d3c",
+  "original": "originals/android-quickstart.png",
+  "htmlSource": "illustrations/android-quickstart.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

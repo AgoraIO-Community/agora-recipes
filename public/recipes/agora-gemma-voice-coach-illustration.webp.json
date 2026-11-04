@@ -1,0 +1,28 @@
+{
+  "slug": "agora-gemma-voice-coach",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Agora x Gemma Voice Coach, based on its catalog metadata and source https://github.com/anandwana001/Agora-Gemma-Voice-Coach at 8581b2b4abedba627b449014be256be39e8bb18e. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-gemma-voice-coach.html.",
+  "createdAt": "2026-11-04T15:16:55.705Z",
+  "sourceRepository": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach",
+  "sourceRevision": "8581b2b4abedba627b449014be256be39e8bb18e",
+  "width": 1600,
+  "height": 900,
+  "sha256": "050efa3fe76ca0ed854234dae3146f68ace0bbad6d73182dda9b19eafd443db2",
+  "original": "originals/agora-gemma-voice-coach.png",
+  "htmlSource": "illustrations/agora-gemma-voice-coach.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4392"
+    ],
+    "scope": "credential-free initial UI only; no session started",
+    "httpStatus": null
+  },
+  "decision": "Original dashboard launched; it displays missing Agora configuration and requires a running local Gemma model. Setup warning screenshot rejected."
+}

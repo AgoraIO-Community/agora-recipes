@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Cross-Session Memory",
+    "summary": "Remember returning users across separate calls.",
+    "thumbnail": "/recipes/cross-session-memory-catalog-call.webp",
+    "thumbnailAlt": "Memory Recipe real call interface with an agent greeting, transcript rail, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-memory",
+    "thumbnailFit": "contain",
+    "demoNote": "Original Python backend and RTC call with a genuine greeting. No name or personal speech supplied; cross-session recall was not tested.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

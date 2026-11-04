@@ -21,5 +21,18 @@
     },
     "installCommand": "make setup",
     "runCommand": "make dev"
+  },
+  "media": {
+    "title": "Golang Quickstart",
+    "summary": "Build a basic Agora Conversational AI agent in Go.",
+    "thumbnail": "/recipes/golang-quickstart-clean-call.webp",
+    "thumbnailAlt": "Go Quickstart real call interface with an agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-go",
+    "thumbnailFit": "contain",
+    "demoNote": "Original Go backend compiled and run with a verified portable Go toolchain. Real RTC call and greeting; managed provider defaults unchanged and agent stop confirmed.",
+    "labels": [
+      "Go"
+    ],
+    "searchTerms": []
   }
 }

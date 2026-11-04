@@ -1,0 +1,15 @@
+{
+  "slug": "ios-transcription-widget",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for iOS Transcription Widget, based on its catalog metadata and source https://github.com/AgoraIO-Community/TranscriptionWidget-iOS at 2b7d69aff59eea7c37dc9ddadb8c1cee54f030bb. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/ios-transcription-widget.html.",
+  "createdAt": "2026-11-04T15:16:57.084Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/TranscriptionWidget-iOS",
+  "sourceRevision": "2b7d69aff59eea7c37dc9ddadb8c1cee54f030bb",
+  "width": 1600,
+  "height": 900,
+  "sha256": "320ebdee627b772af9e583363a03c6b4df78264bd7869fc65f736063be7c6806",
+  "original": "originals/ios-transcription-widget.png",
+  "htmlSource": "illustrations/ios-transcription-widget.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

@@ -10,5 +10,18 @@
   "recipeUrl": "https://github.com/saksham456456/Aria/blob/main/README.md",
   "author": "saksham456456",
   "updated": "2026-09-08",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Aria Co-Teacher",
+    "summary": "An AI-powered co-teacher for virtual classrooms.",
+    "thumbnail": "/recipes/aria-coteacher.webp",
+    "thumbnailAlt": "Aria Voice AI Co-Teacher landing page with Create Classroom and Join Classroom controls",
+    "thumbnailSource": "https://github.com/saksham456456/Aria",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free landing page; no classroom, account or voice session created.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

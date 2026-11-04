@@ -21,5 +21,18 @@
     },
     "installCommand": "make setup",
     "runCommand": "make dev"
+  },
+  "media": {
+    "title": "OpenAI GPT Live with Go",
+    "summary": "Build a realtime GPT Live voice agent with Agora and Go.",
+    "thumbnail": "/recipes/openai-gpt-live-go.webp",
+    "thumbnailAlt": "Go OpenAI voice web client's initial Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-Go",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free web client; no active session or backend verification.",
+    "labels": [
+      "Go"
+    ],
+    "searchTerms": []
   }
 }

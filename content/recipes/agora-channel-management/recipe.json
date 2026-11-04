@@ -22,5 +22,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-channel-management/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Channel Management Sample",
+    "summary": "Inspect channel users and manage RTC privileges.",
+    "thumbnail": "/recipes/agora-channel-management.webp",
+    "thumbnailAlt": "Channel management initial privilege-rule and channel-user forms with no credentials entered",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-channel-management",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no credentials entered, queries submitted or privileges changed.",
+    "labels": [
+      "JavaScript",
+      "Web"
+    ],
+    "searchTerms": []
+  }
 }

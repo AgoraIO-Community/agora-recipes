@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "MCP Tools",
+    "summary": "Let Agora orchestrate tools on an MCP server.",
+    "thumbnail": "/recipes/mcp-tools-clean-call.webp",
+    "thumbnailAlt": "MCP Tools real call interface with an ambient agent visualizer, empty transcript and microphone controls, without a failure warning",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-mcp",
+    "thumbnailFit": "contain",
+    "demoNote": "Original RTC call and bundled MCP server connected through a restricted temporary tunnel. Agent start/stop and MCP discovery succeeded; transcript remained empty and no tool action was requested.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

@@ -1,0 +1,28 @@
+{
+  "slug": "agora-gemini-mllm-nextjs",
+  "kind": "local-app-screenshot",
+  "prompt": "Unmodified local initial interface of Gemini MLLM Voice Agent for Next.js, source https://github.com/AgoraIO-Community/agora-gemini-mllm-nextjs at 7fca94bbcb7dd3dd43fb538018c381e2fcdfe0af. No crop, retouch, fabricated data or live session. Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+  "createdAt": "2026-11-04T15:16:55.637Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/agora-gemini-mllm-nextjs",
+  "sourceRevision": "7fca94bbcb7dd3dd43fb538018c381e2fcdfe0af",
+  "width": 1440,
+  "height": 1000,
+  "sha256": "2972afb777ab18e69577ab745c523180c1245ef56ed4afb0d58badcae6fa0e39",
+  "original": "originals/agora-gemini-mllm-nextjs.png",
+  "htmlSource": "illustrations/agora-gemini-mllm-nextjs.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4391"
+    ],
+    "scope": "credential-free initial UI only; no session started",
+    "httpStatus": null
+  },
+  "decision": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified."
+}

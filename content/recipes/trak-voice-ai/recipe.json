@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/Saarthak1234/Trak-VoiceAI-Demo/blob/main/docs/ai/RECIPE.md",
   "author": "Saarthak Agarwal",
   "updated": "2026-08-24",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Trak App Voice AI Integration",
+    "summary": "Control music playback and search tracks using voice AI.",
+    "thumbnail": "/recipes/trak-voice-ai-catalog-call.webp",
+    "thumbnailAlt": "Trak repository quickstart's real call interface with agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/Saarthak1234/Trak-VoiceAI-Demo",
+    "thumbnailFit": "contain",
+    "demoNote": "Real call and greeting in the repository's web quickstart. Electron music playback, Spotify and device integration were not tested.",
+    "labels": [
+      "JavaScript",
+      "Electron"
+    ],
+    "searchTerms": []
+  }
 }

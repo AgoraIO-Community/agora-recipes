@@ -1,0 +1,15 @@
+{
+  "slug": "rn-quickstart",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for React Native Quickstart, based on its catalog metadata and source https://github.com/AgoraIO-Conversational-AI/recipe-client-rn-quickstart at 30c884681eb46e60bc63400dfac5dea7a47b03a4. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/rn-quickstart.html.",
+  "createdAt": "2026-11-04T15:16:58.595Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/recipe-client-rn-quickstart",
+  "sourceRevision": "30c884681eb46e60bc63400dfac5dea7a47b03a4",
+  "width": 1600,
+  "height": 900,
+  "sha256": "a42f6678196aaa3d3682dfc9ec3f5242a1cd14174ad0f04d930ec654de7a69b5",
+  "original": "originals/rn-quickstart.png",
+  "htmlSource": "illustrations/rn-quickstart.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

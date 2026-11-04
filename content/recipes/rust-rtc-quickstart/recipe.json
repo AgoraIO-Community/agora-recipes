@@ -10,5 +10,17 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Rust-QuickStart/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Rust RTC Quickstart",
+    "summary": "A Rust quickstart for exploring Agora RTC channel connection patterns and native real-time communication workflows.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-Rust-QuickStart/tree/0948e42f8a6ebbe2d698bf680bd2f96d4ee3c915",
+    "labels": [
+      "Rust"
+    ],
+    "thumbnail": "/recipes/rust-rtc-quickstart-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of Rust RTC Quickstart; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Rust/cargo and the native Agora runtime are unavailable. App not launched."
+  }
 }

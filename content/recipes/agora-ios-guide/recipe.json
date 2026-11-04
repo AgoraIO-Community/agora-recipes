@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-iOS-Guide/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "iOS RTC Guide",
+    "summary": "Follow an iOS guide for Agora RTC video calling.",
+    "thumbnail": "/recipes/agora-ios-guide.png",
+    "thumbnailAlt": "iOS RTC guide demo screenshot from the implementation repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/Agora-iOS-Guide/774be8614a04ba0dd21b8d08820182a1d5b0f632/1-basic-set-up/images/0-end-goal.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing guide screenshot; not captured locally. Reproduction requires Xcode and Agora configuration.",
+    "labels": [
+      "iOS",
+      "Video calling"
+    ],
+    "searchTerms": []
+  }
 }

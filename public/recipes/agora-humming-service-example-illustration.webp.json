@@ -1,0 +1,15 @@
+{
+  "slug": "agora-humming-service-example",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Humming Service Example, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-HummingService-Example at 403a530f55385811a9977ee4176d829a582af5a8. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-humming-service-example.html.",
+  "createdAt": "2026-11-04T15:16:55.773Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-HummingService-Example",
+  "sourceRevision": "403a530f55385811a9977ee4176d829a582af5a8",
+  "width": 1600,
+  "height": 900,
+  "sha256": "ad332146cb02dfbcd4237600a1d756f4faa8b243b5d485af2dfba3779b5e1eb9",
+  "original": "originals/agora-humming-service-example.png",
+  "htmlSource": "illustrations/agora-humming-service-example.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}
