@@ -13,7 +13,7 @@ export function RecipeStartActions({ prompt, command }: { prompt: string; comman
   const { t } = useI18n()
   return <Popover>
     <PopoverAnchor asChild><ButtonGroup id="build" className="recipe-start-group" data-appearance="primary" aria-label={t("Build with your coding agent")}>
-      <CopyTextButton text={prompt} label="Copy recipe prompt" subject="Recipe prompt" primary />
+      <CopyTextButton text={prompt} label="Copy recipe prompt" subject="Recipe prompt" primary iconOnly />
       <ButtonGroupSeparator />
       <PopoverTrigger asChild><IconButton variant="primary" label={t(command ? "Prompt & CLI" : "View recipe prompt")}><ChevronDown aria-hidden="true" /></IconButton></PopoverTrigger>
     </ButtonGroup></PopoverAnchor>

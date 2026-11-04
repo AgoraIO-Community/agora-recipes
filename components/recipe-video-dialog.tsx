@@ -6,9 +6,11 @@ import { catalogReturnPath, localePath } from "@/lib/locales"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
 import { useCallback, useRef, useState, type ReactNode } from "react"
 import { RecipeVideoPlayer } from "@/components/recipe-video-player"
-import { ArrowUpRight } from "lucide-react"
+import { BookOpen, ExternalLink, MonitorPlay } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { IconButton } from "@/components/ui/icon-button"
+import { ButtonGroup } from "@/components/ui/button-group"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 
 export function RecipeVideoDialog({ recipe, children, detailHref }: { recipe: RecipeSummary; children: ReactNode; detailHref?: string }) {
@@ -42,11 +44,11 @@ export function RecipeVideoDialog({ recipe, children, detailHref }: { recipe: Re
         )}
         {failed && <div className="recipe-video-error"><p role="alert">{t("This video couldn’t load. You can open the original video or view the project below.")}</p><Button variant="outline" size="sm" onClick={() => setFailed(false)}>{t("Try again")}</Button></div>}
         <div className="video-preview__footer">
-          <Button asChild variant="ghost" size="sm"><a href={media.videoUrl} data-material="video_original" data-placement="player" target="_blank" rel="noreferrer">{t("Original video")} <ArrowUpRight aria-hidden="true" /></a></Button>
-          <div className="video-preview__actions">
-            <Button asChild variant="outline"><a href={detailHref ?? defaultHref}>{t(recipe.recipeUrl ? "Read recipe" : "View project")}</a></Button>
-            {recipe.demoUrl && <Button asChild><a href={recipe.demoUrl} data-material="demo" data-placement="player" target="_blank" rel="noreferrer">{t("Try live demo")} <ArrowUpRight aria-hidden="true" /></a></Button>}
-          </div>
+          <ButtonGroup className="video-preview__actions" aria-label={t("Available materials")}>
+            <IconButton asChild variant="outline" label={t("Original video")}><a href={media.videoUrl} data-material="video_original" data-placement="player" target="_blank" rel="noreferrer"><ExternalLink aria-hidden="true" /></a></IconButton>
+            <IconButton asChild variant="outline" label={t(recipe.recipeUrl ? "Read recipe" : "View project")}><a href={detailHref ?? defaultHref}><BookOpen aria-hidden="true" /></a></IconButton>
+            {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try live demo")}><a href={recipe.demoUrl} data-material="demo" data-placement="player" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+          </ButtonGroup>
         </div>
       </DialogContent>
     </Dialog>

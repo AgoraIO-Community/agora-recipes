@@ -239,6 +239,11 @@ On phones, the toolbar's Filters action uses its icon and active-count badge;
 the category choices stay visible. Long activity action labels wrap inside their
 buttons. Centered dialogs retain at least 16px of horizontal viewport clearance
 at every breakpoint, including tablet and landscape widths.
+Use named icon actions for copying, Demo, GitHub, sharing, sorting, and reader
+format/language/source controls. Keep related actions in compact button groups
+and keep reader tools on one row on phones. Sort explanations belong in the sort
+menu. Use full labels in menus and accessible names/tooltips on every icon;
+retain short text for category choices, result counts, and task-specific links.
 Platforms and use cases match any selected value; capabilities require all
 selected values. Search, filters, sorting, and loaded count live in the URL
 (`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions

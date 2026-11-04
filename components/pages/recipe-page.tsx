@@ -9,7 +9,7 @@ import Link from "next/link"
 import { getEntryTopics, topicNames } from "@/lib/topics"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { ArrowUpRight, ChevronDown } from "lucide-react"
+import { ArrowUpRight, ChevronDown, Github, MonitorPlay } from "lucide-react"
 import { getAllEntries, getAllRecipes, getEntry, getRelatedEntries, buildPrimaryPrompt } from "@/lib/recipes"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { RecipeBackLink } from "@/components/recipe-back-link"
@@ -19,7 +19,8 @@ import { Markdown } from "@/components/markdown"
 import { RecipePreview } from "@/components/recipe-preview"
 import { RecipeOutline } from "@/components/recipe-outline"
 import { RecipeAuthor } from "@/components/recipe-author"
-import { Button } from "@/components/ui/button"
+import { IconButton } from "@/components/ui/icon-button"
+import { ButtonGroup } from "@/components/ui/button-group"
 import { getT, getMessages, localizeEntry } from "@/lib/i18n"
 import { locales, localePath, type Locale } from "@/lib/locales"
 import { RelatedEntryLink } from "@/components/related-entry-link"
@@ -103,8 +104,10 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /></div>
             <div className="detail-actions detail-actions--recipe">
               {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />}
-              {recipe.demoUrl && <Button asChild variant="outline"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try demo (opens in a new tab)")}>{t("Try demo")}<ArrowUpRight aria-hidden="true" /></a></Button>}
-              {recipe.mainRepoUrl && <Button asChild variant="outline"><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer" aria-label={t("Source on GitHub (opens in a new tab)")}>GitHub<ArrowUpRight aria-hidden="true" /></a></Button>}
+              <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
+                {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+                {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
+              </ButtonGroup>
               <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} compact />
             </div>
           </div>

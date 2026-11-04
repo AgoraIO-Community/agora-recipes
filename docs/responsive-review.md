@@ -44,6 +44,31 @@ Additional interaction checks:
 - Theme emulation was cleared and the temporary viewport override was reset
   after verification.
 
+## Icon action consolidation
+
+Related actions now use named icon controls and compact groups: recipe prompt,
+Demo/GitHub/sharing, card media links, video actions, and reader format, language,
+copy, and source. Reader tools form one compact row; phone sort/view controls sit
+beside the filter heading. Recommendation criteria and the star-snapshot date
+remain available in the sort menu. Menus retain full option labels.
+
+After consolidation, another 265 production-build combinations passed:
+
+- 112 home, refinement, and representative reader cases: all seven locales at
+  320, 390, 768, and 1280px. Reader controls align on one row; phone icon targets
+  are at least 46px, with no page/panel overflow or clipped controls.
+- All 111 English recipe details at 320px.
+- 42 light/dark menu and dialog cases using the portrait, landscape, and tablet
+  sizes above.
+
+Guide/Markdown selection has distinct selected styling in both themes, and
+switches the visible panel. The Markdown copy icon reaches its success state
+and updates its accessible name. Sort and source menus keep their full options,
+including the dated GitHub-star explanation. Opening refinement focuses its
+heading without automatically showing a tooltip; keyboard Tab reaches sorting.
+Existing reader tests assert the accessible action names instead of requiring
+visible copy/source text.
+
 ## Repository checks
 
 - `npm run lint` — passes; existing Agora logo `<img>` warning only.
