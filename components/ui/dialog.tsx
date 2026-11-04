@@ -65,7 +65,7 @@ function DialogContent({
         asChild
         data-slot="dialog-content"
         className={cn(
-          "ag-glass-panel fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-6 border p-6 outline-none sm:max-w-lg",
+          "ag-glass-panel fixed top-[50%] left-[50%] z-50 grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-6 border p-6 outline-none",
           className,
         )}
         {...props}

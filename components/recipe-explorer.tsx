@@ -281,7 +281,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
         <div className="catalog-toolbar-actions">
         <div className="catalog-toolbar-view"><CatalogView value={filters.view} onChange={value => update("view", value)} /></div>
         <Sheet open={advanced} onOpenChange={setAdvanced}>
-          <SheetTrigger asChild><Button variant="outline" className="catalog-filter-trigger" onClick={() => { filterInvoker.current = null }} aria-label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" />{t("Filters")}{selectedCount > 0 && <Badge>{selectedCount}</Badge>}</Button></SheetTrigger>
+          <SheetTrigger asChild><Button variant="outline" className="catalog-filter-trigger" onClick={() => { filterInvoker.current = null }} aria-label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" /><span className="catalog-filter-label">{t("Filters")}</span>{selectedCount > 0 && <Badge className="catalog-filter-count">{selectedCount}</Badge>}</Button></SheetTrigger>
           <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" aria-describedby={undefined} onCloseAutoFocus={event => { if (filterInvoker.current?.isConnected) { event.preventDefault(); filterInvoker.current.focus() } }}>
             <SheetHeader><SheetTitle>{t("Filters")}</SheetTitle></SheetHeader>
             <div className="catalog-filter-sheet__body ag-reading-plane">

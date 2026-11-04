@@ -235,6 +235,10 @@ Use a compact title without introductory copy. On phones, sorting and card/list
 selection share one row; omit redundant visible control labels and the category
 group already available in the catalog toolbar. Keep accessible control names,
 46px touch targets, and the hints that explain how multiple filters combine.
+On phones, the toolbar's Filters action uses its icon and active-count badge;
+the category choices stay visible. Long activity action labels wrap inside their
+buttons. Centered dialogs retain at least 16px of horizontal viewport clearance
+at every breakpoint, including tablet and landscape widths.
 Platforms and use cases match any selected value; capabilities require all
 selected values. Search, filters, sorting, and loaded count live in the URL
 (`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions
