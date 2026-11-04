@@ -21,7 +21,7 @@ function prefersExplicitPlayback() {
   return connection?.saveData === true || window.matchMedia("(prefers-reduced-motion: reduce), (prefers-reduced-data: reduce)").matches
 }
 
-function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: string; href: string }) {
+function RecipeCover({ recipe, title, href, small = false }: { recipe: RecipeSummary; title: string; href: string; small?: boolean }) {
   const { t } = useI18n()
   const [imageFailed, setImageFailed] = useState(false)
   const [preview, setPreview] = useState(false)
@@ -78,8 +78,8 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
   const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media.thumbnailScale ?? 1, "--thumbnail-origin": media.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
     {!imageFailed && media.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
-    {media.videoUrl && <div className="recipe-cover__play" aria-hidden="true"><div className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></div></div>}
-    {(media.videoUrl || recipe.demoUrl) && <Badge className="recipe-cover__label ag-overlay">{media.videoUrl ? (media.videoDuration || t("Video")) : <>{t("Live demo")} <ArrowUpRight aria-hidden="true" /></>}</Badge>}
+    {!small && media.videoUrl && <div className="recipe-cover__play" aria-hidden="true"><div className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></div></div>}
+    {!small && (media.videoUrl || recipe.demoUrl) && <Badge className="recipe-cover__label ag-overlay">{media.videoUrl ? (media.videoDuration || t("Video")) : <>{t("Live demo")} <ArrowUpRight aria-hidden="true" /></>}</Badge>}
   </div>
   return media.videoUrl ? <DialogTrigger asChild><button type="button" className="recipe-cover-link" aria-label={t("Watch {title} demo", { title })} onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" className="recipe-cover-link" aria-label={t("Try {title} demo (opens in a new tab)", { title })} title={media.demoNote}>{cover}</a> : <Link prefetch={false} href={href} className="recipe-cover-link">{cover}</Link>
 }
@@ -88,6 +88,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const { t, locale } = useI18n()
   const href = localePath(`/recipes/${recipe.slug}`, locale) + (returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : "")
   const media = recipe.showcase
+  const featured = Boolean(media && recipe.recommendedOrder !== undefined)
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
   const previewAction = media?.videoUrl ? <DialogTrigger asChild><Button variant="ghost" size="sm" aria-label={t("Watch {title} demo", { title })}><Play aria-hidden="true" />{t("Video")}</Button></DialogTrigger> : recipe.demoUrl ? <Button asChild variant="ghost" size="sm"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{t("Live demo")}<ArrowUpRight aria-hidden="true" /></a></Button> : null
@@ -107,16 +108,18 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
 
 
   return <RecipeVideoDialog recipe={recipe} detailHref={href}>
-    <article className={cn("showcase-card", !media && "showcase-card--guide")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
-      {media && <RecipeCover recipe={recipe} title={title} href={href} />}
+    <article className={cn("showcase-card", !featured && "showcase-card--directory")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
+      {featured && <RecipeCover recipe={recipe} title={title} href={href} />}
       <div className="showcase-card__body">
-        <Link prefetch={false} href={href} className="showcase-card__details">
-          <h3>{title}<ArrowUpRight className="showcase-card__arrow" aria-hidden="true" /></h3>
-          <p className="showcase-card__summary">{media?.compactSummary ?? recipe.tagline}</p>
-        </Link>
-        {!media && technology}
-        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{media && label && <Badge>{t(label)}</Badge>}</div>
-        {!media && previewAction}
+        <div className="showcase-card__intro">
+          <Link prefetch={false} href={href} className="showcase-card__details">
+            <h3>{title}<ArrowUpRight className="showcase-card__arrow" aria-hidden="true" /></h3>
+            <p className="showcase-card__summary">{media?.compactSummary ?? recipe.tagline}</p>
+          </Link>
+          {!featured && media?.thumbnail && <div className="showcase-card__thumbnail"><RecipeCover recipe={recipe} title={title} href={href} small /></div>}
+        </div>
+        {!featured && technology}
+        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{featured && label && <Badge>{t(label)}</Badge>}{!featured && previewAction}</div>
       </div>
     </article>
   </RecipeVideoDialog>

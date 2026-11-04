@@ -184,14 +184,17 @@ The toolbar sticks below the measured header on desktop and scrolls normally on
 phones. Overflowing topics scroll horizontally. Single selection uses the shared
 moving underlay; state must also remain explicit in control semantics.
 
-Default catalog browsing uses one continuous grid, with curated recommendations
-first and the remaining entries following in the same grid. Use three columns on desktop and two at 900px. Phone
+Default catalog browsing starts with the curated media gallery, followed by a
+compact directory grid. Both grids use three columns on desktop and two at 900px. Phone
 cards remain in two columns. Desktop gaps are 20px; phone gaps are 12px across
 and 16px down. A charcoal tile contains an inset real preview, title, concise
 outcome, author, and one meaningful platform or capability label. Gallery crops
-are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin. Guide
-cards keep their natural height instead of stretching to fill neighboring rows,
-with technology, difficulty, and author information instead of empty thumbnail space.
+are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
+Directory cards share one layout for title, summary, technology, difficulty,
+author, and available preview actions, with equal heights within each row.
+Actual media may appear in an 80x60 thumbnail on desktop. On phones, keep the
+text preview action and omit that thumbnail. Never insert a gallery-sized cover
+among directory cards or reserve an empty thumbnail plane for entries without media.
 
 The media opens the actual video or external live demo; the title opens the
 recipe. Hover and keyboard focus may fade in the title arrow within its reserved
