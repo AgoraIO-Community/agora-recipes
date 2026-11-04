@@ -228,6 +228,9 @@ without moving keyboard focus. Where IntersectionObserver is unavailable, show
 all matches. There is no click-to-load control.
 
 The bounded filter sheet has searchable groups, counts, and a fixed action area.
+Its form scrolls vertically only; horizontal touch panning and overscroll are
+disabled. Options and translated footer actions wrap within the panel at narrow
+phone widths, with no clipped labels or horizontal scrollbar.
 Platforms and use cases match any selected value; capabilities require all
 selected values. Search, filters, sorting, and loaded count live in the URL
 (`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions

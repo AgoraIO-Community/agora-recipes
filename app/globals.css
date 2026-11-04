@@ -192,18 +192,18 @@
 .catalog-load-status { padding-block: 24px 8px; text-align: center; color: var(--muted-foreground); font-size: 13px; }
 
 /* Framed, bounded filters with the same controls as the catalog. */
-.catalog-filter-sheet { width: 440px; max-width: calc(100vw - 32px); height: calc(100dvh - 32px); inset-block: 16px; right: 16px; gap: 0; overflow: hidden; }
+.catalog-filter-sheet { width: 440px; max-width: calc(100vw - 32px); height: calc(100dvh - 32px); inset-block: 16px; right: 16px; gap: 0; overflow: hidden; touch-action: pan-y pinch-zoom; }
 .catalog-filter-sheet [data-slot=sheet-header] { gap: 6px; padding: 20px 64px 20px 20px; border-bottom: 1px solid var(--border); }
 .catalog-filter-sheet [data-slot=sheet-title] { font-size: 20px; font-weight: 400; line-height: 1.3; letter-spacing: -.025em; }
 .catalog-filter-sheet [data-slot=sheet-description] { font-size: 13px; line-height: 1.5; }
-.catalog-filter-sheet__body { min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 24px; }
+.catalog-filter-sheet__body { min-width: 0; min-height: 0; flex: 1; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; overscroll-behavior-x: none; touch-action: pan-y pinch-zoom; padding: 24px; }
 .catalog-filter-sheet [data-slot=sheet-footer] { flex-direction: row; justify-content: space-between; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--border); }
-.catalog-category { padding: 0; margin-top: 20px; }
+.catalog-category { min-inline-size: 0; padding: 0; margin-top: 20px; }
 .catalog-filter-sheet__body > .catalog-category:first-child { margin-top: 0; }
 .catalog-category legend { margin-bottom: 8px; font-size: 13px; font-weight: 400; }
 .catalog-materials .facet-options { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 8px; }
 .catalog-filter-results { min-width: 164px; font-variant-numeric: tabular-nums; }
-.catalog-category [data-slot=toggle-group] { width: max-content; }
+.catalog-category [data-slot=toggle-group] { width: max-content; max-width: 100%; min-width: 0; flex-wrap: wrap; }
 .catalog-sheet-sort { display: none; }
 .catalog-demo-option { margin-block: 16px; }
 .catalog-facet-group { border-top: 1px solid var(--border); }
@@ -467,6 +467,8 @@ a.recipe-author:hover { color: var(--foreground); }
   .catalog-filter-sheet [data-slot=sheet-header] { padding: 20px 64px 20px 20px; }
   .catalog-filter-sheet__body { padding: 20px; }
   .catalog-filter-sheet [data-slot=sheet-footer] { padding: 16px 20px max(20px,env(safe-area-inset-bottom)); }
+  .catalog-filter-sheet [data-slot=sheet-footer] > .ag-button { min-width: 0; max-width: 100%; height: auto; flex-shrink: 1; padding-block: 8px; white-space: normal; }
+  .catalog-filter-sheet [data-slot=sheet-footer] .basic-button-content { min-width: 0; overflow-wrap: anywhere; }
   .showcase-grid { row-gap: 16px; }
   .showcase-card { padding: 6px; border-radius: 12px; }
   .recipe-cover-frame { border-radius: 7px; }
