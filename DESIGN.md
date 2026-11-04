@@ -231,6 +231,10 @@ The bounded filter sheet has searchable groups, counts, and a fixed action area.
 Its form scrolls vertically only; horizontal touch panning and overscroll are
 disabled. Options and translated footer actions wrap within the panel at narrow
 phone widths, with no clipped labels or horizontal scrollbar.
+Use a compact title without introductory copy. On phones, sorting and card/list
+selection share one row; omit redundant visible control labels and the category
+group already available in the catalog toolbar. Keep accessible control names,
+46px touch targets, and the hints that explain how multiple filters combine.
 Platforms and use cases match any selected value; capabilities require all
 selected values. Search, filters, sorting, and loaded count live in the URL
 (`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions

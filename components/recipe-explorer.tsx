@@ -16,7 +16,7 @@ import { useCatalogMotion } from "@/hooks/use-catalog-motion"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
 import { catalogPositionKey, rememberCatalogPosition, replaceCatalogSearch, useCatalogSearch } from "@/hooks/use-catalog-location"
 import { useIsMobile } from "@/hooks/use-mobile"
@@ -282,13 +282,15 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
         <div className="catalog-toolbar-view"><CatalogView value={filters.view} onChange={value => update("view", value)} /></div>
         <Sheet open={advanced} onOpenChange={setAdvanced}>
           <SheetTrigger asChild><Button variant="outline" className="catalog-filter-trigger" onClick={() => { filterInvoker.current = null }} aria-label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" />{t("Filters")}{selectedCount > 0 && <Badge>{selectedCount}</Badge>}</Button></SheetTrigger>
-          <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" onCloseAutoFocus={event => { if (filterInvoker.current?.isConnected) { event.preventDefault(); filterInvoker.current.focus() } }}>
-            <SheetHeader><SheetTitle>{t("Refine recipes")}</SheetTitle><SheetDescription>{t("Find the right starting point for your project.")}</SheetDescription></SheetHeader>
+          <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" aria-describedby={undefined} onCloseAutoFocus={event => { if (filterInvoker.current?.isConnected) { event.preventDefault(); filterInvoker.current.focus() } }}>
+            <SheetHeader><SheetTitle>{t("Filters")}</SheetTitle></SheetHeader>
             <div className="catalog-filter-sheet__body ag-reading-plane">
-              <div className="catalog-sheet-sort"><span>{t("Sort by")}</span><CatalogSort value={filters.sort} query={filters.query} onChange={value => update("sort", value)} /></div>
-              <div className="catalog-sheet-view"><span>{t("View recipes")}</span><CatalogView value={filters.view} onChange={value => update("view", value)} /></div>
+              <div className="catalog-sheet-controls">
+                <div className="catalog-sheet-sort"><CatalogSort value={filters.sort} query={filters.query} onChange={value => update("sort", value)} /></div>
+                <div className="catalog-sheet-view"><CatalogView value={filters.view} onChange={value => update("view", value)} /></div>
+              </div>
               <fieldset className="catalog-category catalog-sheet-topics"><legend>{t("Quick filters")}</legend><QuickFilters value={filters.topic} onChange={value => update("topic", value)} /></fieldset>
-              <fieldset className="catalog-category"><legend>{t("Category")}</legend>
+              <fieldset className="catalog-category catalog-sheet-category"><legend>{t("Category")}</legend>
                 <ToggleGroup type="single" spacing={1} className="ag-selection-group" aria-label={t("Recipe category")} value={filters.category} onValueChange={value => update("category", value || "all")}>
                   <SelectionIndicator value={filters.category} />
                   {[["all", "All"], ["voice-ai", "Voice AI"], ["rtc", "RTC"]].map(([value, label]) => <ToggleGroupItem key={value} value={value}>{t(label)}</ToggleGroupItem>)}
@@ -301,8 +303,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
               <FilterFacet label={t("Models & capabilities")} hint={t("Matches every selected capability.")} facet="capabilities" options={options.capabilities} recipes={recipes} filters={filters} onChange={value => facet("capabilities", value)} />
             </div>
             <SheetFooter>
-              <Button variant="ghost" disabled={!selectedCount && filters.topic === "all"} onClick={() => setFilters({ ...defaultFilters, query: filters.query, sort: filters.sort, view: filters.view })}>{t("Reset filters")}</Button>
-              <SheetClose asChild><Button className="catalog-filter-results"><span key={filtered.length} className="ag-value-change">{filtered.length === 1 ? t("Show 1 result") : t("Show {count} results", { count: filtered.length })}</span></Button></SheetClose>
+              <Button variant="ghost" disabled={!selectedCount && filters.topic === "all"} onClick={() => setFilters({ ...defaultFilters, query: filters.query, sort: filters.sort, view: filters.view })}>{t("Clear filters")}</Button>
+              <SheetClose asChild><Button className="catalog-filter-results" aria-label={filtered.length === 1 ? t("Show 1 result") : t("Show {count} results", { count: filtered.length })}><span key={filtered.length} className="ag-value-change">{filtered.length === 1 ? t("1 result") : t("{count} results", { count: filtered.length })}</span></Button></SheetClose>
             </SheetFooter>
           </SheetContent>
         </Sheet>
