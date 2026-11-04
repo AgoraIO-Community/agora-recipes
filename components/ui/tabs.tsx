@@ -30,6 +30,7 @@ const tabsListVariants = cva("group/tabs-list ag-tabs-list", {
     variant: {
       default: "",
       line: "ag-tabs-line",
+      segmented: "ag-tabs-segmented",
     },
   },
   defaultVariants: {

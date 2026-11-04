@@ -82,7 +82,7 @@ A minimal Demo entry:
 }
 ```
 
-Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. The date must be a valid `YYYY-MM-DD` date.
+Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. Write the catalog title, tagline, and description in English, preserving original project names and author credit. The date must be a valid `YYYY-MM-DD` date. Additional languages are welcome but optional; a new entry does not need any files in `content/i18n/`.
 
 Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Tags must contain `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
 
@@ -91,7 +91,7 @@ Provide at least one material:
 | Field | Destination |
 | --- | --- |
 | `demoUrl` | An existing web Demo or native distribution page, such as TestFlight. |
-| `media.videoUrl` | An existing video that can be played in the site player. |
+| `media.videoUrl` | A YouTube video URL or a direct browser-playable video on an HTTPS storage/CDN host. |
 | `mainRepoUrl` | The implementation repository root. |
 | `recipeUrl` | The public Markdown guide to render. Prefer a GitHub `blob` URL. |
 
@@ -118,6 +118,42 @@ Keep media in the entry's `recipe.json`, independently of recommendation:
 
 The fragment above is optional metadata, not a complete entry. Use real images and videos. Keep `demoNote` accurate about supported languages, devices, accounts, and API-key requirements. Images can use a local public path or an HTTPS URL; keep posters below 150 KB where practical. Optional `compactTitle`, `compactSummary`, `videoDuration`, `thumbnailScale`, and `thumbnailOrigin` retain the existing media-card presentation options.
 
+### Video hosting
+
+Keep using **`media.videoUrl`**. No provider field or uploaded copy is required:
+
+```json
+{ "videoUrl": "https://www.youtube.com/watch?v=KwlDBXsbCUM" }
+```
+
+The link above is Zico's Trick or Take video, shown only as a URL example. Use a
+video that belongs to your own submitted project. YouTube `watch`, `youtu.be`,
+`shorts`, `live`, and `embed` video links are recognized; optional `t`/`start`
+timestamps are retained. The [official IFrame API](https://developers.google.com/youtube/iframe_api_reference)
+loads only after a visitor opens the player. Playback requires a separate play
+action, and only actual playback counts as `video_play`. The player uses
+[privacy-enhanced embeds](https://support.google.com/youtube/answer/171780)
+and keeps an original-video link available. Private, removed, region-restricted,
+or embedding-disabled videos can still fail; the dialog offers retry/recovery.
+
+Direct MP4/WebM files use the browser's native player. S3, R2, a CDN, or another
+HTTPS host works without a host allowlist. Keep the existing `thumbnail` as the
+poster. For example:
+
+```json
+{ "videoUrl": "https://your-bucket.s3.amazonaws.com/demo.mp4" }
+```
+
+Use a durable public HTTPS URL, a browser-supported codec, the correct video
+Content-Type, and byte-range support for seeking. A storage console/share page
+is not a direct video URL; expiring signed URLs are unsuitable for this static
+catalog. No storage credentials belong in metadata. HLS/DASH streaming manifests
+and other providers' watch pages need a future player adapter. Add provider URL
+recognition in `lib/video.ts` and its player in `components/recipe-video-player.tsx`;
+the catalog contract and cards do not change. Existing GitHub video links remain
+compatible. Hover previews apply only to direct files; YouTube keeps its poster
+until the visitor opens the dialog.
+
 Recommendation order is editorial. Prioritize usable materials, clear access requirements, useful guides, and a mix of use cases and platforms. Language alone does not determine the order. Do not describe editorial recommendations as popularity rankings without verified analytics.
 
 `content/showcase.json` contains only an ordered list of recommended `{ "slug": "..." }` references. Removing a recommendation does not remove its media or catalog entry. Do not duplicate media fields there. Content cards do not show Topic membership. Existing `?topic=` quick filters are catalog filters; they do not create curated Topics.
@@ -126,7 +162,7 @@ Recommendation order is editorial. Prioritize usable materials, clear access req
 
 The website supports `en`, `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR`. English uses the existing unprefixed URLs. Other site languages use a locale prefix. `/zh-CN/...` redirects to `/zh-Hans/...`; author filenames are not renamed.
 
-Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit translations. Maintainers provide the seven-language presentation separately; original author files and URLs stay unchanged.
+Maintainers keep UI strings and translated entry introductions in `content/i18n/<locale>.json`. Entry translations use the stable slug. Missing presentation translations fall back to the original metadata. Keep product names and public author credit intact. Contributors do not have to submit translations or language mappings. Maintainers may add presentation translations separately; missing translations must not block an English-only submission or PR. Original author files and URLs stay unchanged.
 
 The site language does not translate or rewrite the author guide. At build time, the catalog follows explicit author language links only when they point to the same guide in the same GitHub repository/ref and link back to the submitted document. A matching filename alone is not sufficient. Current-language labels and reciprocal navigation identify the source language; ambiguous `中文` stays `zh` rather than being assumed Simplified or Traditional.
 
@@ -154,8 +190,8 @@ Maintain Topics in `content/topics/<slug>/topic.json`, using `templates/topic.js
 Collections do not need dates. Activities can supply `starts`, `ends`, `status` (`upcoming`, `active`, or `completed`), external `actions`, and optional `sections`. Action types are `participate`, `questions`, `replay`, and `source`. Longer original sections can declare their actual `language` and a `sourceUrl`. Short titles, summaries, and controls use the existing presentation dictionaries.
 
 Directory cards can use optional `compactTitle` and `compactSummary`; detail pages
-retain the full `title` and `summary`. Add their English keys to all presentation
-dictionaries. Optional `cover` contains `src`, `alt`, and a public HTTPS
+retain the full `title` and `summary`. English is required; additional presentation translations are optional and fall
+back to English when absent. Optional `cover` contains `src`, `alt`, and a public HTTPS
 `sourceUrl` for attribution. Use an existing local image under `/recipes/` or
 `/topics/` (JPG, PNG, or WebP), with a translated factual alt description. The
 loader rejects missing files and uncredited covers. Use thematic illustrations
