@@ -14,6 +14,18 @@ export function analyticsEnabled(nodeEnv?: string, vercel?: string, environment?
   return nodeEnv === "production" && vercel === "1" && environment === "production"
 }
 
+// A production build can also be opened through a deployment URL or served
+// locally. Only the canonical HTTPS origin may initialize analytics.
+export function analyticsOriginAllowed(value?: string, productionOrigin?: string) {
+  try {
+    const expected = new URL(productionOrigin ?? "")
+    const actual = new URL(value ?? "")
+    return expected.protocol === "https:" && expected.pathname === "/" &&
+      !expected.username && !expected.password && !expected.search && !expected.hash &&
+      actual.origin === expected.origin
+  } catch { return false }
+}
+
 // Only bounded public dimensions leave the app. In particular, no search text,
 // author/account identity, clipboard text, destination URLs, or submission data.
 export function createAnalyticsEvent(name: AnalyticsEvent, input: EventDimensions) {

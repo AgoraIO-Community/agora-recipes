@@ -1,10 +1,24 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { analyticsEnabled, analyticsUrl, createAnalyticsEvent, eventActions } from '../lib/analytics-events.ts'
+import { analyticsEnabled, analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, eventActions } from '../lib/analytics-events.ts'
 
 test('only real Vercel production enables analytics; local builds, development, and previews stay off', () => {
   assert.equal(analyticsEnabled('production', '1', 'production'), true)
   for (const args of [['development', '1', 'production'], ['production', undefined, 'production'], ['production', '1', 'preview'], ['production', '1', undefined]]) assert.equal(analyticsEnabled(...args), false)
+})
+
+test('production-built pages only capture on the exact canonical HTTPS origin', () => {
+  const productionOrigin = 'https://recipes.agora.io'
+  assert.equal(analyticsOriginAllowed('https://recipes.agora.io/zh-Hans/recipes/example?q=ignored#section', productionOrigin), true)
+  for (const url of [
+    'http://recipes.agora.io/', 'http://localhost:3100/', 'http://127.0.0.1:4183/',
+    'https://branch-preview.vercel.app/', 'https://production-build.vercel.app/',
+    'https://staging.recipes.agora.io/', 'https://recipes.agora.io.evil.example/',
+    'https://recipes.agora.io:444/', '', undefined,
+  ]) assert.equal(analyticsOriginAllowed(url, productionOrigin), false, String(url))
+  for (const origin of [undefined, '', 'not-a-url', 'http://recipes.agora.io', 'https://recipes.agora.io/path', 'https://user:secret@recipes.agora.io', 'https://recipes.agora.io?token=secret', 'https://recipes.agora.io#section']) {
+    assert.equal(analyticsOriginAllowed(productionOrigin, origin), false, String(origin))
+  }
 })
 test('all seven event families retain only bounded public dimensions', () => {
   assert.equal(Object.keys(eventActions).length, 7)
