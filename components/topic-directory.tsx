@@ -13,7 +13,11 @@ export function TopicDirectory({ topics }: { topics: { slug: string; title: stri
   const { locale, t } = useI18n()
   const [filter, setFilter] = useState("all")
   const [failedCovers, setFailedCovers] = useState<string[]>([])
-  const visible = topics.filter(topic => filter === "all" || (filter === "past" ? topic.status === "Completed" : topic.kind === filter))
+  const visible = topics.filter(topic => {
+    if (filter === "all") return true
+    if (filter === "collection") return topic.kind === "collection"
+    return topic.kind === "activity" && (filter === "past" ? topic.status === "Completed" : topic.status !== "Completed")
+  })
   return <section className="shell topic-directory">
     <ToggleGroup spacing={1} type="single" value={filter} onValueChange={value => setFilter(value || "all")} className="ag-selection-group topic-directory__filters" aria-label={t("Filter Topics")}>
       <SelectionIndicator value={filter} />
