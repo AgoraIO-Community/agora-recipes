@@ -28,7 +28,9 @@ export type RecipeSummary = Omit<RecipeMeta, "cli"> & {
   searchExcerpt?: string
 }
 
-export const quickTags = [
+// Keep shared URLs from the retired shortcut bar working. New refinements use
+// metadata facets; legacy conditions remain visible as removable result chips.
+export const legacyTopics = [
   { value: "all", label: "All topics", terms: [] },
   { value: "voice", label: "Voice agents", terms: ["voice agent", "conversational ai"] },
   { value: "video", label: "Video calling", terms: ["video calling", "live video"] },
@@ -64,7 +66,7 @@ export function readDiscoveryFilters(params: URLSearchParams): DiscoveryFilters 
   const sort = params.get("sort")
   return {
     query: params.get("q") ?? "",
-    topic: quickTags.some(tag => tag.value === topic) ? topic : "all",
+    topic: legacyTopics.some(tag => tag.value === topic) ? topic : "all",
     category: ["voice-ai", "rtc"].includes(category) ? category : "all",
     platforms: values("platform"),
     useCases: values("useCase"),
@@ -232,7 +234,7 @@ function withGuideExcerpt(recipe: RecipeSummary, tokens: string[]): RecipeSummar
 }
 
 export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilters): RecipeSummary[] {
-  const topic = quickTags.find((tag) => tag.value === filters.topic)
+  const topic = legacyTopics.find((tag) => tag.value === filters.topic)
   const tokens = queryTokens(filters.query)
   return recipes
     .map((recipe) => ({ recipe, score: searchScore(recipe, tokens) }))

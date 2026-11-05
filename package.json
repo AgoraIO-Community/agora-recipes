@@ -7,7 +7,7 @@
     "prebuild": "node scripts/build-recipes.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . && node scripts/check-control-styles.mjs",
     "recipes:build": "node scripts/build-recipes.mjs",
     "stars:refresh": "node scripts/update-github-stars.mjs"
   },

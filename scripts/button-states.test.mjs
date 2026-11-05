@@ -53,3 +53,17 @@ test('explicitly unavailable buttons stay natively disabled; custom copy feedbac
   assert.match(markup, /aria-busy="true"/)
   assert.doesNotMatch(markup, /ag-button__progress|data-progress=/)
 })
+
+test('a tooltip preserves its composed tab selection state and control slot', () => {
+  const { Tabs, TabsList, TabsTrigger } = load('../components/ui/tabs.tsx')
+  const { Tooltip, TooltipTrigger } = load('../components/ui/tooltip.tsx')
+  const trigger = React.createElement(Tooltip, null,
+    React.createElement(TooltipTrigger, { asChild: true },
+      React.createElement(TabsTrigger, { value: 'guide', size: 'icon' }, 'Guide')))
+  const markup = renderToStaticMarkup(React.createElement(Tabs, { defaultValue: 'guide' }, React.createElement(TabsList, null, trigger)))
+  const button = markup.match(/<button\b[^>]*role="tab"[^>]*>/)?.[0]
+  assert.ok(button)
+  assert.match(button, /aria-selected="true"/)
+  assert.match(button, /data-state="active"/)
+  assert.match(button, /data-slot="tabs-trigger"/)
+})

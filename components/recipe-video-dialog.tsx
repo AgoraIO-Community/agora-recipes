@@ -7,8 +7,9 @@ import { useCatalogSearch } from "@/hooks/use-catalog-location"
 import { useCallback, useRef, useState, type ReactNode } from "react"
 import { RecipeVideoPlayer } from "@/components/recipe-video-player"
 import { BookOpen, ExternalLink, MonitorPlay } from "lucide-react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { IconButton } from "@/components/ui/icon-button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
@@ -33,23 +34,25 @@ export function RecipeVideoDialog({ recipe, children, detailHref }: { recipe: Re
   return (
     <Dialog open={open} onOpenChange={(next) => { setOpen(next); if (next) { setFailed(false); played.current = false } }}>
       {children}
-      <DialogContent data-recipe-slug={recipe.slug} className="video-preview max-h-[90dvh] overflow-y-auto sm:max-w-5xl">
-        <DialogHeader className="pr-8 text-left">
-          <DialogTitle className="font-brand text-xl leading-tight">{media.compactTitle ?? media.title}</DialogTitle>
+      <DialogContent data-recipe-slug={recipe.slug} className="video-preview sm:max-w-5xl">
+        <DialogHeader>
+          <DialogTitle>{media.compactTitle ?? media.title}</DialogTitle>
           <DialogDescription>{media.demoNote}</DialogDescription>
         </DialogHeader>
+        <DialogBody>
         {/* The portal owns exit teardown; active stops playback while preserving the player frame. */}
         {!failed && (
           <RecipeVideoPlayer key={media.videoUrl} active={open} url={media.videoUrl} title={t("Watch {title} demo", { title: media.compactTitle ?? media.title })} poster={media.thumbnail} onPlay={onPlay} onError={onError} />
         )}
-        {failed && <div className="recipe-video-error"><p role="alert">{t("This video couldn’t load. You can open the original video or view the project below.")}</p><Button variant="outline" size="sm" onClick={() => setFailed(false)}>{t("Try again")}</Button></div>}
-        <div className="video-preview__footer">
+        {failed && <Alert variant="destructive"><AlertDescription><p>{t("The video couldn’t load.")}</p><Button variant="outline" size="sm" onClick={() => setFailed(false)}>{t("Try again")}</Button></AlertDescription></Alert>}
+        </DialogBody>
+        <DialogFooter className="video-preview__footer">
           <ButtonGroup className="video-preview__actions" aria-label={t("Available materials")}>
-            <IconButton asChild variant="outline" label={t("Original video")}><a href={media.videoUrl} data-material="video_original" data-placement="player" target="_blank" rel="noreferrer"><ExternalLink aria-hidden="true" /></a></IconButton>
-            <IconButton asChild variant="outline" label={t(recipe.recipeUrl ? "Read recipe" : "View project")}><a href={detailHref ?? defaultHref}><BookOpen aria-hidden="true" /></a></IconButton>
             {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try live demo")}><a href={recipe.demoUrl} data-material="demo" data-placement="player" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+            <IconButton asChild variant="outline" label={t(recipe.recipeUrl ? "Read recipe" : "View project")}><a href={detailHref ?? defaultHref}><BookOpen aria-hidden="true" /></a></IconButton>
+            <IconButton asChild variant="outline" label={t("Original video")}><a href={media.videoUrl} data-material="video_original" data-placement="player" target="_blank" rel="noreferrer"><ExternalLink aria-hidden="true" /></a></IconButton>
           </ButtonGroup>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

@@ -1,3 +1,4 @@
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { socialMetadata } from "@/lib/social"
 import { absoluteUrl } from "@/lib/site"
 import { ShareActions } from "@/components/share-actions"
@@ -9,7 +10,7 @@ import Link from "next/link"
 import { getEntryTopics, topicNames } from "@/lib/topics"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { ArrowUpRight, ChevronDown, Github, MonitorPlay } from "lucide-react"
+import { Github, MonitorPlay } from "lucide-react"
 import { getAllEntries, getAllRecipes, getEntry, getRelatedEntries, buildPrimaryPrompt } from "@/lib/recipes"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { RecipeBackLink } from "@/components/recipe-back-link"
@@ -25,6 +26,8 @@ import { getT, getMessages, localizeEntry } from "@/lib/i18n"
 import { locales, localePath, type Locale } from "@/lib/locales"
 import { RelatedEntryLink } from "@/components/related-entry-link"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Empty, EmptyContent, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
 
 type Params = { slug: string; locale?: Locale; documentLocale?: string }
 
@@ -101,14 +104,14 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           <div className="detail-overview__content">
             <h1 className="hero-title">{recipe.title}</h1>
             <p className="detail-description">{recipe.tagline}</p>
-            <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /></div>
+            <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={recipe.updated}>{t("Updated")} {new Date(`${recipe.updated}T00:00:00Z`).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
             <div className="detail-actions detail-actions--recipe">
               {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
                 {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
                 {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
               </ButtonGroup>
-              <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} compact />
+              <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} />
             </div>
           </div>
           <RecipePreview recipe={summary} />
@@ -119,20 +122,19 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
       <div className="detail-main">{recipe.recipeUrl ? <>
         <section id="recipe-markdown-heading" aria-labelledby="recipe-guide-heading" className="recipe-guide">
           <h2 id="recipe-guide-heading" className="sr-only">{t("Implementation guide")}</h2>
-          {sections.length > 0 && <details className="mobile-guide-outline ag-disclosure"><summary>{t("In this guide")}<ChevronDown size={15} aria-hidden="true" /></summary><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></details>}
+          {sections.length > 0 && <Disclosure className="mobile-guide-outline"><DisclosureTrigger>{t("In this guide")}</DisclosureTrigger><DisclosureContent asChild><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></DisclosureContent></Disclosure>}
           <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl} sourceUrl={recipe.recipeDocument.viewUrl}
             languageControl={options.length > 2 ? <DocumentLanguageSwitcher key="document-language" slug={slug} selected={selected.manual ? selected.key : "auto"} label={t(languageName)}
               description={`${t("Document language: {language}", { language: t(languageName) })}${!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}`} options={options} /> : undefined}>
 
-            {recipe.recipeDocument.markdown ? <div lang={selected.language}><Markdown messages={getMessages(locale)} source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /></div> : <div className="recipe-document-error"><h3>{t("The guide couldn’t be loaded")}</h3><p>{t("You can still copy the recipe prompt or open the implementation on GitHub.")}</p><a href={selectedDocument.viewUrl || recipe.recipeUrl} target="_blank" rel="noreferrer">{t("Open source guide")}<ArrowUpRight size={14} aria-hidden="true" /></a></div>}
+            {recipe.recipeDocument.markdown ? <div lang={selected.language}><Markdown messages={getMessages(locale)} source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /></div> : <Empty><EmptyHeader><EmptyTitle>{t("The guide couldn’t be loaded")}</EmptyTitle></EmptyHeader><EmptyContent><Button asChild variant="link"><a href={selectedDocument.viewUrl || recipe.recipeUrl} target="_blank" rel="noreferrer">{t("Open source guide")}</a></Button></EmptyContent></Empty>}
           </RecipeDocument>
         </section>
       </> : <section className="recipe-about"><h2>{t("About this project")}</h2><p>{recipe.description}</p></section>}</div>
       <aside className="detail-rail" aria-label={t("Recipe information")}>
         {sections.length > 0 && <RecipeOutline sections={sections} />}
-        <section className="recipe-about" aria-labelledby="recipe-about-heading"><h2 id="recipe-about-heading">{t(recipe.recipeUrl ? "About this recipe" : "About this project")}</h2><dl><div><dt>{t("Author")}</dt><dd><RecipeAuthor name={recipe.author} /></dd></div><div><dt>{t("Updated")}</dt><dd>{new Date(`${recipe.updated}T00:00:00Z`).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</dd></div>{recipe.difficulty && <div><dt>{t("Difficulty")}</dt><dd>{t(recipe.difficulty)}</dd></div>}</dl></section>
-        <details className="recipe-metadata ag-disclosure"><summary>{t("Use cases & capabilities")}<ChevronDown size={14} aria-hidden="true" /></summary><div className="recipe-metadata__tags">{[...new Set([...recipe.useCases, ...recipe.capabilities])].map(value => <Badge key={value} variant="outline">{t(value)}</Badge>)}</div></details>
-        {getEntryTopics(slug).length > 0 && <section className="related-recipes"><h2>{t("In these Topics")}</h2>{getEntryTopics(slug).map(topic => <Link key={topic.slug} href={localePath(`/topics/${topic.slug}`, locale)}>{t(topic.title)}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</section>}
+        <Disclosure className="recipe-metadata"><DisclosureTrigger>{t("Use cases & capabilities")}</DisclosureTrigger><DisclosureContent className="recipe-metadata__tags">{[...new Set([...recipe.useCases, ...recipe.capabilities])].map(value => <Badge key={value} variant="outline">{t(value)}</Badge>)}</DisclosureContent></Disclosure>
+        {getEntryTopics(slug).length > 0 && <section className="related-recipes"><h2>{t("In these Topics")}</h2>{getEntryTopics(slug).map(topic => <Link key={topic.slug} href={localePath(`/topics/${topic.slug}`, locale)}>{t(topic.title)}</Link>)}</section>}
         {related.length > 0 && <section className="related-recipes"><h2>{t("Related projects and recipes")}</h2>{related.map(entry => <RelatedEntryLink key={entry.slug} slug={entry.slug} title={entry.title} />)}</section>}
       </aside>
     </div>

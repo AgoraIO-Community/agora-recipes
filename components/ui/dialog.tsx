@@ -7,7 +7,9 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { GlassSurface } from "@/components/agent-ui/glass-surface";
+import { GlassSurface } from "@/components/design-system/glass-surface";
+
+const DialogPanelContext = React.createContext({ showCloseButton: true });
 
 function Dialog({
   ...props
@@ -57,7 +59,6 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
 }) {
-  const { t } = useI18n()
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
@@ -65,39 +66,36 @@ function DialogContent({
         asChild
         data-slot="dialog-content"
         className={cn(
-          "ag-glass-panel fixed top-[50%] left-[50%] z-50 grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-6 border p-6 outline-none",
+          "ag-glass-panel ag-dialog-panel",
           className,
         )}
         {...props}
       >
         <GlassSurface material="liquid">
-          {children}
-          {showCloseButton && (
-            <DialogPrimitive.Close asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute right-3 top-3"
-                aria-label={t("Close dialog")}
-              >
-                <XIcon data-icon="inline-start" />
-              </Button>
-            </DialogPrimitive.Close>
-          )}
+          <DialogPanelContext.Provider value={{ showCloseButton }}>{children}</DialogPanelContext.Provider>
         </GlassSurface>
       </DialogPrimitive.Content>
     </DialogPortal>
   );
 }
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+function DialogHeader({ className, children, ...props }: React.ComponentProps<"div">) {
+  const { t } = useI18n()
+  const { showCloseButton } = React.useContext(DialogPanelContext)
   return (
     <div
       data-slot="dialog-header"
-      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+      className={cn("ag-panel-header", className)}
       {...props}
-    />
+    >
+      <div className="ag-panel-heading">{children}</div>
+      {showCloseButton && <DialogPrimitive.Close asChild><Button variant="ghost" size="icon" aria-label={t("Close dialog")}><XIcon aria-hidden="true" /></Button></DialogPrimitive.Close>}
+    </div>
   );
+}
+
+function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
+  return <div data-slot="dialog-body" className={cn("ag-panel-body", className)} {...props} />
 }
 
 function DialogFooter({
@@ -113,7 +111,7 @@ function DialogFooter({
     <div
       data-slot="dialog-footer"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        "ag-panel-footer",
         className,
       )}
       {...props}
@@ -135,7 +133,7 @@ function DialogTitle({
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("text-lg leading-7 font-normal", className)}
+      className={cn("ag-panel-title", className)}
       {...props}
     />
   );
@@ -148,7 +146,7 @@ function DialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("ag-panel-description", className)}
       {...props}
     />
   );
@@ -156,6 +154,7 @@ function DialogDescription({
 
 export {
   Dialog,
+  DialogBody,
   DialogClose,
   DialogContent,
   DialogDescription,

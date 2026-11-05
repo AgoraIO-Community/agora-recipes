@@ -1,0 +1,32 @@
+/* Shared panel anatomy. Optical materials stay in glass.css. */
+:root { --panel-padding: 16px; --panel-radius: 16px; }
+@layer components {
+  .ag-dialog-panel, .ag-sheet-panel, .ag-popover-panel {
+    display: flex; flex-direction: column; gap: 0; min-width: 0;
+    overflow: hidden; border-radius: var(--panel-radius); color: var(--foreground); outline: none;
+  }
+  .ag-dialog-panel { position: fixed; z-index: 50; top: 50%; left: 50%; translate: -50% -50%; width: calc(100vw - 32px); max-width: 480px; max-height: calc(100dvh - 32px); }
+  .ag-sheet-panel { position: fixed; z-index: 50; }
+  .ag-sheet-panel:is([data-side=right],[data-side=left]) { inset-block: 12px; width: min(384px,calc(100vw - 24px)); }
+  .ag-sheet-panel[data-side=right] { right: 12px; }
+  .ag-sheet-panel[data-side=left] { left: 12px; }
+  .ag-sheet-panel:is([data-side=bottom],[data-side=top]) { inset-inline: 0; width: 100%; max-height: 88dvh; }
+  .ag-sheet-panel[data-side=bottom] { bottom: 0; border-radius: var(--panel-radius) var(--panel-radius) 0 0; }
+  .ag-sheet-panel[data-side=top] { top: 0; border-radius: 0 0 var(--panel-radius) var(--panel-radius); }
+  .ag-popover-panel { z-index: 50; width: min(320px,calc(100vw - 32px)); max-height: min(640px,var(--radix-popover-content-available-height,640px)); border-radius: 12px; font-size: 13px; line-height: 20px; }
+  .ag-popover-panel:not(:has(>[data-slot=popover-header])) { padding: 12px; overflow-y: auto; }
+  .ag-panel-header { display: flex; align-items: center; flex: none; gap: 8px; min-width: 0; padding: 12px var(--panel-padding); border-bottom: 1px solid var(--border); background: color-mix(in srgb,var(--popover) 90%,transparent); }
+  .ag-panel-heading { display: flex; flex: 1; flex-direction: column; gap: 4px; min-width: 0; }
+  .ag-panel-header > .ag-button { align-self: flex-start; }
+  .ag-panel-title { display: flex; align-items: center; min-height: var(--field-size); margin: 0; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: -.015em; overflow-wrap: anywhere; }
+  .ag-panel-title:focus-visible { outline: none; }
+  [data-slot=field][data-orientation=horizontal]:has(>.ag-checkbox) { min-height: var(--field-size); }
+  .ag-panel-description { margin: 0; font-size: 13px; line-height: 20px; color: var(--muted-foreground); }
+  .ag-panel-body { flex: 1; min-width: 0; min-height: 0; padding: var(--panel-padding); overflow: auto; overscroll-behavior: contain; touch-action: pan-y pinch-zoom; scrollbar-width: thin; scrollbar-color: var(--border) transparent; background: var(--background); }
+  .ag-panel-footer { display: flex; flex: none; align-items: center; justify-content: flex-end; gap: 8px; padding: 12px var(--panel-padding); border-top: 1px solid var(--border); background: color-mix(in srgb,var(--popover) 90%,transparent); }
+  .ag-sheet-panel[data-side=bottom] > .ag-panel-footer { padding-bottom: max(12px,env(safe-area-inset-bottom)); }
+}
+@media (max-width: 640px) {
+  :root { --panel-padding: 12px; }
+  .ag-panel-header, .ag-panel-footer { padding-block: 8px; }
+}
