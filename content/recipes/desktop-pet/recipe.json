@@ -9,6 +9,13 @@
   "mainRepoUrl": "https://github.com/SyunWong/desktop-pet",
   "recipeUrl": "https://github.com/SyunWong/desktop-pet/blob/main/README.md",
   "author": "SyunWong",
-  "updated": "2026-11-04",
-  "difficulty": "Intermediate"
+  "updated": "2026-11-05",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "/recipes/desktop-pet.webp",
+    "thumbnailAlt": "Desktop Pet running on macOS with a blue-haired character, feeding controls, and an active voice call",
+    "thumbnailSource": "https://web-cdn.agora.io/recipes/videos/desktop-pet/deepseekchan.mp4",
+    "videoUrl": "https://web-cdn.agora.io/recipes/videos/desktop-pet/deepseekchan.mp4",
+    "videoDuration": "0:39"
+  }
 }
