@@ -62,7 +62,8 @@ test("renders README HTML wrappers, line breaks, and expandable details", async 
   assert.match(html, /<div align="center">/)
   assert.match(html, /<h1 id="hello">Hello<\/h1>/)
   assert.match(html, /One<br\/>Two/)
-  assert.match(html, /<details><summary>More<\/summary>Details<\/details>/)
+  assert.match(html, /<details\b[^>]*><summary\b[^>]*>More/)
+  assert.match(html, /<\/summary>Details<\/details>/)
   assert.doesNotMatch(html, /&lt;div/)
 })
 

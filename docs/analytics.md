@@ -58,7 +58,7 @@ or site account is required.
 In canonical production, basic page and search counters run for pending, accepted,
 denied, withdrawn, and unavailable consent. There is no visitor control to turn
 this tier off. The privacy banner, settings, and footer disclose that basic
-counts stay enabled; the optional switch never claims to disable them.
+counts stay enabled; the optional choice never claims to disable them.
 
 The browser sends a small, cookie-free request to the first-party
 `POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
@@ -160,14 +160,15 @@ visitor copy uses a short purpose/choice explanation.
 The first layer states the purpose in one sentence: optional third-party analytics
 to understand site usage. It uses **Reject / Accept / Customize**. The preference
 editor uses **Anonymous statistics / Always on**, one **Optional analytics**
-switch, policy links, and **Save**. Provider names, event fields, and attribution
+checkbox, policy links, and **Save**. Provider names, event fields, and attribution
 mechanics are documented separately. The footer keeps a short anonymous-statistics
 notice and a persistent preference entry.
 
 Reject and Accept are independent shared outline Buttons with equal widths and
 an 8px gap, each retaining its full border and corners.
-Preferences reuse the shared Dialog and Switch; keep the responsive dialog
-gutters and control targets defined in DESIGN.md.
+Preferences reuse the registered Checkbox/Label and Dialog Header / Body / Footer
+slots. Only Body scrolls. Keep the responsive dialog gutters and shared control
+targets defined in DESIGN.md; page styles own placement rather than control skins.
 
 These labels follow the three-action pattern documented by
 [CookieYes](https://www.cookieyes.com/documentation/change-the-order-of-buttons/);

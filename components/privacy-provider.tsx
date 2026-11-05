@@ -3,8 +3,9 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react"
 import { useI18n } from "./locale-provider"
 import { Button } from "./ui/button"
-import { Switch } from "./ui/switch"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
+import { Checkbox } from "./ui/checkbox"
+import { Label } from "./ui/label"
+import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
 import { analyticsOriginAllowed } from "@/lib/analytics-events"
 import { analyticsConsent, type SecuritiConsentApi } from "@/lib/analytics-consent"
 
@@ -119,14 +120,14 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
         <div className="shell privacy-banner__inner">
           <div><h2>{t(mode === "unavailable" ? "Privacy settings unavailable" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Optional analytics stays off. Please try again.") : description} {policies}</p></div>
           <div className="privacy-banner__actions">
-            {mode === "local" ? <div className="privacy-banner__choices" role="group" aria-label={t("Privacy choices")}><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></div> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
-            <Button variant="ghost" aria-haspopup="dialog" onClick={event => openSettings(event.currentTarget)}>{t("Customize")}</Button>
+            {mode === "local" ? <div className="privacy-banner__choices" role="group" aria-label={t("Privacy choices")}><Button wrap variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button wrap variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></div> : <Button wrap variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
+            <Button wrap variant="ghost" aria-haspopup="dialog" onClick={event => openSettings(event.currentTarget)}>{t("Customize")}</Button>
           </div>
         </div>
       </section>
     </>}
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="privacy-dialog" onCloseAutoFocus={event => {
+      <DialogContent onCloseAutoFocus={event => {
         event.preventDefault()
         if (openAgora.current) { openAgora.current = false; api.current?.showPreferenceCenter() }
         else {
@@ -135,13 +136,13 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
         }
       }}>
         <DialogHeader><DialogTitle>{t("Privacy settings")}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader>
-        <div className="privacy-settings-body">
+        <DialogBody><div className="privacy-settings-body">
           <div className="privacy-setting"><span>{t("Anonymous statistics")}</span><span>{t("Always on")}</span></div>
-          {mode === "local" ? <label className="privacy-setting" htmlFor="usage-statistics"><span>{t("Optional analytics")}</span><Switch id="usage-statistics" checked={draft} onCheckedChange={setDraft} /></label> : <p>{mode === "securiti" ? t("Your preferences may apply across Agora websites.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Optional analytics stays off. Please try again.")}</p>}
+          {mode === "local" ? <Label className="facet-option" htmlFor="usage-statistics"><Checkbox id="usage-statistics" checked={draft} onCheckedChange={checked => setDraft(checked === true)} /><span>{t("Optional analytics")}</span></Label> : <p>{mode === "securiti" ? t("Your preferences may apply across Agora websites.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Optional analytics stays off. Please try again.")}</p>}
           {policies}
-        </div>
+        </div></DialogBody>
         <DialogFooter>
-          {mode === "local" ? <Button onClick={() => { chooseLocal.current?.(draft); setOpen(false) }}>{t("Save")}</Button> : mode === "securiti" ? <Button onClick={() => { openAgora.current = true; setOpen(false) }}>{t("Manage preferences")}</Button> : <Button busy={mode === "loading"} onClick={() => { setMode("loading"); setAttempt(value => value + 1) }}>{t("Retry")}</Button>}
+          {mode === "local" ? <Button wrap onClick={() => { chooseLocal.current?.(draft); setOpen(false) }}>{t("Save")}</Button> : mode === "securiti" ? <Button wrap onClick={() => { openAgora.current = true; setOpen(false) }}>{t("Manage preferences")}</Button> : <Button wrap busy={mode === "loading"} onClick={() => { setMode("loading"); setAttempt(value => value + 1) }}>{t("Retry")}</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

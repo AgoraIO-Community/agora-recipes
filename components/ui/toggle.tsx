@@ -10,8 +10,9 @@ const toggleVariants = cva("ag-toggle", {
   variants: {
     variant: { default: "", outline: "ag-toggle-outline" },
     size: {
-      default: "ag-control-md",
+      default: "ag-control-sm",
       sm: "ag-control-sm",
+      icon: "ag-control-sm ag-icon-button",
       lg: "ag-control-lg",
     },
   },

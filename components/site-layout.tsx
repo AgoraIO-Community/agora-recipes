@@ -93,6 +93,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="dark light" />
         <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link rel="preload" href="/font/MiSansLatin-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/font/Outfit-Regular-Latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body id="page-top" className="font-sans antialiased min-h-svh flex flex-col">
         <a href="#main-content" className="skip-link">

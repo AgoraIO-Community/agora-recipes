@@ -5,16 +5,15 @@ trying their demos, and following their implementation guides. Keep the interfac
 in the Agora website family: official cyan wordmark, local MiSans typography,
 quiet charcoal controls, and real project media.
 
-## Current reference
+## Component standard
 
-The owner-selected [Agent UI component reference](https://agent-ui-theta-drab.vercel.app/?member=basic&appearance=dark&doc=button)
-replaces the earlier standalone HTML as the primary component reference. Token
-and component semantics were checked against the source snapshot
-`shczhen/agent-ui@c59fa2c954d036c4428b17b0f2f8150f12fb7ed2`.
-Adapt those semantics in the existing shared Recipes components. Keep the owner's
-regular interface weight 400, stationary hover, complete floating GlassSurface,
-compact catalog layout, and 46px phone targets. These take priority over different
-source-demo typography, moving arrows, and documentation-page geometry.
+Recipes owns one component kit, token scale, and interaction grammar. The shared
+primitives, this guide, and the development-only `/design-system` page define
+the implementation contract. Interface choices remain consistent across routes,
+languages, and appearances. Extend that contract before introducing a new control.
+The Agora palette, brand assets, typography, and system appearance remain the
+visual baseline. Component refinement improves composition and behavior within
+that identity; it does not introduce a different site theme.
 
 ## System ownership
 
@@ -22,8 +21,9 @@ This guide defines the visual and interaction rules for Recipes. Shared tokens
 and components apply across the catalog, filters, recipe pages, and navigation.
 
 - `app/globals.css` owns page layout, typography, and reading styles.
-- `components/agent-ui/controls.css` owns solid control materials, sizes, and states.
-- `components/agent-ui/glass.css` and `glass-surface.tsx` own floating Liquid Glass.
+- `components/design-system/controls.css` owns solid control materials, sizes, and states.
+- `components/design-system/panels.css` owns floating panel geometry and header/body/footer anatomy.
+- `components/design-system/glass.css` and `glass-surface.tsx` own floating Liquid Glass.
 - `components/ui/` provides the shared interactive primitives.
 - Recipe metadata and existing media remain the source of titles, authors,
   platforms, durations, and demo availability.
@@ -31,6 +31,100 @@ and components apply across the catalog, filters, recipe pages, and navigation.
 Extend these patterns rather than adding page-specific button, input, tab, or
 select skins. Design proposals and temporary review captures do not belong in
 application assets unless the interface actually uses them.
+
+Page CSS may position controls, but it must not redefine their colors, type,
+corners, padding or height. `npm run lint` checks page styles against the shared
+control classes and classes attached to actual control instances. Extend a
+component variant when geometry must differ by role.
+
+- `Button edge` aligns a quiet action to a content edge; `wrap` handles long
+  translated labels. Menu rows use `size="menu"`; footer resource actions use
+  `size="resource"`. Field-like menu pickers use `variant="field"` and share the
+  input/Select field geometry and mobile entry type.
+- `TabsTrigger size="icon"` and `SelectTrigger size="icon"` own their 32/46px
+  square bounds and 16px, 1.6px-stroke icons. Feature code does not apply control
+  skin classes. `InputGroup size="search"` owns the 48/46px hero search; docking
+  returns it to the default field size while retaining the same input.
+- Catalog and reader headers use `Toolbar` with `ToolbarActions`: choices start
+  at the left, commands align to the right, and related commands use ButtonGroup.
+- Native disclosures use the shared Disclosure / DisclosureTrigger /
+  DisclosureContent slots. Triggers share the 32/46px control rhythm, 13px text
+  and icon stroke. Keep section seams and body layout in the page layer.
+- CodePanel uses its normal reading frame in documents and an explicit
+  `variant="embedded"` within a floating panel's opaque Body. Embedded code uses
+  the parent's scroller without feature-specific frame or padding overrides.
+- Tooltip composition must preserve the wrapped control's `data-slot`, selected
+  state and expanded state, alongside its focus and event handlers.
+
+The reference page mounts the actual recipe reader and prompt actions. Compare
+their computed styles and state behavior with the header and catalog controls,
+as well as checking their bounds. Geometry-only probes do not establish visual
+consistency across component roles.
+
+## Component composition
+
+The shared Recipes components are the implementation standard. Reuse the
+existing primitives and tokens before adding a dependency or a new variant.
+Each control has one semantic role and one canonical location in a flow.
+
+| Intent | Component | Composition rule |
+| --- | --- | --- |
+| Run a command or open a picker | `Button`, `IconButton`, `Select` | Group related commands with `ButtonGroup`; join their edges and name the group |
+| Choose one persistent mode | `ToggleGroup` | Keep the selected state explicit; use `SelectionIndicator` beneath stationary labels or icons |
+| Switch reader content | `Tabs` | Use connected controls with a neutral selected fill |
+| Refine a collection | `Sheet`, `Checkbox`, disclosures | One entry point, metadata-driven options, visible removable conditions beside the result count |
+| Open a floating surface | `GlassSurface` with the existing dialog, menu, or sheet primitive | Preserve dismissal, focus return, optical layers, and an opaque reading or form body |
+
+Keep domain choices such as All / Voice AI / RTC labeled. Familiar commands such
+as view, sort, filter, and copy may use icon buttons with localized accessible
+names and tooltips. Full option names belong inside their picker. Metadata is
+content, not a button. Use a small seam or space between controls with different
+roles instead of a separate label or container for each action.
+
+Keep control order stable as a layout condenses: state selectors come before
+commands, and dismissal stays last on the right. The catalog uses view, sort,
+then filter; the compact sheet keeps view before sort, followed by its close
+button. Text actions precede language and menu utilities in the site header.
+Back arrows lead their label; opt-in CTA direction cues trail it. Copy stays beside
+the content it copies. Recipe and Topic pages share one Share menu, including
+Copy link. Material links use Demo, Guide, then Source order when available.
+Do not expose a shortcut beside another visible entry for the same task.
+
+Motion explains a state change: the selection underlay travels, a disclosure
+opens, a floating surface enters or leaves, and a copy action confirms success.
+Use the shared 200/360/600ms tokens. Labels, icons, cards, and images keep their
+geometry on hover and focus. Transitions must tolerate rapid reversal and
+preserve focus; reduced motion goes directly to the usable state. Keep frequent
+catalog actions quiet and reading content stable.
+
+### Direction cues
+
+Arrows communicate direction or hierarchy; an external URL alone does not earn
+an arrow. Header/footer resource navigation, repeated Demo links, card titles,
+related-entry lists, source links and menu rows use clear text without trailing
+direction decoration. Retain accessible new-tab labels and actual destinations.
+
+| Intent | Treatment |
+| --- | --- |
+| Return, back to top, expand/collapse, sort, enter a submenu | Keep the functional direction icon; disclosure rotation describes its state |
+| A section's main navigation CTA | Opt into `ButtonArrow` after the label; at most one directional CTA in an action group |
+| Continue within the site | `ButtonArrow` with `direction="forward"` |
+| Main CTA leading to another product | `ButtonArrow` with `direction="outbound"` |
+| Icon-only external resource command | Keep a named `ExternalLink` icon when it is the command's identifying glyph |
+
+Get started and the footer submission invitation are the production CTA uses.
+Do not attach animated arrows to every button or infer them from `target`.
+The shared cue makes one 200ms exit/re-entry inside a fixed 16px clipped slot
+on fine-pointer hover and keyboard focus. Only these decorative arrow glyphs
+move; the button, label, spacing and hit area remain fixed. Leaving reverses the
+transition; there is no ambient loop. Touch and reduced-motion appearances keep
+a static arrow. Disabled and busy controls do not trigger the motion.
+
+Check new compositions with real content in light and dark system appearances,
+at 320px, a representative phone size, and the affected desktop breakpoints.
+Exercise long translated labels, selected and disabled states, keyboard entry
+and dismissal, empty results, and return navigation. A new composition belongs
+here only when its role is reusable; a one-page layout belongs in `globals.css`.
 
 ## Color and material
 
@@ -72,6 +166,24 @@ charcoal in light. Hover uses the theme's readable Agora signal color. Secondary
 actions use a bordered neutral fill; quiet actions gain that fill on hover.
 Selected toggle underlays use a neutral raised surface. Media metadata labels
 use solid dark fill and light text.
+
+Control feedback is owned by `controls.css`, not the primitive's implementation
+library. Button and Select triggers share the same state tokens, including icon
+ink: hover uses `--control-hover-fill` and `--control-hover-edge`; held press uses
+`--control-pressed-fill`; an open picker retains its hover fill and edge until
+dismissed. Press changes the surface, never the whole control's opacity or size.
+Primary and destructive actions override these tokens to retain their hierarchy.
+Quiet controls keep their border transparent. Persistent choices use
+`--basic-selected`; their underlay receives the same hover/press feedback while
+labels remain stationary. Underline navigation and text links retain their text
+feedback instead of gaining a button frame.
+
+Menu items, checked menu options, submenu triggers and Select options share one
+highlight/press treatment; checkmarks identify selection separately. Hover is
+limited to a fine pointer, while press also works on touch. Disabled and busy
+controls do not acquire interactive fills. Validation borders outrank hover,
+open and press. Keyboard focus uses the shared outline independently of these
+fills. Verify the full state cycle when composing unlike primitives in a group.
 
 Liquid Glass means the complete geometry-sized SVG displacement map, separate
 red/green/blue refraction, edge highlights, transmission, and elevation. Reuse
@@ -116,11 +228,21 @@ Use the 4px spacing rhythm: 8–12px inside small groups, 16–24px between rela
 parts, and 28–40px between sections. Compactness comes from grouping and
 progressive disclosure. Preserve readable text and distinct section spacing.
 
-Regular controls use 14px text; compact 32px actions use 13px. All interface
-labels use weight 400. Controls have 6px corners; grouped trays use 8px. Project tiles and floating
+Ordinary buttons, toggles, single-line fields, selects, and reader tabs use the header navigation
+as their reference: 32px high, 13px text, and 6px corners. Selected states use a
+solid neutral fill and one fine border. Toggle groups add no padded tray or
+selection shadow. Connected controls keep that same outer height. All interface
+labels use weight 400. Project tiles and floating
 panels use 16px; phone tiles and select menus use 12px. Media actions use 10px.
-Metadata chips use 4px. Desktop control heights are 32/40/44px; phone and
-coarse-pointer actions retain at least 46px targets. Search is 48px.
+Metadata chips use 4px. Input, InputGroup, and Select share `--field-size`: 32px
+on desktop and 46px for phone/coarse-pointer layouts. Multiline textareas start
+at 96px. Field labels are 13px; phone text-entry controls use 16px to remain
+readable without focus zoom. Keep long selected values on one line; menu options
+show their full wrapping labels.
+Phone and coarse-pointer actions use at least 46px targets. The standalone
+catalog search is 48px; docked search matches the adjacent buttons at 32px on
+desktop and 46px on phones. Align actual outer bounds and centers, without
+per-control optical offsets for text actions.
 
 All pages share one shell, at most 1504px including gutters. Header, catalog,
 recipe overview, guide layout, and footer use the same outer edges. Gutters scale
@@ -132,25 +254,53 @@ columns with 20px gaps on desktop, two with 16px gaps at 900px, and 12px horizon
 gaps at 640px. Footer resources and legal links align to these catalog column
 starts. Avoid independent fractional columns or distributed spacing for them.
 
+## Floating panel anatomy
+
+Dialog, Sheet, and form Popover use a shared Header / Body / Footer composition.
+The close action sits in the header flow, beside the title and optional actions;
+never position it with page-specific offsets or reserve an estimated text gutter.
+Use the shared 16px title and 13px description. Header and footer padding is
+12px by 16px, becoming 8px by 12px on phones. Controls retain their 32/46px bounds.
+
+Use `DialogBody`, `SheetBody`, or `PopoverBody` as the one scrolling, opaque plane.
+Keep header and footer outside that scroller. Do not nest another bordered card
+or scrolling code plane inside it. The form body uses the existing canvas color;
+the full optical engine remains on the outer surface and its chrome.
+
+Default dialogs are bounded to 480px; the help layout can use 720px and video
+can use its existing wider media layout. A desktop drawer is 384px wide with
+12px outer clearance and 16px corners. Bottom sheets use the screen width,
+16px top corners, and at most 88dvh, including a safe-area footer. Plain popovers
+use 12px corners and padding; structured form popovers use the shared slots.
+Select menus anchor below their trigger, with full labels and 16px collision
+clearance. Menu rows share the 32/46px control rhythm.
+
 ## Header and footer
 
 The header has a 64px content height, becoming 60px at 640px, plus its 1px seam.
 Keep that height stable across scrolling and navigation states. The official
-wordmark and Recipes label share a vertical separator. Header and footer use
-the same 86px wordmark and label: 15px regular on desktop, 14px on phones. Align
+wordmark and the fixed English `recipes` product name form one shared lockup,
+without a divider. Header and footer use the same `RecipesBrand` component.
+The product name uses locally bundled Outfit regular at 28px on desktop, 25px
+on phones, and 24px below 376px. The official Agora mark remains 86px, reduced
+to 72px below 376px. Outfit's SIL Open Font License is bundled with the font.
+Interface text continues to use MiSans and localized navigation labels. Align
 the visual center of the wordmark's main letter body with the Recipes text,
 excluding the long g descender. The current asset needs a 7.5px optical offset,
 reduced to 7px on phones. Do not align the full SVG box or only its baseline. On desktop, center the
 Recipes / Topics / Docs / GitHub / Discord navigation between the brand and right-hand actions.
 Between 901px and 1200px, navigation buttons use 8px horizontal padding to keep
-translated labels clear of the brand and actions. The smaller navigation controls use a 1px optical offset to share the brand
-label's baseline. Recipes carries the collection context; Contribute is secondary
+translated labels clear of the brand and actions. Navigation, header actions,
+and docked search share a center line. Recipes carries the collection context; Contribute is secondary
 to Get started.
 The header gains its seam after scrolling and retains an opaque theme canvas. Keep the
 search available after its original position scrolls away: move the same input
 into the header slot and replace desktop navigation with it. Preserve the draft,
-focus, composition, debounce, and keyboard shortcut. Keep a filter icon beside
-the docked input; closing its sheet returns focus there without scrolling.
+focus, composition, debounce, and keyboard shortcut. Keep one visible filter
+entry: the sticky desktop toolbar owns it; on phones, the docked search takes
+over when the original control passes behind the header, hiding that original
+control for an exclusive handoff. Closing the sheet
+returns focus to the entry that opened it without scrolling.
 At 1100px, Contribute moves out of the header action row; the footer retains its
 contribution link. On phones, the docked search replaces the brand while language
 and navigation remain available. The header keeps its original height.
@@ -161,6 +311,8 @@ not shift page content. Use the existing Popover for outside dismissal, Escape,
 and focus return. Close it on navigation and when returning to desktop width.
 The phone panel shares the page's left and right gutters; tablet panels stay
 bounded and align to the right gutter.
+The compact header has no extra GitHub shortcut. Get started appears in the
+panel only when its header button is hidden on phones.
 
 The footer has three distinct rows: a short contribution invitation, a resource
 directory, and a quiet copyright/legal line. The invitation links to the existing
@@ -179,23 +331,41 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 Keep the attached privacy bar concise, with one purpose sentence and explicit
 Reject / Accept / Customize labels. Reject and Accept are separate shared outline
 Buttons with equal widths and an 8px gap; these choices retain text and full corners.
-Use the shared Dialog, Switch, and footer actions for preferences. Dialogs keep
+Use shared Dialog Header / Body / Footer slots, Checkbox choices, and footer
+Buttons for preferences. Body is the only opaque scroller. Dialogs keep
 16px viewport gutters, and phone/coarse-pointer actions keep 46px targets.
 Show anonymous statistics as Always on and optional analytics as a default-off
 choice. Dismissing preferences never grants consent.
 
+## Interface copy
+
+Use visible copy for identity, real content, requirements, current state and a
+useful recovery action. Do not narrate implementation, add picker footnotes,
+repeat a status already shown by a label, or restate the next button's action.
+Put extended contribution instructions in the linked guide or the requested
+help disclosure. Keep account/publication requirements and real access errors
+concise. Accessible names, useful icon tooltips and live status remain available.
+
 ## Catalog and discovery
 
 Lead with a short centered introduction and a search field up to 610px wide.
-Command/Control K focuses search. One category/topic/action toolbar follows, with
+Command/Control K focuses search. One category/action toolbar follows, with
 All / Voice AI / RTC always visible; platforms, use cases, and capabilities
-belong in the refinement sheet. Sorting, the explicit card/list view selection,
-and topic shortcuts move into the sheet at 900px. Show active conditions above
-the result count. Topic shortcuts and recommendations are editorial selections,
-not automatically ranked categories. Keep the curated order until reviewed.
+belong in the refinement sheet with available materials. Do not add an independent
+topic shortcut bar or repeat the category selection inside the sheet. Sorting
+and the explicit card/list view selection move beside the sheet title at 900px.
+Keep the view mode separate from the connected sort/filter commands. Show the
+result count, non-default sort and removable refinements in one compact status area.
+The sort condition resets only sorting; the filter reset retains sorting. Clearing
+refinements keeps category, search, sort, and view. Legacy shortcut URLs remain
+usable and expose their condition as a removable chip.
+
+Curated collections belong in Topics navigation. Topics and recommendations
+remain editorial selections, not automatically ranked categories. Keep the
+curated order until reviewed.
 
 The toolbar sticks below the measured header on desktop and scrolls normally on
-phones. Overflowing topics scroll horizontally. Single selection uses the shared
+phones. Single selection uses the shared
 moving underlay; state must also remain explicit in control semantics.
 
 Default catalog browsing starts with the curated media gallery, followed by a
@@ -213,12 +383,17 @@ with authors aligned at the bottom. Text-only rows keep their natural height;
 do not reserve an empty image plane or shrink real covers into corner thumbnails.
 Bound media and copy rather than clipping a whole card's content or controls.
 
-The cover and title open the recipe details. A separate centred play control
+The title always opens recipe details. The cover opens the live Demo when one
+exists, and otherwise opens details. A separate centred play control
 opens the inline video dialog; search results use a labelled Video action.
-An explicit Live demo link remains available in either layout whenever a demo
-exists. Only that link opens an external demo. Hover and keyboard focus may
-fade in the title arrow within its reserved
-space. Preview images retain their crop and scale. The default play control
+An explicit Try demo text link remains available in either
+layout whenever a demo exists. Do not use an unexplained display icon. Desktop
+card footers align author, metadata, and Demo on one center line. Phone footers
+place metadata above the author/Demo row, retaining a shared bottom baseline.
+On phones the label shortens to Demo, and the video target is bounded to 46px
+so that the rest of the cover remains available for the Demo. These three
+destinations stay independent; do not replace one with another. Titles and Demo
+links have no decorative arrows. Preview images retain their crop and scale. The default play control
 and its labelled hover state both remain centred within the preview. Touch
 controls remain visible. Do not invent
 favorites, ratings, demo links, or availability claims.
@@ -227,7 +402,7 @@ Search, filters, and explicit sorts retain the selected layout. Cards are the
 default; only the explicit view control switches to aligned text rows on desktop
 and two-column text cards on phones. Store this choice as `view=list` in shared
 URLs and preserve it when clearing filters. Keep actual demo actions available.
-Most popular sorts by the committed GitHub-star snapshot and shows its date;
+Most popular sorts by the committed GitHub-star snapshot;
 unknown counts follow zero-star repositories. Refresh with `npm run stars:refresh`
 using the maintainer’s GitHub CLI login; neither builds nor visitors require a
 GitHub credential. Guide-only entries do not
@@ -244,15 +419,16 @@ phone widths, with no clipped labels or horizontal scrollbar.
 Use a compact title without introductory copy. On phones, sorting and card/list
 selection share one row; omit redundant visible control labels and the category
 group already available in the catalog toolbar. Keep accessible control names,
-46px touch targets, and the hints that explain how multiple filters combine.
-On phones, the toolbar's Filters action uses its icon and active-count badge;
+46px touch targets, and immediate result counts.
+The Filters action uses a small active-count badge at its upper-right corner,
+including when it docks in search. Keep the square target and the glyph clear;
 the category choices stay visible. Long activity action labels wrap inside their
 buttons. Centered dialogs retain at least 16px of horizontal viewport clearance
 at every breakpoint, including tablet and landscape widths.
-Use named icon actions for copying, Demo, GitHub, sharing, sorting, and reader
+Use named icon actions for copying, GitHub, sharing, sorting, and reader
 format/language/source controls. Keep related actions in compact button groups
-and keep reader tools on one row on phones. Sort explanations belong in the sort
-menu. Use full labels in menus and accessible names/tooltips on every icon;
+and keep reader tools on one row on phones. Picker menus contain choices without
+explanatory footers. Use full labels in menus and accessible names/tooltips on every icon;
 retain short text for category choices, result counts, and task-specific links.
 Platforms and use cases match any selected value; capabilities require all
 selected values. Search, filters, sorting, and loaded count live in the URL
@@ -267,7 +443,7 @@ Use two columns of thematic illustrations or organizer artwork, at a steady
 are enough for the directory. Keep the full name, background, dates, and source
 references on the detail page. On phones, keep two compact columns and omit the
 extra introduction. Do not crop out essential content by zooming media on hover.
-Titles and arrows stay stationary; feedback uses the existing border and underline.
+Titles stay stationary; feedback uses the existing border and underline.
 Collection art can use a clear #Topic identity; it does not act as a technical
 tag. Keep the hackathon organizer poster and the adapted official iRTE2026 art.
 Recipe cards still contain no Topic names or membership badges. Activities shows
@@ -279,6 +455,8 @@ All includes both groups and collections.
 Lead with the outcome, technology, author, and Copy recipe prompt action. Demo
 and source actions follow in priority. Use actual preview media and truthful
 setup requirements. The prompt copy action and its setup chevron form one primary split button.
+Keep author, difficulty, and update date together in the hero metadata; do not
+repeat them in a second About panel beside the same guide.
 The chevron opens a bounded Popover containing the prompt and, when supported,
 an Agora CLI tab. Keep the complete GlassSurface with opaque code planes; do
 not add a separate setup link or accordion row below the buttons.
@@ -316,7 +494,7 @@ Use one preparation flow with a copyable submission prompt and a direct GitHub
 form action. The prompt helps Codex, Cursor, or Claude Code read existing project
 materials and prepare an English Issue draft for the contributor to review;
 it does not edit author files or publish anything. Show the small material
-checklist and the review-to-release steps in the page. Keep direct PR instructions
+checklist and one concise review/Issue status line in the page. Keep direct PR instructions
 in a secondary disclosure, targeting staging. An unavailable GitHub form has a
 regular Issue draft recovery link with the same fields.
 
@@ -340,12 +518,12 @@ Technical tags never choose a Topic.
 
 Use the shared control timing: control feedback 200ms and surfaces/selection 360ms. Longer
 content may use the 600ms slow token when needed. Selection underlays move for 360ms with `cubic-bezier(.16,1,.3,1)`.
-Hover and keyboard focus keep every component and its contents stationary.
-Cards, images, links, buttons, labels, and icons retain their
-position, size, spacing, and crop. Do not translate, scale, lift, expand, or swap
-arrows on hover. Reserved-space icons may fade in; feedback otherwise uses text
-color, fill, border, underline, and opacity. Press feedback also keeps geometry
-fixed.
+Hover and keyboard focus keep control bounds, cards, images, links and labels
+stationary. Ordinary icons retain their position, size, spacing and crop. The
+opt-in `ButtonArrow` is the bounded glyph-motion exception defined above.
+Do not translate, scale, lift or expand components for hover feedback. Feedback
+otherwise uses text color, fill, border, underline and opacity. Press feedback
+also keeps geometry fixed.
 
 Video cards have one deliberate hover interaction: a centred play icon fades
 into a centred icon-and-label group inside a fixed frame. The decorative glass
@@ -397,8 +575,8 @@ layouts, touch, keyboard, empty recovery, copy failures, and reduced motion when
 changing these patterns.
 
 Header language selection is an icon action with a named tooltip and a compact,
-checked language menu. Keep it visible on phones. Share controls are a copy icon
-and a share menu within the primary action group; do not expand platform links
+checked language menu. Keep it visible on phones. Share uses one menu within the primary action group, with Copy link inside;
+do not expand platform links
 into a separate toolbar. Guide-language selection belongs beside the reader
 heading, with full option labels in the menu and the actual source language below.
 
@@ -410,8 +588,8 @@ heading, with full option labels in the menu and the actual source language belo
   selected groups. Native Enter/Space toggles the focused group.
   Material options share a two-column grid; the opaque form body scrolls between
   the fixed sheet heading and result/reset actions.
-- Topic filters use the shared moving surface indicator. Reader tabs use the same
-  measurement with a 2px underline. Retain Radix arrow-key focus and Space/Enter
+- Topic filters use the shared moving surface indicator. Reader modes use
+  connected bordered controls; guide section navigation uses a 2px underline. Retain Radix arrow-key focus and Space/Enter
   activation; reduced motion moves directly to the selected state.
 - Copy actions share idle, copying, copied, and recoverable failure states.
   Reserve label width, retain keyboard focus during the pending operation, block

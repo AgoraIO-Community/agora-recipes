@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import { Slot } from '@radix-ui/react-slot'
 
 import { cn } from '@/lib/utils'
 
@@ -28,10 +29,20 @@ function Tooltip({
   )
 }
 
+// Tooltip metadata must not replace the composed control's slot or state.
+const TooltipTarget = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<typeof Slot> & { 'data-state'?: string; 'data-slot'?: string }>(function TooltipTarget(props, ref) {
+  const targetProps = { ...props }
+  delete targetProps['data-state']
+  delete targetProps['data-slot']
+  return <Slot {...targetProps} ref={ref} />
+})
+
 function TooltipTrigger({
-  ...props
+  asChild, children, ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+  return asChild
+    ? <TooltipPrimitive.Trigger asChild {...props}><TooltipTarget>{children}</TooltipTarget></TooltipPrimitive.Trigger>
+    : <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props}>{children}</TooltipPrimitive.Trigger>
 }
 
 function TooltipContent({
