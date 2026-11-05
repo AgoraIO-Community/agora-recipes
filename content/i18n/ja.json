@@ -536,7 +536,16 @@
     "Always on": "常に有効",
     "Anonymous usage statistics remain enabled.": "匿名の利用統計は有効のままです。",
     "Customize": "カスタマイズ",
-    "Loading Agora privacy settings…": "Agora のプライバシー設定を読み込み中…"
+    "Loading Agora privacy settings…": "Agora のプライバシー設定を読み込み中…",
+    "Most popular": "人気順",
+    "View recipes": "表示形式",
+    "Card view": "カード表示",
+    "List view": "リスト表示",
+    "Recommendations are hand-picked. Other projects follow by update date.": "おすすめは手動で選んでいます。その他のプロジェクトは更新日順です。",
+    "Sorted by GitHub stars · Updated {date}": "GitHub スター数順 · {date} 更新",
+    "Early community projects by Akshay Nandwana.": "Akshay Nandwana による初期のコミュニティプロジェクト。",
+    "Explore Akshay Nandwana’s early community projects: guided breathing, meditation, translation, movie discovery, a voice companion, and voice coaching.": "呼吸ガイド、瞑想、翻訳、映画探し、音声パートナー、音声コーチなど、Akshay Nandwana による初期のコミュニティプロジェクトを紹介します。",
+    "Explore Akshay’s projects": "Akshay のプロジェクトを見る"
   },
   "entries": {
     "ag-iot-ios-app": {

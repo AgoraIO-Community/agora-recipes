@@ -174,12 +174,25 @@ phones, also stack the invitation. Legal links use those same two column starts;
 phone and coarse-pointer links retain 46px targets. Back to top is a native anchor
 aligned to the shell's right edge. Do not compensate with negative margins.
 
+## Privacy choices
+
+Keep the attached privacy bar concise, with one purpose sentence and explicit
+Reject / Accept / Customize labels. Reject and Accept use the same outline
+Button inside a shared ButtonGroup with equal widths; these choices retain text.
+Use the shared Dialog, Switch, and footer actions for preferences. Dialogs keep
+16px viewport gutters, and phone/coarse-pointer actions keep 46px targets.
+Show anonymous statistics as Always on and optional analytics as a default-off
+choice. Dismissing preferences never grants consent.
+
 ## Catalog and discovery
 
 Lead with a short centered introduction and a search field up to 610px wide.
-Command/Control K focuses search. One topic/action toolbar follows; platforms,
-use cases, and capabilities belong in the refinement sheet. Sorting moves into
-the sheet at 900px. Show active conditions above the result count.
+Command/Control K focuses search. One category/topic/action toolbar follows, with
+All / Voice AI / RTC always visible; platforms, use cases, and capabilities
+belong in the refinement sheet. Sorting, the explicit card/list view selection,
+and topic shortcuts move into the sheet at 900px. Show active conditions above
+the result count. Topic shortcuts and recommendations are editorial selections,
+not automatically ranked categories. Keep the curated order until reviewed.
 
 The toolbar sticks below the measured header on desktop and scrolls normally on
 phones. Overflowing topics scroll horizontally. Single selection uses the shared
@@ -210,8 +223,14 @@ and its labelled hover state both remain centred within the preview. Touch
 controls remain visible. Do not invent
 favorites, ratings, demo links, or availability claims.
 
-Search and explicit sorts show aligned text rows on desktop and two-column text
-cards on phones. Keep actual demo actions available. Guide-only entries do not
+Search, filters, and explicit sorts retain the selected layout. Cards are the
+default; only the explicit view control switches to aligned text rows on desktop
+and two-column text cards on phones. Store this choice as `view=list` in shared
+URLs and preserve it when clearing filters. Keep actual demo actions available.
+Most popular sorts by the committed GitHub-star snapshot and shows its date;
+unknown counts follow zero-star repositories. Refresh with `npm run stars:refresh`
+using the maintainer’s GitHub CLI login; neither builds nor visitors require a
+GitHub credential. Guide-only entries do not
 reserve empty thumbnail space. Search covers the entire catalog, including
 entries not yet visible. Render the first 12 entries and automatically reveal
 batches of 12 as the visitor approaches the end. Announce loading/end status
@@ -219,6 +238,22 @@ without moving keyboard focus. Where IntersectionObserver is unavailable, show
 all matches. There is no click-to-load control.
 
 The bounded filter sheet has searchable groups, counts, and a fixed action area.
+Its form scrolls vertically only; horizontal touch panning and overscroll are
+disabled. Options and translated footer actions wrap within the panel at narrow
+phone widths, with no clipped labels or horizontal scrollbar.
+Use a compact title without introductory copy. On phones, sorting and card/list
+selection share one row; omit redundant visible control labels and the category
+group already available in the catalog toolbar. Keep accessible control names,
+46px touch targets, and the hints that explain how multiple filters combine.
+On phones, the toolbar's Filters action uses its icon and active-count badge;
+the category choices stay visible. Long activity action labels wrap inside their
+buttons. Centered dialogs retain at least 16px of horizontal viewport clearance
+at every breakpoint, including tablet and landscape widths.
+Use named icon actions for copying, Demo, GitHub, sharing, sorting, and reader
+format/language/source controls. Keep related actions in compact button groups
+and keep reader tools on one row on phones. Sort explanations belong in the sort
+menu. Use full labels in menus and accessible names/tooltips on every icon;
+retain short text for category choices, result counts, and task-specific links.
 Platforms and use cases match any selected value; capabilities require all
 selected values. Search, filters, sorting, and loaded count live in the URL
 (`loaded=24`); old `all=1` links remain supported. New search/filter/sort conditions
@@ -398,6 +433,6 @@ commit results and URL state after 250 ms, flush on Enter, and clear immediately
 Do not commit during IME composition or restore old scroll snapshots while typing.
 Show pending and failed guide-index states honestly; keep metadata search usable
 with a retry action. Guide-only matches can use two lines of attributed source
-excerpt within the existing result row. A sole compact phone result spans the
+excerpt within the selected card or result row. A sole compact phone result spans the
 available row and allows four excerpt lines; multiple results keep two columns. Topic search terms do not add membership
 badges or links to content cards.

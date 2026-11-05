@@ -4,13 +4,15 @@ import { useI18n } from "@/components/locale-provider"
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowUpRight, BookOpen, Play } from "lucide-react"
+import { ArrowUpRight, BookOpen, MonitorPlay, Play } from "lucide-react"
 import { DialogTrigger } from "@/components/ui/dialog"
 import { RecipeVideoDialog } from "@/components/recipe-video-dialog"
 import { RecipeAuthor } from "@/components/recipe-author"
 import { GlassSurface } from "@/components/agent-ui/glass-surface"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { IconButton } from "@/components/ui/icon-button"
+import { ButtonGroup } from "@/components/ui/button-group"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 import { localePath } from "@/lib/locales"
 import { cn } from "@/lib/utils"
@@ -93,10 +95,10 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const featured = Boolean(media && recipe.recommendedOrder !== undefined)
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
-  const previewActions = (recipe.demoUrl || compact && media?.videoUrl) && <div className="recipe-card-actions">
-    {compact && media?.videoUrl && <DialogTrigger asChild><Button variant="ghost" size="sm" aria-label={t("Watch {title} demo", { title })}><Play aria-hidden="true" />{t("Video")}</Button></DialogTrigger>}
-    {recipe.demoUrl && <Button asChild variant="ghost" size="sm"><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{t("Live demo")}<ArrowUpRight aria-hidden="true" /></a></Button>}
-  </div>
+  const previewActions = (recipe.demoUrl || compact && media?.videoUrl) && <ButtonGroup className="recipe-card-actions" aria-label={t("Available materials")}>
+    {compact && media?.videoUrl && <DialogTrigger asChild><IconButton size="icon-sm" label={t("Watch {title} demo", { title })}><Play aria-hidden="true" /></IconButton></DialogTrigger>}
+    {recipe.demoUrl && <IconButton asChild size="icon-sm" label={t("Try {title} demo (opens in a new tab)", { title })}><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+  </ButtonGroup>
 
   const technology = <div className="recipe-technologies" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-technologies__difficulty">{t(recipe.difficulty)}</span>}</div>
 
@@ -106,7 +108,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
         <Link prefetch={false} href={href} className="recipe-result__details"><h3>{title}</h3><p data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p></Link>
         {technology}
       </div>
-      <div className="recipe-result__byline"><RecipeAuthor name={recipe.author} />{previewActions || <span>{t(recipe.recipeUrl ? "Recipe guide" : "View project")}</span>}</div>
+      <div className="recipe-result__byline"><RecipeAuthor name={recipe.author} />{previewActions}</div>
       <Button asChild variant="ghost" size="icon" className="recipe-result__arrow"><Link prefetch={false} href={href} aria-label={t("Open {title} recipe", { title })}><ArrowUpRight aria-hidden="true" /></Link></Button>
     </article>
   </RecipeVideoDialog>
@@ -118,11 +120,10 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details">
           <h3><span>{title}</span><ArrowUpRight className="showcase-card__arrow" aria-hidden="true" /></h3>
-          <p className="showcase-card__summary">{media?.compactSummary ?? recipe.tagline}</p>
+          <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p>
         </Link>
         {!featured && technology}
-        {previewActions}
-        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{featured && label && <Badge>{t(label)}</Badge>}</div>
+        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{previewActions}{featured && label && <Badge>{t(label)}</Badge>}</div>
       </div>
     </article>
   </RecipeVideoDialog>

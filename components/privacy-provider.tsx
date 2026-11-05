@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react"
 import { useI18n } from "./locale-provider"
 import { Button } from "./ui/button"
+import { ButtonGroup } from "./ui/button-group"
 import { Switch } from "./ui/switch"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
 import { analyticsOriginAllowed } from "@/lib/analytics-events"
@@ -119,7 +120,7 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
         <div className="shell privacy-banner__inner">
           <div><h2>{t(mode === "unavailable" ? "Privacy settings unavailable" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Optional analytics stays off. Please try again.") : description} {policies}</p></div>
           <div className="privacy-banner__actions">
-            {mode === "local" ? <><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
+            {mode === "local" ? <ButtonGroup className="privacy-banner__choices" aria-label={t("Privacy choices")}><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></ButtonGroup> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
             <Button variant="ghost" aria-haspopup="dialog" onClick={event => openSettings(event.currentTarget)}>{t("Customize")}</Button>
           </div>
         </div>

@@ -41,9 +41,9 @@ test("an unavailable guide keeps language recovery and source actions without em
   assert.match(html, /aria-label="Guide language"/)
   assert.match(html, /日本語/)
   assert.match(html, /data-slot="dropdown-menu-trigger"/)
-  assert.match(html, />Markdown source</)
+  assert.match(html, /aria-label="Markdown source"/)
   assert.match(html, /The guide couldn’t be loaded/)
-  assert.doesNotMatch(html, /role="tablist"|Copy markdown|data-slot="tabs-content"/)
+  assert.doesNotMatch(html, /role="tablist"|aria-label="Copy Markdown"|data-slot="tabs-content"/)
 })
 
 test("an available guide retains its view switcher and copy action", async () => {
@@ -51,7 +51,7 @@ test("an available guide retains its view switcher and copy action", async () =>
     markdown: "# Guide",
   }, React.createElement("h2", null, "Guide content")))).text()
   assert.match(html, /role="tablist"/)
-  assert.match(html, /Copy markdown/)
+  assert.match(html, /aria-label="Copy Markdown"/)
   assert.match(html, /Guide content/)
   const panels = html.match(/<div[^>]*role="tabpanel"[^>]*>/g)
   assert.ok(panels.some(panel => panel.includes('hidden=""')))

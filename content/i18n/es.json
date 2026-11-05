@@ -536,7 +536,16 @@
     "Always on": "Siempre activos",
     "Anonymous usage statistics remain enabled.": "Las estadísticas de uso anónimas siguen activas.",
     "Customize": "Personalizar",
-    "Loading Agora privacy settings…": "Cargando ajustes de privacidad de Agora…"
+    "Loading Agora privacy settings…": "Cargando ajustes de privacidad de Agora…",
+    "Most popular": "Más populares",
+    "View recipes": "Vista de proyectos",
+    "Card view": "Vista de tarjetas",
+    "List view": "Vista de lista",
+    "Recommendations are hand-picked. Other projects follow by update date.": "Las recomendaciones se seleccionan a mano. Los demás proyectos se ordenan por fecha de actualización.",
+    "Sorted by GitHub stars · Updated {date}": "Por estrellas de GitHub · Actualizado el {date}",
+    "Early community projects by Akshay Nandwana.": "Los primeros proyectos de la comunidad de Akshay Nandwana.",
+    "Explore Akshay Nandwana’s early community projects: guided breathing, meditation, translation, movie discovery, a voice companion, and voice coaching.": "Explora los primeros proyectos de Akshay Nandwana: respiración guiada, meditación, traducción, búsqueda de películas, un asistente de voz y entrenamiento por voz.",
+    "Explore Akshay’s projects": "Explorar los proyectos de Akshay"
   },
   "entries": {
     "ag-iot-ios-app": {

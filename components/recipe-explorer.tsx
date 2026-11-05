@@ -4,7 +4,8 @@ import { useAnalytics, useAnalyticsActive, useBasicAnalytics } from "@/component
 import { useI18n } from "@/components/locale-provider"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
-import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react"
+import { ArrowDownWideNarrow, ChevronDown, Grid2X2, List, RotateCcw, Search, SlidersHorizontal, X } from "lucide-react"
+import githubStars from "@/content/github-stars.json"
 import { CatalogSearch } from "@/components/catalog-search"
 import { RecipeCard } from "@/components/recipe-card"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
@@ -13,9 +14,11 @@ import { Badge } from "@/components/ui/badge"
 import { SelectionIndicator } from "@/components/ui/selection-indicator"
 import { useCatalogMotion } from "@/hooks/use-catalog-motion"
 import { Button } from "@/components/ui/button"
+import { IconButton } from "@/components/ui/icon-button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
 import { catalogPositionKey, rememberCatalogPosition, replaceCatalogSearch, useCatalogSearch } from "@/hooks/use-catalog-location"
 import { useIsMobile } from "@/hooks/use-mobile"
@@ -28,11 +31,31 @@ type FacetKey = "platforms" | "useCases" | "capabilities"
 
 function CatalogSort({ value, query, onChange }: { value: DiscoveryFilters["sort"]; query: string; onChange: (value: DiscoveryFilters["sort"]) => void }) {
   const { t } = useI18n()
-  const label = value === "title" ? "A–Z" : value === "updated" ? "Recently updated" : query.trim() ? "Most relevant" : "Recommended"
+  const label = value === "title" ? "A–Z" : value === "updated" ? "Recently updated" : value === "stars" ? "Most popular" : query.trim() ? "Most relevant" : "Recommended"
   return <Select value={value} onValueChange={next => onChange(next as DiscoveryFilters["sort"])}>
-    <SelectTrigger className="catalog-sort" aria-label={t("Sort recipes")}><SelectValue>{t(label)}</SelectValue></SelectTrigger>
-    <SelectContent position="popper" align="end"><SelectGroup><SelectLabel className="sr-only">{t("Sort recipes")}</SelectLabel><SelectItem value="recommended">{t(query.trim() ? "Most relevant" : "Recommended")}</SelectItem><SelectItem value="updated">{t("Recently updated")}</SelectItem><SelectItem value="title">{t("A–Z")}</SelectItem></SelectGroup></SelectContent>
+    <Tooltip><TooltipTrigger asChild><SelectTrigger className="catalog-sort ag-icon-select" aria-label={t("Sort recipes")}><ArrowDownWideNarrow aria-hidden="true" /><SelectValue>{t(label)}</SelectValue></SelectTrigger></TooltipTrigger><TooltipContent>{t("Sort recipes")}: {t(label)}</TooltipContent></Tooltip>
+    <SelectContent position="popper" align="end"><SelectGroup><SelectLabel className="sr-only">{t("Sort recipes")}</SelectLabel><SelectItem value="recommended">{t(query.trim() ? "Most relevant" : "Recommended")}</SelectItem><SelectItem value="updated">{t("Recently updated")}</SelectItem><SelectItem value="stars">{t("Most popular")}</SelectItem><SelectItem value="title">{t("A–Z")}</SelectItem></SelectGroup>
+      {value === "recommended" && !query.trim() && <p className="catalog-sort-help">{t("Recommendations are hand-picked. Other projects follow by update date.")}</p>}
+      {value === "stars" && <p className="catalog-sort-help">{t("Sorted by GitHub stars · Updated {date}", { date: githubStars.updated.slice(0, 10) })}</p>}
+    </SelectContent>
   </Select>
+}
+
+function CatalogView({ value, onChange }: { value: DiscoveryFilters["view"]; onChange: (value: DiscoveryFilters["view"]) => void }) {
+  const { t } = useI18n()
+  return <ToggleGroup type="single" spacing={1} className="ag-selection-group catalog-view" aria-label={t("View recipes")} value={value} onValueChange={next => { if (next === "cards" || next === "list") onChange(next) }}>
+    <SelectionIndicator value={value} />
+    <ToggleGroupItem value="cards" aria-label={t("Card view")} title={t("Card view")}><Grid2X2 aria-hidden="true" /></ToggleGroupItem>
+    <ToggleGroupItem value="list" aria-label={t("List view")} title={t("List view")}><List aria-hidden="true" /></ToggleGroupItem>
+  </ToggleGroup>
+}
+
+function QuickFilters({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const { t } = useI18n()
+  return <ToggleGroup type="single" spacing={1} data-appearance="nav" className="catalog-topics ag-selection-group" aria-label={t("Quick filters")} value={value} onValueChange={next => onChange(next || "all")}>
+    <SelectionIndicator value={value} />
+    {quickTags.map(tag => <ToggleGroupItem key={tag.value} value={tag.value}>{t(tag.label)}</ToggleGroupItem>)}
+  </ToggleGroup>
 }
 
 function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, initiallyOpen = false }: {
@@ -115,6 +138,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   const resultsRef = useRef<HTMLDivElement>(null)
   const sentinel = useRef<HTMLDivElement>(null)
   const filterInvoker = useRef<HTMLButtonElement | null>(null)
+  const filterTitle = useRef<HTMLHeadingElement>(null)
   const filtered = useMemo(() => discoverRecipes(recipes, filters), [recipes, filters])
   const options = useMemo(() => {
     const platforms = [...new Set(recipes.flatMap(recipe => recipe.platforms))].sort()
@@ -127,12 +151,11 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   }, [recipes])
   const selectedCount = filters.platforms.length + filters.useCases.length + filters.capabilities.length + filters.materials.length + Number(filters.category !== "all") + Number(filters.previewOnly)
   const hasFilters = Boolean(filters.query.trim() || filters.topic !== "all" || selectedCount)
-  const compact = hasFilters || filters.sort !== "recommended"
+  const refined = hasFilters || filters.sort !== "recommended"
+  const compact = filters.view === "list"
   const visibleCount = catalogVisibleCount(params, filtered.length)
   const hasMore = visibleCount < filtered.length
   const visible = filtered.slice(0, visibleCount)
-  const featured = compact ? [] : visible.filter(recipe => recipe.recommendedOrder !== undefined)
-  const directory = compact ? [] : visible.filter(recipe => recipe.recommendedOrder === undefined)
 
   useEffect(() => {
     const target = sentinel.current
@@ -235,14 +258,16 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   }, [filters.query, capture, searching, searchDimensions, captureBasicSearch, analyticsActive])
 
   function setFilters(next: DiscoveryFilters, action = "filter") {
-    if (action !== "search") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
+    if (action !== "search" && action !== "view") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
     const nextParams = writeDiscoveryFilters(next, params)
-    nextParams.delete("all")
-    nextParams.delete("loaded")
+    if (action !== "view") {
+      nextParams.delete("all")
+      nextParams.delete("loaded")
+    }
     replaceCatalogSearch(nextParams)
   }
   function update<K extends keyof DiscoveryFilters>(key: K, value: DiscoveryFilters[K]) {
-    setFilters({ ...filters, [key]: value }, key === "query" ? "search" : key === "sort" ? "sort" : "filter")
+    setFilters({ ...filters, [key]: value }, key === "query" ? "search" : key === "sort" ? "sort" : key === "view" ? "view" : "filter")
   }
   function updateQuery(value: string, immediate = false) {
     setQuery(value)
@@ -286,20 +311,27 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     </div>
     <div ref={barRef} className="catalog-bar">
       <div className="shell catalog-toolbar">
+        <ToggleGroup type="single" spacing={1} data-appearance="nav" className="ag-selection-group catalog-categories" aria-label={t("Recipe category")} value={filters.category} onValueChange={value => update("category", value || "all")}>
+          <SelectionIndicator value={filters.category} />
+          {[["all", "All"], ["voice-ai", "Voice AI"], ["rtc", "RTC"]].map(([value, label]) => <ToggleGroupItem key={value} value={value}>{t(label)}</ToggleGroupItem>)}
+        </ToggleGroup>
         <div className="catalog-topics-scroll">
-          <ToggleGroup type="single" spacing={1} data-appearance="nav" className="catalog-topics ag-selection-group" aria-label={t("Quick filters")} value={filters.topic} onValueChange={value => update("topic", value || "all")}>
-            <SelectionIndicator value={filters.topic} />
-            {quickTags.map(tag => <ToggleGroupItem key={tag.value} value={tag.value}>{t(tag.value === "all" ? "All" : tag.label)}</ToggleGroupItem>)}
-          </ToggleGroup>
+          <QuickFilters value={filters.topic} onChange={value => update("topic", value)} />
         </div>
         <div className="catalog-toolbar-actions">
+        <div className="catalog-toolbar-view"><CatalogView value={filters.view} onChange={value => update("view", value)} /></div>
         <Sheet open={advanced} onOpenChange={setAdvanced}>
-          <SheetTrigger asChild><Button variant="outline" className="catalog-filter-trigger" onClick={() => { filterInvoker.current = null }} aria-label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" />{t("Filters")}{selectedCount > 0 && <Badge>{selectedCount}</Badge>}</Button></SheetTrigger>
-          <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" onCloseAutoFocus={event => { if (filterInvoker.current?.isConnected) { event.preventDefault(); filterInvoker.current.focus() } }}>
-            <SheetHeader><SheetTitle>{t("Refine recipes")}</SheetTitle><SheetDescription>{t("Find the right starting point for your project.")}</SheetDescription></SheetHeader>
+          <SheetTrigger asChild><IconButton variant="outline" className="catalog-filter-trigger" onClick={() => { filterInvoker.current = null }} label={selectedCount ? t("Filters, {count} active", { count: selectedCount }) : t("Filters")}><SlidersHorizontal aria-hidden="true" />{selectedCount > 0 && <Badge className="catalog-filter-count">{selectedCount}</Badge>}</IconButton></SheetTrigger>
+          <SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" aria-describedby={undefined} onOpenAutoFocus={event => { event.preventDefault(); filterTitle.current?.focus({ preventScroll: true }) }} onCloseAutoFocus={event => { if (filterInvoker.current?.isConnected) { event.preventDefault(); filterInvoker.current.focus() } }}>
+            <SheetHeader><SheetTitle ref={filterTitle} tabIndex={-1}>{t("Filters")}</SheetTitle>
+              <div className="catalog-sheet-controls">
+                <div className="catalog-sheet-sort"><CatalogSort value={filters.sort} query={filters.query} onChange={value => update("sort", value)} /></div>
+                <div className="catalog-sheet-view"><CatalogView value={filters.view} onChange={value => update("view", value)} /></div>
+              </div>
+            </SheetHeader>
             <div className="catalog-filter-sheet__body ag-reading-plane">
-              <div className="catalog-sheet-sort"><span>{t("Sort by")}</span><CatalogSort value={filters.sort} query={filters.query} onChange={value => update("sort", value)} /></div>
-              <fieldset className="catalog-category"><legend>{t("Category")}</legend>
+              <fieldset className="catalog-category catalog-sheet-topics"><legend>{t("Quick filters")}</legend><QuickFilters value={filters.topic} onChange={value => update("topic", value)} /></fieldset>
+              <fieldset className="catalog-category catalog-sheet-category"><legend>{t("Category")}</legend>
                 <ToggleGroup type="single" spacing={1} className="ag-selection-group" aria-label={t("Recipe category")} value={filters.category} onValueChange={value => update("category", value || "all")}>
                   <SelectionIndicator value={filters.category} />
                   {[["all", "All"], ["voice-ai", "Voice AI"], ["rtc", "RTC"]].map(([value, label]) => <ToggleGroupItem key={value} value={value}>{t(label)}</ToggleGroupItem>)}
@@ -312,8 +344,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
               <FilterFacet label={t("Models & capabilities")} hint={t("Matches every selected capability.")} facet="capabilities" options={options.capabilities} recipes={recipes} filters={filters} onChange={value => facet("capabilities", value)} />
             </div>
             <SheetFooter>
-              <Button variant="ghost" disabled={!selectedCount && filters.topic === "all"} onClick={() => setFilters({ ...defaultFilters, query: filters.query, sort: filters.sort })}>{t("Reset filters")}</Button>
-              <SheetClose asChild><Button className="catalog-filter-results"><span key={filtered.length} className="ag-value-change">{filtered.length === 1 ? t("Show 1 result") : t("Show {count} results", { count: filtered.length })}</span></Button></SheetClose>
+              <IconButton label={t("Clear filters")} disabled={!selectedCount && filters.topic === "all"} onClick={() => setFilters({ ...defaultFilters, query: filters.query, sort: filters.sort, view: filters.view })}><RotateCcw aria-hidden="true" /></IconButton>
+              <SheetClose asChild><Button className="catalog-filter-results" aria-label={filtered.length === 1 ? t("Show 1 result") : t("Show {count} results", { count: filtered.length })}><span key={filtered.length} className="ag-value-change">{filtered.length === 1 ? t("1 result") : t("{count} results", { count: filtered.length })}</span></Button></SheetClose>
             </SheetFooter>
           </SheetContent>
         </Sheet>
@@ -324,21 +356,18 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     <div className="shell">
       {chips.length > 0 && <div className="catalog-selected" role="group" aria-label={t("Selected filters")}>
         {chips.map(chip => <Button variant="secondary" size="sm" key={chip.key} onClick={chip.remove} aria-label={t("Remove {label} filter", { label: chip.label })}>{chip.label}<X aria-hidden="true" /></Button>)}
-        <Button variant="ghost" size="sm" onClick={() => setFilters({ ...defaultFilters, query: filters.query })}>{t("Clear filters")}</Button>
+        <IconButton size="icon-sm" label={t("Clear filters")} onClick={() => setFilters({ ...defaultFilters, query: filters.query, view: filters.view })}><RotateCcw aria-hidden="true" /></IconButton>
       </div>}
       <div className="catalog-results-meta" data-compact={compact}>
-        <h2 id="catalog-results-heading" aria-live="polite" aria-atomic="true">{searching ? t("Searching…") : compact ? filtered.length === 1 ? t("1 result") : t("{count} results", { count: filtered.length }) : t("Explore the collection")}{!compact && !searching && <span>{recipes.length === 1 ? t("1 entry") : t("{count} entries", { count: recipes.length })}</span>}</h2>
+        <h2 id="catalog-results-heading" aria-live="polite" aria-atomic="true">{searching ? t("Searching…") : refined ? filtered.length === 1 ? t("1 result") : t("{count} results", { count: filtered.length }) : t("Explore the collection")}{!refined && !searching && <span>{recipes.length === 1 ? t("1 entry") : t("{count} entries", { count: recipes.length })}</span>}</h2>
         {query && guides.status === "error" && <p className="catalog-search-status" role="status">{t("Searching project details only.")} <Button variant="link" size="sm" onClick={guides.retry}>{t("Retry guide search")}</Button></p>}
       </div>
       {filtered.length ? <>
         <div ref={resultsRef} aria-busy={searching} className={compact ? "recipe-results" : "catalog-cards"}>
-          {compact ? visible.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />) : <>
-            {featured.length > 0 && <div className="showcase-grid">{featured.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} />)}</div>}
-            {directory.length > 0 && <div className="showcase-grid directory-grid">{directory.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} />)}</div>}
-          </>}
+          {compact ? visible.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} compact />) : <div className="showcase-grid">{visible.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} returnTo={returnTo} />)}</div>}
         </div>
         {filtered.length > CATALOG_BATCH_SIZE && <div ref={sentinel} className="catalog-load-status" role="status" aria-live="polite">{hasMore ? t("Loading more projects…") : t("All {count} projects shown", { count: filtered.length })}</div>}
-      </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => { setFilters(defaultFilters); searchRef.current?.focus() }}>{t("Clear search and filters")}</Button></Empty>}
+      </> : searching ? <div className="catalog-empty" aria-hidden="true" /> : <Empty className="catalog-empty"><EmptyHeader><EmptyTitle>{t("No matching recipes")}</EmptyTitle><EmptyDescription>{t("Try a broader search or remove a filter above.")}</EmptyDescription></EmptyHeader><Button variant="outline" onClick={() => { setFilters({ ...defaultFilters, view: filters.view }); searchRef.current?.focus() }}>{t("Clear search and filters")}</Button></Empty>}
     </div>
   </section>
 }

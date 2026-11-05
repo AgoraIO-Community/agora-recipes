@@ -536,7 +536,16 @@
     "Always on": "始終開啟",
     "Anonymous usage statistics remain enabled.": "匿名使用統計保持開啟。",
     "Customize": "自訂",
-    "Loading Agora privacy settings…": "正在載入 Agora 隱私設定…"
+    "Loading Agora privacy settings…": "正在載入 Agora 隱私設定…",
+    "Most popular": "最受歡迎",
+    "View recipes": "瀏覽檢視",
+    "Card view": "卡片檢視",
+    "List view": "清單檢視",
+    "Recommendations are hand-picked. Other projects follow by update date.": "推薦專案由人工挑選，其餘專案依更新日期排序。",
+    "Sorted by GitHub stars · Updated {date}": "依 GitHub 星標數排序 · 更新於 {date}",
+    "Early community projects by Akshay Nandwana.": "Akshay Nandwana 早期貢獻的社群專案。",
+    "Explore Akshay Nandwana’s early community projects: guided breathing, meditation, translation, movie discovery, a voice companion, and voice coaching.": "探索 Akshay Nandwana 早期貢獻的社群專案：呼吸引導、冥想、翻譯、電影推薦、語音陪伴與語音教練。",
+    "Explore Akshay’s projects": "瀏覽 Akshay 的專案"
   },
   "entries": {
     "ag-iot-ios-app": {

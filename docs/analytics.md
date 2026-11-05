@@ -164,6 +164,10 @@ switch, policy links, and **Save**. Provider names, event fields, and attributio
 mechanics are documented separately. The footer keeps a short anonymous-statistics
 notice and a persistent preference entry.
 
+Reject and Accept share the site's connected ButtonGroup with equal widths.
+Preferences reuse the shared Dialog and Switch; keep the responsive dialog
+gutters and control targets defined in DESIGN.md.
+
 These labels follow the three-action pattern documented by
 [CookieYes](https://www.cookieyes.com/documentation/change-the-order-of-buttons/);
 they are not universally prescribed English wording. The

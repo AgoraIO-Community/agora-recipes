@@ -2,13 +2,13 @@
 
 import { useI18n } from "@/components/locale-provider"
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import { ArrowUpRight, ChevronDown } from "lucide-react"
+import { ArrowUpRight, BookOpen, FileCode2, Github } from "lucide-react"
 import { CopyMarkdownButton } from "@/components/copy-markdown-button"
 import { CodePanel } from "@/components/code-panel"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { IconButton } from "@/components/ui/icon-button"
-import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuGroup, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export function RecipeDocument({ markdown, children, rawUrl, sourceUrl, languageControl }: { markdown: string; children: ReactNode; rawUrl?: string; sourceUrl?: string; languageControl?: ReactNode }) {
@@ -32,16 +32,16 @@ export function RecipeDocument({ markdown, children, rawUrl, sourceUrl, language
   }, [])
   return <Tabs value={selected} onValueChange={setSelected} className="recipe-document" data-unavailable={!markdown || undefined}>
     {(markdown || languageControl || sourceUrl || rawUrl) && <div className="recipe-document-tabs">
-      {markdown && <TabsList variant="segmented" aria-label={t("Recipe format")}><TabsTrigger value="guide">{t("Guide")}</TabsTrigger><TabsTrigger value="markdown">Markdown</TabsTrigger></TabsList>}
+      {markdown && <TabsList variant="segmented" aria-label={t("Recipe format")}>
+        <Tooltip><TooltipTrigger asChild><TabsTrigger value="guide" aria-label={t("Guide")}><BookOpen aria-hidden="true" /></TabsTrigger></TooltipTrigger><TooltipContent>{t("Guide")}</TooltipContent></Tooltip>
+        <Tooltip><TooltipTrigger asChild><TabsTrigger value="markdown" aria-label="Markdown"><FileCode2 aria-hidden="true" /></TabsTrigger></TooltipTrigger><TooltipContent>Markdown</TooltipContent></Tooltip>
+      </TabsList>}
       <div className="recipe-document-tools">
         {languageControl}
         {(markdown || sourceUrl || rawUrl) && <ButtonGroup className="recipe-document-actions" aria-label={t("Markdown source")} data-document-raw-url={rawUrl}>
           {markdown && <CopyMarkdownButton markdown={markdown} />}
           {(sourceUrl || rawUrl) && <DropdownMenu>
-            <DropdownMenuTrigger asChild>{markdown
-              ? <IconButton label={t("Markdown source")} variant="outline" size="icon-sm"><ChevronDown aria-hidden="true" /></IconButton>
-              : <Button variant="outline" size="sm">{t("Markdown source")}<ChevronDown aria-hidden="true" /></Button>}
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild><IconButton label={t("Markdown source")} variant="outline" size="icon-sm"><Github aria-hidden="true" /></IconButton></DropdownMenuTrigger>
             <DropdownMenuContent align="end" collisionPadding={16} className="recipe-document-menu">
               <DropdownMenuGroup>
                 {sourceUrl && <DropdownMenuItem asChild><a href={sourceUrl} data-material="source" data-placement="reader" target="_blank" rel="noreferrer">{t("View on GitHub")}<ArrowUpRight aria-hidden="true" /></a></DropdownMenuItem>}

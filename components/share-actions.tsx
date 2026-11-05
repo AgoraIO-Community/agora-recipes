@@ -4,6 +4,7 @@ import { useState, useSyncExternalStore } from "react"
 import { Check, Copy, LoaderCircle, Share2, ArrowUpRight } from "lucide-react"
 import { useCopyFeedback } from "@/hooks/use-copy-feedback"
 import { IconButton } from "./ui/icon-button"
+import { ButtonGroup } from "./ui/button-group"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { useI18n } from "./locale-provider"
 import { useAnalytics } from "./analytics-provider"
@@ -26,6 +27,7 @@ export function ShareActions({ url, title, compact = false }: { url: string; tit
     catch (error) { if (!(error instanceof Error && error.name === "AbortError")) setShareError({ url, message: t("Sharing is unavailable. Copy the link instead.") }) }
   }
   return <div className="share-actions" data-error={failed || undefined} role="group" aria-label={t("Share this page")}>
+    <ButtonGroup>
     {!compact && <IconButton label={state === "copying" ? t("Copying…") : status && !failed ? status : t("Copy link")} onClick={() => { setShareError({ url, message: "" }); void copy() }} busy={state === "copying"} busyIndicator={false} className="copy-action" data-copy-state={state}><span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span></IconButton>}
     <DropdownMenu>
       <DropdownMenuTrigger asChild><IconButton label={compact && state === "copied" ? t("Link copied") : t("Share this page")}>{compact && state === "copied" ? <Check aria-hidden="true" /> : <Share2 aria-hidden="true" />}</IconButton></DropdownMenuTrigger>
@@ -37,6 +39,7 @@ export function ShareActions({ url, title, compact = false }: { url: string; tit
         <DropdownMenuItem asChild><a href={`https://www.linkedin.com/sharing/share-offsite/?${new URLSearchParams({ url })}`} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Share on {platform}", { platform: "LinkedIn" }) })} onClick={() => capture("share_action", { action: "linkedin_open", placement: "sharing" })}>{t("Share on {platform}", { platform: "LinkedIn" })}<ArrowUpRight aria-hidden="true" /></a></DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    </ButtonGroup>
     <span role="status" className={failed ? "share-feedback" : "sr-only"}>{status}{failed && <> <a href={url}>{url}</a></>}</span>
   </div>
 }

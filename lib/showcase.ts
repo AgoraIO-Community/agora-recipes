@@ -1,5 +1,6 @@
 import "server-only"
 import recommendations from "@/content/showcase.json"
+import githubStars from "@/content/github-stars.json"
 import { getAllEntries } from "@/lib/recipes"
 import { entrySearchTerms, getT, localizeEntry } from "@/lib/i18n"
 import { getAllTopics } from "@/lib/topics"
@@ -29,6 +30,8 @@ export function getRecipeSummaries(locale: Locale = "en"): RecipeSummary[] {
       showcase.demoNote = t(showcase.demoNote)
     }
     const searchTerms = [entry.title, entry.tagline, entry.description, ...entrySearchTerms(entry.slug), ...topics.filter(topic => topic.members.some(member => member.slug === entry.slug)).flatMap(topic => [topic.slug, topic.title, topic.summary, ...locales.flatMap(language => [getT(language)(topic.title), getT(language)(topic.summary)])])]
-    return { ...presentation, searchTerms, ...(showcase ? { showcase } : {}), ...(order.has(entry.slug) ? { recommendedOrder: order.get(entry.slug)! } : {}) }
+    const repository = entry.mainRepoUrl?.replace(/^https:\/\/github.com\//i, "").replace(/\/$/, "").replace(/\.git$/, "").toLowerCase()
+    const stars = repository ? (githubStars.repositories as Record<string, number>)[repository] : undefined
+    return { ...presentation, searchTerms, ...(stars !== undefined ? { githubStars: stars } : {}), ...(showcase ? { showcase } : {}), ...(order.has(entry.slug) ? { recommendedOrder: order.get(entry.slug)! } : {}) }
   })
 }
