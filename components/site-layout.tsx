@@ -14,8 +14,8 @@ import { topicNames } from "@/lib/topics"
 
 const shouldLoadAnalytics =
   analyticsEnabled(process.env.NODE_ENV, process.env.VERCEL, process.env.VERCEL_ENV)
-if (shouldLoadAnalytics && (!process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN || !process.env.NEXT_PUBLIC_POSTHOG_HOST)) {
-  throw new Error("Production analytics requires NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN and NEXT_PUBLIC_POSTHOG_HOST. Set them in the hosting project before building.")
+if (shouldLoadAnalytics && !process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN) {
+  throw new Error("Production analytics requires NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN. Set it in the hosting project before building.")
 }
 
 const baseMetadata: Metadata = {

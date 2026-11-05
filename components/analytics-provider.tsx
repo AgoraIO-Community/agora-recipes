@@ -6,14 +6,16 @@ import { Analytics } from "@vercel/analytics/next"
 import { track } from "@vercel/analytics"
 import { useI18n } from "./locale-provider"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
-import { analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, type AnalyticsEvent, type EventDimensions } from "@/lib/analytics-events"
-import { pageContext, posthogProperties } from "@/lib/posthog-events"
+import { analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, vercelProperties, type AnalyticsEvent, type EventDimensions } from "@/lib/analytics-events"
+import { pageContext, analyticsProperties } from "@/lib/analytics-context"
+import { createAttributionReader } from "@/lib/analytics-attribution"
 import { capturePosthog } from "@/lib/posthog-client"
 
 const AnalyticsContext = createContext<{ enabled: boolean; productionOrigin: string; topics: readonly string[] }>({ enabled: false, productionOrigin: "", topics: [] })
 // The origin cannot change within a document. Keep the server snapshot disabled
 // and check the real browser origin when hydration completes.
 const subscribeToOrigin = () => () => {}
+const readCampaign = createAttributionReader(() => window.sessionStorage)
 
 export function useAnalytics() {
   const { enabled, productionOrigin, topics } = useContext(AnalyticsContext)
@@ -25,8 +27,9 @@ export function useAnalytics() {
     const context = pageContext(pathname, search, topics)
     const event = createAnalyticsEvent(name, { ...context, ...dimensions, locale })
     if (!event) return
-    try { track(event.name, event.properties) } catch { /* Analytics cannot block the visitor action. */ }
-    capturePosthog(event.name, { ...posthogProperties(context, event.name, event.properties), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    const properties = analyticsProperties(context, event.name, event.properties, readCampaign(window.location.search))
+    try { track(event.name, vercelProperties(properties)) } catch { /* Analytics cannot block the visitor action. */ }
+    capturePosthog(event.name, { ...properties, $current_url: analyticsUrl(window.location.href) }, productionOrigin)
   }, [enabled, productionOrigin, locale, pathname, search, topics])
 }
 
@@ -39,7 +42,7 @@ function PageAnalytics() {
     if (previousPath.current === pathname) return
     previousPath.current = pathname
     const context = pageContext(pathname, window.location.search, topics)
-    capturePosthog("$pageview", { ...posthogProperties(context, "$pageview"), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    capturePosthog("$pageview", { ...analyticsProperties(context, "$pageview", {}, readCampaign(window.location.search)), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
   }, [pathname, topics, productionOrigin])
   return null
 }

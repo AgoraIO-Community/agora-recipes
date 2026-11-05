@@ -85,12 +85,13 @@ function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, 
 export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topicSlug }: { recipes: RecipeSummary[]; embedded?: boolean; topicSlug?: string }) {
   const { t, locale } = useI18n()
   const capture = useAnalytics()
-  const pendingSearch = useRef<string | null>(null)
   const pathname = usePathname()
   const mobile = useIsMobile()
   const search = useCatalogSearch()
   const params = useMemo(() => new URLSearchParams(search), [search])
   const filters = useMemo(() => readDiscoveryFilters(params), [params])
+  const pendingSearch = useRef<string | null>(null)
+  const searchId = useRef<string | undefined>(undefined)
   const [query, setQuery] = useState(filters.query)
   const [previousQuery, setPreviousQuery] = useState(filters.query)
   // Back/forward and locale URLs replace the draft before a stale value paints.
@@ -158,7 +159,6 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     const current = new URLSearchParams(window.location.search)
     const latest = readDiscoveryFilters(current)
     if (latest.query === value) return
-    pendingSearch.current = value
     const next = writeDiscoveryFilters({ ...latest, query: value }, current)
     next.delete("all")
     next.delete("loaded")
@@ -206,13 +206,22 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   }, [search, searching, filtered.length])
 
   useEffect(() => {
+    pendingSearch.current = filters.query.trim() ? filters.query : null
+    searchId.current = undefined
+  }, [filters.query])
+  const searchDimensions = useCallback(() => {
+    searchId.current ??= crypto.randomUUID()
+    return { placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, search_term: filters.query, search_status: guides.status === "error" ? "metadata_only" : "complete", result_count: filtered.length, search_id: searchId.current }
+  }, [filters.query, guides.status, filtered.length, topicSlug])
+  useEffect(() => {
     if (searching || pendingSearch.current === null || pendingSearch.current !== filters.query) return
     const timer = setTimeout(() => {
-      capture("catalog_action", { action: "search", placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: filtered.length })
+      if (pendingSearch.current !== filters.query) return
+      capture("catalog_action", { ...searchDimensions(), action: "search" })
       pendingSearch.current = null
     }, 700)
     return () => clearTimeout(timer)
-  }, [filters.query, filtered.length, capture, topicSlug, searching])
+  }, [filters.query, capture, searching, searchDimensions])
 
   function setFilters(next: DiscoveryFilters, action = "filter") {
     if (action !== "search") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
@@ -232,8 +241,21 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     update(key, toggle(filters[key], value))
   }
   function captureNavigation(event: MouseEvent<HTMLElement>) {
+    if (event.type === "auxclick" && event.button !== 1 || event.type === "click" && event.button !== 0) return
     const link = (event.target as Element).closest("a")
-    if (link && new URL(link.href, window.location.origin).pathname.includes("/recipes/")) rememberCatalogPosition()
+    if (!link) return
+    const url = new URL(link.href, window.location.origin)
+    const slug = link.closest<HTMLElement>("[data-recipe-slug]")?.dataset.recipeSlug
+    if (!slug || url.origin !== window.location.origin || !url.pathname.endsWith(`/recipes/${slug}`)) return
+    rememberCatalogPosition()
+    if (searching || !filters.query.trim()) return
+    const dimensions = searchDimensions()
+    // A quick result click must retain its search denominator before navigation.
+    if (pendingSearch.current === filters.query) {
+      capture("catalog_action", { ...dimensions, action: "search" })
+      pendingSearch.current = null
+    }
+    capture("catalog_action", { ...dimensions, action: "result_open", content_slug: slug, result_position: filtered.findIndex(recipe => recipe.slug === slug) + 1 })
   }
   const returnTo = `${pathname}${search}#recipes`
   const chips = [

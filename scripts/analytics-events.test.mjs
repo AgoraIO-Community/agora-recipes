@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { analyticsEnabled, analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, eventActions } from '../lib/analytics-events.ts'
+import { analyticsEnabled, analyticsOriginAllowed, analyticsUrl, campaignProperties, createAnalyticsEvent, eventActions, vercelProperties } from '../lib/analytics-events.ts'
 
 test('only real Vercel production enables analytics; local builds, development, and previews stay off', () => {
   assert.equal(analyticsEnabled('production', '1', 'production'), true)
@@ -46,4 +46,36 @@ test('page-view and custom-event URLs remove searches, source-list context, hash
   assert.equal(analyticsUrl('https://recipes.agora.io/zh-Hans/topics/example?q=private&returnTo=%2Fsecret#section'), 'https://recipes.agora.io/zh-Hans/topics/example')
   assert.equal(analyticsUrl('https://user:secret@example.com/path?token=secret'), 'https://example.com/path')
   assert.equal(analyticsUrl('javascript:alert(1)'), undefined)
+})
+
+test('search popularity groups normalized terms and preserves zero results and result positions', () => {
+  const search = createAnalyticsEvent('catalog_action', { action: 'search', search_term: '  ＶＯＩＣＥ   Agent  ', result_count: 0, search_status: 'complete', result_position: 1 })
+  assert.deepEqual(search.properties, { action: 'search', result_count: 0, search_term: 'voice agent', search_status: 'complete' })
+  const click = createAnalyticsEvent('catalog_action', { action: 'result_open', search_term: '语音 Agent', content_slug: 'voice-agent', result_count: 3, result_position: 2, search_status: 'metadata_only' })
+  assert.equal(click.properties.search_term, '语音 agent')
+  assert.equal(click.properties.result_position, 2)
+  assert.equal(click.properties.search_status, 'metadata_only')
+  assert.equal(createAnalyticsEvent('content_copy', { action: 'guide', search_term: 'unrelated' }).properties.search_term, undefined)
+})
+
+test('obvious sensitive and unbounded search inputs are redacted without losing search counts', () => {
+  for (const search_term of ['person@example.com', 'https://private.example?key=value', 'token=secret', 'Bearer abcdefgh', 'sk-12345678abcdef', 'github_pat_abcdef123456789', '+86 138 1234 5678', 'x'.repeat(101), 'voice\u200bsecret']) {
+    const result = createAnalyticsEvent('catalog_action', { action: 'search', search_term, result_count: 0 })
+    assert.deepEqual(result.properties, { action: 'search', result_count: 0, search_term_redacted: true }, search_term)
+  }
+  assert.deepEqual(createAnalyticsEvent('catalog_action', { action: 'search', search_term: '   ' }).properties, { action: 'search' })
+})
+
+test('only standard bounded campaign dimensions survive; campaign IDs can be numeric', () => {
+  assert.deepEqual(campaignProperties({ utm_source: '  discord  ', utm_campaign: 'Voice Demo 20261105', utm_id: '123456789', utm_medium: 'community', utm_content: 'person@example.com', utm_term: 'api_key=secret', gclid: 'uncontrolled', account: 'private' }), { utm_source: 'discord', utm_medium: 'community', utm_campaign: 'Voice Demo 20261105', utm_id: '123456789' })
+})
+
+test('Vercel summaries fit Pro property limits and retain useful search/content/Topic dimensions', () => {
+  assert.deepEqual(vercelProperties({ action: 'search', search_term: 'voice agent', result_count: 0, topic_slug: 'topic-a', search_id: 'uuid', utm_source: 'discord' }), { action: 'search', search_term: 'voice agent' })
+  assert.deepEqual(vercelProperties({ action: 'search', search_term_redacted: true, result_count: 0 }), { action: 'search', search_term_redacted: true })
+  assert.deepEqual(vercelProperties({ action: 'result_open', content_slug: 'example', search_term: 'voice', result_position: 1 }), { action: 'result_open', content_slug: 'example' })
+  assert.deepEqual(vercelProperties({ action: 'participate', topic_slug: 'topic-a', placement: 'topic_page' }), { action: 'participate', topic_slug: 'topic-a' })
+  for (const actions of Object.values(eventActions)) for (const action of actions) {
+    assert.ok(Object.keys(vercelProperties({ action, placement: 'catalog', content_slug: 'example', utm_source: 'discord' })).length <= 2)
+  }
 })
