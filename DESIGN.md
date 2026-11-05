@@ -177,8 +177,8 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 ## Privacy choices
 
 Keep the attached privacy bar concise, with one purpose sentence and explicit
-Reject / Accept / Customize labels. Reject and Accept use the same outline
-Button inside a shared ButtonGroup with equal widths; these choices retain text.
+Reject / Accept / Customize labels. Reject and Accept are separate shared outline
+Buttons with equal widths and an 8px gap; these choices retain text and full corners.
 Use the shared Dialog, Switch, and footer actions for preferences. Dialogs keep
 16px viewport gutters, and phone/coarse-pointer actions keep 46px targets.
 Show anonymous statistics as Always on and optional analytics as a default-off

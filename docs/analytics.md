@@ -164,7 +164,8 @@ switch, policy links, and **Save**. Provider names, event fields, and attributio
 mechanics are documented separately. The footer keeps a short anonymous-statistics
 notice and a persistent preference entry.
 
-Reject and Accept share the site's connected ButtonGroup with equal widths.
+Reject and Accept are independent shared outline Buttons with equal widths and
+an 8px gap, each retaining its full border and corners.
 Preferences reuse the shared Dialog and Switch; keep the responsive dialog
 gutters and control targets defined in DESIGN.md.
 
