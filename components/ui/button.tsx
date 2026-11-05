@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "@radix-ui/react-slot";
-import { LoaderCircle } from "lucide-react";
+import { ArrowRight, ArrowUpRight, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva("ag-button", {
@@ -17,16 +17,19 @@ const buttonVariants = cva("ag-button", {
       ghost: "ag-button-ghost",
       quiet: "ag-button-ghost",
       link: "ag-button-link",
+      field: "ag-button-field",
     },
     size: {
-      default: "ag-control-md",
+      default: "ag-control-sm",
       sm: "ag-control-sm",
       lg: "ag-control-lg",
       xs: "ag-control-sm",
-      icon: "ag-control-md ag-icon-button",
+      icon: "ag-control-sm ag-icon-button",
       "icon-sm": "ag-control-sm ag-icon-button",
       "icon-lg": "ag-control-lg ag-icon-button",
       "icon-xs": "ag-control-sm ag-icon-button",
+      menu: "ag-control-sm ag-control-menu",
+      resource: "ag-control-sm ag-control-resource",
     },
   },
   defaultVariants: { variant: "default", size: "default" },
@@ -39,14 +42,16 @@ function Button({
   asChild = false,
   busy = false,
   busyIndicator = true,
+  edge = false,
+  wrap = false,
   disabled,
   onClick,
   onClickCapture,
   type = "button",
   children,
   ...props
-}: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean; busy?: boolean; busyIndicator?: boolean }) {
-  const classes = cn(buttonVariants({ variant, size, className }));
+}: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean; busy?: boolean; busyIndicator?: boolean; edge?: boolean; wrap?: boolean }) {
+  const classes = cn(buttonVariants({ variant, size, className }), edge && "ag-button-edge", wrap && "ag-button-wrap");
   const blocked = Boolean(disabled || busy || props["aria-disabled"] === true || props["aria-disabled"] === "true");
   const guard = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!blocked) return false;
@@ -70,4 +75,14 @@ function Button({
   </button>;
 }
 
-export { Button, buttonVariants };
+/** Opt-in direction cue for a section's main navigation action. */
+function ButtonArrow({ direction = "forward" }: { direction?: "forward" | "outbound" }) {
+  const Arrow = direction === "outbound" ? ArrowUpRight : ArrowRight;
+  return <span className="ag-button-arrow" data-direction={direction} aria-hidden="true"><Arrow /><Arrow /></span>;
+}
+
+function ButtonCount({ value }: { value?: number }) {
+  return value ? <span data-slot="button-count" aria-hidden="true">{value}</span> : null;
+}
+
+export { Button, ButtonArrow, ButtonCount, buttonVariants };

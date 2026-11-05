@@ -14,5 +14,5 @@ export default async function TopicsPage({ params }: { params: Promise<{ locale?
   const { locale = "en" } = await params
   const t = getT(locale)
   const topics = [...getAllTopics()].sort((a, b) => Number(topicStatus(a) === "Completed") - Number(topicStatus(b) === "Completed")).map(topic => ({ slug: topic.slug, title: t(topic.compactTitle ?? topic.title), summary: t(topic.compactSummary ?? topic.summary), cover: topic.cover ? { src: topic.cover.src, alt: t(topic.cover.alt) } : undefined, kind: topic.kind, status: topicStatus(topic), count: topic.members.length }))
-  return <article className="recipe-detail"><header className="detail-hero"><div className="shell"><h1 className="hero-title">{t("Topics")}</h1><p className="detail-description">{t("Explore collections, activities, and community work.")}</p></div></header><TopicDirectory topics={topics} /></article>
+  return <article className="recipe-detail"><header className="detail-hero"><div className="shell"><h1 className="hero-title">{t("Topics")}</h1></div></header><TopicDirectory topics={topics} /></article>
 }

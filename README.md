@@ -158,13 +158,19 @@ The Recipes design system uses the Agora wordmark, local typography, and shared
 dark/light tokens. Ordinary controls and reading surfaces are solid; floating
 media actions, menus, and dialogs use complete Liquid Glass. A centered title
 and search lead into one topic toolbar and project tiles; phones retain two
-columns. Cards, images, links, labels, and icons stay in place on hover. Color,
-border, underline, and opacity provide feedback; motion accompanies explicit
-state changes such as selection, disclosure, and copy confirmation. Normal
+columns. Cards, images, control bounds, labels and ordinary icons stay in place
+on hover. Color, border, underline and opacity provide feedback. Main navigation
+CTAs can opt into the shared bounded `ButtonArrow`; repeated links and resource
+navigation carry no decorative arrows. Other motion accompanies explicit
+state changes such as selection, disclosure and copy confirmation. Normal
 recipe links do not prefetch large implementation documents during initial
 browsing. DESIGN.md documents the palette, geometry, responsive layouts,
 components, and interaction rules. Component integration lives in
-`components/agent-ui/README.md`.
+`components/design-system/README.md`.
+Run `npm run dev` and open `/design-system` for the live component reference.
+It is unavailable in production. The registered kit and ESLint import rules
+keep new feature controls on the same contract; extend the shared variant and
+reference case before adding a new component to a page.
 
 Verification: `node --test scripts/markdown.test.mjs scripts/recipe-discovery.test.mjs scripts/recipes-meta.test.mjs` (Node 22.18+ or Node 24+),
 `npm run lint`, `pnpm exec tsc --noEmit --incremental false`, and `npm run build`.

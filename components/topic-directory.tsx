@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowUpRight } from "lucide-react"
+
 import { useI18n } from "./locale-provider"
 import { SelectionIndicator } from "./ui/selection-indicator"
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group"
@@ -28,7 +28,7 @@ export function TopicDirectory({ topics }: { topics: { slug: string; title: stri
       <Link className="topic-directory__link" aria-labelledby={`topic-${topic.slug}-title`} href={localePath(`/topics/${topic.slug}`, locale)}>
         <div className="topic-directory__cover"><Image src={topic.cover && !failedCovers.includes(topic.slug) ? topic.cover.src : "/social-card.png"} alt={topic.cover && !failedCovers.includes(topic.slug) ? topic.cover.alt : ""} fill sizes="(max-width: 640px) 50vw, (max-width: 1504px) 50vw, 700px" onError={() => setFailedCovers(previous => previous.includes(topic.slug) ? previous : [...previous, topic.slug])} /></div>
         <div className="topic-directory__body">
-          <h2 id={`topic-${topic.slug}-title`}>{topic.title}<ArrowUpRight size={18} aria-hidden="true" /></h2>
+          <h2 id={`topic-${topic.slug}-title`}>{topic.title}</h2>
           <p className="topic-directory__summary">{topic.summary}</p>
           <div className="topic-directory__meta"><span>{t(topic.count === 1 ? "1 entry" : "{count} entries", { count: topic.count })}</span><span>{t(topic.status)}</span></div>
         </div>

@@ -6,8 +6,10 @@ import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { XIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import { IconButton } from '@/components/ui/icon-button'
-import { GlassSurface } from '@/components/agent-ui/glass-surface'
+import { Button } from '@/components/ui/button'
+import { GlassSurface } from '@/components/design-system/glass-surface'
+
+const SheetPanelContext = React.createContext<{ closeLabel?: string }>({})
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
@@ -51,11 +53,12 @@ function SheetContent({
   className,
   children,
   side = 'right',
+  closeLabel,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: 'top' | 'right' | 'bottom' | 'left'
+  closeLabel?: string
 }) {
-  const { t } = useI18n()
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -64,43 +67,44 @@ function SheetContent({
         data-slot="sheet-content"
         data-side={side}
         className={cn(
-          'ag-glass-panel border data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 transition ease-in-out data-[state=closed]:duration-200 data-[state=open]:duration-300',
-          side === 'right' &&
-            'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm',
-          side === 'left' &&
-            'data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm',
-          side === 'top' &&
-            'data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b',
-          side === 'bottom' &&
-            'data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t',
+          'ag-glass-panel ag-sheet-panel',
           className,
         )}
         {...props}
       >
         <GlassSurface material="liquid">
-          {children}
-          <SheetPrimitive.Close asChild><IconButton className="absolute top-4 right-4" label={t("Close filters")}><XIcon aria-hidden="true" /></IconButton></SheetPrimitive.Close>
+          <SheetPanelContext.Provider value={{ closeLabel }}>{children}</SheetPanelContext.Provider>
         </GlassSurface>
       </SheetPrimitive.Content>
     </SheetPortal>
   )
 }
 
-function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function SheetHeader({ className, children, actions, ...props }: React.ComponentProps<'div'> & { actions?: React.ReactNode }) {
+  const { t } = useI18n()
+  const { closeLabel } = React.useContext(SheetPanelContext)
   return (
     <div
       data-slot="sheet-header"
-      className={cn('flex flex-col gap-1.5 p-4', className)}
+      className={cn('ag-panel-header', className)}
       {...props}
-    />
+    >
+      <div className="ag-panel-heading">{children}</div>
+      {actions}
+      <SheetPrimitive.Close asChild><Button variant="ghost" size="icon" aria-label={closeLabel ?? t("Close")}><XIcon aria-hidden="true" /></Button></SheetPrimitive.Close>
+    </div>
   )
+}
+
+function SheetBody({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="sheet-body" className={cn('ag-panel-body', className)} {...props} />
 }
 
 function SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="sheet-footer"
-      className={cn('mt-auto flex flex-col gap-2 p-4', className)}
+      className={cn('ag-panel-footer', className)}
       {...props}
     />
   )
@@ -113,7 +117,7 @@ function SheetTitle({
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn('text-foreground font-normal', className)}
+      className={cn('ag-panel-title', className)}
       {...props}
     />
   )
@@ -126,7 +130,7 @@ function SheetDescription({
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn('ag-panel-description', className)}
       {...props}
     />
   )
@@ -134,6 +138,7 @@ function SheetDescription({
 
 export {
   Sheet,
+  SheetBody,
   SheetTrigger,
   SheetClose,
   SheetContent,

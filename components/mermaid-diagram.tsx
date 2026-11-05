@@ -3,6 +3,8 @@
 import { useI18n } from "@/components/locale-provider"
 import { useEffect, useId, useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
+import { CodePanel } from "@/components/code-panel"
 import { useTheme } from "@/hooks/use-theme"
 
 let renderer: Promise<typeof import("mermaid")["default"]> | undefined
@@ -93,10 +95,10 @@ export function MermaidDiagram({ source }: { source: string }) {
           {t(actualSize ? "Fit to width" : "View actual size")}
         </Button>
       ) : null}
-      <details className="mt-2 text-sm" open={current && !current.url ? true : undefined}>
-        <summary className="min-h-[46px] cursor-pointer py-3 text-muted-foreground">{t("Diagram source")}</summary>
-        <pre><code>{source}</code></pre>
-      </details>
+      <Disclosure className="mt-2" open={current && !current.url ? true : undefined}>
+        <DisclosureTrigger>{t("Diagram source")}</DisclosureTrigger>
+        <DisclosureContent><CodePanel code={source} label="Diagram source" wrap copyable={false} /></DisclosureContent>
+      </Disclosure>
     </figure>
   )
 }

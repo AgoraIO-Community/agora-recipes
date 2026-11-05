@@ -22,12 +22,15 @@ export type RecipeSummary = Omit<RecipeMeta, "cli"> & {
   slug: string
   showcase?: Showcase
   recommendedOrder?: number
+  githubStars?: number
   searchTerms?: string[]
   guideSearchText?: string
   searchExcerpt?: string
 }
 
-export const quickTags = [
+// Keep shared URLs from the retired shortcut bar working. New refinements use
+// metadata facets; legacy conditions remain visible as removable result chips.
+export const legacyTopics = [
   { value: "all", label: "All topics", terms: [] },
   { value: "voice", label: "Voice agents", terms: ["voice agent", "conversational ai"] },
   { value: "video", label: "Video calling", terms: ["video calling", "live video"] },
@@ -45,15 +48,16 @@ export type DiscoveryFilters = {
   capabilities: string[]
   materials: string[]
   previewOnly: boolean
-  sort: "recommended" | "updated" | "title"
+  sort: "recommended" | "updated" | "title" | "stars"
+  view: "cards" | "list"
 }
 
 export const defaultFilters: DiscoveryFilters = {
   query: "", topic: "all", category: "all",
-  platforms: [], useCases: [], capabilities: [], materials: [], previewOnly: false, sort: "recommended",
+  platforms: [], useCases: [], capabilities: [], materials: [], previewOnly: false, sort: "recommended", view: "cards",
 }
 
-const filterParams = ["q", "topic", "category", "platform", "useCase", "capability", "demo", "sort", "material"]
+const filterParams = ["q", "topic", "category", "platform", "useCase", "capability", "demo", "sort", "material", "view"]
 
 export function readDiscoveryFilters(params: URLSearchParams): DiscoveryFilters {
   const values = (key: string) => [...new Set(params.getAll(key).filter(Boolean))]
@@ -62,14 +66,15 @@ export function readDiscoveryFilters(params: URLSearchParams): DiscoveryFilters 
   const sort = params.get("sort")
   return {
     query: params.get("q") ?? "",
-    topic: quickTags.some(tag => tag.value === topic) ? topic : "all",
+    topic: legacyTopics.some(tag => tag.value === topic) ? topic : "all",
     category: ["voice-ai", "rtc"].includes(category) ? category : "all",
     platforms: values("platform"),
     useCases: values("useCase"),
     capabilities: values("capability"),
     materials: values("material").filter(value => ["demo", "video", "source", "recipe"].includes(value)),
     previewOnly: params.get("demo") === "1",
-    sort: sort === "updated" || sort === "title" ? sort : "recommended",
+    sort: sort === "updated" || sort === "title" || sort === "stars" ? sort : "recommended",
+    view: params.get("view") === "list" ? "list" : "cards",
   }
 }
 
@@ -85,6 +90,7 @@ export function writeDiscoveryFilters(filters: DiscoveryFilters, current = new U
   for (const value of filters.materials) params.append("material", value)
   if (filters.previewOnly) params.set("demo", "1")
   if (filters.sort !== "recommended") params.set("sort", filters.sort)
+  if (filters.view !== "cards") params.set("view", filters.view)
   return params
 }
 
@@ -228,7 +234,7 @@ function withGuideExcerpt(recipe: RecipeSummary, tokens: string[]): RecipeSummar
 }
 
 export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilters): RecipeSummary[] {
-  const topic = quickTags.find((tag) => tag.value === filters.topic)
+  const topic = legacyTopics.find((tag) => tag.value === filters.topic)
   const tokens = queryTokens(filters.query)
   return recipes
     .map((recipe) => ({ recipe, score: searchScore(recipe, tokens) }))
@@ -246,6 +252,7 @@ export function discoverRecipes(recipes: RecipeSummary[], filters: DiscoveryFilt
     .sort((a, b) => {
       if (filters.sort === "title") return a.recipe.title.localeCompare(b.recipe.title)
       if (filters.sort === "updated") return b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
+      if (filters.sort === "stars") return (b.recipe.githubStars ?? -1) - (a.recipe.githubStars ?? -1) || a.recipe.title.localeCompare(b.recipe.title)
       return b.score - a.score || (a.recipe.recommendedOrder ?? Infinity) - (b.recipe.recommendedOrder ?? Infinity) || b.recipe.updated.localeCompare(a.recipe.updated) || a.recipe.title.localeCompare(b.recipe.title)
     })
     .map(({ recipe }) => withGuideExcerpt(recipe, tokens))

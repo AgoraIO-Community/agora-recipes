@@ -1,13 +1,17 @@
 "use client"
 
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
+
 import Link from "next/link"
 import { useState } from "react"
-import { ArrowUpRight, ChevronDown, Github } from "lucide-react"
+import { ChevronDown, Github } from "lucide-react"
 import { replaceLocationSearch, useCatalogSearch } from "@/hooks/use-catalog-location"
 import { contributionMaterials, contributionTopic } from "@/lib/contributions"
 import { localePath } from "@/lib/locales"
 import { useI18n } from "./locale-provider"
 import { CopyTextButton } from "./code-panel"
+import { CodePanel } from "@/components/code-panel"
+import { Field, FieldLabel, FieldDescription } from "@/components/ui/field"
 import { Button } from "./ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
 
@@ -28,11 +32,11 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
   }
   return <>
     <h2 className="detail-title">{t("Prepare your submission with AI")}</h2>
-    <p className="contribute-instructions">{t("Paste the prompt into Codex, Cursor, or Claude Code in your project. It will use your README and public links to prepare an English submission for you to review.")}</p>
-    <div className="contribute-topic">
-      <label id="contribution-topic-label" htmlFor="contribution-topic">{t("Topic or activity (optional)")}</label>
+    <p className="contribute-instructions">{t("Paste the prompt into Codex, Cursor, or Claude Code in your project.")}</p>
+    <Field className="contribute-topic">
+      <FieldLabel id="contribution-topic-label" htmlFor="contribution-topic">{t("Topic or activity (optional)")}</FieldLabel>
       <DropdownMenu onOpenChange={open => setShowCompleted(open && selectedCompleted)}>
-        <DropdownMenuTrigger asChild><Button id="contribution-topic" variant="outline" className="ag-select" aria-labelledby="contribution-topic-label contribution-topic-value" aria-describedby="contribution-topic-hint"><span id="contribution-topic-value" className="contribute-topic-value"><span className="contribute-topic-name">{topic ? topics[topic] : t("General catalog submission")}</span>{selectedCompleted && <span className="contribute-topic-status">{t("Completed")}</span>}</span><ChevronDown data-slot="select-icon" aria-hidden="true" /></Button></DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild><Button id="contribution-topic" variant="field" aria-labelledby="contribution-topic-label contribution-topic-value" aria-describedby={topic ? "contribution-topic-hint" : undefined}><span id="contribution-topic-value" className="contribute-topic-value"><span className="contribute-topic-name">{topic ? topics[topic] : t("General catalog submission")}</span>{selectedCompleted && <span className="contribute-topic-status">{t("Completed")}</span>}</span><ChevronDown data-slot="select-icon" aria-hidden="true" /></Button></DropdownMenuTrigger>
         <DropdownMenuContent className="contribute-topic-menu" align="start" collisionPadding={16}>
           <DropdownMenuRadioGroup value={topic ?? "__general"} onValueChange={selectTopic}>
             <DropdownMenuRadioItem value="__general">{t("General catalog submission")}</DropdownMenuRadioItem>
@@ -44,14 +48,14 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
           </>}
         </DropdownMenuContent>
       </DropdownMenu>
-      <p id="contribution-topic-hint">{topic ? <>{selectedCompleted ? t("This activity has ended. You can still share related work for its archive.") : t("Included in both the prompt and GitHub submission.")} <Link href={localePath(`/topics/${topic}`, locale)}>{t("View this Topic")}<ArrowUpRight size={13} aria-hidden="true" /></Link></> : t("No matching Topic? You can still share your project.")}</p>
-    </div>
+      {topic && <FieldDescription id="contribution-topic-hint"><Link href={localePath(`/topics/${topic}`, locale)}>{t("View this Topic")}</Link></FieldDescription>}
+    </Field>
     <div className="contribute-actions">
       <CopyTextButton text={prompt} label="Copy submission prompt" subject="Submission prompt" primary />
-      <Button asChild variant="outline"><a href={formUrl} target="_blank" rel="noreferrer" data-contribution="github_form"><Github aria-hidden="true" />{t("Fill it in on GitHub")}<ArrowUpRight aria-hidden="true" /></a></Button>
+      <Button asChild variant="outline"><a href={formUrl} target="_blank" rel="noreferrer" data-contribution="github_form"><Github aria-hidden="true" />{t("Fill it in on GitHub")}</a></Button>
     </div>
-    <p className="contribute-account">{t("Ready to write it yourself? Use the GitHub form. A GitHub account is required to submit; your Issue will be public.")}</p>
-    <details className="contribute-prompt ag-disclosure"><summary>{t("View the submission prompt")}<ChevronDown size={15} aria-hidden="true" /></summary><pre tabIndex={0} aria-label={t("Submission prompt")} lang="en">{prompt}</pre></details>
-    <details className="contribute-recovery ag-disclosure"><summary>{t("GitHub form not opening?")}<ChevronDown size={15} aria-hidden="true" /></summary><p>{t("Use a regular GitHub Issue with the same fields already filled in. Review and replace the instructions before submitting.")}</p><Button asChild variant="link"><a href={fallbackUrl} target="_blank" rel="noreferrer" data-contribution="github_issue">{t("Open a submission draft")}<ArrowUpRight aria-hidden="true" /></a></Button></details>
+    <p className="contribute-account">{t("Requires a GitHub account. Submissions are public.")}</p>
+    <Disclosure className="contribute-prompt"><DisclosureTrigger>{t("View the submission prompt")}</DisclosureTrigger><DisclosureContent><CodePanel code={prompt} label="Submission prompt" wrap copyable={false} /></DisclosureContent></Disclosure>
+    <Disclosure className="contribute-recovery"><DisclosureTrigger>{t("GitHub form not opening?")}</DisclosureTrigger><DisclosureContent><Button asChild variant="link"><a href={fallbackUrl} target="_blank" rel="noreferrer" data-contribution="github_issue">{t("Open a submission draft")}</a></Button></DisclosureContent></Disclosure>
   </>
 }

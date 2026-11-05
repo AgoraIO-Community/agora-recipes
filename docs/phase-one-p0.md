@@ -1,5 +1,8 @@
 # Phase One Verification and Release Notes
 
+This is a historical verification log. `DESIGN.md` and
+`components/design-system/README.md` define the current component contract.
+
 ## Language reviewer feedback — 2026-10-30
 
 - Akshay's first look found no Hindi issues. Jay's first look found the Spanish
@@ -191,7 +194,9 @@ The first functional implementation left new controls too spread out. The owner'
 
 ## Interaction Consistency Pass — 2026-10-28
 
-The owner's Agora family HTML remains the visual authority. Public Bencho examples were consulted for interaction continuity (selection, copy confirmation, and disclosure feedback); no Bencho component source, library, or dependency was adopted.
+The shared Recipes component layer defines selection, copy confirmation, and
+disclosure feedback. Use DESIGN.md and the development component reference for
+the current interaction and geometry contract.
 
 - Fixed the clipped popup focus ring at the shared control level. Menu/select options use an inset keyboard ring; the selected-language check remains separate from the current hover/focus highlight. The complete Liquid Glass engine and solid accessibility fallbacks are retained.
 - Filter rows retain a stable base order while live counts and availability change. Selecting Python left all six leading technology rows at exactly the same offsets; Python plus TypeScript returned 59 real results. Material options use a compact two-column grid. Facet search has an empty state and clear action; the body scrolls independently of the fixed result/reset footer.
@@ -339,14 +344,12 @@ use the English interface; original author materials and localized pages remain 
   unconfigured documents, and implementation files outside the guides are not indexed.
   Original author submissions and documents are not rewritten.
 
-## Agent UI component alignment — 2026-10-28
+## Shared component alignment — 2026-10-28
 
-- The owner-selected Agent UI documentation replaces the older standalone HTML.
-  DESIGN.md records the reference and pinned source revision. Existing Recipes
-  primitives adopt its semantic palette, 32/40/44px control scale, regular 14px
-  labels (13px compact), and shared 200/360/600ms timing. Weight 400, stationary
-  hover, 46px phone targets, and the complete floating GlassSurface remain owner
-  requirements. No additional component runtime or dependency was installed.
+- Shared Recipes primitives use the semantic palette and motion tokens.
+  DESIGN.md owns the current geometry and composition contract. Regular weight,
+  stationary hover, touch targets, and the complete floating GlassSurface are
+  shared requirements. Component integration lives in `components/design-system/`.
 - Shared Button busy state keeps the label, geometry, and focus, while blocking
   repeated action and slotted-link click handlers. Explicit disabled buttons stay
   native. Copy controls reuse this behavior with their own four-state feedback,

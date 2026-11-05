@@ -3,13 +3,13 @@
 import { useI18n } from "@/components/locale-provider"
 import {
   Dialog,
+  DialogBody,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { ArrowRight, Search, Wand2, Terminal } from "lucide-react"
+import { Search, Wand2, Terminal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const steps = [
@@ -40,37 +40,34 @@ export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "
       <DialogTrigger asChild>
         <Button
           type="button"
+          size={variant === "footer" ? "resource" : "default"}
           variant={variant === "footer" ? "link" : variant === "text" ? "ghost" : "outline"}
         >
           {t(variant === "footer" ? "How to use recipes" : "How to use these recipes")}
-          {variant !== "footer" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-3xl lg:max-w-4xl">
-        <DialogHeader className="pr-6">
-          <DialogTitle className="font-brand text-2xl font-normal leading-tight sm:text-3xl">
+      <DialogContent className="recipe-help-dialog" aria-describedby={undefined}>
+        <DialogHeader>
+          <DialogTitle>
             {t("How to use these recipes")}
           </DialogTitle>
-          <DialogDescription className="leading-relaxed">
-            {t("Explore demos, source, and guides. Each entry shows only the materials its author provides.")}
-          </DialogDescription>
         </DialogHeader>
 
-        <ol className="ag-reading-plane grid gap-4 md:grid-cols-3">
+        <DialogBody><ol className="grid gap-5 md:grid-cols-3">
           {steps.map(({ title, description, icon: Icon }) => (
-            <li key={title} className="p-5 sm:p-6">
+            <li key={title}>
               <div className="flex items-center justify-between" aria-hidden="true">
-                <Icon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
+                <Icon size={16} className="text-muted-foreground" strokeWidth={1.5} />
               </div>
-              <h3 className="mt-4 detail-title">
+              <h3 className="mt-3 text-sm font-normal leading-5">
                 {t(title)}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 text-[13px] leading-5 text-muted-foreground">
                 {t(description)}
               </p>
             </li>
           ))}
-        </ol>
+        </ol></DialogBody>
       </DialogContent>
     </Dialog>
   )

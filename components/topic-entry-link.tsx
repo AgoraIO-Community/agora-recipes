@@ -19,5 +19,5 @@ export function TopicEntryLink({ slug, title }: { slug: string; title: string })
 export function TopicContributionLink({ slug, children }: { slug: string; children: ReactNode }) {
   const { locale } = useI18n()
   const href = contributionPath(localePath(`/topics/${slug}`, locale), useCatalogSearch(), locale, { [slug]: slug })
-  return <Button asChild><Link href={href} prefetch={false} onClick={rememberCatalogPosition} onAuxClick={rememberCatalogPosition}>{children}</Link></Button>
+  return <Button asChild wrap><Link href={href} prefetch={false} onClick={rememberCatalogPosition} onAuxClick={rememberCatalogPosition}>{children}</Link></Button>
 }
