@@ -222,13 +222,21 @@ fetch is involved. Adding metadata or a guide updates search through the normal 
 Input commits after 250 ms, with immediate Enter/Clear and IME support. Filters
 still constrain results. Metadata/title relevance takes priority; guide-only matches
 show a source excerpt. The client preserves metadata search and offers retry if the
-static asset is unavailable. Only settled, bounded search-action counts enter analytics.
+static asset is unavailable. Analytics records settled searches with normalized,
+bounded terms, result counts, and matching result opens. Obvious sensitive inputs
+are redacted; per-keystroke text is not recorded.
 
 ## Sharing and Analytics
 
 Content and Topic pages share canonical URLs for the selected site locale, without list-return queries. Real cover images are preferred; `/social-card.png` is a local, statically generated fallback. Native, X, and LinkedIn handoffs open a sharing action; they do not prove a post was published. Copy-link events occur only after clipboard success.
 
-The site records bounded usage events in production. Raw search queries, account identity, copied text, and submission contents are excluded. Reuse the existing event families when adding interactions: hover previews do not count as plays, copying counts only after success, and opening GitHub does not prove a submission. See [analytics behavior and verification](docs/analytics.md) for code-level guidance.
+The site records bounded usage events in production, including normalized search
+terms and the six standard UTM campaign fields. Account identity, copied text,
+submission contents, and arbitrary URL parameters are excluded. Reuse the existing
+event families when adding interactions: hover previews do not count as plays,
+copying counts only after success, and opening GitHub does not prove a submission.
+See [analytics behavior and verification](docs/analytics.md) for the text filters,
+attribution rules, and code-level guidance.
 
 ## Build and Verify
 
