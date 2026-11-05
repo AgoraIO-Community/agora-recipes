@@ -517,7 +517,24 @@
     "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "Agora 与 AI Mobile Coders 语音 AI 黑客松的原始海报；报名已结束。",
     "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "绘有电话、游戏手柄、麦克风和对话气泡的 #VoiceAI 像素主题海报。",
     "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "绘有笔记本电脑、麦克风和扬声器的 #StartHere 像素主题海报。",
-    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "保留像素地球与 10 月 23–24 日原始日期的 iRTE2026 大会主视觉。"
+    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "保留像素地球与 10 月 23–24 日原始日期的 iRTE2026 大会主视觉。",
+    "Privacy settings": "隐私设置",
+    "Privacy choices": "隐私选项",
+    "Your privacy choices": "你的隐私选项",
+    "Usage statistics are off": "使用统计已关闭",
+    "Reject non-essential": "拒绝非必要统计",
+    "Allow usage statistics": "允许使用统计",
+    "Continue browsing": "继续浏览",
+    "Usage statistics": "使用统计",
+    "Save preferences": "保存偏好",
+    "Manage Agora preferences": "管理 Agora 隐私偏好",
+    "Retry privacy settings": "重试加载隐私设置",
+    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "我们使用 PostHog 和 Vercel 了解页面浏览、recipe 操作、搜索词和推广来源。你可以拒绝使用统计并继续浏览。",
+    "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "必要偏好用于维持网站功能并记住你的隐私选择，始终开启。",
+    "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "Agora 在 Performance Cookie 分类中管理此选项，修改可能应用于多个 Agora 网站。",
+    "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Agora 隐私设置加载失败。你可以继续浏览，使用统计将保持关闭。",
+    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "Recipes 不启用会话回放、自动交互采集或广告功能。",
+    "Loading Agora privacy settings…": "正在加载 Agora 隐私设置…"
   },
   "entries": {
     "ag-iot-ios-app": {

@@ -18,7 +18,7 @@ NEXT_PUBLIC_POSTHOG_HOST=<custom ingestion URL or same-origin proxy prefix>
 ```
 
 A build embeds these values, so changes require the normal release.
-The client runs only when `NODE_ENV=production`, `VERCEL=1`, and
+After analytics consent, the client runs only when `NODE_ENV=production`, `VERCEL=1`, and
 `VERCEL_ENV=production`, and the browser is on the canonical HTTPS origin from
 `SITE_URL` (default `https://recipes.agora.io`). A production deployment's generated
 URL, a preview, or a locally served copy of production assets does not initialize
@@ -49,6 +49,86 @@ The pinned 1.439.0 slim SDK loads lazily; first events wait for initialization. 
 manual `$pageview` per pathname navigation. Filtering or changing a draft's Topic
 without changing pages does not generate another view. No business backend,
 proxy, runtime GitHub fetch, or site account is required.
+
+## Privacy choices and consent
+
+Usage analytics is off until the visitor explicitly allows it. The same gate
+covers PostHog, Vercel page views/custom events, and campaign session storage.
+Refusing analytics or leaving the choice unanswered does not block browsing,
+search, demos, copying, or contribution preparation. Actions taken before consent
+are not buffered or replayed after acceptance; the current page is measured when
+analytics becomes active. A visible nonempty search becomes a fresh search
+attempt after acceptance, so subsequent result opens retain a matching denominator
+without replaying earlier interactions.
+
+### Reuse Agora's consent manager
+
+Agora's website uses Securiti. A live integration check confirmed that its current
+configuration shares consent on the Agora parent domain and exposes the analytics
+base category `Analytics & Customization` under the label `Performance`.
+Production can reuse that existing managed configuration with these public loader
+values in the hosting project's Production environment:
+
+```text
+NEXT_PUBLIC_SECURITI_TENANT_ID=<existing Agora Securiti tenant UUID>
+NEXT_PUBLIC_SECURITI_DOMAIN_ID=<existing Agora Securiti domain configuration UUID>
+```
+
+Do not copy the actual tenant/domain identifiers into documentation. Use the
+verified values from the existing website owner. No personal API key is needed.
+An environment update requires a later build/release; this PR does not activate a
+production deployment by itself.
+
+The integration loads the official consent SDK, not its page-wide automatic
+script blocker: application-level gates already control both analytics adapters.
+It uses the SDK's public consent data layer and category APIs. It requires an
+explicit existing decision, and resolves the analytics category by its base name,
+not by a hardcoded numeric ID or translated display label. Functional/advertising
+consent alone does not enable Recipes analytics. The footer's **Privacy settings**
+explains Recipes measurements and opens the managed Agora preference center.
+The visitor is told that central preference changes may affect other Agora sites.
+
+An unavailable, blocked, incomplete, or timed-out managed CMP keeps analytics off;
+visitors can continue browsing and retry from Privacy settings. A configured CMP
+never falls back to a local grant. Cross-tab changes to central cookies are
+checked when the tab regains focus, while visible, and before each deliberate
+action. The integration never modifies the central policy, advertising inventory,
+or another application's consent decision in code.
+
+### Local choices and withdrawal
+
+When no managed configuration is supplied, the site provides a compact attached
+banner with equally prominent **Reject non-essential** and **Allow usage
+statistics** actions, plus settings. Local builds and previews use this local UI
+without loading the production CMP; their analytics deployment/origin gate still
+remains off. Local consent is a versioned boolean and timestamp retained for
+180 days on the Recipes origin. Corrupt, expired, unknown-version, or future-dated
+records require another choice. With blocked storage, the explicit choice applies
+to the current document only.
+
+The local settings panel starts optional analytics off and saves only after an
+explicit action. Closing it does not grant consent. The footer always provides a
+way to change the choice. Withdrawal stops both adapters, clears campaign state
+from memory and session storage, opts the Recipes PostHog instance out, and removes
+its host-scoped persistence even in a fresh document without an initialized SDK.
+The SDK uses the dedicated `recipes` persistence namespace and host-only cookies;
+cleanup does not remove Console's shared project-token identity cookie or Agora's
+central consent cookies. The small privacy-choice record can remain necessary to
+honor a refusal. Each uninterrupted grant has a separate abortable fetch transport.
+Withdrawal cancels in-flight/queued retry delivery, and reacceptance cannot revive
+old lazy-import captures or old retry payloads. Capture uses fetch rather than an
+unabortable beacon and does not batch events. This boundary is tested against the
+pinned SDK transport behavior; SDK upgrades must retain the cancellation checks.
+
+Session replay, autocapture, advertising, heatmaps, flags, performance, and
+exception capture remain disabled regardless of consent. Consent permits only the
+bounded measurements below. These measurements cover consenting traffic; do not
+present them as a complete census of all visitors or compare pre-/post-consent
+rollout totals without noting the changed collection coverage.
+
+The owner should keep the central cookie inventory and privacy policy aligned
+with the actual providers, measurements, retention, and international processing.
+This application does not rewrite Agora's corporate policies.
 
 ## Measurement contract
 
@@ -88,7 +168,7 @@ cannot overwrite them. These are event properties, not person properties: a
 person may use multiple applications.
 
 Recipes has no login/session integration and does not call `identify`.
-Unique counts use a persistent anonymous browser identity, without a person
+After consent, unique counts use a persistent anonymous browser identity, without a person
 profile. One person using different browsers/devices or clearing storage can be
 counted again. Use the unique aggregation across the union of use/engagement
 events; do not add per-event unique counts, which would count the same visitor
@@ -222,26 +302,31 @@ counts; installed code and environment configuration are not evidence of ingesti
    the hosting project's Production scope only. Review and release through the
    existing staging/production process; environment edits alone do not update an
    already-built deployment. Do not change account permissions or billing.
-2. Visit real production pages, including a Topic, its entry, and contribution.
+2. Before consenting, confirm no PostHog/Vercel capture and no campaign or SDK
+   identity storage. Reject, reload, accept, then withdraw through the footer.
+   Verify capture only while accepted, including an already-loaded Vercel script,
+   lazy SDK initialization, a second tab, and a fresh visit after central withdrawal.
+   Block the configured CMP and confirm analytics stays off with a usable retry.
+3. Visit real production pages, including a Topic, its entry, and contribution.
    Make deliberate use actions. Verify `$pageview` and the seven relevant action
    families in the configured destination; filter by `app=recipes` and
    `environment=production`, and inspect bounded context and clean URLs.
-3. Confirm a single pathname navigation produces one view and changing filters
+4. Confirm a single pathname navigation produces one view and changing filters
    does not. Successful copying counts once; failed copying and hover previews
    do not produce use events.
-4. Check Topic A → detail → contribution, change association to B, then clear it.
+5. Check Topic A → detail → contribution, change association to B, then clear it.
    Confirm independent source/association fields in captured events and dashboard
    breakdowns. Also confirm direct visits have no inferred source.
-5. Enter a tagged Topic link, navigate to a recipe and contribution, and verify
+6. Enter a tagged Topic link, navigate to a recipe and contribution, and verify
    the same campaign dimensions. Test an untagged route, reload, new campaign, and
    30-minute inactivity boundary. Run a normal search, a zero-result search, a
    sensitive-pattern search, and an immediate result click. Confirm matching
    `search_id` on search/open, normalized or redacted terms, and result position.
-6. Confirm local/development/preview visits send no events, including a copy of
+7. Confirm local/development/preview visits send no events, including a copy of
    a production build served on localhost and the generated production deployment
    URL. Recheck Vercel collection
    alongside PostHog. Do not mark tracking Issue T5/T9 complete before real ingestion.
-7. Determine actual submissions and publications from GitHub Issues/PRs and release
+8. Determine actual submissions and publications from GitHub Issues/PRs and release
    links using the contribution SOP. No webhook, reporting database, or synthetic
    submission is needed for this phase.
 

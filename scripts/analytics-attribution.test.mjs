@@ -11,7 +11,7 @@ const { createAttributionReader } = await import(`data:text/javascript;base64,${
 function fixture(saved) {
   let time = 1000
   let stored = saved ?? null
-  const storage = () => ({ getItem: () => stored, setItem: (_, value) => { stored = value } })
+  const storage = () => ({ getItem: () => stored, setItem: (_, value) => { stored = value }, removeItem: () => { stored = null } })
   return { read: createAttributionReader(storage, () => time), reload: () => createAttributionReader(storage, () => time), advance: ms => { time += ms }, stored: () => stored }
 }
 
@@ -50,4 +50,13 @@ test('disabled/corrupt storage and unrelated parameters never break tracking or 
   assert.deepEqual(fixture('{bad json').read('?q=voice'), {})
   assert.deepEqual(fixture(JSON.stringify({ lastActivity: 1000, campaign: { utm_source: 'person@example.com', utm_campaign: 'safe', token: 'secret' } })).read(''), { utm_campaign: 'safe' })
   assert.deepEqual(fixture().read(''), {}, 'a separate tab has no cross-tab campaign state')
+})
+
+test('withdrawing consent clears the stored campaign and in-memory attribution', () => {
+  const f = fixture()
+  f.read('?utm_source=discord')
+  f.read.clear()
+  assert.equal(f.stored(), null)
+  assert.deepEqual(f.read(''), {})
+  assert.deepEqual(f.reload()(''), {})
 })

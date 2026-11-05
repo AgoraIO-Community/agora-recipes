@@ -517,7 +517,24 @@
     "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "AgoraとAI Mobile Codersによる音声AIハッカソンの当時のポスター。参加登録は終了しています。",
     "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "電話、ゲームコントローラー、マイク、会話の吹き出しを描いた、ピクセルアートの「#VoiceAI」ポスター。",
     "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "ノートPC、マイク、スピーカーを描いた、ピクセルアートの「#StartHere」ポスター。",
-    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "ピクセル状の地球と開催日10月23〜24日を配したiRTE2026の公式ビジュアル。"
+    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "ピクセル状の地球と開催日10月23〜24日を配したiRTE2026の公式ビジュアル。",
+    "Privacy settings": "プライバシー設定",
+    "Privacy choices": "プライバシーの選択",
+    "Your privacy choices": "プライバシーの選択",
+    "Usage statistics are off": "利用状況の統計は無効です",
+    "Reject non-essential": "必須でない統計を拒否",
+    "Allow usage statistics": "利用状況の統計を許可",
+    "Continue browsing": "閲覧を続ける",
+    "Usage statistics": "利用状況の統計",
+    "Save preferences": "設定を保存",
+    "Manage Agora preferences": "Agora の設定を管理",
+    "Retry privacy settings": "プライバシー設定を再読み込み",
+    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "PostHog と Vercel を使用し、ページ閲覧、レシピ操作、検索語、キャンペーン流入元を把握します。利用状況の統計を許可しなくても閲覧できます。",
+    "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "必須の設定はサイトの機能を維持し、プライバシーの選択を記憶します。常に有効です。",
+    "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "この選択は Agora の Performance Cookie カテゴリで管理されます。変更は複数の Agora サイトに適用される場合があります。",
+    "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Agora のプライバシー設定を読み込めませんでした。統計は無効のまま閲覧を続けられます。",
+    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "Recipes ではセッションリプレイ、操作の自動収集、広告機能は無効です。",
+    "Loading Agora privacy settings…": "Agora のプライバシー設定を読み込み中…"
   },
   "entries": {
     "ag-iot-ios-app": {

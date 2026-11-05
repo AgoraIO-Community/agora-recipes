@@ -3,7 +3,7 @@ import { campaignKeys, campaignProperties, type Campaign } from "./analytics-eve
 const storageKey = "recipes:campaign:v1"
 const inactivityTimeout = 30 * 60 * 1000
 type AttributionState = { lastActivity: number; campaign: Campaign }
-type StorageAccess = Pick<Storage, "getItem" | "setItem">
+type StorageAccess = Pick<Storage, "getItem" | "setItem" | "removeItem">
 
 // Per-tab last tagged touch. Untagged navigation keeps the campaign until the
 // inactivity timeout; an explicit campaign replaces the whole previous set.
@@ -11,7 +11,7 @@ type StorageAccess = Pick<Storage, "getItem" | "setItem">
 export function createAttributionReader(storage: () => StorageAccess, now = Date.now) {
   let state: AttributionState | undefined
   let restored = false
-  return (search: string): Campaign => {
+  const read = (search: string): Campaign => {
     const time = now()
     if (!restored) {
       restored = true
@@ -29,4 +29,10 @@ export function createAttributionReader(storage: () => StorageAccess, now = Date
     try { storage().setItem(storageKey, JSON.stringify(state)) } catch { /* Analytics cannot block navigation. */ }
     return { ...state.campaign }
   }
+  read.clear = () => {
+    state = undefined
+    restored = true
+    try { storage().removeItem(storageKey) } catch { /* Storage may be disabled. */ }
+  }
+  return read
 }

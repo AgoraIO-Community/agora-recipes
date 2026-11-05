@@ -517,7 +517,24 @@
     "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "Pôster original do hackathon de IA de voz da Agora e AI Mobile Coders; as inscrições já encerraram.",
     "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "Pôster em pixel art #VoiceAI com telefone, controle de videogame, microfone e balões de conversa.",
     "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "Pôster em pixel art #StartHere com notebook, microfone e alto-falante.",
-    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "Arte da conferência iRTE2026 com seu globo em pixels e a data original de 23 a 24 de outubro."
+    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "Arte da conferência iRTE2026 com seu globo em pixels e a data original de 23 a 24 de outubro.",
+    "Privacy settings": "Configurações de privacidade",
+    "Privacy choices": "Opções de privacidade",
+    "Your privacy choices": "Suas opções de privacidade",
+    "Usage statistics are off": "As estatísticas de uso estão desativadas",
+    "Reject non-essential": "Recusar estatísticas opcionais",
+    "Allow usage statistics": "Permitir estatísticas de uso",
+    "Continue browsing": "Continuar navegando",
+    "Usage statistics": "Estatísticas de uso",
+    "Save preferences": "Salvar preferências",
+    "Manage Agora preferences": "Gerenciar preferências da Agora",
+    "Retry privacy settings": "Tentar carregar as configurações novamente",
+    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "Usamos PostHog e Vercel para entender visualizações, ações em receitas, termos de pesquisa e origens de campanhas. Você pode navegar sem permitir estatísticas de uso.",
+    "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "As preferências essenciais mantêm o site funcionando e lembram sua escolha de privacidade. Estão sempre ativas.",
+    "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "A Agora gerencia essa escolha na categoria de cookies Performance. As alterações podem valer em outros sites da Agora.",
+    "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Não foi possível carregar as configurações de privacidade da Agora. Você pode continuar navegando com as estatísticas desativadas.",
+    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "No Recipes, a reprodução de sessões, a captura automática de interações e os recursos de publicidade estão desativados.",
+    "Loading Agora privacy settings…": "Carregando as configurações de privacidade da Agora…"
   },
   "entries": {
     "ag-iot-ios-app": {

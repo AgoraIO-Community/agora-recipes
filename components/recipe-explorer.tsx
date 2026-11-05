@@ -1,6 +1,6 @@
 "use client"
 
-import { useAnalytics } from "@/components/analytics-provider"
+import { useAnalytics, useAnalyticsActive } from "@/components/analytics-provider"
 import { useI18n } from "@/components/locale-provider"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
@@ -85,6 +85,7 @@ function FilterFacet({ label, hint, facet, options, recipes, filters, onChange, 
 export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topicSlug }: { recipes: RecipeSummary[]; embedded?: boolean; topicSlug?: string }) {
   const { t, locale } = useI18n()
   const capture = useAnalytics()
+  const analyticsActive = useAnalyticsActive()
   const pathname = usePathname()
   const mobile = useIsMobile()
   const search = useCatalogSearch()
@@ -208,7 +209,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   useEffect(() => {
     pendingSearch.current = filters.query.trim() ? filters.query : null
     searchId.current = undefined
-  }, [filters.query])
+  }, [filters.query, analyticsActive])
   const searchDimensions = useCallback(() => {
     searchId.current ??= crypto.randomUUID()
     return { placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, search_term: filters.query, search_status: guides.status === "error" ? "metadata_only" : "complete", result_count: filtered.length, search_id: searchId.current }
@@ -217,8 +218,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     if (searching || pendingSearch.current === null || pendingSearch.current !== filters.query) return
     const timer = setTimeout(() => {
       if (pendingSearch.current !== filters.query) return
-      capture("catalog_action", { ...searchDimensions(), action: "search" })
-      pendingSearch.current = null
+      if (capture("catalog_action", { ...searchDimensions(), action: "search" })) pendingSearch.current = null
     }, 700)
     return () => clearTimeout(timer)
   }, [filters.query, capture, searching, searchDimensions])
@@ -252,8 +252,7 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     const dimensions = searchDimensions()
     // A quick result click must retain its search denominator before navigation.
     if (pendingSearch.current === filters.query) {
-      capture("catalog_action", { ...dimensions, action: "search" })
-      pendingSearch.current = null
+      if (capture("catalog_action", { ...dimensions, action: "search" })) pendingSearch.current = null
     }
     capture("catalog_action", { ...dimensions, action: "result_open", content_slug: slug, result_position: filtered.findIndex(recipe => recipe.slug === slug) + 1 })
   }

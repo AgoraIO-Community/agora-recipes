@@ -693,3 +693,32 @@ a.recipe-author:hover { color: var(--foreground); }
 /* Clipboard failures remain readable and recoverable beside the action. */
 .copy-error { flex-basis: 100%; color: var(--destructive); font-size: 12px; line-height: 1.6; }
 .code-block__header, .recipe-document-actions { flex-wrap: wrap; }
+
+/* Privacy choices use an attached reading plane and the shared solid controls. */
+.privacy-banner { position: fixed; inset: auto 0 0; z-index: 45; border-top: 1px solid var(--border); background: var(--background); padding: 20px 0 calc(20px + env(safe-area-inset-bottom)); }
+.privacy-banner__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; }
+.privacy-banner h2 { margin: 0 0 8px; font-size: 16px; font-weight: 400; line-height: 1.4; }
+.privacy-banner p { margin: 0; max-width: 70ch; color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
+.privacy-banner__actions { display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; }
+.privacy-policy-links { display: inline-flex; gap: 16px; flex-wrap: wrap; }
+.privacy-policy-links a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
+.privacy-settings-body { display: grid; gap: 20px; font-size: 14px; line-height: 1.6; }
+.privacy-dialog { background: var(--popover); max-height: calc(100svh - 32px); overflow-y: auto; }
+.privacy-setting { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 46px; cursor: pointer; }
+.privacy-setting [data-slot=switch] { position: relative; }
+.privacy-setting [data-slot=switch]::after { content: ""; position: absolute; inset: -14px -7px; }
+.footer-legal button { display: flex; align-items: center; min-height: 36px; font-size: 12px; line-height: 20px; color: var(--muted-foreground); cursor: pointer; transition: color var(--motion-control); }
+.footer-legal button:hover { color: var(--foreground); }
+@media (pointer: coarse) {
+  .footer-legal button, .privacy-banner .ag-button, .privacy-dialog .ag-button { min-height: 46px; }
+}
+@media (max-width: 1100px) {
+  .privacy-banner__inner { align-items: flex-start; flex-direction: column; gap: 16px; }
+}
+@media (max-width: 600px) {
+  .privacy-banner { padding-top: 16px; padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .privacy-banner__actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .privacy-banner__actions > :last-child { grid-column: 1 / -1; }
+  .privacy-banner__actions .ag-button { min-height: 46px; height: auto; white-space: normal; }
+  .footer-legal button { min-height: 46px; }
+}

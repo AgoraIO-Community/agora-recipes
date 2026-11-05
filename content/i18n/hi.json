@@ -517,7 +517,24 @@
     "Original Agora and AI Mobile Coders Voice AI Hackathon poster; registration has ended.": "Agora और AI Mobile Coders के वॉइस AI हैकथॉन का मूल पोस्टर; पंजीकरण बंद हो चुका है।",
     "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "फ़ोन, गेम कंट्रोलर, माइक्रोफ़ोन और बातचीत के बुलबुलों वाला पिक्सेल-आर्ट #VoiceAI पोस्टर।",
     "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "लैपटॉप, माइक्रोफ़ोन और स्पीकर वाला पिक्सेल-आर्ट #StartHere पोस्टर।",
-    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "पिक्सेल ग्लोब और मूल 23–24 अक्टूबर की तारीख वाला iRTE2026 सम्मेलन का चित्र।"
+    "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "पिक्सेल ग्लोब और मूल 23–24 अक्टूबर की तारीख वाला iRTE2026 सम्मेलन का चित्र।",
+    "Privacy settings": "गोपनीयता सेटिंग",
+    "Privacy choices": "गोपनीयता विकल्प",
+    "Your privacy choices": "आपके गोपनीयता विकल्प",
+    "Usage statistics are off": "उपयोग के आँकड़े बंद हैं",
+    "Reject non-essential": "गैर-ज़रूरी आँकड़े अस्वीकार करें",
+    "Allow usage statistics": "उपयोग के आँकड़ों की अनुमति दें",
+    "Continue browsing": "ब्राउज़ करना जारी रखें",
+    "Usage statistics": "उपयोग के आँकड़े",
+    "Save preferences": "पसंद सहेजें",
+    "Manage Agora preferences": "Agora की पसंद प्रबंधित करें",
+    "Retry privacy settings": "गोपनीयता सेटिंग फिर लोड करें",
+    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "हम पेज व्यू, recipe पर की गई कार्रवाइयों, खोज शब्दों और अभियान के स्रोतों को समझने के लिए PostHog और Vercel का उपयोग करते हैं। आँकड़ों की अनुमति दिए बिना भी आप ब्राउज़ कर सकते हैं।",
+    "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "ज़रूरी पसंद साइट को काम करने योग्य रखती हैं और आपकी गोपनीयता पसंद याद रखती हैं। ये हमेशा चालू रहती हैं।",
+    "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "Agora इस विकल्प को Performance कुकी श्रेणी में प्रबंधित करता है। बदलाव Agora की अन्य वेबसाइटों पर भी लागू हो सकता है।",
+    "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Agora की गोपनीयता सेटिंग लोड नहीं हुईं। आप ब्राउज़ कर सकते हैं; उपयोग के आँकड़े बंद रहेंगे।",
+    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "Recipes में सत्र रिकॉर्डिंग, अपने आप इंटरैक्शन रिकॉर्ड करना और विज्ञापन सुविधाएँ बंद हैं।",
+    "Loading Agora privacy settings…": "Agora की गोपनीयता सेटिंग लोड हो रही हैं…"
   },
   "entries": {
     "ag-iot-ios-app": {

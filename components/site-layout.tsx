@@ -11,6 +11,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/lib/site"
 import { themeInitScript } from "@/lib/theme"
 import { topicNames } from "@/lib/topics"
+import { PrivacyProvider } from "@/components/privacy-provider"
 
 const shouldLoadAnalytics =
   analyticsEnabled(process.env.NODE_ENV, process.env.VERCEL, process.env.VERCEL_ENV)
@@ -98,6 +99,7 @@ export default function RootLayout({
           {t("Skip to main content")}
         </a>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
+        <PrivacyProvider production={shouldLoadAnalytics} productionOrigin={siteUrl.origin}>
         <AnalyticsProvider enabled={shouldLoadAnalytics} productionOrigin={siteUrl.origin} topics={Object.keys(topics)}>
         <SiteHeader topics={topics} />
         <main id="main-content" className="flex-1">
@@ -105,6 +107,7 @@ export default function RootLayout({
         </main>
         <SiteFooter topics={topics} />
         </AnalyticsProvider>
+        </PrivacyProvider>
         </LocaleProvider>
       </body>
     </html>
