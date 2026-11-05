@@ -136,8 +136,8 @@ back to an earlier local grant. Central choices are checked on focus, while
 visible, and before deliberate actions. Local builds and previews show the local
 choice UI but keep **both tiers' delivery disabled** by deployment/origin gates.
 
-Without managed configuration, equally prominent **Reject optional analytics**
-and **Allow optional analytics** actions control the local optional choice. The
+Without managed configuration, equally prominent **Reject** and **Accept**
+actions control the local optional choice; **Customize** opens preferences. The
 versioned boolean and timestamp last 180 days on the Recipes origin. Invalid,
 expired, unknown-version, or future-dated records require another decision.
 Blocked storage keeps an explicit choice for the current document only. Closing
@@ -154,6 +154,27 @@ Replay, autocapture, advertising, heatmaps, remote flags, performance, and excep
 capture remain disabled regardless of choice. Provider names and SDK settings
 stay in engineering documentation and the maintained corporate cookie inventory;
 visitor copy uses a short purpose/choice explanation.
+
+### Consent UI conventions
+
+The first layer states the purpose in one sentence: optional third-party analytics
+to understand site usage. It uses **Reject / Accept / Customize**. The preference
+editor uses **Anonymous statistics / Always on**, one **Optional analytics**
+switch, policy links, and **Save**. Provider names, event fields, and attribution
+mechanics are documented separately. The footer keeps a short anonymous-statistics
+notice and a persistent preference entry.
+
+These labels follow the three-action pattern documented by
+[CookieYes](https://www.cookieyes.com/documentation/change-the-order-of-buttons/);
+they are not universally prescribed English wording. The
+[CNIL recommendations](https://www.cnil.fr/sites/default/files/2026-01/recommandation_cookies_consolidee.pdf)
+and [OneTrust guidance](https://docs.onetrust.com/en/consent--preferences/cookie-consent/regional-implementation-guidance/noyb-cookie-consent-best-practices-guide)
+support equally accessible accept/reject choices, clear purposes, optional choices
+off by default, and easy withdrawal. Customize only opens the editor; closing it
+does not grant consent. Keep the existing
+[WAI-ARIA dialog keyboard/focus behavior](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
+and the site's 46px phone targets. This copy check does not resolve the separate
+production processing-basis and corporate-policy alignment below.
 
 ### Release and policy alignment
 

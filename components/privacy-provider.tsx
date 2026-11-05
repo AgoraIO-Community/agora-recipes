@@ -110,17 +110,17 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     return () => observer.disconnect()
   }, [showBanner])
   const policies = <span className="privacy-policy-links"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></span>
-  const description = t("Basic page and search counts are always collected without identifying visitors. You can choose whether to allow optional third-party analytics.")
+  const description = t("We use optional third-party analytics to understand site usage.")
   return <PrivacyContext.Provider value={openSettings}>
     {children}
     {showBanner && <>
       <div ref={spacer} aria-hidden="true" />
       <section ref={banner} className="privacy-banner" aria-label={t("Privacy choices")}>
         <div className="shell privacy-banner__inner">
-          <div><h2>{t(mode === "unavailable" ? "Optional analytics is off" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Agora privacy settings could not load. Optional analytics stays off. Basic page and search counts remain enabled without identifying visitors.") : description} {policies}</p></div>
+          <div><h2>{t(mode === "unavailable" ? "Privacy settings unavailable" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Optional analytics stays off. Please try again.") : description} {policies}</p></div>
           <div className="privacy-banner__actions">
-            {mode === "local" ? <><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject optional analytics")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Allow optional analytics")}</Button></> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
-            <Button variant="ghost" onClick={event => openSettings(event.currentTarget)}>{t("Privacy settings")}</Button>
+            {mode === "local" ? <><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
+            <Button variant="ghost" aria-haspopup="dialog" onClick={event => openSettings(event.currentTarget)}>{t("Customize")}</Button>
           </div>
         </div>
       </section>
@@ -136,13 +136,12 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
       }}>
         <DialogHeader><DialogTitle>{t("Privacy settings")}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader>
         <div className="privacy-settings-body">
-          <p>{t("Essential preferences keep the site usable and remember your privacy choice. They are always on.")}</p>
-          <div className="privacy-setting"><span>{t("Basic counts")}</span><span>{t("Always on")}</span></div>
-          {mode === "local" ? <label className="privacy-setting" htmlFor="usage-statistics"><span>{t("Optional analytics")}</span><Switch id="usage-statistics" checked={draft} onCheckedChange={setDraft} /></label> : <p>{mode === "securiti" ? t("Agora's Performance choice controls optional analytics. Changing it can apply across Agora websites. Basic counts stay on.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Agora privacy settings could not load. Optional analytics stays off. Basic page and search counts remain enabled without identifying visitors.")}</p>}
+          <div className="privacy-setting"><span>{t("Anonymous statistics")}</span><span>{t("Always on")}</span></div>
+          {mode === "local" ? <label className="privacy-setting" htmlFor="usage-statistics"><span>{t("Optional analytics")}</span><Switch id="usage-statistics" checked={draft} onCheckedChange={setDraft} /></label> : <p>{mode === "securiti" ? t("Your preferences may apply across Agora websites.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Optional analytics stays off. Please try again.")}</p>}
           {policies}
         </div>
         <DialogFooter>
-          {mode === "local" ? <Button onClick={() => { chooseLocal.current?.(draft); setOpen(false) }}>{t("Save preferences")}</Button> : mode === "securiti" ? <Button onClick={() => { openAgora.current = true; setOpen(false) }}>{t("Manage Agora preferences")}</Button> : <Button busy={mode === "loading"} onClick={() => { setMode("loading"); setAttempt(value => value + 1) }}>{t("Retry privacy settings")}</Button>}
+          {mode === "local" ? <Button onClick={() => { chooseLocal.current?.(draft); setOpen(false) }}>{t("Save")}</Button> : mode === "securiti" ? <Button onClick={() => { openAgora.current = true; setOpen(false) }}>{t("Manage preferences")}</Button> : <Button busy={mode === "loading"} onClick={() => { setMode("loading"); setAttempt(value => value + 1) }}>{t("Retry")}</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

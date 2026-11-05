@@ -85,7 +85,7 @@ export function SiteFooter({ topics }: { topics: Record<string, string> }) {
           </nav>
           <Button asChild variant="ghost" className="footer-top"><a href="#page-top">{t("Back to top")}<ArrowUp aria-hidden="true" /></a></Button>
         </div>
-        <p className="footer-privacy-note">{t("Basic page and search counts stay on without identifying visitors.")}</p>
+        <p className="footer-privacy-note">{t("Anonymous usage statistics remain enabled.")}</p>
       </div>
     </footer>
   )
