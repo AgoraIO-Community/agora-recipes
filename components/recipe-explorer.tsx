@@ -1,6 +1,6 @@
 "use client"
 
-import { useAnalytics, useAnalyticsActive } from "@/components/analytics-provider"
+import { useAnalytics, useAnalyticsActive, useBasicAnalytics } from "@/components/analytics-provider"
 import { useI18n } from "@/components/locale-provider"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react"
@@ -21,6 +21,7 @@ import { catalogPositionKey, rememberCatalogPosition, replaceCatalogSearch, useC
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useGuideSearch } from "@/hooks/use-guide-search"
 import { CATALOG_BATCH_SIZE, catalogVisibleCount, defaultFilters, discoverRecipes, quickTags, readDiscoveryFilters, writeDiscoveryFilters, type DiscoveryFilters, type RecipeSummary } from "@/lib/recipe-discovery"
+import { basicSearchTerm, basicSearchVocabulary } from "@/lib/basic-analytics"
 
 const toggle = (values: string[], value: string) => values.includes(value) ? values.filter(item => item !== value) : [...values, value]
 type FacetKey = "platforms" | "useCases" | "capabilities"
@@ -86,12 +87,15 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
   const { t, locale } = useI18n()
   const capture = useAnalytics()
   const analyticsActive = useAnalyticsActive()
+  const captureBasic = useBasicAnalytics()
+  const basicVocabulary = useMemo(() => basicSearchVocabulary(catalogRecipes), [catalogRecipes])
   const pathname = usePathname()
   const mobile = useIsMobile()
   const search = useCatalogSearch()
   const params = useMemo(() => new URLSearchParams(search), [search])
   const filters = useMemo(() => readDiscoveryFilters(params), [params])
   const pendingSearch = useRef<string | null>(null)
+  const pendingBasicSearch = useRef<string | null>(null)
   const searchId = useRef<string | undefined>(undefined)
   const [query, setQuery] = useState(filters.query)
   const [previousQuery, setPreviousQuery] = useState(filters.query)
@@ -210,18 +214,25 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     pendingSearch.current = filters.query.trim() ? filters.query : null
     searchId.current = undefined
   }, [filters.query, analyticsActive])
+  useEffect(() => {
+    pendingBasicSearch.current = filters.query.trim() ? filters.query : null
+  }, [filters.query])
+  const captureBasicSearch = useCallback(() => {
+    if (pendingBasicSearch.current !== filters.query) return
+    if (captureBasic({ metric: "search", page_type: topicSlug ? "topic" : "catalog", topic_slug: topicSlug, search_term: basicSearchTerm(filters.query, basicVocabulary), zero_results: filtered.length === 0 })) pendingBasicSearch.current = null
+  }, [captureBasic, filters.query, topicSlug, basicVocabulary, filtered.length])
   const searchDimensions = useCallback(() => {
     searchId.current ??= crypto.randomUUID()
     return { placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, search_term: filters.query, search_status: guides.status === "error" ? "metadata_only" : "complete", result_count: filtered.length, search_id: searchId.current }
   }, [filters.query, guides.status, filtered.length, topicSlug])
   useEffect(() => {
-    if (searching || pendingSearch.current === null || pendingSearch.current !== filters.query) return
+    if (searching || !filters.query.trim()) return
     const timer = setTimeout(() => {
-      if (pendingSearch.current !== filters.query) return
-      if (capture("catalog_action", { ...searchDimensions(), action: "search" })) pendingSearch.current = null
+      captureBasicSearch()
+      if (analyticsActive && pendingSearch.current === filters.query && capture("catalog_action", { ...searchDimensions(), action: "search" })) pendingSearch.current = null
     }, 700)
     return () => clearTimeout(timer)
-  }, [filters.query, capture, searching, searchDimensions])
+  }, [filters.query, capture, searching, searchDimensions, captureBasicSearch, analyticsActive])
 
   function setFilters(next: DiscoveryFilters, action = "filter") {
     if (action !== "search") capture("catalog_action", { action, placement: topicSlug ? "topic_list" : "catalog", topic_slug: topicSlug, result_count: discoverRecipes(recipes, next).length })
@@ -249,6 +260,8 @@ export function RecipeExplorer({ recipes: catalogRecipes, embedded = false, topi
     if (!slug || url.origin !== window.location.origin || !url.pathname.endsWith(`/recipes/${slug}`)) return
     rememberCatalogPosition()
     if (searching || !filters.query.trim()) return
+    captureBasicSearch()
+    if (!analyticsActive) return
     const dimensions = searchDimensions()
     // A quick result click must retain its search denominator before navigation.
     if (pendingSearch.current === filters.query) {

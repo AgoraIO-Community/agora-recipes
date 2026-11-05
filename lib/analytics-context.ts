@@ -46,5 +46,5 @@ export function analyticsProperties(context: PageContext, name: AnalyticsEvent |
   const combined = { ...context, ...properties }
   const use = combined.content_slug && useKinds[`${name}:${properties.action}`]
   const engagement = Boolean(combined.source_topic_slug && (use || name === "topic_action_open" || name === "contribution_open" || (name === "content_copy" && context.page_type === "contribute" && properties.action === "prompt")))
-  return { ...combined, ...campaign, ...applicationProperties, measurement_version: 2, is_recipe_use: Boolean(use), is_topic_engagement: engagement, ...(use && { recipe_use_kind: use }) }
+  return { ...combined, ...campaign, ...applicationProperties, measurement_tier: "behavioral", measurement_version: 3, is_recipe_use: Boolean(use), is_topic_engagement: engagement, ...(use && { recipe_use_kind: use }) }
 }

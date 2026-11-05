@@ -110,16 +110,16 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     return () => observer.disconnect()
   }, [showBanner])
   const policies = <span className="privacy-policy-links"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></span>
-  const description = t("We use cookies and third-party analytics to understand site usage and improve your experience. You can choose whether to allow usage statistics.")
+  const description = t("Basic page and search counts are always collected without identifying visitors. You can choose whether to allow optional third-party analytics.")
   return <PrivacyContext.Provider value={openSettings}>
     {children}
     {showBanner && <>
       <div ref={spacer} aria-hidden="true" />
       <section ref={banner} className="privacy-banner" aria-label={t("Privacy choices")}>
         <div className="shell privacy-banner__inner">
-          <div><h2>{t(mode === "unavailable" ? "Usage statistics are off" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Agora privacy settings could not load. Usage statistics stay off while you continue browsing.") : description} {policies}</p></div>
+          <div><h2>{t(mode === "unavailable" ? "Optional analytics is off" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Agora privacy settings could not load. Optional analytics stays off. Basic page and search counts remain enabled without identifying visitors.") : description} {policies}</p></div>
           <div className="privacy-banner__actions">
-            {mode === "local" ? <><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject non-essential")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Allow usage statistics")}</Button></> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
+            {mode === "local" ? <><Button variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject optional analytics")}</Button><Button variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Allow optional analytics")}</Button></> : <Button variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
             <Button variant="ghost" onClick={event => openSettings(event.currentTarget)}>{t("Privacy settings")}</Button>
           </div>
         </div>
@@ -137,7 +137,8 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
         <DialogHeader><DialogTitle>{t("Privacy settings")}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader>
         <div className="privacy-settings-body">
           <p>{t("Essential preferences keep the site usable and remember your privacy choice. They are always on.")}</p>
-          {mode === "local" ? <label className="privacy-setting" htmlFor="usage-statistics"><span>{t("Usage statistics")}</span><Switch id="usage-statistics" checked={draft} onCheckedChange={setDraft} /></label> : <p>{mode === "securiti" ? t("Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Agora privacy settings could not load. Usage statistics stay off while you continue browsing.")}</p>}
+          <div className="privacy-setting"><span>{t("Basic counts")}</span><span>{t("Always on")}</span></div>
+          {mode === "local" ? <label className="privacy-setting" htmlFor="usage-statistics"><span>{t("Optional analytics")}</span><Switch id="usage-statistics" checked={draft} onCheckedChange={setDraft} /></label> : <p>{mode === "securiti" ? t("Agora's Performance choice controls optional analytics. Changing it can apply across Agora websites. Basic counts stay on.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Agora privacy settings could not load. Optional analytics stays off. Basic page and search counts remain enabled without identifying visitors.")}</p>}
           {policies}
         </div>
         <DialogFooter>

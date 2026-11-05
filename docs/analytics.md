@@ -47,95 +47,147 @@ guard and disabled advanced capture features apply equally with a proxy.
 
 The pinned 1.439.0 slim SDK loads lazily; first events wait for initialization. The site sends one
 manual `$pageview` per pathname navigation. Filtering or changing a draft's Topic
-without changing pages does not generate another view. No business backend,
-proxy, runtime GitHub fetch, or site account is required.
+without changing pages does not generate another view. Basic counters use the
+first-party collection route below; no reporting database, runtime GitHub fetch,
+or site account is required.
 
-## Privacy choices and consent
+## Two measurement tiers
 
-Usage analytics is off until the visitor explicitly allows it. The same gate
-covers PostHog, Vercel page views/custom events, and campaign session storage.
-Refusing analytics or leaving the choice unanswered does not block browsing,
-search, demos, copying, or contribution preparation. Actions taken before consent
-are not buffered or replayed after acceptance; the current page is measured when
-analytics becomes active. A visible nonempty search becomes a fresh search
-attempt after acceptance, so subsequent result opens retain a matching denominator
-without replaying earlier interactions.
+### Basic counters: no visitor identity
 
-### Reuse Agora's consent manager
+In canonical production, basic page and search counters run for pending, accepted,
+denied, withdrawn, and unavailable consent. There is no visitor control to turn
+this tier off. The privacy banner, settings, and footer disclose that basic
+counts stay enabled; the optional switch never claims to disable them.
 
-Agora's website uses Securiti. A live integration check confirmed that its current
-configuration shares consent on the Agora parent domain and exposes the analytics
-base category `Analytics & Customization` under the label `Performance`.
-Production can reuse that existing managed configuration with these public loader
-values in the hosting project's Production environment:
+The browser sends a small, cookie-free request to the first-party
+`POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
+visitor/session/search ID, accesses no browser storage, and sends no URL,
+account, campaign, consent status, device attributes, or timestamp. A pathname
+navigation counts once; filter changes and optional-consent changes do not add
+another basic page view. A settled nonempty search counts once after 700 ms, or
+before an immediate result open. Optional-consent changes do not recount it.
+
+Basic search text is mapped in the browser to a finite vocabulary: public recipe
+titles/slugs, catalog platform/use-case/capability labels, and common technical
+terms. Recipe titles and slugs resolve to the canonical slug across locales. Anything else, including sensitive
+patterns, becomes `other` before the collection request. The server independently
+validates the public vocabulary and content/Topic IDs. It rejects extra fields,
+identifiers, arbitrary search terms, malformed/oversized bodies, and foreign
+origins. A zero-result flag is retained, without the raw query or result list.
+This intentionally cannot reveal new long-tail search phrases; the consenting
+behavioral tier below retains bounded, filtered search terms.
+
+The server forwards only a counter increment, its public dimensions, and its UTC
+date to the existing PostHog destination, using the optional proxy host if set.
+`recipes_basic_count` has `measurement_tier=aggregate`, `count=1`, a timestamp
+rounded to UTC midnight, and the same constant `distinct_id=recipes:aggregate`
+for **all** visitors. That required protocol field identifies a shared counter,
+never a person, session, device, or daily fingerprint. Person-profile processing
+and GeoIP enrichment are disabled; the IP property is a fixed non-visitor value.
+No inbound Cookie, Authorization, Referer, User-Agent, IP, or forwarding header
+is copied to the provider request. This route does not initialize either browser
+analytics SDK and has no PostHog cookieless fingerprint mode.
+
+The provider stores **anonymous counter increments**, not a compacted database
+row per day. Summing the numeric `count` property gives the daily aggregate. There
+is no per-visitor event history. Provider ingestion metadata and hosting/network
+access logs are separate operational data: a server necessarily receives network
+requests, so this implementation does not claim that the entire infrastructure
+never processes an IP address. Do not log collector request bodies/headers or
+join operational logs to analytics. The constant counter identity must never be
+identified, aliased, or merged with an account.
+
+Delivery is best effort: no replay queue, automatic retry, persistent client
+buffer, or visitor deduplication token. Blockers, offline visits, bots, repeated
+refreshes, and delivery failures affect counts. A count is a **view/search**, not
+a unique visitor, visit, return rate, or conversion funnel. This endpoint cannot
+prevent a determined script from inflating a public anonymous counter; use
+aggregate traffic controls without introducing a visitor fingerprint.
+
+### Optional behavioral analytics: consent required
+
+PostHog browser events, Vercel page views/custom events, and campaign session
+storage remain off until the visitor explicitly allows optional analytics.
+Refusing it does not block browsing, search, demos, copying, or contribution.
+Pre-consent actions are not buffered or replayed; the current page and visible
+nonempty search become fresh behavioral measurements when consent is granted.
+Basic counters remain independent and are not duplicated by that transition.
+
+Agora's website uses Securiti, with its `Analytics & Customization` base category
+currently displayed as `Performance`. Production reuses the managed configuration:
 
 ```text
 NEXT_PUBLIC_SECURITI_TENANT_ID=<existing Agora Securiti tenant UUID>
 NEXT_PUBLIC_SECURITI_DOMAIN_ID=<existing Agora Securiti domain configuration UUID>
 ```
 
-Do not copy the actual tenant/domain identifiers into documentation. Use the
-verified values from the existing website owner. No personal API key is needed.
-An environment update requires a later build/release; this PR does not activate a
-production deployment by itself.
+Do not publish actual configuration identifiers. Environment edits require a
+later build/release; this PR does not activate a production deployment itself.
+The official SDK's public data layer/category APIs control the optional tier;
+functional/advertising consent alone does not grant it. The footer preference
+editor discloses both tiers and opens Agora's managed preference center. Central
+choices can affect other Agora sites. No shared corporate CMP settings are
+rewritten by application code.
 
-The integration loads the official consent SDK, not its page-wide automatic
-script blocker: application-level gates already control both analytics adapters.
-It uses the SDK's public consent data layer and category APIs. It requires an
-explicit existing decision, and resolves the analytics category by its base name,
-not by a hardcoded numeric ID or translated display label. Functional/advertising
-consent alone does not enable Recipes analytics. The footer's **Privacy settings**
-explains Recipes measurements and opens the managed Agora preference center.
-The visitor is told that central preference changes may affect other Agora sites.
+An unavailable, blocked, incomplete, or timed-out CMP keeps **optional** analytics
+off and offers retry; basic counters remain enabled. A configured CMP never falls
+back to an earlier local grant. Central choices are checked on focus, while
+visible, and before deliberate actions. Local builds and previews show the local
+choice UI but keep **both tiers' delivery disabled** by deployment/origin gates.
 
-Visitor-facing copy follows [Agora's website](https://www.agora.io/en/) and
-[Cookie Policy](https://www.agora.io/en/cookie-policy/): a short explanation of
-cookies, third-party analytics, their purpose, and the available choice. Provider
-names, event definitions, and disabled SDK features belong in the engineering
-documentation and the maintained corporate cookie inventory, not the choice
-window. The managed Agora preference center keeps its existing copy.
+Without managed configuration, equally prominent **Reject optional analytics**
+and **Allow optional analytics** actions control the local optional choice. The
+versioned boolean and timestamp last 180 days on the Recipes origin. Invalid,
+expired, unknown-version, or future-dated records require another decision.
+Blocked storage keeps an explicit choice for the current document only. Closing
+the editor never grants consent. There is no basic-count off switch.
 
-An unavailable, blocked, incomplete, or timed-out managed CMP keeps analytics off;
-visitors can continue browsing and retry from Privacy settings. A configured CMP
-never falls back to a local grant. Cross-tab changes to central cookies are
-checked when the tab regains focus, while visible, and before each deliberate
-action. The integration never modifies the central policy, advertising inventory,
-or another application's consent decision in code.
+Withdrawal stops both optional adapters, clears campaign state and Recipes SDK
+persistence, and aborts in-flight/queued retry delivery. A subsequent grant cannot
+revive old lazy-import captures or retry payloads. Dedicated Recipes persistence
+and host-only cookies preserve Console identities and central consent cookies.
+Necessary preference records may remain to honor refusal. Basic counters continue
+without acquiring a visitor ID or importing any earlier optional identity.
 
-### Local choices and withdrawal
+Replay, autocapture, advertising, heatmaps, remote flags, performance, and exception
+capture remain disabled regardless of choice. Provider names and SDK settings
+stay in engineering documentation and the maintained corporate cookie inventory;
+visitor copy uses a short purpose/choice explanation.
 
-When no managed configuration is supplied, the site provides a compact attached
-banner with equally prominent **Reject non-essential** and **Allow usage
-statistics** actions, plus settings. Local builds and previews use this local UI
-without loading the production CMP; their analytics deployment/origin gate still
-remains off. Local consent is a versioned boolean and timestamp retained for
-180 days on the Recipes origin. Corrupt, expired, unknown-version, or future-dated
-records require another choice. With blocked storage, the explicit choice applies
-to the current document only.
+### Release and policy alignment
 
-The local settings panel starts optional analytics off and saves only after an
-explicit action. Closing it does not grant consent. The footer always provides a
-way to change the choice. Withdrawal stops both adapters, clears campaign state
-from memory and session storage, opts the Recipes PostHog instance out, and removes
-its host-scoped persistence even in a fresh document without an initialized SDK.
-The SDK uses the dedicated `recipes` persistence namespace and host-only cookies;
-cleanup does not remove Console's shared project-token identity cookie or Agora's
-central consent cookies. The small privacy-choice record can remain necessary to
-honor a refusal. Each uninterrupted grant has a separate abortable fetch transport.
-Withdrawal cancels in-flight/queued retry delivery, and reacceptance cannot revive
-old lazy-import captures or old retry payloads. Capture uses fetch rather than an
-unabortable beacon and does not batch events. This boundary is tested against the
-pinned SDK transport behavior; SDK upgrades must retain the cancellation checks.
+The owner-requested baseline has no opt-out. Do not describe this as universally
+exempt from consent or as a strictly necessary cookie. Some audience-measurement
+exceptions require a separate right to object; for example, the
+[ICO statistical-purpose guidance](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/)
+requires clear information and a simple, free objection mechanism. The
+[CNIL audience-measurement criteria](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience)
+also impose specific purpose, aggregation, separation, and retention conditions.
+The owner must determine the applicable basis and align Agora's cookie inventory,
+privacy policy, and managed category descriptions before production release.
+Agora's current Performance description includes audience measurement; the new
+Recipes tier distinction must not be presented as if that wording already covered
+it. This PR remains unmerged and does not change the corporate policy or CMP.
 
-Session replay, autocapture, advertising, heatmaps, flags, performance, and
-exception capture remain disabled regardless of consent. Consent permits only the
-bounded measurements below. These measurements cover consenting traffic; do not
-present them as a complete census of all visitors or compare pre-/post-consent
-rollout totals without noting the changed collection coverage.
+### Basic reports
 
-The owner should keep the central cookie inventory and privacy policy aligned
-with the actual providers, measurements, retention, and international processing.
-This application does not rewrite Agora's corporate policies.
+Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
+`measurement_tier=aggregate`, and `measurement_version=3`. Use **sum of count**:
+
+- Page/content popularity: `metric=page_view`, broken down by `page_type` and
+  `content_slug` or `topic_slug`, grouped by `day`.
+- Known popular searches: `metric=search`, broken down by `search_term`. The
+  `other` bucket covers unrecognized and filtered text; never infer its wording.
+- Zero-result share: sum of search counts with `zero_results=true` divided by
+  the sum of all search counts for the same scope and date range.
+
+Do not use unique-person/session aggregations on the shared counter identity.
+Do not add basic counts to behavioral page/search totals: consenting traffic is
+already represented in the basic tier. Behavioral funnels, return rates, detailed
+search terms, and UTM attribution cover consenting traffic only. The tiers have
+no per-visitor join key. They can be compared only as aggregate samples, with the
+coverage and counting differences disclosed.
 
 ## Measurement contract
 
@@ -143,8 +195,8 @@ Locales are `en`, `zh-Hans`, `zh-Hant`, `ja`, `hi`, `es`, and `pt-BR`.
 Automatic loading uses the existing `catalog_action:load_more` event. Search
 measurement records settled results, not each keystroke.
 
-Every full-contract event carries `app=recipes`, `site=agora-recipes`, `environment=production`, and
-`measurement_version=2`. The vendor-independent contract in
+Every behavioral full-contract event carries `app=recipes`, `site=agora-recipes`,
+`environment=production`, `measurement_tier=behavioral`, and `measurement_version=3`. The vendor-independent contract in
 `lib/analytics-events.ts` and `lib/analytics-context.ts` builds one deliberate
 action payload before destination adapters. PostHog receives the full allowed
 payload; Vercel receives an explicit two-property summary within its Pro limit.
@@ -240,7 +292,7 @@ super-properties are overridden by this shared contract.
 ## Content and search reports
 
 Always filter `app=recipes` and `environment=production`. Use
-`measurement_version=2` when a report needs the new campaign/search fields;
+`measurement_version=3` when a report needs the new campaign/search fields;
 historical version 1 events cannot supply missing search terms or attribution.
 
 - **Most viewed recipes:** `$pageview`, `page_type=recipe`, grouped by
@@ -309,11 +361,14 @@ counts; installed code and environment configuration are not evidence of ingesti
    the hosting project's Production scope only. Review and release through the
    existing staging/production process; environment edits alone do not update an
    already-built deployment. Do not change account permissions or billing.
-2. Before consenting, confirm no PostHog/Vercel capture and no campaign or SDK
-   identity storage. Reject, reload, accept, then withdraw through the footer.
-   Verify capture only while accepted, including an already-loaded Vercel script,
-   lazy SDK initialization, a second tab, and a fresh visit after central withdrawal.
-   Block the configured CMP and confirm analytics stays off with a usable retry.
+2. In every consent state, inspect basic requests and server-side increments:
+   public dimensions only, the same shared counter identity, day-rounded time,
+   and no inbound browser metadata. Reject, reload, accept, then withdraw. Basic
+   counts must continue without duplicate views/searches at consent transitions.
+   Optional PostHog/Vercel events and campaign/SDK identity storage must occur
+   only while accepted. Exercise already-loaded scripts, lazy imports, retries,
+   a second tab, and a fresh visit after central withdrawal. Block the configured
+   CMP: optional analytics stays off, basic counts continue, and retry remains usable.
 3. Visit real production pages, including a Topic, its entry, and contribution.
    Make deliberate use actions. Verify `$pageview` and the seven relevant action
    families in the configured destination; filter by `app=recipes` and

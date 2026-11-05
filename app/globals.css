@@ -704,9 +704,11 @@ a.recipe-author:hover { color: var(--foreground); }
 .privacy-policy-links a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
 .privacy-settings-body { display: grid; gap: 20px; font-size: 14px; line-height: 1.6; }
 .privacy-dialog { background: var(--popover); max-height: calc(100svh - 32px); overflow-y: auto; }
-.privacy-setting { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 46px; cursor: pointer; }
+.privacy-setting { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 46px; }
+label.privacy-setting { cursor: pointer; }
 .privacy-setting [data-slot=switch] { position: relative; }
 .privacy-setting [data-slot=switch]::after { content: ""; position: absolute; inset: -14px -7px; }
+.footer-privacy-note { margin-top: 16px; font-size: 12px; line-height: 1.7; color: var(--muted-foreground); }
 .footer-legal button { display: flex; align-items: center; min-height: 36px; font-size: 12px; line-height: 20px; color: var(--muted-foreground); cursor: pointer; transition: color var(--motion-control); }
 .footer-legal button:hover { color: var(--foreground); }
 @media (pointer: coarse) {

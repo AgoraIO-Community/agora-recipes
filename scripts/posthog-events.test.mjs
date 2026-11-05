@@ -81,7 +81,8 @@ test('SDK boundary preserves required anonymous transport fields and removes pro
 test('shared measurement payload joins campaign, content and search without treating result opens as recipe use', () => {
   const context = pageContext('/topics/topic-a', '', topics)
   const properties = analyticsProperties(context, 'catalog_action', { action: 'result_open', search_term: 'voice agent', search_id: '8da56da1-0089-4a52-8a35-837ed2635f04', result_count: 3, result_position: 1, content_slug: 'example' }, { utm_source: 'discord', utm_campaign: 'voice_week' })
-  assert.equal(properties.measurement_version, 2)
+  assert.equal(properties.measurement_version, 3)
+  assert.equal(properties.measurement_tier, 'behavioral')
   assert.equal(properties.is_recipe_use, false)
   assert.equal(properties.source_topic_slug, 'topic-a')
   assert.equal(properties.utm_campaign, 'voice_week')

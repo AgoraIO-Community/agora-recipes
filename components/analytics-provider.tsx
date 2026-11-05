@@ -11,13 +11,35 @@ import { pageContext, analyticsProperties } from "@/lib/analytics-context"
 import { createAttributionReader } from "@/lib/analytics-attribution"
 import { capturePosthog, syncPosthogConsent } from "@/lib/posthog-client"
 import { analyticsConsent } from "@/lib/analytics-consent"
+import { basicPageCount, sendBasicCount, type BasicCount } from "@/lib/basic-analytics"
 
-const AnalyticsContext = createContext<{ enabled: boolean; productionOrigin: string; topics: readonly string[] }>({ enabled: false, productionOrigin: "", topics: [] })
+const AnalyticsContext = createContext<{ enabled: boolean; basicEnabled: boolean; productionOrigin: string; topics: readonly string[] }>({ enabled: false, basicEnabled: false, productionOrigin: "", topics: [] })
 // The origin cannot change within a document. Keep the server snapshot disabled
 // and check the real browser origin when hydration completes.
 const subscribeToOrigin = () => () => {}
 const readCampaign = createAttributionReader(() => window.sessionStorage)
 export const useAnalyticsActive = () => useContext(AnalyticsContext).enabled
+
+export function useBasicAnalytics() {
+  const { basicEnabled } = useContext(AnalyticsContext)
+  return useCallback((count: BasicCount) => {
+    if (!basicEnabled) return false
+    sendBasicCount(count)
+    return true
+  }, [basicEnabled])
+}
+
+function BasicPageAnalytics() {
+  const pathname = usePathname() ?? "/"
+  const capture = useBasicAnalytics()
+  const previousPath = useRef<string | undefined>(undefined)
+  useEffect(() => {
+    if (previousPath.current === pathname) return
+    const count = basicPageCount(pathname)
+    if (count && capture(count)) previousPath.current = pathname
+  }, [pathname, capture])
+  return null
+}
 
 export function useAnalytics() {
   const { enabled, productionOrigin, topics } = useContext(AnalyticsContext)
@@ -83,5 +105,5 @@ export function AnalyticsProvider({ enabled, productionOrigin, topics, children 
     })
   }, [])
   const active = production && choice === "granted"
-  return <AnalyticsContext.Provider value={{ enabled: active, productionOrigin, topics }}>{children}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { if (!analyticsConsent.isGranted()) return null; const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
+  return <AnalyticsContext.Provider value={{ enabled: active, basicEnabled: production, productionOrigin, topics }}>{children}{production && <BasicPageAnalytics />}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { if (!analyticsConsent.isGranted()) return null; const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
 }
