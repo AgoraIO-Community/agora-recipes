@@ -4,9 +4,9 @@ import { useI18n } from "@/components/locale-provider"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, ArrowUpRight, Github } from "lucide-react"
-import { AgoraLogo } from "@/components/agora-logo"
-import { Button } from "@/components/ui/button"
+import { Menu, X } from "lucide-react"
+import { RecipesBrand } from "@/components/recipes-brand"
+import { Button, ButtonArrow } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { localePath } from "@/lib/locales"
@@ -49,7 +49,7 @@ export function SiteHeader({ topics }: { topics: Record<string, string> }) {
     <header className="site-header" data-scrolled={scrolled || open} data-detail={localePath(pathname, "en").startsWith("/recipes/")}>
       <div className="site-header__content shell">
         <Link href={localePath("/", locale)} className="site-brand" aria-label={t("Agora Recipes home")}>
-          <AgoraLogo /><span>{t("Recipes")}</span>
+          <RecipesBrand />
         </Link>
 
         <nav className="desktop-nav" aria-label={t("Main navigation")}>
@@ -60,7 +60,7 @@ export function SiteHeader({ topics }: { topics: Record<string, string> }) {
           {links.map(([label, href]) => (
             <Button asChild variant="ghost" key={label}>
               <a href={href} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t(label) })}>
-                {t(label)}<ArrowUpRight aria-hidden="true" />
+                {t(label)}
               </a>
             </Button>
           ))}
@@ -72,13 +72,10 @@ export function SiteHeader({ topics }: { topics: Record<string, string> }) {
           <Button asChild variant={onContribute ? "secondary" : "ghost"} className="header-contribute">
             <Link href={contributeUrl} aria-label={t("Contribute")} aria-current={onContribute ? "page" : undefined}>{t("Contribute")}</Link>
           </Button>
-          <div className="header-language"><LanguageSwitcher /></div>
           <Button asChild className="header-cta">
-            <a href={signupUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Get started") })}>{t("Get started")}<ArrowUpRight aria-hidden="true" /></a>
+            <a href={signupUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Get started") })}>{t("Get started")}<ButtonArrow direction="outbound" /></a>
           </Button>
-          <Button asChild variant="ghost" size="icon" className="header-github">
-            <a href={repositoryUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("GitHub") })}><Github aria-hidden="true" /></a>
-          </Button>
+          <div className="header-language"><LanguageSwitcher /></div>
 
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -88,26 +85,26 @@ export function SiteHeader({ topics }: { topics: Record<string, string> }) {
                 </span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="end" sideOffset={24} collisionPadding={16} className="site-navigation-panel" aria-label={t("Site navigation")}>
+            <PopoverContent align="end" sideOffset={16} collisionPadding={16} className="site-navigation-panel" aria-label={t("Site navigation")}>
               <nav className="mobile-navigation" aria-label={t("Mobile navigation")}>
-                <Button asChild variant={inRecipes ? "secondary" : "ghost"}>
+                <Button asChild size="menu" variant={inRecipes ? "secondary" : "ghost"}>
                   <Link href={`${localePath("/", locale)}#recipes`} aria-current={inRecipes ? sectionPath === "/" ? "page" : "location" : undefined} onClick={() => setOpen(false)}>{t("Recipes")}</Link>
                 </Button>
-                <Button asChild variant={pathname.includes("/topics") ? "secondary" : "ghost"}><Link href={localePath("/topics", locale)} onClick={() => setOpen(false)}>{t("Topics")}</Link></Button>
+                <Button asChild size="menu" variant={pathname.includes("/topics") ? "secondary" : "ghost"}><Link href={localePath("/topics", locale)} onClick={() => setOpen(false)}>{t("Topics")}</Link></Button>
                 {links.map(([label, href]) => (
-                  <Button asChild variant="ghost" key={label}>
+                  <Button asChild size="menu" variant="ghost" key={label}>
                     <a href={href} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t(label) })} onClick={() => setOpen(false)}>
-                      {t(label)}<ArrowUpRight aria-hidden="true" />
+                      {t(label)}
                     </a>
                   </Button>
                 ))}
 
                 <div className="mobile-navigation__actions">
-                  <Button asChild variant={onContribute ? "secondary" : "ghost"}>
-                    <a aria-current={onContribute ? "page" : undefined} href={contributeUrl} aria-label={t("Contribute")} onClick={() => setOpen(false)}>{t("Contribute")}<ArrowUpRight aria-hidden="true" /></a>
+                  <Button asChild size="menu" variant={onContribute ? "secondary" : "ghost"}>
+                    <a aria-current={onContribute ? "page" : undefined} href={contributeUrl} aria-label={t("Contribute")} onClick={() => setOpen(false)}>{t("Contribute")}</a>
                   </Button>
-                  <Button asChild>
-                    <a href={signupUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Get started") })} onClick={() => setOpen(false)}>{t("Get started")}<ArrowUpRight aria-hidden="true" /></a>
+                  <Button asChild size="menu" className="mobile-navigation__signup">
+                    <a href={signupUrl} target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: t("Get started") })} onClick={() => setOpen(false)}>{t("Get started")}<ButtonArrow direction="outbound" /></a>
                   </Button>
                 </div>
               </nav>

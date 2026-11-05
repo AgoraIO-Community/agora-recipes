@@ -56,12 +56,14 @@ function TabsList({
 
 function TabsTrigger({
   className,
+  size = "default",
   ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
+}: React.ComponentProps<typeof TabsPrimitive.Trigger> & { size?: "default" | "icon" }) {
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
-      className={cn("ag-tab", className)}
+      data-size={size}
+      className={cn("ag-tab", size === "icon" && "ag-icon-tab", className)}
       {...props}
     />
   );

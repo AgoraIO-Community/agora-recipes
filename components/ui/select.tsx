@@ -5,7 +5,7 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { cn } from "@/lib/utils";
-import { GlassSurface } from "@/components/agent-ui/glass-surface";
+import { GlassSurface } from "@/components/design-system/glass-surface";
 
 function Select({
   ...props
@@ -31,13 +31,13 @@ function SelectTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: "sm" | "default";
+  size?: "sm" | "default" | "icon";
 }) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
-      className={cn("ag-select", className)}
+      className={cn("ag-select", size === "icon" && "ag-icon-select", className)}
       {...props}
     >
       {children}
@@ -51,8 +51,10 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = "item-aligned",
-  align = "center",
+  position = "popper",
+  align = "start",
+  sideOffset = 6,
+  collisionPadding = 16,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -61,24 +63,18 @@ function SelectContent({
         asChild
         data-slot="select-content"
         className={cn(
-          "ag-glass-panel ag-select-content relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto text-popover-foreground data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0",
-          position === "popper" &&
-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+          "ag-glass-panel ag-select-content relative z-50 max-h-(--radix-select-content-available-height) overflow-x-hidden overflow-y-auto text-popover-foreground",
           className,
         )}
         position={position}
         align={align}
+        sideOffset={sideOffset}
+        collisionPadding={collisionPadding}
         {...props}
       >
         <GlassSurface material="liquid">
           <SelectScrollUpButton />
-          <SelectPrimitive.Viewport
-            className={cn(
-              "ag-select-viewport",
-              position === "popper" &&
-                "w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1",
-            )}
-          >
+          <SelectPrimitive.Viewport className="ag-select-viewport w-full">
             {children}
           </SelectPrimitive.Viewport>
           <SelectScrollDownButton />
@@ -114,10 +110,10 @@ function SelectItem({
     >
       <span
         data-slot="select-item-indicator"
-        className="absolute right-2 flex size-3.5 items-center justify-center"
+        className="absolute right-2 flex size-4 items-center justify-center"
       >
         <SelectPrimitive.ItemIndicator>
-          <CheckIcon aria-hidden="true" />
+          <CheckIcon className="size-4" aria-hidden="true" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

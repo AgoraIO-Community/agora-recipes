@@ -7,7 +7,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
     <input
       type={type}
       data-slot="input"
-      className={cn("ag-input ag-control-md", className)}
+      className={cn("ag-input", className)}
       {...props}
     />
   );

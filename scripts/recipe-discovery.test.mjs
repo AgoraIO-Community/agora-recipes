@@ -53,6 +53,26 @@ test('default catalog includes every recipe with curated recommendations first',
   assert.deepEqual(results.slice(0, curated.length).map(recipe => recipe.slug), curated.map(entry => entry.slug))
   assert.ok(results.slice(curated.length).every(recipe => recipe.recommendedOrder === undefined))
 })
+test('list/card preference survives filtering, sorting, and shared URLs independently', () => {
+  for (const sort of ['recommended', 'updated', 'title', 'stars']) {
+    for (const view of ['cards', 'list']) {
+      const filters = { ...defaultFilters, view, sort, category: 'rtc', platforms: ['Python'], query: 'voice' }
+      assert.deepEqual(readDiscoveryFilters(writeDiscoveryFilters(filters)), filters)
+    }
+  }
+  assert.equal(readDiscoveryFilters(new URLSearchParams('view=unknown')).view, 'cards')
+})
+test('GitHub-star sort keeps zero-star projects above unknown counts and breaks ties by title', () => {
+  const fixtures = [
+    { ...recipes[0], slug: 'unknown', title: 'A missing count', githubStars: undefined, recommendedOrder: 0 },
+    { ...recipes[0], slug: 'zero', title: 'Zero', githubStars: 0 },
+    { ...recipes[0], slug: 'b', title: 'B', githubStars: 12 },
+    { ...recipes[0], slug: 'a', title: 'A', githubStars: 12 },
+    { ...recipes[0], slug: 'popular', title: 'Popular', githubStars: 150 },
+  ]
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, sort: 'stars' }).map(recipe => recipe.slug), ['popular', 'a', 'b', 'zero', 'unknown'])
+  assert.deepEqual(discoverRecipes(fixtures, { ...defaultFilters, sort: 'stars', view: 'list' }).map(recipe => recipe.slug), ['popular', 'a', 'b', 'zero', 'unknown'])
+})
 test('search spans fields, supports multiple words, and includes Chinese aliases', () => {
   assert.ok(search('Python CRM').some(recipe => recipe.slug === 'aria-voice-sales-agent'))
   assert.equal(search('财富热线')[0].slug, 'agora-rotary-dial-phone')
