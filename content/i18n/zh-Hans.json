@@ -529,11 +529,10 @@
     "Save preferences": "保存偏好",
     "Manage Agora preferences": "管理 Agora 隐私偏好",
     "Retry privacy settings": "重试加载隐私设置",
-    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "我们使用 PostHog 和 Vercel 了解页面浏览、recipe 操作、搜索词和推广来源。你可以拒绝使用统计并继续浏览。",
+    "We use cookies and third-party analytics to understand site usage and improve your experience. You can choose whether to allow usage statistics.": "我们使用 Cookie 和第三方分析服务了解网站使用情况、改善浏览体验。你可以选择是否允许使用统计。",
     "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "必要偏好用于维持网站功能并记住你的隐私选择，始终开启。",
     "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "Agora 在 Performance Cookie 分类中管理此选项，修改可能应用于多个 Agora 网站。",
     "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Agora 隐私设置加载失败。你可以继续浏览，使用统计将保持关闭。",
-    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "Recipes 不启用会话回放、自动交互采集或广告功能。",
     "Loading Agora privacy settings…": "正在加载 Agora 隐私设置…"
   },
   "entries": {

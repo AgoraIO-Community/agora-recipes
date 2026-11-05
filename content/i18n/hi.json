@@ -529,11 +529,10 @@
     "Save preferences": "पसंद सहेजें",
     "Manage Agora preferences": "Agora की पसंद प्रबंधित करें",
     "Retry privacy settings": "गोपनीयता सेटिंग फिर लोड करें",
-    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "हम पेज व्यू, recipe पर की गई कार्रवाइयों, खोज शब्दों और अभियान के स्रोतों को समझने के लिए PostHog और Vercel का उपयोग करते हैं। आँकड़ों की अनुमति दिए बिना भी आप ब्राउज़ कर सकते हैं।",
+    "We use cookies and third-party analytics to understand site usage and improve your experience. You can choose whether to allow usage statistics.": "हम साइट के उपयोग को समझने और आपके अनुभव को बेहतर बनाने के लिए कुकीज़ और तृतीय-पक्ष विश्लेषण सेवाओं का उपयोग करते हैं। उपयोग के आँकड़ों की अनुमति देना आपकी पसंद है।",
     "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "ज़रूरी पसंद साइट को काम करने योग्य रखती हैं और आपकी गोपनीयता पसंद याद रखती हैं। ये हमेशा चालू रहती हैं।",
     "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "Agora इस विकल्प को Performance कुकी श्रेणी में प्रबंधित करता है। बदलाव Agora की अन्य वेबसाइटों पर भी लागू हो सकता है।",
     "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Agora की गोपनीयता सेटिंग लोड नहीं हुईं। आप ब्राउज़ कर सकते हैं; उपयोग के आँकड़े बंद रहेंगे।",
-    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "Recipes में सत्र रिकॉर्डिंग, अपने आप इंटरैक्शन रिकॉर्ड करना और विज्ञापन सुविधाएँ बंद हैं।",
     "Loading Agora privacy settings…": "Agora की गोपनीयता सेटिंग लोड हो रही हैं…"
   },
   "entries": {

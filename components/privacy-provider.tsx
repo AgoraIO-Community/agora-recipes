@@ -110,7 +110,7 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     return () => observer.disconnect()
   }, [showBanner])
   const policies = <span className="privacy-policy-links"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></span>
-  const description = t("We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.")
+  const description = t("We use cookies and third-party analytics to understand site usage and improve your experience. You can choose whether to allow usage statistics.")
   return <PrivacyContext.Provider value={openSettings}>
     {children}
     {showBanner && <>
@@ -138,7 +138,6 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
         <div className="privacy-settings-body">
           <p>{t("Essential preferences keep the site usable and remember your privacy choice. They are always on.")}</p>
           {mode === "local" ? <label className="privacy-setting" htmlFor="usage-statistics"><span>{t("Usage statistics")}</span><Switch id="usage-statistics" checked={draft} onCheckedChange={setDraft} /></label> : <p>{mode === "securiti" ? t("Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Agora privacy settings could not load. Usage statistics stay off while you continue browsing.")}</p>}
-          <p>{t("Session replay, automatic interaction capture, and advertising features are disabled in Recipes.")}</p>
           {policies}
         </div>
         <DialogFooter>

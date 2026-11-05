@@ -529,11 +529,10 @@
     "Save preferences": "Salvar preferências",
     "Manage Agora preferences": "Gerenciar preferências da Agora",
     "Retry privacy settings": "Tentar carregar as configurações novamente",
-    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "Usamos PostHog e Vercel para entender visualizações, ações em receitas, termos de pesquisa e origens de campanhas. Você pode navegar sem permitir estatísticas de uso.",
+    "We use cookies and third-party analytics to understand site usage and improve your experience. You can choose whether to allow usage statistics.": "Usamos cookies e serviços de análise de terceiros para entender o uso do site e melhorar sua experiência. Você pode escolher se permite estatísticas de uso.",
     "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "As preferências essenciais mantêm o site funcionando e lembram sua escolha de privacidade. Estão sempre ativas.",
     "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "A Agora gerencia essa escolha na categoria de cookies Performance. As alterações podem valer em outros sites da Agora.",
     "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Não foi possível carregar as configurações de privacidade da Agora. Você pode continuar navegando com as estatísticas desativadas.",
-    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "No Recipes, a reprodução de sessões, a captura automática de interações e os recursos de publicidade estão desativados.",
     "Loading Agora privacy settings…": "Carregando as configurações de privacidade da Agora…"
   },
   "entries": {

@@ -529,11 +529,10 @@
     "Save preferences": "設定を保存",
     "Manage Agora preferences": "Agora の設定を管理",
     "Retry privacy settings": "プライバシー設定を再読み込み",
-    "We use PostHog and Vercel to understand page views, recipe actions, search terms, and campaign sources. You can browse without allowing usage statistics.": "PostHog と Vercel を使用し、ページ閲覧、レシピ操作、検索語、キャンペーン流入元を把握します。利用状況の統計を許可しなくても閲覧できます。",
+    "We use cookies and third-party analytics to understand site usage and improve your experience. You can choose whether to allow usage statistics.": "Cookie と第三者の分析サービスを使用し、サイトの利用状況を把握して体験を改善します。利用状況の統計を許可するかどうかを選べます。",
     "Essential preferences keep the site usable and remember your privacy choice. They are always on.": "必須の設定はサイトの機能を維持し、プライバシーの選択を記憶します。常に有効です。",
     "Agora manages this choice under Performance cookies. Changing it can apply across Agora websites.": "この選択は Agora の Performance Cookie カテゴリで管理されます。変更は複数の Agora サイトに適用される場合があります。",
     "Agora privacy settings could not load. Usage statistics stay off while you continue browsing.": "Agora のプライバシー設定を読み込めませんでした。統計は無効のまま閲覧を続けられます。",
-    "Session replay, automatic interaction capture, and advertising features are disabled in Recipes.": "Recipes ではセッションリプレイ、操作の自動収集、広告機能は無効です。",
     "Loading Agora privacy settings…": "Agora のプライバシー設定を読み込み中…"
   },
   "entries": {

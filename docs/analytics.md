@@ -88,6 +88,13 @@ consent alone does not enable Recipes analytics. The footer's **Privacy settings
 explains Recipes measurements and opens the managed Agora preference center.
 The visitor is told that central preference changes may affect other Agora sites.
 
+Visitor-facing copy follows [Agora's website](https://www.agora.io/en/) and
+[Cookie Policy](https://www.agora.io/en/cookie-policy/): a short explanation of
+cookies, third-party analytics, their purpose, and the available choice. Provider
+names, event definitions, and disabled SDK features belong in the engineering
+documentation and the maintained corporate cookie inventory, not the choice
+window. The managed Agora preference center keeps its existing copy.
+
 An unavailable, blocked, incomplete, or timed-out managed CMP keeps analytics off;
 visitors can continue browsing and retry from Privacy settings. A configured CMP
 never falls back to a local grant. Cross-tab changes to central cookies are
