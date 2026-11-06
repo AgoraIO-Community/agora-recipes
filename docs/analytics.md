@@ -130,22 +130,23 @@ editor discloses both tiers and opens Agora's managed preference center. Central
 choices can affect other Agora sites. No shared corporate CMP settings are
 rewritten by application code.
 
-An unavailable, blocked, incomplete, or timed-out CMP keeps **optional** analytics
-off and offers retry; basic counters remain enabled. A configured CMP never falls
-back to an earlier local grant. Central choices are checked on focus, while
-visible, and before deliberate actions. Local builds and previews show the local
-choice UI but keep **both tiers' delivery disabled** by deployment/origin gates.
+A CMP that cannot initialize keeps **optional** analytics off and offers retry;
+basic counters remain enabled. Managed product analytics never falls back to an
+earlier local grant. Central choices are checked on focus, while visible, and
+before deliberate actions. Local builds and previews show the local choice UI,
+with analytics delivery disabled by deployment and origin gates.
 
 Without managed configuration, equally prominent **Reject** and **Accept**
-actions control the local optional choice; **Customize** opens preferences. The
-versioned boolean and timestamp last 180 days on the Recipes origin. Invalid,
+actions apply to the available optional purposes. **Customize** lets visitors
+choose each purpose separately. Each local choice stores a versioned boolean
+and timestamp for 180 days on the Recipes origin. Invalid,
 expired, unknown-version, or future-dated records require another decision.
 Blocked storage keeps an explicit choice for the current document only. Closing
 the editor never grants consent. There is no basic-count off switch.
 
-Withdrawal stops both optional adapters, clears campaign state and Recipes SDK
-persistence, and aborts in-flight/queued retry delivery. A subsequent grant cannot
-revive old lazy-import captures or retry payloads. Dedicated Recipes persistence
+Product analytics withdrawal stops the PostHog and Vercel adapters, clears
+campaign state and Recipes SDK persistence, and aborts PostHog delivery while
+the choice is denied. Dedicated Recipes persistence
 and host-only cookies preserve Console identities and central consent cookies.
 Necessary preference records may remain to honor refusal. Basic counters continue
 without acquiring a visitor ID or importing any earlier optional identity.
@@ -154,6 +155,27 @@ Replay, autocapture, advertising, heatmaps, remote flags, performance, and excep
 capture remain disabled regardless of choice. Provider names and SDK settings
 stay in engineering documentation and the maintained corporate cookie inventory;
 visitor copy uses a short purpose/choice explanation.
+
+### Optional traffic analytics
+
+Set `NEXT_PUBLIC_GA4_MEASUREMENT_ID` to the Recipes web stream's `G-…` measurement
+ID and rebuild to offer **Traffic analytics**. Missing or invalid IDs keep the
+option disabled and skip the Google tag. For controlled page views, disable
+Enhanced Measurement on the Recipes web stream. GA4 can otherwise send automatic
+history and interaction events separately from the application.
+
+Traffic consent is a separate Recipes browser preference scoped to the
+measurement ID. An earlier product analytics grant, including an Agora managed
+grant, does not authorize traffic analytics. When Agora manages product analytics,
+its preference center handles that purpose and the Recipes dialog saves the
+traffic choice. An unavailable consent manager keeps both optional purposes off.
+
+The production origin loads the tag only after traffic consent. The application
+sends page views with allowlisted campaign parameters, strips other URL query
+parameters and fragments, and disables Google Signals and ads personalization.
+Withdrawal disables the tag, drops any pending page view, and clears its Recipes
+cookies. Basic anonymous counters continue independently. GA4 reports cover
+consenting traffic only.
 
 ### Consent UI conventions
 
@@ -164,12 +186,6 @@ always on and explains **Product analytics**, which gates PostHog and Vercel.
 With Agora's consent manager configured, **Manage preferences** opens the managed
 choice. The footer keeps a short anonymous-statistics notice and a persistent
 preference entry.
-
-**Traffic analytics** is a separate, disabled choice reserved for GA4. It has
-no consent record or tag until GA4 is integrated. When the measurement ID is
-available, map this purpose to independent consent in both the local and managed
-flows before enabling the choice. Existing product analytics grants do not
-authorize the new purpose.
 
 Reject and Accept are independent shared outline Buttons with equal widths and
 an 8px gap, each retaining its full border and corners.

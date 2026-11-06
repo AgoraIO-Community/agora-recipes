@@ -10,13 +10,15 @@ import { analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, vercelPrope
 import { pageContext, analyticsProperties } from "@/lib/analytics-context"
 import { createAttributionReader } from "@/lib/analytics-attribution"
 import { capturePosthog, syncPosthogConsent } from "@/lib/posthog-client"
-import { analyticsConsent } from "@/lib/analytics-consent"
+import { analyticsConsent, ga4Consent } from "@/lib/analytics-consent"
 import { basicPageCount, sendBasicCount, type BasicCount } from "@/lib/basic-analytics"
+import { captureGa4PageView, syncGa4Consent } from "@/lib/ga4-client"
 
 const AnalyticsContext = createContext<{ enabled: boolean; basicEnabled: boolean; productionOrigin: string; topics: readonly string[] }>({ enabled: false, basicEnabled: false, productionOrigin: "", topics: [] })
 // The origin cannot change within a document. Keep the server snapshot disabled
 // and check the real browser origin when hydration completes.
 const subscribeToOrigin = () => () => {}
+const pendingConsent = () => "pending" as const
 const readCampaign = createAttributionReader(() => window.sessionStorage)
 export const useAnalyticsActive = () => useContext(AnalyticsContext).enabled
 
@@ -73,6 +75,16 @@ function PageAnalytics() {
   return null
 }
 
+function TrafficPageAnalytics({ productionOrigin }: { productionOrigin: string }) {
+  const pathname = usePathname() ?? "/"
+  const previousPath = useRef<string | undefined>(undefined)
+  useEffect(() => {
+    if (previousPath.current === pathname) return
+    if (captureGa4PageView(productionOrigin)) previousPath.current = pathname
+  }, [pathname, productionOrigin])
+  return null
+}
+
 function LinkAnalytics() {
   const capture = useAnalytics()
   useEffect(() => {
@@ -94,7 +106,8 @@ function LinkAnalytics() {
 }
 export function AnalyticsProvider({ enabled, productionOrigin, topics, children }: { enabled: boolean; productionOrigin: string; topics: readonly string[]; children: ReactNode }) {
   const production = useSyncExternalStore(subscribeToOrigin, () => enabled && analyticsOriginAllowed(window.location.href, productionOrigin), () => false)
-  const choice = useSyncExternalStore(analyticsConsent.subscribe, analyticsConsent.getSnapshot, () => "pending")
+  const choice = useSyncExternalStore(analyticsConsent.subscribe, analyticsConsent.getSnapshot, pendingConsent)
+  const trafficChoice = useSyncExternalStore(ga4Consent?.subscribe ?? subscribeToOrigin, ga4Consent?.getSnapshot ?? pendingConsent, pendingConsent)
   useEffect(() => {
     let previous: string | undefined
     return analyticsConsent.subscribe(() => {
@@ -104,6 +117,11 @@ export function AnalyticsProvider({ enabled, productionOrigin, topics, children 
       if (next !== "granted") { readCampaign.clear(); syncPosthogConsent() }
     })
   }, [])
+  useEffect(() => {
+    if (!production || !ga4Consent) return
+    syncGa4Consent()
+    return ga4Consent.subscribe(syncGa4Consent)
+  }, [production])
   const active = production && choice === "granted"
-  return <AnalyticsContext.Provider value={{ enabled: active, basicEnabled: production, productionOrigin, topics }}>{children}{production && <BasicPageAnalytics />}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { if (!analyticsConsent.isGranted()) return null; const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
+  return <AnalyticsContext.Provider value={{ enabled: active, basicEnabled: production, productionOrigin, topics }}>{children}{production && <BasicPageAnalytics />}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { if (!analyticsConsent.isGranted()) return null; const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}{production && trafficChoice === "granted" && <TrafficPageAnalytics productionOrigin={productionOrigin} />}</AnalyticsContext.Provider>
 }

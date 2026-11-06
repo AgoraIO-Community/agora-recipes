@@ -335,9 +335,10 @@ Keep the three actions together where they fit and put policy links in the
 preferences dialog. Use shared Dialog Header / Body / Footer slots and Checkbox
 choices. Body is the only opaque scroller. Dialogs keep 16px viewport gutters,
 and phone/coarse-pointer actions keep 46px targets. Give each purpose its own
-row and a short description. Show anonymous statistics as Always on and product
-analytics as a default-off choice. An unavailable purpose has a clear status
-and a disabled control. Dismissing preferences never grants consent.
+row and a short description. Show anonymous statistics as Always on and each
+available optional purpose as a separate default-off choice. An unavailable
+purpose has a clear status and a disabled control. Dismissing preferences never
+grants consent.
 
 ## Interface copy
 

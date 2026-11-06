@@ -7,7 +7,7 @@ import { Checkbox } from "./ui/checkbox"
 import { Label } from "./ui/label"
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
 import { analyticsOriginAllowed } from "@/lib/analytics-events"
-import { analyticsConsent, type SecuritiConsentApi } from "@/lib/analytics-consent"
+import { analyticsConsent, ga4Consent, type SecuritiConsentApi } from "@/lib/analytics-consent"
 
 type SecuritiEvent = [string, (api: SecuritiConsentApi) => void]
 declare global {
@@ -29,8 +29,10 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
   const [attempt, setAttempt] = useState(0)
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState(false)
+  const [trafficDraft, setTrafficDraft] = useState(false)
   const [dismissedError, setDismissedError] = useState(false)
   const chooseLocal = useRef<((enabled: boolean) => void) | undefined>(undefined)
+  const chooseTraffic = useRef<((enabled: boolean) => void) | undefined>(undefined)
   const api = useRef<SecuritiConsentApi | undefined>(undefined)
   const invoker = useRef<HTMLElement | null>(null)
   const openAgora = useRef(false)
@@ -38,22 +40,28 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
   const spacer = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const changed = () => { analyticsConsent.refresh(); ga4Consent?.refresh() }
+    window.addEventListener("storage", changed)
+    window.addEventListener("focus", changed)
+    document.addEventListener("visibilitychange", changed)
+    return () => {
+      window.removeEventListener("storage", changed)
+      window.removeEventListener("focus", changed)
+      document.removeEventListener("visibilitychange", changed)
+    }
+  }, [])
+
+  useEffect(() => {
     const central = production && analyticsOriginAllowed(window.location.href, productionOrigin) && Boolean(tenant || domain)
     if (!central) {
       chooseLocal.current = analyticsConsent.useLocal()
+      chooseTraffic.current = ga4Consent?.useLocal()
       // Keep setup outside render; an explicit browser choice is the only grant.
       queueMicrotask(() => setMode("local"))
-      const changed = () => analyticsConsent.refresh()
-      window.addEventListener("storage", changed)
-      window.addEventListener("focus", changed)
-      document.addEventListener("visibilitychange", changed)
-      return () => {
-        window.removeEventListener("storage", changed)
-        window.removeEventListener("focus", changed)
-        document.removeEventListener("visibilitychange", changed)
-      }
+      return
     }
     analyticsConsent.usePending()
+    ga4Consent?.usePending()
     let active = true
     let script: HTMLScriptElement | undefined
     const failed = () => { if (active) setMode("unavailable") }
@@ -64,6 +72,7 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
       clearTimeout(timeout)
       api.current = value
       analyticsConsent.useSecuriti(value)
+      chooseTraffic.current = ga4Consent?.useLocal()
       setMode("securiti")
     }
     const changed = () => { if (active) analyticsConsent.refresh() }
@@ -83,24 +92,35 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     } else queueMicrotask(failed)
     // Central preferences are shared by Agora subdomains. Recheck a change in
     // another tab on return, as cookies do not emit a storage event.
-    window.addEventListener("focus", changed)
-    document.addEventListener("visibilitychange", changed)
     const poll = setInterval(() => { if (!document.hidden) changed() }, 1000)
     return () => {
       active = false
       clearTimeout(timeout)
       clearInterval(poll)
       script?.remove()
-      window.removeEventListener("focus", changed)
-      document.removeEventListener("visibilitychange", changed)
     }
   }, [production, productionOrigin, attempt])
 
   const openSettings = useCallback((element: HTMLElement) => {
     invoker.current = element
     setDraft(analyticsConsent.isGranted())
+    setTrafficDraft(ga4Consent?.isGranted() ?? false)
     setOpen(true)
   }, [])
+  const trafficAvailable = Boolean(ga4Consent) && (mode === "local" || mode === "securiti")
+  function chooseAll(enabled: boolean) {
+    chooseLocal.current?.(enabled)
+    chooseTraffic.current?.(enabled)
+  }
+  function savePreferences() {
+    if (mode === "local") chooseLocal.current?.(draft)
+    if (trafficAvailable) chooseTraffic.current?.(trafficDraft)
+    setOpen(false)
+  }
+  function manageAgora() {
+    openAgora.current = true
+    setOpen(false)
+  }
   const showBanner = mode === "local" && choice === "pending" || mode === "unavailable" && !dismissedError
   useEffect(() => {
     if (!showBanner || !banner.current || !spacer.current) return
@@ -111,10 +131,16 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     return () => observer.disconnect()
   }, [showBanner])
   const policies = <span className="privacy-policy-links"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></span>
-  const description = t("We use optional third-party analytics to understand site usage.")
+  const description = trafficAvailable
+    ? t("We use optional analytics to measure traffic and how Recipes is used.")
+    : t("We use optional third-party analytics to understand site usage.")
   const productAnalyticsCopy = <span className="privacy-setting__copy">
     <span id="product-analytics-title">{t("Product analytics")}</span>
     <span id="product-analytics-purpose">{t("Measures searches, filters, and recipe interactions.")}</span>
+  </span>
+  const trafficAnalyticsCopy = <span className="privacy-setting__copy">
+    <span id="traffic-analytics-title">{t("Traffic analytics")}</span>
+    <span id="traffic-analytics-purpose">{t("Measures visits and where they come from.")}</span>
   </span>
   return <PrivacyContext.Provider value={openSettings}>
     {children}
@@ -124,7 +150,7 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
         <div className="shell privacy-banner__inner">
           <p>{mode === "unavailable" ? t("Optional analytics stays off. Please try again.") : description}</p>
           <div className="privacy-banner__actions">
-            {mode === "local" ? <div className="privacy-banner__choices" role="group" aria-label={t("Privacy choices")}><Button wrap variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button wrap variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></div> : <Button wrap variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
+            {mode === "local" ? <div className="privacy-banner__choices" role="group" aria-label={t("Privacy choices")}><Button wrap variant="outline" onClick={() => chooseAll(false)}>{t("Reject")}</Button><Button wrap variant="outline" onClick={() => chooseAll(true)}>{t("Accept")}</Button></div> : <Button wrap variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
             <Button wrap variant="ghost" aria-haspopup="dialog" onClick={event => openSettings(event.currentTarget)}>{t("Customize")}</Button>
           </div>
         </div>
@@ -157,28 +183,30 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
                 <Checkbox id="product-analytics" aria-labelledby="product-analytics-title" aria-describedby="product-analytics-purpose" checked={draft} onCheckedChange={checked => setDraft(checked === true)} />
               </Label> : <div className="privacy-setting privacy-setting--static">
                 {productAnalyticsCopy}
-                <span className="privacy-setting__state">{mode === "securiti" ? t("Managed by Agora") : mode === "loading" ? t("Loading…") : t("Unavailable")}</span>
+                <span className="privacy-setting__state">{mode === "securiti" && trafficAvailable
+                  ? <Button wrap variant="link" size="resource" onClick={manageAgora}>{t("Manage preferences")}</Button>
+                  : mode === "securiti" ? t("Managed by Agora") : mode === "loading" ? t("Loading…") : t("Unavailable")}</span>
               </div>}
             </li>
             <li>
-              <div className="privacy-setting privacy-setting--static">
-                <span className="privacy-setting__copy">
-                  <span id="traffic-analytics-title">{t("Traffic analytics")}</span>
-                  <span id="traffic-analytics-purpose">{t("Measures visits and where they come from.")}</span>
-                </span>
+              {trafficAvailable ? <Label className="facet-option privacy-setting" htmlFor="traffic-analytics">
+                {trafficAnalyticsCopy}
+                <Checkbox id="traffic-analytics" aria-labelledby="traffic-analytics-title" aria-describedby="traffic-analytics-purpose" checked={trafficDraft} onCheckedChange={checked => setTrafficDraft(checked === true)} />
+              </Label> : <div className="privacy-setting privacy-setting--static">
+                {trafficAnalyticsCopy}
                 <span className="privacy-setting__state">
-                  <span id="traffic-analytics-state">{t("Not enabled")}</span>
+                  <span id="traffic-analytics-state">{t(ga4Consent ? "Unavailable" : "Not enabled")}</span>
                   <Checkbox disabled checked={false} aria-labelledby="traffic-analytics-title" aria-describedby="traffic-analytics-purpose traffic-analytics-state" />
                 </span>
-              </div>
+              </div>}
             </li>
           </ul>
-          {mode === "securiti" && <p>{t("Your preferences may apply across Agora websites.")}</p>}
+          {mode === "securiti" && <p>{t("Product analytics preferences may apply across Agora websites.")}</p>}
           {mode === "unavailable" && <p>{t("Optional analytics stays off. Please try again.")}</p>}
           {policies}
         </div></DialogBody>
         <DialogFooter>
-          {mode === "local" ? <Button wrap onClick={() => { chooseLocal.current?.(draft); setOpen(false) }}>{t("Save")}</Button> : mode === "securiti" ? <Button wrap onClick={() => { openAgora.current = true; setOpen(false) }}>{t("Manage preferences")}</Button> : <Button wrap busy={mode === "loading"} onClick={() => { setMode("loading"); setAttempt(value => value + 1) }}>{t("Retry")}</Button>}
+          {mode === "local" || trafficAvailable ? <Button wrap onClick={savePreferences}>{t("Save")}</Button> : mode === "securiti" ? <Button wrap onClick={manageAgora}>{t("Manage preferences")}</Button> : <Button wrap busy={mode === "loading"} onClick={() => { setMode("loading"); setAttempt(value => value + 1) }}>{t("Retry")}</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -28,7 +28,7 @@ export function savedConsentChoice(value: string | null, now: number): ConsentCh
 
 // The app and both analytics adapters share this gate. No vendor identity or
 // campaign data is needed to remember a privacy choice.
-export function createConsentStore(storage: () => Pick<Storage, "getItem" | "setItem">, now = Date.now) {
+export function createConsentStore(storage: () => Pick<Storage, "getItem" | "setItem">, now = Date.now, key = consentStorageKey) {
   let reader = (): ConsentChoice => "pending"
   const listeners = new Set<() => void>()
   const refresh = () => { for (const listener of listeners) listener() }
@@ -43,12 +43,12 @@ export function createConsentStore(storage: () => Pick<Storage, "getItem" | "set
       let memoryOnly = false
       reader = () => {
         if (memoryOnly) return fallback
-        try { return savedConsentChoice(storage().getItem(consentStorageKey), now()) } catch { return fallback }
+        try { return savedConsentChoice(storage().getItem(key), now()) } catch { return fallback }
       }
       refresh()
       return (analytics: boolean) => {
         fallback = analytics ? "granted" : "denied"
-        try { storage().setItem(consentStorageKey, JSON.stringify({ version: 1, analytics, updatedAt: now() })); memoryOnly = false } catch { memoryOnly = true }
+        try { storage().setItem(key, JSON.stringify({ version: 1, analytics, updatedAt: now() })); memoryOnly = false } catch { memoryOnly = true }
         refresh()
       }
     },
@@ -57,3 +57,13 @@ export function createConsentStore(storage: () => Pick<Storage, "getItem" | "set
 }
 
 export const analyticsConsent = createConsentStore(() => window.localStorage)
+
+const configuredMeasurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim()
+export const ga4MeasurementId = configuredMeasurementId && /^G-[A-Z0-9]{1,32}$/.test(configuredMeasurementId)
+  ? configuredMeasurementId
+  : undefined
+
+// A grant for a different destination, or for product analytics, cannot enable GA4.
+export const ga4Consent = ga4MeasurementId
+  ? createConsentStore(() => window.localStorage, Date.now, `recipes:ga4-consent:v1:${ga4MeasurementId}`)
+  : undefined
