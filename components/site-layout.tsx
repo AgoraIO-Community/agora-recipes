@@ -27,6 +27,9 @@ const baseMetadata: Metadata = {
   },
   description:
     "Open-source recipes for building voice agents, transcription, translation, and accessibility workflows with Agora.",
+  verification: {
+    google: "SriA07bMgAsyeqW0aNKzd9m4ZJsTD3N4GkThxvliHmk",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
