@@ -633,7 +633,6 @@ a.recipe-author:hover { color: var(--foreground); }
 .privacy-banner__actions { display: flex; flex-wrap: wrap; gap: 8px; max-width: 100%; }
 .privacy-banner__choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .privacy-policy-links { display: inline-flex; gap: 16px; flex-wrap: wrap; }
-.privacy-policy-links a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
 .privacy-settings-body { display: grid; gap: 12px; font-size: 13px; line-height: 20px; }
 .privacy-settings-list { display: grid; gap: 4px; }
 .privacy-settings-list > li + li { border-top: 1px solid var(--border); padding-top: 4px; }

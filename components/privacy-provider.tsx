@@ -21,15 +21,18 @@ export const usePrivacySettings = () => useContext(PrivacyContext)
 const tenant = process.env.NEXT_PUBLIC_SECURITI_TENANT_ID?.trim()
 const domain = process.env.NEXT_PUBLIC_SECURITI_DOMAIN_ID?.trim()
 const uuid = /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i
+const pendingChoice = () => "pending" as const
+const subscribeWithoutTraffic = () => () => {}
 
 export function PrivacyProvider({ children, production, productionOrigin }: { children: ReactNode; production: boolean; productionOrigin: string }) {
   const { t } = useI18n()
-  const choice = useSyncExternalStore(analyticsConsent.subscribe, analyticsConsent.getSnapshot, () => "pending")
+  const choice = useSyncExternalStore(analyticsConsent.subscribe, analyticsConsent.getSnapshot, pendingChoice)
+  const trafficChoice = useSyncExternalStore(ga4Consent?.subscribe ?? subscribeWithoutTraffic, ga4Consent?.getSnapshot ?? pendingChoice, pendingChoice)
   const [mode, setMode] = useState<"loading" | "local" | "securiti" | "unavailable">("loading")
   const [attempt, setAttempt] = useState(0)
   const [open, setOpen] = useState(false)
-  const [draft, setDraft] = useState(false)
-  const [trafficDraft, setTrafficDraft] = useState(false)
+  const [productDraft, setProductDraft] = useState<boolean>()
+  const [trafficDraft, setTrafficDraft] = useState<boolean>()
   const [dismissedError, setDismissedError] = useState(false)
   const chooseLocal = useRef<((enabled: boolean) => void) | undefined>(undefined)
   const chooseTraffic = useRef<((enabled: boolean) => void) | undefined>(undefined)
@@ -103,8 +106,8 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
 
   const openSettings = useCallback((element: HTMLElement) => {
     invoker.current = element
-    setDraft(analyticsConsent.isGranted())
-    setTrafficDraft(ga4Consent?.isGranted() ?? false)
+    setProductDraft(undefined)
+    setTrafficDraft(undefined)
     setOpen(true)
   }, [])
   const trafficAvailable = Boolean(ga4Consent) && (mode === "local" || mode === "securiti")
@@ -113,8 +116,13 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     chooseTraffic.current?.(enabled)
   }
   function savePreferences() {
-    if (mode === "local") chooseLocal.current?.(draft)
-    if (trafficAvailable) chooseTraffic.current?.(trafficDraft)
+    // Keep untouched decisions live so Save cannot undo another tab's withdrawal.
+    if (mode === "local" && (productDraft !== undefined || analyticsConsent.getSnapshot() === "pending")) {
+      chooseLocal.current?.(productDraft ?? false)
+    }
+    if (trafficAvailable && (trafficDraft !== undefined || ga4Consent?.getSnapshot() === "pending")) {
+      chooseTraffic.current?.(trafficDraft ?? false)
+    }
     setOpen(false)
   }
   function manageAgora() {
@@ -130,7 +138,10 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
     measure()
     return () => observer.disconnect()
   }, [showBanner])
-  const policies = <span className="privacy-policy-links"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></span>
+  const policies = <span className="privacy-policy-links">
+    <Button asChild wrap variant="link"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a></Button>
+    <Button asChild wrap variant="link"><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></Button>
+  </span>
   const description = trafficAvailable
     ? t("We use optional analytics to measure traffic and how Recipes is used.")
     : t("We use optional third-party analytics to understand site usage.")
@@ -180,18 +191,20 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
             <li>
               {mode === "local" ? <Label className="facet-option privacy-setting" htmlFor="product-analytics">
                 {productAnalyticsCopy}
-                <Checkbox id="product-analytics" aria-labelledby="product-analytics-title" aria-describedby="product-analytics-purpose" checked={draft} onCheckedChange={checked => setDraft(checked === true)} />
+                <Checkbox id="product-analytics" aria-labelledby="product-analytics-title" aria-describedby="product-analytics-purpose" checked={productDraft ?? (choice === "granted")} onCheckedChange={checked => setProductDraft(checked === true)} />
               </Label> : <div className="privacy-setting privacy-setting--static">
                 {productAnalyticsCopy}
                 <span className="privacy-setting__state">{mode === "securiti" && trafficAvailable
-                  ? <Button wrap variant="link" size="resource" onClick={manageAgora}>{t("Manage preferences")}</Button>
-                  : mode === "securiti" ? t("Managed by Agora") : mode === "loading" ? t("Loading…") : t("Unavailable")}</span>
+                  ? <Button wrap variant="link" onClick={manageAgora}>{t("Manage preferences")}</Button>
+                  : <span id="product-analytics-state">{mode === "securiti" ? t("Managed by Agora") : mode === "loading" ? t("Loading…") : t("Unavailable")}</span>}
+                  {mode === "unavailable" && <Checkbox disabled checked={false} aria-labelledby="product-analytics-title" aria-describedby="product-analytics-purpose product-analytics-state" />}
+                </span>
               </div>}
             </li>
             <li>
               {trafficAvailable ? <Label className="facet-option privacy-setting" htmlFor="traffic-analytics">
                 {trafficAnalyticsCopy}
-                <Checkbox id="traffic-analytics" aria-labelledby="traffic-analytics-title" aria-describedby="traffic-analytics-purpose" checked={trafficDraft} onCheckedChange={checked => setTrafficDraft(checked === true)} />
+                <Checkbox id="traffic-analytics" aria-labelledby="traffic-analytics-title" aria-describedby="traffic-analytics-purpose" checked={trafficDraft ?? (trafficChoice === "granted")} onCheckedChange={checked => setTrafficDraft(checked === true)} />
               </Label> : <div className="privacy-setting privacy-setting--static">
                 {trafficAnalyticsCopy}
                 <span className="privacy-setting__state">
