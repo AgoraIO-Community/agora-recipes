@@ -158,11 +158,18 @@ visitor copy uses a short purpose/choice explanation.
 ### Consent UI conventions
 
 The first layer states the purpose in one sentence: optional third-party analytics
-to understand site usage. It uses **Reject / Accept / Customize**. The preference
-editor uses **Anonymous statistics / Always on**, one **Optional analytics**
-checkbox, policy links, and **Save**. Provider names, event fields, and attribution
-mechanics are documented separately. The footer keeps a short anonymous-statistics
-notice and a persistent preference entry.
+to understand site usage. It uses **Reject / Accept / Customize**, with policy
+links in the preference editor. The editor shows **Anonymous statistics** as
+always on and explains **Product analytics**, which gates PostHog and Vercel.
+With Agora's consent manager configured, **Manage preferences** opens the managed
+choice. The footer keeps a short anonymous-statistics notice and a persistent
+preference entry.
+
+**Traffic analytics** is a separate, disabled choice reserved for GA4. It has
+no consent record or tag until GA4 is integrated. When the measurement ID is
+available, map this purpose to independent consent in both the local and managed
+flows before enabling the choice. Existing product analytics grants do not
+authorize the new purpose.
 
 Reject and Accept are independent shared outline Buttons with equal widths and
 an 8px gap, each retaining its full border and corners.

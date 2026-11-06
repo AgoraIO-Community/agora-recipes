@@ -331,11 +331,13 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 Keep the attached privacy bar concise, with one purpose sentence and explicit
 Reject / Accept / Customize labels. Reject and Accept are separate shared outline
 Buttons with equal widths and an 8px gap; these choices retain text and full corners.
-Use shared Dialog Header / Body / Footer slots, Checkbox choices, and footer
-Buttons for preferences. Body is the only opaque scroller. Dialogs keep
-16px viewport gutters, and phone/coarse-pointer actions keep 46px targets.
-Show anonymous statistics as Always on and optional analytics as a default-off
-choice. Dismissing preferences never grants consent.
+Keep the three actions together where they fit and put policy links in the
+preferences dialog. Use shared Dialog Header / Body / Footer slots and Checkbox
+choices. Body is the only opaque scroller. Dialogs keep 16px viewport gutters,
+and phone/coarse-pointer actions keep 46px targets. Give each purpose its own
+row and a short description. Show anonymous statistics as Always on and product
+analytics as a default-off choice. An unavailable purpose has a clear status
+and a disabled control. Dismissing preferences never grants consent.
 
 ## Interface copy
 

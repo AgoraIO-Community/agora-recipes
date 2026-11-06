@@ -112,13 +112,17 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
   }, [showBanner])
   const policies = <span className="privacy-policy-links"><a href="https://www.agora.io/en/privacy-policy/">{t("Privacy Policy")}</a><a href="https://www.agora.io/en/cookie-policy/">{t("Cookie Policy")}</a></span>
   const description = t("We use optional third-party analytics to understand site usage.")
+  const productAnalyticsCopy = <span className="privacy-setting__copy">
+    <span id="product-analytics-title">{t("Product analytics")}</span>
+    <span id="product-analytics-purpose">{t("Measures searches, filters, and recipe interactions.")}</span>
+  </span>
   return <PrivacyContext.Provider value={openSettings}>
     {children}
     {showBanner && <>
       <div ref={spacer} aria-hidden="true" />
-      <section ref={banner} className="privacy-banner" aria-label={t("Privacy choices")}>
+      <section ref={banner} className="privacy-banner" aria-label={t(mode === "unavailable" ? "Privacy settings unavailable" : "Privacy choices")}>
         <div className="shell privacy-banner__inner">
-          <div><h2>{t(mode === "unavailable" ? "Privacy settings unavailable" : "Your privacy choices")}</h2><p>{mode === "unavailable" ? t("Optional analytics stays off. Please try again.") : description} {policies}</p></div>
+          <p>{mode === "unavailable" ? t("Optional analytics stays off. Please try again.") : description}</p>
           <div className="privacy-banner__actions">
             {mode === "local" ? <div className="privacy-banner__choices" role="group" aria-label={t("Privacy choices")}><Button wrap variant="outline" onClick={() => chooseLocal.current?.(false)}>{t("Reject")}</Button><Button wrap variant="outline" onClick={() => chooseLocal.current?.(true)}>{t("Accept")}</Button></div> : <Button wrap variant="outline" onClick={() => setDismissedError(true)}>{t("Continue browsing")}</Button>}
             <Button wrap variant="ghost" aria-haspopup="dialog" onClick={event => openSettings(event.currentTarget)}>{t("Customize")}</Button>
@@ -137,8 +141,40 @@ export function PrivacyProvider({ children, production, productionOrigin }: { ch
       }}>
         <DialogHeader><DialogTitle>{t("Privacy settings")}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader>
         <DialogBody><div className="privacy-settings-body">
-          <div className="privacy-setting"><span>{t("Anonymous statistics")}</span><span>{t("Always on")}</span></div>
-          {mode === "local" ? <Label className="facet-option" htmlFor="usage-statistics"><Checkbox id="usage-statistics" checked={draft} onCheckedChange={checked => setDraft(checked === true)} /><span>{t("Optional analytics")}</span></Label> : <p>{mode === "securiti" ? t("Your preferences may apply across Agora websites.") : mode === "loading" ? t("Loading Agora privacy settings…") : t("Optional analytics stays off. Please try again.")}</p>}
+          <ul className="privacy-settings-list">
+            <li>
+              <div className="privacy-setting privacy-setting--static">
+                <span className="privacy-setting__copy">
+                  <span>{t("Anonymous statistics")}</span>
+                  <span>{t("Counts page views and common searches without identifying visitors.")}</span>
+                </span>
+                <span className="privacy-setting__state">{t("Always on")}</span>
+              </div>
+            </li>
+            <li>
+              {mode === "local" ? <Label className="facet-option privacy-setting" htmlFor="product-analytics">
+                {productAnalyticsCopy}
+                <Checkbox id="product-analytics" aria-labelledby="product-analytics-title" aria-describedby="product-analytics-purpose" checked={draft} onCheckedChange={checked => setDraft(checked === true)} />
+              </Label> : <div className="privacy-setting privacy-setting--static">
+                {productAnalyticsCopy}
+                <span className="privacy-setting__state">{mode === "securiti" ? t("Managed by Agora") : mode === "loading" ? t("Loading…") : t("Unavailable")}</span>
+              </div>}
+            </li>
+            <li>
+              <div className="privacy-setting privacy-setting--static">
+                <span className="privacy-setting__copy">
+                  <span id="traffic-analytics-title">{t("Traffic analytics")}</span>
+                  <span id="traffic-analytics-purpose">{t("Measures visits and where they come from.")}</span>
+                </span>
+                <span className="privacy-setting__state">
+                  <span id="traffic-analytics-state">{t("Not enabled")}</span>
+                  <Checkbox disabled checked={false} aria-labelledby="traffic-analytics-title" aria-describedby="traffic-analytics-purpose traffic-analytics-state" />
+                </span>
+              </div>
+            </li>
+          </ul>
+          {mode === "securiti" && <p>{t("Your preferences may apply across Agora websites.")}</p>}
+          {mode === "unavailable" && <p>{t("Optional analytics stays off. Please try again.")}</p>}
           {policies}
         </div></DialogBody>
         <DialogFooter>
