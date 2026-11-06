@@ -34,6 +34,10 @@ moves into a compact sheet header, hide its desktop instance and keep the same
 state. Long labels wrap inside bounded panels; phone targets remain at least
 46px, including selected-condition chips.
 
+Checkbox option rows pair Label and Checkbox with `facet-option`. Shared styles
+own their complete 32px desktop / 46px phone hit area and selected, disabled,
+hover, press, and focus feedback; page styles only place the rows.
+
 Use `IconButton count` or `ButtonCount` inside an input action for a command's
 active count. Use a small badge on the button's upper-right corner, clear of the
 glyph. Preserve the square target and do not use the larger metadata Badge for
