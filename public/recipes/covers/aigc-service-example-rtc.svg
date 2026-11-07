@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="576" height="324" viewBox="0 0 576 324">
+  <title>AIGC · RTC</title>
+  <style>
+    svg { --canvas: #eaf0ee; --ink: #192a2c; --secondary: #4b6263; --rule: #c8d4d2; --paper: #cededb; --fold: #a4c1c0; --print: #507f85; --accent: #007b9e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --canvas: #1c2628; --ink: #f1f4f0; --secondary: #b0c2c1; --rule: #3b4e50; --paper: #2c4549; --fold: #466d73; --print: #76aab0; --accent: #62d7f0; }
+    }
+    .canvas { fill: var(--canvas); }
+    .type { fill: var(--ink); }
+    .category { fill: var(--secondary); }
+    .rule { stroke: var(--rule); }
+    .paper { fill: var(--paper); }
+    .fold { fill: var(--fold); }
+    .print { fill: var(--print); }
+    .accent-stroke { fill: none; stroke: var(--accent); stroke-width: 3; }
+  </style>
+  <path class="canvas" d="M0 0h576v324H0z"/>
+  <g>
+    <path class="paper" fill-rule="evenodd" d="M396 58h109a20 20 0 0 1 20 20v140a20 20 0 0 1 -20 20h-109a20 20 0 0 1 -20 -20v-140a20 20 0 0 1 20 -20zM396 78h109v140H396z"/>
+    <path class="fold" fill-rule="evenodd" d="M378 76h109a20 20 0 0 1 20 20v140a20 20 0 0 1 -20 20h-109a20 20 0 0 1 -20 -20v-140a20 20 0 0 1 20 -20zM378 96h109v140H378z"/>
+    <path class="print" fill-rule="evenodd" d="M360 94h109a20 20 0 0 1 20 20v140a20 20 0 0 1 -20 20h-109a20 20 0 0 1 -20 -20v-140a20 20 0 0 1 20 -20zM360 114h109v140H360z"/>
+    <path class="accent-stroke" d="M360 94h53"/>
+  </g>
+  <g class="type"><g transform="translate(39 174) scale(0.06500 -0.06500)"><path transform="translate(0.00)" d="M31 0 315 694H383L666 0H564L331 587H366L131 0ZM166 157V239H531V157Z"/><path transform="translate(672.92)" d="M82 0V694H176V0Z"/><path transform="translate(907.85)" d="M396 -10Q323 -10 259.5 17.5Q196 45 148.5 94Q101 143 74 208Q47 273 47 348Q47 423 74 487.5Q101 552 149 601Q197 650 261.5 677Q326 704 402 704Q485 704 555 672Q625 640 672 580L607 515Q574 563 520 588.5Q466 614 402 614Q326 614 267.5 580Q209 546 176.5 486Q144 426 144 348Q144 269 177 209Q210 149 266 115Q322 81 394 81Q467 81 520.5 109Q574 137 603 191.5Q632 246 632 325L689 284H389V370H729V356Q729 235 686.5 153.5Q644 72 568.5 31Q493 -10 396 -10Z"/><path transform="translate(1657.77)" d="M397 -10Q322 -10 258 17.5Q194 45 146.5 94Q99 143 73 208Q47 273 47 347Q47 422 73 487Q99 552 146.5 600.5Q194 649 257.5 676.5Q321 704 396 704Q478 704 540 676Q602 648 650 600L585 535Q552 572 504.5 593Q457 614 396 614Q341 614 295 594.5Q249 575 215 539Q181 503 162.5 454Q144 405 144 347Q144 289 162.5 240Q181 191 215 155Q249 119 295 99.5Q341 80 396 80Q461 80 509 101.5Q557 123 590 160L655 96Q607 46 542.5 18Q478 -10 397 -10Z"/></g></g>
+  <path class="rule" d="M41 226h143"/>
+  <g class="category"><g transform="translate(41 262) scale(0.03000 -0.03000)"><path transform="translate(0.00)" d="M145 302V381H333Q394 381 427 412Q460 443 460 496Q460 546 427.5 579Q395 612 334 612H145V694H337Q403 694 452 668.5Q501 643 527.5 599Q554 555 554 498Q554 439 527.5 395Q501 351 452 326.5Q403 302 337 302ZM82 0V694H176V0ZM482 0 230 311 319 342 601 0Z"/><path transform="translate(618.33)" d="M266 0V674H360V0ZM30 608V694H595V608Z"/><path transform="translate(1231.67)" d="M397 -10Q322 -10 258 17.5Q194 45 146.5 94Q99 143 73 208Q47 273 47 347Q47 422 73 487Q99 552 146.5 600.5Q194 649 257.5 676.5Q321 704 396 704Q478 704 540 676Q602 648 650 600L585 535Q552 572 504.5 593Q457 614 396 614Q341 614 295 594.5Q249 575 215 539Q181 503 162.5 454Q144 405 144 347Q144 289 162.5 240Q181 191 215 155Q249 119 295 99.5Q341 80 396 80Q461 80 509 101.5Q557 123 590 160L655 96Q607 46 542.5 18Q478 -10 397 -10Z"/></g></g>
+</svg>

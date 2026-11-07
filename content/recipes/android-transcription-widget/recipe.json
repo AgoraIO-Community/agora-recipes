@@ -25,13 +25,10 @@
   "media": {
     "title": "Android Transcription Widget",
     "summary": "An Android widget sample that displays transcription alongside Agora realtime audio and video sessions.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android/tree/8da05c875c41427b2bfbbc96068b6d0f50900959",
     "labels": [
       "Android"
     ],
-    "thumbnail": "/recipes/android-transcription-widget-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Android Transcription Widget; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+    "thumbnail": "/recipes/covers/android-transcription-widget.svg",
+    "thumbnailAlt": "RTC cover artwork for Android Transcription Widget."
   }
 }

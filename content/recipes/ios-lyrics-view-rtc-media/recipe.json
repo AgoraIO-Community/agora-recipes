@@ -26,14 +26,11 @@
   "media": {
     "title": "iOS Lyrics View with RTC Media",
     "summary": "An iOS karaoke component demo for lyric synchronization and pitch scoring alongside media playback. Requires compatible music/RTC services and test assets.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/LrcView-iOS/tree/61d7eb544cb3149cb93741d8abafe452b09223ae",
     "labels": [
       "iOS",
       "Swift"
     ],
-    "thumbnail": "/recipes/ios-lyrics-view-rtc-media-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of iOS Lyrics View with RTC Media; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+    "thumbnail": "/recipes/covers/ios-lyrics-view-rtc-media.svg",
+    "thumbnailAlt": "RTC cover artwork for iOS Lyrics View with RTC Media."
   }
 }

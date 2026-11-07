@@ -14,14 +14,11 @@
   "media": {
     "title": "Agora x Gemma Voice Coach",
     "summary": "Pair Agora voice sessions with local Gemma reasoning.",
-    "thumbnailSource": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach/tree/8581b2b4abedba627b449014be256be39e8bb18e",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original dashboard launched; it displays missing Agora configuration and requires a running local Gemma model. Setup warning screenshot rejected.",
     "labels": [
       "TypeScript"
     ],
     "searchTerms": [],
-    "thumbnail": "/recipes/agora-gemma-voice-coach-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Agora x Gemma Voice Coach; not an app screenshot"
+    "thumbnail": "/recipes/covers/agora-gemma-voice-coach.svg",
+    "thumbnailAlt": "Voice AI cover artwork for Agora x Gemma Voice Coach."
   }
 }

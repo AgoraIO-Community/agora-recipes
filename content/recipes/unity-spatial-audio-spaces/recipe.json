@@ -26,14 +26,11 @@
   "media": {
     "title": "Unity Spatial Audio Spaces",
     "summary": "A Unity sample for building spatial audio rooms and interactive realtime communication spaces with Agora RTC.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity/tree/e9de7061c199cddbd2f5fd8c68ac98d89c0e1b10",
     "labels": [
       "Unity",
       "C#"
     ],
-    "thumbnail": "/recipes/unity-spatial-audio-spaces-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Unity Spatial Audio Spaces; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Unity Editor and the project SDK runtime are unavailable. App not launched."
+    "thumbnail": "/recipes/covers/unity-spatial-audio-spaces.svg",
+    "thumbnailAlt": "RTC cover artwork for Unity Spatial Audio Spaces."
   }
 }

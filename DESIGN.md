@@ -372,6 +372,11 @@ with authors aligned at the bottom. Text-only rows keep their natural height;
 do not reserve an empty image plane or shrink real covers into corner thumbnails.
 Bound media and copy rather than clipping a whole card's content or controls.
 
+For entries without project media, use editorial covers with a readable technology
+label and a category motif. Voice AI uses layered curves; RTC uses layered frames.
+Keep the same composition across appearances and tune the palette to the system
+theme. Keep the recipe title and actions in the card body.
+
 The title always opens recipe details. The cover opens the live Demo when one
 exists, and otherwise opens details. A separate centred play control
 opens the inline video dialog; search results use a labelled Video action.

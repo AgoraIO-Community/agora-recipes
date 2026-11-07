@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="576" height="324" viewBox="0 0 576 324">
+  <title>Rust · RTC</title>
+  <style>
+    svg { --canvas: #eaf0ee; --ink: #192a2c; --secondary: #4b6263; --rule: #c8d4d2; --paper: #cededb; --fold: #a4c1c0; --print: #507f85; --accent: #007b9e; }
+    @media (prefers-color-scheme: dark) {
+      svg { --canvas: #1c2628; --ink: #f1f4f0; --secondary: #b0c2c1; --rule: #3b4e50; --paper: #2c4549; --fold: #466d73; --print: #76aab0; --accent: #62d7f0; }
+    }
+    .canvas { fill: var(--canvas); }
+    .type { fill: var(--ink); }
+    .category { fill: var(--secondary); }
+    .rule { stroke: var(--rule); }
+    .paper { fill: var(--paper); }
+    .fold { fill: var(--fold); }
+    .print { fill: var(--print); }
+    .accent-stroke { fill: none; stroke: var(--accent); stroke-width: 3; }
+  </style>
+  <path class="canvas" d="M0 0h576v324H0z"/>
+  <g>
+    <path class="paper" fill-rule="evenodd" d="M438 50h81a29 29 0 0 1 29 29v142a29 29 0 0 1 -29 29h-81a29 29 0 0 1 -29 -29v-142a29 29 0 0 1 29 -29zM438 72h81a7 7 0 0 1 7 7v142a7 7 0 0 1 -7 7h-81a7 7 0 0 1 -7 -7v-142a7 7 0 0 1 7 -7z"/>
+    <path class="fold" fill-rule="evenodd" d="M394 66h81a29 29 0 0 1 29 29v142a29 29 0 0 1 -29 29h-81a29 29 0 0 1 -29 -29v-142a29 29 0 0 1 29 -29zM394 88h81a7 7 0 0 1 7 7v142a7 7 0 0 1 -7 7h-81a7 7 0 0 1 -7 -7v-142a7 7 0 0 1 7 -7z"/>
+    <path class="print" fill-rule="evenodd" d="M350 82h81a29 29 0 0 1 29 29v142a29 29 0 0 1 -29 29h-81a29 29 0 0 1 -29 -29v-142a29 29 0 0 1 29 -29zM350 104h81a7 7 0 0 1 7 7v142a7 7 0 0 1 -7 7h-81a7 7 0 0 1 -7 -7v-142a7 7 0 0 1 7 -7z"/>
+    <path class="accent-stroke" d="M350 82h53"/>
+  </g>
+  <g class="type"><g transform="translate(39 174) scale(0.06500 -0.06500)"><path transform="translate(0.00)" d="M145 302V381H333Q394 381 427 412Q460 443 460 496Q460 546 427.5 579Q395 612 334 612H145V694H337Q403 694 452 668.5Q501 643 527.5 599Q554 555 554 498Q554 439 527.5 395Q501 351 452 326.5Q403 302 337 302ZM82 0V694H176V0ZM482 0 230 311 319 342 601 0Z"/><path transform="translate(606.92)" d="M258 -10Q199 -10 152.5 16.5Q106 43 80 90Q54 137 54 199V475H144V203Q144 164 157.5 135.5Q171 107 197 92Q223 77 258 77Q311 77 341 110.5Q371 144 371 203V475H461V199Q461 137 435 90Q409 43 363.5 16.5Q318 -10 258 -10Z"/><path transform="translate(1099.85)" d="M217 -10Q177 -10 141.5 0.5Q106 11 76 30.5Q46 50 24 77L82 135Q108 103 142 87.5Q176 72 218 72Q260 72 283 86.5Q306 101 306 127Q306 153 287.5 167.5Q269 182 240 191.5Q211 201 178.5 210.5Q146 220 117 235Q88 250 69.5 276Q51 302 51 345Q51 388 72 419.5Q93 451 130.5 468Q168 485 221 485Q277 485 320.5 465.5Q364 446 392 407L334 349Q314 375 284.5 389Q255 403 218 403Q179 403 158.5 389.5Q138 376 138 352Q138 328 156 315Q174 302 203.5 293Q233 284 265 274.5Q297 265 326 249Q355 233 373.5 206Q392 179 392 135Q392 68 344.5 29Q297 -10 217 -10Z"/><path transform="translate(1503.77)" d="M139 0V674H229V0ZM22 393V475H346V393Z"/></g></g>
+  <path class="rule" d="M41 226h143"/>
+  <g class="category"><g transform="translate(41 262) scale(0.03000 -0.03000)"><path transform="translate(0.00)" d="M145 302V381H333Q394 381 427 412Q460 443 460 496Q460 546 427.5 579Q395 612 334 612H145V694H337Q403 694 452 668.5Q501 643 527.5 599Q554 555 554 498Q554 439 527.5 395Q501 351 452 326.5Q403 302 337 302ZM82 0V694H176V0ZM482 0 230 311 319 342 601 0Z"/><path transform="translate(618.33)" d="M266 0V674H360V0ZM30 608V694H595V608Z"/><path transform="translate(1231.67)" d="M397 -10Q322 -10 258 17.5Q194 45 146.5 94Q99 143 73 208Q47 273 47 347Q47 422 73 487Q99 552 146.5 600.5Q194 649 257.5 676.5Q321 704 396 704Q478 704 540 676Q602 648 650 600L585 535Q552 572 504.5 593Q457 614 396 614Q341 614 295 594.5Q249 575 215 539Q181 503 162.5 454Q144 405 144 347Q144 289 162.5 240Q181 191 215 155Q249 119 295 99.5Q341 80 396 80Q461 80 509 101.5Q557 123 590 160L655 96Q607 46 542.5 18Q478 -10 397 -10Z"/></g></g>
+</svg>

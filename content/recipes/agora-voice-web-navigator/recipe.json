@@ -14,14 +14,11 @@
   "media": {
     "title": "Agora Voice Web Navigator",
     "summary": "Voice-controlled browser automation powered by Agora RTC.",
-    "thumbnailSource": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA/tree/e9c9756ccdcf130f05257990576a3fbc786e3b6c",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original controller launched; browser backend is disconnected and its connection error is visible. No browser actions were executed.",
     "labels": [
       "JavaScript"
     ],
     "searchTerms": [],
-    "thumbnail": "/recipes/agora-voice-web-navigator-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Agora Voice Web Navigator; not an app screenshot"
+    "thumbnail": "/recipes/covers/agora-voice-web-navigator.svg",
+    "thumbnailAlt": "Voice AI cover artwork for Agora Voice Web Navigator."
   }
 }

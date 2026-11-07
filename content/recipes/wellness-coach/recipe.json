@@ -14,13 +14,10 @@
   "media": {
     "title": "Wellness Coach",
     "summary": "Use the therapist sample recipe as a starting point for a guided wellness coach experience.",
-    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-samples/tree/873c53238a21edcd7f4e9d7cff91cf1d33484c9e",
     "labels": [
       "Python"
     ],
-    "thumbnail": "/recipes/wellness-coach-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Wellness Coach; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original avatar client launched. HTTP 500: @agora/agent-ui-kit cannot resolve after script-disabled dependency installation. Service configuration is also needed for coaching; no diagnostic screen used as artwork."
+    "thumbnail": "/recipes/covers/wellness-coach.svg",
+    "thumbnailAlt": "Voice AI cover artwork for Wellness Coach."
   }
 }

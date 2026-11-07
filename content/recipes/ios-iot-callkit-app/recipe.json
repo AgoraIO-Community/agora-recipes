@@ -26,14 +26,11 @@
   "media": {
     "title": "iOS IoT CallKit App",
     "summary": "An Agora Link CallKit library and iOS demo for account/device calls, notifications and live device media. Requires provisioned IoT service configuration.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app/tree/129b4e021f3ecbe4a6ff7f27a2024581e6a2270a",
     "labels": [
       "iOS",
       "Swift"
     ],
-    "thumbnail": "/recipes/ios-iot-callkit-app-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of iOS IoT CallKit App; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+    "thumbnail": "/recipes/covers/ios-iot-callkit-app.svg",
+    "thumbnailAlt": "RTC cover artwork for iOS IoT CallKit App."
   }
 }
