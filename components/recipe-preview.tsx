@@ -23,6 +23,6 @@ export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
     <RecipeVideoDialog recipe={recipe}>
       {media.videoUrl ? <DialogTrigger asChild><button type="button" className="detail-preview__cover" aria-label={t("Watch {title} demo", { title })}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <a className="detail-preview__cover" href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</a> : <div className="detail-preview__cover">{cover}</div>}
     </RecipeVideoDialog>
-    <p>{media.demoNote}</p>
+    {media.demoNote && <p>{media.demoNote}</p>}
   </section>
 }
