@@ -22,5 +22,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/referenceapp-liveshopping-ios/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "iOS Live Shopping Reference App",
+    "summary": "Build an iOS live shopping experience with Agora RTC.",
+    "thumbnail": "/recipes/ios-live-shopping-reference-app.png",
+    "thumbnailAlt": "Customer storefront screenshot from the iOS live-shopping reference application",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/referenceapp-liveshopping-ios/b3475100da25f30c8bb92fa56a3b74f448838d16/media/ss_customer_storefront.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing project screenshot; not captured locally. Reproduction requires the iOS project and its services.",
+    "labels": [
+      "iOS",
+      "Live shopping"
+    ],
+    "searchTerms": []
+  }
 }

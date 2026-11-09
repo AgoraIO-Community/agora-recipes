@@ -1,0 +1,15 @@
+{
+  "slug": "mcc-external-service-example",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for MCC External Service Example, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-MccExService-Example at 3116c79e9217bc9b5ead81c1e4a70fac7ebceca0. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/mcc-external-service-example.html.",
+  "createdAt": "2026-11-04T15:16:57.210Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-MccExService-Example",
+  "sourceRevision": "3116c79e9217bc9b5ead81c1e4a70fac7ebceca0",
+  "width": 1600,
+  "height": 900,
+  "sha256": "75b0224af9893943e9a4e8c4e2eb2e05f76beebfa3fe50cb3445aec50c4c6cca",
+  "original": "originals/mcc-external-service-example.png",
+  "htmlSource": "illustrations/mcc-external-service-example.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

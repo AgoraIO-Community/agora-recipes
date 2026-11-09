@@ -1,0 +1,26 @@
+{
+  "slug": "webxr-rtc-demo",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for WebXR RTC Demo, based on its catalog metadata and source https://github.com/AgoraIO-Community/AgoraWebXR at b7ab8b7dd4dfdfee23b886cbebca23c7bf9fe9eb. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/webxr-rtc-demo.html.",
+  "createdAt": "2026-11-04T15:16:58.972Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/AgoraWebXR",
+  "sourceRevision": "b7ab8b7dd4dfdfee23b886cbebca23c7bf9fe9eb",
+  "width": 1600,
+  "height": 900,
+  "sha256": "b4adebc949d82b40773fa5c0605c84b941005323fc434c3259cd5c3f1d0883fc",
+  "original": "originals/webxr-rtc-demo.png",
+  "htmlSource": "illustrations/webxr-rtc-demo.html",
+  "localLaunch": {
+    "command": [
+      "python3",
+      "-m",
+      "http.server",
+      "4401",
+      "--bind",
+      "127.0.0.1"
+    ],
+    "scope": "original static UI; no camera, microphone, provider or remote session",
+    "httpStatus": null
+  },
+  "decision": "Original broadcaster served and opened, including a retry without WebRTC containment. Canvas exists but no usable XR scene is visible. Blank image rejected."
+}

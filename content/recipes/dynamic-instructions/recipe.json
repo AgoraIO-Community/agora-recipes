@@ -31,5 +31,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Dynamic Instructions",
+    "summary": "Update the agent's system prompt mid-session.",
+    "thumbnail": "/recipes/dynamic-instructions-catalog-call.webp",
+    "thumbnailAlt": "Dynamic Instructions real call interface with the agent's greeting, transcript and audio controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-instructions",
+    "thumbnailFit": "contain",
+    "demoNote": "Original Python backend and real RTC call with an agent greeting. Mid-session instruction updates were not exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

@@ -1,0 +1,28 @@
+{
+  "slug": "realtime-vision",
+  "kind": "local-app-screenshot",
+  "prompt": "Unmodified local initial interface of Real-time Vision (MLLM), source https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime-vision at 8abb257cc2fe297c52bc64b48bd7979b135d1430. No crop, retouch, fabricated data or live session. Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+  "createdAt": "2026-11-04T15:16:58.174Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime-vision",
+  "sourceRevision": "8abb257cc2fe297c52bc64b48bd7979b135d1430",
+  "width": 1440,
+  "height": 1000,
+  "sha256": "56be99be35065d444784eb04403c6cd079b403a236b08097b36982db8244a473",
+  "original": "originals/realtime-vision.png",
+  "htmlSource": "illustrations/realtime-vision.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4411"
+    ],
+    "scope": "original frontend only; backend credentials unavailable; no session started",
+    "httpStatus": 200
+  },
+  "decision": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified."
+}

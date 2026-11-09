@@ -1,0 +1,28 @@
+{
+  "slug": "agent-delegation",
+  "kind": "local-app-screenshot",
+  "prompt": "Unmodified local initial interface of Delegated Reasoning, source https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation at 429bd34c72e4647a0e47f1beb4771dcb553d77aa. No crop, retouch, fabricated data or live session. Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+  "createdAt": "2026-11-04T15:16:55.270Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation",
+  "sourceRevision": "429bd34c72e4647a0e47f1beb4771dcb553d77aa",
+  "width": 1440,
+  "height": 1000,
+  "sha256": "43a7533ed8eef61a1374409a3fc74d7b794559eecc1796b68f8c2c50c3ead9e6",
+  "original": "originals/agent-delegation.png",
+  "htmlSource": "illustrations/agent-delegation.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4390"
+    ],
+    "scope": "credential-free initial UI only; no session started",
+    "httpStatus": null
+  },
+  "decision": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified."
+}

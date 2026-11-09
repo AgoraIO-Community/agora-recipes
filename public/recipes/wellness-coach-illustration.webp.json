@@ -1,0 +1,28 @@
+{
+  "slug": "wellness-coach",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Wellness Coach, based on its catalog metadata and source https://github.com/AgoraIO-Conversational-AI/agent-samples at 873c53238a21edcd7f4e9d7cff91cf1d33484c9e. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/wellness-coach.html.",
+  "createdAt": "2026-11-04T15:16:59.036Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/agent-samples",
+  "sourceRevision": "873c53238a21edcd7f4e9d7cff91cf1d33484c9e",
+  "width": 1600,
+  "height": 900,
+  "sha256": "07f520bbf180d6c46b243f14031b3c587cfa6f024788667d2f1a2b63095c1f67",
+  "original": "originals/wellness-coach.png",
+  "htmlSource": "illustrations/wellness-coach.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4414"
+    ],
+    "scope": "original frontend only; backend credentials unavailable; no session started",
+    "httpStatus": 500
+  },
+  "decision": "Original avatar client launched. HTTP 500: @agora/agent-ui-kit cannot resolve after script-disabled dependency installation. Service configuration is also needed for coaching; no diagnostic screen used as artwork."
+}

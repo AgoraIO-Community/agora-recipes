@@ -21,5 +21,19 @@
     },
     "installCommand": "make setup",
     "runCommand": "pnpm run dev:parallel"
+  },
+  "media": {
+    "title": "Gemini MLLM Voice Agent for Go",
+    "summary": "Build a Gemini Live voice agent with Go and Agora.",
+    "thumbnail": "/recipes/agora-gemini-mllm-go.webp",
+    "thumbnailAlt": "Go Gemini MLLM client's model selector and Start Conversation screen",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-gemini-mllm-go",
+    "thumbnailFit": "contain",
+    "demoNote": "Original Gemini Live backend accepted and stopped real sessions with valid Google configuration, but no agent reply arrived, including after a synthesized test greeting. Existing model-selector image only; live conversation unverified.",
+    "labels": [
+      "Go",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

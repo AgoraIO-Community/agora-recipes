@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Unity-Virtual-Camera-Prefab/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Unity Virtual Camera Prefab",
+    "summary": "Publish Unity-rendered camera output through Agora RTC.",
+    "thumbnail": "/recipes/unity-virtual-camera-prefab.png",
+    "thumbnailAlt": "Unity editor setup image showing the virtual camera prefab in the scene hierarchy",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Unity-Virtual-Camera-Prefab",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing Unity editor setup screenshot, not a live-call or gameplay capture.",
+    "labels": [
+      "Unity",
+      "Virtual camera"
+    ],
+    "searchTerms": []
+  }
 }

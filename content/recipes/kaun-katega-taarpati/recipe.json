@@ -27,5 +27,18 @@
   "recipeUrl": "https://github.com/subinsk/kkt/blob/main/docs/ai/RECIPE.md",
   "author": "subinsk",
   "updated": "2026-08-28",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Kaun Katega Taarpati",
+    "summary": "Run a three-player Hinglish voice game show.",
+    "thumbnail": "/recipes/kaun-katega-taarpati.webp",
+    "thumbnailAlt": "Kaun Katega Taarpati initial room creation and reopen screen, before gameplay",
+    "thumbnailSource": "https://github.com/subinsk/kkt",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free initial UI; no room created, players connected or game started.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

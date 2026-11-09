@@ -32,5 +32,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Speaker Lock",
+    "summary": "Lock onto the primary speaker and ignore other voices.",
+    "thumbnail": "/recipes/speaker-lock-catalog-call.webp",
+    "thumbnailAlt": "Speaker Lock real call interface with an agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-voiceprint",
+    "thumbnailFit": "contain",
+    "demoNote": "Original backend and real RTC call with an agent greeting. Silent microphone used; primary-speaker isolation was not exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

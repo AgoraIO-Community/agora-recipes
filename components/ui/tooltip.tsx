@@ -2,11 +2,12 @@
 
 import * as React from 'react'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import { Slot } from '@radix-ui/react-slot'
 
 import { cn } from '@/lib/utils'
 
 function TooltipProvider({
-  delayDuration = 0,
+  delayDuration = 350,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
   return (
@@ -28,10 +29,20 @@ function Tooltip({
   )
 }
 
+// Tooltip metadata must not replace the composed control's slot or state.
+const TooltipTarget = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<typeof Slot> & { 'data-state'?: string; 'data-slot'?: string }>(function TooltipTarget(props, ref) {
+  const targetProps = { ...props }
+  delete targetProps['data-state']
+  delete targetProps['data-slot']
+  return <Slot {...targetProps} ref={ref} />
+})
+
 function TooltipTrigger({
-  ...props
+  asChild, children, ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+  return asChild
+    ? <TooltipPrimitive.Trigger asChild {...props}><TooltipTarget>{children}</TooltipTarget></TooltipPrimitive.Trigger>
+    : <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props}>{children}</TooltipPrimitive.Trigger>
 }
 
 function TooltipContent({
@@ -46,13 +57,13 @@ function TooltipContent({
         data-slot="tooltip-content"
         sideOffset={sideOffset}
         className={cn(
-          'bg-foreground text-background animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-3 py-1.5 text-xs text-balance',
+          'ag-tooltip-content',
           className,
         )}
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-foreground fill-foreground z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        <TooltipPrimitive.Arrow className="fill-foreground" width={8} height={4} />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   )

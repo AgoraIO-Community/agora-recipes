@@ -1,0 +1,22 @@
+{
+  "title": "Agora Builder Series",
+  "summary": "Explore Akshay Nandwana’s early community projects: guided breathing, meditation, translation, movie discovery, a voice companion, and voice coaching.",
+  "compactSummary": "Early community projects by Akshay Nandwana.",
+  "kind": "collection",
+  "sourceUrl": "https://github.com/AgoraIO-Community/agora-recipes/pulls?q=is%3Apr+is%3Amerged+author%3Aanandwana001",
+  "members": [
+    { "slug": "pause-with-agora" },
+    { "slug": "agora-breath-companion" },
+    { "slug": "bhaasha-agora" },
+    { "slug": "daily-mandir-ai" },
+    { "slug": "watchwise-ai" },
+    { "slug": "agora-gemma-voice-coach" }
+  ],
+  "actions": [
+    {
+      "label": "Explore Akshay’s projects",
+      "url": "https://github.com/anandwana001",
+      "type": "source"
+    }
+  ]
+}

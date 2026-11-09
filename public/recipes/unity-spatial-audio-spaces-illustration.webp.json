@@ -1,0 +1,15 @@
+{
+  "slug": "unity-spatial-audio-spaces",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Unity Spatial Audio Spaces, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora_Spaces_Unity at e9de7061c199cddbd2f5fd8c68ac98d89c0e1b10. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/unity-spatial-audio-spaces.html.",
+  "createdAt": "2026-11-04T15:16:58.909Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity",
+  "sourceRevision": "e9de7061c199cddbd2f5fd8c68ac98d89c0e1b10",
+  "width": 1600,
+  "height": 900,
+  "sha256": "87bc1b63eb6d1dceea40ebc6f4556c3d91e6fb562689caecfaf6cc26ea93d8fc",
+  "original": "originals/unity-spatial-audio-spaces.png",
+  "htmlSource": "illustrations/unity-spatial-audio-spaces.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Unity Editor and the project SDK runtime are unavailable. App not launched."
+}

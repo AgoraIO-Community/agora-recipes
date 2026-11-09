@@ -22,5 +22,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/web-spatial-demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Web Spatial Audio Demo",
+    "summary": "Build a browser-based spatial audio experience.",
+    "thumbnail": "/recipes/web-spatial-audio-demo.webp",
+    "thumbnailAlt": "Spatial Audio demo initial setup dialog requesting an App ID before entering the scene",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/web-spatial-demo",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free setup UI; tracked env files omitted. No spatial audio session joined.",
+    "labels": [
+      "JavaScript",
+      "Web"
+    ],
+    "searchTerms": []
+  }
 }

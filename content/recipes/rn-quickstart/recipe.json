@@ -29,5 +29,18 @@
       "appIdKey": "AGORA_APP_ID",
       "appCertificateKey": "AGORA_APP_CERTIFICATE"
     }
+  },
+  "media": {
+    "title": "React Native Quickstart",
+    "summary": "A bare React Native (TypeScript) voice-agent client for Agora Conversational AI. It reuses the engine-agnostic web toolkit over thin RTC/RTM engine adapters and renders live transcript, talking to a bundled keyless Python backend.",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-client-rn-quickstart/tree/30c884681eb46e60bc63400dfac5dea7a47b03a4",
+    "labels": [
+      "React Native",
+      "TypeScript"
+    ],
+    "thumbnail": "/recipes/rn-quickstart-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of React Native Quickstart; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
   }
 }

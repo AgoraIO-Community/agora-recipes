@@ -4,7 +4,12 @@ import fs from "node:fs/promises"
 const origin = process.argv[2] ?? "http://localhost:3000"
 const canonical = process.env.SITE_URL ?? "https://recipes.agora.io"
 const entries = await fs.readdir(new URL("../content/recipes/", import.meta.url), { withFileTypes: true })
-const slugs = entries.filter((entry) => entry.isDirectory() && !entry.name.startsWith(".")).map((entry) => entry.name)
+const catalogSlugs = entries.filter((entry) => entry.isDirectory() && !entry.name.startsWith(".")).map((entry) => entry.name)
+const slugs = []
+for (const slug of catalogSlugs) {
+  const meta = JSON.parse(await fs.readFile(new URL(`../content/recipes/${slug}/recipe.json`, import.meta.url), "utf8"))
+  if (meta.recipeUrl) slugs.push(slug)
+}
 
 async function read(path, type) {
   const response = await fetch(new URL(path, origin))
@@ -17,6 +22,13 @@ const index = await read("/llms.txt", "text/plain")
 assert.ok(index.startsWith("# Agora Voice AI Recipes\n"))
 assert.equal(await read("/index.md", "text/markdown"), index)
 const sitemap = await read("/sitemap.xml", "xml")
+for (const slug of catalogSlugs) {
+  assert.ok(sitemap.includes(`<loc>${canonical}/recipes/${slug}</loc>`), `${slug}: catalog sitemap coverage`)
+  if (!slugs.includes(slug)) {
+    assert.ok(!index.includes(`${canonical}/recipes/${slug}/index.md`), `${slug}: nonguide excluded from recipe index`)
+    assert.equal((await fetch(new URL(`/recipes/${slug}/index.md`, origin))).status, 404)
+  }
+}
 const robots = await read("/robots.txt", "text/plain")
 assert.ok(robots.includes("Allow: /"))
 assert.ok(robots.includes(`${canonical}/sitemap.xml`))

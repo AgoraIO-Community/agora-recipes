@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Tool Calling",
+    "summary": "Give your voice agent callable tools.",
+    "thumbnail": "/recipes/tool-calling-clean-call.webp",
+    "thumbnailAlt": "Tool Calling Recipe real call interface showing its original greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-tool-calling",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC session using the project's bundled tool-demo LLM through a restricted temporary tunnel. Original greeting received; no note-writing or other tool mutation was requested.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

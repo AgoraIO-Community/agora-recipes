@@ -21,5 +21,18 @@
     },
     "installCommand": "pnpm install",
     "runCommand": "pnpm run dev"
+  },
+  "media": {
+    "title": "Delegated Reasoning",
+    "summary": "Keep a voice agent responsive while a second model reasons.",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation/tree/429bd34c72e4647a0e47f1beb4771dcb553d77aa",
+    "thumbnailFit": "contain",
+    "demoNote": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/agent-delegation-initial-2026-11-04.webp",
+    "thumbnailAlt": "Delegated Reasoning: original local initial interface, not a connected session"
   }
 }

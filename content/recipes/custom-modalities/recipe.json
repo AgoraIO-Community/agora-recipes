@@ -33,5 +33,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "title": "Custom Modalities",
+    "summary": "Bring your own LLM and custom voice endpoint.",
+    "thumbnail": "/recipes/custom-modalities-clean-call.webp",
+    "thumbnailAlt": "Custom Modalities real call interface showing the bundled demo audio endpoint's own response and the agent visualizer",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm-tts",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC session using the original bundled audio demo endpoint through a restricted temporary tunnel. Its own mock-audio response is visible; no replacement transcript or model was fabricated.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

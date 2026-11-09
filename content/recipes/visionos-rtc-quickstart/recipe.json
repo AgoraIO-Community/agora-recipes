@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/visionOS-Quickstart/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "visionOS RTC Quickstart",
+    "summary": "Add Agora RTC to an immersive visionOS sample.",
+    "thumbnail": "/recipes/visionos-rtc-quickstart.webp",
+    "thumbnailAlt": "Author demo GIF frame showing a visionOS video panel with three illustrated participants",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Community/visionOS-Quickstart/04dd9721a4b346acdffa0fb1df13f85cd09216c8/media/vision-basic-video-call.gif",
+    "thumbnailFit": "contain",
+    "demoNote": "Frame at 2 seconds from the author's existing demo GIF; not a locally verified visionOS session.",
+    "labels": [
+      "visionOS",
+      "Swift"
+    ],
+    "searchTerms": []
+  }
 }

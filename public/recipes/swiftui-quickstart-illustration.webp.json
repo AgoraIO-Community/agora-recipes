@@ -1,0 +1,15 @@
+{
+  "slug": "swiftui-quickstart",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for SwiftUI Quickstart, based on its catalog metadata and source https://github.com/AgoraIO-Conversational-AI/recipe-client-swiftui-quickstart at 5c9bbc728a575b12d6e4fef53fe514008d25ec44. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/swiftui-quickstart.html.",
+  "createdAt": "2026-11-04T15:16:58.778Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/recipe-client-swiftui-quickstart",
+  "sourceRevision": "5c9bbc728a575b12d6e4fef53fe514008d25ec44",
+  "width": 1600,
+  "height": 900,
+  "sha256": "4c2aeda2ba3dabd8ad3a884a8539f1a2ae645d05d0ce9ce9f8f0858b4a005221",
+  "original": "originals/swiftui-quickstart.png",
+  "htmlSource": "illustrations/swiftui-quickstart.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

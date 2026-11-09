@@ -1,11 +1,22 @@
 # MiSans Latin
 
-The unmodified MiSans Latin Medium and Semibold WOFF2 faces are sourced from
-`misans@4.1.0/lib/Latin/`, matching the Agora 2026 website.
+The bundled, unmodified Medium and Semibold WOFF2 faces provide the Recipes
+typography. The declared weights are 380 for regular text and 520 for semibold
+emphasis. DESIGN.md defines the type scale and usage.
 
-MiSans is a typeface by Xiaomi. The font is distributed under the MiSans Font
-IP License Agreement; the npm package's CSS and tooling use Apache-2.0.
-See https://hyperos.mi.com/font/en/ for the font and license terms.
+The font files remain subject to the MiSans Font IP License Agreement.
 
-MiSans attribution is recorded here. Font faces retain the site's declared
-weights (380 and 520); UI styles request 400, 500 and 600 as specified in DESIGN.md.
+## Recipes wordmark
+
+`Outfit-Regular-Latin.woff2` is the unmodified Latin WOFF2 served by Google
+Fonts for Outfit v15, regular weight 400. It is used only for the fixed English
+`recipes` product wordmark, shared by the header and footer.
+
+- Project: https://github.com/Outfitio/Outfit-Fonts
+- Distribution: https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap
+- Font: https://fonts.gstatic.com/s/outfit/v15/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC1O4a0EwItq6fNIg.woff2
+- Copyright: 2021 The Outfit Project Authors.
+- License: SIL Open Font License 1.1; the full notice is in `Outfit-OFL.txt`.
+
+The font is served locally. Navigation labels continue to use the interface
+language and shared text styles.

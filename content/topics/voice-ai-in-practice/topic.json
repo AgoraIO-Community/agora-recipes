@@ -1,0 +1,37 @@
+{
+  "title": "Voice AI in practice",
+  "summary": "Explore community projects that turn real-time voice into useful and playful experiences.",
+  "kind": "collection",
+  "members": [
+    {
+      "slug": "aria-voice-sales-agent"
+    },
+    {
+      "slug": "agora-rotary-dial-phone"
+    },
+    {
+      "slug": "agora-podcasts"
+    },
+    {
+      "slug": "agora-meeting-copilot"
+    },
+    {
+      "slug": "pillion"
+    },
+    {
+      "slug": "agora-arena"
+    },
+    {
+      "slug": "agora-drawguess"
+    },
+    {
+      "slug": "worldcupvoice"
+    }
+  ],
+  "compactSummary": "Working voice apps, games, and tools.",
+  "cover": {
+    "src": "/topics/voice-ai-in-practice.jpg",
+    "alt": "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.",
+    "sourceUrl": "https://github.com/AgoraIO-Community/agora-recipes/pull/77"
+  }
+}

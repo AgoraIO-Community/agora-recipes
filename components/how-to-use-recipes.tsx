@@ -1,74 +1,73 @@
 "use client"
 
+import { useI18n } from "@/components/locale-provider"
 import {
   Dialog,
+  DialogBody,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { ArrowRight, Search, Wand2, Terminal } from "lucide-react"
+import { Search, Wand2, Terminal } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const steps = [
   {
     title: "Find your starting point",
     description:
-      "Browse Voice AI or RTC recipes, then filter by platform, use case, or capability. Open a recipe to review what it builds and its difficulty level.",
+      "Browse projects and recipes, then filter by platform, use case, or available material.",
     icon: Search,
   },
   {
-    title: "Bring it to your coding agent",
+    title: "Try it or bring it to your coding agent",
     description:
-      "Copy the Recipe prompt and paste it into your coding agent to help set up the project. Prefer to build hands-on? Open Source on GitHub and clone or fork the implementation repo.",
+      "Open an available demo or video. If a recipe is provided, copy its prompt or follow the original guide.",
     icon: Wand2,
   },
   {
     title: "Configure, run, and make it yours",
     description:
-      "Follow the recipe’s instructions to install dependencies, configure your Agora and provider credentials, and run the app. Test the example, then adapt it to your workflow.",
+      "Follow the author’s setup instructions and test the example before adapting it to your workflow.",
     icon: Terminal,
   },
 ]
 
 export function HowToUseRecipes({ variant = "button" }: { variant?: "button" | "footer" | "text" }) {
+  const { t } = useI18n()
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button
+        <Button
           type="button"
-          className={variant === "footer" ? "footer-link" : variant === "text" ? "text-action hero-help" : "action action-secondary"}
+          size={variant === "footer" ? "resource" : "default"}
+          variant={variant === "footer" ? "link" : variant === "text" ? "ghost" : "outline"}
         >
-          {variant === "footer" ? "How to use recipes" : "How to use these recipes"}
-          {variant !== "footer" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
-        </button>
+          {t(variant === "footer" ? "How to use recipes" : "How to use these recipes")}
+        </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-3xl lg:max-w-4xl">
-        <DialogHeader className="pr-6">
-          <DialogTitle className="font-brand text-2xl font-normal leading-tight sm:text-3xl">
-            How to use these recipes
+      <DialogContent className="recipe-help-dialog" aria-describedby={undefined}>
+        <DialogHeader>
+          <DialogTitle>
+            {t("How to use these recipes")}
           </DialogTitle>
-          <DialogDescription className="leading-relaxed">
-            Each recipe pairs working code with a guide and a prompt for your
-            coding agent. Go from an idea to a running example in three steps.
-          </DialogDescription>
         </DialogHeader>
 
-        <ol className="grid gap-4 md:grid-cols-3">
+        <DialogBody><ol className="grid gap-5 md:grid-cols-3">
           {steps.map(({ title, description, icon: Icon }) => (
-            <li key={title} className="p-5 sm:p-6">
+            <li key={title}>
               <div className="flex items-center justify-between" aria-hidden="true">
-                <Icon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
+                <Icon size={16} className="text-muted-foreground" strokeWidth={1.5} />
               </div>
-              <h3 className="mt-4 detail-title">
-                {title}
+              <h3 className="mt-3 text-sm font-normal leading-5">
+                {t(title)}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {description}
+              <p className="mt-2 text-[13px] leading-5 text-muted-foreground">
+                {t(description)}
               </p>
             </li>
           ))}
-        </ol>
+        </ol></DialogBody>
       </DialogContent>
     </Dialog>
   )
