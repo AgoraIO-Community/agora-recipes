@@ -77,7 +77,7 @@ test('SDK boundary preserves required anonymous transport fields and removes pro
 
 test('campaign entry, first view and all behavior events retain the same validated tab attribution at the SDK boundary', () => {
   const context = pageContext('/recipes/example', '', topics)
-  const attribution = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'recipes_top10', utm_content: 'ad_v1', utm_term: 'voice AI 中文', landing_path: '/' }
+  const attribution = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'recipes_top10', utm_content: 'ad_v1', utm_term: 'voice AI \u4e2d\u6587', landing_path: '/' }
   for (const event of ['campaign_entry', '$pageview', 'material_open', 'video_play', 'content_copy', 'share_action', 'catalog_action', 'topic_action_open', 'contribution_open']) {
     const properties = posthogProperties(context, event, { action: 'demo', ...attribution })
     const result = sanitizePosthogEvent({ event, properties: { ...properties, $current_url: 'https://recipes.agora.io/recipes/example?utm_source=wrong&q=private#secret', $initial_utm_source: 'stale' } })

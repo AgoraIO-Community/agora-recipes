@@ -20,7 +20,7 @@ function fixture(initial = {}) {
 }
 
 test('bounded values preserve real campaign names and multilingual keywords without inventing a source', () => {
-  assert.deepEqual(readUtm(new URLSearchParams('utm_source=google&utm_term=voice+AI+中文')), { utm_source: 'google', utm_term: 'voice AI 中文' })
+  assert.deepEqual(readUtm(new URLSearchParams('utm_source=google&utm_term=voice+AI+\u4e2d\u6587')), { utm_source: 'google', utm_term: 'voice AI \u4e2d\u6587' })
   for (const source of ['X', 'bad-source', 'name@example.com', 'a'.repeat(101), 'x\n']) assert.equal(readUtm(new URLSearchParams({ utm_source: source })), undefined)
   assert.equal(readUtm(new URLSearchParams('utm_campaign=recipes_top10')), undefined)
   assert.equal(readUtm(new URLSearchParams('utm_source=x&utm_source=google')), undefined)
@@ -135,10 +135,10 @@ test('Vercel URLs keep only valid explicit UTM and discard credentials, unrelate
 
 test('designated HTTPS destinations replace all target UTM, preserve functional queries, and never receive landing_path', () => {
   const target = 'https://demo.example/start?token=public&room=42&utm_source=recipes&utm_medium=referral#start'
-  const result = new URL(attributedDestination(target, { utm_source: 'google', utm_term: 'voice AI 中文', landing_path: '/' }))
+  const result = new URL(attributedDestination(target, { utm_source: 'google', utm_term: 'voice AI \u4e2d\u6587', landing_path: '/' }))
   assert.equal(result.searchParams.get('utm_source'), 'google')
   assert.equal(result.searchParams.get('utm_medium'), null)
-  assert.equal(result.searchParams.get('utm_term'), 'voice AI 中文')
+  assert.equal(result.searchParams.get('utm_term'), 'voice AI \u4e2d\u6587')
   assert.equal(result.searchParams.get('room'), '42')
   assert.equal(result.searchParams.get('landing_path'), null)
   assert.equal(result.hash, '#start')

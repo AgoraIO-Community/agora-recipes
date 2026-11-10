@@ -1,204 +1,205 @@
-# Recipes UTM 归因设计
+# Recipes UTM Attribution Design
 
-日期：2026-11-09  
-状态：本地实现已完成；生产采集与跨站协作尚待实际验证。
+Date: 2026-11-09
 
-## 1. 目标与范围
+Status: Local implementation is complete. Production collection and cross-site integration still require verification.
 
-在现有埋点上补充 UTM，让我们知道推广渠道带来了哪些 Recipes 访问，以及后续 Demo 点击、视频播放、复制和投稿意图。
+## 1. Goals and scope
 
-每次入口和行为分别记录，历史不覆盖。访客数按匿名身份去重，渠道效果按事件携带的来源统计。
+Add UTM attribution to existing analytics so we can identify which promotional channels bring visitors to Recipes and which Demo opens, video plays, copies, and contribution-intent actions follow.
 
-本期不建设跨设备身份系统、多触点分摊或新的统计后端；不将点击 Demo、打开 Console 或投稿入口解释为体验完成、注册成功或投稿成功。
+Record each entry and action separately, without overwriting historical events. Deduplicate visitors by anonymous identity and measure channel outcomes using the source attached to each event.
 
-第一期直接在事件上记录 UTM，不强制新增 `attribution_entry_id` 或 `journey_id`。跨站访客身份统一属于各站协作前提，不扩大为 Recipes 本期必须完成的工作。
+This phase does not introduce cross-device identity, multi-touch allocation, or a reporting backend. Opening a Demo, Console, or contribution entry point does not establish completed use, successful registration, or a successful submission.
 
-## 2. 已核对的现状
+Phase one records UTM directly on events. Neither `attribution_entry_id` nor `journey_id` is required. Shared visitor identity across sites is an integration prerequisite, not an additional deliverable for Recipes in this phase.
 
-当前本地 staging 的代码包含：
+## 2. Baseline before implementation
 
-| 事件 | 现有用途 |
+The local `staging` code reviewed for the original design included these events:
+
+| Event | Existing purpose |
 | --- | --- |
-| `$pageview` | PostHog 页面访问；按 pathname 导航发送，筛选变化不新增 PV |
-| `catalog_action` | 搜索、筛选、排序、加载更多等 |
-| `material_open` | 打开 Demo、源码、原始视频 |
-| `video_play` | 视频实际开始播放 |
-| `content_copy` | 成功复制 Prompt、指南、CLI 命令、代码 |
-| `share_action` | 复制分享链接或打开分享入口 |
-| `topic_action_open` | Topic 参与、提问、回放、来源链接 |
-| `contribution_open` | GitHub 表单、Issue 草稿和 PR 指引 |
+| `$pageview` | PostHog page views on pathname navigation; filter changes do not add a view |
+| `catalog_action` | Search, filter, sort, load more, and related actions |
+| `material_open` | Open a Demo, source repository, or original video |
+| `video_play` | Video playback actually starts |
+| `content_copy` | Successfully copy a prompt, guide, CLI command, or code |
+| `share_action` | Copy a share link or open a sharing destination |
+| `topic_action_open` | Open Topic participation, questions, replay, or source links |
+| `contribution_open` | Open a GitHub form, Issue draft, or PR instructions |
 
-现有主动行为通过同一分发入口发送给 PostHog 与 Vercel Analytics；Vercel 页面访问由其页面采集组件处理。
+Existing deliberate actions use one dispatcher for PostHog and Vercel Analytics. Vercel page views are handled by its page-collection component.
 
-当前事件字段没有 UTM；上报 URL 会删除 query 和 hash，PostHog 最终白名单也不保留 UTM。尚无推广入口识别、归因保存或跨站传递能力。本次代码核对不能证明线上数据已经正常入库。
+Before this implementation, event fields did not include UTM, reported URLs removed query strings and fragments, and the final PostHog allowlist discarded UTM. Promotion-entry detection, attribution persistence, and cross-site forwarding were absent. That code review did not establish production ingestion. The implemented behavior and verification procedure are documented in [analytics.md](analytics.md).
 
-## 3. 沿用现有推广定义
+## 3. Existing campaign conventions
 
-来源：[Top 10 发布与推广文档](https://rcnxnwjad4la.feishu.cn/wiki/GHPZwa9LoiJIg0kfrHkcWdC9n4e)，本次读取 UTM 相关章节，文档 revision 494。
+Reference: [Top 10 launch and promotion plan](https://rcnxnwjad4la.feishu.cn/wiki/GHPZwa9LoiJIg0kfrHkcWdC9n4e). The original design cited the UTM sections of revision 494.
 
-本轮统一 `utm_campaign=recipes_top10`。这是一轮活动的命名约定，不应将 Recipes 采集能力锁死到该活动。
+This launch uses `utm_campaign=recipes_top10`. This is a campaign naming convention; the Recipes implementation must support other campaign values.
 
-| 来源平台 | utm_source | utm_medium |
+| Source platform | utm_source | utm_medium |
 | --- | --- | --- |
 | GitHub | `github` | `referral` |
-| 官网 Blog | `agora_blog` | `referral` |
+| Agora website Blog | `agora_blog` | `referral` |
 | Discord | `discord` | `social` |
 | Reddit | `reddit` | `social` |
 | X | `x` | `social` |
 | YouTube | `youtube` | `video` |
-| 邮件 | `agora_email` | `email` |
-| Google 搜索广告 | `google` | `cpc` |
+| Email | `agora_email` | `email` |
+| Google search ads | `google` | `cpc` |
 
-- `utm_source`：来源平台。其他推广平台按实际平台填写。
-- `utm_medium`：渠道类型。
-- `utm_campaign`：推广活动。
-- `utm_content`：区分文章、帖子、回复、视频、广告素材、按钮位置及版本，不同素材不要复用。
-- `utm_term`：广告投放关键词，邮件不填写。实际关键词可能包含空格或其他语言文字，不能套用其他字段的下划线命名规则；未替换的 `{keyword}` 不作为真实关键词统计。
+- `utm_source`: The originating platform. Use the actual platform for other promotional channels.
+- `utm_medium`: The channel category.
+- `utm_campaign`: The campaign.
+- `utm_content`: The article, post, reply, video, ad creative, button position, or version. Different materials must use distinct values.
+- `utm_term`: The advertising keyword; omit it for email. Actual keywords may contain spaces and non-English characters, so the underscore naming rule for other fields does not apply. An unresolved `{keyword}` template is not a real keyword.
 
-手工命名的参数使用小写英文、数字和下划线。例如邮件使用 `top10_overview_main_cta_v1`，X 使用 `official_post_01`。接收端保留合法原值，不擅自改名。
+Manually named parameters use lowercase English letters, numbers, and underscores. Examples include `top10_overview_main_cta_v1` for email and `official_post_01` for X. The receiver preserves valid original values without renaming them.
 
-## 4. 来源与位置分别记录
+## 4. Keep source and location separate
 
-| 信息 | 回答的问题 | 示例 |
+| Information | Question answered | Example |
 | --- | --- | --- |
-| 推广来源 | 哪个渠道带来本次进入？ | `google / cpc / recipes_top10` |
-| 进入 Recipes 的位置（可选扩展） | 用户从哪个页面或按钮来到 Recipes？ | 官网 Use Case 的 Try in Recipes 按钮 |
-| 当前操作位置 | 用户在哪里执行了什么操作？ | Recipes 详情页点击 Demo |
+| Promotion source | Which channel brought this entry? | `google / cpc / recipes_top10` |
+| Upstream entry location, an optional extension | Which page or button led to Recipes? | A Try in Recipes button on an Agora Use Case page |
+| Current action location | Where did the visitor perform this action? | Open a Demo on a Recipes detail page |
 
-来源用 UTM 表示。当前页面与按钮位置继续使用已有页面上下文和 `placement`，不混入 UTM。`landing_path` 记录本次推广进入的首个 Recipes 页面路径，后续站内跳转不改变它；它与行为发生时的当前页面路径分别记录。
+UTM represents the promotion source. Existing page context and `placement` continue to describe the current page and button; do not mix these into UTM. `landing_path` records the first Recipes pathname for the current promotional entry and does not change on subsequent internal navigation. Record it separately from the page on which an action occurs.
 
-第一期不要求上游新增 `entry_surface` 或 `entry_point` 参数。只有明确需要精确区分上游入口时，再增加受控的 `entry_point` 标记；如果已能通过关联的上游点击事件查到位置，就不必重复传递。
+Phase one does not require upstream `entry_surface` or `entry_point` parameters. Add a controlled `entry_point` only when precise upstream entry identification is explicitly needed. If an associated upstream click event already provides that location, do not duplicate it in transit.
 
-Referrer 是浏览器提供的引荐信息，可能缺失，也不能可靠区分同一页面的多个按钮；`entry_point` 则需要上游显式配置和传递，同样可能缺失。不能仅凭 UTM 推断经过哪个页面或按钮，没有证据就留空。现有 `topic_slug`、`source_topic_slug` 保持站内 Topic 语义，不改作渠道字段。
+The browser-provided referrer may be absent and cannot reliably distinguish multiple buttons on one page. An `entry_point` requires explicit upstream configuration and forwarding, and may also be absent. UTM alone cannot establish which page or button the visitor passed through; leave unsupported locations empty. Keep the existing internal Topic meanings of `topic_slug` and `source_topic_slug`.
 
-例如 Google 广告 → 官网 Use Case → Recipes 详情 → Demo：四步保留相同的广告 UTM，Recipes 记录落地页面和详情页 Demo 点击位置；经过哪个 Use Case 入口，仅在有明确证据时补充。
+For example, Google ad → Agora Use Case page → Recipes detail → Demo should preserve the same advertising UTM across all four steps. Recipes records its landing page and the detail-page Demo action location. Identify the upstream Use Case entry only when explicit evidence exists.
 
-## 5. 来源保留与切换规则
+## 5. Source retention and replacement
 
-来源按当前 tab 保存，不设置按时间过期的规则。报表的统计时间范围独立选择，不决定来源何时失效。
+Store the source per tab, without time-based expiry. Reporting time ranges are selected independently and do not determine when attribution expires.
 
-| 场景 | 处理方式 |
+| Scenario | Behavior |
 | --- | --- |
-| 首次通过有效 UTM 进入 Recipes | 记录推广落地，保存 UTM 和落地路径 |
-| 当前 tab 内普通站内跳转 | 沿用来源与落地路径，不新增推广落地 |
-| 刷新或隔天继续使用原 tab | 沿用来源与落地路径；实际发生的 PV、点击仍照常记录 |
-| 再次通过推广链接进入，包括相同 UTM | 新增推广落地，更新当前 tab 的来源与落地路径；后续行为直接携带当前 UTM |
-| 新推广来源与旧来源不同 | 同样新增记录，整体替换当前关联，旧事件不修改；不能拼接新旧 UTM 字段 |
-| 全新独立 tab 直接打开无 UTM 地址 | 来源为空，不继承其他 tab 的来源 |
-| 同一 tab 普通打开无 UTM 地址 | 当前保存的来源仍保留；不凭缺少 UTM 就清空 |
-| tab 存储被清除或不可读取 | 无法恢复的来源留空；不得根据访客的历史事件猜测 |
+| First arrival at Recipes with valid UTM | Record a campaign entry and save UTM plus the landing path |
+| Ordinary internal navigation in the current tab | Retain the source and landing path without another campaign entry |
+| Refresh or continue using the original tab on a later day | Retain the source and landing path; record actual views and clicks normally |
+| Arrive through another promotion link, including identical UTM | Record another identifiable campaign entry and update the tab's source and landing path; subsequent actions carry the current UTM directly |
+| A new promotion has a different source | Replace the entire association and record a new entry; do not modify old events or combine old and new UTM fields |
+| Open a URL without UTM in a new independent tab | Leave attribution empty; do not inherit another tab's source |
+| Open a URL without UTM normally in the same tab | Retain the saved source; missing UTM alone does not clear it |
+| Tab storage is cleared or unreadable | Leave unrecoverable attribution empty; do not infer it from the visitor's historical events |
 
-“不新增推广落地”不等于“不记录行为”。重新激活一个未导航的 tab 本身不新增 PV，页面导航、刷新和实际操作按各自事件规则记录。
+Not recording another campaign entry does not mean suppressing actions. Reactivating an unchanged tab does not itself add a page view. Navigation, refresh, and actual actions follow their respective event rules.
 
-### 入口识别的边界
+### Entry-detection limits
 
-不能简单地以“URL 里有 UTM”或“UTM 与上次不同”判断新入口，否则刷新会重复计数，同一推广链接再次进入又可能漏计。
+Neither the presence of UTM in a URL nor a change in UTM values is sufficient to identify a new entry. Those rules would double-count refreshes or miss repeated arrivals through the same promotion link.
 
-实现应结合可取得的导航类型与已处理状态，区分刷新、历史恢复、站内跳转和新的推广导航。相同 URL 的再次外部进入若缺少可识别的导航证据，应承认无法严格区分；本期不以 UTM 组合变化伪装成完整的外部点击次数。
+Use available navigation types and processed state to distinguish refresh, history restoration, internal navigation, and new promotional navigation. If a repeated external arrival at the same URL lacks identifiable navigation evidence, acknowledge that it cannot be distinguished reliably. Changes in UTM combinations must not be presented as a complete external-click count.
 
-由其他页面打开或复制出的新 tab 可能复制浏览器的 sessionStorage。实现必须检查这类情况，不能声称仅使用 sessionStorage 就天然实现 tab 隔离。明确的跨站推广跳转可以携带来源；无证据的新 tab 不自动继承。
+A tab opened from another page or duplicated by the browser may receive a copy of sessionStorage. Account for this explicitly: sessionStorage alone does not establish tab isolation. Explicit cross-site promotional navigation may carry a source; a new tab without that evidence must not automatically inherit one.
 
-不新增业务入口 ID 不影响记录落地次数。入口去重使用导航类型和本 tab 的处理状态，不用访客 ID 或相同 UTM 去重；每次能够识别的新推广落地仍单独记录。
+A business entry ID is not required to count landings. Deduplicate entry processing using navigation type and the tab's processed state, rather than visitor identity or identical UTM. Record each identifiable new campaign entry separately.
 
-## 6. 事件与归因字段
+## 6. Events and attribution fields
 
-保留现有事件名称与触发规则，在已有页面和行为事件上附加来源。新增一个 `campaign_entry` 事件，专门记录 Recipes 推广落地。
+Preserve existing event names and triggers, and attach attribution to existing page and action events. Add `campaign_entry` specifically for promotional landings at Recipes.
 
-| 字段 | 说明 |
+| Field | Meaning |
 | --- | --- |
-| `utm_source` | 来源平台 |
-| `utm_medium` | 渠道类型 |
-| `utm_campaign` | 推广活动 |
-| `utm_content` | 素材或推广按钮标识 |
-| `utm_term` | 实际广告关键词，可选 |
-| `landing_path` | 本次 Recipes 落地路径，不包含 query 或 hash |
+| `utm_source` | Originating platform |
+| `utm_medium` | Channel category |
+| `utm_campaign` | Campaign |
+| `utm_content` | Creative or promotional button identifier |
+| `utm_term` | Actual advertising keyword, optional |
+| `landing_path` | Recipes landing pathname for this entry, without query or fragment |
 
-`entry_point` 是后续可选扩展，不列为本期必采字段。`attribution_entry_id`、`journey_id` 本期不强制新增，也不作为验收前提。
+`entry_point` remains an optional future extension, not a required field in this phase. Neither `attribution_entry_id` nor `journey_id` is required for acceptance.
 
-至少有合法的 `utm_source` 才建立 UTM 归因，其余 UTM 参数可选；不补造缺失值。无 UTM 且本 tab 没有已保存来源时，照常记录 PV 和行为，但不发送 `campaign_entry`，归因字段留空。仅当前页面无 UTM、但本 tab 已有来源时，继续沿用保存的来源。
+Establish UTM attribution only when at least `utm_source` is valid. Other UTM parameters are optional; do not invent missing values. Without UTM or a saved tab source, record page views and actions normally, omit `campaign_entry`, and leave attribution empty. If only the current URL lacks UTM but the tab has a saved source, continue using that source.
 
-首次 PV 发送前完成归因识别，避免首个访问没有 UTM、后续行为才有来源。同一入口只发一次 `campaign_entry`，普通刷新和站内跳转不重复发送。
+Resolve attribution before sending the first page view so that the initial visit has the same source as subsequent actions. Send `campaign_entry` once per identifiable entry, without repeating it on ordinary refreshes or internal navigation.
 
-匿名访客身份沿用各平台原有机制，不新增账户体系。UTM 随各 tab 的事件直接上报，不只依赖同一访客最近一次事件的时间推算，避免邮件 tab 与 X tab 同时使用时归错渠道。
+Retain each platform's existing anonymous visitor identity mechanism; do not introduce accounts. Attach UTM directly to each tab's events instead of inferring source solely from the visitor's most recent entry time. This prevents attribution from switching incorrectly when email and X tabs are used simultaneously.
 
-## 7. 跨站传递
+## 7. Cross-site forwarding
 
-### 保留原始推广来源
+### Preserve the original promotion source
 
-官网 Blog / Use Case → Recipes → 指定 Demo / Console 的连续跳转，应传递原始 UTM，不能在中途改写为官网或 Recipes 来源。
+Continuous navigation from an Agora Blog or Use Case page → Recipes → a designated Demo or Console must preserve the original UTM. Do not replace it midway with the website or Recipes as the source.
 
-只有没有原始推广 UTM 时，官网 Blog 等独立导流入口才使用其预设 UTM。例如用户由 X 推广进入 Blog，再进入 Recipes，保留 X；用户无推广来源地打开 Blog，再点击推广 CTA，可使用文档约定的 `agora_blog`。
+An independent referral entry such as a Blog CTA may use its configured default UTM only when no original promotional UTM exists. For example, X → Blog → Recipes retains X. A visitor who opens the Blog without a promotional source and then uses its promotional CTA may receive the agreed `agora_blog` source.
 
-Recipes 对明确约定的 Demo / Console 目标传递经过校验的 UTM，不向任意源码、分享或第三方链接统一追加参数。若目标链接已有不同的 UTM，连续推广链路优先保留当前原始来源；目标与操作位置在已有行为事件中描述，不要求新增入口位置参数。
+Recipes forwards validated UTM only to designated Demo and Console targets, not to arbitrary source, sharing, or third-party links. If a target already contains different UTM, the current original source takes precedence for the continuous promotional path. Existing action events describe the destination and action location; no additional entry-location parameter is required.
 
-仅有 `utm_source` 而其他字段缺失时，保留该入口真实提供的字段，不能用下游 CTA 默认值补成混合来源。没有有效 UTM 时，不伪造上游渠道。
+If an entry supplies only `utm_source`, retain only its actual fields. Do not fill missing fields from downstream CTA defaults and create a mixed source. Without valid UTM, do not fabricate an upstream channel.
 
-### 跨站能力边界
+### Cross-site integration limits
 
-官网负责将来源传入 Recipes；Recipes 负责记录落地和向指定目标传递；Demo / Console 负责接收并记录目标行为。只改 Recipes，不能保证上下游已经配合。
+The Agora website owns forwarding attribution into Recipes. Recipes owns recording its landing and forwarding attribution to designated targets. Demo and Console destinations own receiving attribution and recording their actions. Recipes changes alone cannot establish upstream or downstream integration.
 
-跨站分析优先使用已统一的 `distinct_id`、事件时间、页面操作与每条事件的 UTM。需要各站确认统计项目、身份配置和实际采集行为支持统一访客身份；UTM 相同本身不能证明是同一个人或同一次推广进入。
+Cross-site analysis should use a shared `distinct_id` where supported, event time, page actions, and each event's UTM. Each site must confirm its analytics project, identity configuration, and collection behavior support a shared visitor identity. Matching UTM alone does not establish the same visitor or the same promotional entry.
 
-第一期不以新增链路 ID 为跨站分析的必需条件。只有业务需要将某个上游点击与某次下游落地精确一一对应、现有身份和事件信息不足时，才考虑额外的链路 ID。
+Phase one does not require a new linking ID for cross-site analysis. Consider one only when the business needs an exact one-to-one association between an upstream click and a downstream landing that existing identity and event information cannot provide.
 
-`$session_id` 交给 PostHog SDK 管理，不自行覆盖，不要求跨站一致，也不作为跨站漏斗的强制关联条件。SDK 会话过期不清除本 tab 保存的 UTM；新 session 仍可带有原来的来源。
+The PostHog SDK owns `$session_id`. Do not override it, require it to match across sites, or make it mandatory for cross-site funnels. SDK session expiry does not clear the tab's saved UTM; a new session may retain the original source.
 
-跨站身份统一是协作前提，不是本期已实现能力；在验证完成前，仅承诺 Recipes 站内的渠道分析和参数传递，不宣称已完成跨站去重或全链路漏斗。
+Shared cross-site identity is an integration prerequisite, not an implemented capability of this phase. Until verified, promise only Recipes channel analysis and parameter forwarding, without claiming cross-site deduplication or a complete cross-site funnel.
 
-## 8. PostHog 与 Vercel 分工
+## 8. PostHog and Vercel responsibilities
 
-| 平台 | 本期改造 | 分析用途 |
+| Platform | Changes in this phase | Analysis purpose |
 | --- | --- | --- |
-| PostHog | `campaign_entry`、`$pageview` 与现有行为携带归因字段；扩展最终白名单 | 主要的渠道到内容使用、投稿意图分析 |
-| Vercel Analytics | `campaign_entry` 与现有自定义事件携带相同归因字段；页面采集 URL 仅允许合法 UTM | 网站流量、推广落地和自定义事件的渠道拆分 |
+| PostHog | Attach attribution to `campaign_entry`, `$pageview`, and existing actions; extend the final allowlist | Primary channel-to-content-use and contribution-intent analysis |
+| Vercel Analytics | Attach the same attribution to `campaign_entry` and existing custom events; permit only valid UTM in collection URLs | Traffic, campaign landings, and channel breakdowns for custom events |
 
-PostHog 的上报 URL 继续清除 query 和 hash，以独立字段接收 UTM，不依赖 SDK 自动归因覆盖业务规则。仍不创建 person profile，不新增 identify。
+PostHog reporting URLs continue to remove query strings and fragments. UTM is carried in separate fields; SDK automatic attribution must not override the business rules. Continue to avoid person profiles and `identify` calls.
 
-Vercel 原生页面流量报表是否识别保留的 UTM，以及项目可用的筛选、属性数量和报表能力，需要实际请求与后台验证。独立归因字段不能被描述为已自动写入 Vercel 原生 PV；需要时使用明确的自定义事件分析。
+Whether Vercel's native traffic reports recognize the retained UTM, and which filters, property limits, and reports the project supports, requires actual request and dashboard verification. Separate attribution fields must not be described as automatically attached to Vercel native page views. Use explicit custom events when needed.
 
-不向 Vercel 注入自建长期访客 ID 来追求与 PostHog 人数一致。两平台各自去重，数据不合并相加；渠道转化以 PostHog 为主要口径。
+Do not inject a custom persistent visitor ID into Vercel to make its visitor counts match PostHog. Each platform deduplicates independently; do not combine or add their counts. Use PostHog as the primary channel-conversion measurement.
 
-## 9. 统计口径
+## 9. Measurement definitions
 
-| 指标 | 定义 |
+| Metric | Definition |
 | --- | --- |
-| Recipes 推广落地次数 | `campaign_entry` 事件数；不是全链路新增获客数 |
-| 页面访问量 | 页面访问事件数；与推广落地次数分别统计 |
-| 独立访客 | 所选统计时间范围内，按平台匿名访客身份去重 |
-| 渠道使用人数 / 次数 | 携带对应 UTM 的 Recipe 使用事件，分别按访客去重 / 按事件计数 |
-| 渠道投稿意图 | 对应 UTM 下的投稿准备或 GitHub 跳转，不等于成功提交 |
+| Recipes campaign landings | Number of `campaign_entry` events; not new customer acquisitions across the full path |
+| Page views | Number of page-view events, measured separately from campaign landings |
+| Unique visitors | Visitors deduplicated by the platform's anonymous identity within the selected reporting range |
+| Channel use visitors / actions | Recipe-use events carrying the corresponding UTM, counted by unique visitor / event respectively |
+| Channel contribution intent | Contribution preparation or GitHub handoffs under the corresponding UTM; not successful submissions |
 
-同一个访客从邮件、X 各进入一次，可以有两次推广落地，但总独立访客可能只有一个。分别按渠道统计时，该访客可以出现在两个渠道中，不能将渠道人数直接相加当作总人数。
+One visitor arriving through email and X may produce two campaign landings but only one overall unique visitor. That visitor may appear in both channel breakdowns; do not add channel visitor counts to obtain the total.
 
-Google 广告 → 官网 → Recipes → Demo 的每一步都记录，但不能将官网落地与 Recipes 落地相加说成两次获客。跨站身份未打通时，分别报告各站数据，不宣称已跨站去重。
+Each step of Google ad → Agora website → Recipes → Demo may be recorded, but a website landing plus a Recipes landing does not establish two acquisitions. Without shared cross-site identity, report each site separately and do not claim cross-site deduplication.
 
-归因分析以每条行为携带的 UTM 为准，不向之前的多个渠道重复分摊。做漏斗时，应限定同一匿名访客、选定的渠道或活动条件、事件顺序和明确的查询时间窗口，不要求入口 ID 或相同 session ID，不能拿互不关联的总数直接相除。
+Attribute each action using its own UTM, without allocating it repeatedly to earlier channels. Funnels must constrain the same anonymous visitor, selected source or campaign, event order, and an explicit query window. Neither an entry ID nor a matching session ID is required. Do not divide unrelated aggregate totals to claim conversion.
 
-没有入口 ID 时，漏斗衡量访客在该渠道或活动条件下的行为转化，不承诺将同一访客、相同 UTM 的多次推广进入与后续动作精确一一配对。精确的单次入口转化属于后续可选扩展。
+Without an entry ID, a funnel measures visitor behavior under the selected channel or campaign conditions. It cannot promise exact pairing of repeated entries and later actions for the same visitor with identical UTM. Exact per-entry conversion is an optional future extension.
 
-## 10. 数据边界与异常处理
+## 10. Data boundaries and failures
 
-- 手工命名字段按约定字符校验，并限制长度；建议每项最多 100 个字符。`utm_term` 单独处理关键词字符，拒绝控制字符、异常长度及未替换模板。
-- 本期仅新增五个 UTM 与必要落地路径，沿用已有页面和操作位置；不保存完整入口 URL、搜索原文、剪贴板正文或其他任意查询参数。
-- 存储不可用时可在当前文档内存中保留来源；刷新后的延续无法保证，不能阻断正常浏览、跳转或复制。
-- 原有生产环境和正式域名限制继续生效，本地、Preview 不进行真实采集。
-- 浏览器拦截和网络失败可能导致漏数，客户端采集不承诺精确恢复每一次外部点击。
+- Validate manually named fields against the agreed character rules and bound their length; the recommended maximum is 100 characters per value. Validate keyword characters separately for `utm_term`, rejecting control characters, excessive length, and unresolved templates.
+- Add only the five UTM fields and necessary landing path, reusing existing page and action context. Do not store the complete entry URL, raw search text, clipboard contents, or arbitrary query parameters.
+- If storage is unavailable, keep attribution in current-document memory where possible. Persistence after refresh is not guaranteed. Do not block browsing, navigation, or copying.
+- Preserve the existing production-environment and canonical-origin restrictions. Local and Preview visits do not perform real collection.
+- Browser blocking and network failures may cause undercounting. Client collection cannot guarantee recovery of every external click.
 
-## 11. 验收标准
+## 11. Acceptance criteria
 
-| 用例 | 预期 |
+| Case | Expected behavior |
 | --- | --- |
-| 邮件 UTM 首次进入 | 首个 PV 和落地事件携带 `agora_email / email` 及正确落地路径 |
-| 进入详情、播放视频、复制指南 | 后续事件携带原来源与落地路径，并记录行为实际发生的页面和位置 |
-| 刷新、历史恢复、隔天继续使用 | 不因时间推移清除来源，不重复发送落地事件 |
-| 再从 X 推广链接进入 | 新增落地记录；该 tab 之后事件归 X，旧事件不变 |
-| 邮件与 X 两个 tab 同时使用 | 每条行为携带所属 tab 的 UTM，不按访客最近一次进入统一覆盖 |
-| 相同推广链接再次进入 | 有新导航证据时新增入口，不因 UTM 相同而直接去重 |
-| 全新无 UTM tab / 复制或脚本打开的 tab | 按是否存在明确来源传递处理，不误继承旧入口 |
-| Google → 官网 → Recipes → 指定目标 | 原始广告 UTM 保留；上游入口位置未配置时，不影响本期 UTM 采集 |
-| PostHog SDK 创建新 session | tab 原有 UTM 保留，不重复新增推广落地 |
-| 非法参数、缺少 source、未替换关键词模板 | 不生成虚假来源或关键词，其他事件正常工作 |
-| tab 存储不可用、采集被拦截 | 用户操作正常，归因不猜测、不阻塞 |
-| 两平台真实生产请求与入库 | 字段合法且一致；验证 Vercel 原生报表能力后再报告生效 |
+| First email UTM arrival | The first page view and campaign entry carry `agora_email / email` and the correct landing path |
+| Navigate to a detail, play video, copy a guide | Subsequent events retain the original source and landing path while recording the actual action page and placement |
+| Refresh, history restoration, or continue using the tab on a later day | No time-based clearing and no duplicate campaign entry |
+| Arrive through an X promotion | Record a new landing; later events in that tab use X while older events remain unchanged |
+| Use email and X tabs simultaneously | Each action carries its own tab's UTM rather than the visitor's globally latest entry |
+| Arrive through the same promotion link again | Record another entry when new navigation evidence exists; do not deduplicate solely by identical UTM |
+| New tab without UTM, duplicated tab, or script-opened tab | Require explicit source-transfer evidence; do not inherit an unsupported entry |
+| Google → Agora website → Recipes → designated target | Preserve the original advertising UTM; missing upstream placement configuration does not block phase-one collection |
+| PostHog SDK creates a new session | Retain the tab's UTM without another campaign entry |
+| Invalid parameters, missing source, unresolved keyword template | Do not fabricate a source or keyword; other events continue normally |
+| Unavailable tab storage or blocked collection | User actions remain usable; attribution does not guess or block |
+| Actual production requests and ingestion in both platforms | Fields are valid and consistent; verify Vercel native report support before claiming it works |
 
-交付包括归因实现、针对入口识别与传递的测试、现有 analytics 文档更新，以及 lint / build 验证。线上与跨站验收必须使用实际证据，不能用本地测试代替。
+Deliverables include attribution implementation, tests for entry detection and forwarding, updates to the existing analytics documentation, and lint/build verification. Production and cross-site acceptance require actual evidence; local tests are not substitutes.
