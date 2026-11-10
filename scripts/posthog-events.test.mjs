@@ -5,7 +5,8 @@ import ts from 'typescript'
 
 const source = readFileSync(new URL('../lib/posthog-events.ts', import.meta.url), 'utf8')
   .replace('"./analytics-events"', JSON.stringify(new URL('../lib/analytics-events.ts', import.meta.url).href))
-const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
+const withAttribution = source.replace('"./utm-attribution"', JSON.stringify(new URL('../lib/utm-attribution.ts', import.meta.url).href))
+const compiled = ts.transpileModule(withAttribution, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
 const { pageContext, posthogProperties, sanitizePosthogEvent } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 const topics = ['topic-a', 'topic-b']
 const fromA = `returnTo=${encodeURIComponent('/zh-Hans/topics/topic-a?q=private#recipes')}`
@@ -72,4 +73,27 @@ test('SDK boundary preserves required anonymous transport fields and removes pro
   assert.equal(result.properties.$current_url, 'https://recipes.agora.io/contribute')
   assert.doesNotMatch(JSON.stringify(result), /private|secret|email|clipboard/)
   for (const event of ['$autocapture', '$snapshot', '$exception', 'submission_success']) assert.equal(sanitizePosthogEvent({ event, properties: {} }), null)
+})
+
+test('campaign entry, first view and all behavior events retain the same validated tab attribution at the SDK boundary', () => {
+  const context = pageContext('/recipes/example', '', topics)
+  const attribution = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'recipes_top10', utm_content: 'ad_v1', utm_term: 'voice AI 中文', landing_path: '/' }
+  for (const event of ['campaign_entry', '$pageview', 'material_open', 'video_play', 'content_copy', 'share_action', 'catalog_action', 'topic_action_open', 'contribution_open']) {
+    const properties = posthogProperties(context, event, { action: 'demo', ...attribution })
+    const result = sanitizePosthogEvent({ event, properties: { ...properties, $current_url: 'https://recipes.agora.io/recipes/example?utm_source=wrong&q=private#secret', $initial_utm_source: 'stale' } })
+    for (const [key, value] of Object.entries(attribution)) assert.equal(result.properties[key], value, `${event}:${key}`)
+    assert.equal(result.properties.$current_url, 'https://recipes.agora.io/recipes/example')
+    assert.equal(result.properties.$initial_utm_source, undefined)
+  }
+})
+
+test('SDK campaign properties without a valid landing association and invalid values do not leak', () => {
+  for (const properties of [
+    { utm_source: 'google' }, { utm_source: 'Bad', landing_path: '/' },
+    { utm_source: 'google', landing_path: '/?secret=1' },
+  ]) assert.equal(sanitizePosthogEvent({ event: '$pageview', properties }).properties.utm_source, undefined)
+  const result = sanitizePosthogEvent({ event: 'campaign_entry', properties: { utm_source: 'google', utm_medium: 'Bad', utm_term: '{keyword}', landing_path: '/' } })
+  assert.equal(result.properties.utm_source, 'google')
+  assert.equal(result.properties.utm_medium, undefined)
+  assert.equal(result.properties.utm_term, undefined)
 })

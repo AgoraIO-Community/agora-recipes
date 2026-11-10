@@ -1,4 +1,5 @@
 import { analyticsUrl, eventActions, type AnalyticsEvent } from "./analytics-events"
+import { sanitizeAttribution } from "./utm-attribution"
 
 export type PageContext = {
   locale: string
@@ -42,7 +43,7 @@ const useKinds: Record<string, string> = {
 
 const applicationProperties = { app: "recipes", site: "agora-recipes", environment: "production" } as const
 
-export function posthogProperties(context: PageContext, name: AnalyticsEvent | "$pageview", properties: Record<string, string | number> = {}) {
+export function posthogProperties(context: PageContext, name: AnalyticsEvent | "$pageview" | "campaign_entry", properties: Record<string, string | number> = {}) {
   const combined = { ...context, ...properties }
   const use = combined.content_slug && useKinds[`${name}:${properties.action}`]
   const engagement = Boolean(combined.source_topic_slug && (use || name === "topic_action_open" || name === "contribution_open" || (name === "content_copy" && context.page_type === "contribute" && properties.action === "prompt")))
@@ -57,10 +58,12 @@ const allowedProperties = new Set([
   "app", "site", "environment", "measurement_version", "locale", "page_type", "content_slug", "topic_slug", "source_topic_slug", "action", "placement", "result_count", "is_recipe_use", "recipe_use_kind", "is_topic_engagement",
 ])
 export function sanitizePosthogEvent<T extends { event: string; properties: Record<string, unknown> }>(event: T): T | null {
-  if (event.event !== "$pageview" && !Object.hasOwn(eventActions, event.event)) return null
+  if (event.event !== "$pageview" && event.event !== "campaign_entry" && !Object.hasOwn(eventActions, event.event)) return null
   const properties = Object.fromEntries(Object.entries(event.properties).filter(([key]) => allowedProperties.has(key)))
   if (typeof properties.$current_url === "string") properties.$current_url = analyticsUrl(properties.$current_url)
   // Enforce the shared-project dimensions at the final SDK boundary as well:
   // callers and persisted super-properties cannot relabel Recipes events.
-  return { ...event, properties: { ...properties, ...applicationProperties } }
+  // SDK-persisted UTM must never fill missing fields of the current tab.
+  const attribution = sanitizeAttribution(event.properties)
+  return { ...event, properties: { ...properties, ...attribution, ...applicationProperties } }
 }

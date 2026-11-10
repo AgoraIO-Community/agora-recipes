@@ -6,9 +6,11 @@ import ts from 'typescript'
 const analyticsModule = new URL('../lib/analytics-events.ts', import.meta.url).href
 const compile = source => ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
 const moduleUrl = source => `data:text/javascript;base64,${Buffer.from(source).toString('base64')}`
-const eventsModule = moduleUrl(compile(readFileSync(new URL('../lib/posthog-events.ts', import.meta.url), 'utf8').replace('"./analytics-events"', JSON.stringify(analyticsModule))))
+const attributionModule = new URL('../lib/utm-attribution.ts', import.meta.url).href
+const eventsModule = moduleUrl(compile(readFileSync(new URL('../lib/posthog-events.ts', import.meta.url), 'utf8').replace('"./analytics-events"', JSON.stringify(analyticsModule)).replace('"./utm-attribution"', JSON.stringify(attributionModule))))
 const clientSource = readFileSync(new URL('../lib/posthog-client.ts', import.meta.url), 'utf8')
   .replace('"./posthog-events"', JSON.stringify(eventsModule))
+  .replace('"./utm-attribution"', JSON.stringify(attributionModule))
   .replace('"./analytics-events"', JSON.stringify(analyticsModule))
 const clientModule = compile(clientSource).replace('import("posthog-js/dist/module.slim")', 'loadSDK()')
 
@@ -16,11 +18,12 @@ async function fixture(href, token = 'phc_target_project_fixture', host = 'https
   const setup = `
     const window = ${href ? JSON.stringify({ location: { href } }) : 'undefined'};
     const process = { env: ${JSON.stringify({ NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN: token, NEXT_PUBLIC_POSTHOG_HOST: host })} };
-    export const state = { imports: 0, inits: 0, events: [], token: null, options: null };
+    export const state = { imports: 0, inits: 0, events: [], token: null, options: null, unregistered: [] };
     async function loadSDK() {
       state.imports++;
       return { default: {
         init(token, options) { state.inits++; state.token = token; state.options = options; },
+        unregister(key) { state.unregistered.push(key); },
         capture(event, properties) {
           const sanitized = state.options.before_send({ event, properties });
           if (sanitized) state.events.push(sanitized);
@@ -69,4 +72,6 @@ test('production queues first events into one configured project with forced app
   for (const option of ['autocapture', 'capture_pageview', 'capture_pageleave', 'capture_dead_clicks', 'capture_heatmaps', 'capture_performance', 'capture_exceptions']) assert.equal(client.state.options[option], false)
   assert.equal(client.state.options.disable_session_recording, true)
   assert.equal(client.state.options.advanced_disable_flags, true)
+  assert.equal(client.state.options.save_campaign_params, false)
+  assert.deepEqual(client.state.unregistered, ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"])
 })

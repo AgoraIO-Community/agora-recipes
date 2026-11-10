@@ -8,6 +8,7 @@ import { useI18n } from "./locale-provider"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
 import { analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, type AnalyticsEvent, type EventDimensions } from "@/lib/analytics-events"
 import { pageContext, posthogProperties } from "@/lib/posthog-events"
+import { browserAttribution, vercelAnalyticsUrl } from "@/lib/utm-attribution"
 import { capturePosthog } from "@/lib/posthog-client"
 
 const AnalyticsContext = createContext<{ enabled: boolean; productionOrigin: string; topics: readonly string[] }>({ enabled: false, productionOrigin: "", topics: [] })
@@ -25,8 +26,9 @@ export function useAnalytics() {
     const context = pageContext(pathname, search, topics)
     const event = createAnalyticsEvent(name, { ...context, ...dimensions, locale })
     if (!event) return
-    try { track(event.name, event.properties) } catch { /* Analytics cannot block the visitor action. */ }
-    capturePosthog(event.name, { ...posthogProperties(context, event.name, event.properties), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    const properties = { ...event.properties, ...browserAttribution()?.get() }
+    try { track(event.name, properties) } catch { /* Analytics cannot block the visitor action. */ }
+    capturePosthog(event.name, { ...posthogProperties(context, event.name, properties), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
   }, [enabled, productionOrigin, locale, pathname, search, topics])
 }
 
@@ -39,8 +41,23 @@ function PageAnalytics() {
     if (previousPath.current === pathname) return
     previousPath.current = pathname
     const context = pageContext(pathname, window.location.search, topics)
-    capturePosthog("$pageview", { ...posthogProperties(context, "$pageview"), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    const attribution = browserAttribution()
+    const entry = attribution?.takeEntry()
+    if (entry) {
+      try { track("campaign_entry", { ...context, ...entry }) } catch { /* Collection cannot block navigation. */ }
+      capturePosthog("campaign_entry", { ...posthogProperties(context, "campaign_entry", entry), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    }
+    capturePosthog("$pageview", { ...posthogProperties(context, "$pageview", attribution?.get()), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
   }, [pathname, topics, productionOrigin])
+  useEffect(() => {
+    function restored(event: PageTransitionEvent) {
+      if (!event.persisted) return
+      const context = pageContext(window.location.pathname, window.location.search, topics)
+      capturePosthog("$pageview", { ...posthogProperties(context, "$pageview", browserAttribution()?.get()), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    }
+    window.addEventListener("pageshow", restored)
+    return () => window.removeEventListener("pageshow", restored)
+  }, [topics, productionOrigin])
   return null
 }
 
@@ -65,5 +82,5 @@ function LinkAnalytics() {
 }
 export function AnalyticsProvider({ enabled, productionOrigin, topics, children }: { enabled: boolean; productionOrigin: string; topics: readonly string[]; children: ReactNode }) {
   const active = useSyncExternalStore(subscribeToOrigin, () => enabled && analyticsOriginAllowed(window.location.href, productionOrigin), () => false)
-  return <AnalyticsContext.Provider value={{ enabled: active, productionOrigin, topics }}>{children}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
+  return <AnalyticsContext.Provider value={{ enabled: active, productionOrigin, topics }}>{children}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { const url = vercelAnalyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}</AnalyticsContext.Provider>
 }

@@ -1,3 +1,4 @@
+import { AttributionLink } from "@/components/attribution-link"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { socialMetadata } from "@/lib/social"
 import { absoluteUrl } from "@/lib/site"
@@ -108,7 +109,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <div className="detail-actions detail-actions--recipe">
               {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
-                {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+                {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></AttributionLink></IconButton>}
                 {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
               </ButtonGroup>
               <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} />

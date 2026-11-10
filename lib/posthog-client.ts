@@ -1,6 +1,7 @@
 "use client"
 
 import { sanitizePosthogEvent } from "./posthog-events"
+import { utmKeys } from "./utm-attribution"
 import { analyticsOriginAllowed } from "./analytics-events"
 
 let client: Promise<typeof import("posthog-js/dist/module.slim").default> | undefined
@@ -28,8 +29,12 @@ export function capturePosthog(event: string, properties: Record<string, unknown
       advanced_disable_flags: true,
       person_profiles: "never",
       save_referrer: false,
+      save_campaign_params: false,
+      custom_campaign_params: [],
       before_send: sanitizePosthogEvent,
     })
+    // Clear campaign super-properties saved by older SDK configurations.
+    for (const key of utmKeys) posthog.unregister(key)
     return posthog
   })
   // Queue the first view/actions during the lazy import. A blocked analytics

@@ -78,6 +78,87 @@ filter/sort/automatic `load_more`; legacy expand/collapse values remain accepted
 `material_open`, `video_play`, `content_copy`, `topic_action_open`, and
 `contribution_open`. Allowed actions are defined in `lib/analytics-events.ts`.
 
+## UTM attribution
+
+Recipes implements the local contract in [UTM attribution design](utm-attribution-design.md).
+`campaign_entry` records an identifiable promotion navigation, independently of
+`$pageview`. Both PostHog events and every deliberate action receive the current
+tab's validated `utm_source`, optional `utm_medium`, `utm_campaign`, `utm_content`,
+`utm_term`, and `landing_path`. Vercel receives `campaign_entry` and the same
+attribution on custom actions. The first PostHog view resolves attribution before
+capture. Entry snapshots are consumed once per document, including React effect
+replays. Existing action triggers and Topic semantics remain unchanged.
+
+A legal `utm_source` is required. Manually named values accept lowercase ASCII
+letters, numbers and underscores, with at most 100 characters. Keywords may
+contain spaces and non-English text, but not control/formatting characters,
+braces/template expressions, angle brackets or more than 100 characters.
+Duplicate parameters are rejected individually. Invalid optional fields are
+omitted; missing fields are never supplied from an earlier source or CTA.
+Only the pathname is stored as `landing_path`, without query or fragment.
+
+The document controller keeps attribution in memory and `sessionStorage` under
+`recipes:utm`, with no time expiry. It uses a random `window.name` Recipes tab
+marker and a document ownership flag: `pagehide` releases the stored snapshot;
+a new document claims it, and `pageshow` reclaims it after BFCache restoration.
+The marker is local browser state, is never an event/visitor/journey ID, and is
+not appended to destinations. A fresh tab has no matching marker. A duplicated
+tab that copies both storage and name cannot claim an active source document's
+snapshot. Thus sessionStorage cloning alone does not establish ownership.
+
+SPA navigation keeps the same controller and landing path. Same-tab full-page
+navigation with ownership evidence also retains them. Reload and history
+navigation do not create campaign entries. A normal document navigation with
+valid UTM creates an entry unless it has both same-tab ownership and a same-origin
+referrer; identical UTM does not suppress a new external entry. New sources replace
+the whole association. A BFCache restore rereads the latest tab source, rather
+than reverting to that older document's source; PostHog records a restored view.
+Simply activating a tab creates neither view nor entry.
+
+Missing lifecycle events, browsers resetting `window.name` across sites,
+unavailable storage, or browser-specific duplication without reliable ownership
+evidence can prevent recovery; the source then stays empty unless the current URL
+explicitly supplies it. Storage failure retains current-document memory without
+blocking navigation/copying. Reload/history navigation alone never replays an entry,
+even without storage. Browsers cannot prove every external click, particularly
+same-URL activation without a new document navigation. These counts are observed
+Recipes landings, not a complete upstream click ledger.
+
+Only the catalog's explicit Demo anchors (covers, grid/list actions, reader and
+player actions) and the footer's Agora Console link use `AttributionLink`.
+The native anchor retains its original classes, ref and handlers, including
+keyboard, middle-click and Copy link address. For HTTPS destinations, current UTM
+replaces the entire target UTM set while preserving other functional query fields
+and fragments. It never forwards `landing_path`. Without current attribution,
+the destination stays unchanged. Source, original-video, sharing, documentation,
+legal and arbitrary third-party links are not decorated. This allows catalog Demo
+distribution pages as well as hosted demos; it does not prove the target records UTM.
+
+PostHog disables automatic campaign persistence and unregisters legacy UTM
+super-properties at SDK initialization. Each capture supplies its own snapshot;
+`before_send` revalidates the six attribution fields and still strips query/hash
+from `$current_url`. The SDK owns `$session_id`: a new SDK session does not clear UTM.
+Vercel's URL sanitizer permits only explicitly present, legal UTM; it strips all
+other query data and fragments. It does not synthesize native Vercel PV properties
+from saved attribution or promise native UTM report support. Use its custom events
+where needed. Both SDKs retain their existing production deployment/origin gates;
+local/preview navigation can verify attribution and links without sending analytics.
+
+Channel funnels should use PostHog anonymous identity, per-event UTM, event order,
+and an explicit reporting window. Do not sum per-channel unique visitors, equate
+Demo opens with completed use, or interpret contribution intent as submission.
+No cross-device identity, person profile, custom session ID, entry ID or reporting
+backend is added. Upstream forwarding, downstream ingestion and cross-site identity
+remain separate integration requirements.
+
+Local verification:
+
+```sh
+node --test scripts/utm-attribution.test.mjs scripts/analytics-events.test.mjs scripts/analytics-provider.test.mjs scripts/posthog-events.test.mjs scripts/posthog-client.test.mjs
+npm run lint
+npm run build
+```
+
 ## Data boundary
 
 Native video `play` events and the official YouTube IFrame API's PLAYING state
@@ -93,6 +174,7 @@ profile is created. The SDK's `before_send` allowlist retains anonymous transpor
 session, browser/OS, and bounded measurement fields. It rejects unrelated automatic
 events and removes profile updates, DOM text, referrers, search strings, arbitrary
 URL query/hash data, clipboard contents, destination URLs, and submission text.
+The only query-field exception is validated UTM in Vercel collection URLs, as above.
 
 Vercel and PostHog share the same deliberate-action dispatcher. Analytics failures
 cannot block navigation or clipboard feedback. Browser blocking can reduce observed
@@ -106,7 +188,7 @@ counts; installed code and environment configuration are not evidence of ingesti
    already-built deployment. Do not change account permissions or billing.
 2. Visit real production pages, including a Topic, its entry, and contribution.
    Make deliberate use actions. Verify `$pageview` and the seven relevant action
-   families in the configured destination; filter by `app=recipes` and
+   families plus `campaign_entry` in the configured destination; filter by `app=recipes` and
    `environment=production`, and inspect bounded context and clean URLs.
 3. Confirm a single pathname navigation produces one view and changing filters
    does not. Successful copying counts once; failed copying and hover previews
@@ -118,7 +200,22 @@ counts; installed code and environment configuration are not evidence of ingesti
    a production build served on localhost and the generated production deployment
    URL. Recheck Vercel collection
    alongside PostHog. Do not mark tracking Issue T5/T9 complete before real ingestion.
-6. Determine actual submissions and publications from GitHub Issues/PRs and release
+6. Enter through an email UTM link; inspect the first PostHog view and one entry,
+   then navigate to a detail, play video and copy a guide. Confirm every event's
+   UTM and original landing path, independent of current URL. Refresh, restore
+   history and continue the tab later: views/actions still occur without another
+   entry. Navigate through an X promotion, then the same X promotion again: each
+   identifiable external navigation creates an entry and subsequent actions carry
+   X only. Check simultaneous mail/X tabs, opener-created and duplicated tabs,
+   direct new tabs, invalid UTM, source-only UTM and blocked storage. Verify only
+   Demo/Console hrefs propagate the validated source, replacing conflicting target
+   UTM. Check a new PostHog session leaves tab attribution intact.
+7. Inspect actual production requests and ingestion in both destinations. Verify
+   Vercel's retained-UTM native reporting and custom-property/report limits in the
+   project's dashboard before describing them as supported. Obtain separate
+   evidence for upstream forwarding, target ingestion and shared anonymous identity;
+   local tests cannot establish a cross-site funnel.
+8. Determine actual submissions and publications from GitHub Issues/PRs and release
    links using the contribution SOP. No webhook, reporting database, or synthetic
    submission is needed for this phase.
 
