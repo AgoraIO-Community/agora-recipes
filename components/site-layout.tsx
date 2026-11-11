@@ -11,11 +11,12 @@ import { SiteFooter } from "@/components/site-footer"
 import { siteUrl } from "@/lib/site"
 import { themeInitScript } from "@/lib/theme"
 import { topicNames } from "@/lib/topics"
+import { PrivacyProvider } from "@/components/privacy-provider"
 
 const shouldLoadAnalytics =
   analyticsEnabled(process.env.NODE_ENV, process.env.VERCEL, process.env.VERCEL_ENV)
-if (shouldLoadAnalytics && (!process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN || !process.env.NEXT_PUBLIC_POSTHOG_HOST)) {
-  throw new Error("Production analytics requires NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN and NEXT_PUBLIC_POSTHOG_HOST. Set them in the hosting project before building.")
+if (shouldLoadAnalytics && !process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN) {
+  throw new Error("Production analytics requires NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN. Set it in the hosting project before building.")
 }
 
 const baseMetadata: Metadata = {
@@ -102,6 +103,7 @@ export default function RootLayout({
           {t("Skip to main content")}
         </a>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
+        <PrivacyProvider production={shouldLoadAnalytics} productionOrigin={siteUrl.origin}>
         <AnalyticsProvider enabled={shouldLoadAnalytics} productionOrigin={siteUrl.origin} topics={Object.keys(topics)}>
         <SiteHeader topics={topics} />
         <main id="main-content" className="flex-1">
@@ -109,6 +111,7 @@ export default function RootLayout({
         </main>
         <SiteFooter topics={topics} />
         </AnalyticsProvider>
+        </PrivacyProvider>
         </LocaleProvider>
       </body>
     </html>

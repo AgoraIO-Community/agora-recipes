@@ -484,6 +484,34 @@
     "Pixel-art #VoiceAI poster with a phone, game controller, microphone, and conversation bubbles.": "Pôster em pixel art #VoiceAI com telefone, controle de videogame, microfone e balões de conversa.",
     "Pixel-art #StartHere poster with a laptop, microphone, and speaker.": "Pôster em pixel art #StartHere com notebook, microfone e alto-falante.",
     "iRTE2026 conference artwork with its pixel globe and original October 23–24 date.": "Arte da conferência iRTE2026 com seu globo em pixels e a data original de 23 a 24 de outubro.",
+    "Privacy settings": "Configurações de privacidade",
+    "Privacy choices": "Opções de privacidade",
+    "Your privacy choices": "Suas opções de privacidade",
+    "Privacy settings unavailable": "Configurações de privacidade indisponíveis",
+    "Reject": "Recusar",
+    "Accept": "Aceitar",
+    "Continue browsing": "Continuar navegando",
+    "Optional analytics": "Análise opcional",
+    "Save": "Salvar",
+    "Manage preferences": "Gerenciar preferências",
+    "Retry": "Tentar novamente",
+    "We use optional third-party analytics to understand site usage.": "Usamos análises opcionais de terceiros para entender o uso do site.",
+    "We use optional analytics to measure traffic and how Recipes is used.": "Usamos análise opcional para medir o tráfego e como o Recipes é usado.",
+    "Product analytics preferences may apply across Agora websites.": "As preferências de análise de produto podem valer em outros sites da Agora.",
+    "Optional analytics stays off. Please try again.": "A análise opcional continua desativada. Tente novamente.",
+    "Anonymous statistics": "Estatísticas anônimas",
+    "Always on": "Sempre ativas",
+    "Anonymous usage statistics remain enabled.": "As estatísticas anônimas de uso continuam ativas.",
+    "Counts page views and common searches without identifying visitors.": "Conta visualizações de página e buscas frequentes sem identificar visitantes.",
+    "Product analytics": "Análise de produto",
+    "Measures searches, filters, and recipe interactions.": "Mede buscas, filtros e interações com as receitas.",
+    "Traffic analytics": "Análise de tráfego",
+    "Measures visits and where they come from.": "Mede as visitas e de onde elas vêm.",
+    "Not enabled": "Não ativada",
+    "Managed by Agora": "Gerenciada pela Agora",
+    "Loading…": "Carregando…",
+    "Customize": "Personalizar",
+    "Loading Agora privacy settings…": "Carregando as configurações de privacidade da Agora…",
     "Most popular": "Mais populares",
     "View recipes": "Visualização dos projetos",
     "Card view": "Visualização em cartões",
@@ -939,6 +967,10 @@
     "worldcupvoice": {
       "tagline": "Comentários esportivos com IA.",
       "description": "Um comentarista observa vídeo Agora RTC, descreve a jogada a partir de quadros e devolve voz sintetizada e transcrição sincronizada ao canal."
+    },
+    "trick-or-take": {
+      "tagline": "Roube doces com amigos em um jogo de Halloween de 60 segundos no navegador.",
+      "description": "Dispute em salas de 2 a 6 jogadores para pegar doces sem ser flagrado. O chat de voz opcional da Agora RTC permite conversar enquanto a Agora RTM avisa sobre mudanças na sala. Cloudflare Worker e D1 controlam o estado do jogo e a pontuação."
     }
   }
 }
