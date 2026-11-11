@@ -13,13 +13,13 @@ const compile = file => ts.transpileModule(readFileSync(new URL(file, import.met
 const consentSource = compile('../lib/analytics-consent.ts')
 const clientSource = compile('../lib/ga4-client.ts')
 
-function fixture(measurementId, values = new Map()) {
+function fixture(measurementId, trafficCategory = 'Traffic', categories = ['Performance', 'Traffic']) {
   const tags = []
   const cookies = []
   const cookieJar = new Map([['recipes_ga4_ga', 'traffic'], ['recipes_ga4_ga_TEST123', 'session'], ['_ga', 'other'], ['ph_console', 'console']])
   const window = {
     location: { href: `${origin}/?utm_source=community&utm_term=person%40example.com&q=private&token=secret#section` },
-    localStorage: { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) },
+    localStorage: { getItem: () => { throw new Error('Recipes must not read local consent') }, setItem: () => { throw new Error('Recipes must not write local consent') } },
   }
   const document = {
     referrer: 'https://example.org/private?account=hidden',
@@ -30,15 +30,28 @@ function fixture(measurementId, values = new Map()) {
   }
   function load(source, modules = {}) {
     const exports = {}
-    runInNewContext(source, { exports, window, document, URL, process: { env: { NEXT_PUBLIC_GA4_MEASUREMENT_ID: measurementId } }, require: name => modules[name] })
+    runInNewContext(source, { exports, window, document, URL, process: { env: { NEXT_PUBLIC_GA4_MEASUREMENT_ID: measurementId, NEXT_PUBLIC_SECURITI_GA4_CATEGORY: trafficCategory } }, require: name => modules[name] })
     return exports
   }
   const consent = load(consentSource)
   const client = load(clientSource, { './analytics-consent': consent, './analytics-events': analyticsEvents })
+  const choices = { Performance: 'denied', Traffic: 'denied' }
+  const api = {
+    isConsentGiven: () => true,
+    getCategories: () => categories.map(name => ({ name, base_category: 'Analytics & Customization' })),
+    getConsent: () => ({ category: choices }),
+  }
+  consent.analyticsConsent.useSecuriti(api)
+  consent.ga4Consent?.useSecuriti(api)
+  const choose = (name, enabled) => {
+    choices[name] = enabled ? 'granted' : 'denied'
+    consent.analyticsConsent.refresh()
+    consent.ga4Consent?.refresh()
+  }
   return {
     tags, cookies, window, consent, client,
-    chooseProduct: consent.analyticsConsent.useLocal(),
-    chooseTraffic: consent.ga4Consent?.useLocal(),
+    chooseProduct: enabled => choose('Performance', enabled),
+    chooseTraffic: enabled => choose('Traffic', enabled),
     capture: () => client.captureGa4PageView(origin),
     commands: () => JSON.parse(JSON.stringify((window.recipesGa4DataLayer ?? []).map(args => Array.from(args)))),
   }
@@ -54,19 +67,28 @@ test('missing and invalid GA4 IDs create no traffic choice or script', () => {
   }
 })
 
-test('traffic consent is independent of existing product consent and scoped to the measurement ID', () => {
-  const values = new Map()
-  const original = fixture(undefined, values)
-  original.chooseProduct(true)
-  const app = fixture(id, values)
+test('one CMP keeps the two purposes independent without Recipes consent storage', () => {
+  const app = fixture(id)
+  app.chooseProduct(true)
   assert.equal(app.consent.analyticsConsent.isGranted(), true)
-  assert.equal(app.consent.ga4Consent.getSnapshot(), 'pending')
+  assert.equal(app.consent.ga4Consent.isGranted(), false)
   assert.equal(app.capture(), false)
   app.chooseProduct(false)
   app.chooseTraffic(true)
   assert.equal(app.consent.analyticsConsent.isGranted(), false)
-  assert.equal(fixture(id, values).consent.ga4Consent.isGranted(), true)
-  assert.equal(fixture('G-OTHERID', values).consent.ga4Consent.isGranted(), false)
+  assert.equal(app.consent.ga4Consent.isGranted(), true)
+  app.chooseTraffic(false)
+  assert.equal(app.consent.ga4Consent.isGranted(), false)
+})
+
+test('a measurement ID alone or an overlapping/missing CMP category cannot load GA4', () => {
+  for (const [category, categories] of [[undefined, ['Performance']], ['', ['Performance']], ['Traffic', ['Performance']], ['Performance', ['Performance']]]) {
+    const app = fixture(id, category, categories)
+    app.chooseProduct(true)
+    app.chooseTraffic(true)
+    assert.equal(app.capture(), false)
+    assert.equal(app.tags.length, 0)
+  }
 })
 
 test('a traffic grant loads one tag on the production origin and sends bounded page views', () => {
