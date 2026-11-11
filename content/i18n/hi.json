@@ -525,7 +525,13 @@
     "Requires a GitHub account. Submissions are public.": "GitHub खाता आवश्यक है। सबमिशन सार्वजनिक होते हैं।",
     "Submissions are reviewed before publication. Track yours in its GitHub Issue.": "प्रकाशन से पहले सबमिशन की समीक्षा होती है। प्रगति उसके GitHub Issue में देखें।",
     "Fork the catalog and open a pull request to staging.": "कैटलॉग को फ़ोर्क करें और staging पर पुल रिक्वेस्ट खोलें।",
-    "The video couldn’t load.": "वीडियो लोड नहीं हो सका।"
+    "The video couldn’t load.": "वीडियो लोड नहीं हो सका।",
+    "All projects and recipes": "सभी प्रोजेक्ट और रेसिपी",
+    "Browse every Voice AI and RTC project, with guides and source links.": "सभी Voice AI और RTC प्रोजेक्ट की गाइड और सोर्स कोड देखें।",
+    "Search and filter recipes": "रेसिपी खोजें और फ़िल्टर करें",
+    "Voice AI & RTC Examples and Recipes | Agora": "Voice AI और RTC उदाहरण और रेसिपी | Agora",
+    "Explore open-source Voice AI agents and real-time voice and video projects, with working code, demos, and implementation guides.": "चलने वाले कोड, डेमो और कार्यान्वयन गाइड के साथ ओपन-सोर्स वॉइस AI एजेंट और रीयल-टाइम ऑडियो-वीडियो प्रोजेक्ट देखें।",
+    "Share your Agora project, demo, source code, or implementation guide with the community.": "अपना Agora प्रोजेक्ट, डेमो, सोर्स कोड या कार्यान्वयन गाइड समुदाय के साथ साझा करें।"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -971,6 +977,10 @@
     "trick-or-take": {
       "tagline": "दोस्तों के साथ कैंडी चुराएँ—ब्राउज़र में 60 सेकंड का हैलोवीन गेम।",
       "description": "2–6 खिलाड़ियों के कमरे में पकड़े बिना सबसे ज़्यादा कैंडी इकट्ठा करने की होड़ लगाएँ। वैकल्पिक Agora RTC वॉइस चैट से दोस्त बातचीत कर सकते हैं और Agora RTM कमरे में बदलाव की सूचनाएँ भेजता है। Cloudflare Worker और D1 खेल की स्थिति और स्कोर सँभालते हैं।"
+    },
+    "desktop-pet": {
+      "tagline": "macOS के लिए एक डेस्कटॉप साथी बनाएँ, जिसके साथ आप खेल और बात कर सकते हैं।",
+      "description": "खाना खिलाने के ऐनिमेशन, खिलौने से खेलने और Agora के ज़रिए रीयल-टाइम वॉइस चैट वाला डेस्कटॉप पेट बनाएँ। macOS सेटअप का पालन करें और अपने सेवा खातों से STT, LLM और TTS कॉन्फ़िगर करें।"
     }
   }
 }

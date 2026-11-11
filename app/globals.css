@@ -645,3 +645,14 @@ a.recipe-author:hover { color: var(--foreground); }
 @media (max-width: 640px) {
   .privacy-banner p { flex-basis: 100%; }
 }
+
+/* Complete server-rendered catalog, sharing the reader shell and solid surfaces. */
+.recipe-directory { padding-block: 32px 56px; }
+.recipe-directory__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; list-style: none; padding: 0; margin: 0; }
+.recipe-directory__list > li { min-width: 0; border-top: 1px solid var(--border); }
+.recipe-directory__link { display: block; padding-block: 20px; }
+.recipe-directory__link h2 { font-size: 18px; line-height: 1.4; overflow-wrap: anywhere; }
+.recipe-directory__link p { margin-top: 8px; color: var(--muted-foreground); font-size: 14px; line-height: 1.6; }
+.recipe-directory__link > span { display: block; margin-top: 8px; color: var(--muted-foreground); font-size: 12px; }
+.recipe-directory__link:is(:hover, :focus-visible) h2 { color: var(--signal-text); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 640px) { .recipe-directory__list { grid-template-columns: minmax(0, 1fr); } }

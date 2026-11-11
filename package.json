@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint . && node scripts/check-control-styles.mjs",
     "recipes:build": "node scripts/build-recipes.mjs",
-    "stars:refresh": "node scripts/update-github-stars.mjs"
+    "stars:refresh": "node scripts/update-github-stars.mjs",
+    "locales:check": "node scripts/check-locale-coverage.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

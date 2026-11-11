@@ -525,7 +525,13 @@
     "Requires a GitHub account. Submissions are public.": "需要 GitHub 帳號，投稿內容公開。",
     "Submissions are reviewed before publication. Track yours in its GitHub Issue.": "投稿經審核後發布，進度可在對應的 GitHub Issue 中查看。",
     "Fork the catalog and open a pull request to staging.": "Fork 本儲存庫，向 staging 提交 PR。",
-    "The video couldn’t load.": "影片載入失敗。"
+    "The video couldn’t load.": "影片載入失敗。",
+    "All projects and recipes": "所有專案與實作教學",
+    "Browse every Voice AI and RTC project, with guides and source links.": "瀏覽所有 Voice AI 和 RTC 專案，查看教學和原始碼連結。",
+    "Search and filter recipes": "搜尋和篩選實作教學",
+    "Voice AI & RTC Examples and Recipes | Agora": "Voice AI 與 RTC 範例和實作教學 | Agora",
+    "Explore open-source Voice AI agents and real-time voice and video projects, with working code, demos, and implementation guides.": "探索開源 Voice AI 智能體與即時影音專案，取得可執行程式碼、示範和實作教學。",
+    "Share your Agora project, demo, source code, or implementation guide with the community.": "向社群分享你的 Agora 專案、示範、原始碼或實作教學。"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -972,6 +978,10 @@
     "trick-or-take": {
       "tagline": "和朋友一起，在 60 秒萬聖節瀏覽器遊戲中偷偷拿糖。",
       "description": "2–6 名玩家在房間裡比拼偷糖，避免被女主人抓住。可選 Agora RTC 語音聊天讓朋友邊玩邊聊，Agora RTM 傳送房間變更通知，Cloudflare Worker 和 D1 負責統一遊戲狀態與得分。"
+    },
+    "desktop-pet": {
+      "tagline": "建立一個可以互動和對話的 macOS 桌面夥伴。",
+      "description": "建立懸浮桌寵，體驗餵飯動畫、逗貓草互動和 Agora 即時語音對話。按照 macOS 安裝步驟，使用自己的服務帳號設定語音辨識、語言模型和語音合成。"
     }
   }
 }

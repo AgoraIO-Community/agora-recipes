@@ -525,7 +525,13 @@
     "Requires a GitHub account. Submissions are public.": "Requiere una cuenta de GitHub. Los envíos son públicos.",
     "Submissions are reviewed before publication. Track yours in its GitHub Issue.": "Los envíos se revisan antes de publicarse. Sigue el tuyo en su Issue de GitHub.",
     "Fork the catalog and open a pull request to staging.": "Haz un fork del catálogo y abre un pull request hacia staging.",
-    "The video couldn’t load.": "No se pudo cargar el video."
+    "The video couldn’t load.": "No se pudo cargar el video.",
+    "All projects and recipes": "Todos los proyectos y recetas",
+    "Browse every Voice AI and RTC project, with guides and source links.": "Explora todos los proyectos de Voice AI y RTC, con guías y enlaces al código fuente.",
+    "Search and filter recipes": "Buscar y filtrar recetas",
+    "Voice AI & RTC Examples and Recipes | Agora": "Ejemplos y recetas de Voice AI y RTC | Agora",
+    "Explore open-source Voice AI agents and real-time voice and video projects, with working code, demos, and implementation guides.": "Explora agentes de voz de código abierto y proyectos de audio y vídeo en tiempo real, con código funcional, demos y guías.",
+    "Share your Agora project, demo, source code, or implementation guide with the community.": "Comparte con la comunidad tu proyecto de Agora, demo, código fuente o guía de implementación."
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -971,6 +977,10 @@
     "trick-or-take": {
       "tagline": "Roba caramelos con amigos en un juego de Halloween de 60 segundos para el navegador.",
       "description": "Compite en salas de 2 a 6 jugadores para recoger caramelos sin que te atrapen. El chat de voz opcional de Agora RTC permite hablar mientras Agora RTM avisa de los cambios en la sala. Cloudflare Worker y D1 gestionan el estado del juego y la puntuación."
+    },
+    "desktop-pet": {
+      "tagline": "Crea una mascota de escritorio para macOS con la que puedes jugar y conversar.",
+      "description": "Crea una mascota flotante con animaciones de alimentación, un juguete arrastrable y chat de voz en tiempo real con Agora. Sigue la configuración para macOS y utiliza tus cuentas para configurar STT, LLM y TTS."
     }
   }
 }

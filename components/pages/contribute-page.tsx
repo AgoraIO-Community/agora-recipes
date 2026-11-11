@@ -1,3 +1,7 @@
+import { StructuredData } from "@/components/structured-data"
+import { breadcrumbSchema } from "@/lib/structured-data"
+import { siteUrl } from "@/lib/site"
+import { pageAlternates } from "@/lib/seo"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { absoluteUrl } from "@/lib/site"
 import { GitHubFormLink } from "@/components/github-form-link"
@@ -8,11 +12,11 @@ import type { Metadata } from "next"
 import { GitPullRequest } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getT } from "@/lib/i18n"
-import { locales, localePath, type Locale } from "@/lib/locales"
+import { localePath, type Locale } from "@/lib/locales"
 
 export async function generateMetadata({ params }: { params: Promise<{ locale?: Locale }> }): Promise<Metadata> {
   const { locale = "en" } = await params
-  return { title: getT(locale)("Share your Agora project"), alternates: { canonical: localePath("/contribute", locale), languages: Object.fromEntries(locales.map(value => [value, localePath("/contribute", value)])) } }
+  return { title: getT(locale)("Share your Agora project"), description: getT(locale)("Share your Agora project, demo, source code, or implementation guide with the community."), alternates: pageAlternates("/contribute", locale) }
 }
 export default async function ContributePage({ params }: { params: Promise<{ locale?: Locale }> }) {
   const { locale = "en" } = await params
@@ -20,6 +24,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
   const topics = topicNames(locale)
   const completedTopics = getAllTopics().filter(topic => topicStatus(topic) === "Completed").map(topic => topic.slug)
   return <article className="recipe-detail contribute-page">
+    <StructuredData value={breadcrumbSchema(siteUrl.href, [{ name: t("Recipes"), path: localePath("/", locale) }, { name: t("Share your Agora project"), path: localePath("/contribute", locale) }])} />
     <header className="detail-hero"><div className="shell"><RecipeBackLink topics={topics} /><h1 className="hero-title">{t("Share your Agora project")}</h1></div></header>
     <div className="shell contribute-content">
       <div className="contribute-workspace">

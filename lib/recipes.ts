@@ -23,6 +23,7 @@ type GeneratedRecipeArtifact = {
   schemaVersion: number
   slug: string
   generatedAt: string
+  contentUpdatedAt?: string
   source: {
     mainRepoUrl: string
     recipeUrl: string
@@ -66,6 +67,7 @@ export type RecipeCLIConfig = {
 export type CatalogEntry = RecipeMeta & {
   slug: string
   generatedAt?: string
+  contentUpdatedAt?: string
   recipeDocument: RecipeDocument
   documentLanguages?: DocumentLanguages
   primaryPrompt: string
@@ -324,6 +326,7 @@ function loadRecipesFromDisk(): CatalogEntry[] {
     return {
       slug,
       generatedAt: generated?.generatedAt,
+      contentUpdatedAt: generated?.contentUpdatedAt,
       recipeDocument,
       ...(generated?.documentLanguages ? { documentLanguages: generated.documentLanguages } : {}),
       primaryPrompt:
@@ -334,6 +337,10 @@ function loadRecipesFromDisk(): CatalogEntry[] {
 
   recipes.sort((a, b) => (a.updated < b.updated ? 1 : -1))
   return recipes
+}
+
+export function getEntryModified(entry: CatalogEntry): string {
+  return entry.contentUpdatedAt && Date.parse(entry.contentUpdatedAt) > Date.parse(entry.updated) ? entry.contentUpdatedAt : entry.updated
 }
 
 export function getAllEntries(): CatalogEntry[] {
