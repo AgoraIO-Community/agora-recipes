@@ -4,7 +4,7 @@ import { useI18n } from "@/components/locale-provider"
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { BookOpen, Play } from "lucide-react"
+import { ImageIcon, Play } from "lucide-react"
 import { DialogTrigger } from "@/components/ui/dialog"
 import { RecipeVideoDialog } from "@/components/recipe-video-dialog"
 import { RecipeAuthor } from "@/components/recipe-author"
@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { IconButton } from "@/components/ui/icon-button"
 import { ButtonGroup } from "@/components/ui/button-group"
+import { EmptyMedia } from "@/components/ui/empty"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 import { localePath } from "@/lib/locales"
 import { cn } from "@/lib/utils"
@@ -76,15 +77,14 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
       void player.play().catch(() => { if (hovered.current && video.current === player) stopPreview() })
     }, 2000)
   }
-  if (!media) return null
-  const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media.thumbnailScale ?? 1, "--thumbnail-origin": media.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
-    {!imageFailed && media.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
+  const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media?.thumbnailScale ?? 1, "--thumbnail-origin": media?.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
+    {!imageFailed && media?.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <EmptyMedia variant="cover" aria-hidden="true"><ImageIcon /></EmptyMedia>}
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
-    {media.videoUrl && <Badge className="recipe-cover__label ag-overlay">{media.videoDuration || t("Video")}</Badge>}
+    {media?.videoUrl && <Badge className="recipe-cover__label ag-overlay">{media.videoDuration || t("Video")}</Badge>}
   </div>
   return <div className="recipe-cover-frame" onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>
     {recipe.demoUrl ? <a href={recipe.demoUrl} className="recipe-cover-link" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</a> : <Link prefetch={false} href={href} className="recipe-cover-link" aria-label={t("Open {title} recipe", { title })}>{cover}</Link>}
-    {media.videoUrl && <DialogTrigger asChild><button type="button" className="recipe-cover__play" aria-label={t("Watch {title} demo", { title })}><span className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></span></button></DialogTrigger>}
+    {media?.videoUrl && <DialogTrigger asChild><button type="button" className="recipe-cover__play" aria-label={t("Watch {title} demo", { title })}><span className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></span></button></DialogTrigger>}
   </div>
 }
 
@@ -115,7 +115,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
 
   return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className={cn("showcase-card", !featured && "showcase-card--directory")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
-      {media && <RecipeCover recipe={recipe} title={title} href={href} />}
+      <RecipeCover recipe={recipe} title={title} href={href} />
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details" aria-label={t("Open {title} recipe", { title })}>
           <h3><span>{title}</span></h3>

@@ -1,34 +1,30 @@
 export type ConsentChoice = "pending" | "granted" | "denied"
-export const consentStorageKey = "recipes:analytics-consent:v1"
-const choiceLifetime = 180 * 24 * 60 * 60 * 1000
 
 export type SecuritiConsentApi = {
   isConsentGiven(): boolean
   getConsent(): { category?: Record<string, string> } | null
   getCategories(): { name: string; base_category: string }[]
   showPreferenceCenter(): void
+  showBanner(): void
 }
 
-export function securitiAnalyticsChoice(api: SecuritiConsentApi): ConsentChoice {
+// Both purposes read the same managed record. Recipes never writes a second
+// consent record or treats an SDK's default state as an explicit decision.
+export function securitiAnalyticsChoice(api: SecuritiConsentApi, purpose: "product" | "traffic" = "product", trafficCategory?: string): ConsentChoice {
   try {
     if (!api.isConsentGiven()) return "pending"
-    const category = api.getCategories().find(category => category.base_category === "Analytics & Customization")
+    const categories = api.getCategories().filter(category => category.base_category === "Analytics & Customization")
+    const productCategories = categories.filter(category => category.name !== trafficCategory)
+    // An ambiguous or overlapping configuration must not grant either purpose.
+    if (productCategories.length !== 1) return "pending"
+    const category = purpose === "product" ? productCategories[0] : categories.find(category => category.name === trafficCategory)
     if (!category) return "pending"
-    return api.getConsent()?.category?.[category.name] === "granted" ? "granted" : "denied"
+    const choice = api.getConsent()?.category?.[category.name]
+    return choice === "granted" ? "granted" : (choice === "denied" || choice === "declined") ? "denied" : "pending"
   } catch { return "pending" }
 }
 
-export function savedConsentChoice(value: string | null, now: number): ConsentChoice {
-  try {
-    const record = JSON.parse(value ?? "null")
-    if (record?.version !== 1 || typeof record.analytics !== "boolean" || !Number.isFinite(record.updatedAt) || record.updatedAt > now || now - record.updatedAt >= choiceLifetime) return "pending"
-    return record.analytics ? "granted" : "denied"
-  } catch { return "pending" }
-}
-
-// The app and both analytics adapters share this gate. No vendor identity or
-// campaign data is needed to remember a privacy choice.
-export function createConsentStore(storage: () => Pick<Storage, "getItem" | "setItem">, now = Date.now, key = consentStorageKey) {
+export function createConsentStore(readChoice = securitiAnalyticsChoice) {
   let reader = (): ConsentChoice => "pending"
   const listeners = new Set<() => void>()
   const refresh = () => { for (const listener of listeners) listener() }
@@ -38,32 +34,20 @@ export function createConsentStore(storage: () => Pick<Storage, "getItem" | "set
     subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener) } },
     refresh,
     usePending() { reader = () => "pending"; refresh() },
-    useLocal() {
-      let fallback: ConsentChoice = "pending"
-      let memoryOnly = false
-      reader = () => {
-        if (memoryOnly) return fallback
-        try { return savedConsentChoice(storage().getItem(key), now()) } catch { return fallback }
-      }
-      refresh()
-      return (analytics: boolean) => {
-        fallback = analytics ? "granted" : "denied"
-        try { storage().setItem(key, JSON.stringify({ version: 1, analytics, updatedAt: now() })); memoryOnly = false } catch { memoryOnly = true }
-        refresh()
-      }
-    },
-    useSecuriti(api: SecuritiConsentApi) { reader = () => securitiAnalyticsChoice(api); refresh() },
+    useSecuriti(api: SecuritiConsentApi) { reader = () => readChoice(api); refresh() },
   }
 }
 
-export const analyticsConsent = createConsentStore(() => window.localStorage)
+const trafficCategory = process.env.NEXT_PUBLIC_SECURITI_GA4_CATEGORY?.trim()
+export const analyticsConsent = createConsentStore(api => securitiAnalyticsChoice(api, "product", trafficCategory))
 
 const configuredMeasurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID?.trim()
 export const ga4MeasurementId = configuredMeasurementId && /^G-[A-Z0-9]{1,32}$/.test(configuredMeasurementId)
   ? configuredMeasurementId
   : undefined
 
-// A grant for a different destination, or for product analytics, cannot enable GA4.
+// A dedicated category must exist in the managed preference center before GA4
+// can start. An existing product analytics grant cannot authorize a new purpose.
 export const ga4Consent = ga4MeasurementId
-  ? createConsentStore(() => window.localStorage, Date.now, `recipes:ga4-consent:v1:${ga4MeasurementId}`)
+  ? createConsentStore(api => trafficCategory ? securitiAnalyticsChoice(api, "traffic", trafficCategory) : "pending")
   : undefined

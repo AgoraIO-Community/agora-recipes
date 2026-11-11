@@ -328,17 +328,26 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 
 ## Privacy choices
 
-Keep the attached privacy bar concise, with one purpose sentence and explicit
-Reject / Accept / Customize labels. Reject and Accept are separate shared outline
-Buttons with equal widths and an 8px gap; these choices retain text and full corners.
-Keep the three actions together where they fit and put policy links in the
-preferences dialog. Use shared Dialog Header / Body / Footer slots and Checkbox
-choices. Body is the only opaque scroller. Dialogs keep 16px viewport gutters,
-and phone/coarse-pointer actions keep 46px targets. Give each purpose its own
-row and a short description. Show anonymous statistics as Always on and each
-available optional purpose as a separate default-off choice. An unavailable
-purpose has a clear status and a disabled control. Dismissing preferences never
-grants consent.
+Agora/Securiti owns the initial notice, the only preference center, and all
+optional analytics decisions. The footer opens that center directly. Do not add
+a Recipes preference editor, local consent storage, or a second banner in
+unconfigured development environments. Product and traffic analytics use
+separate managed categories. Basic anonymous statistics remain always on and
+are disclosed in the footer; no optional choice controls them.
+
+Adapt the SDK's actual notice with the shared managed-consent adapter. Keep its
+full corporate copy, policy and opt-out links, action handlers and dismissal
+behavior. Use an opaque attached bottom bar, system theme and Recipes typography.
+Accept and Reject have equal widths, separate outlines, full corners and an 8px
+gap. Keep the choices and close action on one center line; place the managed
+preferences link with the notice copy on desktop. Preserve the SDK’s keyboard
+order and original action nodes. Controls are 32px on desktop and at least 46px on phones/coarse pointers.
+Long labels wrap without horizontal clipping; short viewports scroll the notice
+copy while actions remain reachable. The SDK's preference center is the sole
+place to edit choices. Its close action stays in the title row, centered beside
+the title with the shared 32/46px target and 16px icon, rather than an absolute offset. Failure can offer retry, never an alternate consent form.
+The design-system reference opens the live managed notice instead of rendering
+a separate imitation. Verify the same SDK locally on product routes.
 
 ## Interface copy
 
@@ -378,12 +387,16 @@ and 16px down. A charcoal tile contains an inset real preview, title, concise
 outcome, author, and one meaningful platform or capability label. Gallery crops
 are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
 Directory cards share one layout for title, summary, technology, difficulty,
-author, and available preview actions, with equal heights within each row.
+author, and available preview actions.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
-and three on phones. Cards stretch to the tallest card within their own row,
-with authors aligned at the bottom. Text-only rows keep their natural height;
-do not reserve an empty image plane or shrink real covers into corner thumbnails.
+and three on phones. All cards in a grid share the same height, derived from bounded content rather
+than a fixed pixel height.
+Keep technology and author/action rows anchored at the bottom. Every card keeps
+its cover frame. Missing or failed images use the shared `EmptyMedia` cover
+variant with a centered image glyph; this is a static placeholder, not a loading
+state. Titles and summaries use the same size and placement as media cards.
+Available video playback and Demo links remain independent.
 Bound media and copy rather than clipping a whole card's content or controls.
 
 The title always opens recipe details. The cover opens the live Demo when one
