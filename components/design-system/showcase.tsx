@@ -6,6 +6,7 @@ import { ArrowDownWideNarrow, ChevronDown, Grid2X2, List, Search, SlidersHorizon
 import { RecipeDocument } from "@/components/recipe-document"
 import { RecipeStartActions } from "@/components/recipe-start-actions"
 import { ShareActions } from "@/components/share-actions"
+import { usePrivacySettings } from "@/components/privacy-provider"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { Toolbar, ToolbarActions } from "@/components/ui/toolbar"
 import { CodePanel, CopyTextButton } from "@/components/code-panel"
@@ -36,6 +37,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 /** Live reference for shared primitives; all state is local and disposable. */
 export function DesignSystemShowcase() {
   const mobile = useIsMobile()
+  const openPrivacy = usePrivacySettings()
   const [category, setCategory] = useState("all")
   const [view, setView] = useState("grid")
   const [recovered, setRecovered] = useState(false)
@@ -101,6 +103,13 @@ export function DesignSystemShowcase() {
       <Dialog><DialogTrigger asChild><Button variant="outline">Open dialog</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Review recipe</DialogTitle><DialogDescription>Example dialog. Escape dismisses it and restores trigger focus.</DialogDescription></DialogHeader><DialogBody>A solid reading plane inside the floating frame.</DialogBody><DialogFooter><DialogClose asChild><Button variant="outline">Done</Button></DialogClose></DialogFooter></DialogContent></Dialog>
       <Sheet><SheetTrigger asChild><Button variant="outline"><SlidersHorizontal aria-hidden="true" />Open sheet</Button></SheetTrigger><SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" aria-describedby={undefined}><SheetHeader><SheetTitle>Refine recipes</SheetTitle></SheetHeader><SheetBody className="catalog-filter-sheet__body"><Field orientation="horizontal"><Checkbox id="ds-sheet-option" /><Label htmlFor="ds-sheet-option">Include native mobile applications</Label></Field></SheetBody><SheetFooter><SheetClose asChild><Button>Show results</Button></SheetClose></SheetFooter></SheetContent></Sheet>
     </div></section>
+
+    <section aria-labelledby="ds-managed-privacy"><h2 id="ds-managed-privacy">Managed privacy notice</h2><p>Inspect the actual managed notice, including its full copy, wrapping and system appearance. Choices use the same preference center as every product route.</p>
+      <div className="ds-row"><Button variant="outline" onClick={event => {
+        if (window.SecuritiSDK?.onReady) window.SecuritiSDK.onReady(api => api.showBanner())
+        else openPrivacy(event.currentTarget)
+      }}>Preview managed notice</Button></div>
+    </section>
 
     <section aria-labelledby="ds-feedback"><h2 id="ds-feedback">Content and recovery</h2><div className="ds-columns">
       <Card><CardHeader><CardTitle>Meeting Copilot</CardTitle></CardHeader><CardContent><p>Turn meeting talk into tasks.</p><Separator /><div className="ds-row"><Badge variant="secondary">TypeScript</Badge><Button variant="link" asChild><a href="#ds-controls">Demo</a></Button></div></CardContent></Card>

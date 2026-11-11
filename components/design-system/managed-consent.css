@@ -1,0 +1,63 @@
+/* Adapt the managed notice, preserving the SDK's DOM, copy and consent actions.
+   Important declarations override the SDK's injected and inline presentation.
+   Do not override display/opacity/visibility: the SDK owns dismissal. */
+#page-top .cc-window.f-cc-pref-window {
+  --managed-control-size: var(--control-sm);
+  box-sizing: border-box !important;
+  inset: auto 0 0 !important;
+  z-index: 45 !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px 24px !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 12px var(--managed-consent-gutter, var(--page-gutter)) calc(12px + env(safe-area-inset-bottom)) !important;
+  border: 0 !important;
+  border-top: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--muted-foreground) !important;
+  background: var(--background) !important;
+  font: 400 13px/20px var(--font-sans) !important;
+}
+#page-top .cc-window.f-cc-pref-window .cc-message-container {
+  flex: 1 1 0% !important;
+  min-width: 0;
+  width: auto !important;
+  max-height: min(40dvh, 240px);
+  padding: 0 !important;
+  overflow: auto;
+  scrollbar-color: var(--input) var(--background);
+}
+#page-top .cc-window.f-cc-pref-window .cc-message {
+  display: block;
+  max-width: 75ch;
+  margin: 0 !important;
+  color: inherit !important;
+  font: inherit !important;
+  overflow-wrap: anywhere;
+}
+#page-top .cc-window.f-cc-pref-window .cc-message p { display: inline; margin: 0 !important; font: inherit !important; }
+#page-top .cc-window.f-cc-pref-window .cc-compliance {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) var(--managed-control-size);
+  flex: 0 1 380px !important;
+  align-items: start;
+  gap: 8px !important;
+  min-width: 0;
+  width: auto !important;
+  max-width: 100%;
+  padding: 0 !important;
+}
+#page-top .cc-window.f-cc-pref-window .cc-dismiss { grid-column: 2; grid-row: 1; }
+#page-top .cc-window.f-cc-pref-window .cc-allow { grid-column: 1; grid-row: 1; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link { grid-column: 1 / -1; grid-row: 2; }
+#page-top .cc-window.f-cc-pref-window .cc-close { grid-column: 3; grid-row: 1; }
+@media (max-width: 900px) {
+  #page-top .cc-window.f-cc-pref-window { flex-direction: column !important; align-items: stretch !important; }
+  #page-top .cc-window.f-cc-pref-window .cc-message-container { flex-basis: auto !important; }
+  #page-top .cc-window.f-cc-pref-window .cc-compliance { flex-basis: auto !important; }
+}
+@media (max-width: 640px), (pointer: coarse) {
+  #page-top .cc-window.f-cc-pref-window { --managed-control-size: 46px; }
+}

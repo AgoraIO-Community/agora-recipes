@@ -3,6 +3,7 @@
 @import '../components/design-system/controls.css';
 @import '../components/design-system/glass.css';
 @import '../components/design-system/panels.css';
+@import '../components/design-system/managed-consent.css';
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @font-face { font-family: MiSansLatin; font-style: normal; font-weight: 380; font-display: swap; src: url('/font/MiSansLatin-Medium.woff2') format('woff2'); }
@@ -628,19 +629,10 @@ a.recipe-author:hover { color: var(--foreground); }
 
 /* Privacy choices use an attached reading plane and the shared solid controls. */
 .privacy-banner { position: fixed; inset: auto 0 0; z-index: 45; border-top: 1px solid var(--border); background: var(--background); padding: 8px 0 calc(8px + env(safe-area-inset-bottom)); }
+.privacy-notice-spacer { flex: none; }
 .privacy-banner__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }
 .privacy-banner p { margin: 0; flex: 1 1 320px; max-width: 70ch; color: var(--muted-foreground); font-size: 13px; line-height: 1.5; }
 .privacy-banner__actions { display: flex; flex-wrap: wrap; gap: 8px; max-width: 100%; }
-.privacy-banner__choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.privacy-policy-links { display: inline-flex; gap: 16px; flex-wrap: wrap; }
-.privacy-settings-body { display: grid; gap: 12px; font-size: 13px; line-height: 20px; }
-.privacy-settings-list { display: grid; gap: 4px; }
-.privacy-settings-list > li + li { border-top: 1px solid var(--border); padding-top: 4px; }
-.privacy-setting { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.privacy-setting--static { padding: 6px 8px; }
-.privacy-setting__copy { display: grid; min-width: 0; gap: 2px; overflow-wrap: anywhere; }
-.privacy-setting__copy > :last-child, .privacy-setting__state { color: var(--muted-foreground); }
-.privacy-setting__state { display: flex; flex: none; align-items: center; justify-content: flex-end; gap: 8px; max-width: 44%; text-align: end; overflow-wrap: anywhere; }
 .footer-privacy-note { margin-top: 16px; font-size: 12px; line-height: 1.7; color: var(--muted-foreground); }
 @media (max-width: 640px) {
   .privacy-banner p { flex-basis: 100%; }

@@ -1,5 +1,42 @@
 /* Shared solid controls. Refractive floating surfaces live in glass.css.
    Control geometry stays fixed across hover, focus, and press. */
+/* External CMP controls cannot use our React primitives. This narrow adapter
+   applies the same tokens without replacing the managed action handlers. */
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cmp-pref-link, .cc-close) {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  min-height: var(--managed-control-size) !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  color: var(--foreground) !important;
+  background: var(--basic-fill) !important;
+  font: 400 13px/20px var(--font-sans) !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+#page-top .cc-window.f-cc-pref-window .cc-close { width: var(--managed-control-size) !important; padding: 0 !important; border-color: transparent !important; background: transparent !important; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link { justify-content: flex-start !important; padding-inline: 0 !important; border-color: transparent !important; background: transparent !important; text-align: start !important; }
+#page-top .cc-window.f-cc-pref-window .cc-link { color: var(--foreground) !important; opacity: 1 !important; font: inherit !important; text-underline-offset: 3px; }
+#page-top .cc-window.f-cc-pref-window .cc-message .cc-link { display: inline-block; margin: 0 !important; padding: 0 !important; text-decoration: underline; }
+#page-top .cc-window.f-cc-pref-window :is(.cc-close, .cmp-pref-link) svg { flex: none; width: var(--icon-size); height: var(--icon-size); fill: currentColor !important; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link svg [fill]:not([fill=none]) { fill: currentColor; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link > span { min-width: 0; }
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-link, .cc-close):focus-visible { outline: var(--focus-width) solid var(--ring) !important; outline-offset: var(--focus-offset) !important; }
+@media (hover: hover) and (pointer: fine) {
+  #page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-close):hover { color: var(--control-hover-ink) !important; background: var(--control-hover-fill) !important; border-color: var(--control-hover-edge) !important; }
+  #page-top .cc-window.f-cc-pref-window .cc-link:hover { text-decoration: underline !important; }
+}
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-close):active { background: var(--control-pressed-fill) !important; }
 :root {
   --control-sm: 32px;
   --field-size: var(--control-sm);
