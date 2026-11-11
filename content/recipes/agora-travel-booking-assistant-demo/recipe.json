@@ -1,0 +1,42 @@
+{
+  "title": "Travel Booking Assistant",
+  "tagline": "Plan a Bar Harbor trip and compare fictional hotels by voice.",
+  "description": "Discuss a Bar Harbor or Acadia trip, compare airport options and fictional hotels, then review a simulated booking. No real travel reservations or payments are made.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Travel",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-travel-booking-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-travel-booking-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-travel-booking-assistant-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "/recipes/agora-travel-booking-assistant-demo.png",
+    "thumbnailAlt": "ASCII illustration for Travel Booking Assistant; supplied cover artwork, not a demo screenshot"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

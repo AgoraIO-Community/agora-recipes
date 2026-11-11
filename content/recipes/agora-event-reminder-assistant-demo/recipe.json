@@ -1,0 +1,42 @@
+{
+  "title": "Event Reminder Assistant",
+  "tagline": "Review a fictional webinar and discuss attendance by voice.",
+  "description": "Role-play an event reminder, ask about the schedule and agenda, and revise your attendance intention. This conversation-only demo does not register attendees or send reminders.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Events",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-event-reminder-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-event-reminder-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-event-reminder-assistant-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "/recipes/agora-event-reminder-assistant-demo.png",
+    "thumbnailAlt": "ASCII illustration for Event Reminder Assistant; supplied cover artwork, not a demo screenshot"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "title": "Service Feedback Survey",
+  "tagline": "Share a support experience in an adaptive voice survey.",
+  "description": "Discuss whether an issue was resolved, optionally give a satisfaction rating and review a spoken feedback recap. Responses are not submitted or saved to a survey system.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Customer Feedback",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-service-feedback-survey-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-service-feedback-survey-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-service-feedback-survey-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "/recipes/agora-service-feedback-survey-demo.png",
+    "thumbnailAlt": "ASCII illustration for Service Feedback Survey; supplied cover artwork, not a demo screenshot"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}
