@@ -86,6 +86,7 @@ export function DesignSystemShowcase() {
       <Field><FieldLabel htmlFor="ds-topic">Topic</FieldLabel><DropdownMenu><DropdownMenuTrigger asChild><Button id="ds-topic" variant="field">General catalog submission<ChevronDown data-slot="select-icon" aria-hidden="true" /></Button></DropdownMenuTrigger><DropdownMenuContent><DropdownMenuGroup><DropdownMenuItem>General catalog submission</DropdownMenuItem><DropdownMenuItem>Community projects</DropdownMenuItem></DropdownMenuGroup></DropdownMenuContent></DropdownMenu></Field>
       <Field><FieldLabel htmlFor="ds-topic-disabled">Unavailable picker</FieldLabel><Button id="ds-topic-disabled" variant="field" disabled>Preparing topics<ChevronDown data-slot="select-icon" aria-hidden="true" /></Button></Field>
       <Field orientation="horizontal"><Checkbox id="ds-platform-check" defaultChecked /><Label htmlFor="ds-platform-check">Include TypeScript recipes</Label></Field>
+      <Field><FieldLabel>Optional preferences</FieldLabel><Label className="facet-option" htmlFor="ds-optional-check"><Checkbox id="ds-optional-check" /><span>Include optional usage analytics</span></Label><Label className="facet-option" htmlFor="ds-optional-disabled" data-disabled="true"><Checkbox id="ds-optional-disabled" disabled /><span>Unavailable optional preference</span></Label></Field>
       <Field><FieldLabel htmlFor="ds-notes">Description</FieldLabel><Textarea id="ds-notes" placeholder="Describe what someone can build." /></Field>
     </FieldGroup></section>
 
