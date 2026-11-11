@@ -26,11 +26,14 @@
   "media": {
     "title": "Humming Service Example",
     "summary": "Android and iOS references for Humming service audio workflows. Requires the compatible service SDK and project configuration.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-HummingService-Example/tree/403a530f55385811a9977ee4176d829a582af5a8",
     "labels": [
       "Android",
       "iOS"
     ],
-    "thumbnail": "/recipes/covers/agora-humming-service-example.svg",
-    "thumbnailAlt": "RTC cover artwork for Humming Service Example."
+    "thumbnail": "/recipes/agora-humming-service-example-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of Humming Service Example; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
   }
 }

@@ -10,9 +10,5 @@
   "recipeUrl": "https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/RECIPE.md",
   "author": "Dhiraj Sharma",
   "updated": "2026-10-16",
-  "difficulty": "Advanced",
-  "media": {
-    "thumbnail": "/recipes/covers/filler-free-live.svg",
-    "thumbnailAlt": "Voice AI cover artwork for Filler-Free: Live."
-  }
+  "difficulty": "Advanced"
 }

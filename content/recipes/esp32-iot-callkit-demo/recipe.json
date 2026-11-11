@@ -25,11 +25,13 @@
   "media": {
     "title": "ESP32 IoT CallKit Demo",
     "summary": "An ESP32 IoT CallKit sample for device-side calling flows connected to Agora-powered clients.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo/tree/efdbf2d2b8e2bbc426673dcde120bac49582ef3a",
     "labels": [
       "C"
     ],
-    "thumbnail": "/recipes/covers/esp32-iot-callkit-demo.svg",
-    "thumbnailAlt": "RTC cover artwork with ESP32 typography and layered square frames.",
-    "demoNote": "Requires compatible ESP32 hardware, licensed IoT SDK binaries, and Agora Link provisioning."
+    "thumbnail": "/recipes/esp32-iot-callkit-demo-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of ESP32 IoT CallKit Demo; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. ESP32 hardware, embedded toolchain and device provisioning are unavailable. App not launched."
   }
 }

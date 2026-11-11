@@ -21,16 +21,18 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-rtc-signaling",
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-rtc-signaling/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-10-21",
+  "updated": "2026-11-11",
   "difficulty": "Intermediate",
   "media": {
     "title": "RTC Signaling Sample",
     "summary": "A signaling sample that demonstrates how to coordinate Agora RTC channel state and participant interactions.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-rtc-signaling/tree/56c2af4acead964db9303c5c06c1454707c67801",
     "labels": [
       "JavaScript",
       "Web"
     ],
-    "thumbnail": "/recipes/covers/agora-rtc-signaling.svg",
-    "thumbnailAlt": "RTC cover artwork for RTC Signaling Sample."
+    "thumbnail": "/recipes/agora-rtc-signaling-initial.jpg",
+    "thumbnailAlt": "Original RTC Signaling app before login, with video controls, channel settings, and chat.",
+    "demoNote": "Initial interface. Configure Agora credentials and log in to join a channel."
   }
 }

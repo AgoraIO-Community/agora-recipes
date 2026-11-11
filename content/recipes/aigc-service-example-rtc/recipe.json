@@ -26,11 +26,14 @@
   "media": {
     "title": "AIGC Service Example with RTC",
     "summary": "Native Android and iOS references for integrating AIGC service interactions with RTC media. Requires access to the compatible historical service SDK.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-AIGCService-Example/tree/c8c8606d765f704eacbaf4bec023454b6c54150f",
     "labels": [
       "Android",
       "iOS"
     ],
-    "thumbnail": "/recipes/covers/aigc-service-example-rtc.svg",
-    "thumbnailAlt": "RTC cover artwork for AIGC Service Example with RTC."
+    "thumbnail": "/recipes/aigc-service-example-rtc-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of AIGC Service Example with RTC; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
   }
 }

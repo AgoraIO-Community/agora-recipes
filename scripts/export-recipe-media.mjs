@@ -46,10 +46,8 @@ for (const slug of (await fs.readdir(path.join(root, "content/recipes"))).filter
     catch (error) { if (error.code !== "ENOENT") throw error }
   }
   provenance ??= captureRecords.find(r => r.asset === media.thumbnail) ?? null
-  const catalogCover = media.thumbnail.startsWith("/recipes/covers/")
-  const kind = catalogCover ? "catalog-cover" : provenance?.kind ?? (provenance?.sourceVideo || /author/.test(media.thumbnail) ? "author-demo-frame" : provenance?.captureUrl ? "local-app-screenshot" : "existing-project-media")
-  const notes = media.demoNote ?? (catalogCover ? "Editorial catalog cover artwork." : "Existing project media; not newly verified in this export.")
-  records.push({ slug, title: recipe.title, file, kind, alt: media.thumbnailAlt ?? recipe.title, source: media.thumbnailSource, repository: recipe.mainRepoUrl, recipe: recipe.recipeUrl, notes, sha256: createHash("sha256").update(bytes).digest("hex"), provenance })
+  const kind = provenance?.kind ?? (provenance?.sourceVideo || /author/.test(media.thumbnail) ? "author-demo-frame" : provenance?.captureUrl ? "local-app-screenshot" : "existing-project-media")
+  records.push({ slug, title: recipe.title, file, kind, alt: media.thumbnailAlt ?? recipe.title, source: media.thumbnailSource, repository: recipe.mainRepoUrl, recipe: recipe.recipeUrl, notes: media.demoNote ?? "Existing project media; not newly verified in this export.", sha256: createHash("sha256").update(bytes).digest("hex"), provenance })
 }
 
 await fs.writeFile(path.join(destination, "manifest.json"), `${JSON.stringify({ exportedAt: new Date().toISOString(), count: records.length, records }, null, 2)}\n`)

@@ -26,11 +26,14 @@
   "media": {
     "title": "Cloud Gaming RTC Example",
     "summary": "Native mobile references for starting a cloud game, receiving its RTC video and sending control input. Requires cloud-gaming service access.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example/tree/7fb7cd03d73b872a5696d2b5bc09bf9c8ac3128f",
     "labels": [
       "Android",
       "iOS"
     ],
-    "thumbnail": "/recipes/covers/cloud-gaming-rtc-example.svg",
-    "thumbnailAlt": "RTC cover artwork for Cloud Gaming RTC Example."
+    "thumbnail": "/recipes/cloud-gaming-rtc-example-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of Cloud Gaming RTC Example; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
   }
 }

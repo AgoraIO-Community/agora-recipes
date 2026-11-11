@@ -365,17 +365,16 @@ outcome, author, and one meaningful platform or capability label. Gallery crops
 are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
 Directory cards share one layout for title, summary, technology, difficulty,
 author, and available preview actions, with equal heights within each row.
+Prefer author screenshots and demo frames that show the actual project. Preserve
+the original screenshot colors across themes; the surrounding card follows the
+system appearance. Use `thumbnailOrigin` to keep the relevant interface content
+visible in a cover crop. Record missing project media for individual follow-up.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
 and three on phones. Cards stretch to the tallest card within their own row,
 with authors aligned at the bottom. Text-only rows keep their natural height;
 do not reserve an empty image plane or shrink real covers into corner thumbnails.
 Bound media and copy rather than clipping a whole card's content or controls.
-
-For entries without project media, use editorial covers with a readable technology
-label and a category motif. Voice AI uses layered curves; RTC uses layered frames.
-Keep the same composition across appearances and tune the palette to the system
-theme. Keep the recipe title and actions in the card body.
 
 The title always opens recipe details. The cover opens the live Demo when one
 exists, and otherwise opens details. A separate centred play control

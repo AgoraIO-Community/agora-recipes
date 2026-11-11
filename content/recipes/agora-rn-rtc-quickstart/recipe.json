@@ -14,11 +14,14 @@
   "media": {
     "title": "React Native RTC Quickstart",
     "summary": "A React Native quickstart for joining Agora RTC channels, rendering local and remote video, and cleaning up the native RTC engine.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-RN-Quickstart/tree/eb32bd7933cf6b5c9364e7367501497ac71c4f97",
     "labels": [
       "React Native",
       "iOS"
     ],
-    "thumbnail": "/recipes/covers/agora-rn-rtc-quickstart.svg",
-    "thumbnailAlt": "RTC cover artwork for React Native RTC Quickstart."
+    "thumbnail": "/recipes/agora-rn-rtc-quickstart-illustration.webp",
+    "thumbnailAlt": "Conceptual illustration of React Native RTC Quickstart; not an app screenshot",
+    "thumbnailFit": "contain",
+    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
   }
 }
