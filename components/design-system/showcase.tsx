@@ -4,6 +4,8 @@ import { useState } from "react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { ArrowDownWideNarrow, ChevronDown, Grid2X2, List, Search, SlidersHorizontal } from "lucide-react"
 import { RecipeDocument } from "@/components/recipe-document"
+import { RecipeCard } from "@/components/recipe-card"
+import type { RecipeSummary } from "@/lib/recipe-discovery"
 import { RecipeStartActions } from "@/components/recipe-start-actions"
 import { ShareActions } from "@/components/share-actions"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
@@ -34,7 +36,7 @@ import { Toggle } from "@/components/ui/toggle"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 /** Live reference for shared primitives; all state is local and disposable. */
-export function DesignSystemShowcase() {
+export function DesignSystemShowcase({ cardExamples }: { cardExamples: RecipeSummary[] }) {
   const mobile = useIsMobile()
   const [category, setCategory] = useState("all")
   const [view, setView] = useState("grid")
@@ -54,6 +56,10 @@ export function DesignSystemShowcase() {
       </div>
       <div className="ds-row" data-reference="directional-actions"><Button>Start a submission<ButtonArrow /></Button><Button disabled>Unavailable<ButtonArrow /></Button><Button variant="outline" disabled>Unavailable picker</Button><Button busy>Copy recipe</Button><Button variant="destructive">Remove selection</Button></div>
       <div className="ds-row"><CopyTextButton text="Recipes design system example" label="Copy example" subject="Example" variant="outline" /><span className="ds-caption">Copies example text. Label space stays reserved through every state.</span></div>
+    </section>
+
+    <section aria-labelledby="ds-recipe-cards"><h2 id="ds-recipe-cards">Recipe cards and missing media</h2><p>Actual recipe cards with the first two previews omitted to exercise a mixed row. Titles, metadata and material actions use the real catalog entries.</p>
+      <div className="showcase-grid" data-reference="recipe-cards">{cardExamples.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
     </section>
 
     <section aria-labelledby="ds-compositions"><h2 id="ds-compositions">One task, one group</h2>

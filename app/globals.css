@@ -233,6 +233,7 @@ a.recipe-author:hover { color: var(--foreground); }
 .recipe-author__avatar img { width: 100%; height: 100%; object-fit: cover; }
 .recipe-author__name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .showcase-card--directory .showcase-card__body { min-height: 156px; padding: 12px; }
+.showcase-card--text { align-self: start; }
 .showcase-card:focus-within { border-color: var(--input); }
 .recipe-results { display: grid; border-top: 1px solid var(--border); }
 .recipe-result { position: relative; display: grid; grid-template-columns: minmax(0,1fr) 152px; align-items: center; gap: 32px; min-width: 0; padding: 22px 4px; border-bottom: 1px solid var(--border); }

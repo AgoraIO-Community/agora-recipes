@@ -378,11 +378,13 @@ and 16px down. A charcoal tile contains an inset real preview, title, concise
 outcome, author, and one meaningful platform or capability label. Gallery crops
 are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
 Directory cards share one layout for title, summary, technology, difficulty,
-author, and available preview actions, with equal heights within each row.
+author, and available preview actions.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
-and three on phones. Cards stretch to the tallest card within their own row,
-with authors aligned at the bottom. Text-only rows keep their natural height;
+and three on phones. Cards with previews stretch to the tallest card within
+their row, with authors aligned at the bottom. Text-only cards keep their natural
+height, including beside a taller preview card. An unavailable image falls back
+to that compact text layout unless a video preview remains available;
 do not reserve an empty image plane or shrink real covers into corner thumbnails.
 Bound media and copy rather than clipping a whole card's content or controls.
 

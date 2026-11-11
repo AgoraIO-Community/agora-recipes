@@ -23,7 +23,7 @@ function prefersExplicitPlayback() {
   return connection?.saveData === true || window.matchMedia("(prefers-reduced-motion: reduce), (prefers-reduced-data: reduce)").matches
 }
 
-function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: string; href: string }) {
+function RecipeCover({ recipe, title, href, onImageUnavailable }: { recipe: RecipeSummary; title: string; href: string; onImageUnavailable: () => void }) {
   const { t } = useI18n()
   const [imageFailed, setImageFailed] = useState(false)
   const [preview, setPreview] = useState(false)
@@ -78,7 +78,7 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
   }
   if (!media) return null
   const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media.thumbnailScale ?? 1, "--thumbnail-origin": media.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
-    {!imageFailed && media.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
+    {!imageFailed && media.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => { setImageFailed(true); onImageUnavailable() }} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
     {media.videoUrl && <Badge className="recipe-cover__label ag-overlay">{media.videoDuration || t("Video")}</Badge>}
   </div>
@@ -90,8 +90,10 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
 
 export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: RecipeSummary; compact?: boolean; returnTo?: string }) {
   const { t, locale } = useI18n()
+  const [imageUnavailable, setImageUnavailable] = useState(false)
   const href = localePath(`/recipes/${recipe.slug}`, locale) + (returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : "")
   const media = recipe.showcase
+  const hasPreview = Boolean(media?.videoUrl || media?.thumbnail && !imageUnavailable)
   const featured = Boolean(media && recipe.recommendedOrder !== undefined)
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
@@ -114,8 +116,8 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
 
 
   return <RecipeVideoDialog recipe={recipe} detailHref={href}>
-    <article className={cn("showcase-card", !featured && "showcase-card--directory")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
-      {media && <RecipeCover recipe={recipe} title={title} href={href} />}
+    <article className={cn("showcase-card", !featured && "showcase-card--directory", !hasPreview && "showcase-card--text")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
+      {hasPreview && <RecipeCover recipe={recipe} title={title} href={href} onImageUnavailable={() => setImageUnavailable(true)} />}
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details" aria-label={t("Open {title} recipe", { title })}>
           <h3><span>{title}</span></h3>
