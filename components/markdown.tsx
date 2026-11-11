@@ -1,3 +1,4 @@
+import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { headingId } from "@/lib/headings"
 import { translate, type Messages } from "@/lib/locales"
 import * as React from "react"
@@ -7,7 +8,6 @@ import rehypeRaw from "rehype-raw"
 import rehypeSanitize from "rehype-sanitize"
 import { MermaidDiagram } from "./mermaid-diagram"
 import { HighlightedCode } from "./highlighted-code"
-import { ChevronDown } from "lucide-react"
 
 // Parse embedded README HTML, then sanitize it before creating React elements.
 export function Markdown({
@@ -34,6 +34,8 @@ export function Markdown({
   }
 
   const components: Components = {
+    details: ({ children, open }) => <Disclosure open={open}>{children}</Disclosure>,
+    summary: ({ children }) => <DisclosureTrigger>{children}</DisclosureTrigger>,
     pre: ({ children, node }) => {
       const code = node?.children[0]
       if (code?.type === "element" && code.tagName === "code" &&
@@ -85,7 +87,7 @@ export function Markdown({
       >
         {body}
       </ReactMarkdown>
-      {fields.length > 0 ? <details className="recipe-frontmatter-disclosure ag-disclosure"><summary>{t("Recipe metadata")}<ChevronDown size={15} aria-hidden="true" /></summary><FrontmatterTable fields={fields} messages={messages} /></details> : null}
+      {fields.length > 0 ? <Disclosure className="recipe-frontmatter-disclosure"><DisclosureTrigger>{t("Recipe metadata")}</DisclosureTrigger><DisclosureContent><FrontmatterTable fields={fields} messages={messages} /></DisclosureContent></Disclosure> : null}
     </div>
   )
 }

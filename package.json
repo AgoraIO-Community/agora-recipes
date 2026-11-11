@@ -7,8 +7,9 @@
     "prebuild": "node scripts/build-recipes.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "recipes:build": "node scripts/build-recipes.mjs"
+    "lint": "eslint . && node scripts/check-control-styles.mjs",
+    "recipes:build": "node scripts/build-recipes.mjs",
+    "stars:refresh": "node scripts/update-github-stars.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

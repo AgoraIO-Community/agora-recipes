@@ -19,7 +19,6 @@
   .ag-glass::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; box-shadow: inset 0 1px 0 var(--glass-highlight),inset 1px 0 0 rgb(255 255 255/.24),inset 0 -1px 0 var(--glass-low-edge); background: radial-gradient(ellipse at 24% 0%,var(--glass-light),transparent 66%); }
   .ag-filter-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
   .ag-glass-panel { border: 1px solid color-mix(in srgb,var(--foreground) 20%,transparent); }
-  .ag-glass-panel > [data-slot=dialog-header] [data-slot=dialog-description], .ag-glass-panel > [data-slot=sheet-header] [data-slot=sheet-description], .ag-glass .ag-button-ghost { color: var(--foreground); }
   .ag-floating-control { --glass-fill: rgb(10 12 14/.62); --glass-highlight: rgb(255 255 255/.5); --glass-low-edge: rgb(0 0 0/.45); display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; padding: 0 12px; border-radius: 10px; color: #fcf9f8; font-size: 13px; line-height: 20px; }
   .ag-floating-control > svg:not(.ag-filter-defs) { width: 16px; height: 16px; flex: none; }
   .liquid-modal-overlay { background: rgb(0 0 0/.32); }
@@ -48,10 +47,10 @@
 .ag-glass[data-slot=sheet-content][data-side=top] { --glass-enter-x: 0px; --glass-enter-y: -24px; }
 .ag-glass[data-slot=sheet-content][data-state=open] { animation: ag-glass-enter var(--motion-surface) var(--ease-out); }
 .ag-glass[data-slot=sheet-content][data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
-.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content]) { --glass-enter-y: -4px; }
-.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-side=top] { --glass-enter-y: 4px; }
-.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=open] { animation: ag-glass-enter var(--motion-control) var(--ease-out); }
-.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content])[data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content],[data-slot=dropdown-menu-sub-content]) { --glass-enter-y: -4px; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content],[data-slot=dropdown-menu-sub-content])[data-side=top] { --glass-enter-y: 4px; }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content],[data-slot=dropdown-menu-sub-content])[data-state=open] { animation: ag-glass-enter var(--motion-control) var(--ease-out); }
+.ag-glass:is([data-slot=popover-content],[data-slot=select-content],[data-slot=dropdown-menu-content],[data-slot=dropdown-menu-sub-content])[data-state=closed] { animation: ag-glass-exit var(--motion-control) ease-in; }
 @keyframes ag-glass-enter { from { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } to { transform: none; } }
 @keyframes ag-glass-exit { to { transform: translate(var(--glass-enter-x,0px),var(--glass-enter-y,8px)); } }
 @supports not (backdrop-filter: url("#glass-probe")) {

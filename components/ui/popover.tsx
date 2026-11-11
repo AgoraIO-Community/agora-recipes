@@ -4,7 +4,10 @@ import * as React from 'react'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 
 import { cn } from '@/lib/utils'
-import { GlassSurface } from '@/components/agent-ui/glass-surface'
+import { GlassSurface } from '@/components/design-system/glass-surface'
+import { Button } from '@/components/ui/button'
+import { X } from 'lucide-react'
+import { useI18n } from '@/components/locale-provider'
 
 function Popover({
   ...props
@@ -22,7 +25,7 @@ function PopoverContent({
   className,
   children,
   align = 'center',
-  sideOffset = 4,
+  sideOffset = 8,
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Content>) {
   return (
@@ -33,7 +36,7 @@ function PopoverContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'ag-glass-panel text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 z-50 w-72 origin-(--radix-popover-content-transform-origin) border p-4 outline-hidden',
+          'ag-glass-panel ag-popover-panel',
           className,
         )}
         {...props}
@@ -48,4 +51,20 @@ function PopoverAnchor({
   return <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />
 }
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }
+function PopoverHeader({ className, children, ...props }: React.ComponentProps<'div'>) {
+  const { t } = useI18n()
+  return <div data-slot="popover-header" className={cn('ag-panel-header', className)} {...props}>
+    <div className="ag-panel-heading">{children}</div>
+    <PopoverPrimitive.Close asChild><Button variant="ghost" size="icon" aria-label={t("Close")}><X aria-hidden="true" /></Button></PopoverPrimitive.Close>
+  </div>
+}
+function PopoverTitle({ className, ...props }: React.ComponentProps<'h3'>) {
+  return <h3 data-slot="popover-title" className={cn('ag-panel-title', className)} {...props} />
+}
+function PopoverBody({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="popover-body" className={cn('ag-panel-body', className)} {...props} />
+}
+function PopoverFooter({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-slot="popover-footer" className={cn('ag-panel-footer', className)} {...props} />
+}
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor, PopoverHeader, PopoverTitle, PopoverBody, PopoverFooter }

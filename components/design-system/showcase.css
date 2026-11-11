@@ -1,0 +1,15 @@
+.ds-reference { padding-block: 40px 64px; }
+.ds-reference > header { margin-bottom: 40px; }
+.ds-reference h1 { margin: 4px 0 12px; font-size: clamp(28px,4vw,40px); line-height: 1.15; font-weight: 400; letter-spacing: -.035em; }
+.ds-reference h2 { margin: 0 0 16px; font-size: 20px; font-weight: 400; }
+.ds-reference > header > p, .ds-reference > section > p { margin: 0 0 16px; color: var(--muted-foreground); line-height: 1.6; }
+.ds-reference .ds-caption { font-size: 13px; }
+.ds-reference > section { padding-block: 28px; border-top: 1px solid var(--border); }
+.ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-block: 12px; }
+.ds-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: 28px; }
+.ds-columns > * { min-width: 0; }
+.ds-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; gap: 16px 28px; }
+.ds-reading { padding: 16px; }
+@media (max-width: 640px) { .ds-columns, .ds-form-grid { grid-template-columns: minmax(0,1fr); } .ds-reference { padding-top: 24px; } }
+
+.ds-bar { margin-block: 12px; flex-wrap: wrap; }
