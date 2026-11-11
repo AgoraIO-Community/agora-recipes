@@ -110,6 +110,7 @@ Preserve existing event names and triggers, and attach attribution to existing p
 | `utm_source` | Originating platform |
 | `utm_medium` | Channel category |
 | `utm_campaign` | Campaign |
+| `utm_id` | Optional campaign identifier retained from the staging contract |
 | `utm_content` | Creative or promotional button identifier |
 | `utm_term` | Actual advertising keyword, optional |
 | `landing_path` | Recipes landing pathname for this entry, without query or fragment |
@@ -151,11 +152,11 @@ Shared cross-site identity is an integration prerequisite, not an implemented ca
 | Platform | Changes in this phase | Analysis purpose |
 | --- | --- | --- |
 | PostHog | Attach attribution to `campaign_entry`, `$pageview`, and existing actions; extend the final allowlist | Primary channel-to-content-use and contribution-intent analysis |
-| Vercel Analytics | Attach the same attribution to `campaign_entry` and existing custom events; permit only valid UTM in collection URLs | Traffic, campaign landings, and channel breakdowns for custom events |
+| Vercel Analytics | Preserve existing query-free page URLs and restricted custom-event properties; do not send the full campaign context or `campaign_entry` | Lightweight traffic and action summaries |
 
 PostHog reporting URLs continue to remove query strings and fragments. UTM is carried in separate fields; SDK automatic attribution must not override the business rules. Continue to avoid person profiles and `identify` calls.
 
-Whether Vercel's native traffic reports recognize the retained UTM, and which filters, property limits, and reports the project supports, requires actual request and dashboard verification. Separate attribution fields must not be described as automatically attached to Vercel native page views. Use explicit custom events when needed.
+Vercel receives at most two custom-event properties through the existing mapping. Full campaign and conversion analysis belongs to PostHog; do not infer Vercel native UTM report support from this implementation.
 
 Do not inject a custom persistent visitor ID into Vercel to make its visitor counts match PostHog. Each platform deduplicates independently; do not combine or add their counts. Use PostHog as the primary channel-conversion measurement.
 
@@ -180,7 +181,7 @@ Without an entry ID, a funnel measures visitor behavior under the selected chann
 ## 10. Data boundaries and failures
 
 - Validate manually named fields against the agreed character rules and bound their length; the recommended maximum is 100 characters per value. Validate keyword characters separately for `utm_term`, rejecting control characters, excessive length, and unresolved templates.
-- Add only the five UTM fields and necessary landing path, reusing existing page and action context. Do not store the complete entry URL, raw search text, clipboard contents, or arbitrary query parameters.
+- Use the five promotion UTM fields, preserve staging support for optional `utm_id`, and add only the necessary landing path, reusing existing page and action context. Do not store the complete entry URL, raw search text, clipboard contents, or arbitrary query parameters.
 - If storage is unavailable, keep attribution in current-document memory where possible. Persistence after refresh is not guaranteed. Do not block browsing, navigation, or copying.
 - Preserve the existing production-environment and canonical-origin restrictions. Local and Preview visits do not perform real collection.
 - Browser blocking and network failures may cause undercounting. Client collection cannot guarantee recovery of every external click.
@@ -200,6 +201,34 @@ Without an entry ID, a funnel measures visitor behavior under the selected chann
 | PostHog SDK creates a new session | Retain the tab's UTM without another campaign entry |
 | Invalid parameters, missing source, unresolved keyword template | Do not fabricate a source or keyword; other events continue normally |
 | Unavailable tab storage or blocked collection | User actions remain usable; attribution does not guess or block |
-| Actual production requests and ingestion in both platforms | Fields are valid and consistent; verify Vercel native report support before claiming it works |
+| Actual production requests and ingestion | PostHog attribution fields are valid; Vercel retains its limited event mapping; verify actual ingestion before claiming it works |
 
 Deliverables include attribution implementation, tests for entry detection and forwarding, updates to the existing analytics documentation, and lint/build verification. Production and cross-site acceptance require actual evidence; local tests are not substitutes.
+
+## 12. Integration with consent and the current event contract
+
+The integration retains staging's `measurement_version=3`, `measurement_tier`,
+search measurements, optional `utm_id`, aggregate counts and separate GA4 consent.
+One attribution controller supplies both PostHog events and designated outbound
+links. It replaces the old 30-minute inactivity policy with this design's
+per-tab retention until source replacement, withdrawal or loss of recoverable
+state.
+
+Before product-analytics consent, neither rendering nor callbacks may create
+campaign storage or a tab marker. Rejection and withdrawal invalidate the
+controller and clear its memory, storage and owned marker. Regrant may use the
+current visible URL, but cannot replay earlier actions or an already recorded
+entry. Unrelated window names are not cleared.
+
+Shared sensitive-text validation applies before persistence, capture and
+forwarding. SDK initialization clears both ordinary and session campaign
+persistence; explicit null defaults on each capture prevent missing current
+fields from inheriting SDK history. Final validation omits those null values.
+BFCache resume and delayed release callbacks verify ownership before writing;
+an older document cannot restore its source over a newer one. A reset-marker
+simulation is a regression case, not proof of natural cross-site reset behavior.
+
+A tab marker and a separate per-document owner are local coordination state,
+not business entry IDs and not analytics properties. Confirmed BFCache returns
+can claim the latest valid session snapshot despite a historical window marker.
+Delayed callbacks from an earlier document cannot write after that claim.

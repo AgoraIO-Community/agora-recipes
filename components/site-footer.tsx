@@ -11,6 +11,7 @@ import { HowToUseRecipes } from "@/components/how-to-use-recipes"
 import { Button, ButtonArrow } from "@/components/ui/button"
 import { contributionPath } from "@/lib/contributions"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
+import { usePrivacySettings } from "@/components/privacy-provider"
 
 const legal = [
   ["Privacy Policy", "https://www.agora.io/en/privacy-policy/"],
@@ -26,6 +27,7 @@ function ResourceLink(props: React.ComponentPropsWithRef<"a"> & { href: string }
 export function SiteFooter({ topics }: { topics: Record<string, string> }) {
   const { t, locale } = useI18n()
   const pathname = usePathname() ?? "/"
+  const openPrivacy = usePrivacySettings()
   const isContributing = localePath(pathname, "en") === "/contribute"
   const contributeUrl = contributionPath(pathname, useCatalogSearch(), locale, topics)
   return (
@@ -81,9 +83,11 @@ export function SiteFooter({ topics }: { topics: Record<string, string> }) {
           <p className="footer-copyright">Copyright © {new Date().getFullYear()} Agora</p>
           <nav aria-label={t("Legal")} className="footer-legal">
             {legal.map(([label, href]) => <a key={t(label)} href={href}>{t(label)}</a>)}
+            <Button variant="link" size="resource" edge wrap data-privacy-settings onClick={event => openPrivacy(event.currentTarget)} aria-haspopup="dialog">{t("Privacy settings")}</Button>
           </nav>
           <Button asChild edge variant="ghost" className="footer-top"><a href="#page-top">{t("Back to top")}<ArrowUp aria-hidden="true" /></a></Button>
         </div>
+        <p className="footer-privacy-note">{t("Anonymous usage statistics remain enabled.")}</p>
       </div>
     </footer>
   )

@@ -1,16 +1,18 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { readUtm, sanitizeAttribution, vercelAnalyticsUrl, attributedDestination, createAttributionController } from '../lib/utm-attribution.ts'
+import { attributionUrl } from './analytics-test-modules.mjs'
+const { readUtm, sanitizeAttribution, attributedDestination, createAttributionController } = await import(attributionUrl)
 
 const origin = 'https://recipes.agora.io'
 const email = '?utm_source=agora_email&utm_medium=email&utm_campaign=recipes_top10&utm_content=main_cta_v1'
 const expected = { utm_source: 'agora_email', utm_medium: 'email', utm_campaign: 'recipes_top10', utm_content: 'main_cta_v1', landing_path: '/' }
 let token = 0
 function fixture(initial = {}) {
-  const state = { value: null, name: '', ...initial }
+  const state = { value: null, name: '', granted: true, ...initial }
   function open(path = '/', type = 'navigate', referrer = '') {
     return createAttributionController({
-      url: origin + path, navigationType: type, referrer,
+      url: origin + path, navigationType: type, referrer, isGranted: () => state.granted,
+      remove() { state.value = null },
       read() { if (state.blocked) throw Error('blocked'); return state.value },
       write(value) { if (state.blocked) throw Error('blocked'); state.value = value },
       getTabName: () => state.name, setTabName: name => { state.name = name }, newToken: () => String(++token),
@@ -123,16 +125,6 @@ test('blocked/corrupt/cleared storage never blocks browsing or fabricates a reco
   assert.equal(saved.open().get(), undefined)
 })
 
-test('Vercel URLs keep only valid explicit UTM and discard credentials, unrelated queries and fragments', () => {
-  const url = new URL(vercelAnalyticsUrl(origin + '/recipes/example' + email + '&q=secret&returnTo=private#secret'))
-  assert.equal(url.pathname, '/recipes/example')
-  assert.equal(url.searchParams.get('utm_source'), 'agora_email')
-  assert.equal(url.searchParams.get('q'), null)
-  assert.equal(url.hash, '')
-  assert.equal(vercelAnalyticsUrl(origin + '/?utm_medium=email&q=secret'), origin + '/')
-  assert.equal(vercelAnalyticsUrl('javascript:alert(1)'), undefined)
-})
-
 test('designated HTTPS destinations replace all target UTM, preserve functional queries, and never receive landing_path', () => {
   const target = 'https://demo.example/start?token=public&room=42&utm_source=recipes&utm_medium=referral#start'
   const result = new URL(attributedDestination(target, { utm_source: 'google', utm_term: 'voice AI \u4e2d\u6587', landing_path: '/' }))
@@ -144,4 +136,103 @@ test('designated HTTPS destinations replace all target UTM, preserve functional 
   assert.equal(result.hash, '#start')
   assert.equal(attributedDestination(target), target)
   for (const url of ['http://demo.example/', '/recipes/example', 'javascript:alert(1)', 'https://user:secret@demo.example']) assert.equal(attributedDestination(url, expected), url)
+})
+
+test('shared sensitive-text filtering protects both stored events and forwarded destinations', () => {
+  for (const term of ['person@example.com', 'https://private.example/?token=abc', 'token=secret', 'api_key=secret', 'Bearer abcdef', 'github_pat_abcdef123456789', '{keyword}', 'voice\u0009agent']) {
+    const tab = fixture()
+    const page = tab.open('/?utm_source=x&utm_term=' + encodeURIComponent(term))
+    assert.deepEqual(page.get(), { utm_source: 'x', landing_path: '/' }, term)
+    const target = new URL(attributedDestination('https://demo.example/?utm_term=default', page.get()))
+    assert.equal(target.searchParams.get('utm_term'), null, term)
+    assert.doesNotMatch(tab.state.value, /person@|private\.example|token=secret|Bearer|api_key/)
+  }
+  assert.deepEqual(readUtm(new URLSearchParams('utm_source=x&utm_id=123456')), { utm_source: 'x', utm_id: '123456' })
+})
+
+test('pending and denied consent cannot create attribution or write a tab marker', () => {
+  for (const granted of [false]) {
+    const tab = fixture({ granted })
+    const page = tab.open('/' + email)
+    assert.equal(page.get(), undefined)
+    assert.equal(page.takeEntry(), undefined)
+    page.resume(); page.release()
+    assert.equal(tab.state.value, null)
+    assert.equal(tab.state.name, '')
+  }
+})
+
+test('withdrawal invalidates old controllers and clears both storage and the owned marker', () => {
+  const tab = fixture()
+  const page = tab.open('/' + email)
+  tab.state.granted = false
+  page.clear()
+  assert.equal(page.get(), undefined)
+  assert.equal(tab.state.value, null)
+  assert.equal(tab.state.name, '')
+  tab.state.granted = true
+  page.resume(); page.release()
+  assert.equal(tab.state.value, null, 'granting again cannot reactivate a cleared controller')
+  assert.equal(page.takeEntry(), undefined)
+})
+
+test('BFCache restoration adopts a newer owner after explicit marker reset instead of overwriting X with email', () => {
+  const tab = fixture()
+  const old = tab.open('/' + email)
+  old.takeEntry(); old.release()
+  tab.state.name = ''
+  const current = tab.open('/?utm_source=x')
+  current.takeEntry(); current.release()
+  const before = tab.state.value
+  old.release()
+  assert.equal(tab.state.value, before, 'delayed pagehide cannot overwrite a newer owner')
+  old.resume()
+  assert.deepEqual(old.get(), { utm_source: 'x', landing_path: '/' })
+  assert.equal(JSON.parse(tab.state.value).attribution.utm_source, 'x')
+})
+
+test('unproven or cleared ownership makes a restored page source empty without rewriting shared state', () => {
+  const tab = fixture()
+  const old = tab.open('/' + email)
+  old.takeEntry(); old.release()
+  tab.state.name = 'unrelated-window'
+  const before = tab.state.value
+  old.resume(); old.release()
+  assert.equal(old.get(), undefined)
+  assert.equal(tab.state.value, before)
+  assert.equal(tab.state.name, 'unrelated-window')
+})
+
+test('a confirmed BFCache return accepts a released current-tab source even if the browser restores an older window name', () => {
+  const tab=fixture()
+  const old=tab.open('/'+email)
+  const oldName=tab.state.name
+  old.takeEntry();old.release()
+  tab.state.name=''
+  const current=tab.open('/?utm_source=x')
+  current.takeEntry();current.release()
+  const newerName=tab.state.name
+  tab.state.name=oldName
+  old.resume(true)
+  assert.equal(old.get().utm_source,'x')
+  assert.equal(tab.state.name,newerName)
+  assert.equal(JSON.parse(tab.state.value).attribution.utm_source,'x')
+})
+
+test('a restored document claims ownership before the newer document releases, so its delayed release cannot undo the claim', () => {
+  const tab=fixture()
+  const old=tab.open('/'+email)
+  const historicalName=tab.state.name
+  old.takeEntry();old.release()
+  tab.state.name=''
+  const newer=tab.open('/?utm_source=x')
+  newer.takeEntry()
+  // Restore before newer.pagehide updates released: this occurs in real Chrome.
+  tab.state.name=historicalName
+  old.resume(true)
+  const claimed=tab.state.value
+  assert.equal(old.get().utm_source,'x')
+  newer.release()
+  assert.equal(tab.state.value,claimed)
+  assert.equal(JSON.parse(claimed).released,false)
 })

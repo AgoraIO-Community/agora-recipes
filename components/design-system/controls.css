@@ -202,6 +202,7 @@
   .ag-disclosure[open]::details-content { height: auto; }
   .ag-disclosure > summary { color: var(--muted-foreground); transition: color var(--motion-control); }
   .ag-disclosure[open] > summary { color: var(--foreground); }
+  .facet-option { display: flex; align-items: center; gap: 8px; min-height: var(--field-size); padding: 6px 8px; border-radius: var(--radius); font-size: 13px; cursor: pointer; transition: background var(--motion-control),color var(--motion-control); }
   .facet-option:has([data-state=checked]) { background: var(--basic-selected); }
   .facet-option:has(:focus-visible) { outline: var(--focus-width) solid var(--ring); outline-offset: -2px; }
   .facet-option .ag-checkbox:focus-visible { outline: none; }
