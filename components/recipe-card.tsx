@@ -94,6 +94,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const href = localePath(`/recipes/${recipe.slug}`, locale) + (returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : "")
   const media = recipe.showcase
   const hasPreview = Boolean(media?.videoUrl || media?.thumbnail && !imageUnavailable)
+  const cardSummary = hasPreview ? media?.compactSummary ?? recipe.tagline : recipe.description
   const featured = Boolean(media && recipe.recommendedOrder !== undefined)
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
@@ -121,7 +122,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details" aria-label={t("Open {title} recipe", { title })}>
           <h3><span>{title}</span></h3>
-          <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p>
+          <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : cardSummary}</p>
         </Link>
         {!featured && technology}
         <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{featured && label && <Badge>{t(label)}</Badge>}{previewActions}</div>

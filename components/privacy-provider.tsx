@@ -120,6 +120,17 @@ export function PrivacyProvider({ children }: { children: ReactNode }) {
         managed = next
         if (managed) resize.observe(managed)
       }
+      const compliance = managed?.querySelector(".cc-compliance")
+      const allow = compliance?.querySelector(".cc-allow")
+      const reject = compliance?.querySelector(".cc-dismiss")
+      if (allow && reject && !compliance?.querySelector(".managed-consent-choices")) {
+        // Keep the SDK's original nodes, handlers and keyboard order. The
+        // wrapper only lets the two choices share geometry independently of copy.
+        const choices = document.createElement("div")
+        choices.className = "managed-consent-choices"
+        compliance?.insertBefore(choices, allow)
+        choices.append(allow, reject)
+      }
       const managedHeight = managed && getComputedStyle(managed).visibility !== "hidden" && !managed.classList.contains("cc-invisible") ? managed.getBoundingClientRect().height : 0
       const errorHeight = banner.current?.getBoundingClientRect().height ?? 0
       const preferences = document.getElementById("cookiePreferencesDialog")

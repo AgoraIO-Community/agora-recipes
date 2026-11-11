@@ -339,7 +339,9 @@ Adapt the SDK's actual notice with the shared managed-consent adapter. Keep its
 full corporate copy, policy and opt-out links, action handlers and dismissal
 behavior. Use an opaque attached bottom bar, system theme and Recipes typography.
 Accept and Reject have equal widths, separate outlines, full corners and an 8px
-gap. Controls are 32px on desktop and at least 46px on phones/coarse pointers.
+gap. Keep the choices and close action on one center line; place the managed
+preferences link with the notice copy on desktop. Preserve the SDK’s keyboard
+order and original action nodes. Controls are 32px on desktop and at least 46px on phones/coarse pointers.
 Long labels wrap without horizontal clipping; short viewports scroll the notice
 copy while actions remain reachable. The SDK's preference center is the sole
 place to edit choices. Failure can offer retry, never an alternate consent form.
@@ -387,10 +389,13 @@ Directory cards share one layout for title, summary, technology, difficulty,
 author, and available preview actions.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
-and three on phones. Cards with previews stretch to the tallest card within
-their row, with authors aligned at the bottom. Text-only cards keep their natural
-height, including beside a taller preview card. An unavailable image falls back
-to that compact text layout unless a video preview remains available;
+and three on phones. All cards in a grid share the same height, derived from bounded content rather
+than a fixed pixel height.
+Keep technology and author/action rows anchored at the bottom. Text-only cards
+use a centered reading composition with a 22px desktop title and the entry's
+full description, bounded to five desktop lines or four phone lines. Phone titles
+retain the shared 15px size. An unavailable image uses that reading composition
+unless a video preview remains available;
 do not reserve an empty image plane or shrink real covers into corner thumbnails.
 Bound media and copy rather than clipping a whole card's content or controls.
 

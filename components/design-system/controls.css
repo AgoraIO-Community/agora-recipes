@@ -13,7 +13,7 @@
   height: auto !important;
   margin: 0 !important;
   padding: 5px 12px !important;
-  border: 1px solid var(--border) !important;
+  border: 1px solid var(--input) !important;
   border-radius: var(--radius) !important;
   color: var(--foreground) !important;
   background: var(--basic-fill) !important;
@@ -24,7 +24,7 @@
   overflow-wrap: anywhere;
   cursor: pointer;
 }
-#page-top .cc-window.f-cc-pref-window .cc-close { width: var(--managed-control-size) !important; padding: 0 !important; border-color: transparent !important; background: transparent !important; }
+#page-top .cc-window.f-cc-pref-window .cc-close { height: var(--managed-control-size) !important; width: var(--managed-control-size) !important; padding: 0 !important; border-color: transparent !important; background: transparent !important; }
 #page-top .cc-window.f-cc-pref-window .cmp-pref-link { justify-content: flex-start !important; padding-inline: 0 !important; border-color: transparent !important; background: transparent !important; text-align: start !important; }
 #page-top .cc-window.f-cc-pref-window .cc-link { color: var(--foreground) !important; opacity: 1 !important; font: inherit !important; text-underline-offset: 3px; }
 #page-top .cc-window.f-cc-pref-window .cc-message .cc-link { display: inline-block; margin: 0 !important; padding: 0 !important; text-decoration: underline; }

@@ -167,6 +167,8 @@ Shared controls do not expose a manual theme override.
 `managed-consent.css` adapts the external SDK's attached notice layout. The narrow
 Securiti selectors in `controls.css` apply shared control tokens to the SDK's
 existing elements; those elements retain their managed handlers and persistence.
-This is an external-DOM adapter, not another React control API or consent form.
+A layout-only wrapper groups the original choice nodes without replacing their
+handlers or changing their keyboard order. This is an external-DOM adapter,
+not another React control API or consent form.
 The reference opens the actual managed notice to expose wrapping and equal choice
 geometry, rather than rendering a separate copy. Verify product routes too.
