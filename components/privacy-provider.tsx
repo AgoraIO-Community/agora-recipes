@@ -62,10 +62,11 @@ export function PrivacyProvider({ children }: { children: ReactNode }) {
     window.SecuritiDataLayer ??= []
     const onConsent: SecuritiEvent = ["onConsentGiven", changed]
     const onReady: SecuritiEvent = ["onReady", ready]
-    window.SecuritiDataLayer.push(onConsent)
+    // The namespace can exist before the SDK is ready. Keep an array-based
+    // readiness subscription as well as checking an already initialized SDK.
+    window.SecuritiDataLayer.push(onConsent, onReady)
     if (typeof window.SecuritiSDK?.onReady === "function") window.SecuritiSDK.onReady(ready)
     else if (uuid.test(tenant ?? "") && uuid.test(domain ?? "")) {
-      window.SecuritiDataLayer.push(onReady)
       script = document.createElement("script")
       script.src = "https://cdn-prod.securiti.ai/consent/cookie-consent-sdk-loader.js"
       script.setAttribute("data-tenant-uuid", tenant!)
@@ -89,10 +90,8 @@ export function PrivacyProvider({ children }: { children: ReactNode }) {
       clearInterval(poll)
       window.removeEventListener("focus", changed)
       document.removeEventListener("visibilitychange", changed)
-      for (const event of [onConsent, onReady]) {
-        const index = window.SecuritiDataLayer?.indexOf(event) ?? -1
-        if (index >= 0) window.SecuritiDataLayer?.splice(index, 1)
-      }
+      // The SDK owns and instruments this queue after loading. Leave registered
+      // entries in place; inactive callbacks cannot change application state.
       script?.remove()
     }
   }, [attempt])
