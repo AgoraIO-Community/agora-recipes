@@ -16,7 +16,7 @@ export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
   if (!media) return null
   const title = media.compactTitle ?? media.title
   const cover = <>
-    {failed || !media.thumbnail ? <span className="detail-preview__fallback"><BookOpen aria-hidden="true" />{title}</span> : <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading="eager" onError={() => setFailed(true)} />}
+    {failed || !media.thumbnail ? <span className="detail-preview__fallback"><BookOpen aria-hidden="true" />{title}</span> : <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading="eager" style={{ objectPosition: media.thumbnailOrigin }} onError={() => setFailed(true)} />}
     {(media.videoUrl || recipe.demoUrl) && <GlassSurface material="liquid" className="detail-preview__action ag-floating-control">{media.videoUrl ? <><Play fill="currentColor" aria-hidden="true" />{media.videoDuration}</> : <ExternalLink aria-hidden="true" />}</GlassSurface>}
   </>
   return <section id="demo" className="detail-preview" aria-label={t("{title} demo preview", { title })}>
