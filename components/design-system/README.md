@@ -161,3 +161,12 @@ and quiet roles. Filter disclosure keyboard navigation retains independent group
 
 Theme selection follows the operating system before paint and on live changes.
 Shared controls do not expose a manual theme override.
+
+## Managed consent notice
+
+`managed-consent.css` adapts the external SDK's attached notice layout. The narrow
+Securiti selectors in `controls.css` apply shared control tokens to the SDK's
+existing elements; those elements retain their managed handlers and persistence.
+This is an external-DOM adapter, not another React control API or consent form.
+The reference opens the actual managed notice to expose wrapping and equal choice
+geometry, rather than rendering a separate copy. Verify product routes too.

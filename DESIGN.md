@@ -328,17 +328,23 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 
 ## Privacy choices
 
-Keep the attached privacy bar concise, with one purpose sentence and explicit
-Reject / Accept / Customize labels. Reject and Accept are separate shared outline
-Buttons with equal widths and an 8px gap; these choices retain text and full corners.
-Keep the three actions together where they fit and put policy links in the
-preferences dialog. Use shared Dialog Header / Body / Footer slots and Checkbox
-choices. Body is the only opaque scroller. Dialogs keep 16px viewport gutters,
-and phone/coarse-pointer actions keep 46px targets. Give each purpose its own
-row and a short description. Show anonymous statistics as Always on and each
-available optional purpose as a separate default-off choice. An unavailable
-purpose has a clear status and a disabled control. Dismissing preferences never
-grants consent.
+Agora/Securiti owns the initial notice, the only preference center, and all
+optional analytics decisions. The footer opens that center directly. Do not add
+a Recipes preference editor, local consent storage, or a second banner in
+unconfigured development environments. Product and traffic analytics use
+separate managed categories. Basic anonymous statistics remain always on and
+are disclosed in the footer; no optional choice controls them.
+
+Adapt the SDK's actual notice with the shared managed-consent adapter. Keep its
+full corporate copy, policy and opt-out links, action handlers and dismissal
+behavior. Use an opaque attached bottom bar, system theme and Recipes typography.
+Accept and Reject have equal widths, separate outlines, full corners and an 8px
+gap. Controls are 32px on desktop and at least 46px on phones/coarse pointers.
+Long labels wrap without horizontal clipping; short viewports scroll the notice
+copy while actions remain reachable. The SDK's preference center is the sole
+place to edit choices. Failure can offer retry, never an alternate consent form.
+The design-system reference opens the live managed notice instead of rendering
+a separate imitation. Verify the same SDK locally on product routes.
 
 ## Interface copy
 

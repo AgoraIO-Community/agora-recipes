@@ -103,7 +103,7 @@ export default function RootLayout({
           {t("Skip to main content")}
         </a>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
-        <PrivacyProvider production={shouldLoadAnalytics} productionOrigin={siteUrl.origin}>
+        <PrivacyProvider>
         <AnalyticsProvider enabled={shouldLoadAnalytics} productionOrigin={siteUrl.origin} topics={Object.keys(topics)}>
         <SiteHeader topics={topics} />
         <main id="main-content" className="flex-1">
