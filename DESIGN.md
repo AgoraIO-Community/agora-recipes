@@ -344,7 +344,8 @@ preferences link with the notice copy on desktop. Preserve the SDK’s keyboard
 order and original action nodes. Controls are 32px on desktop and at least 46px on phones/coarse pointers.
 Long labels wrap without horizontal clipping; short viewports scroll the notice
 copy while actions remain reachable. The SDK's preference center is the sole
-place to edit choices. Failure can offer retry, never an alternate consent form.
+place to edit choices. Its close action stays in the title row, centered beside
+the title with the shared 32/46px target and 16px icon, rather than an absolute offset. Failure can offer retry, never an alternate consent form.
 The design-system reference opens the live managed notice instead of rendering
 a separate imitation. Verify the same SDK locally on product routes.
 
@@ -391,12 +392,11 @@ Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
 and three on phones. All cards in a grid share the same height, derived from bounded content rather
 than a fixed pixel height.
-Keep technology and author/action rows anchored at the bottom. Text-only cards
-use a centered reading composition with a 22px desktop title and the entry's
-full description, bounded to five desktop lines or four phone lines. Phone titles
-retain the shared 15px size. An unavailable image uses that reading composition
-unless a video preview remains available;
-do not reserve an empty image plane or shrink real covers into corner thumbnails.
+Keep technology and author/action rows anchored at the bottom. Every card keeps
+its cover frame. Missing or failed images use the shared `EmptyMedia` cover
+variant with a centered image glyph; this is a static placeholder, not a loading
+state. Titles and summaries use the same size and placement as media cards.
+Available video playback and Demo links remain independent.
 Bound media and copy rather than clipping a whole card's content or controls.
 
 The title always opens recipe details. The cover opens the live Demo when one

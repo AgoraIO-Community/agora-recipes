@@ -63,3 +63,12 @@
 @media (max-width: 640px), (pointer: coarse) {
   #page-top .cc-window.f-cc-pref-window { --managed-control-size: 46px; }
 }
+
+/* Keep the managed preference-center close action in the title row. */
+#page-top #cookiePreferencesDialog { --managed-control-size: var(--control-sm); }
+#page-top #cookiePreferencesDialog .cmp-modal__header { display: flex !important; flex-direction: row !important; align-items: center !important; gap: 8px !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__title { flex: 1; min-width: 0; margin: 0 !important; padding-right: 0 !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close { flex: none; order: 1; margin-left: auto !important; }
+@media (max-width: 640px), (pointer: coarse) {
+  #page-top #cookiePreferencesDialog { --managed-control-size: 46px; }
+}

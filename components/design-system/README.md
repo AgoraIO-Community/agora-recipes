@@ -172,3 +172,14 @@ handlers or changing their keyboard order. This is an external-DOM adapter,
 not another React control API or consent form.
 The reference opens the actual managed notice to expose wrapping and equal choice
 geometry, rather than rendering a separate copy. Verify product routes too.
+
+## Media placeholders
+
+`EmptyMedia variant="cover"` fills an existing bounded media frame with a muted
+surface and a centered image glyph. Use it for missing or failed covers; it is
+static and does not imply loading. Keep the accessible destination name on the
+containing link. The mixed-card reference demonstrates this variant alongside
+real media, including matching title and byline placement.
+
+The managed preference center keeps its original close node and handlers. The
+adapter places it in the title row with shared 32/46px bounds and a 16px icon.

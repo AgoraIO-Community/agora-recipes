@@ -24,7 +24,14 @@
   overflow-wrap: anywhere;
   cursor: pointer;
 }
-#page-top .cc-window.f-cc-pref-window .cc-close { height: var(--managed-control-size) !important; width: var(--managed-control-size) !important; padding: 0 !important; border-color: transparent !important; background: transparent !important; }
+:is(#page-top .cc-window.f-cc-pref-window .cc-close, #page-top #cookiePreferencesDialog .cmp-modal__close) { position: static !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0; box-sizing: border-box; height: var(--managed-control-size) !important; width: var(--managed-control-size) !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: var(--radius) !important; color: var(--foreground) !important; background: transparent !important; cursor: pointer; }
+#page-top #cookiePreferencesDialog .cmp-modal__close > svg { display: block; width: var(--icon-size); height: var(--icon-size); fill: currentColor !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close { color: inherit !important; outline: none !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close:focus-visible { outline: var(--focus-width) solid var(--ring) !important; outline-offset: var(--focus-offset) !important; }
+@media (hover: hover) and (pointer: fine) {
+  #page-top #cookiePreferencesDialog .cmp-modal__close:hover { color: var(--control-hover-ink) !important; background: var(--control-hover-fill) !important; border-color: var(--control-hover-edge) !important; }
+}
+#page-top #cookiePreferencesDialog .cmp-modal__close:active { background: var(--control-pressed-fill) !important; }
 #page-top .cc-window.f-cc-pref-window .cmp-pref-link { justify-content: flex-start !important; padding-inline: 0 !important; border-color: transparent !important; background: transparent !important; text-align: start !important; }
 #page-top .cc-window.f-cc-pref-window .cc-link { color: var(--foreground) !important; opacity: 1 !important; font: inherit !important; text-underline-offset: 3px; }
 #page-top .cc-window.f-cc-pref-window .cc-message .cc-link { display: inline-block; margin: 0 !important; padding: 0 !important; text-decoration: underline; }
