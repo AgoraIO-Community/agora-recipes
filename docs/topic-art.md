@@ -82,8 +82,14 @@ and Demo URLs. Membership is explicit in `content/topics/top-10/topic.json`.
 Its directory card uses the existing branded fallback until a collection cover
 is supplied.
 
-The ten `public/recipes/agora-*-demo.png` covers added with this collection are
-owner-supplied ASCII illustrations received on 2026-11-11. They are theme artwork,
-not screenshots or recordings of running demos. Each entry's image alt text
-preserves that distinction. No video is claimed or synthesized. Original PNGs
-were copied without modifying their artwork.
+The ten covers are owner-supplied ASCII illustrations received on 2026-11-11.
+They are theme artwork, not screenshots or recordings of running demos. Each
+entry's image alt text preserves that distinction. No video is claimed or
+synthesized.
+
+Each implementation repository owns its compressed display cover at
+`docs/recipe-cover.webp`. Recipe metadata references the image directly through
+an HTTPS `raw.githubusercontent.com` URL and records the corresponding GitHub
+file page in `media.thumbnailSource`. Recipes does not bundle copies of these
+covers under `public/recipes/`. The WebP display versions preserve the original
+image dimensions and artwork and are each below 150 KB.

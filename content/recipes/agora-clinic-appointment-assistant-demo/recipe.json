@@ -25,8 +25,9 @@
   "updated": "2026-11-11",
   "difficulty": "Intermediate",
   "media": {
-    "thumbnail": "/recipes/agora-clinic-appointment-assistant-demo.png",
-    "thumbnailAlt": "ASCII illustration for Clinic Appointment Assistant; supplied cover artwork, not a demo screenshot"
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-clinic-appointment-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Clinic Appointment Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-clinic-appointment-assistant-demo/blob/main/docs/recipe-cover.webp"
   },
   "cli": {
     "projectType": "nextjs",

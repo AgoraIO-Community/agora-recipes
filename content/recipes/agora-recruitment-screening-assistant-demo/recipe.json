@@ -25,8 +25,9 @@
   "updated": "2026-11-11",
   "difficulty": "Intermediate",
   "media": {
-    "thumbnail": "/recipes/agora-recruitment-screening-assistant-demo.png",
-    "thumbnailAlt": "ASCII illustration for Recruitment Screening Assistant; supplied cover artwork, not a demo screenshot"
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Recruitment Screening Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/blob/main/docs/recipe-cover.webp"
   },
   "cli": {
     "projectType": "nextjs",
