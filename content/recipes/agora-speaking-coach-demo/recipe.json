@@ -22,7 +22,7 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-speaking-coach-demo/blob/main/RECIPE.md",
   "demoUrl": "https://agora-speaking-coach-demo.vercel.app/",
   "author": "Agora",
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "difficulty": "Intermediate",
   "media": {
     "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-speaking-coach-demo/main/docs/recipe-cover.webp",
@@ -39,5 +39,12 @@
     },
     "installCommand": "pnpm install --frozen-lockfile",
     "runCommand": "pnpm run dev"
+  },
+  "setup": {
+    "packageName": "agora-speaking-coach-demo",
+    "packageVersion": "0.1.0",
+    "npmAvailable": true,
+    "directory": "my-speaking-app",
+    "testRequest": "Help me practice ordering coffee in Mandarin, with English guidance, and give me feedback."
   }
 }
