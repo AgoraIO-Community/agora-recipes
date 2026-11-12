@@ -14,14 +14,14 @@
   "media": {
     "title": "Babylon.js RTC Demo",
     "summary": "A 3D browser demo that combines Babylon.js rendering with Agora RTC audio/video in a shared scene.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/AgoraBabylonJS/tree/576927943f3e772988e4c4d89054cfcfd5ed946a",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "JavaScript",
       "Web"
     ],
-    "thumbnail": "/recipes/babylonjs-rtc-demo-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Babylon.js RTC Demo; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original static app served and opened, including a retry without WebRTC containment. Canvas exists but the scene remains blank and call controls are disabled. Blank image rejected."
+    "thumbnail": "/recipes/default-rtc-light.webp",
+    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
+    "demoNote": "Default RTC cover illustration.",
+    "thumbnailDark": "/recipes/default-rtc-dark.webp"
   }
 }

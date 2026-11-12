@@ -10,5 +10,12 @@
   "recipeUrl": "https://github.com/madhuri-sharma921/Filler-Free/blob/main/docs/RECIPE.md",
   "author": "Dhiraj Sharma",
   "updated": "2026-10-16",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "thumbnail": "/recipes/default-voice-ai-light.webp",
+    "thumbnailDark": "/recipes/default-voice-ai-dark.webp",
+    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
+    "demoNote": "Default Voice AI cover illustration."
+  }
 }

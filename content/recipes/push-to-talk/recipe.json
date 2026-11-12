@@ -14,14 +14,14 @@
   "media": {
     "title": "Push-to-Talk",
     "summary": "Gate the microphone with press-to-talk for deliberate voice turns.",
-    "thumbnailSource": "https://github.com/Therealratoshen/recipe-push-to-talk/tree/8fc5b348fffd5c30eae464bef423f07b0408620e",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original application launched; it displays Configuration Required for Agora/LLM/TTS settings. Setup-only screenshot rejected.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
+    "demoNote": "Default Voice AI cover illustration.",
     "labels": [
       "TypeScript"
     ],
     "searchTerms": [],
-    "thumbnail": "/recipes/push-to-talk-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Push-to-Talk; not an app screenshot"
+    "thumbnail": "/recipes/default-voice-ai-light.webp",
+    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
+    "thumbnailDark": "/recipes/default-voice-ai-dark.webp"
   }
 }

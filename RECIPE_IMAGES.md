@@ -1,5 +1,19 @@
 # Recipe image inventory
 
+## Category default covers — 2026-11-12
+
+The 29 entries awaiting source media now use the owner-selected Voice AI or RTC
+default illustration. These category covers replace the older recipe-specific
+HTML illustrations and fill Filler-Free: Live's missing cover. The eight source
+media replacements below and all other project screenshots and recordings remain
+in use. The capture gaps below still identify the source material needed.
+
+Each default has a light and dark WebP with a provenance sidecar. The browser
+selects `media.thumbnailDark` through `prefers-color-scheme`, before paint and on
+live system appearance changes. Source screenshots keep one original image in
+both appearances. Cards and detail previews share the same default when an image
+is missing or fails to load. Default alt text identifies illustration explicitly.
+
 ## Source-media review — 2026-11-11
 
 This pass reviewed the 37 entries covered by the earlier fallback proposal. It

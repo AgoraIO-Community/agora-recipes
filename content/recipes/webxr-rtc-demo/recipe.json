@@ -14,14 +14,14 @@
   "media": {
     "title": "WebXR RTC Demo",
     "summary": "A WebXR sample for adding real-time Agora RTC media to immersive browser-based communication experiences.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/AgoraWebXR/tree/b7ab8b7dd4dfdfee23b886cbebca23c7bf9fe9eb",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "WebXR",
       "JavaScript"
     ],
-    "thumbnail": "/recipes/webxr-rtc-demo-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of WebXR RTC Demo; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original broadcaster served and opened, including a retry without WebRTC containment. Canvas exists but no usable XR scene is visible. Blank image rejected."
+    "thumbnail": "/recipes/default-rtc-light.webp",
+    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
+    "demoNote": "Default RTC cover illustration.",
+    "thumbnailDark": "/recipes/default-rtc-dark.webp"
   }
 }

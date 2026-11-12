@@ -3,11 +3,11 @@
 import { useI18n } from "@/components/locale-provider"
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { BookOpen, Play } from "lucide-react"
+import { Play } from "lucide-react"
 import { DialogTrigger } from "@/components/ui/dialog"
 import { RecipeVideoDialog } from "@/components/recipe-video-dialog"
 import { RecipeAuthor } from "@/components/recipe-author"
+import { RecipeCoverImage } from "@/components/recipe-cover-image"
 import { GlassSurface } from "@/components/design-system/glass-surface"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -25,7 +25,6 @@ function prefersExplicitPlayback() {
 
 function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: string; href: string }) {
   const { t } = useI18n()
-  const [imageFailed, setImageFailed] = useState(false)
   const [preview, setPreview] = useState(false)
   const [playing, setPlaying] = useState(false)
   const video = useRef<HTMLVideoElement>(null)
@@ -78,7 +77,7 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
   }
   if (!media) return null
   const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media.thumbnailScale ?? 1, "--thumbnail-origin": media.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
-    {!imageFailed && media.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <div className="recipe-cover__fallback"><BookOpen aria-hidden="true" /><span>{title}</span></div>}
+    <RecipeCoverImage recipe={recipe} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" />
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
     {media.videoUrl && <Badge className="recipe-cover__label ag-overlay">{media.videoDuration || t("Video")}</Badge>}
   </div>

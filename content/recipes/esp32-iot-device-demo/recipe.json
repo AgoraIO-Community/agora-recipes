@@ -25,13 +25,13 @@
   "media": {
     "title": "ESP32 IoT Device Demo",
     "summary": "An ESP32 device sample for building IoT calling flows that pair embedded hardware with Agora-powered clients.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/ag-iot-device-demo-esp32/tree/e309e6dcd0b3dc8ae4f35272c97aa853f308c6c8",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "C"
     ],
-    "thumbnail": "/recipes/esp32-iot-device-demo-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of ESP32 IoT Device Demo; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. ESP32 hardware, embedded toolchain and device provisioning are unavailable. App not launched."
+    "thumbnail": "/recipes/default-rtc-light.webp",
+    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
+    "demoNote": "Default RTC cover illustration.",
+    "thumbnailDark": "/recipes/default-rtc-dark.webp"
   }
 }

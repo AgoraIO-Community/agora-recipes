@@ -26,14 +26,14 @@
   "media": {
     "title": "IoT CallKit Device Demo",
     "summary": "A Linux device-side Agora Link reference for calling, answering and hanging up with provisioned mobile peers. Requires device activation credentials and the matching IoT SDK.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/ag-iot-callkit-device-demo/tree/5e1058c6fc50c41aa8d536e57cd974bb51993836",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "C",
       "Linux"
     ],
-    "thumbnail": "/recipes/iot-callkit-device-demo-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of IoT CallKit Device Demo; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. The connected Linux/IoT device and device provisioning are unavailable. App not launched."
+    "thumbnail": "/recipes/default-rtc-light.webp",
+    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
+    "demoNote": "Default RTC cover illustration.",
+    "thumbnailDark": "/recipes/default-rtc-dark.webp"
   }
 }

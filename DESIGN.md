@@ -383,6 +383,10 @@ Prefer author screenshots and demo frames that show the actual project. Preserve
 the original screenshot colors across themes; the surrounding card follows the
 system appearance. Use `thumbnailOrigin` to keep the relevant interface content
 visible in a cover crop. Record missing project media for individual follow-up.
+When source media is unavailable, use the owner-selected Voice AI or RTC default
+illustration. Its light and dark assets follow the system appearance before paint
+and on live changes. Identify defaults as illustrations in alt text. Keep real
+project screenshots and recordings in their original colors across themes.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
 and three on phones. Cards stretch to the tallest card within their own row,

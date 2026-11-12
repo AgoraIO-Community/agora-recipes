@@ -25,13 +25,13 @@
   "media": {
     "title": "Android Custom Camera Source",
     "summary": "An Android MediaIO reference for camera capture, preview and lifecycle handling, with source to inspect when adapting custom frames for RTC publishing.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/MediaIO-Camera/tree/5b1f36d58d001337053754433e126f55d5a27f7b",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Android"
     ],
-    "thumbnail": "/recipes/mediaio-camera-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Android Custom Camera Source; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+    "thumbnail": "/recipes/default-rtc-light.webp",
+    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
+    "demoNote": "Default RTC cover illustration.",
+    "thumbnailDark": "/recipes/default-rtc-dark.webp"
   }
 }
