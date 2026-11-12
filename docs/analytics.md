@@ -114,8 +114,8 @@ Pre-consent actions are not buffered or replayed; the current page and visible
 nonempty search become fresh behavioral measurements when consent is granted.
 Basic counters remain independent and are not duplicated by that transition.
 
-Agora's website uses Securiti, with its `Analytics & Customization` base category
-currently displayed as `Performance`. Production reuses the managed configuration:
+Agora/Securiti is the only consent manager, in development, previews and
+production. Configure the same managed interface with:
 
 ```text
 NEXT_PUBLIC_SECURITI_TENANT_ID=<existing Agora Securiti tenant UUID>
@@ -123,26 +123,22 @@ NEXT_PUBLIC_SECURITI_DOMAIN_ID=<existing Agora Securiti domain configuration UUI
 ```
 
 Do not publish actual configuration identifiers. Environment edits require a
-later build/release; this PR does not activate a production deployment itself.
-The official SDK's public data layer/category APIs control the optional tier;
-functional/advertising consent alone does not grant it. The footer preference
-editor discloses both tiers and opens Agora's managed preference center. Central
-choices can affect other Agora sites. No shared corporate CMP settings are
-rewritten by application code.
+new build/release. The footer opens the managed preference center directly;
+there is no Recipes consent dialog, local fallback manager, or local consent
+record. Old Recipes consent records are ignored. Local previews require CMP
+configuration to exercise the real UI; analytics delivery remains disabled by
+the existing deployment and origin gates. Persistence tests need an HTTPS test
+host covered by the managed cookie domain. A localhost preview cannot persist
+that domain’s cookies.
 
-A CMP that cannot initialize keeps **optional** analytics off and offers retry;
-basic counters remain enabled. Managed product analytics never falls back to an
-earlier local grant. Central choices are checked on focus, while visible, and
-before deliberate actions. Local builds and previews show the local choice UI,
-with analytics delivery disabled by deployment and origin gates.
-
-Without managed configuration, equally prominent **Reject** and **Accept**
-actions apply to the available optional purposes. **Customize** lets visitors
-choose each purpose separately. Each local choice stores a versioned boolean
-and timestamp for 180 days on the Recipes origin. Invalid,
-expired, unknown-version, or future-dated records require another decision.
-Blocked storage keeps an explicit choice for the current document only. Closing
-the editor never grants consent. There is no basic-count off switch.
+Product analytics reads the managed `Analytics & Customization` category,
+currently displayed as `Performance`. Functional or advertising consent does not
+grant analytics. Central choices can affect other Agora sites. The SDK owns all
+choice persistence and preference actions; application code does not rewrite
+shared corporate CMP configuration. A missing, ambiguous, or unavailable managed
+decision keeps optional analytics off. Both adapters refresh from the same live
+record on consent events, visibility/focus changes and while the page is visible.
+SDK failure offers retry, without a second form. Basic counters remain enabled.
 
 Product analytics withdrawal stops the PostHog and Vercel adapters, clears
 campaign state and Recipes SDK persistence, and aborts PostHog delivery while
@@ -158,17 +154,23 @@ visitor copy uses a short purpose/choice explanation.
 
 ### Optional traffic analytics
 
-Set `NEXT_PUBLIC_GA4_MEASUREMENT_ID` to the Recipes web stream's `G-…` measurement
-ID and rebuild to offer **Traffic analytics**. Missing or invalid IDs keep the
-option disabled and skip the Google tag. For controlled page views, disable
-Enhanced Measurement on the Recipes web stream. GA4 can otherwise send automatic
-history and interaction events separately from the application.
+GA4 uses a separate category in the **same Securiti preference center**.
+Before enabling it:
 
-Traffic consent is a separate Recipes browser preference scoped to the
-measurement ID. An earlier product analytics grant, including an Agora managed
-grant, does not authorize traffic analytics. When Agora manages product analytics,
-its preference center handles that purpose and the Recipes dialog saves the
-traffic choice. An unavailable consent manager keeps both optional purposes off.
+1. Add a dedicated, optional, default-off traffic analytics category in the
+   managed configuration with base category `Analytics & Customization`.
+   Keep the existing product analytics category separate.
+2. Set `NEXT_PUBLIC_SECURITI_GA4_CATEGORY` to that category's exact managed name.
+3. Set `NEXT_PUBLIC_GA4_MEASUREMENT_ID` to the Recipes stream's `G-…` measurement
+   ID and rebuild. Disable Enhanced Measurement on that web stream to prevent
+   automatic history or interaction events outside the application's page views.
+
+A missing or invalid measurement ID skips the Google tag entirely. An ID without
+a matching dedicated managed category also cannot start GA4. Overlapping or
+ambiguous category mappings fail closed. A product grant cannot grant traffic
+analytics, and either managed choice can be withdrawn independently. The current
+managed configuration has only the existing product analytics category; adding
+the traffic category is a CMP configuration task, not a local browser fallback.
 
 The production origin loads the tag only after traffic consent. The application
 sends page views with allowlisted campaign parameters, strips other URL query
@@ -179,31 +181,19 @@ consenting traffic only.
 
 ### Consent UI conventions
 
-The first layer states the purpose in one sentence: optional third-party analytics
-to understand site usage. It uses **Reject / Accept / Customize**, with policy
-links in the preference editor. The editor shows **Anonymous statistics** as
-always on and explains **Product analytics**, which gates PostHog and Vercel.
-With Agora's consent manager configured, **Manage preferences** opens the managed
-choice. The footer keeps a short anonymous-statistics notice and a persistent
-preference entry.
+Securiti renders the initial notice and the only preference center. The footer's
+**Privacy settings** action opens that center directly. Keep corporate notice
+copy, policy links, opt-out actions, keyboard handlers and choice persistence
+under the SDK's ownership. Closing a notice or preference center never grants
+consent. The footer continues to disclose the always-on anonymous counters.
 
-Reject and Accept are independent shared outline Buttons with equal widths and
-an 8px gap, each retaining its full border and corners.
-Preferences reuse the registered Checkbox/Label and Dialog Header / Body / Footer
-slots. Only Body scrolls. Keep the responsive dialog gutters and shared control
-targets defined in DESIGN.md; page styles own placement rather than control skins.
-
-These labels follow the three-action pattern documented by
-[CookieYes](https://www.cookieyes.com/documentation/change-the-order-of-buttons/);
-they are not universally prescribed English wording. The
-[CNIL recommendations](https://www.cnil.fr/sites/default/files/2026-01/recommandation_cookies_consolidee.pdf)
-and [OneTrust guidance](https://docs.onetrust.com/en/consent--preferences/cookie-consent/regional-implementation-guidance/noyb-cookie-consent-best-practices-guide)
-support equally accessible accept/reject choices, clear purposes, optional choices
-off by default, and easy withdrawal. Customize only opens the editor; closing it
-does not grant consent. Keep the existing
-[WAI-ARIA dialog keyboard/focus behavior](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
-and the site's 46px phone targets. This copy check does not resolve the separate
-production processing-basis and corporate-policy alignment below.
+The shared managed-notice adapter uses an opaque attached bottom bar, Recipes
+typography and system appearance, separate equal-width accept/reject controls,
+and wrapping text. Desktop controls are 32px; phone/coarse-pointer controls are
+at least 46px. Preserve the SDK's visibility and dismissal styles. The development
+reference opens the real managed notice instead of rendering another version;
+local QA also verifies that same SDK on product routes. A load error offers only
+retry or continued browsing; it cannot collect an alternative consent decision.
 
 ### Release and policy alignment
 
