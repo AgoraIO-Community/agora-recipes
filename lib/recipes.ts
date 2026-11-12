@@ -3,6 +3,7 @@ import fs from "node:fs"
 import path from "node:path"
 import type { DocumentLanguages } from "./documents"
 import type { Showcase } from "./recipe-discovery"
+import { buildRecipePrompt } from "./recipe-prompt.mjs"
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "recipes")
 const GENERATED_DIR = path.join(process.cwd(), "content", "generated", "recipes")
@@ -49,6 +50,16 @@ export type RecipeMeta = {
   updated: string
   difficulty?: Difficulty
   cli?: RecipeCLIConfig
+  setup?: RecipeSetup
+}
+
+export type RecipeSetup = {
+  packageName: string
+  packageVersion: string
+  npmAvailable: boolean
+  directory: string
+  testRequest: string
+  configurationNote?: string
 }
 
 export type RecipeCLIConfig = {
@@ -245,17 +256,8 @@ function rawGithubUrlToViewUrl(rawUrl: string): string {
   return `https://github.com/${org}/${repo}/blob/${branch}/${filePath}`
 }
 
-export function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument): string {
-  if (!meta.recipeUrl) return ""
-  return `You are implementing the "${meta.title}" recipe in this project.
-
-Read the recipe markdown first:
-${document.rawUrl}
-
-Use the source repository for cross-reference:
-${meta.mainRepoUrl}
-
-Build this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies.`
+export function buildPrimaryPrompt(meta: RecipeMeta, document: RecipeDocument, slug = ""): string {
+  return buildRecipePrompt(meta, document, slug)
 }
 
 function loadGeneratedArtifact(slug: string): GeneratedRecipeArtifact | null {
@@ -326,8 +328,7 @@ function loadRecipesFromDisk(): CatalogEntry[] {
       generatedAt: generated?.generatedAt,
       recipeDocument,
       ...(generated?.documentLanguages ? { documentLanguages: generated.documentLanguages } : {}),
-      primaryPrompt:
-        generated?.primaryPrompt ?? buildPrimaryPrompt(meta, recipeDocument),
+      primaryPrompt: buildPrimaryPrompt(meta, recipeDocument, slug),
       ...meta,
     }
   })

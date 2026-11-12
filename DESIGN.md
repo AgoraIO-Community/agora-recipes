@@ -474,7 +474,14 @@ setup requirements. The prompt copy action and its setup chevron form one primar
 Keep author, difficulty, and update date together in the hero metadata; do not
 repeat them in a second About panel beside the same guide.
 The chevron opens a bounded Popover containing the prompt and, when supported,
-an Agora CLI tab. Keep the complete GlassSurface with opaque code planes; do
+an Agora CLI tab. Top-10 recipes with setup metadata instead use an English
+Start building panel with AI Assistant and Manual Setup tabs. The AI prompt
+directs the coding assistant through recipe discovery, project confirmation,
+CLI initialization and the returned installation/start steps. Manual Setup
+shows versioned npm creation, credential configuration, installation and a
+scenario-specific voice test only for an available package; otherwise show a
+clear availability message directing users to AI Assistant. Keep existing CLI
+metadata intact for API consumers. Keep the complete GlassSurface with opaque code planes; do
 not add a separate setup link or accordion row below the buttons.
 
 Inside the shared page shell, the desktop guide uses a 216px left contents rail

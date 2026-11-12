@@ -7,7 +7,9 @@ import ts from "typescript"
 
 // Exercise the real filesystem loader with isolated catalog fixtures, without
 // a test-runner dependency or importing Next's server-only marker into Node.
-const source = (await readFile(new URL("../lib/recipes.ts", import.meta.url), "utf8")).replace('import "server-only"', "")
+const source = (await readFile(new URL("../lib/recipes.ts", import.meta.url), "utf8"))
+  .replace('import "server-only"', "")
+  .replace('"./recipe-prompt.mjs"', JSON.stringify(new URL("../lib/recipe-prompt.mjs", import.meta.url).href))
 const valid = JSON.parse(await readFile(new URL("../content/recipes/aria-voice-sales-agent/recipe.json", import.meta.url), "utf8"))
 
 test("catalog live-demo links never navigate to downloadable video files", async () => {

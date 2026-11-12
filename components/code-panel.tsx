@@ -26,8 +26,9 @@ export function CopyTextButton({ text, label = "Copy", subject = "Text", primary
 
 export function CodePanel({ code, label = "Text", wrap = false, copyable = true, children, variant = "default" }: { code: string; label?: string; wrap?: boolean; copyable?: boolean; children?: ReactNode; variant?: "default" | "embedded" }) {
   const { t } = useI18n()
-  return <div data-variant={variant} className={cn("code-block", wrap && "code-block--wrap")}>
-    {copyable && <div className="code-block__header"><span className="code-block__label">{t(label)}</span><CopyTextButton text={code} subject={label} iconOnly /></div>}
+  return <div data-variant={variant} data-copyable={copyable} className={cn("code-block", wrap && "code-block--wrap")}>
+    {copyable && variant !== "embedded" && <div className="code-block__header"><span className="code-block__label">{t(label)}</span><CopyTextButton text={code} subject={label} iconOnly /></div>}
     {children || <pre role="group" tabIndex={0} aria-label={t("{label} code", { label: t(label) })}><code>{code}</code></pre>}
+    {copyable && variant === "embedded" && <div className="code-block__inline-copy"><CopyTextButton text={code} subject={label} iconOnly /></div>}
   </div>
 }

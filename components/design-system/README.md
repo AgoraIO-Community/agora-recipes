@@ -57,7 +57,9 @@ owns hero search geometry. Tooltip adapters preserve the target's own slot and
 state attributes. Native Disclosure slots own host summary controls, including
 reader metadata, diagram source, filters and contribution disclosures.
 The embedded CodePanel variant belongs in a floating panel Body and delegates
-scrolling to that body.
+scrolling to that body. Its copy action sits beside the code at the top right,
+without a separate header or repeated label. A dedicated grid column keeps the
+copy target clear of wrapped commands, including on phones.
 
 The style check included in `npm run lint` rejects page-level control type,
 material, padding and height overrides. Keep placement in page CSS and extend

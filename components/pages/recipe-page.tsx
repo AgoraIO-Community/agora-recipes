@@ -84,7 +84,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const selected = selectDocument(source, locale, documentLocale)
   if (documentLocale && !selected.document) return <DocumentUnavailable />
   const selectedDocument = selected.document ?? source.recipeDocument
-  const recipe = { ...localizeEntry(source, locale), recipeDocument: selectedDocument, primaryPrompt: buildPrimaryPrompt(source, selectedDocument) }
+  const recipe = { ...localizeEntry(source, locale), recipeDocument: selectedDocument, primaryPrompt: buildPrimaryPrompt(source, selectedDocument, slug) }
   const t = getT(locale)
   const languageName = documentLanguageName(selected.language)
   const options = [
@@ -107,7 +107,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <p className="detail-description">{recipe.tagline}</p>
             <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={recipe.updated}>{t("Updated")} {new Date(`${recipe.updated}T00:00:00Z`).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
             <div className="detail-actions detail-actions--recipe">
-              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />}
+              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} setup={source.setup} />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
                 {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></AttributionLink></IconButton>}
                 {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
