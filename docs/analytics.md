@@ -55,7 +55,7 @@ or site account is required.
 
 ### Basic counters: no visitor identity
 
-In canonical production, basic page and search counters run for pending, accepted,
+In canonical production, basic page, search and selected usage counters run for pending, accepted,
 denied, withdrawn, and unavailable consent. There is no visitor control to turn
 this tier off. The privacy banner, settings, and footer disclose that basic
 counts stay enabled; the optional choice never claims to disable them.
@@ -63,7 +63,8 @@ counts stay enabled; the optional choice never claims to disable them.
 The browser sends a small, cookie-free request to the first-party
 `POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
 visitor/session/search ID, accesses no browser storage, and sends no URL,
-account, campaign, consent status, device attributes, or timestamp. A pathname
+account, consent status, device attributes, or timestamp. Only the finite campaign
+categories below are admitted. A pathname
 navigation counts once; filter changes and optional-consent changes do not add
 another basic page view. A settled nonempty search counts once after 700 ms, or
 before an immediate result open. Optional-consent changes do not recount it.
@@ -78,9 +79,30 @@ origins. A zero-result flag is retained, without the raw query or result list.
 This intentionally cannot reveal new long-tail search phrases; the consenting
 behavioral tier below retains bounded, filtered search terms.
 
+
+The same dispatcher counts Demo opens, actual video playback, successful copies
+of guides, prompts, code and CLI commands, and contribution handoffs. These
+reuse existing success/play triggers. Muted hover previews, failed copies,
+source/video-original links, shares, filters and result-open events do not enter
+this additional anonymous usage vocabulary. One delegated link listener serves
+all consent states; changing consent neither replays nor doubles these counts.
+
+`utm_source`, `utm_medium` and `utm_campaign` describe only the current visible
+URL. `basicCampaignValues` in `lib/basic-analytics.ts` is the public category
+allowlist used by the browser and server. It includes the launch sources,
+standard media and `recipes_top10`; an unrecognized value becomes `other` in the
+browser, never raw text. Duplicate source parameters or a missing source omit
+all campaign fields. Duplicate optional parameters are omitted individually.
+`utm_content`, `utm_term`, `utm_id`, click IDs, complete URLs and referrers never
+enter the anonymous request. Untagged navigation has no retained anonymous
+source. Expand the public allowlist when introducing a new agreed category.
+This tier measures tagged page/use counts, including reloads, rather than
+unique visitors, exact external clicks or per-entry conversion.
+
 The server forwards only a counter increment, its public dimensions, and its UTC
 date to the existing PostHog destination, using the optional proxy host if set.
-`recipes_basic_count` has `measurement_tier=aggregate`, `count=1`, a timestamp
+`recipes_basic_count` has `measurement_tier=aggregate`, `measurement_version=4`,
+`count=1`, a timestamp
 rounded to UTC midnight, and the same constant `distinct_id=recipes:aggregate`
 for **all** visitors. That required protocol field identifies a shared counter,
 never a person, session, device, or daily fingerprint. Person-profile processing
@@ -213,7 +235,8 @@ it. This PR remains unmerged and does not change the corporate policy or CMP.
 ### Basic reports
 
 Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
-`measurement_tier=aggregate`, and `measurement_version=3`. Use **sum of count**:
+`measurement_tier=aggregate`, and `measurement_version=4`. Use **sum of count**:
+Version 3 historical counters cover page/search counts without campaign dimensions.
 
 - Page/content popularity: `metric=page_view`, broken down by `page_type` and
   `content_slug` or `topic_slug`, grouped by `day`.
@@ -221,11 +244,18 @@ Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
   `other` bucket covers unrecognized and filtered text; never infer its wording.
 - Zero-result share: sum of search counts with `zero_results=true` divided by
   the sum of all search counts for the same scope and date range.
+- Traffic sources: `metric=page_view` with `utm_source` present, broken down by
+  source, medium and campaign category. Untagged views do not imply direct traffic.
+- Content use: `metric=material_open, action=demo`, `metric=video_play, action=play`,
+  or `metric=content_copy`, broken down by `content_slug` and `action`.
+- Contribution intent: `metric=contribution_open`, broken down by `action`.
+  A handoff is not a completed submission.
 
 Do not use unique-person/session aggregations on the shared counter identity.
-Do not add basic counts to behavioral page/search totals: consenting traffic is
+Do not add basic counts to behavioral page/search/use totals: consenting traffic is
 already represented in the basic tier. Behavioral funnels, return rates, detailed
-search terms, and UTM attribution cover consenting traffic only. The tiers have
+search terms, and retained full UTM attribution cover consenting traffic only.
+Anonymous sources are current-URL categories, not retained journey attribution. The tiers have
 no per-visitor join key. They can be compared only as aggregate samples, with the
 coverage and counting differences disclosed.
 
@@ -473,7 +503,8 @@ and [Vercel custom-event limits](https://vercel.com/docs/analytics/limits-and-pr
 
 ## UTM regression verification
 
-Attribution changes preserve `measurement_version=3`, behavioral/aggregate tiers,
+Attribution changes preserve behavioral `measurement_version=3` and the separate
+aggregate tier (expanded anonymous counters use version 4),
 search measurements, separate GA4 consent and the existing basic-counter path.
 Full campaign context and `campaign_entry` go to PostHog. Vercel keeps its
 existing two-property action mapping and query-free page URLs; campaign fields
@@ -493,3 +524,31 @@ and a simulated marker reset before BFCache recovery. The installed PostHog SDK
 is used for an isolated real property-merge regression; network delivery is not
 part of that test. Production ingestion, target-site forwarding/ingestion and
 shared cross-site identity still require separate acceptance evidence.
+
+
+## Anonymous source and usage self-assessment
+
+The implementation reports public counter categories through the existing
+first-party endpoint and server-side PostHog adapter. It creates no visitor ID,
+per-tab source, browser persistence, fingerprint, exact client timestamp or
+visitor journey in the anonymous tier. Network/access logs are separate from
+these counters and must not be joined to them. The existing concise footer
+notice is retained; this document records the expanded source and event scope.
+Behavioral SDKs and outbound
+source retention remain behind the managed optional product-analytics choice.
+
+These measures minimize the data; they do not by themselves establish a legal
+consent exemption. The [EDPB technical-scope guidance](https://www.edpb.europa.eu/system/files/documents/2024-10/edpb_guidelines_202302_technical_scope_art_53_eprivacydirective_v2_en_0.pdf)
+includes URL tracking. The [ICO statistical-purpose guidance](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/)
+allows some aggregate traffic-source measurement for service improvement,
+requires clear information and a simple, free means to object, and excludes
+online-advertising purposes. [CNIL's self-assessment resources](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience)
+cover the conditions for an audience-measurement exemption.
+
+Before production release, record the applicable jurisdictions and purposes,
+align the managed notice and policy with this expanded collection, and resolve
+any required objection mechanism. The existing always-on baseline has no
+anonymous-counter opt-out. Advertising optimization, per-recipient email links,
+individual conversion tracking and cross-site matching are outside this
+anonymous implementation. No corporate policy, CMP configuration, data-processing
+agreement or deployment is changed by this code update.

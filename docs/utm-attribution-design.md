@@ -35,7 +35,7 @@ Before this implementation, event fields did not include UTM, reported URLs remo
 
 ## 3. Existing campaign conventions
 
-Reference: [Top 10 launch and promotion plan](https://rcnxnwjad4la.feishu.cn/wiki/GHPZwa9LoiJIg0kfrHkcWdC9n4e). The original design cited the UTM sections of revision 494.
+The launch uses the public naming conventions below.
 
 This launch uses `utm_campaign=recipes_top10`. This is a campaign naming convention; the Recipes implementation must support other campaign values.
 
@@ -232,3 +232,19 @@ A tab marker and a separate per-document owner are local coordination state,
 not business entry IDs and not analytics properties. Confirmed BFCache returns
 can claim the latest valid session snapshot despite a historical window marker.
 Delayed callbacks from an earlier document cannot write after that claim.
+
+
+## 13. Anonymous source and selected-use counters
+
+The aggregate tier also counts current-URL source categories and the selected
+Demo, actual-play, successful-copy and contribution-handoff events. These use
+the existing first-party anonymous collector with `measurement_version=4`,
+independently of optional consent. They contain neither a visitor ID nor a
+retained source. Only the finite public `utm_source`, `utm_medium` and
+`utm_campaign` categories are accepted; other values become `other` and
+keywords, creative text, campaign IDs and click IDs are excluded.
+
+This aggregate scope does not change the consent requirement for the document
+controller, browser SDKs, complete UTM event context or outbound forwarding.
+See [anonymous reporting and self-assessment](analytics.md#anonymous-source-and-usage-self-assessment)
+for category limits, reporting definitions and the remaining release assessment.

@@ -1,12 +1,49 @@
-import { analyticsText } from "./analytics-events"
+import { analyticsText, eventActions, type AnalyticsEvent } from "./analytics-events"
 
-export type BasicCount = {
-  metric: "page_view" | "search"
+export const basicEventActions = {
+  material_open: ["demo"],
+  video_play: ["play"],
+  content_copy: eventActions.content_copy,
+  contribution_open: eventActions.contribution_open,
+} as const
+
+export const basicCampaignValues: Record<string, readonly string[]> = {
+  utm_source: ["github", "agora_blog", "agora_website", "agora_email", "discord", "reddit", "x", "youtube", "google", "bing", "linkedin", "facebook", "wechat", "bilibili", "zhihu", "email", "newsletter", "other"],
+  utm_medium: ["referral", "social", "paid_social", "email", "video", "cpc", "organic", "community", "display", "affiliate", "other"],
+  utm_campaign: ["recipes_top10", "other"],
+}
+export const basicCampaignKeys = ["utm_source", "utm_medium", "utm_campaign"] as const
+type BasicCampaign = Partial<Record<typeof basicCampaignKeys[number], string>>
+
+// Classify only this page's explicit source. Unknown values never leave the
+// browser; there is no retained source, visitor ID, keyword or creative text.
+export function basicCampaignProperties(search: string): BasicCampaign {
+  const params = new URLSearchParams(search)
+  if (params.getAll("utm_source").length !== 1 || !params.get("utm_source")?.trim()) return {}
+  const result: BasicCampaign = {}
+  for (const key of basicCampaignKeys) {
+    const values = params.getAll(key)
+    if (values.length !== 1 || !values[0].trim()) continue
+    const value = values[0].trim().toLowerCase()
+    result[key] = basicCampaignValues[key].includes(value) ? value : "other"
+  }
+  return result
+}
+
+export function isBasicUsage(metric: string, action: unknown) {
+  const actions: readonly string[] | undefined = Object.hasOwn(basicEventActions, metric)
+    ? basicEventActions[metric as keyof typeof basicEventActions] : undefined
+  return typeof action === "string" && Boolean(actions?.includes(action))
+}
+
+export type BasicCount = BasicCampaign & {
+  metric: "page_view" | "search" | keyof typeof basicEventActions
   page_type: "catalog" | "recipe" | "topic_directory" | "topic" | "contribute"
   content_slug?: string
   topic_slug?: string
   search_term?: string
   zero_results?: boolean
+  action?: string
 }
 
 type PublicEntry = { slug: string; title: string; platforms: readonly string[]; useCases: readonly string[]; capabilities: readonly string[] }
@@ -44,6 +81,15 @@ export function basicPageCount(pathname: string): BasicCount | undefined {
   if (recipe) return { metric: "page_view", page_type: "recipe", content_slug: recipe }
   const topic = path.match(/^\/topics\/([a-z0-9]+(?:-[a-z0-9]+)*)$/)?.[1]
   if (topic) return { metric: "page_view", page_type: "topic", topic_slug: topic }
+}
+
+export function basicUsageCount(pathname: string, metric: AnalyticsEvent, properties: Record<string, string | number | boolean>): BasicCount | undefined {
+  if (!isBasicUsage(metric, properties.action)) return
+  const page = basicPageCount(pathname)
+  if (!page) return
+  const count: BasicCount = { ...page, metric: metric as keyof typeof basicEventActions, action: String(properties.action) }
+  if (typeof properties.content_slug === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(properties.content_slug) && properties.content_slug.length <= 100) count.content_slug = properties.content_slug
+  return count
 }
 
 export function sendBasicCount(count: BasicCount, send: typeof fetch = fetch) {
