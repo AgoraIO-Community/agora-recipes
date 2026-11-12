@@ -45,6 +45,6 @@
     "packageVersion": "0.1.0",
     "npmAvailable": true,
     "directory": "my-speaking-app",
-    "testRequest": "Help me practice ordering coffee in English and give me feedback."
+    "testRequest": "Help me practice ordering coffee in Mandarin, with English guidance, and give me feedback."
   }
 }
