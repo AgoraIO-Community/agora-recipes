@@ -1,0 +1,38 @@
+{
+  "title": "Top-10",
+  "summary": "Try ten voice AI demos for customer support, hospitality, travel, education, healthcare, language learning, recruitment, events, feedback and shopping.",
+  "compactSummary": "Ten practical voice AI demos to try and build.",
+  "kind": "collection",
+  "members": [
+    {
+      "slug": "agora-customer-support-assistant-demo"
+    },
+    {
+      "slug": "agora-hotel-reception-assistant-demo"
+    },
+    {
+      "slug": "agora-travel-booking-assistant-demo"
+    },
+    {
+      "slug": "agora-course-consultation-assistant-demo"
+    },
+    {
+      "slug": "agora-clinic-appointment-assistant-demo"
+    },
+    {
+      "slug": "agora-speaking-coach-demo"
+    },
+    {
+      "slug": "agora-recruitment-screening-assistant-demo"
+    },
+    {
+      "slug": "agora-event-reminder-assistant-demo"
+    },
+    {
+      "slug": "agora-service-feedback-survey-demo"
+    },
+    {
+      "slug": "agora-voice-shopping-assistant-demo"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "title": "Clinic Appointment Assistant",
+  "tagline": "Ask clinic questions and prepare your visit by voice.",
+  "description": "Ask about a fictional clinic, discuss preferred visit times and prepare questions for staff. This conversation-only demo does not book appointments or access patient records.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Healthcare",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-clinic-appointment-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-clinic-appointment-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-clinic-appointment-assistant.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-clinic-appointment-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Clinic Appointment Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-clinic-appointment-assistant-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

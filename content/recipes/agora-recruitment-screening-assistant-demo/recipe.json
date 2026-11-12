@@ -1,0 +1,43 @@
+{
+  "title": "Recruitment Screening Assistant",
+  "tagline": "Practice a Support Engineer screening interview by voice.",
+  "description": "Answer role-specific questions, discuss incident evidence and request a verbal interview recap. This practice conversation does not submit applications or make hiring decisions.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Recruitment",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-recruitment-screening-assista.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Recruitment Screening Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

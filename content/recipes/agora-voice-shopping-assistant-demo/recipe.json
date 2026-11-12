@@ -1,0 +1,45 @@
+{
+  "title": "Voice Shopping Assistant",
+  "tagline": "Find and compare Shopify products through a voice conversation.",
+  "description": "Search live Shopify Global Catalog listings by voice, compare products against a budget and visit merchant websites. Product discovery is read-only; the demo does not change carts, place orders or collect payments.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Shopping",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js",
+    "Tool Calling",
+    "MCP"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-voice-shopping-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-voice-shopping-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-voice-shopping-assistant-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-voice-shopping-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Voice Shopping Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-voice-shopping-assistant-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}
