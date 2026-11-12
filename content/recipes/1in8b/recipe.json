@@ -28,9 +28,9 @@
     "compactTitle": "1in8b",
     "summary": "Explore a two-player life simulator and learn how its private rooms, shared decisions, and Agora WebRTC voice chat work.",
     "compactSummary": "Two lives. One shared story.",
-    "thumbnail": "/recipes/1in8b.png",
-    "thumbnailAlt": "Illustrated two-player cover with two pixel-art characters and the words A life, together.",
-    "thumbnailSource": "https://github.com/0xRe/1in8b/blob/main/public/og/duo-lifetimes.png",
+    "thumbnail": "/recipes/1in8b.webp",
+    "thumbnailAlt": "Illustrated 1in8b cover showing countryside and city lives connected by a voice waveform, with the text Voice powered by Agora WebRTC.",
+    "thumbnailSource": "https://github.com/0xRe/1in8b/blob/main/public/og/recipe-cover.webp",
     "demoNote": "Self-hosted voice needs your own Agora App ID and App Certificate. Two players and microphone access are required for calls; solo play and room text chat work without Agora keys.",
     "labels": [
       "Gaming",
