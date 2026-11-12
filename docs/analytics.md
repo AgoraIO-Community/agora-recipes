@@ -55,15 +55,17 @@ or site account is required.
 
 ### Basic counters: no visitor identity
 
-In canonical production, basic page and search counters run for pending, accepted,
+In canonical production, basic page, search and selected usage counters run for pending, accepted,
 denied, withdrawn, and unavailable consent. There is no visitor control to turn
-this tier off. The privacy banner, settings, and footer disclose that basic
-counts stay enabled; the optional choice never claims to disable them.
+this tier off. The existing footer discloses that basic counts stay enabled.
+The managed popup and corporate policy have not yet been updated to describe
+the expanded anonymous source and usage scope.
 
 The browser sends a small, cookie-free request to the first-party
 `POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
 visitor/session/search ID, accesses no browser storage, and sends no URL,
-account, campaign, consent status, device attributes, or timestamp. A pathname
+account, consent status, device attributes, or timestamp. The three bounded
+campaign fields below retain their original values. A pathname
 navigation counts once; filter changes and optional-consent changes do not add
 another basic page view. A settled nonempty search counts once after 700 ms, or
 before an immediate result open. Optional-consent changes do not recount it.
@@ -78,9 +80,34 @@ origins. A zero-result flag is retained, without the raw query or result list.
 This intentionally cannot reveal new long-tail search phrases; the consenting
 behavioral tier below retains bounded, filtered search terms.
 
+
+The same dispatcher counts Demo opens, actual video playback, successful copies
+of guides, prompts, code and CLI commands, and contribution handoffs. These
+reuse existing success/play triggers. Muted hover previews, failed copies,
+source/video-original links, shares, filters and result-open events do not enter
+this additional anonymous usage vocabulary. One delegated link listener serves
+all consent states; changing consent neither replays nor doubles these counts.
+
+`utm_source`, `utm_medium` and `utm_campaign` describe only the current visible
+URL. New channels and campaigns require no registration or code change. Each
+valid value is preserved, including case, hyphens, dots, domains, spaces and
+Unicode; values are not mapped to `other`. The browser and server use the same
+100-character bound and sensitive-text checks. Controls, unresolved templates,
+email addresses, full URLs and obvious credentials are rejected; these checks
+cannot recognize every possible personal identifier. Campaign publishers must
+not use recipient or visitor identifiers as UTM labels. Each anonymous field is
+independent, so a campaign-only URL still retains its campaign. Repeated
+parameters use their first value, following `URLSearchParams.get`.
+`utm_content`, `utm_term`, `utm_id`, click IDs, complete URLs and referrers never
+enter the anonymous request. Untagged navigation has no retained anonymous
+source.
+This tier measures tagged page/use counts, including reloads, rather than
+unique visitors, exact external clicks or per-entry conversion.
+
 The server forwards only a counter increment, its public dimensions, and its UTC
 date to the existing PostHog destination, using the optional proxy host if set.
-`recipes_basic_count` has `measurement_tier=aggregate`, `count=1`, a timestamp
+`recipes_basic_count` has `measurement_tier=aggregate`, `measurement_version=4`,
+`count=1`, a timestamp
 rounded to UTC midnight, and the same constant `distinct_id=recipes:aggregate`
 for **all** visitors. That required protocol field identifies a shared counter,
 never a person, session, device, or daily fingerprint. Person-profile processing
@@ -213,7 +240,8 @@ it. This PR remains unmerged and does not change the corporate policy or CMP.
 ### Basic reports
 
 Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
-`measurement_tier=aggregate`, and `measurement_version=3`. Use **sum of count**:
+`measurement_tier=aggregate`, and `measurement_version=4`. Use **sum of count**:
+Version 3 historical counters cover page/search counts without campaign dimensions.
 
 - Page/content popularity: `metric=page_view`, broken down by `page_type` and
   `content_slug` or `topic_slug`, grouped by `day`.
@@ -221,11 +249,18 @@ Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
   `other` bucket covers unrecognized and filtered text; never infer its wording.
 - Zero-result share: sum of search counts with `zero_results=true` divided by
   the sum of all search counts for the same scope and date range.
+- Traffic sources: `metric=page_view` with campaign fields present, broken down by
+  source, medium and campaign. Missing source does not imply direct traffic.
+- Content use: `metric=material_open, action=demo`, `metric=video_play, action=play`,
+  or `metric=content_copy`, broken down by `content_slug` and `action`.
+- Contribution intent: `metric=contribution_open`, broken down by `action`.
+  A handoff is not a completed submission.
 
 Do not use unique-person/session aggregations on the shared counter identity.
-Do not add basic counts to behavioral page/search totals: consenting traffic is
+Do not add basic counts to behavioral page/search/use totals: consenting traffic is
 already represented in the basic tier. Behavioral funnels, return rates, detailed
-search terms, and UTM attribution cover consenting traffic only. The tiers have
+search terms, and retained full UTM attribution cover consenting traffic only.
+Anonymous campaign fields describe the current URL rather than retained journey attribution. The tiers have
 no per-visitor join key. They can be compared only as aggregate samples, with the
 coverage and counting differences disclosed.
 
@@ -305,26 +340,59 @@ https://recipes.agora.io/topics/community-challenge?utm_source=discord&utm_mediu
 | `utm_content` | Creative or link placement | `announcement`, `footer` |
 | `utm_term` | Optional paid keyword | `voice agent` |
 
-Use consistent lowercase names for source, medium, and campaign, and include all
-three on campaign links. Values are case-sensitive, trimmed, whitespace-normalized,
-and limited to 100 characters; common email, URL, and credential patterns are
-excluded. Do not put personal identifiers in campaign labels. No arbitrary query
-parameter or ad click ID is collected. Avoid UTM tags on internal navigation: they
-would create another tagged touch.
+Lowercase English letters, numbers and underscores are a publishing convention,
+not a receiver restriction. All six fields preserve valid original case,
+punctuation, spaces and Unicode. The consented attribution controller requires a
+valid `utm_source`; other fields are optional and never filled from older
+campaigns. Repeated parameters use the first value. The shared `campaignText`
+check rejects unresolved templates, controls, values longer than 100 characters,
+emails, full URLs and common credential patterns before storage, reporting or
+forwarding. Plain domain labels such as `www.bilibili.com` and public handles
+such as `@AgoraIO` are accepted. No
+arbitrary query parameter or ad click ID is collected.
 
-Attribution is the **last explicit tagged touch in the current tab**, stored as
-only these six allowlisted dimensions plus the last measurement timestamp in
-`sessionStorage`. An untagged Topic → recipe → demo/copy/contribution journey
-retains the campaign; a new valid tagged touch replaces the complete campaign
-set, so old `utm_content` or `utm_term` values cannot leak into a new campaign.
-After 30 minutes without a measured page view or action, an untagged visit has no
-campaign attribution. A tagged URL can start it again. Reloads retain it; a
-separate tab normally has its own state (a tab opened with an opener can inherit
-its initial session storage). Blocked storage falls back to document memory.
+Attribution uses one consent-bound document controller in
+`lib/analytics-attribution.ts`, exposed by `lib/browser-attribution.ts` to both
+analytics and `AttributionLink`. Rendering reads a cached snapshot without
+initializing storage or writing `window.name`. Initialization occurs in effects
+or consented action dispatch. Pending or denied consent leaves outbound links
+unchanged. Withdrawal removes campaign storage (`recipes:campaign:v1` and the
+legacy `recipes:utm` key), clears the owned tab marker and memory, and invalidates
+old callbacks. Regrant uses only the then-current URL, without replaying an
+already recorded campaign entry or pre-consent actions.
+
+After consent, a validated external promotion navigation produces one PostHog
+`campaign_entry`; the first PostHog page view and subsequent actions carry the
+same source and `landing_path`. The landing path is a pathname without query or
+fragment. Ordinary internal navigation and reload/history restoration do not
+produce another campaign entry. When no saved source can be recovered, a
+reload/history restoration still reads valid UTM from the current URL for
+subsequent actions and forwarding. There is no inactivity expiry: continuing the
+tab on a later day retains its source while reporting ranges remain independent.
+A new promotion replaces the complete source, including absent fields.
+
+A local random tab marker and per-document ownership state distinguish supported tab
+continuations from inherited sessionStorage. New tabs without evidence of a
+source do not inherit it. BFCache restoration reconciles current storage and the
+current marker before writing. A confirmed BFCache return may adopt the latest
+validated session snapshot even when the browser restores a historical marker.
+It claims a local document owner before emitting events, so a delayed pagehide
+from another document cannot overwrite that claim. Unproven restores drop their
+stale local source. Both resume and delayed pagehide callbacks are
+prevented from overwriting an unproven newer owner. Missing lifecycle events,
+blocked storage and browser-specific marker behavior can prevent recovery;
+unrecoverable sources remain empty. Same-URL activations without new navigation
+evidence cannot be counted as a complete external-click ledger.
+
+Only catalog Demo anchors and the designated footer Console link forward UTM.
+They use the same consented snapshot as events, replace the entire target UTM set,
+and preserve functional query parameters and fragments. Source, share, original
+video and other links are unchanged. `landing_path` is never forwarded. No
+cross-site identity or successful downstream action is implied.
 
 This is event-scoped campaign context, independent of Topic membership and source
 Topic, not an authenticated identity or a cross-device first-touch profile. It
-does not claim to match a provider's session definition. Untagged visits have no
+does not claim to match a provider's session definition. Untagged visits without saved attribution have no
 inferred UTM source; that does not establish that they were direct traffic.
 PostHog's automatic campaign persistence is disabled, and stale SDK campaign
 super-properties are overridden by this shared contract.
@@ -421,7 +489,7 @@ counts; installed code and environment configuration are not evidence of ingesti
    breakdowns. Also confirm direct visits have no inferred source.
 6. Enter a tagged Topic link, navigate to a recipe and contribution, and verify
    the same campaign dimensions. Test an untagged route, reload, new campaign, and
-   30-minute inactivity boundary. Run a normal search, a zero-result search, a
+   continued use beyond 30 minutes without a new campaign entry. Run a normal search, a zero-result search, a
    sensitive-pattern search, and an immediate result click. Confirm matching
    `search_id` on search/open, normalized or redacted terms, and result position.
 7. Confirm local/development/preview visits send no events, including a copy of
@@ -441,3 +509,55 @@ References: [PostHog Next.js](https://posthog.com/docs/libraries/next-js),
 [anonymous events](https://posthog.com/docs/libraries/js/usage#anonymous-and-identified-events),
 [UTM traffic-source dimensions](https://support.google.com/analytics/answer/11242870),
 and [Vercel custom-event limits](https://vercel.com/docs/analytics/limits-and-pricing).
+
+## UTM regression verification
+
+Attribution changes preserve behavioral `measurement_version=3` and the separate
+aggregate tier (expanded anonymous counters use version 4),
+search measurements, separate GA4 consent and the existing basic-counter path.
+Full campaign context and `campaign_entry` go to PostHog. Vercel keeps its
+existing two-property action mapping and query-free page URLs; campaign fields
+and the new entry event are not added to Vercel.
+
+SDK initialization clears campaign keys from both ordinary persistence and
+session persistence. Each capture also supplies explicit null placeholders for
+absent campaign keys: SDK property merging skips undefined values, so undefined
+cannot reliably mask historical state. Final validation removes the null
+placeholders before delivery. Neither cleanup changes anonymous identity nor
+requires a new session ID.
+
+Run `node --test scripts/*.test.mjs`, `npm run lint`, `npm run build`, and
+`npx tsc --noEmit`. Tests include consent lifecycle, identical promotion entries,
+cloned tab state, source-only replacements, sensitive keywords, invalid ownership
+and a simulated marker reset before BFCache recovery. The installed PostHog SDK
+is used for an isolated real property-merge regression; network delivery is not
+part of that test. Production ingestion, target-site forwarding/ingestion and
+shared cross-site identity still require separate acceptance evidence.
+
+
+## Anonymous source and usage self-assessment
+
+The implementation reports counter dimensions and bounded campaign labels through the existing
+first-party endpoint and server-side PostHog adapter. It creates no visitor ID,
+per-tab source, browser persistence, fingerprint, exact client timestamp or
+visitor journey in the anonymous tier. Network/access logs are separate from
+these counters and must not be joined to them. The existing concise footer
+notice is retained; this document records the expanded source and event scope.
+Behavioral SDKs and outbound
+source retention remain behind the managed optional product-analytics choice.
+
+These measures minimize the data; they do not by themselves establish a legal
+consent exemption. The [EDPB technical-scope guidance](https://www.edpb.europa.eu/system/files/documents/2024-10/edpb_guidelines_202302_technical_scope_art_53_eprivacydirective_v2_en_0.pdf)
+includes URL tracking. The [ICO statistical-purpose guidance](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/)
+allows some aggregate traffic-source measurement for service improvement,
+requires clear information and a simple, free means to object, and excludes
+online-advertising purposes. [CNIL's self-assessment resources](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience)
+cover the conditions for an audience-measurement exemption.
+
+Before production release, record the applicable jurisdictions and purposes,
+align the managed notice and policy with this expanded collection, and resolve
+any required objection mechanism. The existing always-on baseline has no
+anonymous-counter opt-out. Advertising optimization, per-recipient email links,
+individual conversion tracking and cross-site matching are outside this
+anonymous implementation. No corporate policy, CMP configuration, data-processing
+agreement or deployment is changed by this code update.

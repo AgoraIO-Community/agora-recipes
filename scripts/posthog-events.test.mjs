@@ -1,3 +1,4 @@
+import { attributionUrl } from './analytics-test-modules.mjs'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import test from 'node:test'
@@ -9,7 +10,8 @@ const contextSource = readFileSync(new URL('../lib/analytics-context.ts', import
 const contextCompiled = ts.transpileModule(contextSource, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
 const contextModule = `data:text/javascript;base64,${Buffer.from(contextCompiled).toString('base64')}`
 const { pageContext, analyticsProperties } = await import(contextModule)
-const compiled = ts.transpileModule(source.replace('"./analytics-context"', JSON.stringify(contextModule)), { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
+const withAttribution = source.replace('"./analytics-attribution"', JSON.stringify(attributionUrl))
+const compiled = ts.transpileModule(withAttribution.replace('"./analytics-context"', JSON.stringify(contextModule)), { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
 const { sanitizePosthogEvent } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 const topics = ['topic-a', 'topic-b']
 const fromA = `returnTo=${encodeURIComponent('/zh-Hans/topics/topic-a?q=private#recipes')}`

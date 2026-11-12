@@ -1,5 +1,6 @@
 "use client"
 
+import { AttributionLink } from "@/components/attribution-link"
 import { useAnalytics } from "@/components/analytics-provider"
 import { useI18n } from "@/components/locale-provider"
 import { catalogReturnPath, localePath } from "@/lib/locales"
@@ -48,7 +49,7 @@ export function RecipeVideoDialog({ recipe, children, detailHref }: { recipe: Re
         </DialogBody>
         <DialogFooter className="video-preview__footer">
           <ButtonGroup className="video-preview__actions" aria-label={t("Available materials")}>
-            {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try live demo")}><a href={recipe.demoUrl} data-material="demo" data-placement="player" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+            {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try live demo")}><AttributionLink href={recipe.demoUrl} data-material="demo" data-placement="player" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></AttributionLink></IconButton>}
             <IconButton asChild variant="outline" label={t(recipe.recipeUrl ? "Read recipe" : "View project")}><a href={detailHref ?? defaultHref}><BookOpen aria-hidden="true" /></a></IconButton>
             <IconButton asChild variant="outline" label={t("Original video")}><a href={media.videoUrl} data-material="video_original" data-placement="player" target="_blank" rel="noreferrer"><ExternalLink aria-hidden="true" /></a></IconButton>
           </ButtonGroup>

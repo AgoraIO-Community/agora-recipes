@@ -82,12 +82,18 @@ export function capturePosthog(event: string, properties: Record<string, unknown
       save_campaign_params: false,
       before_send: event => analyticsConsent.isGranted() ? sanitizePosthogEvent(event) : null,
     })
+    for (const key of campaignKeys) {
+      posthog.unregister(key)
+      posthog.unregister_for_session(key)
+    }
     return posthog
   })
   // Queue the first view/actions during the lazy import. A blocked analytics
   // request must not interrupt navigation, clipboard feedback, or contribution.
   // Replace SDK campaign super-properties, including ones saved by older builds.
-  const campaignDefaults = Object.fromEntries(campaignKeys.map(key => [key, undefined]))
+  // The SDK skips undefined during property merging. Null overrides history;
+  // the final campaign validator removes these placeholders before transport.
+  const campaignDefaults = Object.fromEntries(campaignKeys.map(key => [key, null]))
   void client.then(posthog => {
     if (!posthog || !analyticsConsent.isGranted() || transport !== grant || grant.aborted) return
     if (appliedTransport !== grant) { posthog.set_config({ fetch_options: grant.options }); appliedTransport = grant }
