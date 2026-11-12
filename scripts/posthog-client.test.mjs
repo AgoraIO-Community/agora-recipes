@@ -1,3 +1,4 @@
+import { attributionUrl } from './analytics-test-modules.mjs'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import test from 'node:test'
@@ -7,7 +8,7 @@ const analyticsModule = new URL('../lib/analytics-events.ts', import.meta.url).h
 const compile = source => ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
 const moduleUrl = source => `data:text/javascript;base64,${Buffer.from(source).toString('base64')}`
 const contextModule = moduleUrl(compile(readFileSync(new URL('../lib/analytics-context.ts', import.meta.url), 'utf8')))
-const eventsModule = moduleUrl(compile(readFileSync(new URL('../lib/posthog-events.ts', import.meta.url), 'utf8').replace('"./analytics-events"', JSON.stringify(analyticsModule)).replace('"./analytics-context"', JSON.stringify(contextModule))))
+const eventsModule = moduleUrl(compile(readFileSync(new URL('../lib/posthog-events.ts', import.meta.url), 'utf8').replace('"./analytics-events"', JSON.stringify(analyticsModule)).replace('"./analytics-context"', JSON.stringify(contextModule)).replace('"./analytics-attribution"', JSON.stringify(attributionUrl))))
 const clientSource = readFileSync(new URL('../lib/posthog-client.ts', import.meta.url), 'utf8')
   .replace('"./posthog-events"', JSON.stringify(eventsModule))
   .replace('"./analytics-events"', JSON.stringify(analyticsModule))
@@ -19,7 +20,7 @@ async function fixture(href, token = 'phc_target_project_fixture', host, consent
   const setup = `
     const window = ${href ? JSON.stringify({ location: { href } }) : 'undefined'};
     const process = { env: ${JSON.stringify({ NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN: token, NEXT_PUBLIC_POSTHOG_HOST: host })} };
-    export const state = { imports: 0, inits: 0, events: [], token: null, options: null, consent: ${JSON.stringify(consent)}, optIns: 0, optOuts: 0, optedIn: false };
+    export const state = { imports: 0, inits: 0, events: [], token: null, options: null, consent: ${JSON.stringify(consent)}, optIns: 0, optOuts: 0, optedIn: false, unregistered: [], sessionUnregistered: [] };
     const analyticsConsent = { isGranted: () => state.consent };
     state.localStore = new Map(); state.sessionStore = new Map(); state.cookies = new Map();
     const storage = values => ({
@@ -37,6 +38,8 @@ async function fixture(href, token = 'phc_target_project_fixture', host, consent
       state.imports++;
       return { default: {
         init(token, options) { state.inits++; state.token = token; state.options = options; },
+        unregister(key) { state.unregistered.push(key); },
+        unregister_for_session(key) { state.sessionUnregistered.push(key); },
         set_config(config) { Object.assign(state.options, config); },
         has_opted_in_capturing() { return state.optedIn; },
         opt_in_capturing() { state.optedIn = true; state.optIns++; },
@@ -194,4 +197,16 @@ test('withdrawal opts out the existing Recipes instance and gates SDK-boundary e
   assert.equal(oldTransport.signal.aborted, true)
   assert.equal(client.state.options.fetch_options.signal.aborted, false)
   assert.deepEqual(client.state.events.map(event => event.event), ['$pageview', 'content_copy'])
+})
+
+test('initialization clears both SDK campaign stores and every capture explicitly excludes absent fields', async () => {
+  const client = await fixture('https://recipes.agora.io/?utm_source=x')
+  client.capturePosthog('material_open', {action:'demo',utm_source:'x',landing_path:'/'}, 'https://recipes.agora.io')
+  await new Promise(resolve=>setImmediate(resolve))
+  const keys=['utm_source','utm_medium','utm_campaign','utm_id','utm_content','utm_term']
+  assert.deepEqual(client.state.unregistered,keys)
+  assert.deepEqual(client.state.sessionUnregistered,keys)
+  const properties=client.state.events[0].properties
+  assert.equal(properties.utm_source,'x')
+  for (const key of keys.filter(key=>key!=='utm_source')) assert.equal(properties[key],undefined,key)
 })

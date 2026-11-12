@@ -1,0 +1,43 @@
+{
+  "title": "Mandarin Speaking Coach",
+  "tagline": "Practice Mandarin with English guidance and written pinyin.",
+  "description": "Practice short Mandarin role-plays and review vocabulary or grammar feedback based on recognized text. Includes written pinyin and English explanations, without pronunciation scoring or saved learning records.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Language Learning",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-speaking-coach-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-speaking-coach-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-speaking-coach-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-speaking-coach-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Mandarin Speaking Coach; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-speaking-coach-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

@@ -1,5 +1,6 @@
 "use client"
 
+import { AttributionLink } from "@/components/attribution-link"
 import { useI18n } from "@/components/locale-provider"
 import { useState } from "react"
 import { ExternalLink, Play } from "lucide-react"
@@ -21,7 +22,7 @@ export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
   </>
   return <section id="demo" className="detail-preview" aria-label={t("{title} demo preview", { title })}>
     <RecipeVideoDialog recipe={recipe}>
-      {media.videoUrl ? <DialogTrigger asChild><button type="button" className="detail-preview__cover" aria-label={t("Watch {title} demo", { title })}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <a className="detail-preview__cover" href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</a> : <div className="detail-preview__cover">{cover}</div>}
+      {media.videoUrl ? <DialogTrigger asChild><button type="button" className="detail-preview__cover" aria-label={t("Watch {title} demo", { title })}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <AttributionLink className="detail-preview__cover" href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</AttributionLink> : <div className="detail-preview__cover">{cover}</div>}
     </RecipeVideoDialog>
     <p>{failed ? t("Default cover illustration.") : media.demoNote}</p>
   </section>
