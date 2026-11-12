@@ -54,9 +54,9 @@ This launch uses `utm_campaign=recipes_top10`. This is a campaign naming convent
 - `utm_medium`: The channel category.
 - `utm_campaign`: The campaign.
 - `utm_content`: The article, post, reply, video, ad creative, button position, or version. Different materials must use distinct values.
-- `utm_term`: The advertising keyword; omit it for email. Actual keywords may contain spaces and non-English characters, so the underscore naming rule for other fields does not apply. An unresolved `{keyword}` template is not a real keyword.
+- `utm_term`: The advertising keyword; omit it for email. Actual keywords may contain spaces and non-English characters. An unresolved `{keyword}` template is not a real keyword.
 
-Manually named parameters use lowercase English letters, numbers, and underscores. Examples include `top10_overview_main_cta_v1` for email and `official_post_01` for X. The receiver preserves valid original values without renaming them.
+Use lowercase English letters, numbers, and underscores as a publishing convention. Examples include `top10_overview_main_cta_v1` for email and `official_post_01` for X. The receiver also accepts other case, hyphens, dots, domains, spaces and Unicode, and preserves valid original values without renaming them. New sources and campaigns require no registration or code change.
 
 ## 4. Keep source and location separate
 
@@ -87,7 +87,7 @@ Store the source per tab, without time-based expiry. Reporting time ranges are s
 | A new promotion has a different source | Replace the entire association and record a new entry; do not modify old events or combine old and new UTM fields |
 | Open a URL without UTM in a new independent tab | Leave attribution empty; do not inherit another tab's source |
 | Open a URL without UTM normally in the same tab | Retain the saved source; missing UTM alone does not clear it |
-| Tab storage is cleared or unreadable | Leave unrecoverable attribution empty; do not infer it from the visitor's historical events |
+| Tab storage is cleared or unreadable | Use explicit valid UTM from the current URL, including on reload/history restoration; otherwise leave attribution empty rather than inferring it from historical events |
 
 Not recording another campaign entry does not mean suppressing actions. Reactivating an unchanged tab does not itself add a page view. Navigation, refresh, and actual actions follow their respective event rules.
 
@@ -180,7 +180,7 @@ Without an entry ID, a funnel measures visitor behavior under the selected chann
 
 ## 10. Data boundaries and failures
 
-- Validate manually named fields against the agreed character rules and bound their length; the recommended maximum is 100 characters per value. Validate keyword characters separately for `utm_term`, rejecting control characters, excessive length, and unresolved templates.
+- Bound UTM values to 100 characters and reject control characters, unresolved templates and obvious sensitive patterns. Preserve valid original values across all six fields rather than enforcing the publishing convention as an input restriction. Repeated parameters use their first value.
 - Use the five promotion UTM fields, preserve staging support for optional `utm_id`, and add only the necessary landing path, reusing existing page and action context. Do not store the complete entry URL, raw search text, clipboard contents, or arbitrary query parameters.
 - If storage is unavailable, keep attribution in current-document memory where possible. Persistence after refresh is not guaranteed. Do not block browsing, navigation, or copying.
 - Preserve the existing production-environment and canonical-origin restrictions. Local and Preview visits do not perform real collection.
@@ -236,15 +236,17 @@ Delayed callbacks from an earlier document cannot write after that claim.
 
 ## 13. Anonymous source and selected-use counters
 
-The aggregate tier also counts current-URL source categories and the selected
+The aggregate tier also counts current-URL UTM values and the selected
 Demo, actual-play, successful-copy and contribution-handoff events. These use
 the existing first-party anonymous collector with `measurement_version=4`,
-independently of optional consent. They contain neither a visitor ID nor a
-retained source. Only the finite public `utm_source`, `utm_medium` and
-`utm_campaign` categories are accepted; other values become `other` and
-keywords, creative text, campaign IDs and click IDs are excluded.
+independently of optional consent. They create no visitor ID and retain no
+cross-page source. Each valid `utm_source`, `utm_medium` and `utm_campaign` value
+is preserved without a value allowlist, case conversion or `other` fallback.
+Fields are independent; a campaign-only URL still retains that campaign.
+The browser and server share the same bounded-text validation. Keywords,
+creative text, campaign IDs and click IDs are excluded from this tier.
 
 This aggregate scope does not change the consent requirement for the document
 controller, browser SDKs, complete UTM event context or outbound forwarding.
 See [anonymous reporting and self-assessment](analytics.md#anonymous-source-and-usage-self-assessment)
-for category limits, reporting definitions and the remaining release assessment.
+for field boundaries, reporting definitions and the remaining release assessment.

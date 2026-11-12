@@ -23,14 +23,23 @@ function fixture(initial = {}) {
 
 test('bounded values preserve real campaign names and multilingual keywords without inventing a source', () => {
   assert.deepEqual(readUtm(new URLSearchParams('utm_source=google&utm_term=voice+AI+\u4e2d\u6587')), { utm_source: 'google', utm_term: 'voice AI \u4e2d\u6587' })
-  for (const source of ['X', 'bad-source', 'name@example.com', 'a'.repeat(101), 'x\n']) assert.equal(readUtm(new URLSearchParams({ utm_source: source })), undefined)
+  for (const source of ['X', 'partner-blog', 'newsletter.v2', 'www.bilibili.com', '微信', 'Ｘ', 'Partner  channel', '@AgoraIO']) {
+    const campaign = { utm_source: source, utm_medium: 'Paid.Social', utm_campaign: 'Live@Agora 发布.2026', utm_content: 'Main-CTA.v2' }
+    assert.deepEqual(readUtm(new URLSearchParams(campaign)), campaign)
+    const tab = fixture()
+    const page = tab.open('/?' + new URLSearchParams(campaign))
+    assert.deepEqual(page.get(), { ...campaign, landing_path: '/' })
+    const target = new URL(attributedDestination('https://demo.example/', page.get()))
+    for (const key of Object.keys(campaign)) assert.equal(target.searchParams.get(key), campaign[key])
+  }
+  for (const source of ['name@example.com', 'a'.repeat(101), 'x\n']) assert.equal(readUtm(new URLSearchParams({ utm_source: source })), undefined)
   assert.equal(readUtm(new URLSearchParams('utm_campaign=recipes_top10')), undefined)
-  assert.equal(readUtm(new URLSearchParams('utm_source=x&utm_source=google')), undefined)
+  assert.deepEqual(readUtm(new URLSearchParams('utm_source=x&utm_source=google')), { utm_source: 'x' })
   for (const term of ['{keyword}', '%7Bkeyword%7D', 'bad\nword', 'a'.repeat(101), '  ']) {
     const params = new URLSearchParams('utm_source=google&utm_term=' + term)
     assert.deepEqual(readUtm(params), { utm_source: 'google' })
   }
-  assert.deepEqual(readUtm(new URLSearchParams('utm_source=x&utm_medium=Bad&utm_content=valid_v1')), { utm_source: 'x', utm_content: 'valid_v1' })
+  assert.deepEqual(readUtm(new URLSearchParams('utm_source=x&utm_medium=Bad&utm_content=valid_v1')), { utm_source: 'x', utm_medium: 'Bad', utm_content: 'valid_v1' })
   for (const landing_path of ['//evil.example', '/page?private=1', '/page#secret', '/path\\evil', 'https://example.com']) assert.equal(sanitizeAttribution({ ...expected, landing_path }), undefined)
 })
 
@@ -62,6 +71,19 @@ test('reload, history and unchanged documents retain source without new entries,
   }
   page.resume()
   assert.deepEqual(page.get(), expected)
+})
+
+test('reload and history can read explicit URL attribution without storage or a new campaign entry', () => {
+  for (const navigation of ['reload', 'back_forward']) {
+    for (const blocked of [false, true]) {
+      const tab = fixture({ blocked })
+      const page = tab.open('/' + email, navigation)
+      assert.deepEqual(page.get(), expected)
+      assert.equal(page.takeEntry(), undefined)
+      const target = new URL(attributedDestination('https://demo.example/', page.get()))
+      assert.equal(target.searchParams.get('utm_source'), 'agora_email')
+    }
+  }
 })
 
 test('every identifiable external promotion counts even with identical UTM, then whole-source replacement removes old fields', () => {

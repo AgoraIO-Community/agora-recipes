@@ -1,4 +1,5 @@
-import { basicCampaignKeys, basicCampaignValues, isBasicUsage, type BasicCount } from "./basic-analytics"
+import { campaignText } from "./analytics-events"
+import { basicCampaignKeys, isBasicUsage, type BasicCount } from "./basic-analytics"
 
 type Catalog = { recipes: ReadonlySet<string>; topics: ReadonlySet<string>; terms: ReadonlySet<string> }
 type Configuration = Catalog & { enabled: boolean; origin: string; token?: string; host?: string }
@@ -22,9 +23,8 @@ export function validBasicCount(input: unknown, catalog: Catalog): BasicCount | 
     if (typeof value.search_term !== "string" || value.search_term !== "other" && !catalog.terms.has(value.search_term)) return
   } else if (value.search_term !== undefined || value.zero_results !== undefined) return
   for (const key of basicCampaignKeys) {
-    if (value[key] !== undefined && (typeof value[key] !== "string" || !basicCampaignValues[key].includes(value[key]))) return
+    if (value[key] !== undefined && !campaignText(value[key])) return
   }
-  if (!value.utm_source && basicCampaignKeys.some(key => value[key] !== undefined)) return
   return value as BasicCount
 }
 
@@ -38,7 +38,7 @@ async function readCount(request: Request) {
       const { value, done } = await reader.read()
       if (done) break
       size += value.byteLength
-      if (size > 1024) { await reader.cancel(); return }
+      if (size > 4096) { await reader.cancel(); return }
       chunks.push(value)
     }
     const bytes = new Uint8Array(size)

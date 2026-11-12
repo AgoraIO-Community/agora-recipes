@@ -78,7 +78,7 @@ test('real dispatcher resolves attribution before first PV, emits one PostHog en
 })
 
 test('pending/refused/granted usage produces one anonymous count per successful action while optional adapters stay gated', () => {
-  globalThis.window = { location: new URL('https://recipes.agora.io/recipes/example?utm_source=google&utm_medium=cpc&utm_campaign=recipes_top10&utm_term=private'), addEventListener() {}, removeEventListener() {} }
+  globalThis.window = { location: new URL('https://recipes.agora.io/recipes/example?utm_source=Partner-Blog&utm_medium=Paid.Social&utm_campaign=Voice-AI发布2027&utm_term=private'), addEventListener() {}, removeEventListener() {} }
   state.pathname='/recipes/example'
   state.search=window.location.search
   state.basic=[];state.posthog=[];state.vercel=[]
@@ -89,8 +89,9 @@ test('pending/refused/granted usage produces one anonymous count per successful 
   }
   assert.equal(state.basic.length,16)
   for (const count of state.basic) {
-    assert.equal(count.utm_source,'google')
-    assert.equal(count.utm_medium,'cpc')
+    assert.equal(count.utm_source,'Partner-Blog')
+    assert.equal(count.utm_medium,'Paid.Social')
+    assert.equal(count.utm_campaign,'Voice-AI发布2027')
     assert.equal(count.content_slug,'example')
     assert.equal(count.utm_term,undefined)
     assert.equal(count.search_id,undefined)

@@ -57,14 +57,15 @@ or site account is required.
 
 In canonical production, basic page, search and selected usage counters run for pending, accepted,
 denied, withdrawn, and unavailable consent. There is no visitor control to turn
-this tier off. The privacy banner, settings, and footer disclose that basic
-counts stay enabled; the optional choice never claims to disable them.
+this tier off. The existing footer discloses that basic counts stay enabled.
+The managed popup and corporate policy have not yet been updated to describe
+the expanded anonymous source and usage scope.
 
 The browser sends a small, cookie-free request to the first-party
 `POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
 visitor/session/search ID, accesses no browser storage, and sends no URL,
-account, consent status, device attributes, or timestamp. Only the finite campaign
-categories below are admitted. A pathname
+account, consent status, device attributes, or timestamp. The three bounded
+campaign fields below retain their original values. A pathname
 navigation counts once; filter changes and optional-consent changes do not add
 another basic page view. A settled nonempty search counts once after 700 ms, or
 before an immediate result open. Optional-consent changes do not recount it.
@@ -88,14 +89,18 @@ this additional anonymous usage vocabulary. One delegated link listener serves
 all consent states; changing consent neither replays nor doubles these counts.
 
 `utm_source`, `utm_medium` and `utm_campaign` describe only the current visible
-URL. `basicCampaignValues` in `lib/basic-analytics.ts` is the public category
-allowlist used by the browser and server. It includes the launch sources,
-standard media and `recipes_top10`; an unrecognized value becomes `other` in the
-browser, never raw text. Duplicate source parameters or a missing source omit
-all campaign fields. Duplicate optional parameters are omitted individually.
+URL. New channels and campaigns require no registration or code change. Each
+valid value is preserved, including case, hyphens, dots, domains, spaces and
+Unicode; values are not mapped to `other`. The browser and server use the same
+100-character bound and sensitive-text checks. Controls, unresolved templates,
+email addresses, full URLs and obvious credentials are rejected; these checks
+cannot recognize every possible personal identifier. Campaign publishers must
+not use recipient or visitor identifiers as UTM labels. Each anonymous field is
+independent, so a campaign-only URL still retains its campaign. Repeated
+parameters use their first value, following `URLSearchParams.get`.
 `utm_content`, `utm_term`, `utm_id`, click IDs, complete URLs and referrers never
 enter the anonymous request. Untagged navigation has no retained anonymous
-source. Expand the public allowlist when introducing a new agreed category.
+source.
 This tier measures tagged page/use counts, including reloads, rather than
 unique visitors, exact external clicks or per-entry conversion.
 
@@ -244,8 +249,8 @@ Version 3 historical counters cover page/search counts without campaign dimensio
   `other` bucket covers unrecognized and filtered text; never infer its wording.
 - Zero-result share: sum of search counts with `zero_results=true` divided by
   the sum of all search counts for the same scope and date range.
-- Traffic sources: `metric=page_view` with `utm_source` present, broken down by
-  source, medium and campaign category. Untagged views do not imply direct traffic.
+- Traffic sources: `metric=page_view` with campaign fields present, broken down by
+  source, medium and campaign. Missing source does not imply direct traffic.
 - Content use: `metric=material_open, action=demo`, `metric=video_play, action=play`,
   or `metric=content_copy`, broken down by `content_slug` and `action`.
 - Contribution intent: `metric=contribution_open`, broken down by `action`.
@@ -255,7 +260,7 @@ Do not use unique-person/session aggregations on the shared counter identity.
 Do not add basic counts to behavioral page/search/use totals: consenting traffic is
 already represented in the basic tier. Behavioral funnels, return rates, detailed
 search terms, and retained full UTM attribution cover consenting traffic only.
-Anonymous sources are current-URL categories, not retained journey attribution. The tiers have
+Anonymous campaign fields describe the current URL rather than retained journey attribution. The tiers have
 no per-visitor join key. They can be compared only as aggregate samples, with the
 coverage and counting differences disclosed.
 
@@ -335,13 +340,15 @@ https://recipes.agora.io/topics/community-challenge?utm_source=discord&utm_mediu
 | `utm_content` | Creative or link placement | `announcement`, `footer` |
 | `utm_term` | Optional paid keyword | `voice agent` |
 
-Use lowercase English letters, numbers and underscores for manually named UTM
-values, including the existing optional `utm_id`. A valid `utm_source` is required;
-other fields are optional and never filled from older campaigns. Duplicate
-parameters, unresolved templates, control characters, oversized values and common
-sensitive patterns are rejected. `utm_term` also permits spaces and non-English
-keywords. The shared `analyticsText` filter rejects emails, full URLs and common
-credential patterns before values can be stored, reported or forwarded. No
+Lowercase English letters, numbers and underscores are a publishing convention,
+not a receiver restriction. All six fields preserve valid original case,
+punctuation, spaces and Unicode. The consented attribution controller requires a
+valid `utm_source`; other fields are optional and never filled from older
+campaigns. Repeated parameters use the first value. The shared `campaignText`
+check rejects unresolved templates, controls, values longer than 100 characters,
+emails, full URLs and common credential patterns before storage, reporting or
+forwarding. Plain domain labels such as `www.bilibili.com` and public handles
+such as `@AgoraIO` are accepted. No
 arbitrary query parameter or ad click ID is collected.
 
 Attribution uses one consent-bound document controller in
@@ -358,7 +365,9 @@ After consent, a validated external promotion navigation produces one PostHog
 `campaign_entry`; the first PostHog page view and subsequent actions carry the
 same source and `landing_path`. The landing path is a pathname without query or
 fragment. Ordinary internal navigation and reload/history restoration do not
-produce another campaign entry. There is no inactivity expiry: continuing the
+produce another campaign entry. When no saved source can be recovered, a
+reload/history restoration still reads valid UTM from the current URL for
+subsequent actions and forwarding. There is no inactivity expiry: continuing the
 tab on a later day retains its source while reporting ranges remain independent.
 A new promotion replaces the complete source, including absent fields.
 
@@ -528,7 +537,7 @@ shared cross-site identity still require separate acceptance evidence.
 
 ## Anonymous source and usage self-assessment
 
-The implementation reports public counter categories through the existing
+The implementation reports counter dimensions and bounded campaign labels through the existing
 first-party endpoint and server-side PostHog adapter. It creates no visitor ID,
 per-tab source, browser persistence, fingerprint, exact client timestamp or
 visitor journey in the anonymous tier. Network/access logs are separate from

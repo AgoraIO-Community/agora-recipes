@@ -1,4 +1,4 @@
-import { analyticsText, campaignKeys, type Campaign } from "./analytics-events"
+import { campaignText, campaignKeys, type Campaign } from "./analytics-events"
 
 export type Attribution = Campaign & { utm_source: string; landing_path: string }
 export const attributionStorageKey = "recipes:campaign:v1"
@@ -7,12 +7,8 @@ export const tabPrefix = "recipes:tab:"
 export function readUtm(params: URLSearchParams): Campaign | undefined {
   const values: Campaign = {}
   for (const key of campaignKeys) {
-    const candidates = params.getAll(key)
-    const raw = candidates[0]
-    // Inspect raw input before the shared text normalizer removes whitespace.
-    if (candidates.length !== 1 || !raw || [...raw].length > 100 || /[\p{Cc}\p{Cf}{}<>]/u.test(raw) || !analyticsText(raw)) continue
-    if (key !== "utm_term" && !/^[a-z0-9_]+$/.test(raw)) continue
-    values[key] = raw
+    const value = campaignText(params.get(key))
+    if (value) values[key] = value
   }
   return values.utm_source ? values : undefined
 }
@@ -98,7 +94,7 @@ export function createAttributionController(env: AttributionEnvironment) {
     try { internal = new URL(env.referrer).origin === url.origin } catch { /* No internal-navigation evidence. */ }
     const restoring = ["reload", "back_forward"].includes(env.navigationType)
     const entry = Boolean(campaign && !restoring && !(ownsTab && internal))
-    if (campaign && (entry || !attribution && !restoring)) attribution = sanitizeAttribution({ ...campaign, landing_path: url.pathname })
+    if (campaign && (entry || !attribution)) attribution = sanitizeAttribution({ ...campaign, landing_path: url.pathname })
     pendingEntry = entry ? attribution : undefined
     writable = true
     // This document may replace inherited state after validating ownership.

@@ -1,4 +1,4 @@
-import { analyticsText, eventActions, type AnalyticsEvent } from "./analytics-events"
+import { analyticsText, campaignText, eventActions, type AnalyticsEvent } from "./analytics-events"
 
 export const basicEventActions = {
   material_open: ["demo"],
@@ -7,25 +7,17 @@ export const basicEventActions = {
   contribution_open: eventActions.contribution_open,
 } as const
 
-export const basicCampaignValues: Record<string, readonly string[]> = {
-  utm_source: ["github", "agora_blog", "agora_website", "agora_email", "discord", "reddit", "x", "youtube", "google", "bing", "linkedin", "facebook", "wechat", "bilibili", "zhihu", "email", "newsletter", "other"],
-  utm_medium: ["referral", "social", "paid_social", "email", "video", "cpc", "organic", "community", "display", "affiliate", "other"],
-  utm_campaign: ["recipes_top10", "other"],
-}
 export const basicCampaignKeys = ["utm_source", "utm_medium", "utm_campaign"] as const
 type BasicCampaign = Partial<Record<typeof basicCampaignKeys[number], string>>
 
-// Classify only this page's explicit source. Unknown values never leave the
-// browser; there is no retained source, visitor ID, keyword or creative text.
+// Read only this page's explicit campaign labels. There is no retained source,
+// visitor ID, keyword or creative text, and no list of registered campaign values.
 export function basicCampaignProperties(search: string): BasicCampaign {
   const params = new URLSearchParams(search)
-  if (params.getAll("utm_source").length !== 1 || !params.get("utm_source")?.trim()) return {}
   const result: BasicCampaign = {}
   for (const key of basicCampaignKeys) {
-    const values = params.getAll(key)
-    if (values.length !== 1 || !values[0].trim()) continue
-    const value = values[0].trim().toLowerCase()
-    result[key] = basicCampaignValues[key].includes(value) ? value : "other"
+    const value = campaignText(params.get(key))
+    if (value) result[key] = value
   }
   return result
 }
