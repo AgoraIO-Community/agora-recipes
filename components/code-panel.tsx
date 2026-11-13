@@ -12,7 +12,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 export function CopyTextButton({ text, label = "Copy", subject = "Text", primary = false, iconOnly = false, variant }: { text: string; label?: string; subject?: string; primary?: boolean; iconOnly?: boolean; variant?: ComponentProps<typeof Button>["variant"] }) {
   const { t } = useI18n()
   const capture = useAnalytics()
-  const { state, copy } = useCopyFeedback(text, () => capture("content_copy", { action: subject === "Recipe prompt" || subject === "Prompt" || subject === "Submission prompt" ? "prompt" : subject === "Markdown" ? "guide" : subject === "Agora CLI" ? "cli_command" : "code", placement: primary ? "hero" : "reader" }))
+  const { state, copy } = useCopyFeedback(text, () => capture("content_copy", { action: subject === "Recipe prompt" || subject === "Prompt" || subject === "Submission prompt" || subject === "PR prompt" ? "prompt" : subject === "Markdown" ? "guide" : subject === "Agora CLI" ? "cli_command" : "code", placement: primary ? "hero" : "reader" }))
   const accessibleLabel = t(state === "copied" ? "{subject} copied" : "Copy {subject}", { subject: t(subject) })
   const button = <Button type="button" variant={variant ?? (primary ? "primary" : "quiet")} size={iconOnly ? primary ? "icon" : "icon-sm" : primary ? "default" : "sm"} onClick={copy} busy={state === "copying"} busyIndicator={false} className="copy-action" data-copy-state={state} aria-label={accessibleLabel}>
       <span className="copy-action__icon" aria-hidden="true"><Copy /><Check /><LoaderCircle /></span>

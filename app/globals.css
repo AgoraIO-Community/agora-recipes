@@ -563,15 +563,12 @@ a.recipe-author:hover { color: var(--foreground); }
 .contribute-instructions { max-width: 65ch; margin-top: 12px; color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
 .contribute-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
 .contribute-account { max-width: 65ch; margin-block: 12px 20px; }
-.contribute-prompt,.contribute-recovery { border-top: 1px solid var(--border); }
-.contribute-recovery [data-slot=disclosure-content] > p,.contribute-pr [data-slot=disclosure-content] > p { max-width: 70ch; font-size: 14px; line-height: 1.7; color: var(--muted-foreground); overflow-wrap: anywhere; }
-.contribute-recovery [data-slot=disclosure-content] > .ag-button,.contribute-pr [data-slot=disclosure-content] > .ag-button { margin-block: 8px 16px; }
+.contribute-prompt { border-top: 1px solid var(--border); }
 .contribute-checklist ul { display: grid; gap: 20px; margin-top: 20px; }
 .contribute-checklist h3 { font-size: 15px; line-height: 1.5; }
 .contribute-checklist li p { margin-top: 4px; color: var(--muted-foreground); font-size: 14px; line-height: 1.7; }
 .contribute-followup { max-width: 1120px; padding-top: 28px; margin-top: 32px; border-top: 1px solid var(--border); }
 .contribute-followup > .ag-button { margin-top: 12px; }
-.contribute-pr { max-width: 1120px; margin-top: 28px; border-block: 1px solid var(--border); }
 .contribute-privacy { max-width: 1120px; margin-top: 20px; }
 @media (max-width: 900px) { .contribute-workspace { gap: 28px; } }
 @media (max-width: 640px) {

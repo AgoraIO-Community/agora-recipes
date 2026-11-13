@@ -67,12 +67,44 @@ test("Demo-only, video-only, and source-only entries load without a guide and st
   await assert.rejects(load(base, true), /needs a Demo, video, source repository, or recipe/)
 })
 
+test("both contribution templates produce complete catalog JSON from verified project metadata", async () => {
+  for (const name of ["demo", "recipe"]) {
+    const template = JSON.parse(await readFile(new URL(`../templates/${name}.json`, import.meta.url), "utf8"))
+    const payload = Object.fromEntries(Object.keys(template).map(key => [key, valid[key]]))
+    assert.ok(Object.values(payload).every(value => value !== undefined), `${name}: every template field has a project value`)
+    const json = JSON.stringify(payload)
+    assert.doesNotMatch(json, /TODO:|github\.com\/OWNER\/REPO|example\.com/)
+    const { entries, recipes } = await load(JSON.parse(json), true)
+    assert.equal(entries.length, 1)
+    assert.equal(entries[0].title, valid.title)
+    assert.equal(recipes.length, name === "recipe" ? 1 : 0)
+    if (name === "demo") {
+      assert.equal(entries[0].recipeUrl, undefined)
+      assert.equal(entries[0].mainRepoUrl, undefined)
+      assert.equal(entries[0].difficulty, undefined)
+    }
+  }
+})
+
 test("a standalone GitHub guide derives its real source repository without changing its source URL", async () => {
   const meta = { ...valid }
   delete meta.mainRepoUrl
   const entry = await load(meta)
   assert.equal(entry.recipeUrl, valid.recipeUrl)
   assert.equal(entry.mainRepoUrl, new URL(valid.recipeUrl).origin + "/" + new URL(valid.recipeUrl).pathname.split("/").slice(1, 3).join("/"))
+})
+
+test("guide-specific field requirements stay conditional on the supplied materials", async () => {
+  const demo = { ...valid }
+  for (const key of ["recipeUrl", "mainRepoUrl", "difficulty", "cli"]) delete demo[key]
+  await assert.rejects(load({ ...demo, difficulty: "Expert" }, true), /difficulty must be one of/)
+  await assert.rejects(load({ ...valid, difficulty: undefined }), /difficulty must be one of/)
+  const externalGuide = { ...valid, recipeUrl: "https://example.com/guide.md" }
+  delete externalGuide.mainRepoUrl
+  await assert.rejects(load(externalGuide), /needs mainRepoUrl for a guide outside GitHub/)
+  const entry = await load({ ...externalGuide, mainRepoUrl: valid.mainRepoUrl })
+  assert.equal(entry.recipeUrl, externalGuide.recipeUrl)
+  assert.equal(entry.mainRepoUrl, valid.mainRepoUrl)
 })
 
 test("media metadata is validated independently from recommendations", async () => {
