@@ -64,7 +64,7 @@ A minimal Demo entry:
 
 Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. Write the catalog title, tagline, and description in English, preserving original project names and author credit. The date must be a valid `YYYY-MM-DD` date. Additional languages are welcome but optional; a new entry does not need any files in `content/i18n/`.
 
-Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Tags must contain `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
+Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Array items must be non-empty strings. Tags must be non-empty and contain only `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
 
 Provide at least one material:
 
@@ -77,7 +77,7 @@ Provide at least one material:
 
 Material URLs must use absolute HTTPS URLs without embedded credentials. Omit unavailable materials. A thumbnail by itself is not a playable material.
 
-When `recipeUrl` is present, `difficulty` is required and must be `Beginner`, `Intermediate`, or `Advanced`. For a standalone GitHub guide, the loader can infer `mainRepoUrl` from the guide's repository. A guide outside GitHub needs an explicit `mainRepoUrl`. `cli` configuration is only valid on entries with a guide. Entries without guides do not expose a guide reader or recipe prompt and stay outside Recipe-specific API and Markdown responses.
+When `recipeUrl` is present, `difficulty` is required; otherwise it is optional. Whenever supplied, `difficulty` must be `Beginner`, `Intermediate`, or `Advanced`. For a standalone GitHub guide, the loader can infer `mainRepoUrl` from the guide's repository. A guide outside GitHub needs an explicit `mainRepoUrl`. `cli` configuration is only valid on entries with a guide. Entries without guides do not expose a guide reader or recipe prompt and stay outside Recipe-specific API and Markdown responses.
 
 ## Media and Recommendations
 
