@@ -28,7 +28,7 @@ export function pageContext(pathname: string, search: string, topics: readonly s
   const candidate = path.match(/^\/recipes\/([a-z0-9]+(?:-[a-z0-9]+)*)(?:\/|$)/)?.[1]
   const content_slug = candidate && candidate.length <= 100 ? candidate : undefined
   const routeTopic = topicAt(path)
-  const page_type = content_slug ? "recipe" : routeTopic ? "topic" : path === "/topics" ? "topic_directory" : path === "/contribute" ? "contribute" : path === "/" ? "catalog" : "other"
+  const page_type = content_slug ? "recipe" : routeTopic ? "topic" : path === "/topics" ? "topic_directory" : path === "/contribute" ? "contribute" : path === "/" || path === "/recipes" || path === "/recipes/" ? "catalog" : "other"
   const selected = params.get("topic")
   const topic_slug = page_type === "contribute" ? selected && topics.includes(selected) ? selected : undefined : routeTopic ?? (content_slug ? source : undefined)
   return { locale, page_type, ...(content_slug && { content_slug }), ...(topic_slug && { topic_slug }), ...((routeTopic ?? source) && { source_topic_slug: routeTopic ?? source }) }

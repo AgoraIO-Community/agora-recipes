@@ -31,14 +31,14 @@ const fixtureUrl = url(`
   export const Suspense = 'Suspense';
   export const Analytics = 'Analytics';
 `)
-let source = compile(readFileSync(new URL('../components/analytics-provider.tsx', import.meta.url), 'utf8') + '\nexport { PageAnalytics, LinkAnalytics };')
+let source = compile(readFileSync(new URL('../components/analytics-provider.tsx', import.meta.url), 'utf8') + '\nexport { BasicPageAnalytics, PageAnalytics, LinkAnalytics };')
 source = source.replace(/from "([^"]+)"/g, (match, specifier) => `from ${JSON.stringify(specifier === '@/lib/analytics-events' ? eventsUrl : specifier === '@/lib/analytics-context' ? contextUrl : fixtureUrl)}`)
 const provider = await import(url(source))
 const { state } = await import(fixtureUrl)
 
-function renderPage() {
+function renderPage(component = provider.PageAnalytics) {
   state.cursor = 0
-  provider.PageAnalytics()
+  component()
   const effects = state.effects.splice(0)
   effects.forEach(effect => effect())
 }
@@ -107,6 +107,33 @@ test('pending/refused/granted usage produces one anonymous count per successful 
   state.basicEnabled=false
   provider.useAnalytics()('content_copy',{action:'code'})
   assert.equal(state.basic.length,17,'local/preview origins remain disabled')
+  delete globalThis.window
+})
+
+test('directory page views count once in both tiers across locales and trailing slashes', () => {
+  for (const locale of ['', 'en', 'zh-Hans', 'zh-Hant', 'ja', 'hi', 'es', 'pt-BR']) {
+    for (const suffix of ['', '/']) {
+      const pathname = '/' + (locale ? locale + '/' : '') + 'recipes' + suffix
+      globalThis.window = { location:new URL('https://recipes.agora.io' + pathname + '?utm_source=Directory-Link'), addEventListener(){}, removeEventListener(){} }
+      Object.assign(state, { pathname, search:window.location.search, basicEnabled:true, enabled:false, consent:false, controller:undefined, refs:[], effects:[], basic:[], posthog:[], vercel:[] })
+      renderPage(provider.BasicPageAnalytics)
+      renderPage(provider.BasicPageAnalytics)
+      assert.deepEqual(state.basic, [{ metric:'page_view', page_type:'catalog', utm_source:'Directory-Link' }], pathname)
+      assert.deepEqual(state.posthog, [], 'refused consent keeps optional adapters off')
+
+      Object.assign(state, { enabled:true, consent:true, refs:[] })
+      renderPage()
+      renderPage()
+      assert.equal(state.posthog.length, 1, pathname)
+      const event = state.posthog[0]
+      assert.equal(event.name, '$pageview')
+      assert.equal(event.properties.page_type, 'catalog', pathname)
+      assert.equal(event.properties.locale, locale || 'en')
+      assert.equal(event.properties.content_slug, undefined)
+      assert.equal(event.properties.$current_url, 'https://recipes.agora.io' + pathname)
+    }
+  }
+  state.effects=[]
   delete globalThis.window
 })
 

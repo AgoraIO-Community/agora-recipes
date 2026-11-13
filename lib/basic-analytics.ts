@@ -66,7 +66,7 @@ export function basicSearchTerm(value: string, vocabulary: ReadonlyMap<string, s
 
 export function basicPageCount(pathname: string): BasicCount | undefined {
   const path = pathname.replace(/^\/(en|zh-Hans|zh-Hant|ja|hi|es|pt-BR)(?=\/|$)/, "").replace(/\/$/, "") || "/"
-  if (path === "/") return { metric: "page_view", page_type: "catalog" }
+  if (path === "/" || path === "/recipes") return { metric: "page_view", page_type: "catalog" }
   if (path === "/topics") return { metric: "page_view", page_type: "topic_directory" }
   if (path === "/contribute") return { metric: "page_view", page_type: "contribute" }
   const recipe = path.match(/^\/recipes\/([a-z0-9]+(?:-[a-z0-9]+)*)(?:\/guide\/(?:original|en|zh-Hans|zh-Hant|ja|hi|es|pt-BR))?$/)?.[1]
