@@ -1,0 +1,40 @@
+{
+  "title": "1in8b (1 in 8 Billion)",
+  "tagline": "A browser life simulator with solo and two-player modes, featuring real-time voice chat powered by Agora WebRTC.",
+  "description": "Learn how 1in8b (1 in 8 Billion), an open-source browser life simulator, implements private two-player rooms and Agora WebRTC voice chat. Follow the TypeScript architecture, room authorization, audio lifecycle, local setup, and Cloudflare Workers self-hosting steps.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Web",
+    "TypeScript"
+  ],
+  "useCases": [
+    "Gaming",
+    "Entertainment",
+    "Realtime"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "React"
+  ],
+  "mainRepoUrl": "https://github.com/0xRe/1in8b",
+  "recipeUrl": "https://github.com/0xRe/1in8b/blob/main/RECIPE.md",
+  "author": "0xRe",
+  "updated": "2026-11-12",
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "1in8b (1 in 8 Billion)",
+    "compactTitle": "1in8b",
+    "summary": "Explore a two-player life simulator and learn how its private rooms, shared decisions, and Agora WebRTC voice chat work.",
+    "compactSummary": "Two lives. One shared story.",
+    "thumbnail": "/recipes/1in8b.webp",
+    "thumbnailAlt": "Illustrated 1in8b cover showing countryside and city lives connected by a voice waveform, with the text Voice powered by Agora WebRTC.",
+    "thumbnailSource": "https://github.com/0xRe/1in8b/blob/main/public/og/recipe-cover.webp",
+    "demoNote": "Self-hosted voice needs your own Agora App ID and App Certificate. Two players and microphone access are required for calls; solo play and room text chat work without Agora keys.",
+    "labels": [
+      "Gaming",
+      "Voice chat"
+    ]
+  }
+}
