@@ -33,14 +33,9 @@
   "media": {
     "title": "React Native Quickstart",
     "summary": "A bare React Native (TypeScript) voice-agent client for Agora Conversational AI. It reuses the engine-agnostic web toolkit over thin RTC/RTM engine adapters and renders live transcript, talking to a bundled keyless Python backend.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "React Native",
       "TypeScript"
-    ],
-    "thumbnail": "/recipes/default-voice-ai-light.webp",
-    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
-    "demoNote": "Default Voice AI cover illustration.",
-    "thumbnailDark": "/recipes/default-voice-ai-dark.webp"
+    ]
   }
 }

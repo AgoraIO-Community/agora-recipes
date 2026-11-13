@@ -14,14 +14,9 @@
   "media": {
     "title": "RTC Custom Camera",
     "summary": "A custom camera sample for publishing nonstandard video sources into an Agora RTC channel.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "JavaScript",
       "Web"
-    ],
-    "thumbnail": "/recipes/default-rtc-light.webp",
-    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
-    "demoNote": "Default RTC cover illustration.",
-    "thumbnailDark": "/recipes/default-rtc-dark.webp"
+    ]
   }
 }

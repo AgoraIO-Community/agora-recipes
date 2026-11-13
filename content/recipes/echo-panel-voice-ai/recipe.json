@@ -14,13 +14,8 @@
   "media": {
     "title": "EchoPanel Voice AI",
     "summary": "Set up EchoPanel, configure credentials, and run a real-time conversational voice workflow.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Android"
-    ],
-    "thumbnail": "/recipes/default-voice-ai-light.webp",
-    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
-    "demoNote": "Default Voice AI cover illustration.",
-    "thumbnailDark": "/recipes/default-voice-ai-dark.webp"
+    ]
   }
 }

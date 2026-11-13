@@ -14,14 +14,9 @@
   "media": {
     "title": "Agora x Gemma Voice Coach",
     "summary": "Pair Agora voice sessions with local Gemma reasoning.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
-    "demoNote": "Default Voice AI cover illustration.",
     "labels": [
       "TypeScript"
     ],
-    "searchTerms": [],
-    "thumbnail": "/recipes/default-voice-ai-light.webp",
-    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
-    "thumbnailDark": "/recipes/default-voice-ai-dark.webp"
+    "searchTerms": []
   }
 }

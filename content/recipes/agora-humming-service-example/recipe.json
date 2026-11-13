@@ -26,14 +26,9 @@
   "media": {
     "title": "Humming Service Example",
     "summary": "Android and iOS references for Humming service audio workflows. Requires the compatible service SDK and project configuration.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Android",
       "iOS"
-    ],
-    "thumbnail": "/recipes/default-rtc-light.webp",
-    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
-    "demoNote": "Default RTC cover illustration.",
-    "thumbnailDark": "/recipes/default-rtc-dark.webp"
+    ]
   }
 }

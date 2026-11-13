@@ -184,18 +184,16 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
       try { const url = new URL(String(media[field])); valid = typeof media[field] === "string" && url.protocol === "https:" && !url.username && !url.password } catch {}
       if (!valid) throw new Error(`[recipes] ${slug}/recipe.json media.${field} must be an absolute HTTPS URL without credentials`)
     }
-    for (const field of ["thumbnail", "thumbnailDark"] as const) {
-      const thumbnail = media[field]
-      if (thumbnail === undefined) continue
+    if (media.thumbnail !== undefined) {
       let valid = false
-      if (typeof thumbnail === "string") {
+      if (typeof media.thumbnail === "string") {
         try {
-          const url = new URL(thumbnail, "https://catalog.invalid")
-          const local = thumbnail.startsWith("/") && !thumbnail.startsWith("//") && url.origin === "https://catalog.invalid"
-          valid = (local || thumbnail.startsWith("https://")) && url.protocol === "https:" && !url.username && !url.password
+          const url = new URL(media.thumbnail, "https://catalog.invalid")
+          const local = media.thumbnail.startsWith("/") && !media.thumbnail.startsWith("//") && url.origin === "https://catalog.invalid"
+          valid = (local || media.thumbnail.startsWith("https://")) && url.protocol === "https:" && !url.username && !url.password
         } catch { /* A malformed image reference is a content error. */ }
       }
-      if (!valid) throw new Error(`[recipes] ${slug}/recipe.json media.${field} must be a local path or HTTPS URL without credentials`)
+      if (!valid) throw new Error(`[recipes] ${slug}/recipe.json media.thumbnail must be a local path or HTTPS URL without credentials`)
     }
   }
   if (!m.recipeUrl && !m.mainRepoUrl && !m.demoUrl && !(m.media as Record<string, unknown> | undefined)?.videoUrl) throw new Error(`[recipes] ${slug}/recipe.json needs a Demo, video, source repository, or recipe`)

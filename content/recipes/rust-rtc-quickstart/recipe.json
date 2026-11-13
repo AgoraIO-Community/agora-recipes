@@ -14,13 +14,8 @@
   "media": {
     "title": "Rust RTC Quickstart",
     "summary": "A Rust quickstart for exploring Agora RTC channel connection patterns and native real-time communication workflows.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Rust"
-    ],
-    "thumbnail": "/recipes/default-rtc-light.webp",
-    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
-    "demoNote": "Default RTC cover illustration.",
-    "thumbnailDark": "/recipes/default-rtc-dark.webp"
+    ]
   }
 }

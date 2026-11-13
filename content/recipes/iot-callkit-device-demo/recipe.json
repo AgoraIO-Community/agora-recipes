@@ -26,14 +26,9 @@
   "media": {
     "title": "IoT CallKit Device Demo",
     "summary": "A Linux device-side Agora Link reference for calling, answering and hanging up with provisioned mobile peers. Requires device activation credentials and the matching IoT SDK.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "C",
       "Linux"
-    ],
-    "thumbnail": "/recipes/default-rtc-light.webp",
-    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
-    "demoNote": "Default RTC cover illustration.",
-    "thumbnailDark": "/recipes/default-rtc-dark.webp"
+    ]
   }
 }

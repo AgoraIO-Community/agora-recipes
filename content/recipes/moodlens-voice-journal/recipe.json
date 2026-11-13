@@ -14,14 +14,9 @@
   "media": {
     "title": "MoodLens - Voice AI Mood Journal",
     "summary": "Build a low-latency voice AI companion that listens to your day, performs on-device real-time sentiment analysis, and visually maps your emotional state.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Android",
       "Python"
-    ],
-    "thumbnail": "/recipes/default-voice-ai-light.webp",
-    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
-    "demoNote": "Default Voice AI cover illustration.",
-    "thumbnailDark": "/recipes/default-voice-ai-dark.webp"
+    ]
   }
 }

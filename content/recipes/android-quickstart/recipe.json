@@ -33,13 +33,8 @@
   "media": {
     "title": "Android Quickstart",
     "summary": "A Kotlin and Jetpack Compose voice-agent client for Agora Conversational AI. The app owns the RTC/RTM lifecycle and renders live transcript via Agora's official Android ConversationalAI toolkit, talking to a bundled keyless Python backend.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Android"
-    ],
-    "thumbnail": "/recipes/default-voice-ai-light.webp",
-    "thumbnailAlt": "Voice AI default cover illustration; not a project screenshot",
-    "demoNote": "Default Voice AI cover illustration.",
-    "thumbnailDark": "/recipes/default-voice-ai-dark.webp"
+    ]
   }
 }

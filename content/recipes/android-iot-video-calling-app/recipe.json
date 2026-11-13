@@ -25,13 +25,8 @@
   "media": {
     "title": "Android IoT Video Calling App",
     "summary": "An Android Agora Link reference for adding provisioned devices by NodeId and viewing their media streams. Requires a matching IoT device SDK and service configuration.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-recipes",
     "labels": [
       "Android"
-    ],
-    "thumbnail": "/recipes/default-rtc-light.webp",
-    "thumbnailAlt": "RTC default cover illustration; not a project screenshot",
-    "demoNote": "Default RTC cover illustration.",
-    "thumbnailDark": "/recipes/default-rtc-dark.webp"
+    ]
   }
 }

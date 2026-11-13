@@ -7,7 +7,6 @@ export type Showcase = {
   compactSummary?: string
   summary: string
   thumbnail: string
-  thumbnailDark?: string
   thumbnailAlt: string
   thumbnailSource: string
   thumbnailScale?: number

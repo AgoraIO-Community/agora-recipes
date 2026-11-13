@@ -175,11 +175,12 @@ geometry, rather than rendering a separate copy. Verify product routes too.
 
 ## Media placeholders
 
-`EmptyMedia variant="cover"` fills an existing bounded media frame with a muted
-surface and a centered image glyph. Use it for missing or failed covers; it is
-static and does not imply loading. Keep the accessible destination name on the
-containing link. The mixed-card reference demonstrates this variant alongside
-real media, including matching title and byline placement.
+`RecipeTextCover` fills an existing bounded cover frame when a recipe has no
+usable image or the image fails. It shows the category label and the recipe
+title on the muted plane, with theme tokens only and no artwork; it is static
+and does not imply loading. In a card it renders the title as the heading, the
+body omits its own title, and the cover link opens details. The mixed-card
+reference demonstrates it alongside real media with matching byline placement.
 
 The managed preference center keeps its original close node and handlers. The
 adapter places it in the title row with shared 32/46px bounds and a 16px icon.
