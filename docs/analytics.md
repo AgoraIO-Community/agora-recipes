@@ -235,7 +235,8 @@ The owner must determine the applicable basis and align Agora's cookie inventory
 privacy policy, and managed category descriptions before production release.
 Agora's current Performance description includes audience measurement; the new
 Recipes tier distinction must not be presented as if that wording already covered
-it. This PR remains unmerged and does not change the corporate policy or CMP.
+it. Application code does not update the corporate policy or managed consent
+configuration.
 
 ### Basic reports
 
