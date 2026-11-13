@@ -219,6 +219,7 @@
 .recipe-generated-cover__tags > span { flex: none; padding: 1.1cqw 2.4cqw; border: 1px solid #4a4a4a; border-radius: 99px; color: #d6d6d6; white-space: nowrap; }
 .recipe-generated-cover[data-style=mark] { justify-content: flex-end; }
 .recipe-generated-cover[data-style=mark] .recipe-generated-cover__name { position: relative; max-width: 48cqw; }
+.recipe-generated-cover[data-style=mark] .recipe-generated-cover__name[data-length=long] { font-size: 6.2cqw; }
 .recipe-generated-cover[data-style=mark] .recipe-generated-cover__tags { position: relative; max-width: 48cqw; margin-top: 3cqw; }
 .recipe-generated-cover__mark { position: absolute; top: -6cqw; right: -27cqw; order: -1; width: 66cqw; height: 66cqw; background: url(/agora-icon-rgb-blue-v2.svg) center / contain no-repeat; }
 .recipe-generated-cover[data-style=code] { flex-direction: row; padding: 0; background: #0f1115; }
