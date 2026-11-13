@@ -11,7 +11,7 @@ export const metadata = {
 export default function DesignSystemPage() {
   if (process.env.NODE_ENV !== "development") notFound()
   const recipes = getRecipeSummaries()
-  const cardExamples = ["agora-gemini-mllm-python", "android-autopilot-voice-agent", "aria-voice-sales-agent"].flatMap((slug, index) => {
+  const cardExamples = ["agora-gemini-mllm-python", "android-autopilot-voice-agent", "agora-podcasts", "agora-voice-shopping-assistant-demo"].flatMap((slug, index) => {
     const recipe = recipes.find(recipe => recipe.slug === slug)
     return recipe ? [index < 2 ? { ...recipe, showcase: undefined } : recipe] : []
   })

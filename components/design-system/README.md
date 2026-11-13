@@ -148,10 +148,19 @@ Before extending the kit:
    narrow phones, and desktop layouts. Compare actual outer dimensions and
    centers with the navigation sample. Keep one visible entry per task.
 
-Card Demo actions use Try demo (Demo on phones) without a decorative arrow.
-Covers open an available Demo; titles always open details, and a separate
-play control opens video. Keep all provided materials reachable in both views. State
-selectors keep their labels and geometry while the selection underlay moves.
+List and coarse-pointer Demo actions use Try demo (Demo on phones) without a decorative arrow.
+Covers open video first, then Demo, then details according to availability;
+titles always open details. A video cover is one full-area DialogTrigger button
+with a decorative centred play indicator and Watch video caption. Desktop video
+cards with Demo provide an independent sibling Open demo link, revealed on
+cover hover/focus or its own keyboard focus, with a 46px hit target. Demo-only
+covers retain a passive Open demo caption. Both use the original duration
+`Badge` with `ag-overlay`; duration yields while the Demo caption is visible.
+Desktop grid footers omit the repeated Demo link. Phone and coarse-pointer cards
+keep duration on video covers and the footer Demo link visible. List rows keep
+separate video and Demo actions. Author links fit their content instead
+of stretching into footer whitespace, retaining 46px phone/coarse-pointer targets.
+State selectors keep their labels and geometry while the selection underlay moves.
 All ordinary control icons are 16px. Docked search shares the adjacent action
 height. Reduced motion reaches the usable state directly.
 
