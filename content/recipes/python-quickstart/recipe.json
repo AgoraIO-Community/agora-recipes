@@ -21,5 +21,19 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Python Quickstart",
+    "summary": "Build a basic Agora Conversational AI agent in Python.",
+    "thumbnail": "/recipes/python-quickstart-catalog-call.webp",
+    "thumbnailAlt": "Python Quickstart real call interface with agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-python",
+    "thumbnailFit": "contain",
+    "demoNote": "Original Python backend and real RTC call with an agent greeting, using a silent virtual microphone; agent stopped after capture.",
+    "labels": [
+      "Python"
+    ],
+    "searchTerms": []
   }
 }

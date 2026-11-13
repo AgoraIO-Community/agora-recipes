@@ -10,5 +10,13 @@
   "recipeUrl": "https://github.com/anandwana001/Agora-Gemma-Voice-Coach/blob/main/README.md",
   "author": "anandwana001",
   "updated": "2026-07-03",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Agora x Gemma Voice Coach",
+    "summary": "Pair Agora voice sessions with local Gemma reasoning.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

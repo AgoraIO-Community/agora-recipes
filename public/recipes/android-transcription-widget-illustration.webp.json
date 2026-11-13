@@ -1,0 +1,15 @@
+{
+  "slug": "android-transcription-widget",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Android Transcription Widget, based on its catalog metadata and source https://github.com/AgoraIO-Community/TranscriptionWidget-Android at 8da05c875c41427b2bfbbc96068b6d0f50900959. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/android-transcription-widget.html.",
+  "createdAt": "2026-11-04T15:16:56.423Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android",
+  "sourceRevision": "8da05c875c41427b2bfbbc96068b6d0f50900959",
+  "width": 1600,
+  "height": 900,
+  "sha256": "25b8d1ff397c9bbb4ae1de6cbd0ba03d08c23d2c0af8d972b80e98df003c90b8",
+  "original": "originals/android-transcription-widget.png",
+  "htmlSource": "illustrations/android-transcription-widget.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

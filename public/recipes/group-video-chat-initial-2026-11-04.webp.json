@@ -1,0 +1,28 @@
+{
+  "slug": "group-video-chat",
+  "kind": "local-app-screenshot",
+  "prompt": "Unmodified local initial interface of Web Group Video Chat, source https://github.com/AgoraIO-Community/group-video-chat at 614e08a4311e0e59b0e5e0faefeb599cdae2a2be. No crop, retouch, fabricated data or live session. Original local Join Channel form; channel blank and Join not clicked. No media permission, RTC session or participants.",
+  "createdAt": "2026-11-04T15:16:56.831Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/group-video-chat",
+  "sourceRevision": "614e08a4311e0e59b0e5e0faefeb599cdae2a2be",
+  "width": 1440,
+  "height": 1000,
+  "sha256": "65e4cfe5a9701e36d82c876a486178ea837f1c6569aeccd129b88ab0cbfff27b",
+  "original": "originals/group-video-chat.png",
+  "htmlSource": "illustrations/group-video-chat.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "4393"
+    ],
+    "scope": "credential-free initial UI only; no session started",
+    "httpStatus": null
+  },
+  "decision": "Original local Join Channel form; channel blank and Join not clicked. No media permission, RTC session or participants."
+}

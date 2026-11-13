@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Cloud Gaming RTC Example",
+    "summary": "Native mobile references for starting a cloud game, receiving its RTC video and sending control input. Requires cloud-gaming service access.",
+    "labels": [
+      "Android",
+      "iOS"
+    ]
+  }
 }

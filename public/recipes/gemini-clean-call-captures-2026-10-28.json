@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-28",
+  "captureTool": "agent-browser / Chromium",
+  "width": 1440,
+  "height": 1000,
+  "encoding": "Lossless WebP; full frames without cropping, resizing or retouching",
+  "notes": [
+    "The user authorized Google/Gemini configuration for the previously blocked demos. A read-only Google model-list request returned HTTP 200. Credentials were kept in owner-readable temporary storage, not in catalog source, image metadata or this manifest.",
+    "Three original cascading Gemini ASR/LLM/TTS projects were launched separately through their normal Start Conversation controls. Each received a genuine agent greeting and returned HTTP 200 for agent startup and subsequent stop. The original Gemini 3.6 Flash LLM and Gemini 3.8 Flash TTS configuration was preserved.",
+    "Next.js used its original server routes. Python used its original backend and declared agora-agents 2.11.0 pin. Go used its original backend and SDK pin, compiled with the previously verified portable Go toolchain. No alternate provider, source UI or backend was substituted.",
+    "Accepted screenshots used a silent virtual microphone, not personal room audio. No user turn or fabricated transcript was supplied. Greeting delivery does not verify subsequent ASR, reasoning, or multi-turn behavior.",
+    "The three Gemini Live/MLLM variants accepted and stopped sessions, but did not return a genuine agent reply before the capture deadline. A retry used a clearly identified OS-synthesized non-personal test greeting after eight seconds of silence; that also produced no reply. No screenshot from those attempts was accepted and no provider-success claim is made.",
+    "Agentic Video was also attempted with an FFmpeg-generated six-second test-pattern clip, not personal or third-party media. Its original analysis flow did not finish before the retry deadlines, so its call control was not forced and no call image was accepted. Framework HTTP 200 request-close logs alone were not treated as proof that the browser received usable analysis.",
+    "The successful captures were visually reviewed for actual greetings and absence of visible failure warnings or issue badges. Old assets remain preserved; images-first catalog ordering is unchanged.",
+    "All accepted and rejected Gemini voice-session attempts have corresponding successful stop responses. Capture browsers and temporary servers were closed. No catalog production build, tests, lint, commit or push was run; Go backends were compiled only to launch the original demos.",
+    "Cleanup of provider-side synthetic video uploads was not confirmed. A read-only file listing returned two files, but neither matched the exact generated clip content hash and capture-time criteria, so no unverified or unrelated provider file was deleted. No personal media was uploaded."
+  ],
+  "captures": [
+    {
+      "slug": "gemini-agora-voice-agents-nextjs",
+      "asset": "/recipes/gemini-agora-voice-agents-nextjs-gemini-call.webp",
+      "sourceRepository": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-NextJS",
+      "sourceRevision": "feeae1fcf8d90fc69448913a3e1e8b9a9cd6ca63",
+      "captureUrl": "http://127.0.0.1:5150/",
+      "sha256": "e6d250649023752e086fc849666c807d78e3c7a54e01efbfb67c7cab093ec4ca",
+      "agentStartHttpStatus": 200,
+      "agentStopHttpStatus": 200,
+      "greetingObserved": true
+    },
+    {
+      "slug": "gemini-agora-voice-agents-python",
+      "asset": "/recipes/gemini-agora-voice-agents-python-gemini-call.webp",
+      "sourceRepository": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Python",
+      "sourceRevision": "8a493854379b0980e23d809fab152fa086ceddd6",
+      "captureUrl": "http://127.0.0.1:5152/",
+      "sha256": "4d2763b766296fe2b5b74b24de12b67442aa743882775b13bd9ed20442cd1db6",
+      "agentStartHttpStatus": 200,
+      "agentStopHttpStatus": 200,
+      "greetingObserved": true
+    },
+    {
+      "slug": "gemini-agora-voice-agents-go",
+      "asset": "/recipes/gemini-agora-voice-agents-go-gemini-call.webp",
+      "sourceRepository": "https://github.com/AgoraIO-Community/Gemini-Agora-Voice-Agents-Go",
+      "sourceRevision": "86837e46a7ae6153c3e125261b40f975d1312040",
+      "captureUrl": "http://127.0.0.1:5154/",
+      "sha256": "a9c3bc4aaf45f433e4b39bcc56ddefecb3f468e3029eb2137d0c0469886a9dfa",
+      "agentStartHttpStatus": 200,
+      "agentStopHttpStatus": 200,
+      "greetingObserved": true
+    }
+  ],
+  "notCaptured": [
+    { "slug": "agora-gemini-mllm-nextjs", "reason": "No genuine agent response with silent input or a synthesized test greeting; session start/stop HTTP 200" },
+    { "slug": "agora-gemini-mllm-python", "reason": "No genuine agent response with silent input or a synthesized test greeting; session start/stop HTTP 200" },
+    { "slug": "agora-gemini-mllm-go", "reason": "No genuine agent response with silent input or a synthesized test greeting; session start/stop HTTP 200" },
+    { "slug": "gemini-agora-agentic-video-nextjs", "reason": "Original analysis did not complete within retry deadlines; no forced call or substituted analysis" }
+  ]
+}

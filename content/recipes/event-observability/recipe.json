@@ -32,5 +32,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Event Observability",
+    "summary": "Inspect live agent state, metrics, errors and turn events.",
+    "thumbnail": "/recipes/event-observability-clean-call.webp",
+    "thumbnailAlt": "Event Observability real call interface with a genuine greeting and populated state, metric and transcript event timeline",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-events/tree/8b58848002ed88e1e3ac90b12f273022c1acfa34",
+    "thumbnailFit": "contain",
+    "demoNote": "Original backend running in its documented managed-provider mode. Real RTC call, genuine greeting and live state/metric/turn events; replaces the previous SDK-configuration error image.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

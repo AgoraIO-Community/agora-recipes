@@ -1,0 +1,15 @@
+{
+  "slug": "ios-iot-callkit-app",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for iOS IoT CallKit App, based on its catalog metadata and source https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app at 129b4e021f3ecbe4a6ff7f27a2024581e6a2270a. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/ios-iot-callkit-app.html.",
+  "createdAt": "2026-11-04T15:16:56.959Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app",
+  "sourceRevision": "129b4e021f3ecbe4a6ff7f27a2024581e6a2270a",
+  "width": 1600,
+  "height": 900,
+  "sha256": "9ced959b4b5f400a4c80589fecd18377c88adf7173ef1379e8a1593450036912",
+  "original": "originals/ios-iot-callkit-app.png",
+  "htmlSource": "illustrations/ios-iot-callkit-app.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

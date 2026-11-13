@@ -83,6 +83,8 @@
     "No matching recipes": "कोई मेल खाती Recipe नहीं मिली",
     "Clear search and filters": "खोज और फ़िल्टर साफ़ करें",
     "Watch demo": "डेमो देखें",
+    "Watch video": "वीडियो देखें",
+    "Watch {title} video": "{title} का वीडियो देखें",
     "Live demo": "लाइव डेमो",
     "Watch {title} demo": "{title} का डेमो देखें",
     "Try {title} demo (opens in a new tab)": "{title} का डेमो आज़माएँ (नए टैब में खुलता है)",
@@ -102,6 +104,7 @@
     "Back to results": "नतीजों पर लौटें",
     "Recipe not found": "Recipe नहीं मिली",
     "Try demo": "डेमो आज़माएँ",
+    "Open demo": "डेमो खोलें",
     "Try demo (opens in a new tab)": "डेमो आज़माएँ (नए टैब में खुलता है)",
     "Source on GitHub (opens in a new tab)": "GitHub पर सोर्स कोड (नए टैब में खुलता है)",
     "Copy recipe prompt": "Recipe प्रॉम्प्ट कॉपी करें",
@@ -160,14 +163,9 @@
     "We couldn’t find that recipe.": "हमें यह Recipe नहीं मिली।",
     "Share what you built": "आपने जो बनाया है, उसे साझा करें",
     "Submit your existing demo, video, source, or guide. A GitHub account is required.": "अपना डेमो, वीडियो, कोड या गाइड भेजें। GitHub खाता आवश्यक है।",
-    "GitHub form": "GitHub फ़ॉर्म",
-    "Open the form on GitHub. Your Issue is public and keeps the original submission, review discussion, and final publication link.": "GitHub पर फ़ॉर्म खोलें। Issue सार्वजनिक है और इसमें मूल योगदान, समीक्षा और प्रकाशित लिंक रहता है।",
-    "Open GitHub form": "GitHub फ़ॉर्म खोलें",
     "Direct pull request": "सीधा पुल रिक्वेस्ट",
-    "Keep the existing workflow: fork the repository, update catalog metadata, and open a PR to staging. A submission Issue is optional.": "मौजूदा प्रक्रिया अपनाएँ: फ़ोर्क करें, कैटलॉग की जानकारी बदलें और staging में PR खोलें। पहले Issue बनाना वैकल्पिक है।",
     "Contribution instructions": "योगदान के निर्देश",
     "Submit only public materials. Do not include private email addresses, credentials, or other private information.": "केवल सार्वजनिक सामग्री भेजें। निजी ईमेल, क्रेडेंशियल या अन्य निजी जानकारी शामिल न करें।",
-    "After submission, follow review in the GitHub Issue. Publication follows a reviewed catalog PR and the existing release process.": "समीक्षा अपने GitHub Issue में देखें। प्रकाशन समीक्षा किए गए PR और मौजूदा रिलीज़ प्रक्रिया से होगा।",
     "A guide, source repository, or four translated submissions are not required for every entry.": "हर प्रोजेक्ट के लिए गाइड, रिपॉज़िटरी या चार भाषाओं में योगदान ज़रूरी नहीं है।",
     "Accessibility": "सुलभता",
     "Audio": "ऑडियो",
@@ -437,22 +435,14 @@
     "Prepare your submission": "अपना योगदान तैयार करें",
     "General catalog submission": "सामान्य कैटलॉग में योगदान",
     "View this Topic": "यह Topic देखें",
-    "Copy submission prompt": "योगदान प्रॉम्प्ट कॉपी करें",
-    "Submission prompt": "योगदान प्रॉम्प्ट",
-    "Fill it in on GitHub": "GitHub पर भरें",
-    "View the submission prompt": "योगदान प्रॉम्प्ट देखें",
-    "GitHub form not opening?": "GitHub फ़ॉर्म नहीं खुल रहा?",
-    "Open a submission draft": "योगदान का मसौदा खोलें",
     "What to bring": "क्या तैयार रखें",
     "A name and an English introduction": "प्रोजेक्ट का नाम और अंग्रेज़ी में संक्षिप्त परिचय",
     "At least one public link": "कम से कम एक सार्वजनिक लिंक",
     "A working demo, video, source repository, or guide. You do not need all four.": "काम करने वाला डेमो, वीडियो, सोर्स रिपॉज़िटरी या गाइड। चारों ज़रूरी नहीं हैं।",
     "Your public author credit": "लेखक का सार्वजनिक श्रेय",
     "See a published example": "प्रकाशित उदाहरण देखें",
-    "Prefer to contribute with a pull request?": "पुल रिक्वेस्ट से योगदान देना चाहते हैं?",
     "Read the PR contribution guide": "PR योगदान गाइड पढ़ें",
     "Topic or activity (optional)": "Topic या गतिविधि (वैकल्पिक)",
-    "Prepare your submission with AI": "AI से अपना योगदान तैयार करें",
     "Start a submission": "योगदान देना शुरू करें",
     "Ended activities ({count})": "समाप्त गतिविधियाँ ({count})",
     "Read the contribution SOP": "योगदान की प्रक्रिया पढ़ें",
@@ -523,9 +513,20 @@
     "Reset sort": "क्रम रीसेट करें",
     "Paste the prompt into Codex, Cursor, or Claude Code in your project.": "अपने प्रोजेक्ट में प्रॉम्प्ट को Codex, Cursor या Claude Code में पेस्ट करें।",
     "Requires a GitHub account. Submissions are public.": "GitHub खाता आवश्यक है। सबमिशन सार्वजनिक होते हैं।",
-    "Submissions are reviewed before publication. Track yours in its GitHub Issue.": "प्रकाशन से पहले सबमिशन की समीक्षा होती है। प्रगति उसके GitHub Issue में देखें।",
     "Fork the catalog and open a pull request to staging.": "कैटलॉग को फ़ोर्क करें और staging पर पुल रिक्वेस्ट खोलें।",
-    "The video couldn’t load.": "वीडियो लोड नहीं हो सका।"
+    "The video couldn’t load.": "वीडियो लोड नहीं हो सका।",
+    "All projects and recipes": "सभी प्रोजेक्ट और रेसिपी",
+    "Browse every Voice AI and RTC project, with guides and source links.": "सभी Voice AI और RTC प्रोजेक्ट की गाइड और सोर्स कोड देखें।",
+    "Search and filter recipes": "रेसिपी खोजें और फ़िल्टर करें",
+    "Voice AI & RTC Examples and Recipes | Agora": "Voice AI और RTC उदाहरण और रेसिपी | Agora",
+    "Explore open-source Voice AI agents and real-time voice and video projects, with working code, demos, and implementation guides.": "चलने वाले कोड, डेमो और कार्यान्वयन गाइड के साथ ओपन-सोर्स वॉइस AI एजेंट और रीयल-टाइम ऑडियो-वीडियो प्रोजेक्ट देखें।",
+    "Share your Agora project, demo, source code, or implementation guide with the community.": "अपना Agora प्रोजेक्ट, डेमो, सोर्स कोड या कार्यान्वयन गाइड समुदाय के साथ साझा करें।",
+    "Prepare your PR with AI": "AI की मदद से अपना PR तैयार करें",
+    "Copy PR prompt": "PR प्रॉम्प्ट कॉपी करें",
+    "PR prompt": "PR प्रॉम्प्ट",
+    "View the PR prompt": "PR प्रॉम्प्ट देखें",
+    "Submit a PR to staging and follow review in the PR.": "staging में PR भेजें और उसी PR में समीक्षा की प्रगति देखें।",
+    "Report a bug or ask a question": "बग रिपोर्ट करें या प्रश्न पूछें"
   },
   "entries": {
     "ag-iot-ios-app": {
@@ -967,6 +968,14 @@
     "worldcupvoice": {
       "tagline": "AI से खेल की कमेंट्री।",
       "description": "AI कमेंटेटर Agora RTC वीडियो के चुने हुए फ़्रेम देखता है, हर खेल की टिप्पणी बनाता है और तैयार आवाज़ तथा सिंक किया ट्रांसक्रिप्ट लाइव चैनल में भेजता है।"
+    },
+    "trick-or-take": {
+      "tagline": "दोस्तों के साथ कैंडी चुराएँ—ब्राउज़र में 60 सेकंड का हैलोवीन गेम।",
+      "description": "2–6 खिलाड़ियों के कमरे में पकड़े बिना सबसे ज़्यादा कैंडी इकट्ठा करने की होड़ लगाएँ। वैकल्पिक Agora RTC वॉइस चैट से दोस्त बातचीत कर सकते हैं और Agora RTM कमरे में बदलाव की सूचनाएँ भेजता है। Cloudflare Worker और D1 खेल की स्थिति और स्कोर सँभालते हैं।"
+    },
+    "desktop-pet": {
+      "tagline": "macOS के लिए एक डेस्कटॉप साथी बनाएँ, जिसके साथ आप खेल और बात कर सकते हैं।",
+      "description": "खाना खिलाने के ऐनिमेशन, खिलौने से खेलने और Agora के ज़रिए रीयल-टाइम वॉइस चैट वाला डेस्कटॉप पेट बनाएँ। macOS सेटअप का पालन करें और अपने सेवा खातों से STT, LLM और TTS कॉन्फ़िगर करें।"
     }
   }
 }

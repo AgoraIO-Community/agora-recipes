@@ -32,5 +32,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Filler Words & Graceful Exit",
+    "summary": "Smooth latency with filler phrases and a polite goodbye.",
+    "thumbnail": "/recipes/filler-words-catalog-call.webp",
+    "thumbnailAlt": "Filler Words real call interface with an ambient agent visualizer, empty transcript and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-filler-words",
+    "thumbnailFit": "contain",
+    "demoNote": "Original backend and RTC call; agent start and stop succeeded. Empty transcript retained; filler phrases and graceful exit behavior were not demonstrated.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

@@ -29,5 +29,12 @@
       "appIdKey": "AGORA_APP_ID",
       "appCertificateKey": "AGORA_APP_CERTIFICATE"
     }
+  },
+  "media": {
+    "title": "Android Quickstart",
+    "summary": "A Kotlin and Jetpack Compose voice-agent client for Agora Conversational AI. The app owns the RTC/RTM lifecycle and renders live transcript via Agora's official Android ConversationalAI toolkit, talking to a bundled keyless Python backend.",
+    "labels": [
+      "Android"
+    ]
   }
 }

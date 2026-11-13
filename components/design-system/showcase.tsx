@@ -4,8 +4,13 @@ import { useState } from "react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { ArrowDownWideNarrow, ChevronDown, Grid2X2, List, Search, SlidersHorizontal } from "lucide-react"
 import { RecipeDocument } from "@/components/recipe-document"
+import { RecipeCard } from "@/components/recipe-card"
+import type { RecipeSummary } from "@/lib/recipe-discovery"
 import { RecipeStartActions } from "@/components/recipe-start-actions"
+import shoppingRecipe from "@/content/recipes/agora-voice-shopping-assistant-demo/recipe.json"
+import { buildRecipePrompt } from "@/lib/recipe-prompt.mjs"
 import { ShareActions } from "@/components/share-actions"
+import { usePrivacySettings } from "@/components/privacy-provider"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { Toolbar, ToolbarActions } from "@/components/ui/toolbar"
 import { CodePanel, CopyTextButton } from "@/components/code-panel"
@@ -34,8 +39,9 @@ import { Toggle } from "@/components/ui/toggle"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 /** Live reference for shared primitives; all state is local and disposable. */
-export function DesignSystemShowcase() {
+export function DesignSystemShowcase({ cardExamples }: { cardExamples: RecipeSummary[] }) {
   const mobile = useIsMobile()
+  const openPrivacy = usePrivacySettings()
   const [category, setCategory] = useState("all")
   const [view, setView] = useState("grid")
   const [recovered, setRecovered] = useState(false)
@@ -54,6 +60,10 @@ export function DesignSystemShowcase() {
       </div>
       <div className="ds-row" data-reference="directional-actions"><Button>Start a submission<ButtonArrow /></Button><Button disabled>Unavailable<ButtonArrow /></Button><Button variant="outline" disabled>Unavailable picker</Button><Button busy>Copy recipe</Button><Button variant="destructive">Remove selection</Button></div>
       <div className="ds-row"><CopyTextButton text="Recipes design system example" label="Copy example" subject="Example" variant="outline" /><span className="ds-caption">Copies example text. Label space stays reserved through every state.</span></div>
+    </section>
+
+    <section aria-labelledby="ds-recipe-cards"><h2 id="ds-recipe-cards">Recipe cards and cover actions</h2><p>Actual cards with missing media, video, and live Demo destinations. Video posters open the on-site player; Open demo is a separate action. Demo-only covers open Demo, and titles open details.</p>
+      <div className="showcase-grid" data-reference="recipe-cards">{cardExamples.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
     </section>
 
     <section aria-labelledby="ds-compositions"><h2 id="ds-compositions">One task, one group</h2>
@@ -92,6 +102,7 @@ export function DesignSystemShowcase() {
 
     <section aria-labelledby="ds-reader"><h2 id="ds-reader">Reader and document tools</h2><p>The actual reader, prompt actions and shared disclosure used on recipe pages.</p>
       <div className="ds-row"><RecipeStartActions prompt="Use the recipe materials to build your project." command="agora init example --recipe example" /><ShareActions url="https://github.com/AgoraIO-Community/agora-recipes" title="Recipes example" /></div>
+      <div className="ds-row"><RecipeStartActions prompt={buildRecipePrompt(shoppingRecipe, { rawUrl: "https://raw.githubusercontent.com/AgoraIO-Community/agora-voice-shopping-assistant-demo/main/RECIPE.md" }, shoppingRecipe.setup.packageName)} setup={shoppingRecipe.setup} /></div>
       <RecipeDocument markdown="# Example recipe\n\nUse the guide or copy its Markdown." sourceUrl="https://github.com/AgoraIO-Community/agora-recipes/blob/staging/README.md"><div className="prose-recipe"><p>A reading plane with the same control bar as the real recipe.</p><CodePanel code="agora --help" label="Shell" /><Disclosure><DisclosureTrigger meta="2">Requirements and setup</DisclosureTrigger><DisclosureContent>Bring your project and a public repository.</DisclosureContent></Disclosure></div></RecipeDocument>
     </section>
 
@@ -101,6 +112,13 @@ export function DesignSystemShowcase() {
       <Dialog><DialogTrigger asChild><Button variant="outline">Open dialog</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Review recipe</DialogTitle><DialogDescription>Example dialog. Escape dismisses it and restores trigger focus.</DialogDescription></DialogHeader><DialogBody>A solid reading plane inside the floating frame.</DialogBody><DialogFooter><DialogClose asChild><Button variant="outline">Done</Button></DialogClose></DialogFooter></DialogContent></Dialog>
       <Sheet><SheetTrigger asChild><Button variant="outline"><SlidersHorizontal aria-hidden="true" />Open sheet</Button></SheetTrigger><SheetContent side={mobile ? "bottom" : "right"} className="catalog-filter-sheet" aria-describedby={undefined}><SheetHeader><SheetTitle>Refine recipes</SheetTitle></SheetHeader><SheetBody className="catalog-filter-sheet__body"><Field orientation="horizontal"><Checkbox id="ds-sheet-option" /><Label htmlFor="ds-sheet-option">Include native mobile applications</Label></Field></SheetBody><SheetFooter><SheetClose asChild><Button>Show results</Button></SheetClose></SheetFooter></SheetContent></Sheet>
     </div></section>
+
+    <section aria-labelledby="ds-managed-privacy"><h2 id="ds-managed-privacy">Managed privacy notice</h2><p>Inspect the actual managed notice, including its full copy, wrapping and system appearance. Choices use the same preference center as every product route.</p>
+      <div className="ds-row"><Button variant="outline" onClick={event => {
+        if (window.SecuritiSDK?.onReady) window.SecuritiSDK.onReady(api => api.showBanner())
+        else openPrivacy(event.currentTarget)
+      }}>Preview managed notice</Button></div>
+    </section>
 
     <section aria-labelledby="ds-feedback"><h2 id="ds-feedback">Content and recovery</h2><div className="ds-columns">
       <Card><CardHeader><CardTitle>Meeting Copilot</CardTitle></CardHeader><CardContent><p>Turn meeting talk into tasks.</p><Separator /><div className="ds-row"><Badge variant="secondary">TypeScript</Badge><Button variant="link" asChild><a href="#ds-controls">Demo</a></Button></div></CardContent></Card>

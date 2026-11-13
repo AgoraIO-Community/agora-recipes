@@ -10,5 +10,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/AgoraWebXR/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "WebXR RTC Demo",
+    "summary": "A WebXR sample for adding real-time Agora RTC media to immersive browser-based communication experiences.",
+    "labels": [
+      "WebXR",
+      "JavaScript"
+    ]
+  }
 }

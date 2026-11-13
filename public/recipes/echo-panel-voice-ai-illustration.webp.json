@@ -1,0 +1,15 @@
+{
+  "slug": "echo-panel-voice-ai",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for EchoPanel Voice AI, based on its catalog metadata and source https://github.com/madhuri-sharma921/EchoPanel at fc09c3074a4385fe81a77ae4ea3f3d2d73ce8609. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/echo-panel-voice-ai.html.",
+  "createdAt": "2026-11-04T15:16:56.612Z",
+  "sourceRepository": "https://github.com/madhuri-sharma921/EchoPanel",
+  "sourceRevision": "fc09c3074a4385fe81a77ae4ea3f3d2d73ce8609",
+  "width": 1600,
+  "height": 900,
+  "sha256": "d6eea656f27d47aa39e7237912fcdc77c37639a02bd07d4fd8bcff7d018cc51b",
+  "original": "originals/echo-panel-voice-ai.png",
+  "htmlSource": "illustrations/echo-panel-voice-ai.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

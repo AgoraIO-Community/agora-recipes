@@ -33,5 +33,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Server-side Webhooks",
+    "summary": "Receive Agora lifecycle events on your server.",
+    "thumbnail": "/recipes/webhooks-catalog-call.webp",
+    "thumbnailAlt": "Webhooks Recipe real call interface with agent greeting, transcript, microphone controls and the original empty webhook event panel",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-webhooks",
+    "thumbnailFit": "contain",
+    "demoNote": "Original backend and real RTC call with an agent greeting. No public notification endpoint was configured; webhook events remain empty and delivery is unverified.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

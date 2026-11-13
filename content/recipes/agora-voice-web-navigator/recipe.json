@@ -9,6 +9,18 @@
   "mainRepoUrl": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA",
   "recipeUrl": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA/blob/main/README.md",
   "author": "Thanoj-developer",
-  "updated": "2026-08-23",
-  "difficulty": "Intermediate"
+  "updated": "2026-11-11",
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Agora Voice Web Navigator",
+    "summary": "Voice-controlled browser automation powered by Agora RTC.",
+    "thumbnailSource": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA/tree/e9c9756ccdcf130f05257990576a3fbc786e3b6c",
+    "demoNote": "Browser-control interface after running a navigation preset. Voice control requires its separate service configuration.",
+    "labels": [
+      "JavaScript"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/agora-voice-web-navigator-controller.jpg",
+    "thumbnailAlt": "Original browser controller after its built-in navigation preset opened the Playwright documentation."
+  }
 }

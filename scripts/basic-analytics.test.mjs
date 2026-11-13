@@ -6,10 +6,11 @@ import ts from 'typescript'
 async function load(file) {
   const source = readFileSync(new URL(`../lib/${file}.ts`, import.meta.url), 'utf8')
     .replace('"./analytics-events"', JSON.stringify(new URL('../lib/analytics-events.ts', import.meta.url).href))
+    .replace('"./basic-analytics"', JSON.stringify((await import('./analytics-test-modules.mjs')).basicUrl))
   const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 }
-const { basicPageCount, basicSearchVocabulary, basicSearchTerm, sendBasicCount } = await load('basic-analytics')
+const { basicCampaignProperties, basicPageCount, basicUsageCount, basicSearchVocabulary, basicSearchTerm, sendBasicCount } = await load('basic-analytics')
 const { validBasicCount, recordBasicCount } = await load('basic-analytics-server')
 const vocabulary = basicSearchVocabulary([{ slug: 'meeting-copilot', title: 'Meeting Copilot', platforms: ['TypeScript'], useCases: ['Meetings'], capabilities: ['Transcription'] }])
 const config = { enabled: true, origin: 'https://recipes.example.com', token: 'phc_fixture', host: 'https://metrics.example.com/relay', recipes: new Set(['meeting-copilot']), topics: new Set(['voice-ai']), terms: new Set(vocabulary.values()) }
@@ -50,9 +51,9 @@ test('basic browser transport has no cookies, referrer, persistent identity, tim
   await new Promise(resolve => setImmediate(resolve))
 })
 
-test('the collector rejects identities, free text, campaign data, forged dimensions, unknown slugs, and malformed shapes', () => {
+test('the collector rejects identity fields, sensitive text, forged dimensions, unknown slugs, and malformed shapes', () => {
   for (const value of [page, search, { ...search, search_term: 'other', zero_results: true }, { metric: 'search', page_type: 'topic', topic_slug: 'voice-ai', search_term: 'meeting-copilot', zero_results: false }]) assert.deepEqual(validBasicCount(value, config), value)
-  for (const value of [null, [], { ...page, user_id: 'alice' }, { ...page, distinct_id: 'anonymous-id' }, { ...search, search_id: 'random' }, { ...search, utm_source: 'email' }, { ...search, search_term: 'alice@example.com' }, { ...search, search_term: 'arbitrary new phrase' }, { ...search, page_type: 'recipe' }, { ...search, zero_results: 0 }, { ...page, content_slug: 'alice' }, { ...page, content_slug: ['meeting-copilot'] }, { ...page, topic_slug: 'voice-ai' }, { ...page, count: 100 }, { ...page, day: '2000-01-01' }, { ...page, search_term: 'react' }, { ...page, metric: ['page_view'] }, { metric: 'page_view', page_type: 'topic', topic_slug: 'private' }]) assert.equal(validBasicCount(value, config), undefined)
+  for (const value of [null, [], { ...page, user_id: 'alice' }, { ...page, distinct_id: 'anonymous-id' }, { ...search, search_id: 'random' }, { ...search, utm_source: 'alice@example.com' }, { ...search, search_term: 'alice@example.com' }, { ...search, search_term: 'arbitrary new phrase' }, { ...search, page_type: 'recipe' }, { ...search, zero_results: 0 }, { ...page, content_slug: 'alice' }, { ...page, content_slug: ['meeting-copilot'] }, { ...page, topic_slug: 'voice-ai' }, { ...page, count: 100 }, { ...page, day: '2000-01-01' }, { ...page, search_term: 'react' }, { ...page, metric: ['page_view'] }, { metric: 'page_view', page_type: 'topic', topic_slug: 'private' }]) assert.equal(validBasicCount(value, config), undefined)
 })
 
 test('different visitors produce identical day-bucket counter increments and no browser metadata reaches the provider', async () => {
@@ -74,6 +75,7 @@ test('different visitors produce identical day-bucket counter increments and no 
   assert.equal(body.properties.$ip, '0.0.0.0')
   assert.equal(body.properties.$geoip_disable, true)
   assert.equal(body.properties.measurement_tier, 'aggregate')
+  assert.equal(body.properties.measurement_version, 4)
   assert.doesNotMatch(sent[0].body, /alice|bob|session|device|cookie|referrer|utm_|search_id|12:23/)
 })
 
@@ -85,10 +87,91 @@ test('non-production requests, cross-origin calls, wrong content types, and over
   assert.equal((await recordBasicCount(request(page, { origin: 'https://preview.example.com' }, 'https://preview.example.com/api/analytics/basic'), config, sink)).status, 403)
   assert.equal((await recordBasicCount(request(page, { 'sec-fetch-site': 'cross-site' }), config, sink)).status, 403)
   assert.equal((await recordBasicCount(request(page, { 'content-type': 'text/plain' }), config, sink)).status, 415)
-  assert.equal((await recordBasicCount(request({ ...page, extra: 'x'.repeat(600) }), config, sink)).status, 400)
+  assert.equal((await recordBasicCount(request({ ...page, extra: 'x'.repeat(5000) }), config, sink)).status, 400)
   const invalid = new Request(config.origin + '/api/analytics/basic', { method: 'POST', headers: { origin: config.origin, 'content-type': 'application/json' }, body: '{' })
   assert.equal((await recordBasicCount(invalid, config, sink)).status, 400)
   assert.equal(calls, 0)
+})
+
+test('anonymous UTM preserves new campaign values from the current URL without a registration list', () => {
+  const tagged = '?utm_source=google&utm_medium=cpc&utm_campaign=recipes_top10&utm_content=person_123&utm_term=alice@example.com&utm_id=per_user&q=private'
+  assert.deepEqual(basicCampaignProperties(tagged), { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'recipes_top10' })
+  assert.deepEqual(basicCampaignProperties(''), {}, 'untagged navigation does not inherit a previous source')
+  assert.deepEqual(basicCampaignProperties('?utm_campaign=New-Launch'), { utm_campaign: 'New-Launch' })
+  assert.deepEqual(basicCampaignProperties('?utm_source=x&utm_source=google&utm_campaign=New-Launch'), { utm_source: 'x', utm_campaign: 'New-Launch' })
+  for (const source of ['New-Partner', 'newsletter.v2', 'www.bilibili.com', '微信', 'Ｘ', 'Partner  channel', '@AgoraIO']) {
+    const campaign = { utm_source: source, utm_medium: 'Paid.Social', utm_campaign: 'Live@Agora 发布.2026' }
+    assert.deepEqual(basicCampaignProperties(new URLSearchParams(campaign).toString()), campaign)
+    assert.deepEqual(validBasicCount({ ...page, ...campaign }, config), { ...page, ...campaign })
+  }
+  for (const secret of ['alice@example.com', 'alice＠example.com', 'token=secret', 'a'.repeat(1000), 'bad\nsource', '{campaign}']) {
+    assert.deepEqual(basicCampaignProperties(new URLSearchParams({ utm_source: secret, utm_medium: secret, utm_campaign: secret }).toString()), {})
+  }
+  assert.deepEqual(basicCampaignProperties('?utm_source=alice%40example.com&utm_campaign=New-Launch'), { utm_campaign: 'New-Launch' })
+  for (const count of [
+    { ...page, ...basicCampaignProperties(tagged) },
+    { ...search, utm_source: 'other', utm_campaign: 'other' },
+    { ...page, utm_medium: 'email' }, { ...page, utm_campaign: 'New-Launch' },
+    { ...page, utm_source: 'Google', utm_campaign: 'Launch-2027' },
+  ]) assert.deepEqual(validBasicCount(count, config), count)
+  for (const count of [
+    { ...page, utm_source: 'google', utm_campaign: 'alice@example.com' },
+    { ...page, utm_source: 'google', utm_content: 'main_cta' },
+    { ...page, utm_source: 'google', utm_term: 'voice' },
+    { ...page, utm_source: 'google', utm_id: '123' },
+    { ...page, utm_source: ['google'] },
+  ]) assert.equal(validBasicCount(count, config), undefined)
+})
+
+test('a complete valid multilingual counter fits the collector and preserves its UTM in PostHog', async () => {
+  const campaign = { utm_source: '来'.repeat(100), utm_medium: '自'.repeat(100), utm_campaign: '源'.repeat(100) }
+  const content_slug = 'a'.repeat(100)
+  const count = { metric: 'content_copy', page_type: 'recipe', content_slug, action: 'guide', ...campaign }
+  assert.ok(Buffer.byteLength(JSON.stringify(count)) > 1024)
+  const sent = []
+  const response = await recordBasicCount(request(count), { ...config, recipes: new Set([content_slug]) }, async (url, options) => {
+    sent.push(JSON.parse(options.body)); return new Response(null, { status: 204 })
+  })
+  assert.equal(response.status, 204)
+  for (const key of Object.keys(campaign)) assert.equal(sent[0].properties[key], campaign[key])
+})
+
+test('only requested successful use signals project into anonymous counts with public subjects', () => {
+  for (const [metric, action] of [
+    ['material_open', 'demo'], ['video_play', 'play'],
+    ['content_copy', 'guide'], ['content_copy', 'prompt'], ['content_copy', 'code'], ['content_copy', 'cli_command'],
+    ['contribution_open', 'github_form'], ['contribution_open', 'github_issue'], ['contribution_open', 'pr_instructions'],
+  ]) {
+    const count = basicUsageCount('/', metric, { action, content_slug: 'meeting-copilot', search_id: 'private', search_term: 'alice@example.com', locale: 'en' })
+    assert.deepEqual(count, { metric, page_type: 'catalog', content_slug: 'meeting-copilot', action })
+    assert.deepEqual(validBasicCount(count, config), count)
+  }
+  for (const [metric, action] of [
+    ['material_open', 'source'], ['material_open', 'video_original'], ['video_play', 'hover_preview'],
+    ['share_action', 'copy_link'], ['catalog_action', 'result_open'], ['content_copy', 'failed'],
+  ]) assert.equal(basicUsageCount('/', metric, { action }), undefined)
+  assert.equal(basicUsageCount('/account/alice', 'content_copy', { action: 'code' }), undefined)
+  for (const count of [
+    { ...page, metric: 'material_open', action: 'source' },
+    { ...page, metric: 'video_play', action: 'hover_preview' },
+    { ...page, metric: 'content_copy', action: 'code', content_slug: 'private' },
+    { ...page, action: 'demo' }, { ...search, action: 'play' },
+    { ...page, metric: 'content_copy', action: 'guide', clipboard: 'private' },
+  ]) assert.equal(validBasicCount(count, config), undefined)
+})
+
+test('tagged anonymous usage reaches PostHog as a shared counter without linking the requests', async () => {
+  const sent = []
+  const count = { metric: 'video_play', action: 'play', page_type: 'catalog', content_slug: 'meeting-copilot', ...basicCampaignProperties('?utm_source=agora_email&utm_medium=email&utm_campaign=recipes_top10') }
+  for (const visitor of ['alice', 'bob']) {
+    assert.equal((await recordBasicCount(request(count, { cookie: `user=${visitor}`, 'user-agent': visitor, 'x-forwarded-for': visitor }), config, async (url, options) => { sent.push(JSON.parse(options.body)); return new Response(null, { status: 204 }) }, () => Date.parse('2026-11-12T12:00:00Z'))).status, 204)
+  }
+  assert.deepEqual(sent[0], sent[1])
+  assert.equal(sent[0].properties.utm_source, 'agora_email')
+  assert.equal(sent[0].properties.metric, 'video_play')
+  assert.equal(sent[0].properties.action, 'play')
+  assert.equal(sent[0].distinct_id, 'recipes:aggregate')
+  assert.doesNotMatch(JSON.stringify(sent), /alice|bob|search_id|utm_content|utm_term|utm_id|12:00/)
 })
 
 test('proxy prefixes and host fallback work for counters; failures do not trigger retries or expose provider responses', async () => {

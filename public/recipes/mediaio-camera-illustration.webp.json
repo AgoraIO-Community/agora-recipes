@@ -1,0 +1,15 @@
+{
+  "slug": "mediaio-camera",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Android Custom Camera Source, based on its catalog metadata and source https://github.com/AgoraIO-Community/MediaIO-Camera at 5b1f36d58d001337053754433e126f55d5a27f7b. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/mediaio-camera.html.",
+  "createdAt": "2026-11-04T15:16:57.274Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/MediaIO-Camera",
+  "sourceRevision": "5b1f36d58d001337053754433e126f55d5a27f7b",
+  "width": 1600,
+  "height": 900,
+  "sha256": "d79be38c1fb8074ea7193a77efcf6dbbb70a035f8b8f30763c2bb477c6de52a0",
+  "original": "originals/mediaio-camera.png",
+  "htmlSource": "illustrations/mediaio-camera.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

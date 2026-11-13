@@ -10,5 +10,12 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Rust-QuickStart/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Rust RTC Quickstart",
+    "summary": "A Rust quickstart for exploring Agora RTC channel connection patterns and native real-time communication workflows.",
+    "labels": [
+      "Rust"
+    ]
+  }
 }

@@ -27,6 +27,9 @@ const baseMetadata: Metadata = {
   },
   description:
     "Open-source recipes for building voice agents, transcription, translation, and accessibility workflows with Agora.",
+  verification: {
+    google: "SriA07bMgAsyeqW0aNKzd9m4ZJsTD3N4GkThxvliHmk",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", type: "image/x-icon" },
@@ -100,7 +103,7 @@ export default function RootLayout({
           {t("Skip to main content")}
         </a>
         <LocaleProvider locale={locale} messages={getMessages(locale)}>
-        <PrivacyProvider production={shouldLoadAnalytics} productionOrigin={siteUrl.origin}>
+        <PrivacyProvider>
         <AnalyticsProvider enabled={shouldLoadAnalytics} productionOrigin={siteUrl.origin} topics={Object.keys(topics)}>
         <SiteHeader topics={topics} />
         <main id="main-content" className="flex-1">

@@ -21,5 +21,12 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-Android/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Android Transcription Widget",
+    "summary": "An Android widget sample that displays transcription alongside Agora realtime audio and video sessions.",
+    "labels": [
+      "Android"
+    ]
+  }
 }

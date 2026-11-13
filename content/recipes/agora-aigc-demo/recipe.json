@@ -23,5 +23,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-AIGCDemo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "generatedCover": true,
+    "title": "AIGC Demo with Agora RTC",
+    "summary": "Combine AIGC interactions with realtime media.",
+    "thumbnail": "/recipes/agora-aigc-demo.webp",
+    "thumbnailAlt": "AIGC demo setup panel with STT, TTS, LLM and channel settings before joining",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-AIGCDemo",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free settings UI with empty conversation area; no session joined.",
+    "labels": [
+      "JavaScript"
+    ],
+    "searchTerms": []
+  }
 }

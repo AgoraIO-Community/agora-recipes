@@ -22,5 +22,19 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-RTT-Demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Real-Time Transcription Demo",
+    "summary": "Add realtime transcription to Agora RTC sessions.",
+    "thumbnail": "/recipes/real-time-transcription-demo.webp",
+    "thumbnailAlt": "Real-Time Transcription entry form with empty channel and name fields",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-RTT-Demo",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free entry UI; tracked env files omitted. No channel joined or transcription started.",
+    "labels": [
+      "JavaScript",
+      "Web"
+    ],
+    "searchTerms": []
+  }
 }

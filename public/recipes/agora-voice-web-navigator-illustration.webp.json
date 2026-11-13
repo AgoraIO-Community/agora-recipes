@@ -1,0 +1,26 @@
+{
+  "slug": "agora-voice-web-navigator",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Agora Voice Web Navigator, based on its catalog metadata and source https://github.com/Thanoj-developer/ARGUS_WITH_AGORA at e9c9756ccdcf130f05257990576a3fbc786e3b6c. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-voice-web-navigator.html.",
+  "createdAt": "2026-11-04T15:16:56.102Z",
+  "sourceRepository": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA",
+  "sourceRevision": "e9c9756ccdcf130f05257990576a3fbc786e3b6c",
+  "width": 1600,
+  "height": 900,
+  "sha256": "c19385db1424b005fe8938d989f982becf3627f025b24377be484ff5b3a3b9bf",
+  "original": "originals/agora-voice-web-navigator.png",
+  "htmlSource": "illustrations/agora-voice-web-navigator.html",
+  "localLaunch": {
+    "command": [
+      "python3",
+      "-m",
+      "http.server",
+      "4402",
+      "--bind",
+      "127.0.0.1"
+    ],
+    "scope": "original static UI; no camera, microphone, provider or remote session",
+    "httpStatus": null
+  },
+  "decision": "Original controller launched; browser backend is disconnected and its connection error is visible. No browser actions were executed."
+}

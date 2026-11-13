@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/LrcView-iOS/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "iOS Lyrics View with RTC Media",
+    "summary": "An iOS karaoke component demo for lyric synchronization and pitch scoring alongside media playback. Requires compatible music/RTC services and test assets.",
+    "labels": [
+      "iOS",
+      "Swift"
+    ]
+  }
 }

@@ -21,5 +21,12 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-device-demo-esp32/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "ESP32 IoT Device Demo",
+    "summary": "An ESP32 device sample for building IoT calling flows that pair embedded hardware with Agora-powered clients.",
+    "labels": [
+      "C"
+    ]
+  }
 }

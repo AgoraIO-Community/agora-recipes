@@ -21,5 +21,20 @@
     },
     "installCommand": "pnpm install",
     "runCommand": "pnpm dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "NextJS Quickstart",
+    "summary": "A basic Agora Conversational AI agent with Next.js.",
+    "thumbnail": "/recipes/nextjs-quickstart-catalog-call.webp",
+    "thumbnailAlt": "Agora Next.js Quickstart real call interface with agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs/tree/24374411cdd809701e2a39466f4f97d52e23f173",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC call and genuine agent greeting using authorized Agora configuration and a silent virtual microphone; session stopped after capture.",
+    "labels": [
+      "TypeScript",
+      "Quickstart"
+    ],
+    "searchTerms": []
   }
 }

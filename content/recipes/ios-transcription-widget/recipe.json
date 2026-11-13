@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/TranscriptionWidget-iOS/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "iOS Transcription Widget",
+    "summary": "An iOS subtitle UI reference for live transcript and translation messages. Requires a compatible backend and reconciliation of the sample configuration initializer before building.",
+    "labels": [
+      "iOS",
+      "Swift"
+    ]
+  }
 }

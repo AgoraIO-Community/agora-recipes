@@ -33,5 +33,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Agent Handoff",
+    "summary": "Route conversations across specialized personas.",
+    "thumbnail": "/recipes/agent-handoff-clean-call.webp",
+    "thumbnailAlt": "Travel Concierge real call interface with its original greeting, transcript and microphone controls, without a failure warning",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-handoff",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC call using this project's bundled demo LLM endpoint through a restricted temporary tunnel. Original greeting received; a persona handoff was not exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

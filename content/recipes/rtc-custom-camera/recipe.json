@@ -10,5 +10,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/RTC-Custom-Camera/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "RTC Custom Camera",
+    "summary": "A custom camera sample for publishing nonstandard video sources into an Agora RTC channel.",
+    "labels": [
+      "JavaScript",
+      "Web"
+    ]
+  }
 }

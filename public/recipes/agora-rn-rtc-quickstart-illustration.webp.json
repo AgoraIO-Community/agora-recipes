@@ -1,0 +1,15 @@
+{
+  "slug": "agora-rn-rtc-quickstart",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for React Native RTC Quickstart, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-RN-Quickstart at eb32bd7933cf6b5c9364e7367501497ac71c4f97. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/agora-rn-rtc-quickstart.html.",
+  "createdAt": "2026-11-04T15:16:55.903Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-RN-Quickstart",
+  "sourceRevision": "eb32bd7933cf6b5c9364e7367501497ac71c4f97",
+  "width": 1600,
+  "height": 900,
+  "sha256": "4616d6bae9a60e0743fc31b96c63fc5f182c02425fbcff287a22907028616107",
+  "original": "originals/agora-rn-rtc-quickstart.png",
+  "htmlSource": "illustrations/agora-rn-rtc-quickstart.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

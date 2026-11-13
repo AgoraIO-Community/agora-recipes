@@ -10,5 +10,13 @@
   "recipeUrl": "https://github.com/sandy10/voice_ai_agent/blob/main/docs/ai/RECIPE.md",
   "author": "Sandeep",
   "updated": "2026-08-23",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "MoodLens - Voice AI Mood Journal",
+    "summary": "Build a low-latency voice AI companion that listens to your day, performs on-device real-time sentiment analysis, and visually maps your emotional state.",
+    "labels": [
+      "Android",
+      "Python"
+    ]
+  }
 }

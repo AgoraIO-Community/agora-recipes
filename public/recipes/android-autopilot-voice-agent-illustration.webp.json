@@ -1,0 +1,15 @@
+{
+  "slug": "android-autopilot-voice-agent",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Android AutoPilot Voice Action Agent, based on its catalog metadata and source https://github.com/Shariq1912/AgoraActionAgent at dfe98d8d10480ab859a86ffa8212460af3e72bc2. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/android-autopilot-voice-agent.html.",
+  "createdAt": "2026-11-04T15:16:56.238Z",
+  "sourceRepository": "https://github.com/Shariq1912/AgoraActionAgent",
+  "sourceRevision": "dfe98d8d10480ab859a86ffa8212460af3e72bc2",
+  "width": 1600,
+  "height": 900,
+  "sha256": "8e4049b87274a46912ce21d1d43d7cd23e9b362ad87f3229079a32f01e6a7a2f",
+  "original": "originals/android-autopilot-voice-agent.png",
+  "htmlSource": "illustrations/android-autopilot-voice-agent.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

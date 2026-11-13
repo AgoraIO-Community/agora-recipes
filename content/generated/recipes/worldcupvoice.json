@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "slug": "worldcupvoice",
-  "generatedAt": "2026-10-28T06:15:47.700Z",
+  "generatedAt": "2026-11-11T10:13:19.812Z",
   "source": {
     "mainRepoUrl": "https://github.com/zicojiao/worldcupvoice",
     "recipeUrl": "https://github.com/zicojiao/worldcupvoice/blob/main/README.md",
@@ -24,5 +24,6 @@
       }
     }
   },
-  "primaryPrompt": "You are implementing the \"WorldCupVoice\" recipe in this project.\n\nRead the recipe markdown first:\nhttps://raw.githubusercontent.com/zicojiao/worldcupvoice/main/README.md\n\nUse the source repository for cross-reference:\nhttps://github.com/zicojiao/worldcupvoice\n\nBuild this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies."
+  "primaryPrompt": "You are implementing the \"WorldCupVoice\" recipe in this project.\n\nRead the recipe markdown first:\nhttps://raw.githubusercontent.com/zicojiao/worldcupvoice/main/README.md\n\nUse the source repository for cross-reference:\nhttps://github.com/zicojiao/worldcupvoice\n\nBuild this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies.",
+  "contentUpdatedAt": "2026-09-01"
 }

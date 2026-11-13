@@ -1,5 +1,6 @@
 "use client"
 
+import { AttributionLink } from "@/components/attribution-link"
 import { useI18n } from "@/components/locale-provider"
 import { RecipesBrand } from "@/components/recipes-brand"
 import Link from "next/link"
@@ -18,6 +19,10 @@ const legal = [
   ["Terms of Service", "https://www.agora.io/en/terms-of-service/"],
   ["Acceptable Use Policy", "https://www.agora.io/en/acceptable-use-policy/"],
 ] as const
+
+function ResourceLink(props: React.ComponentPropsWithRef<"a"> & { href: string }) {
+  return props.href === "https://console.agora.io" ? <AttributionLink {...props} /> : <a {...props} />
+}
 
 export function SiteFooter({ topics }: { topics: Record<string, string> }) {
   const { t, locale } = useI18n()
@@ -48,7 +53,7 @@ export function SiteFooter({ topics }: { topics: Record<string, string> }) {
           <nav className="footer-group" aria-labelledby="footer-explore-heading">
             <h2 id="footer-explore-heading">{t("Explore")}</h2>
             <ul>
-              <li><Link className="footer-link" href={`${localePath("/", locale)}#recipes`}>{t("Browse recipes")}</Link></li>
+              <li><Link className="footer-link" href={localePath("/recipes", locale)}>{t("Browse recipes")}</Link></li>
               <li><HowToUseRecipes variant="footer" /></li>
               <li><Link className="footer-link" href="/llms.txt">llms.txt</Link></li>
             </ul>
@@ -64,10 +69,10 @@ export function SiteFooter({ topics }: { topics: Record<string, string> }) {
                 ["Discord", "https://discord.gg/rX3f5pqZ3s"],
               ].map(([label, href]) => (
                 <li key={t(label)}>
-                  <a className="footer-link" href={href} target="_blank" rel="noreferrer"
+                  <ResourceLink href={href} className="footer-link" target="_blank" rel="noreferrer"
                     aria-label={t("{label} (opens in a new tab)", { label: t(label) })}>
                     {t(label)}
-                  </a>
+                  </ResourceLink>
                 </li>
               ))}
             </ul>

@@ -21,5 +21,18 @@
   "recipeUrl": "https://github.com/anandwana001/watchwise-ai/blob/main/docs/ai/RECIPE.md",
   "author": "anandwana001",
   "updated": "2026-06-26",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "WatchWise AI",
+    "summary": "Build a voice agent for movie and TV discovery.",
+    "thumbnail": "/recipes/watchwise-ai-catalog-call.webp",
+    "thumbnailAlt": "WatchWise actual voice-assistant drawer showing a genuine agent greeting and call controls alongside empty catalog rails",
+    "thumbnailSource": "https://github.com/anandwana001/watchwise-ai",
+    "thumbnailFit": "contain",
+    "demoNote": "Real voice-assistant call and agent greeting. TMDB key is missing, so movie rails remain empty and recommendation behavior is unverified; original drawer overflow retained.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

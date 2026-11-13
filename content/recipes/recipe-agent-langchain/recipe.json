@@ -10,5 +10,20 @@
   "recipeUrl": "https://github.com/bluemotional/recipe-agent-langchain/blob/fix/session-isolation-stability-latency/docs/ai/RECIPE.md",
   "author": "Jingyi",
   "updated": "2026-06-24",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "generatedCover": true,
+    "title": "LangChain Voice Agent",
+    "summary": "Connect a LangChain agent to an Agora voice session.",
+    "thumbnail": "/recipes/recipe-agent-langchain-clean-call.webp",
+    "thumbnailAlt": "LangChain recipe's original minimal call page showing connected transport, an active agent session and its genuine greeting without an error badge",
+    "thumbnailSource": "https://github.com/bluemotional/recipe-agent-langchain/tree/bae3dfa1741358fb3508b777c8f57cccdd7c18a5",
+    "thumbnailFit": "contain",
+    "demoNote": "Real call and agent greeting after temporary SDK client/session-argument and End-call fixes, with the original public chat endpoint configured. Original minimal styling retained; downstream OpenAI-funded tool conversations were not exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

@@ -1,0 +1,15 @@
+{
+  "slug": "aigc-service-example-rtc",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for AIGC Service Example with RTC, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-AIGCService-Example at c8c8606d765f704eacbaf4bec023454b6c54150f. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/aigc-service-example-rtc.html.",
+  "createdAt": "2026-11-04T15:16:56.172Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-AIGCService-Example",
+  "sourceRevision": "c8c8606d765f704eacbaf4bec023454b6c54150f",
+  "width": 1600,
+  "height": 900,
+  "sha256": "33e374ce88a234e3bbca37defef663856c17362bbbadd034492d4f99056acfff",
+  "original": "originals/aigc-service-example-rtc.png",
+  "htmlSource": "illustrations/aigc-service-example-rtc.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

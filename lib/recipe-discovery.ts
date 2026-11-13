@@ -11,6 +11,7 @@ export type Showcase = {
   thumbnailSource: string
   thumbnailScale?: number
   thumbnailOrigin?: string
+  generatedCover?: boolean
   videoUrl?: string
   videoDuration?: string
   demoNote: string

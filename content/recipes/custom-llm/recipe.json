@@ -32,5 +32,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Custom LLM",
+    "summary": "Bring your own OpenAI-compatible LLM endpoint.",
+    "thumbnail": "/recipes/custom-llm-clean-call.webp",
+    "thumbnailAlt": "Custom LLM real call interface showing the original agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-custom-llm",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC session with this project's original bundled mock LLM endpoint made reachable through a restricted temporary tunnel. Greeting received; no production-model capability claimed.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

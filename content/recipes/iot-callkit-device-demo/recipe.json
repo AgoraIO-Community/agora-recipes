@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-device-demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "IoT CallKit Device Demo",
+    "summary": "A Linux device-side Agora Link reference for calling, answering and hanging up with provisioned mobile peers. Requires device activation credentials and the matching IoT SDK.",
+    "labels": [
+      "C",
+      "Linux"
+    ]
+  }
 }

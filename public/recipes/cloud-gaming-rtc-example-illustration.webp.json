@@ -1,0 +1,15 @@
+{
+  "slug": "cloud-gaming-rtc-example",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Cloud Gaming RTC Example, based on its catalog metadata and source https://github.com/AgoraIO-Community/Agora-CloudGame-Example at 7fb7cd03d73b872a5696d2b5bc09bf9c8ac3128f. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/cloud-gaming-rtc-example.html.",
+  "createdAt": "2026-11-04T15:16:56.555Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/Agora-CloudGame-Example",
+  "sourceRevision": "7fb7cd03d73b872a5696d2b5bc09bf9c8ac3128f",
+  "width": 1600,
+  "height": 900,
+  "sha256": "b423e2f7f9f881a07c52c0663461c4a328841510a83434f5f8d77c886f92a625",
+  "original": "originals/cloud-gaming-rtc-example.png",
+  "htmlSource": "illustrations/cloud-gaming-rtc-example.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

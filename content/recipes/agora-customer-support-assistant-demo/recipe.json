@@ -1,0 +1,50 @@
+{
+  "title": "Customer Support Assistant",
+  "tagline": "Work through product questions and troubleshooting by voice.",
+  "description": "Discuss product or service questions, try basic troubleshooting and prepare a support recap. This conversation-only demo does not access orders or submit support requests.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Customer Support",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-customer-support-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-customer-support-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-customer-support-assistant-de.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-12",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-customer-support-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Customer Support Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-customer-support-assistant-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  },
+  "setup": {
+    "packageName": "agora-customer-support-assistant-demo",
+    "packageVersion": "0.1.0",
+    "npmAvailable": true,
+    "directory": "my-support-app",
+    "testRequest": "My headphones will not connect. Can you help me troubleshoot?"
+  }
+}

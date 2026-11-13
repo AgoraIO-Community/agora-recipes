@@ -32,5 +32,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Interruption Handling",
+    "summary": "Tune how the agent yields when the user barges in.",
+    "thumbnail": "/recipes/interruptions-clean-call.webp",
+    "thumbnailAlt": "Interruptions Recipe real call interface with its original greeting in the transcript and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-interruptions",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC session using this project's bundled demo LLM through a restricted temporary tunnel. Original greeting received; barge-in was not exercised with the silent microphone.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

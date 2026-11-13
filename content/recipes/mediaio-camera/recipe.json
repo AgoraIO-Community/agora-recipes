@@ -21,5 +21,12 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/MediaIO-Camera/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Android Custom Camera Source",
+    "summary": "An Android MediaIO reference for camera capture, preview and lifecycle handling, with source to inspect when adapting custom frames for RTC publishing.",
+    "labels": [
+      "Android"
+    ]
+  }
 }

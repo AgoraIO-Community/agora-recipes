@@ -10,5 +10,13 @@
   "recipeUrl": "https://github.com/Therealratoshen/recipe-push-to-talk/blob/main/docs/ai/RECIPE.md",
   "author": "Therealratoshen",
   "updated": "2026-08-02",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Push-to-Talk",
+    "summary": "Gate the microphone with press-to-talk for deliberate voice turns.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": []
+  }
 }

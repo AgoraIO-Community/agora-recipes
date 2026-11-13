@@ -1,0 +1,28 @@
+{
+  "slug": "openai-gpt-live-nextjs",
+  "kind": "local-app-screenshot",
+  "prompt": "Unmodified local initial interface of OpenAI GPT Live with Next.js, source https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS at f8ab691d523d91670b7047442e1b0a985f5aaa70. No crop, retouch, fabricated data or live session. Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+  "createdAt": "2026-11-04T15:16:57.403Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS",
+  "sourceRevision": "f8ab691d523d91670b7047442e1b0a985f5aaa70",
+  "width": 1440,
+  "height": 1000,
+  "sha256": "20a2cf31b2172297ad21eeea744f4f4a9977d703f8fe43b2066a526c4224613d",
+  "original": "originals/openai-gpt-live-nextjs.png",
+  "htmlSource": "illustrations/openai-gpt-live-nextjs.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4394"
+    ],
+    "scope": "credential-free initial UI only; no session started",
+    "httpStatus": null
+  },
+  "decision": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified."
+}

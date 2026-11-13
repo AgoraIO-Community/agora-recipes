@@ -10,5 +10,18 @@
   "recipeUrl": "https://github.com/ojha-436/LabSparkAI/blob/main/AGORA_SETUP.md",
   "author": "Prince Kumar Ojha",
   "updated": "2026-08-25",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "LabSpark AI",
+    "summary": "A virtual science laboratory with a real-time Socratic tutor.",
+    "thumbnail": "/recipes/labspark-ai.webp",
+    "thumbnailAlt": "LabSpark AI virtual science laboratory landing page before opening a workbench",
+    "thumbnailSource": "https://github.com/ojha-436/LabSparkAI",
+    "thumbnailFit": "contain",
+    "demoNote": "Credential-free landing page; no account, workbench or tutor conversation started.",
+    "labels": [
+      "JavaScript"
+    ],
+    "searchTerms": []
+  }
 }

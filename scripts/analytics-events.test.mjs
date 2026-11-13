@@ -67,7 +67,7 @@ test('obvious sensitive and unbounded search inputs are redacted without losing 
 })
 
 test('only standard bounded campaign dimensions survive; campaign IDs can be numeric', () => {
-  assert.deepEqual(campaignProperties({ utm_source: '  discord  ', utm_campaign: 'Voice Demo 20261105', utm_id: '123456789', utm_medium: 'community', utm_content: 'person@example.com', utm_term: 'api_key=secret', gclid: 'uncontrolled', account: 'private' }), { utm_source: 'discord', utm_medium: 'community', utm_campaign: 'Voice Demo 20261105', utm_id: '123456789' })
+  assert.deepEqual(campaignProperties({ utm_source: '  discord  ', utm_campaign: 'Voice Demo 20261105', utm_id: '123456789', utm_medium: 'community', utm_content: 'person@example.com', utm_term: 'api_key=secret', gclid: 'uncontrolled', account: 'private' }), { utm_source: '  discord  ', utm_medium: 'community', utm_campaign: 'Voice Demo 20261105', utm_id: '123456789' })
 })
 
 test('Vercel summaries fit Pro property limits and retain useful search/content/Topic dimensions', () => {

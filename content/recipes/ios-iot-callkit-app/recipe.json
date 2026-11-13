@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "iOS IoT CallKit App",
+    "summary": "An Agora Link CallKit library and iOS demo for account/device calls, notifications and live device media. Requires provisioned IoT service configuration.",
+    "labels": [
+      "iOS",
+      "Swift"
+    ]
+  }
 }

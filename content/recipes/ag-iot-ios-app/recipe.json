@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-ios-app/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "iOS IoT Video Calling App",
+    "summary": "An iOS Agora Link reference for discovering provisioned IoT devices and viewing their audio/video streams. Requires matching device SDKs, IoT libraries and service credentials.",
+    "labels": [
+      "iOS",
+      "Swift"
+    ]
+  }
 }

@@ -33,5 +33,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Content Filtering",
+    "summary": "Redact unsafe or sensitive agent responses.",
+    "thumbnail": "/recipes/content-filter-clean-call.webp",
+    "thumbnailAlt": "Content Filtering real call interface with its original greeting, transcript and microphone controls, without a failure warning",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-content-filter",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC call using the project's bundled deterministic demo LLM through a restricted temporary tunnel. Greeting received; filtering behavior was not exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

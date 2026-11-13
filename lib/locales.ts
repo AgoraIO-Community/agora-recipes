@@ -23,7 +23,7 @@ export function catalogReturnPath(value: string | null | undefined, locale: Loca
   try {
     const url = new URL(value, "https://catalog.invalid")
     const path = localePath(url.pathname, "en")
-    if (url.origin !== "https://catalog.invalid" || (path !== "/" && !/^\/topics\/[a-z0-9]+(?:-[a-z0-9]+)*\/?$/.test(path))) return fallback
+    if (url.origin !== "https://catalog.invalid" || (path !== "/" && path !== "/recipes" && !/^\/topics\/[a-z0-9]+(?:-[a-z0-9]+)*\/?$/.test(path))) return fallback
     return `${url.pathname}${url.search}#recipes`
   } catch { return fallback }
 }

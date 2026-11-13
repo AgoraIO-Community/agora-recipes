@@ -1,0 +1,15 @@
+{
+  "slug": "android-iot-video-calling-app",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Android IoT Video Calling App, based on its catalog metadata and source https://github.com/AgoraIO-Community/ag-iot-android-app at 5af061c0354beab93e2f83fb7ad4a1fabed86bf8. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/android-iot-video-calling-app.html.",
+  "createdAt": "2026-11-04T15:16:56.304Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/ag-iot-android-app",
+  "sourceRevision": "5af061c0354beab93e2f83fb7ad4a1fabed86bf8",
+  "width": 1600,
+  "height": 900,
+  "sha256": "f40142824519f1209adcd9877626296a46b801c59a610a66efb41c9a566e85a5",
+  "original": "originals/android-iot-video-calling-app.png",
+  "htmlSource": "illustrations/android-iot-video-calling-app.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+}

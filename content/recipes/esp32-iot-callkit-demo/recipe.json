@@ -21,5 +21,12 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "ESP32 IoT CallKit Demo",
+    "summary": "An ESP32 IoT CallKit sample for device-side calling flows connected to Agora-powered clients.",
+    "labels": [
+      "C"
+    ]
+  }
 }

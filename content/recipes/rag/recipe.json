@@ -33,5 +33,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Retrieval-Augmented Generation",
+    "summary": "Ground agent answers in your own knowledge base.",
+    "thumbnail": "/recipes/rag-clean-call.webp",
+    "thumbnailAlt": "RAG Recipe real call interface with its original policy-assistant greeting, transcript and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-rag",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC session using this project's bundled knowledge-base demo LLM through a restricted temporary tunnel. Greeting received; no retrieval question or production model was exercised.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

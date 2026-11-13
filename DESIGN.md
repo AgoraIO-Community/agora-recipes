@@ -214,6 +214,8 @@ titles, navigation, buttons, and cards. Use size and spacing for hierarchy;
 reserve semibold for emphasis inside authored reading content. Do not reintroduce
 semibold interface labels when adding controls.
 Monospace is reserved for code and commands.
+Generated recipe posters use Jokker Bold, matching the share image; it is not an
+interface face.
 
 | Element | Desktop | Phone |
 | --- | --- | --- |
@@ -328,17 +330,26 @@ aligned to the shell's right edge. Do not compensate with negative margins.
 
 ## Privacy choices
 
-Keep the attached privacy bar concise, with one purpose sentence and explicit
-Reject / Accept / Customize labels. Reject and Accept are separate shared outline
-Buttons with equal widths and an 8px gap; these choices retain text and full corners.
-Keep the three actions together where they fit and put policy links in the
-preferences dialog. Use shared Dialog Header / Body / Footer slots and Checkbox
-choices. Body is the only opaque scroller. Dialogs keep 16px viewport gutters,
-and phone/coarse-pointer actions keep 46px targets. Give each purpose its own
-row and a short description. Show anonymous statistics as Always on and each
-available optional purpose as a separate default-off choice. An unavailable
-purpose has a clear status and a disabled control. Dismissing preferences never
-grants consent.
+Agora/Securiti owns the initial notice, the only preference center, and all
+optional analytics decisions. The footer opens that center directly. Do not add
+a Recipes preference editor, local consent storage, or a second banner in
+unconfigured development environments. Product and traffic analytics use
+separate managed categories. Basic anonymous statistics remain always on and
+are disclosed in the footer; no optional choice controls them.
+
+Adapt the SDK's actual notice with the shared managed-consent adapter. Keep its
+full corporate copy, policy and opt-out links, action handlers and dismissal
+behavior. Use an opaque attached bottom bar, system theme and Recipes typography.
+Accept and Reject have equal widths, separate outlines, full corners and an 8px
+gap. Keep the choices and close action on one center line; place the managed
+preferences link with the notice copy on desktop. Preserve the SDK’s keyboard
+order and original action nodes. Controls are 32px on desktop and at least 46px on phones/coarse pointers.
+Long labels wrap without horizontal clipping; short viewports scroll the notice
+copy while actions remain reachable. The SDK's preference center is the sole
+place to edit choices. Its close action stays in the title row, centered beside
+the title with the shared 32/46px target and 16px icon, rather than an absolute offset. Failure can offer retry, never an alternate consent form.
+The design-system reference opens the live managed notice instead of rendering
+a separate imitation. Verify the same SDK locally on product routes.
 
 ## Interface copy
 
@@ -378,24 +389,54 @@ and 16px down. A charcoal tile contains an inset real preview, title, concise
 outcome, author, and one meaningful platform or capability label. Gallery crops
 are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
 Directory cards share one layout for title, summary, technology, difficulty,
-author, and available preview actions, with equal heights within each row.
+author, and available preview actions.
+Prefer author screenshots and demo frames that show the actual project. Preserve
+the original screenshot colors across themes; the surrounding card follows the
+system appearance. Use `thumbnailOrigin` to keep the relevant interface content
+visible in a cover crop. Record missing project media for individual follow-up.
+When source media is unavailable or shows a near-empty interface, set
+`media.generatedCover` or omit the thumbnail. The cover frame then shows a
+generated poster built from recipe metadata: the name in Jokker Bold, up to two
+distinguishing capability tags, and one of three layouts chosen by a stable hash
+of the slug: the Agora mark on black, a name panel beside the recipe's own
+metadata as code, or a sticker on yellow. Posters behave like media: colors stay
+fixed across themes and every dimension scales with the frame, so phones show
+the same image smaller. They are decorative; the card heading and link carry the
+name. Keep real project screenshots and recordings in their original colors
+across themes.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
-and three on phones. Cards stretch to the tallest card within their own row,
-with authors aligned at the bottom. Text-only rows keep their natural height;
-do not reserve an empty image plane or shrink real covers into corner thumbnails.
+and three on phones. All cards in a grid share the same height, derived from bounded content rather
+than a fixed pixel height.
+Keep technology and author/action rows anchored at the bottom. Every card keeps
+its cover frame. Missing or failed images use the shared generated poster; this
+is a static cover, not a loading state. Titles and summaries use the same size
+and placement as media cards. Detail pages omit the preview when there is no
+project media and no video or Demo to open.
+Available video playback and Demo links remain independent.
 Bound media and copy rather than clipping a whole card's content or controls.
 
-The title always opens recipe details. The cover opens the live Demo when one
-exists, and otherwise opens details. A separate centred play control
-opens the inline video dialog; search results use a labelled Video action.
-An explicit Try demo text link remains available in either
-layout whenever a demo exists. Do not use an unexplained display icon. Desktop
-card footers align author, metadata, and Demo on one center line. Phone footers
+The title always opens recipe details. A cover with video is one full-area
+button that opens the on-site video dialog, including clicks outside the centred
+play indicator. Its hover label says Watch video. Without video, the cover opens
+the live Demo when available, otherwise details.
+Desktop grid cards with video and Demo use a separate Open demo link at the
+lower-right of the cover. Keep it a sibling of the video button, with its own
+accessible name and at least a 46px hit target. Hovering or focusing the cover
+reveals that link in place of duration; leaving restores duration. Keyboard focus
+also reveals the Demo link itself. Demo-only covers use a passive Open demo
+caption inside the cover link. Both caption treatments use the original video
+duration `Badge` overlay material, type, and corners, without decorative arrows.
+Desktop grid footers omit the repeated Demo link. Phone and coarse-pointer cards
+keep duration on the video cover and an explicit Demo action in the footer.
+List rows retain separate video and Demo actions.
+Phone cards retain the visible footer Demo action. Author profile links fit their
+avatar and name rather than stretching across empty footer space, with at least
+46px targets on phones and coarse pointers. Desktop grid footers align author
+and metadata on one center line. Coarse-pointer footers also retain Demo. Phone footers
 place metadata above the author/Demo row, retaining a shared bottom baseline.
-On phones the label shortens to Demo, and the video target is bounded to 46px
-so that the rest of the cover remains available for the Demo. These three
-destinations stay independent; do not replace one with another. Titles and Demo
+On phones the footer label shortens to Demo and the whole video cover remains
+the playback target. Video, Demo, and details stay independent. Titles and Demo
 links have no decorative arrows. Preview images retain their crop and scale. The default play control
 and its labelled hover state both remain centred within the preview. Touch
 controls remain visible. Do not invent
@@ -461,7 +502,14 @@ setup requirements. The prompt copy action and its setup chevron form one primar
 Keep author, difficulty, and update date together in the hero metadata; do not
 repeat them in a second About panel beside the same guide.
 The chevron opens a bounded Popover containing the prompt and, when supported,
-an Agora CLI tab. Keep the complete GlassSurface with opaque code planes; do
+an Agora CLI tab. Top-10 recipes with setup metadata instead use an English
+Start building panel with AI Assistant and Manual Setup tabs. The AI prompt
+directs the coding assistant through recipe discovery, project confirmation,
+CLI initialization and the returned installation/start steps. Manual Setup
+shows versioned npm creation, credential configuration, installation and a
+scenario-specific voice test only for an available package; otherwise show a
+clear availability message directing users to AI Assistant. Keep existing CLI
+metadata intact for API consumers. Keep the complete GlassSurface with opaque code planes; do
 not add a separate setup link or accordion row below the buttons.
 
 Inside the shared page shell, the desktop guide uses a 216px left contents rail
@@ -493,13 +541,14 @@ scroll horizontally; keep their overflow inside the reading area.
 
 ## Contribution journey
 
-Use one preparation flow with a copyable submission prompt and a direct GitHub
-form action. The prompt helps Codex, Cursor, or Claude Code read existing project
-materials and prepare an English Issue draft for the contributor to review;
-it does not edit author files or publish anything. Show the small material
-checklist and one concise review/Issue status line in the page. Keep direct PR instructions
-in a secondary disclosure, targeting staging. An unavailable GitHub form has a
-regular Issue draft recovery link with the same fields.
+Use one PR submission flow with a copyable AI prompt and visible PR contribution
+guide action, targeting staging. The prompt helps Codex, Cursor, or Claude Code
+read existing project materials, prepare complete catalog JSON in a separate
+checkout, build it, and open the PR. When GitHub access is unavailable, it returns
+the exact files and PR description for the contributor to submit. Original
+author files stay unchanged. Do not offer an Issue submission or Issue-draft
+recovery. Show the small material checklist and one concise PR review status
+line. Keep a separate quiet Issue link for bugs and questions.
 
 Topic association is optional and explicit. Current collections and activities
 are offered first; ended activities stay in a collapsed group within the same menu. An inherited or
@@ -512,7 +561,7 @@ Topic-page actions, shared header,
 and footer links carry that Topic. A recipe reached from a validated Topic list
 retains that source when contributing; a direct detail visit or legacy quick
 filter does not guess an association. The contributor can change or clear the
-Topic. Its URL state drives the prompt, GitHub form, recovery draft, reload, and
+Topic. Its URL state drives the PR prompt, reload, and
 website-language changes. Keep the validated returnTo source independent from
 the selected association: changing the Topic must not change where Back returns.
 Technical tags never choose a Topic.
@@ -601,9 +650,9 @@ heading, with full option labels in the menu and the actual source language belo
 - Topic directory cards have one full-area link with a title-based accessible
   name. Keep every card and icon stationary; color, border, and underline carry
   hover/focus feedback. Content cards still never carry Topic membership.
-- Contributions show the GitHub form and direct PR as two aligned paths on
+- Contributions pair the AI PR prompt with the PR guide in one action row on
   desktop and one sequence on phones. Keep public-submission guidance visible,
-  place review details in a disclosure, and omit the footer's repeated submission
+  keep the prompt in a disclosure, and omit the footer's repeated submission
   invitation on this page while retaining its resources and legal links.
 
 

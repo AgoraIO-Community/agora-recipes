@@ -32,5 +32,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Real-time Voice (MLLM)",
+    "summary": "Voice-to-voice with a realtime multimodal model.",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime/tree/ca970f95d34ef9592e877bc7113503b4dc96c764",
+    "thumbnailFit": "contain",
+    "demoNote": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/realtime-voice-initial-2026-11-04.webp",
+    "thumbnailAlt": "Real-time Voice (MLLM): original local initial interface, not a connected session"
   }
 }

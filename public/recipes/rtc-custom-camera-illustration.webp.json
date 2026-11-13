@@ -1,0 +1,15 @@
+{
+  "slug": "rtc-custom-camera",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for RTC Custom Camera, based on its catalog metadata and source https://github.com/AgoraIO-Community/RTC-Custom-Camera at f6293b0da6f8b3e3564afc586c720faead8956ad. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/rtc-custom-camera.html.",
+  "createdAt": "2026-11-04T15:16:58.657Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/RTC-Custom-Camera",
+  "sourceRevision": "f6293b0da6f8b3e3564afc586c720faead8956ad",
+  "width": 1600,
+  "height": 900,
+  "sha256": "18fb1272af71da5fd042350a1e1701a7b02479f348b99794007452c9768998be",
+  "original": "originals/rtc-custom-camera.png",
+  "htmlSource": "illustrations/rtc-custom-camera.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

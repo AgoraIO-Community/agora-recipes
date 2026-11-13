@@ -10,5 +10,19 @@
   "recipeUrl": "https://github.com/anandwana001/Agora-Meditation-Plugin/blob/main/README.md",
   "author": "anandwana001",
   "updated": "2026-06-25",
-  "difficulty": "Advanced"
+  "difficulty": "Advanced",
+  "media": {
+    "title": "Agora Chrome Plugin",
+    "summary": "Build a Chrome plugin example powered by Agora Conversational AI.",
+    "thumbnail": "/recipes/pause-with-agora.png",
+    "thumbnailAlt": "Pause with Agora active-session screenshot provided by the Chrome plugin repository",
+    "thumbnailSource": "https://raw.githubusercontent.com/anandwana001/Agora-Meditation-Plugin/70571d057686dbfc43731ca9e1bb19d4dae0861e/public/Screenshot%202026-04-20%20at%205.59.36%E2%80%AFPM.png",
+    "thumbnailFit": "contain",
+    "demoNote": "Existing extension screenshot; not a locally verified live session.",
+    "labels": [
+      "Chrome extension",
+      "Voice AI"
+    ],
+    "searchTerms": []
+  }
 }

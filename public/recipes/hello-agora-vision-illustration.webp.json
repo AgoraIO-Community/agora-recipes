@@ -1,0 +1,15 @@
+{
+  "slug": "hello-agora-vision",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for Hello Agora Vision, based on its catalog metadata and source https://github.com/AgoraIO-Community/HelloAgoraVision at ebab69574cf4b341c494ce040a7318244c6ef77a. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/hello-agora-vision.html.",
+  "createdAt": "2026-11-04T15:16:56.902Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/HelloAgoraVision",
+  "sourceRevision": "ebab69574cf4b341c494ce040a7318244c6ef77a",
+  "width": 1600,
+  "height": 900,
+  "sha256": "5beb389ea377ce3c651a76069b3a91ce353706dc0492090587376c1354515c2f",
+  "original": "originals/hello-agora-vision.png",
+  "htmlSource": "illustrations/hello-agora-vision.html",
+  "localLaunch": null,
+  "decision": "Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+}

@@ -33,5 +33,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Voice RPG",
+    "summary": "Play a voice-driven tabletop RPG with an AI dungeon master.",
+    "thumbnail": "/recipes/voice-rpg-clean-call.webp",
+    "thumbnailAlt": "Voice RPG real call interface with the original Dungeon Master greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-rpg",
+    "thumbnailFit": "contain",
+    "demoNote": "Original RTC call and bundled game MCP service through a restricted temporary tunnel. Genuine Dungeon Master greeting received; no character, adventure or dice result was fabricated.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

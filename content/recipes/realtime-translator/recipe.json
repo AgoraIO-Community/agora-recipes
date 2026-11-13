@@ -34,5 +34,20 @@
     },
     "installCommand": "bun run setup",
     "runCommand": "bun run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "Real-time Translator",
+    "summary": "Speak in one language and hear another in real time.",
+    "thumbnail": "/recipes/realtime-translator-catalog-call.webp",
+    "thumbnailAlt": "Translator Recipe real call interface showing an agent greeting, transcript, visualizer and microphone controls",
+    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-translator",
+    "thumbnailFit": "contain",
+    "demoNote": "Real RTC call through the original Python backend, with an agent greeting. Silent microphone supplied no speech; translation behavior remains unverified.",
+    "labels": [
+      "Python",
+      "TypeScript"
+    ],
+    "searchTerms": []
   }
 }

@@ -21,5 +21,19 @@
     },
     "installCommand": "pnpm install",
     "runCommand": "pnpm run dev"
+  },
+  "media": {
+    "generatedCover": true,
+    "title": "OpenAI GPT Live with Next.js",
+    "summary": "Build a realtime GPT Live voice agent with Agora and Next.js.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS/tree/f8ab691d523d91670b7047442e1b0a985f5aaa70",
+    "thumbnailFit": "contain",
+    "demoNote": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+    "labels": [
+      "TypeScript"
+    ],
+    "searchTerms": [],
+    "thumbnail": "/recipes/openai-gpt-live-nextjs-initial-2026-11-04.webp",
+    "thumbnailAlt": "OpenAI GPT Live with Next.js: original local initial interface, not a connected session"
   }
 }

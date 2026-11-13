@@ -10,5 +10,12 @@
   "recipeUrl": "https://github.com/madhuri-sharma921/EchoPanel/blob/main/README.md",
   "author": "Madhuri Sharma",
   "updated": "2026-09-16",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "EchoPanel Voice AI",
+    "summary": "Set up EchoPanel, configure credentials, and run a real-time conversational voice workflow.",
+    "labels": [
+      "Android"
+    ]
+  }
 }

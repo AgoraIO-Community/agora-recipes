@@ -1,0 +1,15 @@
+{
+  "slug": "esp32-iot-callkit-demo",
+  "kind": "html-illustration",
+  "prompt": "Authored HTML conceptual illustration for ESP32 IoT CallKit Demo, based on its catalog metadata and source https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo at efdbf2d2b8e2bbc426673dcde120bac49582ef3a. Dark/cyan Agora catalog palette. Labeled Illustration - not an app screenshot. No invented app UI, live session, transcript, benchmark or API-sequence claim. Editable source: marketing/recipe-media/illustrations/esp32-iot-callkit-demo.html.",
+  "createdAt": "2026-11-04T15:16:56.675Z",
+  "sourceRepository": "https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo",
+  "sourceRevision": "efdbf2d2b8e2bbc426673dcde120bac49582ef3a",
+  "width": 1600,
+  "height": 900,
+  "sha256": "f964eebee63a82e292d5145e0c60afe965bc5657f16a3267322de718834e6ec4",
+  "original": "originals/esp32-iot-callkit-demo.png",
+  "htmlSource": "illustrations/esp32-iot-callkit-demo.html",
+  "localLaunch": null,
+  "decision": "Source inspected. ESP32 hardware, embedded toolchain and device provisioning are unavailable. App not launched."
+}

@@ -10,5 +10,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-RN-Quickstart/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-09-01",
-  "difficulty": "Beginner"
+  "difficulty": "Beginner",
+  "media": {
+    "title": "React Native RTC Quickstart",
+    "summary": "A React Native quickstart for joining Agora RTC channels, rendering local and remote video, and cleaning up the native RTC engine.",
+    "labels": [
+      "React Native",
+      "iOS"
+    ]
+  }
 }

@@ -23,5 +23,19 @@
   "recipeUrl": "https://github.com/Molly-Arora02/MUSE-AI-/blob/main/docs/ai/RECIPE.md",
   "author": "Molly Arora",
   "updated": "2026-08-24",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Muse AI",
+    "summary": "A conversational voice AI music co-producer.",
+    "thumbnail": "/recipes/muse-ai-studio.webp",
+    "thumbnailAlt": "Muse AI studio workspace with recording controls and the producer conversation panel, disconnected and showing its original welcome message",
+    "thumbnailSource": "https://github.com/Molly-Arora02/MUSE-AI-",
+    "thumbnailFit": "contain",
+    "demoNote": "Disconnected studio conversation workspace with the project's original example song and welcome text; not a live call. No microphone, camera, demo mode or generated reply used.",
+    "labels": [
+      "TypeScript",
+      "React"
+    ],
+    "searchTerms": []
+  }
 }

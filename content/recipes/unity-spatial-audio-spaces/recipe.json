@@ -22,5 +22,13 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora_Spaces_Unity/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
   "updated": "2026-10-21",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "title": "Unity Spatial Audio Spaces",
+    "summary": "A Unity sample for building spatial audio rooms and interactive realtime communication spaces with Agora RTC.",
+    "labels": [
+      "Unity",
+      "C#"
+    ]
+  }
 }

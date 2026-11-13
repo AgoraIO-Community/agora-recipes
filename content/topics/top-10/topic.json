@@ -1,0 +1,43 @@
+{
+  "title": "Top 10 Scenarios",
+  "summary": "Try ten voice AI demos for customer support, hospitality, travel, education, healthcare, language learning, recruitment, events, feedback and shopping.",
+  "compactSummary": "Ten practical voice AI demos to try and build.",
+  "kind": "collection",
+  "cover": {
+    "src": "/topics/top-10-pixel-town.png",
+    "alt": "Top 10 Scenarios pixel-art town with shops, a learning center, a clinic and a hotel connected by cyan voice waves.",
+    "sourceUrl": "https://github.com/AgoraIO-Community/agora-recipes"
+  },
+  "members": [
+    {
+      "slug": "agora-customer-support-assistant-demo"
+    },
+    {
+      "slug": "agora-hotel-reception-assistant-demo"
+    },
+    {
+      "slug": "agora-travel-booking-assistant-demo"
+    },
+    {
+      "slug": "agora-course-consultation-assistant-demo"
+    },
+    {
+      "slug": "agora-clinic-appointment-assistant-demo"
+    },
+    {
+      "slug": "agora-speaking-coach-demo"
+    },
+    {
+      "slug": "agora-recruitment-screening-assistant-demo"
+    },
+    {
+      "slug": "agora-event-reminder-assistant-demo"
+    },
+    {
+      "slug": "agora-service-feedback-survey-demo"
+    },
+    {
+      "slug": "agora-voice-shopping-assistant-demo"
+    }
+  ]
+}

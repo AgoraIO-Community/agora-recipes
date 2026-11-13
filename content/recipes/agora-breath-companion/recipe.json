@@ -10,5 +10,20 @@
   "recipeUrl": "https://github.com/anandwana001/agora-breath-companion/blob/main/docs/ai/RECIPE.md",
   "author": "anandwana001",
   "updated": "2026-06-22",
-  "difficulty": "Intermediate"
+  "difficulty": "Intermediate",
+  "media": {
+    "generatedCover": true,
+    "title": "Breath Companion",
+    "summary": "A guided breathing and voice-agent experience with Agora.",
+    "thumbnail": "/recipes/agora-breath-companion-catalog-call.webp",
+    "thumbnailAlt": "Breath Companion real guided-session call interface with agent greeting, transcript and microphone controls",
+    "thumbnailSource": "https://github.com/anandwana001/agora-breath-companion/tree/66a781859b745f4ff9b9c19a81b47cf8020c5771",
+    "thumbnailFit": "contain",
+    "demoNote": "Original guided-session flow reached a real RTC call and agent greeting using a silent virtual microphone. Adaptive breathing guidance was not exercised.",
+    "labels": [
+      "TypeScript",
+      "Wellness"
+    ],
+    "searchTerms": []
+  }
 }

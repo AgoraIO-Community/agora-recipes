@@ -1,0 +1,28 @@
+{
+  "slug": "realtime-voice",
+  "kind": "local-app-screenshot",
+  "prompt": "Unmodified local initial interface of Real-time Voice (MLLM), source https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime at ca970f95d34ef9592e877bc7113503b4dc96c764. No crop, retouch, fabricated data or live session. Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified.",
+  "createdAt": "2026-11-04T15:16:58.526Z",
+  "sourceRepository": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime",
+  "sourceRevision": "ca970f95d34ef9592e877bc7113503b4dc96c764",
+  "width": 1440,
+  "height": 1000,
+  "sha256": "9b7b1c9fbb93dbc63ce9182d8623329e1a7f326a6420697f6f103326d6f22f97",
+  "original": "originals/realtime-voice.png",
+  "htmlSource": "illustrations/realtime-voice.html",
+  "localLaunch": {
+    "command": [
+      "npm",
+      "run",
+      "dev",
+      "--",
+      "--hostname",
+      "127.0.0.1",
+      "--port",
+      "4412"
+    ],
+    "scope": "original frontend only; backend credentials unavailable; no session started",
+    "httpStatus": 200
+  },
+  "decision": "Original local initial screen; Start Conversation not clicked. No backend/provider session, transcript or conversation verified."
+}

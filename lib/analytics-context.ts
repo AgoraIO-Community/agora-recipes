@@ -28,7 +28,7 @@ export function pageContext(pathname: string, search: string, topics: readonly s
   const candidate = path.match(/^\/recipes\/([a-z0-9]+(?:-[a-z0-9]+)*)(?:\/|$)/)?.[1]
   const content_slug = candidate && candidate.length <= 100 ? candidate : undefined
   const routeTopic = topicAt(path)
-  const page_type = content_slug ? "recipe" : routeTopic ? "topic" : path === "/topics" ? "topic_directory" : path === "/contribute" ? "contribute" : path === "/" ? "catalog" : "other"
+  const page_type = content_slug ? "recipe" : routeTopic ? "topic" : path === "/topics" ? "topic_directory" : path === "/contribute" ? "contribute" : path === "/" || path === "/recipes" || path === "/recipes/" ? "catalog" : "other"
   const selected = params.get("topic")
   const topic_slug = page_type === "contribute" ? selected && topics.includes(selected) ? selected : undefined : routeTopic ?? (content_slug ? source : undefined)
   return { locale, page_type, ...(content_slug && { content_slug }), ...(topic_slug && { topic_slug }), ...((routeTopic ?? source) && { source_topic_slug: routeTopic ?? source }) }
@@ -42,7 +42,7 @@ const useKinds: Record<string, string> = {
 
 export const applicationProperties = { app: "recipes", site: "agora-recipes", environment: "production" } as const
 
-export function analyticsProperties(context: PageContext, name: AnalyticsEvent | "$pageview", properties: Record<string, string | number | boolean> = {}, campaign: Campaign = {}) {
+export function analyticsProperties(context: PageContext, name: AnalyticsEvent | "$pageview" | "campaign_entry", properties: Record<string, string | number | boolean> = {}, campaign: Campaign = {}) {
   const combined = { ...context, ...properties }
   const use = combined.content_slug && useKinds[`${name}:${properties.action}`]
   const engagement = Boolean(combined.source_topic_slug && (use || name === "topic_action_open" || name === "contribution_open" || (name === "content_copy" && context.page_type === "contribute" && properties.action === "prompt")))
