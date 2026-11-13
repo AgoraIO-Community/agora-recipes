@@ -291,8 +291,8 @@ receives manual page views with the same context and campaign dimensions.
 | Use method | `recipe_use_kind`: `demo_open`, `source_open`, `video_open`, `video_play`, `prompt_copy`, `guide_copy`, `cli_copy`, `code_copy`. | Hover previews and failed copying are excluded. |
 | Topic audience | Topic-detail `$pageview` events and distinct visitors, grouped by `topic_slug`. | Topic-directory views and filters are not participation. |
 | Topic engaged visitors / actions | Recipe use, activity links, successful contribution-prompt copies, or contribution handoffs from an explicit source Topic; `is_topic_engagement=true`. | Group by `source_topic_slug`. This is observed engagement, not completed registration. |
-| Contribution preparation | Successful `content_copy:prompt` on the contribution page. | Separate from recipe use and actual Issue creation. |
-| GitHub Issue handoff | `contribution_open:github_form` or `github_issue`. | Opening GitHub does not prove submission. |
+| Contribution preparation | Successful `content_copy:prompt` on the contribution page. | Separate from recipe use and actual PR creation. |
+| Historical Issue handoffs | `contribution_open:github_form` or `github_issue` from earlier clients. | These values remain accepted for compatibility; the current contribution page has no Issue submission actions. |
 | Direct PR guidance | `contribution_open:pr_instructions`. | Opening instructions does not prove a PR was created. |
 | Activity destination opens | `topic_action_open`: `participate`, `questions`, `replay`, or `source`. | External tools own registration/completion. |
 
@@ -496,7 +496,7 @@ counts; installed code and environment configuration are not evidence of ingesti
    a production build served on localhost and the generated production deployment
    URL. Recheck Vercel collection
    alongside PostHog. Do not mark tracking Issue T5/T9 complete before real ingestion.
-8. Determine actual submissions and publications from GitHub Issues/PRs and release
+8. Determine actual submissions and publications from GitHub PRs and release
    links using the contribution SOP. No webhook, reporting database, or synthetic
    submission is needed for this phase.
 

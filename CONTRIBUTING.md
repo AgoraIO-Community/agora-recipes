@@ -2,56 +2,36 @@
 
 This repository is the Agora Recipes catalog. Implementations and author documents stay in their existing repositories. One catalog entry can provide a Demo, video, source repository, implementation guide, or any combination of them. You do not need a separate project record for an existing recipe.
 
-## Submit on GitHub
+## Submit a pull request
 
-A GitHub account is required. You can use either path:
+Recipe submissions go directly through a pull request. Issues are for bugs and questions; do not open a submission Issue first.
 
-- Open the **Share a project or guide** Issue form. Provide an English introduction, public author credit, and at least one existing material link. Original documents can stay in their existing languages; translated copies are not required.
-- Fork this repository, create a branch from `staging`, and submit metadata through a PR to upstream `staging`. A submission Issue is optional for direct PRs.
+1. Fork this repository and create a branch from the latest upstream `staging`.
+2. Create or update `content/recipes/<slug>/recipe.json`, using `templates/recipe.json` for a guide or `templates/demo.json` for an entry without a guide. Check for an existing entry before adding another one.
+3. Run `npm run build` and include the generated guide artifacts when a guide is added or changed.
+4. Push your branch to your fork and open a PR to upstream `staging`. Link the supplied materials and report validation in the PR description.
 
-Issues are public. Do not include private email addresses, credentials, or other private information. Maintainers request additions in Issue comments, preserve the original submission, and prepare the catalog PR. Submission does not publish automatically. After release, maintainers add the published site link to the Issue.
+A GitHub account is required. Use English catalog metadata and PR titles/descriptions. Preserve original project names, author credit, documents, and source URLs; translated copies are not required. Submit only public materials, without private email addresses or credentials.
 
-The Issue form becomes available when `.github/ISSUE_TEMPLATE/submission.yml` reaches the repository's default branch through the normal release process. A staging-only template is not a live submission form. The site contribution page provides a copyable AI prompt, the GitHub form, and direct PR instructions. The prompt prepares an English Issue draft from existing project materials for the contributor to review; it does not modify files or publish an Issue. A regular Issue draft link provides the same fields when the form is unavailable. Topic selection is optional and shared by the prompt, form, and recovery draft. Topic pages and validated Topic-to-detail navigation carry that association into contribution links; direct visits do not guess one.
+The site's contribution page offers a copyable AI prompt and the PR contribution guide. Run the prompt in your project with Codex, Cursor, or Claude Code. It asks the agent to prepare complete catalog JSON in a separate catalog checkout, build it, and open the PR. If GitHub access is unavailable, it provides the exact files and PR description for you to submit yourself. There is no Issue-to-PR handoff for maintainers.
+
+Topic selection is optional. Topic pages and validated Topic-to-detail navigation carry the selected association into the prompt; direct visits do not guess one. Propose any membership change in the same catalog PR.
 
 ## Contribution SOP
 
-Both entry paths use the same review and release process. Direct PR contributors
-keep the original fork/metadata/build workflow; an Issue and AI assistance are optional.
-
-| Stage | Issue submission | Direct PR | Owner |
-| --- | --- | --- | --- |
-| Prepare | Use the Issue form or optional AI prompt to prepare the same public fields. | Fork, branch from `staging`, and use the existing metadata templates. | Contributor |
-| Submit | Review and submit the public Issue. | Build and open a PR to upstream `staging`. No preliminary Issue is required. | Contributor |
-| Review | Request missing details in the same Issue; prepare the catalog PR and reference the Issue. | Review the submitted metadata and request changes in that PR. | Maintainer |
-| Release | Release through the existing process; add the published site URL to the Issue, then close it. | Release through the same process; add the published site URL to the PR. | Maintainer |
-
-Use English Issue/PR titles and review summaries. Preserve original project names,
-author credit, submissions, README files, and source URLs. For an older submission
-in another language, add an English review summary without rewriting the author's text.
+Review and publication are tracked in the submitted PR. Maintainers review the metadata, request any changes there, and add the published site URL after release. Opening a PR does not publish automatically.
 
 Before approving, the maintainer checks:
 
-1. At least one supplied material is public and usable. List real device/account
-   requirements; omit unavailable materials instead of inventing them.
-2. Author credit is correct. Reuse an existing entry when updating a published
-   project; do not create a second identity just for its guide or translation.
-3. Any Topic association is explicit and uses an existing Topic. Current Topics
-   appear first in the site selector; ended activities are grouped separately.
-   Historical work may still reference an ended activity, without claiming new
-   registration or an award. Technical tags do not create membership.
-4. Metadata and generated guide artifacts pass the checks below. Content changes
-   require `npm run build`; code changes also require lint and independent types.
-5. The PR targets `staging` and references the original Issue with `Refs #NUMBER`
-   when one exists. Do not automatically close a submission before its site page
-   has been released. Keep review discussion and the published link in that record.
+1. At least one supplied material is public and usable. List real device/account requirements; omit unavailable materials instead of inventing them.
+2. Author credit is correct. Reuse an existing entry when updating a published project; do not create a second identity just for its guide or translation.
+3. Any Topic association is explicit and uses an existing Topic. Current Topics appear first in the site selector; ended activities are grouped separately. Historical work may reference an ended activity without claiming new registration or an award. Technical tags do not create membership.
+4. Metadata and generated guide artifacts pass the checks below. Content changes require `npm run build`; code changes also require lint and independent types.
+5. The PR targets `staging`. Keep review discussion and the published site link in that PR.
 
 The `Catalog checks` GitHub Actions workflow runs lint, behavioral tests, the full build, independent TypeScript checks, and rendered-route checks for PRs targeting `staging`. The build no longer skips TypeScript errors. These checks do not deploy the site or publish submissions.
 
-Templates: `.github/ISSUE_TEMPLATE/submission.yml` for submission Issues,
-`.github/PULL_REQUEST_TEMPLATE.md` for PR descriptions, and
-`templates/demo.json` / `templates/recipe.json` for catalog metadata. The AI prompt
-and regular-Issue recovery use the same Issue fields; neither creates a separate
-intake system. Template activation on GitHub follows the repository's normal release.
+Use `.github/PULL_REQUEST_TEMPLATE.md` for the PR description and `templates/demo.json` / `templates/recipe.json` for catalog metadata. The Issue chooser links recipe contributors to this guide while retaining blank Issues for bugs and questions. GitHub uses the Issue chooser configuration from the default branch after the normal release.
 
 ## Add Catalog Metadata
 
@@ -84,7 +64,7 @@ A minimal Demo entry:
 
 Required non-empty strings: `title`, `tagline`, `description`, `author`, and `updated`. Write the catalog title, tagline, and description in English, preserving original project names and author credit. The date must be a valid `YYYY-MM-DD` date. Additional languages are welcome but optional; a new entry does not need any files in `content/i18n/`.
 
-Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Tags must contain `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
+Required arrays: `tags`, `platforms`, `useCases`, and `capabilities`. Array items must be non-empty strings. Tags must be non-empty and contain only `voice-ai`, `rtc`, or both. Reuse existing platform, use-case, and capability labels where practical.
 
 Provide at least one material:
 
@@ -97,7 +77,7 @@ Provide at least one material:
 
 Material URLs must use absolute HTTPS URLs without embedded credentials. Omit unavailable materials. A thumbnail by itself is not a playable material.
 
-When `recipeUrl` is present, `difficulty` is required and must be `Beginner`, `Intermediate`, or `Advanced`. For a standalone GitHub guide, the loader can infer `mainRepoUrl` from the guide's repository. A guide outside GitHub needs an explicit `mainRepoUrl`. `cli` configuration is only valid on entries with a guide. Entries without guides do not expose a guide reader or recipe prompt and stay outside Recipe-specific API and Markdown responses.
+When `recipeUrl` is present, `difficulty` is required; otherwise it is optional. Whenever supplied, `difficulty` must be `Beginner`, `Intermediate`, or `Advanced`. For a standalone GitHub guide, the loader can infer `mainRepoUrl` from the guide's repository. A guide outside GitHub needs an explicit `mainRepoUrl`. `cli` configuration is only valid on entries with a guide. Entries without guides do not expose a guide reader or recipe prompt and stay outside Recipe-specific API and Markdown responses.
 
 ## Media and Recommendations
 
@@ -209,7 +189,7 @@ catalog contribution cannot become a Topic member until it enters the catalog.
 
 Awards belong to a member within a specific activity edition, with a label and public `sourceUrl`. Label author-reported credit clearly; do not present it as an organizer-confirmed result. Keep completed activity pages and their materials. Registration, questions, and replays remain on existing external tools.
 
-Review Topic membership in the catalog PR. A Topic contribution link prefills the existing Topic reference in the GitHub form; it does not publish or create membership automatically. Content cards contain no Topic membership, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.
+Review Topic membership in the catalog PR. A Topic contribution link includes the existing Topic reference in the AI prompt for the catalog PR; it does not publish or create membership automatically. Content cards contain no Topic membership, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.
 
 ## Catalog Search
 

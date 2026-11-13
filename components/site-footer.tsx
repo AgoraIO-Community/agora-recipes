@@ -53,7 +53,7 @@ export function SiteFooter({ topics }: { topics: Record<string, string> }) {
           <nav className="footer-group" aria-labelledby="footer-explore-heading">
             <h2 id="footer-explore-heading">{t("Explore")}</h2>
             <ul>
-              <li><Link className="footer-link" href={`${localePath("/", locale)}#recipes`}>{t("Browse recipes")}</Link></li>
+              <li><Link className="footer-link" href={localePath("/recipes", locale)}>{t("Browse recipes")}</Link></li>
               <li><HowToUseRecipes variant="footer" /></li>
               <li><Link className="footer-link" href="/llms.txt">llms.txt</Link></li>
             </ul>

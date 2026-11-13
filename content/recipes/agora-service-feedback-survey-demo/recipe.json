@@ -22,7 +22,7 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-service-feedback-survey-demo/blob/main/RECIPE.md",
   "demoUrl": "https://agora-service-feedback-survey-demo.vercel.app/",
   "author": "Agora",
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "difficulty": "Intermediate",
   "media": {
     "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-service-feedback-survey-demo/main/docs/recipe-cover.webp",
@@ -39,5 +39,12 @@
     },
     "installCommand": "pnpm install --frozen-lockfile",
     "runCommand": "pnpm run dev"
+  },
+  "setup": {
+    "packageName": "agora-service-feedback-survey-demo",
+    "packageVersion": "0.1.0",
+    "npmAvailable": true,
+    "directory": "my-feedback-app",
+    "testRequest": "Ask me a few questions about my recent customer service experience."
   }
 }
