@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Retrieval-Augmented Generation",
     "summary": "Ground agent answers in your own knowledge base.",
     "thumbnail": "/recipes/rag-clean-call.webp",

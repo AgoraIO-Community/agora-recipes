@@ -25,13 +25,8 @@
   "media": {
     "title": "Android IoT Video Calling App",
     "summary": "An Android Agora Link reference for adding provisioned devices by NodeId and viewing their media streams. Requires a matching IoT device SDK and service configuration.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/ag-iot-android-app/tree/5af061c0354beab93e2f83fb7ad4a1fabed86bf8",
     "labels": [
       "Android"
-    ],
-    "thumbnail": "/recipes/android-iot-video-calling-app-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Android IoT Video Calling App; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+    ]
   }
 }

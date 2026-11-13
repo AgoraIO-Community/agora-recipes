@@ -5,16 +5,16 @@ import { useI18n } from "@/components/locale-provider"
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ImageIcon, Play } from "lucide-react"
+import { Play } from "lucide-react"
 import { DialogTrigger } from "@/components/ui/dialog"
 import { RecipeVideoDialog } from "@/components/recipe-video-dialog"
 import { RecipeAuthor } from "@/components/recipe-author"
+import { RecipeGeneratedCover } from "@/components/recipe-generated-cover"
 import { GlassSurface } from "@/components/design-system/glass-surface"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { IconButton } from "@/components/ui/icon-button"
 import { ButtonGroup } from "@/components/ui/button-group"
-import { EmptyMedia } from "@/components/ui/empty"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 import { localePath } from "@/lib/locales"
 import { cn } from "@/lib/utils"
@@ -79,7 +79,7 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
     }, 2000)
   }
   const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media?.thumbnailScale ?? 1, "--thumbnail-origin": media?.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
-    {!imageFailed && media?.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <EmptyMedia variant="cover" aria-hidden="true"><ImageIcon /></EmptyMedia>}
+    {imageFailed || !media?.thumbnail || media.generatedCover ? <RecipeGeneratedCover recipe={recipe} title={title} /> : <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1600} height={840} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} />}
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
     {media?.videoUrl && <Badge className="recipe-cover__label recipe-cover__duration ag-overlay">{media.videoDuration || t("Video")}</Badge>}
     {recipe.demoUrl && !media?.videoUrl && <Badge className="recipe-cover__label recipe-cover__demo ag-overlay" aria-hidden="true">{t("Open demo")}</Badge>}

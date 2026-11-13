@@ -214,6 +214,8 @@ titles, navigation, buttons, and cards. Use size and spacing for hierarchy;
 reserve semibold for emphasis inside authored reading content. Do not reintroduce
 semibold interface labels when adding controls.
 Monospace is reserved for code and commands.
+Generated recipe posters use Jokker Bold, matching the share image; it is not an
+interface face.
 
 | Element | Desktop | Phone |
 | --- | --- | --- |
@@ -388,14 +390,29 @@ outcome, author, and one meaningful platform or capability label. Gallery crops
 are 16:8.4; detail previews retain 16:9. Preserve the chosen crop origin.
 Directory cards share one layout for title, summary, technology, difficulty,
 author, and available preview actions.
+Prefer author screenshots and demo frames that show the actual project. Preserve
+the original screenshot colors across themes; the surrounding card follows the
+system appearance. Use `thumbnailOrigin` to keep the relevant interface content
+visible in a cover crop. Record missing project media for individual follow-up.
+When source media is unavailable or shows a near-empty interface, set
+`media.generatedCover` or omit the thumbnail. The cover frame then shows a
+generated poster built from recipe metadata: the name in Jokker Bold, up to two
+distinguishing capability tags, and one of three layouts chosen by a stable hash
+of the slug: the Agora mark on black, a name panel beside the recipe's own
+metadata as code, or a sticker on yellow. Posters behave like media: colors stay
+fixed across themes and every dimension scales with the frame, so phones show
+the same image smaller. They are decorative; the card heading and link carry the
+name. Keep real project screenshots and recordings in their original colors
+across themes.
 Keep actual media as a full-width cover on desktop and phones. Cap covers at
 240px high and summaries at two lines; titles use up to two lines on desktop
 and three on phones. All cards in a grid share the same height, derived from bounded content rather
 than a fixed pixel height.
 Keep technology and author/action rows anchored at the bottom. Every card keeps
-its cover frame. Missing or failed images use the shared `EmptyMedia` cover
-variant with a centered image glyph; this is a static placeholder, not a loading
-state. Titles and summaries use the same size and placement as media cards.
+its cover frame. Missing or failed images use the shared generated poster; this
+is a static cover, not a loading state. Titles and summaries use the same size
+and placement as media cards. Detail pages omit the preview when there is no
+project media and no video or Demo to open.
 Available video playback and Demo links remain independent.
 Bound media and copy rather than clipping a whole card's content or controls.
 

@@ -14,14 +14,9 @@
   "media": {
     "title": "RTC Custom Camera",
     "summary": "A custom camera sample for publishing nonstandard video sources into an Agora RTC channel.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/RTC-Custom-Camera/tree/f6293b0da6f8b3e3564afc586c720faead8956ad",
     "labels": [
       "JavaScript",
       "Web"
-    ],
-    "thumbnail": "/recipes/rtc-custom-camera-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of RTC Custom Camera; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+    ]
   }
 }

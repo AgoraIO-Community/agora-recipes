@@ -21,19 +21,19 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial",
   "recipeUrl": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial/blob/master/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-10-21",
+  "updated": "2026-11-11",
   "difficulty": "Intermediate",
   "media": {
     "title": "Spatial Voice Chat Tutorial",
     "summary": "A Unity tutorial combining Photon PUN room synchronization with Agora positional voice chat. Uses the historical Unity and SDK versions documented by the sample.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-Spatial-Voice-Chat-Tutorial/tree/865170b24a6dfcaf583a10dd67e2775e8c3f32d6",
+    "thumbnailSource": "https://youtu.be/uM89bDIrmZ0",
     "labels": [
       "Unity",
       "C#"
     ],
-    "thumbnail": "/recipes/agora-spatial-voice-chat-tutorial-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Spatial Voice Chat Tutorial; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Unity Editor and the project SDK runtime are unavailable. App not launched."
+    "thumbnail": "/recipes/agora-spatial-voice-chat-author-video.jpg",
+    "thumbnailAlt": "Author's Spatial Voice Chat tutorial video poster with Unity avatars, Agora, and Photon.",
+    "demoNote": "Author's Unity and Photon spatial voice-chat tutorial.",
+    "videoUrl": "https://youtu.be/uM89bDIrmZ0"
   }
 }

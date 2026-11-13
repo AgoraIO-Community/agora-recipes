@@ -14,13 +14,8 @@
   "media": {
     "title": "Python RTC Quickstart",
     "summary": "A Python quickstart for running a simple Agora RTC sample and validating real-time channel connectivity.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-Python-QuickStart/tree/3eaedd9696af1e19d54e5246bfc10ca94db43543",
     "labels": [
       "Python"
-    ],
-    "thumbnail": "/recipes/agora-python-rtc-quickstart-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Python RTC Quickstart; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. The documented native agorartc module is not installed in the local Python runtime; native SDK/Xcode setup is unavailable. App not launched."
+    ]
   }
 }

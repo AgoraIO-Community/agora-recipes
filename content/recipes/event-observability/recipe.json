@@ -34,6 +34,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Event Observability",
     "summary": "Inspect live agent state, metrics, errors and turn events.",
     "thumbnail": "/recipes/event-observability-clean-call.webp",

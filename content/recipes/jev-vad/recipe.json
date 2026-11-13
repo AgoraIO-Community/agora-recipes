@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Jev VAD: Client-side Turn Detection",
     "summary": "Use a language-model judge for turn detection and barge-in.",
     "thumbnail": "/recipes/jev-vad-call.webp",

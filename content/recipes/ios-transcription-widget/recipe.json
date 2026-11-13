@@ -26,14 +26,9 @@
   "media": {
     "title": "iOS Transcription Widget",
     "summary": "An iOS subtitle UI reference for live transcript and translation messages. Requires a compatible backend and reconciliation of the sample configuration initializer before building.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/TranscriptionWidget-iOS/tree/2b7d69aff59eea7c37dc9ddadb8c1cee54f030bb",
     "labels": [
       "iOS",
       "Swift"
-    ],
-    "thumbnail": "/recipes/ios-transcription-widget-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of iOS Transcription Widget; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Xcode/iOS simulator is unavailable for this native sample (including React Native targets). App not launched."
+    ]
   }
 }

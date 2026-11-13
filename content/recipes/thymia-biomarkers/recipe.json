@@ -9,18 +9,17 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Conversational-AI/agent-samples",
   "recipeUrl": "https://github.com/AgoraIO-Conversational-AI/agent-samples/blob/main/recipes/thymia.md",
   "author": "Agora",
-  "updated": "2026-05-28",
+  "updated": "2026-11-11",
   "difficulty": "Advanced",
   "media": {
     "title": "Thymia Biomarkers",
     "summary": "Integrate an advanced biomarker workflow with an Agora conversational agent sample.",
-    "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/agent-samples/tree/873c53238a21edcd7f4e9d7cff91cf1d33484c9e",
+    "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Conversational-AI/agent-samples/873c53238a21edcd7f4e9d7cff91cf1d33484c9e/assets/client-avatar-screenshot.png",
     "labels": [
       "Python"
     ],
-    "thumbnail": "/recipes/thymia-biomarkers-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Thymia Biomarkers; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original avatar client launched with NEXT_PUBLIC_ENABLE_THYMIA=true. HTTP 500: @agora/agent-ui-kit cannot resolve after script-disabled dependency installation. No diagnostic screen used as artwork."
+    "thumbnail": "/recipes/thymia-avatar-client-author.jpg",
+    "thumbnailAlt": "Author's shared video-avatar client with conversation, local preview, avatar, and call controls.",
+    "demoNote": "Shared avatar client from the implementation repository. Enable the Thymia tab for biomarker results."
   }
 }

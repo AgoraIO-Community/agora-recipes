@@ -1,5 +1,89 @@
 # Recipe image inventory
 
+## Generated posters — 2026-11-13
+
+74 entries show a generated poster instead of an image. 29 await source media
+and carry no thumbnail. 45 keep their screenshot for the detail page but set
+`media.generatedCover`, because at card size the capture is a near-empty agent
+screen or a single control: 39 near-identical dark or light agent screens and 6
+mostly blank captures. `live-video-react-app` keeps its image because it is in
+the curated gallery. The category default illustrations and the older
+recipe-specific HTML illustrations are retired. Removing `generatedCover`, or
+adding `media.thumbnail`, restores an image cover.
+
+Still to review individually: four over-cropped covers
+(`android-autopilot-voice-agent`, `ios-live-shopping-reference-app`,
+`pause-with-agora`, `pillion`) and ten captures too dense to read at card size.
+
+## Source-media review — 2026-11-11
+
+This pass reviewed the 37 entries covered by the earlier fallback proposal. It
+replaces eight covers with source media: three author screenshots, two frames
+from author recordings, two local application captures, and one author tutorial
+video poster. The generic editorial-cover proposal is withdrawn. Existing
+staging media state is retained for the 29 entries awaiting suitable material.
+Filler-Free: Live still needs its first thumbnail or video.
+
+Each accepted asset has a provenance sidecar beside its local image. Source
+screenshots keep their original appearance in both website themes. Portrait
+recording frames use an explicit cover crop to preserve the relevant controls.
+
+| Entry | Accepted material | Scope |
+| --- | --- | --- |
+| Hello Agora Vision | Author simulator screenshot | Original visionOS scene and video panel |
+| Wellness Coach | Author entry-screen screenshot | Initial AI Therapist screen |
+| Thymia Biomarkers | Author shared-client screenshot | Shared avatar UI; feature-specific biomarker capture remains open |
+| RTC Signaling | Local app screenshot | Initial interface before login or joining a channel |
+| Voice Web Navigator | Local app screenshot | Built-in browser navigation preset; voice service was not started |
+| Flutter Call Subtitles | Author recording frame at 4 s | Subtitle overlay and hang-up control |
+| Android AutoPilot | Author recording frame at 0.5 s | Original agent/call state, before unrelated app navigation |
+| Spatial Voice Chat Tutorial | Author tutorial poster and video | Existing Unity/Photon tutorial linked by its README |
+
+### Material still needed
+
+All source repository trees and 34 additional nested READMEs were checked.
+The following entries need an individual capture or accessible author asset.
+
+| Entry | Current capture gap | Requested material |
+| --- | --- | --- |
+| [ag-iot-ios-app](https://github.com/AgoraIO-Community/ag-iot-ios-app) | Xcode/simulator is unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [agora-gemma-voice-coach](https://github.com/anandwana001/Agora-Gemma-Voice-Coach) | Original app starts, but its initial screen reports missing Agora credentials and the local Gemma model is unconfigured. | Configured local Gemma dashboard. |
+| [agora-humming-service-example](https://github.com/AgoraIO-Community/Agora-HummingService-Example) | Android/iOS toolchains are unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [agora-python-rtc-quickstart](https://github.com/AgoraIO-Community/Agora-Python-QuickStart) | No app screenshot in the source docs; native agorartc runtime is absent. | Original sample window with video preview. |
+| [agora-rn-rtc-quickstart](https://github.com/AgoraIO-Community/Agora-RN-Quickstart) | Android/iOS toolchains are unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [aigc-service-example-rtc](https://github.com/AgoraIO-Community/Agora-AIGCService-Example) | Android/iOS toolchains are unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [android-iot-video-calling-app](https://github.com/AgoraIO-Community/ag-iot-android-app) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [android-quickstart](https://github.com/AgoraIO-Conversational-AI/recipe-client-android-quickstart) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [android-transcription-widget](https://github.com/AgoraIO-Community/TranscriptionWidget-Android) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [babylonjs-rtc-demo](https://github.com/AgoraIO-Community/AgoraBabylonJS) | Original scene creates its video meshes after an RTC stream; current initial canvas is empty. | Active scene with an authorized RTC video stream. |
+| [cloud-gaming-rtc-example](https://github.com/AgoraIO-Community/Agora-CloudGame-Example) | Nested README images are architecture and sequence diagrams. | Actual cloud-gaming app screen. |
+| [echo-panel-voice-ai](https://github.com/madhuri-sharma921/EchoPanel) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [esp32-iot-callkit-demo](https://github.com/AgoraIO-Community/ag-iot-callkit-esp32-demo) | Requires an ESP32 board, its toolchain, and device provisioning. | Sample running on the board or the corresponding device-call UI. |
+| [esp32-iot-device-demo](https://github.com/AgoraIO-Community/ag-iot-device-demo-esp32) | Requires an ESP32 board, its toolchain, and device provisioning. | Sample running on the board or the corresponding device-call UI. |
+| [filler-free-live](https://github.com/madhuri-sharma921/Filler-Free) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [ios-iot-callkit-app](https://github.com/AgoraIO-Community/ag-iot-callkit-ios-app) | Xcode/simulator is unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [ios-lyrics-view-rtc-media](https://github.com/AgoraIO-Community/LrcView-iOS) | The repository includes a timing diagram, with no app screenshot. | Lyrics playback screen. |
+| [ios-transcription-widget](https://github.com/AgoraIO-Community/TranscriptionWidget-iOS) | Xcode/simulator is unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [iot-callkit-device-demo](https://github.com/AgoraIO-Community/ag-iot-callkit-device-demo) | Repository images show provisioning/activation console steps. | Device call view or a photo of the sample running. |
+| [mcc-external-service-example](https://github.com/AgoraIO-Community/Agora-MccExService-Example) | Android/iOS toolchains are unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [mediaio-camera](https://github.com/AgoraIO-Community/MediaIO-Camera) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [moodlens-voice-journal](https://github.com/sandy10/voice_ai_agent) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [push-to-talk](https://github.com/Therealratoshen/recipe-push-to-talk) | Original frontend only renders Configuration Required without its Agora/LLM/TTS setup. | Configured push-to-talk interface. |
+| [rn-quickstart](https://github.com/AgoraIO-Conversational-AI/recipe-client-rn-quickstart) | Android/native toolchain is unavailable; source docs contain no usable app screenshot. | Author capture from the app's main screen. |
+| [rtc-custom-camera](https://github.com/AgoraIO-Community/RTC-Custom-Camera) | Source is an iOS project and Xcode is unavailable; catalog platform labels also need reconciliation. | Author iOS capture and confirmed platform labels. |
+| [rust-rtc-quickstart](https://github.com/AgoraIO-Community/Agora-Rust-QuickStart) | No source screenshot; Rust and the native Agora runtime are absent. | Original GUI sample window. |
+| [swiftui-quickstart](https://github.com/AgoraIO-Conversational-AI/recipe-client-swiftui-quickstart) | Xcode/simulator is unavailable; source docs contain no usable app screenshot. | Author capture from a device or simulator. |
+| [unity-spatial-audio-spaces](https://github.com/AgoraIO-Community/Agora_Spaces_Unity) | Source README's public screenshot endpoint redirects to an S3 endpoint that returns HTTP 403. | Author gameplay screenshot or accessible source media. |
+| [webxr-rtc-demo](https://github.com/AgoraIO-Community/AgoraWebXR) | Broadcaster/AR scene needs camera, marker, and RTC setup; blank initial frame rejected. | Configured broadcaster or marker-based AR view. |
+
+### Validation scope
+
+Local browser captures establish the rendered UI state only. The author
+recordings retain their published context. No provider conversation, native
+hardware run, or biomarker result was created for this image pass.
+
+---
+
 ## Staging merge compatibility
 
 The `recipeImages` PR preserves staging's current content model: image records

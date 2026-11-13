@@ -12,6 +12,7 @@
   "updated": "2026-08-24",
   "difficulty": "Intermediate",
   "media": {
+    "generatedCover": true,
     "title": "Trak App Voice AI Integration",
     "summary": "Control music playback and search tracks using voice AI.",
     "thumbnail": "/recipes/trak-voice-ai-catalog-call.webp",

@@ -9,7 +9,7 @@
   "mainRepoUrl": "https://github.com/Shariq1912/AgoraActionAgent",
   "recipeUrl": "https://github.com/Shariq1912/AgoraActionAgent/blob/main/RECIPE.md",
   "author": "Shariq1912",
-  "updated": "2026-09-14",
+  "updated": "2026-11-11",
   "difficulty": "Intermediate",
   "cli": {
     "projectType": "android",
@@ -23,14 +23,14 @@
   "media": {
     "title": "Android AutoPilot Voice Action Agent",
     "summary": "An autonomous Android voice assistant that uses Agora Conversational AI for real-time speech interaction and Gemini Vision via Android Accessibility API to tap, swipe, type, and navigate apps hands-free.",
-    "thumbnailSource": "https://github.com/Shariq1912/AgoraActionAgent/tree/dfe98d8d10480ab859a86ffa8212460af3e72bc2",
+    "thumbnailSource": "https://github.com/user-attachments/assets/aec005e6-364a-424c-b1d6-7b225b9bf254",
     "labels": [
       "Android",
       "Python"
     ],
-    "thumbnail": "/recipes/android-autopilot-voice-agent-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of Android AutoPilot Voice Action Agent; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+    "thumbnail": "/recipes/android-autopilot-author.jpg",
+    "thumbnailAlt": "Frame from the author's Android AutoPilot demo showing the connected agent and call state.",
+    "demoNote": "Frame from the author's Android demo recording.",
+    "thumbnailOrigin": "50% 45%"
   }
 }

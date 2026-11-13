@@ -23,6 +23,7 @@
     "runCommand": "make dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Gemini Agora Voice Agents for Go",
     "summary": "Build a Gemini-powered voice agent with Go and Agora.",
     "thumbnail": "/recipes/gemini-agora-voice-agents-go-gemini-call.webp",

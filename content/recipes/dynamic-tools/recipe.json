@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Dynamic Tool Sets",
     "summary": "Swap the agent's tools based on context.",
     "thumbnail": "/recipes/dynamic-tools-clean-call.webp",

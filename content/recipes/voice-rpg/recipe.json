@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Voice RPG",
     "summary": "Play a voice-driven tabletop RPG with an AI dungeon master.",
     "thumbnail": "/recipes/voice-rpg-clean-call.webp",

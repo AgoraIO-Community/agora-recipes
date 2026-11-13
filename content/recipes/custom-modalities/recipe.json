@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Custom Modalities",
     "summary": "Bring your own LLM and custom voice endpoint.",
     "thumbnail": "/recipes/custom-modalities-clean-call.webp",

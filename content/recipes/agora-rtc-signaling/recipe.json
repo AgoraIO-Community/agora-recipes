@@ -21,7 +21,7 @@
   "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-rtc-signaling",
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-rtc-signaling/blob/main/docs/ai/RECIPE.md",
   "author": "Agora",
-  "updated": "2026-10-21",
+  "updated": "2026-11-11",
   "difficulty": "Intermediate",
   "media": {
     "title": "RTC Signaling Sample",
@@ -31,9 +31,8 @@
       "JavaScript",
       "Web"
     ],
-    "thumbnail": "/recipes/agora-rtc-signaling-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of RTC Signaling Sample; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Original dependency installation fails: agora-rtm-sdk@2.2.0.1 is unavailable (npm ETARGET). No SDK version was substituted."
+    "thumbnail": "/recipes/agora-rtc-signaling-initial.jpg",
+    "thumbnailAlt": "Original RTC Signaling app before login, with video controls, channel settings, and chat.",
+    "demoNote": "Initial interface. Configure Agora credentials and log in to join a channel."
   }
 }
