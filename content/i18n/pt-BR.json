@@ -515,6 +515,12 @@
     "Requires a GitHub account. Submissions are public.": "Requer uma conta do GitHub. Os envios são públicos.",
     "Fork the catalog and open a pull request to staging.": "Faça um fork do catálogo e abra um pull request para staging.",
     "The video couldn’t load.": "Não foi possível carregar o vídeo.",
+    "All projects and recipes": "Todos os projetos e receitas",
+    "Browse every Voice AI and RTC project, with guides and source links.": "Explore todos os projetos de Voice AI e RTC, com guias e links para o código-fonte.",
+    "Search and filter recipes": "Pesquisar e filtrar receitas",
+    "Voice AI & RTC Examples and Recipes | Agora": "Exemplos e receitas de Voice AI e RTC | Agora",
+    "Explore open-source Voice AI agents and real-time voice and video projects, with working code, demos, and implementation guides.": "Explore agentes de voz de código aberto e projetos de áudio e vídeo em tempo real, com código funcional, demos e guias.",
+    "Share your Agora project, demo, source code, or implementation guide with the community.": "Compartilhe seu projeto Agora, demo, código-fonte ou guia de implementação com a comunidade.",
     "Prepare your PR with AI": "Prepare seu PR com IA",
     "Copy PR prompt": "Copiar prompt de PR",
     "PR prompt": "Prompt de PR",
@@ -966,6 +972,10 @@
     "trick-or-take": {
       "tagline": "Roube doces com amigos em um jogo de Halloween de 60 segundos no navegador.",
       "description": "Dispute em salas de 2 a 6 jogadores para pegar doces sem ser flagrado. O chat de voz opcional da Agora RTC permite conversar enquanto a Agora RTM avisa sobre mudanças na sala. Cloudflare Worker e D1 controlam o estado do jogo e a pontuação."
+    },
+    "desktop-pet": {
+      "tagline": "Crie um companheiro de desktop para macOS com quem você pode brincar e conversar.",
+      "description": "Crie um pet flutuante com animações de alimentação, um brinquedo arrastável e conversa por voz em tempo real com a Agora. Siga a configuração para macOS e use suas contas para configurar STT, LLM e TTS."
     }
   }
 }

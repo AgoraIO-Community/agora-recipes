@@ -1,3 +1,7 @@
+import { pageAlternates } from "@/lib/seo"
+import { StructuredData } from "@/components/structured-data"
+import { breadcrumbSchema, recipeSchema } from "@/lib/structured-data"
+import { siteUrl } from "@/lib/site"
 import { AttributionLink } from "@/components/attribution-link"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { socialMetadata } from "@/lib/social"
@@ -12,7 +16,7 @@ import { getEntryTopics, topicNames } from "@/lib/topics"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { Github, MonitorPlay } from "lucide-react"
-import { getAllEntries, getAllRecipes, getEntry, getRelatedEntries, buildPrimaryPrompt } from "@/lib/recipes"
+import { getAllEntries, getAllRecipes, getEntry, getEntryModified, getRelatedEntries, buildPrimaryPrompt } from "@/lib/recipes"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { RecipeBackLink } from "@/components/recipe-back-link"
 import { RecipeStartActions } from "@/components/recipe-start-actions"
@@ -39,7 +43,7 @@ export function generateStaticParams(): Params[] {
 export function generateDocumentStaticParams() {
   return getAllRecipes().flatMap(entry => {
     const versions = Object.keys(entry.documentLanguages?.versions ?? {})
-    return entry.documentLanguages ? [...new Set(["original", ...locales, ...versions])].map(documentLocale => ({ slug: entry.slug, documentLocale })) : []
+    return entry.documentLanguages ? [...new Set(["original", ...(versions.length ? locales : entry.documentLanguages.originalLanguage ? [entry.documentLanguages.originalLanguage] : []), ...versions])].map(documentLocale => ({ slug: entry.slug, documentLocale })) : []
   })
 }
 
@@ -56,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title: unavailable ? t("This guide version is unavailable") : recipe.title,
     description: recipe.tagline,
     ...(unavailable ? { robots: { index: false, follow: true } } : {}),
-    alternates: { canonical: localePath(`/recipes/${slug}`, locale), languages: Object.fromEntries(locales.map(value => [value, localePath(`/recipes/${slug}`, value)])), ...(recipe.recipeUrl && !unavailable ? { types: { "text/markdown": markdownUrl } } : {}) },
+    alternates: pageAlternates(`/recipes/${slug}`, locale, recipe.recipeUrl && !unavailable ? markdownUrl : undefined),
     ...socialMetadata({ title: recipe.title, description: recipe.tagline, path: localePath(`/recipes/${slug}`, locale), locale, image: recipe.media?.thumbnail, type: "article" }),
   }
 }
@@ -97,7 +101,11 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const sections = guideSections(recipe.recipeDocument.markdown)
   const command = `agora init my-${slug} --recipe ${slug}`
 
+  const path = localePath(`/recipes/${slug}`, locale)
+  const modified = getEntryModified(source)
   return <article className="recipe-detail">
+    <StructuredData value={recipeSchema(siteUrl.href, path, recipe, modified, selected.language)} />
+    <StructuredData value={breadcrumbSchema(siteUrl.href, [{ name: t("Recipes"), path: localePath("/", locale) }, { name: t("All projects and recipes"), path: localePath("/recipes", locale) }, { name: recipe.title, path }])} />
     <header className="detail-hero">
       <div className="shell">
         <RecipeBackLink topics={topicNames(locale)} />
@@ -105,7 +113,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           <div className="detail-overview__content">
             <h1 className="hero-title">{recipe.title}</h1>
             <p className="detail-description">{recipe.tagline}</p>
-            <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={recipe.updated}>{t("Updated")} {new Date(`${recipe.updated}T00:00:00Z`).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
+            <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={modified}>{t("Updated")} {new Date(modified.length === 10 ? `${modified}T00:00:00Z` : modified).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
             <div className="detail-actions detail-actions--recipe">
               {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} setup={source.setup} />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
@@ -124,11 +132,12 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
         <section id="recipe-markdown-heading" aria-labelledby="recipe-guide-heading" className="recipe-guide">
           <h2 id="recipe-guide-heading" className="sr-only">{t("Implementation guide")}</h2>
           {sections.length > 0 && <Disclosure className="mobile-guide-outline"><DisclosureTrigger>{t("In this guide")}</DisclosureTrigger><DisclosureContent asChild><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></DisclosureContent></Disclosure>}
+          {(!selected.language || selected.language !== locale) && <p className="recipe-source-note" data-guide-language={selected.language ?? "und"}>{t("Document language: {language}", { language: t(languageName) })}{selected.language && !selected.manual ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}</p>}
           <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl} sourceUrl={recipe.recipeDocument.viewUrl}
             languageControl={options.length > 2 ? <DocumentLanguageSwitcher key="document-language" slug={slug} selected={selected.manual ? selected.key : "auto"} label={t(languageName)}
               description={`${t("Document language: {language}", { language: t(languageName) })}${!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}`} options={options} /> : undefined}>
 
-            {recipe.recipeDocument.markdown ? <div lang={selected.language}><Markdown messages={getMessages(locale)} source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /></div> : <Empty><EmptyHeader><EmptyTitle>{t("The guide couldn’t be loaded")}</EmptyTitle></EmptyHeader><EmptyContent><Button asChild variant="link"><a href={selectedDocument.viewUrl || recipe.recipeUrl} target="_blank" rel="noreferrer">{t("Open source guide")}</a></Button></EmptyContent></Empty>}
+            {recipe.recipeDocument.markdown ? <div lang={selected.language ?? "und"}><Markdown messages={getMessages(locale)} source={recipe.recipeDocument.markdown} sourceUrl={recipe.recipeDocument.viewUrl} headingOffset={1} /></div> : <Empty><EmptyHeader><EmptyTitle>{t("The guide couldn’t be loaded")}</EmptyTitle></EmptyHeader><EmptyContent><Button asChild variant="link"><a href={selectedDocument.viewUrl || recipe.recipeUrl} target="_blank" rel="noreferrer">{t("Open source guide")}</a></Button></EmptyContent></Empty>}
           </RecipeDocument>
         </section>
       </> : <section className="recipe-about"><h2>{t("About this project")}</h2><p>{recipe.description}</p></section>}</div>

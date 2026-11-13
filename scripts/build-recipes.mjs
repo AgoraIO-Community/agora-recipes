@@ -1,3 +1,4 @@
+import { contentModifiedAt } from "../lib/recipe-freshness.mjs"
 import { discoverDocumentLanguages } from "../lib/document-languages.mjs"
 import { buildRecipePrompt } from "../lib/recipe-prompt.mjs"
 import fs from "node:fs/promises"
@@ -13,13 +14,17 @@ async function main() {
   const { contentDir, outputDir } = parseArgs(process.argv.slice(2))
   const slugs = await getRecipeSlugs(contentDir)
 
+  const previous = new Map()
+  for (const slug of slugs) {
+    try { previous.set(slug, JSON.parse(await fs.readFile(path.join(outputDir, `${slug}.json`), "utf8"))) } catch (error) { if (error.code !== "ENOENT") throw error }
+  }
   await fs.rm(outputDir, { recursive: true, force: true })
   await fs.mkdir(outputDir, { recursive: true })
   await fs.writeFile(path.join(outputDir, ".gitkeep"), "", "utf8")
 
   const results = []
   for (const slug of slugs) {
-    const artifact = await buildRecipeArtifact({ slug, contentDir })
+    const artifact = await buildRecipeArtifact({ slug, contentDir, previous: previous.get(slug) })
     await writeJson(path.join(outputDir, `${slug}.json`), artifact)
     results.push(artifact)
   }
@@ -59,7 +64,7 @@ async function getRecipeSlugs(contentDir) {
     .sort((a, b) => a.localeCompare(b))
 }
 
-async function buildRecipeArtifact({ slug, contentDir }) {
+async function buildRecipeArtifact({ slug, contentDir, previous }) {
   const metaPath = path.join(contentDir, slug, "recipe.json")
   const meta = JSON.parse(await fs.readFile(metaPath, "utf8"))
   if (meta.recipeUrl && !meta.mainRepoUrl) {
@@ -81,7 +86,7 @@ async function buildRecipeArtifact({ slug, contentDir }) {
     ...(fetchError ? { fetchError } : {}),
   }
 
-  return {
+  const artifact = {
     schemaVersion: 1,
     slug,
     generatedAt: new Date().toISOString(),
@@ -94,6 +99,9 @@ async function buildRecipeArtifact({ slug, contentDir }) {
     ...(documentLanguages ? { documentLanguages } : {}),
     primaryPrompt: buildRecipePrompt(meta, recipeDocument, slug),
   }
+  artifact.contentUpdatedAt = contentModifiedAt(artifact, previous, meta.updated, new Date().toISOString())
+  if (previous && JSON.stringify({ ...artifact, generatedAt: "" }) === JSON.stringify({ ...previous, generatedAt: "" })) artifact.generatedAt = previous.generatedAt
+  return artifact
 }
 
 function expandMarkdownLinks(markdown, recipeViewUrl) {
