@@ -34,6 +34,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Custom LLM",
     "summary": "Bring your own OpenAI-compatible LLM endpoint.",
     "thumbnail": "/recipes/custom-llm-clean-call.webp",

@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Cross-Session Memory",
     "summary": "Remember returning users across separate calls.",
     "thumbnail": "/recipes/cross-session-memory-catalog-call.webp",

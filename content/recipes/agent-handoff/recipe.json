@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Agent Handoff",
     "summary": "Route conversations across specialized personas.",
     "thumbnail": "/recipes/agent-handoff-clean-call.webp",

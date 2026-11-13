@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Tool Calling",
     "summary": "Give your voice agent callable tools.",
     "thumbnail": "/recipes/tool-calling-clean-call.webp",

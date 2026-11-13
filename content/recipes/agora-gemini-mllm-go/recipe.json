@@ -23,6 +23,7 @@
     "runCommand": "pnpm run dev:parallel"
   },
   "media": {
+    "generatedCover": true,
     "title": "Gemini MLLM Voice Agent for Go",
     "summary": "Build a Gemini Live voice agent with Go and Agora.",
     "thumbnail": "/recipes/agora-gemini-mllm-go.webp",

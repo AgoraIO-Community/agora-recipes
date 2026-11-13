@@ -12,6 +12,7 @@
   "updated": "2026-06-15",
   "difficulty": "Beginner",
   "media": {
+    "generatedCover": true,
     "title": "Flutter Quickstart",
     "summary": "Build a basic Agora Conversational AI agent with Flutter.",
     "thumbnail": "/recipes/flutter-quickstart.png",

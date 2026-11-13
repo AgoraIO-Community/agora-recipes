@@ -175,12 +175,12 @@ geometry, rather than rendering a separate copy. Verify product routes too.
 
 ## Media placeholders
 
-`RecipeTextCover` fills an existing bounded cover frame when a recipe has no
-usable image or the image fails. It shows the category label and the recipe
-title on the muted plane, with theme tokens only and no artwork; it is static
-and does not imply loading. In a card it renders the title as the heading, the
-body omits its own title, and the cover link opens details. The mixed-card
-reference demonstrates it alongside real media with matching byline placement.
+`RecipeGeneratedCover` fills an existing bounded cover frame when a recipe has no
+usable image, sets `media.generatedCover`, or its image fails. It draws a poster
+from recipe metadata in one of three layouts chosen by a stable hash of the slug.
+It is static, decorative and theme-independent like media, and sized in container
+units so it scales with the frame. The card keeps its own title, summary and
+actions. The mixed-card reference demonstrates it alongside real media.
 
 The managed preference center keeps its original close node and handlers. The
 adapter places it in the title row with shared 32/46px bounds and a 16px icon.

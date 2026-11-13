@@ -9,7 +9,7 @@ import { Play } from "lucide-react"
 import { DialogTrigger } from "@/components/ui/dialog"
 import { RecipeVideoDialog } from "@/components/recipe-video-dialog"
 import { RecipeAuthor } from "@/components/recipe-author"
-import { RecipeTextCover } from "@/components/recipe-text-cover"
+import { RecipeGeneratedCover } from "@/components/recipe-generated-cover"
 import { GlassSurface } from "@/components/design-system/glass-surface"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -25,8 +25,9 @@ function prefersExplicitPlayback() {
   return connection?.saveData === true || window.matchMedia("(prefers-reduced-motion: reduce), (prefers-reduced-data: reduce)").matches
 }
 
-function RecipeCover({ recipe, title, href, textCover, onImageError }: { recipe: RecipeSummary; title: string; href: string; textCover: boolean; onImageError: () => void }) {
+function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: string; href: string }) {
   const { t } = useI18n()
+  const [imageFailed, setImageFailed] = useState(false)
   const [preview, setPreview] = useState(false)
   const [playing, setPlaying] = useState(false)
   const video = useRef<HTMLVideoElement>(null)
@@ -78,12 +79,12 @@ function RecipeCover({ recipe, title, href, textCover, onImageError }: { recipe:
     }, 2000)
   }
   const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media?.thumbnailScale ?? 1, "--thumbnail-origin": media?.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
-    {textCover || !media?.thumbnail ? <RecipeTextCover recipe={recipe} title={title} heading /> : <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1600} height={840} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={onImageError} />}
+    {imageFailed || !media?.thumbnail || media.generatedCover ? <RecipeGeneratedCover recipe={recipe} title={title} /> : <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1600} height={840} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} />}
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
     {media?.videoUrl && <Badge className="recipe-cover__label ag-overlay">{media.videoDuration || t("Video")}</Badge>}
   </div>
   return <div className="recipe-cover-frame" onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>
-    {recipe.demoUrl && !textCover ? <AttributionLink href={recipe.demoUrl} className="recipe-cover-link" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</AttributionLink> : <Link prefetch={false} href={href} className="recipe-cover-link" aria-label={t("Open {title} recipe", { title })}>{cover}</Link>}
+    {recipe.demoUrl ? <AttributionLink href={recipe.demoUrl} className="recipe-cover-link" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</AttributionLink> : <Link prefetch={false} href={href} className="recipe-cover-link" aria-label={t("Open {title} recipe", { title })}>{cover}</Link>}
     {media?.videoUrl && <DialogTrigger asChild><button type="button" className="recipe-cover__play" aria-label={t("Watch {title} demo", { title })}><span className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></span></button></DialogTrigger>}
   </div>
 }
@@ -92,9 +93,6 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const { t, locale } = useI18n()
   const href = localePath(`/recipes/${recipe.slug}`, locale) + (returnTo ? `?returnTo=${encodeURIComponent(returnTo)}` : "")
   const media = recipe.showcase
-  const [imageFailed, setImageFailed] = useState(false)
-  // A text cover carries the title, so it opens details and the body omits it.
-  const textCover = imageFailed || !media?.thumbnail
   const featured = Boolean(media && recipe.recommendedOrder !== undefined)
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
@@ -118,10 +116,10 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
 
   return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className={cn("showcase-card", !featured && "showcase-card--directory")} data-recipe-slug={recipe.slug} data-recommended={recipe.recommendedOrder !== undefined || undefined}>
-      <RecipeCover recipe={recipe} title={title} href={href} textCover={textCover} onImageError={() => setImageFailed(true)} />
+      <RecipeCover recipe={recipe} title={title} href={href} />
       <div className="showcase-card__body">
         <Link prefetch={false} href={href} className="showcase-card__details" aria-label={t("Open {title} recipe", { title })}>
-          {!textCover && <h3><span>{title}</span></h3>}
+          <h3><span>{title}</span></h3>
           <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p>
         </Link>
         {!featured && technology}

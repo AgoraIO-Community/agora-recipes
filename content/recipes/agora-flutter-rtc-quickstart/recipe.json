@@ -12,6 +12,7 @@
   "updated": "2026-09-01",
   "difficulty": "Beginner",
   "media": {
+    "generatedCover": true,
     "title": "Flutter RTC Quickstart",
     "summary": "Build a cross-platform Flutter video call with Agora RTC.",
     "thumbnail": "/recipes/agora-flutter-rtc-quickstart.png",

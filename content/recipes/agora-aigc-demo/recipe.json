@@ -25,6 +25,7 @@
   "updated": "2026-10-21",
   "difficulty": "Intermediate",
   "media": {
+    "generatedCover": true,
     "title": "AIGC Demo with Agora RTC",
     "summary": "Combine AIGC interactions with realtime media.",
     "thumbnail": "/recipes/agora-aigc-demo.webp",

@@ -23,6 +23,7 @@
     "runCommand": "pnpm dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Gemini Agora Voice Agents for Next.js",
     "summary": "Build a Gemini-powered voice agent with Next.js and Agora.",
     "thumbnail": "/recipes/gemini-agora-voice-agents-nextjs-gemini-call.webp",

@@ -176,6 +176,7 @@ function assertValidMeta(slug: string, meta: unknown): asserts meta is RecipeMet
     for (const field of ["labels", "searchTerms"]) {
       if (media[field] !== undefined && (!Array.isArray(media[field]) || !(media[field] as unknown[]).every(value => typeof value === "string"))) throw new Error(`[recipes] ${slug}/recipe.json media.${field} must be an array of strings`)
     }
+    if (media.generatedCover !== undefined && typeof media.generatedCover !== "boolean") throw new Error(`[recipes] ${slug}/recipe.json media.generatedCover must be a boolean`)
     if (media.thumbnailScale !== undefined && (typeof media.thumbnailScale !== "number" || !Number.isFinite(media.thumbnailScale) || media.thumbnailScale <= 0)) throw new Error(`[recipes] ${slug}/recipe.json media.thumbnailScale must be positive`)
 
     for (const field of ["videoUrl", "thumbnailSource"] as const) {

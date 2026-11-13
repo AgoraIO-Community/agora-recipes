@@ -12,6 +12,7 @@
   "updated": "2026-11-11",
   "difficulty": "Advanced",
   "media": {
+    "generatedCover": true,
     "title": "Wellness Coach",
     "summary": "Use the therapist sample recipe as a starting point for a guided wellness coach experience.",
     "thumbnailSource": "https://raw.githubusercontent.com/AgoraIO-Conversational-AI/agent-samples/873c53238a21edcd7f4e9d7cff91cf1d33484c9e/assets/ai-therapist-screenshot.png",

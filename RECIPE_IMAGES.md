@@ -1,14 +1,19 @@
 # Recipe image inventory
 
-## Text covers — 2026-11-13
+## Generated posters — 2026-11-13
 
-The 29 entries awaiting source media carry no image. Their cards show a text
-cover drawn from the recipe title and category, and their detail pages omit the
-preview. The category default illustrations and the older recipe-specific HTML
-illustrations are retired. The eight source media replacements below and all
-other project screenshots and recordings remain in use. The capture gaps below
-still identify the source material needed; adding `media.thumbnail` to an entry
-restores an image cover.
+74 entries show a generated poster instead of an image. 29 await source media
+and carry no thumbnail. 45 keep their screenshot for the detail page but set
+`media.generatedCover`, because at card size the capture is a near-empty agent
+screen or a single control: 39 near-identical dark or light agent screens and 6
+mostly blank captures. `live-video-react-app` keeps its image because it is in
+the curated gallery. The category default illustrations and the older
+recipe-specific HTML illustrations are retired. Removing `generatedCover`, or
+adding `media.thumbnail`, restores an image cover.
+
+Still to review individually: four over-cropped covers
+(`android-autopilot-voice-agent`, `ios-live-shopping-reference-app`,
+`pause-with-agora`, `pillion`) and ten captures too dense to read at card size.
 
 ## Source-media review — 2026-11-11
 

@@ -34,6 +34,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Speaker Lock",
     "summary": "Lock onto the primary speaker and ignore other voices.",
     "thumbnail": "/recipes/speaker-lock-catalog-call.webp",

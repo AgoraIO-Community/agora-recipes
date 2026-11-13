@@ -23,6 +23,7 @@
     "runCommand": "make dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "OpenAI GPT Live with Go",
     "summary": "Build a realtime GPT Live voice agent with Agora and Go.",
     "thumbnail": "/recipes/openai-gpt-live-go.webp",

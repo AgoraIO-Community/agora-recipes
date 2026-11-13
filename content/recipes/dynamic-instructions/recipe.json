@@ -33,6 +33,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Dynamic Instructions",
     "summary": "Update the agent's system prompt mid-session.",
     "thumbnail": "/recipes/dynamic-instructions-catalog-call.webp",

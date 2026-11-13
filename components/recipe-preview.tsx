@@ -8,7 +8,7 @@ import { ExternalLink, Play } from "lucide-react"
 import { GlassSurface } from "@/components/design-system/glass-surface"
 import { DialogTrigger } from "@/components/ui/dialog"
 import { RecipeVideoDialog } from "@/components/recipe-video-dialog"
-import { RecipeTextCover } from "@/components/recipe-text-cover"
+import { RecipeGeneratedCover } from "@/components/recipe-generated-cover"
 import type { RecipeSummary } from "@/lib/recipe-discovery"
 
 export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
@@ -21,7 +21,7 @@ export function RecipePreview({ recipe }: { recipe: RecipeSummary }) {
   if (!image && !media.videoUrl && !recipe.demoUrl) return null
   const title = media.compactTitle ?? media.title
   const cover = <>
-    {image ? <Image src={image} alt={media.thumbnailAlt} width={1600} height={900} loading="eager" style={{ objectPosition: media.thumbnailOrigin }} onError={() => setFailed(true)} /> : <RecipeTextCover recipe={recipe} title={title} />}
+    {image ? <Image src={image} alt={media.thumbnailAlt} width={1600} height={900} loading="eager" style={{ objectPosition: media.thumbnailOrigin }} onError={() => setFailed(true)} /> : <RecipeGeneratedCover recipe={recipe} title={title} />}
     {(media.videoUrl || recipe.demoUrl) && <GlassSurface material="liquid" className="detail-preview__action ag-floating-control">{media.videoUrl ? <><Play fill="currentColor" aria-hidden="true" />{media.videoDuration}</> : <ExternalLink aria-hidden="true" />}</GlassSurface>}
   </>
   return <section id="demo" className="detail-preview" aria-label={t("{title} demo preview", { title })}>

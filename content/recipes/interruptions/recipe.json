@@ -34,6 +34,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Interruption Handling",
     "summary": "Tune how the agent yields when the user barges in.",
     "thumbnail": "/recipes/interruptions-clean-call.webp",
