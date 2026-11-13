@@ -1,11 +1,9 @@
-import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { absoluteUrl } from "@/lib/site"
-import { GitHubFormLink } from "@/components/github-form-link"
+import { ContributionPrompt } from "@/components/contribution-prompt"
 import { RecipeBackLink } from "@/components/recipe-back-link"
 import { contributionRepository } from "@/lib/contributions"
 import { getAllTopics, topicNames, topicStatus } from "@/lib/topics"
 import type { Metadata } from "next"
-import { GitPullRequest } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getT } from "@/lib/i18n"
 import { locales, localePath, type Locale } from "@/lib/locales"
@@ -23,7 +21,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
     <header className="detail-hero"><div className="shell"><RecipeBackLink topics={topics} /><h1 className="hero-title">{t("Share your Agora project")}</h1></div></header>
     <div className="shell contribute-content">
       <div className="contribute-workspace">
-        <section className="contribute-start" aria-label={t("Prepare your submission")}><GitHubFormLink topics={topics} completedTopics={completedTopics} siteOrigin={absoluteUrl("/")} /></section>
+        <section className="contribute-start" aria-label={t("Prepare your submission")}><ContributionPrompt topics={topics} completedTopics={completedTopics} siteOrigin={absoluteUrl("/")} /></section>
         <aside className="contribute-checklist" aria-labelledby="contribute-prepare-heading">
           <h2 id="contribute-prepare-heading" className="detail-title">{t("What to bring")}</h2>
           <ul>
@@ -34,8 +32,7 @@ export default async function ContributePage({ params }: { params: Promise<{ loc
           <Button asChild variant="link"><a href={localePath("/recipes/agora-rotary-dial-phone", locale)}>{t("See a published example")}</a></Button>
         </aside>
       </div>
-      <section className="contribute-followup"><p className="recipe-source-note">{t("Submissions are reviewed before publication. Track yours in its GitHub Issue.")}</p><Button asChild variant="link"><a href={`${contributionRepository}/blob/staging/CONTRIBUTING.md#contribution-sop`} target="_blank" rel="noreferrer">{t("Read the contribution SOP")}</a></Button></section>
-      <Disclosure className="contribute-pr"><DisclosureTrigger>{t("Prefer to contribute with a pull request?")}</DisclosureTrigger><DisclosureContent><p>{t("Fork the catalog and open a pull request to staging.")}</p><Button asChild variant="link"><a href={`${contributionRepository}/blob/staging/CONTRIBUTING.md`} data-contribution="pr_instructions" target="_blank" rel="noreferrer"><GitPullRequest aria-hidden="true" />{t("Read the PR contribution guide")}</a></Button></DisclosureContent></Disclosure>
+      <section className="contribute-followup"><p className="recipe-source-note">{t("Submit a PR to staging and follow review in the PR.")}</p><Button asChild variant="link"><a href={`${contributionRepository}/issues/new/choose`} target="_blank" rel="noreferrer">{t("Report a bug or ask a question")}</a></Button></section>
       <p className="contribute-privacy recipe-source-note">{t("Submit only public materials. Do not include private email addresses, credentials, or other private information.")}</p>
     </div>
   </article>

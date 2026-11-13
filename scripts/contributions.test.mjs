@@ -34,31 +34,37 @@ test('quick filters, direct details, unknown Topics, and escaping sources do not
   assert.equal(contributionTopic('?topic=unknown', topics), undefined)
 })
 
-test('selected Topic is the same reference in the agent prompt, GitHub form, and fallback draft', () => {
+test('PR materials carry the selected Topic and target the upstream staging guide', () => {
   const reference = 'https://recipes.agora.io/zh-Hant/topics/voice-ai-in-practice'
-  const { formUrl, fallbackUrl, prompt } = contributionMaterials('zh-Hant', 'https://recipes.agora.io', 'voice-ai-in-practice')
-  const form = new URL(formUrl), fallback = new URL(fallbackUrl)
-  assert.equal(form.origin, 'https://github.com')
-  assert.equal(form.pathname, '/AgoraIO-Community/agora-recipes/issues/new')
-  assert.equal(form.searchParams.get('template'), 'submission.yml')
-  assert.equal(form.searchParams.get('topic'), reference)
+  const { guideUrl, prompt } = contributionMaterials('zh-Hant', 'https://recipes.agora.io', 'voice-ai-in-practice')
+  const guide = new URL(guideUrl)
+  assert.equal(guide.origin, 'https://github.com')
+  assert.equal(guide.pathname, '/AgoraIO-Community/agora-recipes/blob/staging/CONTRIBUTING.md')
   assert.ok(prompt.includes(`Topic reference: ${reference}`))
-  assert.ok(fallback.searchParams.get('body').includes(reference))
-  assert.equal(fallback.searchParams.has('template'), false, 'recovery must not depend on the unavailable form')
-  assert.match(fallback.searchParams.get('title'), /^\[Submission\]/)
+  assert.ok(prompt.includes('existing Topic voice-ai-in-practice in the same PR'))
+  assert.doesNotMatch(prompt, /\/issues\/new|submission\.yml/)
 })
 
-test('general drafts keep source preservation, English output, and review before publication', () => {
-  const { formUrl, fallbackUrl, prompt } = contributionMaterials('en', 'https://recipes.agora.io')
-  assert.equal(new URL(formUrl).searchParams.has('topic'), false)
+test('general PR prompts prepare complete metadata without inventing a Topic or editing the implementation', () => {
+  const { prompt } = contributionMaterials('en', 'https://recipes.agora.io')
   assert.ok(prompt.includes('None selected. Prepare a general catalog submission.'))
   assert.ok(prompt.includes('Do not infer or create a Topic'))
-  assert.ok(prompt.includes('Write the submission draft in English'))
+  assert.ok(prompt.includes('Write catalog metadata and the PR title/body in English'))
   assert.ok(prompt.includes('Keep the original code, README files, author credit, and submitted URLs unchanged'))
-  assert.ok(prompt.includes('Do not publish an Issue, open a PR, push commits, or modify files'))
-  const body = new URL(fallbackUrl).searchParams.get('body')
-  const template = readFileSync(new URL('../.github/ISSUE_TEMPLATE/submission.yml', import.meta.url), 'utf8')
-  for (const label of template.matchAll(/^      label: (.+)$/gm)) assert.ok(body.includes(`### ${label[1]}`), `recovery retains ${label[1]}`)
+  assert.ok(prompt.includes('Do not read credentials or .env files'))
+  assert.ok(prompt.includes('separate checkout'))
+  assert.ok(prompt.includes('content/recipes/<slug>/recipe.json'))
+  assert.ok(prompt.includes('templates/recipe.json') && prompt.includes('templates/demo.json'))
+  assert.ok(prompt.includes('Run npm run build'))
+  assert.ok(prompt.includes('targeting staging'))
+  assert.ok(prompt.includes('Do not merge the PR'))
+})
+
+test('missing GitHub access falls back to ready-to-submit PR files, not a maintainer Issue handoff', () => {
+  const { prompt } = contributionMaterials('en', 'https://recipes.agora.io')
+  assert.ok(prompt.includes('exact file path, complete recipe.json, any Topic patch, and the PR title/body'))
+  assert.ok(prompt.includes('Do not create a submission Issue'))
+  assert.doesNotMatch(prompt, /\/issues\/new|\[Submission\]/)
 })
 
 test('changing or clearing association does not change the source used by the return link', () => {

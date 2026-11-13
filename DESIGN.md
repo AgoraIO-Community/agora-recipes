@@ -513,13 +513,14 @@ scroll horizontally; keep their overflow inside the reading area.
 
 ## Contribution journey
 
-Use one preparation flow with a copyable submission prompt and a direct GitHub
-form action. The prompt helps Codex, Cursor, or Claude Code read existing project
-materials and prepare an English Issue draft for the contributor to review;
-it does not edit author files or publish anything. Show the small material
-checklist and one concise review/Issue status line in the page. Keep direct PR instructions
-in a secondary disclosure, targeting staging. An unavailable GitHub form has a
-regular Issue draft recovery link with the same fields.
+Use one PR submission flow with a copyable AI prompt and visible PR contribution
+guide action, targeting staging. The prompt helps Codex, Cursor, or Claude Code
+read existing project materials, prepare complete catalog JSON in a separate
+checkout, build it, and open the PR. When GitHub access is unavailable, it returns
+the exact files and PR description for the contributor to submit. Original
+author files stay unchanged. Do not offer an Issue submission or Issue-draft
+recovery. Show the small material checklist and one concise PR review status
+line. Keep a separate quiet Issue link for bugs and questions.
 
 Topic association is optional and explicit. Current collections and activities
 are offered first; ended activities stay in a collapsed group within the same menu. An inherited or
@@ -532,7 +533,7 @@ Topic-page actions, shared header,
 and footer links carry that Topic. A recipe reached from a validated Topic list
 retains that source when contributing; a direct detail visit or legacy quick
 filter does not guess an association. The contributor can change or clear the
-Topic. Its URL state drives the prompt, GitHub form, recovery draft, reload, and
+Topic. Its URL state drives the PR prompt, reload, and
 website-language changes. Keep the validated returnTo source independent from
 the selected association: changing the Topic must not change where Back returns.
 Technical tags never choose a Topic.
@@ -621,9 +622,9 @@ heading, with full option labels in the menu and the actual source language belo
 - Topic directory cards have one full-area link with a title-based accessible
   name. Keep every card and icon stationary; color, border, and underline carry
   hover/focus feedback. Content cards still never carry Topic membership.
-- Contributions show the GitHub form and direct PR as two aligned paths on
+- Contributions pair the AI PR prompt with the PR guide in one action row on
   desktop and one sequence on phones. Keep public-submission guidance visible,
-  place review details in a disclosure, and omit the footer's repeated submission
+  keep the prompt in a disclosure, and omit the footer's repeated submission
   invitation on this page while retaining its resources and legal links.
 
 

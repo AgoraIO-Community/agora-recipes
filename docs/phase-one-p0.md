@@ -1,5 +1,7 @@
 # Phase One Verification and Release Notes
 
+Recipe submission sections below record earlier releases. The current workflow is PR-only; Issues are for bugs and questions. See [CONTRIBUTING.md](../CONTRIBUTING.md).
+
 This is a historical verification log. `DESIGN.md` and
 `components/design-system/README.md` define the current component contract.
 
