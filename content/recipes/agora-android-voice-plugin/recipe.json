@@ -1,0 +1,28 @@
+{
+  "title": "Android Studio Voice Mentor",
+  "tagline": "Talk through selected Android code with an AI mentor.",
+  "description": "Build and run an Android Studio plugin that turns selected Kotlin, Java, XML, or Gradle code into context for an Agora voice agent. Speak with the mentor through an embedded browser client or a browser fallback.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "Kotlin"
+  ],
+  "useCases": [
+    "Developer Tools",
+    "Education",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Android Studio",
+    "Agora RTC",
+    "Agora RTM"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/agora-android-voice-plugin",
+  "recipeUrl": "https://github.com/anandwana001/agora-android-voice-plugin/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-10-23",
+  "difficulty": "Intermediate"
+}

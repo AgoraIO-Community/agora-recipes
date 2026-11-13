@@ -1,0 +1,27 @@
+{
+  "title": "Android Compose Agent UI Kit",
+  "tagline": "Build voice-agent interfaces with reusable Compose components.",
+  "description": "Explore an Android component showcase and reuse Compose microphone controls, visualizers, conversation views, video layouts, and session panels in your own agent interface. The guide covers library setup and component usage; connect your own agent runtime for live sessions.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "Android",
+    "Kotlin"
+  ],
+  "useCases": [
+    "Developer Tools",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Jetpack Compose",
+    "UI Components",
+    "Audio",
+    "Video"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/agent-uikit",
+  "recipeUrl": "https://github.com/anandwana001/agent-uikit/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-10-23",
+  "difficulty": "Intermediate"
+}
