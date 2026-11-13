@@ -209,7 +209,7 @@
 .recipe-cover::after, .detail-preview__cover::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--control-glass-edge); border-radius: inherit; pointer-events: none; }
 .recipe-cover__image { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(var(--thumbnail-scale,1)); transform-origin: var(--thumbnail-origin,50% 50%); }
 .recipe-cover__video { pointer-events: none; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(var(--thumbnail-scale,1)); transform-origin: var(--thumbnail-origin,50% 50%); opacity: 0; transition: opacity var(--motion-control) var(--ease-out); }
-.recipe-cover__play { position: absolute; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-content: center; width: 132px; min-height: 46px; border-radius: 10px; }
+.recipe-cover__play { pointer-events: none; position: absolute; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-content: center; width: 132px; min-height: 46px; border-radius: 10px; }
 .recipe-cover__play-control { position: relative; width: 132px; height: 42px; color: #fcf9f8; }
 .recipe-cover__play-material { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 42px; min-height: 42px; padding: 0; transition: width var(--motion-surface) var(--ease-out); }
 .recipe-cover__play-icon { position: absolute; top: 13px; left: calc(50% - 8px); width: 16px; height: 16px; transition: opacity var(--motion-control) var(--ease-out); }
@@ -217,17 +217,21 @@
 .recipe-cover__play-caption > svg { flex: none; width: 16px; height: 16px; }
 .recipe-cover[data-preview=playing] .recipe-cover__video { opacity: 1; }
 .recipe-cover__label { position: absolute; right: 8px; bottom: 8px; font-variant-numeric: tabular-nums; }
+.recipe-cover__demo-action { display: none; position: absolute; right: 0; bottom: 0; align-items: flex-end; justify-content: flex-end; min-width: 46px; min-height: 46px; max-width: 100%; padding: 0 8px 8px; border-radius: 4px; }
+@media (min-width: 641px) and (pointer:fine) {
+  .recipe-cover__demo-action { display: flex; }
+}
 .showcase-card__body { display: flex; flex: 1; flex-direction: column; gap: 12px; padding: 12px; }
 .showcase-card h3 { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 400; line-height: 1.35; letter-spacing: -.015em; }
 .showcase-card h3 > span { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .showcase-card__details { display: flex; flex: 1; flex-direction: column; justify-content: flex-start; }
 .showcase-card__summary { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin-top: 5px; color: var(--muted-foreground); font-size: 13px; line-height: 1.5; }
-.showcase-card__footer { display: grid; grid-template-columns: minmax(0,1fr) auto auto; align-items: center; gap: 8px; min-height: var(--control-sm); }
+.showcase-card__footer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 8px; min-height: var(--control-sm); }
 .showcase-card__footer > .ag-badge { grid-column: 2; grid-row: 1; }
-.showcase-card__footer > .recipe-card-actions { grid-column: 3; grid-row: 1; }
+.showcase-card__footer > .recipe-card-actions { display: none; }
 .recipe-card-actions { display: flex; flex-wrap: wrap; gap: 4px 12px; }
 .recipe-demo-link__compact { display: none; }
-.recipe-author { display: inline-flex; align-items: center; gap: 8px; min-height: 28px; min-width: 0; max-width: 100%; color: var(--muted-foreground); font-size: 12px; }
+.recipe-author { display: inline-flex; justify-self: start; width: fit-content; align-items: center; gap: 8px; min-height: 28px; min-width: 0; max-width: 100%; color: var(--muted-foreground); font-size: 12px; }
 a.recipe-author:hover { color: var(--foreground); }
 .recipe-author__avatar { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 20px; height: 20px; border-radius: 50%; overflow: hidden; color: var(--foreground); background: var(--accent); font-size: 11px; }
 .recipe-author__avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -249,9 +253,9 @@ a.recipe-author:hover { color: var(--foreground); }
 }
 
 @media (min-width: 641px) and (hover:hover) and (pointer:fine) {
-  .recipe-cover__play:is(:hover,:focus-visible) .recipe-cover__play-material { width: 132px; }
-  .recipe-cover__play:is(:hover,:focus-visible) .recipe-cover__play-caption { opacity: 1; }
-  .recipe-cover__play:is(:hover,:focus-visible) .recipe-cover__play-icon { opacity: 0; }
+  .recipe-cover-link[data-cover-action=video]:is(:hover,:focus-visible) .recipe-cover__play-material { width: 132px; }
+  .recipe-cover-link[data-cover-action=video]:is(:hover,:focus-visible) .recipe-cover__play-caption { opacity: 1; }
+  .recipe-cover-link[data-cover-action=video]:is(:hover,:focus-visible) .recipe-cover__play-icon { opacity: 0; }
 }
 
 /* A focused document shell: overview, prompt disclosure, then the reading column. */
@@ -428,7 +432,7 @@ a.recipe-author:hover { color: var(--foreground); }
   .showcase-card__summary { font-size: 12px; line-height: 1.5; }
   .showcase-card__footer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 4px; }
   .showcase-card__footer > .recipe-author { grid-column: 1; grid-row: 2; min-height: 46px; }
-  .showcase-card__footer .recipe-card-actions { grid-column: 2; grid-row: 2; }
+  .showcase-card__footer .recipe-card-actions { display: flex; grid-column: 2; grid-row: 2; }
   .showcase-card__footer > .ag-badge { grid-column: 1 / -1; grid-row: 1; }
   .showcase-card__footer .ag-badge { background: transparent; padding: 0; border: 0; min-height: 18px; font-size: 12px; white-space: normal; overflow-wrap: anywhere; }
   .recipe-author { gap: 6px; font-size: 12px; }
@@ -485,12 +489,17 @@ a.recipe-author:hover { color: var(--foreground); }
 
 }
 
+@media (min-width: 641px) and (pointer: coarse) {
+  .showcase-card__footer { grid-template-columns: minmax(0,1fr) auto auto; }
+  .showcase-card__footer > .recipe-card-actions { display: flex; grid-column: 3; grid-row: 1; }
+}
 @media (pointer: coarse) {
   .header-search-slot { height: 46px; }
 }
 
 @media (max-width: 640px), (pointer: coarse) {
   .related-recipes a { min-height: 46px; }
+  .recipe-author { min-width: 46px; min-height: 46px; }
 }
 @media (pointer: coarse) {
   .footer-link, .footer-legal a { min-height: 46px; }

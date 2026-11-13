@@ -62,7 +62,7 @@ export function DesignSystemShowcase({ cardExamples }: { cardExamples: RecipeSum
       <div className="ds-row"><CopyTextButton text="Recipes design system example" label="Copy example" subject="Example" variant="outline" /><span className="ds-caption">Copies example text. Label space stays reserved through every state.</span></div>
     </section>
 
-    <section aria-labelledby="ds-recipe-cards"><h2 id="ds-recipe-cards">Recipe cards and missing media</h2><p>Actual recipe cards with the first two previews omitted to exercise a mixed row. Titles, metadata and material actions use the real catalog entries.</p>
+    <section aria-labelledby="ds-recipe-cards"><h2 id="ds-recipe-cards">Recipe cards and cover actions</h2><p>Actual cards with missing media, video, and live Demo destinations. Video posters open the on-site player; Open demo is a separate action. Demo-only covers open Demo, and titles open details.</p>
       <div className="showcase-grid" data-reference="recipe-cards">{cardExamples.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
     </section>
 

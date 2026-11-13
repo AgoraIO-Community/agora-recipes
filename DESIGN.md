@@ -399,16 +399,27 @@ state. Titles and summaries use the same size and placement as media cards.
 Available video playback and Demo links remain independent.
 Bound media and copy rather than clipping a whole card's content or controls.
 
-The title always opens recipe details. The cover opens the live Demo when one
-exists, and otherwise opens details. A separate centred play control
-opens the inline video dialog; search results use a labelled Video action.
-An explicit Try demo text link remains available in either
-layout whenever a demo exists. Do not use an unexplained display icon. Desktop
-card footers align author, metadata, and Demo on one center line. Phone footers
+The title always opens recipe details. A cover with video is one full-area
+button that opens the on-site video dialog, including clicks outside the centred
+play indicator. Its hover label says Watch video. Without video, the cover opens
+the live Demo when available, otherwise details.
+Desktop grid cards with video and Demo use a separate Open demo link at the
+lower-right of the cover. Keep it a sibling of the video button, with its own
+accessible name and at least a 46px hit target. Hovering or focusing the cover
+reveals that link in place of duration; leaving restores duration. Keyboard focus
+also reveals the Demo link itself. Demo-only covers use a passive Open demo
+caption inside the cover link. Both caption treatments use the original video
+duration `Badge` overlay material, type, and corners, without decorative arrows.
+Desktop grid footers omit the repeated Demo link. Phone and coarse-pointer cards
+keep duration on the video cover and an explicit Demo action in the footer.
+List rows retain separate video and Demo actions.
+Phone cards retain the visible footer Demo action. Author profile links fit their
+avatar and name rather than stretching across empty footer space, with at least
+46px targets on phones and coarse pointers. Desktop grid footers align author
+and metadata on one center line. Coarse-pointer footers also retain Demo. Phone footers
 place metadata above the author/Demo row, retaining a shared bottom baseline.
-On phones the label shortens to Demo, and the video target is bounded to 46px
-so that the rest of the cover remains available for the Demo. These three
-destinations stay independent; do not replace one with another. Titles and Demo
+On phones the footer label shortens to Demo and the whole video cover remains
+the playback target. Video, Demo, and details stay independent. Titles and Demo
 links have no decorative arrows. Preview images retain their crop and scale. The default play control
 and its labelled hover state both remain centred within the preview. Touch
 controls remain visible. Do not invent

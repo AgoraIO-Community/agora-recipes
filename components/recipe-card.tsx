@@ -81,11 +81,13 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
   const cover = <div className="recipe-cover" data-preview={playing ? "playing" : preview ? "loading" : undefined} style={{ "--thumbnail-scale": media?.thumbnailScale ?? 1, "--thumbnail-origin": media?.thumbnailOrigin ?? "50% 50%" } as CSSProperties}>
     {!imageFailed && media?.thumbnail ? <Image src={media.thumbnail} alt={media.thumbnailAlt} width={1280} height={720} loading={recipe.recommendedOrder !== undefined ? "eager" : "lazy"} className="recipe-cover__image" onError={() => setImageFailed(true)} /> : <EmptyMedia variant="cover" aria-hidden="true"><ImageIcon /></EmptyMedia>}
     {preview && videoUrl && <video ref={video} src={videoUrl} className="recipe-cover__video" muted loop playsInline preload="metadata" aria-hidden="true" onPlaying={() => { if (hovered.current) setPlaying(true) }} onError={stopPreview} />}
-    {media?.videoUrl && <Badge className="recipe-cover__label ag-overlay">{media.videoDuration || t("Video")}</Badge>}
+    {media?.videoUrl && <Badge className="recipe-cover__label recipe-cover__duration ag-overlay">{media.videoDuration || t("Video")}</Badge>}
+    {recipe.demoUrl && !media?.videoUrl && <Badge className="recipe-cover__label recipe-cover__demo ag-overlay" aria-hidden="true">{t("Open demo")}</Badge>}
+    {media?.videoUrl && <span className="recipe-cover__play" aria-hidden="true"><span className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch video")}</span></span></span></span>}
   </div>
-  return <div className="recipe-cover-frame" onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>
-    {recipe.demoUrl ? <AttributionLink href={recipe.demoUrl} className="recipe-cover-link" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</AttributionLink> : <Link prefetch={false} href={href} className="recipe-cover-link" aria-label={t("Open {title} recipe", { title })}>{cover}</Link>}
-    {media?.videoUrl && <DialogTrigger asChild><button type="button" className="recipe-cover__play" aria-label={t("Watch {title} demo", { title })}><span className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch demo")}</span></span></span></button></DialogTrigger>}
+  return <div className="recipe-cover-frame" data-has-demo={Boolean(recipe.demoUrl) || undefined} onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>
+    {media?.videoUrl ? <DialogTrigger asChild><button type="button" className="recipe-cover-link" data-cover-action="video" aria-label={t("Watch {title} video", { title })}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <AttributionLink href={recipe.demoUrl} className="recipe-cover-link" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</AttributionLink> : <Link prefetch={false} href={href} className="recipe-cover-link" aria-label={t("Open {title} recipe", { title })}>{cover}</Link>}
+    {media?.videoUrl && recipe.demoUrl && <AttributionLink href={recipe.demoUrl} className="recipe-cover__demo-action" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}><Badge className="ag-overlay">{t("Open demo")}</Badge></AttributionLink>}
   </div>
 }
 
@@ -97,7 +99,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
   const title = media?.compactTitle ?? media?.title ?? recipe.title
   const label = media?.labels.find(value => recipe.platforms.includes(value)) ?? media?.labels[0] ?? recipe.platforms[0]
   const previewActions = (recipe.demoUrl || compact && media?.videoUrl) && <ButtonGroup className="recipe-card-actions" aria-label={t("Available materials")}>
-    {compact && media?.videoUrl && <DialogTrigger asChild><IconButton size="icon-sm" label={t("Watch {title} demo", { title })}><Play aria-hidden="true" /></IconButton></DialogTrigger>}
+    {compact && media?.videoUrl && <DialogTrigger asChild><IconButton size="icon-sm" label={t("Watch {title} video", { title })}><Play aria-hidden="true" /></IconButton></DialogTrigger>}
     {recipe.demoUrl && <Button asChild variant="link" size="sm" className="recipe-demo-link"><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}><span className="recipe-demo-link__full">{t("Try demo")}</span><span className="recipe-demo-link__compact">{t("Demo")}</span></AttributionLink></Button>}
   </ButtonGroup>
 

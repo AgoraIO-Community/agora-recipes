@@ -252,6 +252,18 @@
   .facet-option .ag-checkbox:focus-visible { outline: none; }
   .facet-option:is([data-disabled=true],:has(.ag-checkbox:disabled)) { opacity: .4; cursor: not-allowed; }
   .facet-option:is([data-disabled=true],:has(.ag-checkbox:disabled)) .ag-checkbox:disabled { opacity: 1; }
+.recipe-cover__demo { visibility: hidden; }
+.recipe-cover__demo-action { opacity: 0; pointer-events: none; }
+@media (min-width: 641px) and (pointer:fine) {
+  .recipe-cover-frame:focus-within .recipe-cover__demo { visibility: visible; }
+  .recipe-cover-frame:focus-within .recipe-cover__demo-action { opacity: 1; pointer-events: auto; }
+  .recipe-cover-frame[data-has-demo]:focus-within .recipe-cover__duration { visibility: hidden; }
+}
+@media (min-width: 641px) and (hover:hover) and (pointer:fine) {
+  .recipe-cover-frame:hover .recipe-cover__demo { visibility: visible; }
+  .recipe-cover-frame:hover .recipe-cover__demo-action { opacity: 1; pointer-events: auto; }
+  .recipe-cover-frame[data-has-demo]:hover .recipe-cover__duration { visibility: hidden; }
+}
 @media (hover:hover) and (pointer:fine) {
   .ag-button:hover:where(:not(:disabled):not([aria-disabled=true])) .ag-button-arrow > svg:first-child { transform: translate(var(--arrow-x),var(--arrow-y)); }
   .ag-button:hover:where(:not(:disabled):not([aria-disabled=true])) .ag-button-arrow > svg:last-child { transform: none; }
