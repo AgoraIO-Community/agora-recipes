@@ -1,66 +1,92 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { createConsentStore, savedConsentChoice, securitiAnalyticsChoice } from '../lib/analytics-consent.ts'
+import { createConsentStore, securitiAnalyticsChoice } from '../lib/analytics-consent.ts'
 
 function fixture() {
-  const values = new Map()
-  const store = createConsentStore(() => ({ getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) }), () => 1000)
-  return { store, values }
+  let given = false
+  const choices = { Performance: 'denied', Traffic: 'denied', Functional: 'granted' }
+  const api = {
+    isConsentGiven: () => given,
+    getCategories: () => [
+      { name: 'Performance', base_category: 'Analytics & Customization' },
+      { name: 'Traffic', base_category: 'Analytics & Customization' },
+      { name: 'Functional', base_category: 'Performance & Functionality' },
+    ],
+    getConsent: () => ({ category: choices }),
+  }
+  return { api, choices, decide: () => { given = true } }
 }
 
-test('no analytics grant exists until an explicit local decision; only the preference is stored', () => {
-  const { store, values } = fixture()
-  assert.equal(store.isGranted(), false)
-  const choose = store.useLocal()
-  assert.equal(store.getSnapshot(), 'pending')
-  assert.equal(values.size, 0)
-  choose(false)
-  assert.equal(store.getSnapshot(), 'denied')
-  choose(true)
-  assert.equal(store.isGranted(), true)
-  assert.deepEqual(JSON.parse([...values.values()][0]), { version: 1, analytics: true, updatedAt: 1000 })
-  choose(false)
-  assert.equal(store.isGranted(), false)
+test('only explicit managed choices enable either analytics purpose', () => {
+  const { api, choices, decide } = fixture()
+  choices.Performance = 'granted'
+  choices.Traffic = 'granted'
+  for (const purpose of ['product', 'traffic']) assert.equal(securitiAnalyticsChoice(api, purpose, 'Traffic'), 'pending')
+  decide()
+  for (const purpose of ['product', 'traffic']) assert.equal(securitiAnalyticsChoice(api, purpose, 'Traffic'), 'granted')
 })
 
-test('missing, corrupt, expired and future-dated records never enable analytics', () => {
-  for (const value of [null, '{bad', '{}', JSON.stringify({ version: 1, analytics: 'true', updatedAt: 1000 }), JSON.stringify({ version: 2, analytics: true, updatedAt: 1000 }), JSON.stringify({ version: 1, analytics: true, updatedAt: 1001 })]) assert.equal(savedConsentChoice(value, 1000), 'pending')
-  assert.equal(savedConsentChoice(JSON.stringify({ version: 1, analytics: true, updatedAt: 0 }), 180 * 86400 * 1000), 'pending')
+test('independent choices and withdrawals are read from one managed record', () => {
+  const { api, choices, decide } = fixture()
+  decide()
+  const product = createConsentStore(api => securitiAnalyticsChoice(api, 'product', 'Traffic'))
+  const traffic = createConsentStore(api => securitiAnalyticsChoice(api, 'traffic', 'Traffic'))
+  product.useSecuriti(api)
+  traffic.useSecuriti(api)
+  choices.Performance = 'granted'
+  assert.equal(product.isGranted(), true)
+  assert.equal(traffic.isGranted(), false)
+  choices.Traffic = 'granted'
+  choices.Performance = 'denied'
+  assert.equal(product.isGranted(), false)
+  assert.equal(traffic.isGranted(), true)
+  choices.Traffic = 'denied'
+  assert.equal(traffic.isGranted(), false)
+  product.usePending()
+  traffic.usePending()
+  assert.equal(product.getSnapshot(), 'pending')
+  assert.equal(traffic.getSnapshot(), 'pending')
 })
 
-test('blocked storage and quota errors preserve explicit choices for this tab only', () => {
-  for (const storage of [() => { throw new Error('blocked') }, () => ({ getItem: () => null, setItem: () => { throw new Error('quota') } })]) {
-    const store = createConsentStore(storage)
-    const choose = store.useLocal()
-    choose(true)
-    assert.equal(store.isGranted(), true)
-    choose(false)
-    assert.equal(store.isGranted(), false)
-  }
-})
-
-test('Securiti uses the explicit analytics base category, independent of translated labels and numeric IDs', () => {
-  let granted = false
-  const api = { isConsentGiven: () => true, getCategories: () => [{ name: 'Performance', base_category: 'Analytics & Customization' }, { name: 'Functional', base_category: 'Performance & Functionality' }], getConsent: () => ({ category: { Performance: granted ? 'granted' : 'denied', Functional: 'granted' } }) }
+test('the existing single analytics category works without GA4; functional consent cannot grant analytics', () => {
+  const { api, decide } = fixture()
+  decide()
+  api.getCategories = () => [{ name: 'Translated performance', base_category: 'Analytics & Customization' }]
+  api.getConsent = () => ({ category: { 'Translated performance': 'denied', Functional: 'granted' } })
   assert.equal(securitiAnalyticsChoice(api), 'denied')
-  granted = true
-  assert.equal(securitiAnalyticsChoice(api), 'granted')
-  assert.equal(securitiAnalyticsChoice({ ...api, isConsentGiven: () => false }), 'pending')
-  assert.equal(securitiAnalyticsChoice({ ...api, getCategories: () => [] }), 'pending')
-  assert.equal(securitiAnalyticsChoice({ ...api, getConsent: () => { throw new Error('unavailable') } }), 'pending')
+  assert.equal(securitiAnalyticsChoice(api, 'traffic'), 'pending')
 })
 
-test('the live gate sees central withdrawal immediately and does not fall back to an earlier local grant', () => {
-  const { store } = fixture()
-  store.useLocal()(true)
-  let granted = false
-  const api = { isConsentGiven: () => true, getCategories: () => [{ name: 'Performance', base_category: 'Analytics & Customization' }], getConsent: () => ({ category: { Performance: granted ? 'granted' : 'denied' } }) }
+test('missing, overlapping, ambiguous, unknown and unavailable managed decisions stay closed', () => {
+  const { api, decide } = fixture()
+  decide()
+  assert.equal(securitiAnalyticsChoice(api), 'pending', 'multiple categories need an explicit mapping')
+  assert.equal(securitiAnalyticsChoice(api, 'traffic', 'Missing'), 'pending')
+  api.getCategories = () => [{ name: 'Performance', base_category: 'Analytics & Customization' }]
+  for (const purpose of ['product', 'traffic']) assert.equal(securitiAnalyticsChoice(api, purpose, 'Performance'), 'pending', 'one category cannot control both purposes')
+  api.getConsent = () => ({ category: { Performance: 'unknown' } })
+  assert.equal(securitiAnalyticsChoice(api), 'pending')
+  api.getConsent = () => { throw new Error('unavailable') }
+  assert.equal(securitiAnalyticsChoice(api), 'pending')
+  api.getCategories = () => []
+  assert.equal(securitiAnalyticsChoice(api), 'pending')
+})
+
+test('managed updates notify subscribers, including withdrawal from another tab', () => {
+  const { api, choices, decide } = fixture()
+  decide()
+  const store = createConsentStore(api => securitiAnalyticsChoice(api, 'product', 'Traffic'))
+  let notifications = 0
+  const unsubscribe = store.subscribe(() => { notifications++ })
   store.useSecuriti(api)
-  assert.equal(store.isGranted(), false)
-  granted = true
+  choices.Performance = 'granted'
+  store.refresh()
   assert.equal(store.isGranted(), true)
-  granted = false
+  choices.Performance = 'declined'
+  store.refresh()
   assert.equal(store.isGranted(), false)
-  store.usePending()
-  assert.equal(store.getSnapshot(), 'pending', 'a failed/retrying CMP stays closed')
+  assert.equal(notifications, 3)
+  unsubscribe()
+  store.refresh()
+  assert.equal(notifications, 3)
 })

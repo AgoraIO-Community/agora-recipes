@@ -4,9 +4,9 @@ This file guides AI agents and human contributors working in `agora-recipes`.
 
 ## Scope
 
-This repository is the Next.js catalog site for Voice AI recipes. Contributors add recipe metadata under `content/recipes/`; the build step fetches the configured recipe markdown from the implementation repository and writes static artifacts under `content/generated/recipes/`.
+This repository is the Next.js catalog site for Voice AI and RTC projects and recipes. Contributors add entry metadata under `content/recipes/`. For entries with a guide, the build step fetches the configured Markdown and writes static artifacts under `content/generated/recipes/`.
 
-The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoUrl` points to the implementation repository and `recipeUrl` points to the GitHub markdown file that should be rendered as the recipe.
+Runnable implementations live elsewhere. In `recipe.json`, `mainRepoUrl` points to the implementation repository and `recipeUrl` points to the public Markdown guide. Demo-only, video-only, and source-only entries do not require a guide.
 
 ## How to Work in This Repo
 
@@ -15,7 +15,7 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 - Follow the system light/dark preference before first paint and on live changes. Do not add a manual theme toggle or restore previously saved overrides. Read DESIGN.md when changing theme colors or shared control materials.
 - Keep the Agora site header and navigation on the homepage and recipe detail pages. The compact centered title and search lead into one topic toolbar and the media directory. Dock the same search input in the header after it scrolls out of view; keep its draft and focus. Automatically reveal catalog batches on scroll and retain loaded count and source scroll position for returns. Platform, use-case, and capability filters belong in the bounded refinement sheet. Keep secondary links in the footer; avoid ambient animation.
 - Ordinary controls use solid materials: solid buttons, inputs, neutral selections, and connected reader control groups. Floating media actions, menus, and dialogs use the complete Liquid Glass optical engine; do not substitute blur-only shells. Form and reading planes stay opaque, with solid accessibility fallbacks. Keep cards, images, control bounds, labels, and ordinary icons stationary on hover and focus; use color, border, underline, and opacity for feedback. A main CTA may use the shared bounded `ButtonArrow` motion defined in DESIGN.md. Metadata tags remain noninteractive; preserve platform multi-select and compact two-column phone browsing.
-- Preserve the Agora visual identity while refining components. Card titles always open details; covers open an available Demo, falling back to details. Keep video playback, Try demo, and details independently reachable whenever those materials exist, in grid and list views.
+- Preserve the Agora visual identity while refining components. Card titles always open details. Covers open video when available, otherwise Demo, then details. Keep Demo independent from the video poster through a separate labeled action. Preserve access to video, Demo, and details in grid and list views; DESIGN.md defines the responsive placement.
 
 ### Implementation practices
 
@@ -46,7 +46,9 @@ The runnable recipe implementations live elsewhere. In `recipe.json`, `mainRepoU
 4. Run the relevant verification commands.
 5. Open a pull request back to the upstream `staging` branch.
 
-Do not target `main` unless a maintainer explicitly asks you to. PR descriptions should explain what changed, link the related recipe implementation, and include the commands you ran.
+Do not target `main` unless a maintainer explicitly asks you to. PR descriptions should explain what changed, link the verified public materials provided, and include the commands you ran.
+
+Recipe submissions go directly through PRs. Issues are for bugs and questions.
 
 ## How Recipes Are Loaded
 
@@ -60,20 +62,20 @@ content/recipes/
 
 No code registration is needed when adding a recipe. The loader derives the recipe list, filters, related recipes, and static route params from the files on disk.
 
-Only immediate subdirectories are loaded. Directory names beginning with `.` are ignored. The app does not fetch markdown at runtime. During CI/build, `scripts/build-recipes.mjs` fetches each recipe's configured markdown file and writes `content/generated/recipes/<slug>.json`.
+Only immediate subdirectories are loaded. Directory names beginning with `.` are ignored. The app does not fetch Markdown at runtime. During CI/build, `scripts/build-recipes.mjs` fetches configured guides and writes `content/generated/recipes/<slug>.json`; entries without `recipeUrl` do not fetch a guide.
 
 ## Adding a Recipe
 
 1. Choose a stable kebab-case slug, such as `python-quickstart`.
 2. Create `content/recipes/<slug>/`.
-3. Copy `templates/recipe.json` into `content/recipes/<slug>/recipe.json`.
+3. Copy `templates/recipe.json` for an entry with a guide, or `templates/demo.json` for an entry without a guide, into `content/recipes/<slug>/recipe.json`.
 4. Replace every `TODO` and placeholder URL with real metadata.
-5. Set `mainRepoUrl` to the implementation repository root, for example `https://github.com/OWNER/REPO`.
-6. Set `recipeUrl` to the GitHub `blob` URL for the markdown file to render, for example `https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md`.
+5. Include the verified materials available: `demoUrl`, `media.videoUrl`, `mainRepoUrl`, or `recipeUrl`. At least one is required; omit unavailable materials.
+6. For a guide, set `recipeUrl` to its public Markdown URL, preferably a GitHub `blob` URL, and supply `difficulty`. A guide outside GitHub also requires `mainRepoUrl`.
 7. Run `npm run build` from the `agora-recipes` directory.
 8. Open a PR from your fork to the upstream `staging` branch.
 
-Do not add local markdown content for a new catalog entry. Recipe pages render the fetched markdown from `recipeUrl`, plus buttons to view the raw markdown and copy the markdown to the clipboard.
+Do not add local Markdown content for a new catalog entry. Entries with `recipeUrl` render the fetched guide and its raw/copy actions. Entries without a guide do not expose the guide reader or recipe prompt.
 
 ## Generated Recipe Artifacts
 
@@ -93,57 +95,37 @@ If the recipe repository is private or the configured file path is wrong, unauth
 
 ## `recipe.json` Contract
 
-`recipe.json` must be valid JSON and must contain these fields:
-
-```json
-{
-  "title": "TODO: Recipe title",
-  "tagline": "TODO: Short one-line tagline.",
-  "description": "TODO: One or two sentences explaining what the recipe does and who it helps.",
-  "tags": ["voice-ai"],
-  "platforms": ["TypeScript"],
-  "useCases": ["TODO: Use case"],
-  "capabilities": ["TODO: Capability"],
-  "mainRepoUrl": "https://github.com/OWNER/REPO",
-  "recipeUrl": "https://github.com/OWNER/REPO/blob/main/docs/ai/RECIPE.md",
-  "author": "TODO: Author or team",
-  "updated": "2026-05-28",
-  "difficulty": "Beginner"
-}
-```
+Read [Add Catalog Metadata in CONTRIBUTING.md](CONTRIBUTING.md#add-catalog-metadata) for the full contract and examples. Use the templates above to produce complete, valid JSON with English catalog metadata and unchanged public author credit.
 
 Required string fields must be non-empty:
 
 - `title`
 - `tagline`
 - `description`
-- `mainRepoUrl`
-- `recipeUrl`
 - `author`
 - `updated`
-- `difficulty`
 
-Required array fields must be JSON arrays:
+Required array fields must be JSON arrays of non-empty strings:
 
 - `tags`
 - `platforms`
 - `useCases`
 - `capabilities`
 
-`difficulty` must be exactly one of:
+At least one verified public material is required: `demoUrl`, `media.videoUrl`, `mainRepoUrl`, or `recipeUrl`. Material URLs use absolute HTTPS URLs without embedded credentials. A thumbnail alone is not a material.
 
-- `Beginner`
-- `Intermediate`
-- `Advanced`
+Guide-specific fields:
 
-`tags` must contain at least one of:
+- `recipeUrl` is optional. When supplied, it points to the public Markdown guide.
+- `difficulty` is required when `recipeUrl` is present and optional otherwise. Whenever supplied, it must be `Beginner`, `Intermediate`, or `Advanced`.
+- `mainRepoUrl` is optional without a guide. For a GitHub guide, the loader can infer it from `recipeUrl`; a guide outside GitHub requires an explicit implementation repository root.
+- `cli` configuration is only valid when `recipeUrl` is present.
 
-- `voice-ai`
-- `rtc`
+`tags` must be non-empty and contain only `voice-ai`, `rtc`, or both.
 
 Optional `demoUrl` is an absolute HTTPS link to an existing web demo or native distribution page such as TestFlight. Omit it when no usable demo exists; it does not require homepage recommendation.
 
-`updated` should use `YYYY-MM-DD` format. `platforms` should use clear language or runtime labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`; reuse existing labels when possible so filters stay useful.
+`updated` must be a valid `YYYY-MM-DD` date. `platforms` should use clear language or runtime labels such as `TypeScript`, `Python`, `Go`, `iOS`, or `Android`; reuse existing labels when possible so filters stay useful.
 
 ## Recipe Quality Checklist
 
@@ -152,8 +134,9 @@ Optional `demoUrl` is an absolute HTTPS link to an existing web demo or native d
 - The description explains the workflow, not just the technologies.
 - `tags` places the recipe in the correct landing-page selection.
 - `platforms`, `useCases`, and `capabilities` use existing labels when appropriate.
-- `mainRepoUrl` points to the implementation repository root.
-- `recipeUrl` points to a public GitHub markdown `blob` URL.
-- Relative links inside the recipe markdown make sense when resolved from the recipe file's GitHub folder.
+- At least one public material is provided; unavailable optional fields are omitted.
+- When supplied, `mainRepoUrl` points to the implementation repository root.
+- When supplied, `recipeUrl` points to public Markdown, preferably a GitHub `blob` URL, with a valid `difficulty`.
+- Relative links inside a guide make sense when resolved from its source folder.
 - `updated` reflects the date of the recipe metadata change.
 - `npm run build` succeeds.

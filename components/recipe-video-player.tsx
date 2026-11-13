@@ -56,7 +56,7 @@ export function RecipeVideoPlayer({ url, title, poster, active, onPlay, onError 
   useEffect(() => { if (!active) video.current?.pause() }, [active])
   if (!source) return null
   if (source.kind === "youtube") return <YouTubeVideo videoId={source.videoId} start={source.start} title={title} active={active} onPlay={onPlay} onError={onError} />
-  return <video ref={video} src={source.url} controls playsInline preload="metadata" poster={poster} aria-label={title} className="aspect-video w-full rounded-md bg-black" onPlay={onPlay} onError={onError}>
+  return <video ref={video} src={source.url} controls playsInline preload="metadata" poster={poster} aria-label={title} className="aspect-video w-full rounded-md bg-black" onPlaying={onPlay} onError={onError}>
     {t("Your browser does not support video playback. Open the original video below.")}
   </video>
 }

@@ -1,5 +1,49 @@
 /* Shared solid controls. Refractive floating surfaces live in glass.css.
    Control geometry stays fixed across hover, focus, and press. */
+/* External CMP controls cannot use our React primitives. This narrow adapter
+   applies the same tokens without replacing the managed action handlers. */
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cmp-pref-link, .cc-close) {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  min-height: var(--managed-control-size) !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid var(--input) !important;
+  border-radius: var(--radius) !important;
+  color: var(--foreground) !important;
+  background: var(--basic-fill) !important;
+  font: 400 13px/20px var(--font-sans) !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+:is(#page-top .cc-window.f-cc-pref-window .cc-close, #page-top #cookiePreferencesDialog .cmp-modal__close) { position: static !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0; box-sizing: border-box; height: var(--managed-control-size) !important; width: var(--managed-control-size) !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: var(--radius) !important; color: var(--foreground) !important; background: transparent !important; cursor: pointer; }
+#page-top #cookiePreferencesDialog .cmp-modal__close > svg { display: block; width: var(--icon-size); height: var(--icon-size); fill: currentColor !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close { color: inherit !important; outline: none !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close:focus-visible { outline: var(--focus-width) solid var(--ring) !important; outline-offset: var(--focus-offset) !important; }
+@media (hover: hover) and (pointer: fine) {
+  #page-top #cookiePreferencesDialog .cmp-modal__close:hover { color: var(--control-hover-ink) !important; background: var(--control-hover-fill) !important; border-color: var(--control-hover-edge) !important; }
+}
+#page-top #cookiePreferencesDialog .cmp-modal__close:active { background: var(--control-pressed-fill) !important; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link { justify-content: flex-start !important; padding-inline: 0 !important; border-color: transparent !important; background: transparent !important; text-align: start !important; }
+#page-top .cc-window.f-cc-pref-window .cc-link { color: var(--foreground) !important; opacity: 1 !important; font: inherit !important; text-underline-offset: 3px; }
+#page-top .cc-window.f-cc-pref-window .cc-message .cc-link { display: inline-block; margin: 0 !important; padding: 0 !important; text-decoration: underline; }
+#page-top .cc-window.f-cc-pref-window :is(.cc-close, .cmp-pref-link) svg { flex: none; width: var(--icon-size); height: var(--icon-size); fill: currentColor !important; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link svg [fill]:not([fill=none]) { fill: currentColor; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link > span { min-width: 0; }
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-link, .cc-close):focus-visible { outline: var(--focus-width) solid var(--ring) !important; outline-offset: var(--focus-offset) !important; }
+@media (hover: hover) and (pointer: fine) {
+  #page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-close):hover { color: var(--control-hover-ink) !important; background: var(--control-hover-fill) !important; border-color: var(--control-hover-edge) !important; }
+  #page-top .cc-window.f-cc-pref-window .cc-link:hover { text-decoration: underline !important; }
+}
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-close):active { background: var(--control-pressed-fill) !important; }
 :root {
   --control-sm: 32px;
   --field-size: var(--control-sm);
@@ -208,6 +252,18 @@
   .facet-option .ag-checkbox:focus-visible { outline: none; }
   .facet-option:is([data-disabled=true],:has(.ag-checkbox:disabled)) { opacity: .4; cursor: not-allowed; }
   .facet-option:is([data-disabled=true],:has(.ag-checkbox:disabled)) .ag-checkbox:disabled { opacity: 1; }
+.recipe-cover__demo { visibility: hidden; }
+.recipe-cover__demo-action { opacity: 0; pointer-events: none; }
+@media (min-width: 641px) and (pointer:fine) {
+  .recipe-cover-frame:focus-within .recipe-cover__demo { visibility: visible; }
+  .recipe-cover-frame:focus-within .recipe-cover__demo-action { opacity: 1; pointer-events: auto; }
+  .recipe-cover-frame[data-has-demo]:focus-within .recipe-cover__duration { visibility: hidden; }
+}
+@media (min-width: 641px) and (hover:hover) and (pointer:fine) {
+  .recipe-cover-frame:hover .recipe-cover__demo { visibility: visible; }
+  .recipe-cover-frame:hover .recipe-cover__demo-action { opacity: 1; pointer-events: auto; }
+  .recipe-cover-frame[data-has-demo]:hover .recipe-cover__duration { visibility: hidden; }
+}
 @media (hover:hover) and (pointer:fine) {
   .ag-button:hover:where(:not(:disabled):not([aria-disabled=true])) .ag-button-arrow > svg:first-child { transform: translate(var(--arrow-x),var(--arrow-y)); }
   .ag-button:hover:where(:not(:disabled):not([aria-disabled=true])) .ag-button-arrow > svg:last-child { transform: none; }

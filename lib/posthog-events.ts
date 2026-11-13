@@ -1,4 +1,5 @@
 import { analyticsText, analyticsUrl, campaignKeys, campaignProperties, eventActions } from "./analytics-events"
+import { sanitizeAttribution } from "./analytics-attribution"
 import { applicationProperties } from "./analytics-context"
 
 // Keep anonymous transport/session identity and bounded measurements. Discard SDK
@@ -7,14 +8,19 @@ const allowedProperties = new Set([
   "token", "distinct_id", "$device_id", "$session_id", "$window_id", "$lib", "$lib_version", "$insert_id", "$time",
   "$is_identified", "$process_person_profile", "$current_url", "$pathname", "$host", "$browser", "$browser_version", "$os", "$os_version", "$device_type",
   "app", "site", "environment", "measurement_version", "measurement_tier", "locale", "page_type", "content_slug", "topic_slug", "source_topic_slug", "action", "placement", "result_count", "is_recipe_use", "recipe_use_kind", "is_topic_engagement",
-  ...campaignKeys, "search_term", "search_term_redacted", "search_status", "search_id", "result_position",
+  ...campaignKeys, "search_term", "search_term_redacted", "search_status", "search_id", "result_position", "landing_path",
 ])
 export function sanitizePosthogEvent<T extends { event: string; properties: Record<string, unknown> }>(event: T): T | null {
-  if (event.event !== "$pageview" && !Object.hasOwn(eventActions, event.event)) return null
+  if (event.event !== "$pageview" && event.event !== "campaign_entry" && !Object.hasOwn(eventActions, event.event)) return null
   const properties = Object.fromEntries(Object.entries(event.properties).filter(([key]) => allowedProperties.has(key)))
   if (typeof properties.$current_url === "string") properties.$current_url = analyticsUrl(properties.$current_url)
   for (const key of campaignKeys) delete properties[key]
   Object.assign(properties, campaignProperties(event.properties))
+  if ("landing_path" in event.properties) {
+    for (const key of campaignKeys) delete properties[key]
+    delete properties.landing_path
+    Object.assign(properties, sanitizeAttribution(event.properties))
+  }
   if ("search_term" in properties) {
     const term = analyticsText(properties.search_term, true)
     delete properties.search_term

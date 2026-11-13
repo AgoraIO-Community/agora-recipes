@@ -4,7 +4,7 @@ import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/u
 
 import Link from "next/link"
 import { useState } from "react"
-import { ChevronDown, Github } from "lucide-react"
+import { ChevronDown, GitPullRequest } from "lucide-react"
 import { replaceLocationSearch, useCatalogSearch } from "@/hooks/use-catalog-location"
 import { contributionMaterials, contributionTopic } from "@/lib/contributions"
 import { localePath } from "@/lib/locales"
@@ -15,7 +15,7 @@ import { Field, FieldLabel, FieldDescription } from "@/components/ui/field"
 import { Button } from "./ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
 
-export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics: Record<string, string>; completedTopics: string[]; siteOrigin: string }) {
+export function ContributionPrompt({ topics, completedTopics, siteOrigin }: { topics: Record<string, string>; completedTopics: string[]; siteOrigin: string }) {
   const { t, locale } = useI18n()
   const search = useCatalogSearch()
   const topic = contributionTopic(search, topics)
@@ -23,7 +23,7 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
   const current = Object.entries(topics).filter(([slug]) => !completedTopics.includes(slug))
   const selectedCompleted = Boolean(topic && completedTopics.includes(topic))
   const [showCompleted, setShowCompleted] = useState(false)
-  const { formUrl, fallbackUrl, prompt } = contributionMaterials(locale, siteOrigin, topic)
+  const { guideUrl, prompt } = contributionMaterials(locale, siteOrigin, topic)
   function selectTopic(value: string) {
     const params = new URLSearchParams(search)
     if (Object.hasOwn(topics, value)) params.set("topic", value)
@@ -31,7 +31,7 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
     replaceLocationSearch(params)
   }
   return <>
-    <h2 className="detail-title">{t("Prepare your submission with AI")}</h2>
+    <h2 className="detail-title">{t("Prepare your PR with AI")}</h2>
     <p className="contribute-instructions">{t("Paste the prompt into Codex, Cursor, or Claude Code in your project.")}</p>
     <Field className="contribute-topic">
       <FieldLabel id="contribution-topic-label" htmlFor="contribution-topic">{t("Topic or activity (optional)")}</FieldLabel>
@@ -51,11 +51,10 @@ export function GitHubFormLink({ topics, completedTopics, siteOrigin }: { topics
       {topic && <FieldDescription id="contribution-topic-hint"><Link href={localePath(`/topics/${topic}`, locale)}>{t("View this Topic")}</Link></FieldDescription>}
     </Field>
     <div className="contribute-actions">
-      <CopyTextButton text={prompt} label="Copy submission prompt" subject="Submission prompt" primary />
-      <Button asChild variant="outline"><a href={formUrl} target="_blank" rel="noreferrer" data-contribution="github_form"><Github aria-hidden="true" />{t("Fill it in on GitHub")}</a></Button>
+      <CopyTextButton text={prompt} label="Copy PR prompt" subject="PR prompt" primary />
+      <Button asChild variant="outline"><a href={guideUrl} target="_blank" rel="noreferrer" data-contribution="pr_instructions"><GitPullRequest aria-hidden="true" />{t("Read the PR contribution guide")}</a></Button>
     </div>
     <p className="contribute-account">{t("Requires a GitHub account. Submissions are public.")}</p>
-    <Disclosure className="contribute-prompt"><DisclosureTrigger>{t("View the submission prompt")}</DisclosureTrigger><DisclosureContent><CodePanel code={prompt} label="Submission prompt" wrap copyable={false} /></DisclosureContent></Disclosure>
-    <Disclosure className="contribute-recovery"><DisclosureTrigger>{t("GitHub form not opening?")}</DisclosureTrigger><DisclosureContent><Button asChild variant="link"><a href={fallbackUrl} target="_blank" rel="noreferrer" data-contribution="github_issue">{t("Open a submission draft")}</a></Button></DisclosureContent></Disclosure>
+    <Disclosure className="contribute-prompt"><DisclosureTrigger>{t("View the PR prompt")}</DisclosureTrigger><DisclosureContent><CodePanel code={prompt} label="PR prompt" wrap copyable={false} /></DisclosureContent></Disclosure>
   </>
 }

@@ -1,5 +1,6 @@
 import { contentModifiedAt } from "../lib/recipe-freshness.mjs"
 import { discoverDocumentLanguages } from "../lib/document-languages.mjs"
+import { buildRecipePrompt } from "../lib/recipe-prompt.mjs"
 import fs from "node:fs/promises"
 import path from "node:path"
 
@@ -96,24 +97,11 @@ async function buildRecipeArtifact({ slug, contentDir, previous }) {
     },
     recipeDocument,
     ...(documentLanguages ? { documentLanguages } : {}),
-    primaryPrompt: buildPrimaryPrompt({ meta, recipeDocument }),
+    primaryPrompt: buildRecipePrompt(meta, recipeDocument, slug),
   }
   artifact.contentUpdatedAt = contentModifiedAt(artifact, previous, meta.updated, new Date().toISOString())
   if (previous && JSON.stringify({ ...artifact, generatedAt: "" }) === JSON.stringify({ ...previous, generatedAt: "" })) artifact.generatedAt = previous.generatedAt
   return artifact
-}
-
-function buildPrimaryPrompt({ meta, recipeDocument }) {
-  if (!meta.recipeUrl) return ""
-  return `You are implementing the "${meta.title}" recipe in this project.
-
-Read the recipe markdown first:
-${recipeDocument.rawUrl}
-
-Use the source repository for cross-reference:
-${meta.mainRepoUrl}
-
-Build this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies.`
 }
 
 function expandMarkdownLinks(markdown, recipeViewUrl) {

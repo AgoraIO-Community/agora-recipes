@@ -57,7 +57,9 @@ owns hero search geometry. Tooltip adapters preserve the target's own slot and
 state attributes. Native Disclosure slots own host summary controls, including
 reader metadata, diagram source, filters and contribution disclosures.
 The embedded CodePanel variant belongs in a floating panel Body and delegates
-scrolling to that body.
+scrolling to that body. Its copy action sits beside the code at the top right,
+without a separate header or repeated label. A dedicated grid column keeps the
+copy target clear of wrapped commands, including on phones.
 
 The style check included in `npm run lint` rejects page-level control type,
 material, padding and height overrides. Keep placement in page CSS and extend
@@ -146,10 +148,19 @@ Before extending the kit:
    narrow phones, and desktop layouts. Compare actual outer dimensions and
    centers with the navigation sample. Keep one visible entry per task.
 
-Card Demo actions use Try demo (Demo on phones) without a decorative arrow.
-Covers open an available Demo; titles always open details, and a separate
-play control opens video. Keep all provided materials reachable in both views. State
-selectors keep their labels and geometry while the selection underlay moves.
+List and coarse-pointer Demo actions use Try demo (Demo on phones) without a decorative arrow.
+Covers open video first, then Demo, then details according to availability;
+titles always open details. A video cover is one full-area DialogTrigger button
+with a decorative centred play indicator and Watch video caption. Desktop video
+cards with Demo provide an independent sibling Open demo link, revealed on
+cover hover/focus or its own keyboard focus, with a 46px hit target. Demo-only
+covers retain a passive Open demo caption. Both use the original duration
+`Badge` with `ag-overlay`; duration yields while the Demo caption is visible.
+Desktop grid footers omit the repeated Demo link. Phone and coarse-pointer cards
+keep duration on video covers and the footer Demo link visible. List rows keep
+separate video and Demo actions. Author links fit their content instead
+of stretching into footer whitespace, retaining 46px phone/coarse-pointer targets.
+State selectors keep their labels and geometry while the selection underlay moves.
 All ordinary control icons are 16px. Docked search shares the adjacent action
 height. Reduced motion reaches the usable state directly.
 
@@ -161,3 +172,25 @@ and quiet roles. Filter disclosure keyboard navigation retains independent group
 
 Theme selection follows the operating system before paint and on live changes.
 Shared controls do not expose a manual theme override.
+
+## Managed consent notice
+
+`managed-consent.css` adapts the external SDK's attached notice layout. The narrow
+Securiti selectors in `controls.css` apply shared control tokens to the SDK's
+existing elements; those elements retain their managed handlers and persistence.
+A layout-only wrapper groups the original choice nodes without replacing their
+handlers or changing their keyboard order. This is an external-DOM adapter,
+not another React control API or consent form.
+The reference opens the actual managed notice to expose wrapping and equal choice
+geometry, rather than rendering a separate copy. Verify product routes too.
+
+## Media placeholders
+
+`EmptyMedia variant="cover"` fills an existing bounded media frame with a muted
+surface and a centered image glyph. Use it for missing or failed covers; it is
+static and does not imply loading. Keep the accessible destination name on the
+containing link. The mixed-card reference demonstrates this variant alongside
+real media, including matching title and byline placement.
+
+The managed preference center keeps its original close node and handlers. The
+adapter places it in the title row with shared 32/46px bounds and a 16px icon.

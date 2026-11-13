@@ -42,7 +42,7 @@ const useKinds: Record<string, string> = {
 
 export const applicationProperties = { app: "recipes", site: "agora-recipes", environment: "production" } as const
 
-export function analyticsProperties(context: PageContext, name: AnalyticsEvent | "$pageview", properties: Record<string, string | number | boolean> = {}, campaign: Campaign = {}) {
+export function analyticsProperties(context: PageContext, name: AnalyticsEvent | "$pageview" | "campaign_entry", properties: Record<string, string | number | boolean> = {}, campaign: Campaign = {}) {
   const combined = { ...context, ...properties }
   const use = combined.content_slug && useKinds[`${name}:${properties.action}`]
   const engagement = Boolean(combined.source_topic_slug && (use || name === "topic_action_open" || name === "contribution_open" || (name === "content_copy" && context.page_type === "contribute" && properties.action === "prompt")))

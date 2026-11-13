@@ -5,6 +5,7 @@ export const eventActions = {
   content_copy: ["prompt", "guide", "cli_command", "code"],
   share_action: ["copy_link", "native_open", "x_open", "linkedin_open"],
   topic_action_open: ["participate", "questions", "replay", "source"],
+  // Legacy Issue actions remain accepted for older clients; current submissions use pr_instructions.
   contribution_open: ["github_form", "github_issue", "pr_instructions"],
 } as const
 export type AnalyticsEvent = keyof typeof eventActions
@@ -12,6 +13,7 @@ export type EventDimensions = { action: string; placement?: string; locale?: str
 
 export const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_id", "utm_content", "utm_term"] as const
 export type Campaign = Partial<Record<typeof campaignKeys[number], string>>
+const sensitiveText = /https?:|(?:password|secret|token|api[-_ ]?key|authorization)\s*[:=]|\bbearer\s|\b(?:sk[-_]|ph[cp]_|gh[pousr]_|github_pat_)[a-z0-9_-]{8,}|\beyJ[a-z0-9_-]+\.[a-z0-9_-]+/i
 
 // Measure public discovery intent, with bounded text instead of arbitrary inputs.
 // This filters common sensitive patterns; it is not a guarantee of PII detection.
@@ -19,15 +21,25 @@ export function analyticsText(value: unknown, lowercase = false): string | undef
   if (typeof value !== "string") return undefined
   const text = value.normalize("NFKC").trim().replace(/\s+/g, " ")
   if (!text || text.length > 100 || /[\p{Cc}\p{Cf}]/u.test(text) ||
-    /@|https?:|www\.|(?:password|secret|token|api[-_ ]?key|authorization)\s*[:=]|\bbearer\s|\b(?:sk[-_]|ph[cp]_|gh[pousr]_|github_pat_)[a-z0-9_-]{8,}|\beyJ[a-z0-9_-]+\.[a-z0-9_-]+/i.test(text) ||
+    sensitiveText.test(text) || /@|www\./i.test(text) ||
     (lowercase && /(?:\d[\s()+.-]*){7,}/.test(text))) return undefined
   return lowercase ? text.toLowerCase() : text
+}
+
+// Campaign labels retain their original case, punctuation and Unicode. Inspect
+// normalized text only for sensitive patterns; never rewrite the recorded value.
+export function campaignText(value: unknown): string | undefined {
+  if (typeof value !== "string" || !value.trim() || value.length > 100 ||
+    /[\p{Cc}\p{Cf}]/u.test(value) || /\{[^{}]*\}/.test(value)) return undefined
+  const text = value.normalize("NFKC")
+  if (sensitiveText.test(text) || /[^\s@]+@[^\s@]+\.[^\s@]+/u.test(text)) return undefined
+  return value
 }
 
 export function campaignProperties(input: Record<string, unknown>): Campaign {
   const campaign: Campaign = {}
   for (const key of campaignKeys) {
-    const value = analyticsText(input[key])
+    const value = campaignText(input[key])
     if (value) campaign[key] = value
   }
   return campaign

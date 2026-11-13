@@ -8,10 +8,10 @@ import { useI18n } from "./locale-provider"
 import { useCatalogSearch } from "@/hooks/use-catalog-location"
 import { analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, vercelProperties, type AnalyticsEvent, type EventDimensions } from "@/lib/analytics-events"
 import { pageContext, analyticsProperties } from "@/lib/analytics-context"
-import { createAttributionReader } from "@/lib/analytics-attribution"
+import { attributionStore } from "@/lib/browser-attribution"
 import { capturePosthog, syncPosthogConsent } from "@/lib/posthog-client"
 import { analyticsConsent, ga4Consent } from "@/lib/analytics-consent"
-import { basicPageCount, sendBasicCount, type BasicCount } from "@/lib/basic-analytics"
+import { basicCampaignProperties, basicPageCount, basicUsageCount, sendBasicCount, type BasicCount } from "@/lib/basic-analytics"
 import { captureGa4PageView, syncGa4Consent } from "@/lib/ga4-client"
 
 const AnalyticsContext = createContext<{ enabled: boolean; basicEnabled: boolean; productionOrigin: string; topics: readonly string[] }>({ enabled: false, basicEnabled: false, productionOrigin: "", topics: [] })
@@ -19,14 +19,13 @@ const AnalyticsContext = createContext<{ enabled: boolean; basicEnabled: boolean
 // and check the real browser origin when hydration completes.
 const subscribeToOrigin = () => () => {}
 const pendingConsent = () => "pending" as const
-const readCampaign = createAttributionReader(() => window.sessionStorage)
 export const useAnalyticsActive = () => useContext(AnalyticsContext).enabled
 
 export function useBasicAnalytics() {
   const { basicEnabled } = useContext(AnalyticsContext)
   return useCallback((count: BasicCount) => {
     if (!basicEnabled) return false
-    sendBasicCount(count)
+    sendBasicCount({ ...count, ...basicCampaignProperties(window.location.search) })
     return true
   }, [basicEnabled])
 }
@@ -45,19 +44,23 @@ function BasicPageAnalytics() {
 
 export function useAnalytics() {
   const { enabled, productionOrigin, topics } = useContext(AnalyticsContext)
+  const captureBasic = useBasicAnalytics()
   const { locale } = useI18n()
   const pathname = usePathname() ?? "/"
   const search = useCatalogSearch()
   return useCallback((name: AnalyticsEvent, dimensions: EventDimensions) => {
-    if (!enabled || !analyticsConsent.isGranted()) return false
     const context = pageContext(pathname, search, topics)
     const event = createAnalyticsEvent(name, { ...context, ...dimensions, locale })
     if (!event) return false
-    const properties = analyticsProperties(context, event.name, event.properties, readCampaign(window.location.search))
+    const basic = basicUsageCount(pathname, name, event.properties)
+    if (basic) captureBasic(basic)
+    if (!enabled || !analyticsConsent.isGranted()) return false
+    attributionStore.start()
+    const properties = analyticsProperties(context, event.name, event.properties, attributionStore.getSnapshot())
     try { track(event.name, vercelProperties(properties)) } catch { /* Analytics cannot block the visitor action. */ }
     capturePosthog(event.name, { ...properties, $current_url: analyticsUrl(window.location.href) }, productionOrigin)
     return true
-  }, [enabled, productionOrigin, locale, pathname, search, topics])
+  }, [captureBasic, enabled, productionOrigin, locale, pathname, search, topics])
 }
 
 function PageAnalytics() {
@@ -70,8 +73,20 @@ function PageAnalytics() {
     if (previousPath.current === pathname) return
     previousPath.current = pathname
     const context = pageContext(pathname, window.location.search, topics)
-    capturePosthog("$pageview", { ...analyticsProperties(context, "$pageview", {}, readCampaign(window.location.search)), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    attributionStore.start()
+    const entry = attributionStore.takeEntry()
+    if (entry) capturePosthog("campaign_entry", { ...analyticsProperties(context, "campaign_entry", {}, entry), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    capturePosthog("$pageview", { ...analyticsProperties(context, "$pageview", {}, attributionStore.getSnapshot()), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
   }, [pathname, topics, productionOrigin])
+  useEffect(() => {
+    const restored = (event: PageTransitionEvent) => {
+      if (!event.persisted || !analyticsConsent.isGranted()) return
+      const context = pageContext(window.location.pathname, window.location.search, topics)
+      capturePosthog("$pageview", { ...analyticsProperties(context, "$pageview", {}, attributionStore.getSnapshot()), $current_url: analyticsUrl(window.location.href) }, productionOrigin)
+    }
+    window.addEventListener("pageshow", restored)
+    return () => window.removeEventListener("pageshow", restored)
+  }, [topics, productionOrigin])
   return null
 }
 
@@ -109,12 +124,13 @@ export function AnalyticsProvider({ enabled, productionOrigin, topics, children 
   const choice = useSyncExternalStore(analyticsConsent.subscribe, analyticsConsent.getSnapshot, pendingConsent)
   const trafficChoice = useSyncExternalStore(ga4Consent?.subscribe ?? subscribeToOrigin, ga4Consent?.getSnapshot ?? pendingConsent, pendingConsent)
   useEffect(() => {
+    attributionStore.start()
     let previous: string | undefined
     return analyticsConsent.subscribe(() => {
       const next = analyticsConsent.getSnapshot()
       if (next === previous) return
       previous = next
-      if (next !== "granted") { readCampaign.clear(); syncPosthogConsent() }
+      if (next !== "granted") { syncPosthogConsent() }
     })
   }, [])
   useEffect(() => {
@@ -123,5 +139,5 @@ export function AnalyticsProvider({ enabled, productionOrigin, topics, children 
     return ga4Consent.subscribe(syncGa4Consent)
   }, [production])
   const active = production && choice === "granted"
-  return <AnalyticsContext.Provider value={{ enabled: active, basicEnabled: production, productionOrigin, topics }}>{children}{production && <BasicPageAnalytics />}{active && <><PageAnalytics /><LinkAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { if (!analyticsConsent.isGranted()) return null; const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}{production && trafficChoice === "granted" && <TrafficPageAnalytics productionOrigin={productionOrigin} />}</AnalyticsContext.Provider>
+  return <AnalyticsContext.Provider value={{ enabled: active, basicEnabled: production, productionOrigin, topics }}>{children}{production && <><BasicPageAnalytics /><LinkAnalytics /></>}{active && <><PageAnalytics /><Suspense fallback={null}><Analytics beforeSend={event => { if (!analyticsConsent.isGranted()) return null; const url = analyticsUrl(event.url); return url ? { ...event, url } : null }} /></Suspense></>}{production && trafficChoice === "granted" && <TrafficPageAnalytics productionOrigin={productionOrigin} />}</AnalyticsContext.Provider>
 }

@@ -2,6 +2,7 @@ import { pageAlternates } from "@/lib/seo"
 import { StructuredData } from "@/components/structured-data"
 import { breadcrumbSchema, recipeSchema } from "@/lib/structured-data"
 import { siteUrl } from "@/lib/site"
+import { AttributionLink } from "@/components/attribution-link"
 import { Disclosure, DisclosureTrigger, DisclosureContent } from "@/components/ui/disclosure"
 import { socialMetadata } from "@/lib/social"
 import { absoluteUrl } from "@/lib/site"
@@ -87,7 +88,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
   const selected = selectDocument(source, locale, documentLocale)
   if (documentLocale && !selected.document) return <DocumentUnavailable />
   const selectedDocument = selected.document ?? source.recipeDocument
-  const recipe = { ...localizeEntry(source, locale), recipeDocument: selectedDocument, primaryPrompt: buildPrimaryPrompt(source, selectedDocument) }
+  const recipe = { ...localizeEntry(source, locale), recipeDocument: selectedDocument, primaryPrompt: buildPrimaryPrompt(source, selectedDocument, slug) }
   const t = getT(locale)
   const languageName = documentLanguageName(selected.language)
   const options = [
@@ -114,9 +115,9 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <p className="detail-description">{recipe.tagline}</p>
             <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={modified}>{t("Updated")} {new Date(modified.length === 10 ? `${modified}T00:00:00Z` : modified).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
             <div className="detail-actions detail-actions--recipe">
-              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />}
+              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} setup={source.setup} />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
-                {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><a href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></a></IconButton>}
+                {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></AttributionLink></IconButton>}
                 {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
               </ButtonGroup>
               <ShareActions url={absoluteUrl(localePath(`/recipes/${slug}`, locale))} title={recipe.title} />

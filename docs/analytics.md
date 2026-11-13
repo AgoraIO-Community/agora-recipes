@@ -55,15 +55,17 @@ or site account is required.
 
 ### Basic counters: no visitor identity
 
-In canonical production, basic page and search counters run for pending, accepted,
+In canonical production, basic page, search and selected usage counters run for pending, accepted,
 denied, withdrawn, and unavailable consent. There is no visitor control to turn
-this tier off. The privacy banner, settings, and footer disclose that basic
-counts stay enabled; the optional choice never claims to disable them.
+this tier off. The existing footer discloses that basic counts stay enabled.
+The managed popup and corporate policy have not yet been updated to describe
+the expanded anonymous source and usage scope.
 
 The browser sends a small, cookie-free request to the first-party
 `POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
 visitor/session/search ID, accesses no browser storage, and sends no URL,
-account, campaign, consent status, device attributes, or timestamp. A pathname
+account, consent status, device attributes, or timestamp. The three bounded
+campaign fields below retain their original values. A pathname
 navigation counts once; filter changes and optional-consent changes do not add
 another basic page view. A settled nonempty search counts once after 700 ms, or
 before an immediate result open. Optional-consent changes do not recount it.
@@ -78,9 +80,34 @@ origins. A zero-result flag is retained, without the raw query or result list.
 This intentionally cannot reveal new long-tail search phrases; the consenting
 behavioral tier below retains bounded, filtered search terms.
 
+
+The same dispatcher counts Demo opens, actual video playback, successful copies
+of guides, prompts, code and CLI commands, and contribution handoffs. These
+reuse existing success/play triggers. Muted hover previews, failed copies,
+source/video-original links, shares, filters and result-open events do not enter
+this additional anonymous usage vocabulary. One delegated link listener serves
+all consent states; changing consent neither replays nor doubles these counts.
+
+`utm_source`, `utm_medium` and `utm_campaign` describe only the current visible
+URL. New channels and campaigns require no registration or code change. Each
+valid value is preserved, including case, hyphens, dots, domains, spaces and
+Unicode; values are not mapped to `other`. The browser and server use the same
+100-character bound and sensitive-text checks. Controls, unresolved templates,
+email addresses, full URLs and obvious credentials are rejected; these checks
+cannot recognize every possible personal identifier. Campaign publishers must
+not use recipient or visitor identifiers as UTM labels. Each anonymous field is
+independent, so a campaign-only URL still retains its campaign. Repeated
+parameters use their first value, following `URLSearchParams.get`.
+`utm_content`, `utm_term`, `utm_id`, click IDs, complete URLs and referrers never
+enter the anonymous request. Untagged navigation has no retained anonymous
+source.
+This tier measures tagged page/use counts, including reloads, rather than
+unique visitors, exact external clicks or per-entry conversion.
+
 The server forwards only a counter increment, its public dimensions, and its UTC
 date to the existing PostHog destination, using the optional proxy host if set.
-`recipes_basic_count` has `measurement_tier=aggregate`, `count=1`, a timestamp
+`recipes_basic_count` has `measurement_tier=aggregate`, `measurement_version=4`,
+`count=1`, a timestamp
 rounded to UTC midnight, and the same constant `distinct_id=recipes:aggregate`
 for **all** visitors. That required protocol field identifies a shared counter,
 never a person, session, device, or daily fingerprint. Person-profile processing
@@ -114,8 +141,8 @@ Pre-consent actions are not buffered or replayed; the current page and visible
 nonempty search become fresh behavioral measurements when consent is granted.
 Basic counters remain independent and are not duplicated by that transition.
 
-Agora's website uses Securiti, with its `Analytics & Customization` base category
-currently displayed as `Performance`. Production reuses the managed configuration:
+Agora/Securiti is the only consent manager, in development, previews and
+production. Configure the same managed interface with:
 
 ```text
 NEXT_PUBLIC_SECURITI_TENANT_ID=<existing Agora Securiti tenant UUID>
@@ -123,26 +150,22 @@ NEXT_PUBLIC_SECURITI_DOMAIN_ID=<existing Agora Securiti domain configuration UUI
 ```
 
 Do not publish actual configuration identifiers. Environment edits require a
-later build/release; this PR does not activate a production deployment itself.
-The official SDK's public data layer/category APIs control the optional tier;
-functional/advertising consent alone does not grant it. The footer preference
-editor discloses both tiers and opens Agora's managed preference center. Central
-choices can affect other Agora sites. No shared corporate CMP settings are
-rewritten by application code.
+new build/release. The footer opens the managed preference center directly;
+there is no Recipes consent dialog, local fallback manager, or local consent
+record. Old Recipes consent records are ignored. Local previews require CMP
+configuration to exercise the real UI; analytics delivery remains disabled by
+the existing deployment and origin gates. Persistence tests need an HTTPS test
+host covered by the managed cookie domain. A localhost preview cannot persist
+that domain’s cookies.
 
-A CMP that cannot initialize keeps **optional** analytics off and offers retry;
-basic counters remain enabled. Managed product analytics never falls back to an
-earlier local grant. Central choices are checked on focus, while visible, and
-before deliberate actions. Local builds and previews show the local choice UI,
-with analytics delivery disabled by deployment and origin gates.
-
-Without managed configuration, equally prominent **Reject** and **Accept**
-actions apply to the available optional purposes. **Customize** lets visitors
-choose each purpose separately. Each local choice stores a versioned boolean
-and timestamp for 180 days on the Recipes origin. Invalid,
-expired, unknown-version, or future-dated records require another decision.
-Blocked storage keeps an explicit choice for the current document only. Closing
-the editor never grants consent. There is no basic-count off switch.
+Product analytics reads the managed `Analytics & Customization` category,
+currently displayed as `Performance`. Functional or advertising consent does not
+grant analytics. Central choices can affect other Agora sites. The SDK owns all
+choice persistence and preference actions; application code does not rewrite
+shared corporate CMP configuration. A missing, ambiguous, or unavailable managed
+decision keeps optional analytics off. Both adapters refresh from the same live
+record on consent events, visibility/focus changes and while the page is visible.
+SDK failure offers retry, without a second form. Basic counters remain enabled.
 
 Product analytics withdrawal stops the PostHog and Vercel adapters, clears
 campaign state and Recipes SDK persistence, and aborts PostHog delivery while
@@ -158,17 +181,23 @@ visitor copy uses a short purpose/choice explanation.
 
 ### Optional traffic analytics
 
-Set `NEXT_PUBLIC_GA4_MEASUREMENT_ID` to the Recipes web stream's `G-…` measurement
-ID and rebuild to offer **Traffic analytics**. Missing or invalid IDs keep the
-option disabled and skip the Google tag. For controlled page views, disable
-Enhanced Measurement on the Recipes web stream. GA4 can otherwise send automatic
-history and interaction events separately from the application.
+GA4 uses a separate category in the **same Securiti preference center**.
+Before enabling it:
 
-Traffic consent is a separate Recipes browser preference scoped to the
-measurement ID. An earlier product analytics grant, including an Agora managed
-grant, does not authorize traffic analytics. When Agora manages product analytics,
-its preference center handles that purpose and the Recipes dialog saves the
-traffic choice. An unavailable consent manager keeps both optional purposes off.
+1. Add a dedicated, optional, default-off traffic analytics category in the
+   managed configuration with base category `Analytics & Customization`.
+   Keep the existing product analytics category separate.
+2. Set `NEXT_PUBLIC_SECURITI_GA4_CATEGORY` to that category's exact managed name.
+3. Set `NEXT_PUBLIC_GA4_MEASUREMENT_ID` to the Recipes stream's `G-…` measurement
+   ID and rebuild. Disable Enhanced Measurement on that web stream to prevent
+   automatic history or interaction events outside the application's page views.
+
+A missing or invalid measurement ID skips the Google tag entirely. An ID without
+a matching dedicated managed category also cannot start GA4. Overlapping or
+ambiguous category mappings fail closed. A product grant cannot grant traffic
+analytics, and either managed choice can be withdrawn independently. The current
+managed configuration has only the existing product analytics category; adding
+the traffic category is a CMP configuration task, not a local browser fallback.
 
 The production origin loads the tag only after traffic consent. The application
 sends page views with allowlisted campaign parameters, strips other URL query
@@ -179,31 +208,19 @@ consenting traffic only.
 
 ### Consent UI conventions
 
-The first layer states the purpose in one sentence: optional third-party analytics
-to understand site usage. It uses **Reject / Accept / Customize**, with policy
-links in the preference editor. The editor shows **Anonymous statistics** as
-always on and explains **Product analytics**, which gates PostHog and Vercel.
-With Agora's consent manager configured, **Manage preferences** opens the managed
-choice. The footer keeps a short anonymous-statistics notice and a persistent
-preference entry.
+Securiti renders the initial notice and the only preference center. The footer's
+**Privacy settings** action opens that center directly. Keep corporate notice
+copy, policy links, opt-out actions, keyboard handlers and choice persistence
+under the SDK's ownership. Closing a notice or preference center never grants
+consent. The footer continues to disclose the always-on anonymous counters.
 
-Reject and Accept are independent shared outline Buttons with equal widths and
-an 8px gap, each retaining its full border and corners.
-Preferences reuse the registered Checkbox/Label and Dialog Header / Body / Footer
-slots. Only Body scrolls. Keep the responsive dialog gutters and shared control
-targets defined in DESIGN.md; page styles own placement rather than control skins.
-
-These labels follow the three-action pattern documented by
-[CookieYes](https://www.cookieyes.com/documentation/change-the-order-of-buttons/);
-they are not universally prescribed English wording. The
-[CNIL recommendations](https://www.cnil.fr/sites/default/files/2026-01/recommandation_cookies_consolidee.pdf)
-and [OneTrust guidance](https://docs.onetrust.com/en/consent--preferences/cookie-consent/regional-implementation-guidance/noyb-cookie-consent-best-practices-guide)
-support equally accessible accept/reject choices, clear purposes, optional choices
-off by default, and easy withdrawal. Customize only opens the editor; closing it
-does not grant consent. Keep the existing
-[WAI-ARIA dialog keyboard/focus behavior](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
-and the site's 46px phone targets. This copy check does not resolve the separate
-production processing-basis and corporate-policy alignment below.
+The shared managed-notice adapter uses an opaque attached bottom bar, Recipes
+typography and system appearance, separate equal-width accept/reject controls,
+and wrapping text. Desktop controls are 32px; phone/coarse-pointer controls are
+at least 46px. Preserve the SDK's visibility and dismissal styles. The development
+reference opens the real managed notice instead of rendering another version;
+local QA also verifies that same SDK on product routes. A load error offers only
+retry or continued browsing; it cannot collect an alternative consent decision.
 
 ### Release and policy alignment
 
@@ -223,7 +240,8 @@ it. This PR remains unmerged and does not change the corporate policy or CMP.
 ### Basic reports
 
 Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
-`measurement_tier=aggregate`, and `measurement_version=3`. Use **sum of count**:
+`measurement_tier=aggregate`, and `measurement_version=4`. Use **sum of count**:
+Version 3 historical counters cover page/search counts without campaign dimensions.
 
 - Page/content popularity: `metric=page_view`, broken down by `page_type` and
   `content_slug` or `topic_slug`, grouped by `day`.
@@ -231,11 +249,18 @@ Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
   `other` bucket covers unrecognized and filtered text; never infer its wording.
 - Zero-result share: sum of search counts with `zero_results=true` divided by
   the sum of all search counts for the same scope and date range.
+- Traffic sources: `metric=page_view` with campaign fields present, broken down by
+  source, medium and campaign. Missing source does not imply direct traffic.
+- Content use: `metric=material_open, action=demo`, `metric=video_play, action=play`,
+  or `metric=content_copy`, broken down by `content_slug` and `action`.
+- Contribution intent: `metric=contribution_open`, broken down by `action`.
+  A handoff is not a completed submission.
 
 Do not use unique-person/session aggregations on the shared counter identity.
-Do not add basic counts to behavioral page/search totals: consenting traffic is
+Do not add basic counts to behavioral page/search/use totals: consenting traffic is
 already represented in the basic tier. Behavioral funnels, return rates, detailed
-search terms, and UTM attribution cover consenting traffic only. The tiers have
+search terms, and retained full UTM attribution cover consenting traffic only.
+Anonymous campaign fields describe the current URL rather than retained journey attribution. The tiers have
 no per-visitor join key. They can be compared only as aggregate samples, with the
 coverage and counting differences disclosed.
 
@@ -266,8 +291,8 @@ receives manual page views with the same context and campaign dimensions.
 | Use method | `recipe_use_kind`: `demo_open`, `source_open`, `video_open`, `video_play`, `prompt_copy`, `guide_copy`, `cli_copy`, `code_copy`. | Hover previews and failed copying are excluded. |
 | Topic audience | Topic-detail `$pageview` events and distinct visitors, grouped by `topic_slug`. | Topic-directory views and filters are not participation. |
 | Topic engaged visitors / actions | Recipe use, activity links, successful contribution-prompt copies, or contribution handoffs from an explicit source Topic; `is_topic_engagement=true`. | Group by `source_topic_slug`. This is observed engagement, not completed registration. |
-| Contribution preparation | Successful `content_copy:prompt` on the contribution page. | Separate from recipe use and actual Issue creation. |
-| GitHub Issue handoff | `contribution_open:github_form` or `github_issue`. | Opening GitHub does not prove submission. |
+| Contribution preparation | Successful `content_copy:prompt` on the contribution page. | Separate from recipe use and actual PR creation. |
+| Historical Issue handoffs | `contribution_open:github_form` or `github_issue` from earlier clients. | These values remain accepted for compatibility; the current contribution page has no Issue submission actions. |
 | Direct PR guidance | `contribution_open:pr_instructions`. | Opening instructions does not prove a PR was created. |
 | Activity destination opens | `topic_action_open`: `participate`, `questions`, `replay`, or `source`. | External tools own registration/completion. |
 
@@ -315,26 +340,59 @@ https://recipes.agora.io/topics/community-challenge?utm_source=discord&utm_mediu
 | `utm_content` | Creative or link placement | `announcement`, `footer` |
 | `utm_term` | Optional paid keyword | `voice agent` |
 
-Use consistent lowercase names for source, medium, and campaign, and include all
-three on campaign links. Values are case-sensitive, trimmed, whitespace-normalized,
-and limited to 100 characters; common email, URL, and credential patterns are
-excluded. Do not put personal identifiers in campaign labels. No arbitrary query
-parameter or ad click ID is collected. Avoid UTM tags on internal navigation: they
-would create another tagged touch.
+Lowercase English letters, numbers and underscores are a publishing convention,
+not a receiver restriction. All six fields preserve valid original case,
+punctuation, spaces and Unicode. The consented attribution controller requires a
+valid `utm_source`; other fields are optional and never filled from older
+campaigns. Repeated parameters use the first value. The shared `campaignText`
+check rejects unresolved templates, controls, values longer than 100 characters,
+emails, full URLs and common credential patterns before storage, reporting or
+forwarding. Plain domain labels such as `www.bilibili.com` and public handles
+such as `@AgoraIO` are accepted. No
+arbitrary query parameter or ad click ID is collected.
 
-Attribution is the **last explicit tagged touch in the current tab**, stored as
-only these six allowlisted dimensions plus the last measurement timestamp in
-`sessionStorage`. An untagged Topic → recipe → demo/copy/contribution journey
-retains the campaign; a new valid tagged touch replaces the complete campaign
-set, so old `utm_content` or `utm_term` values cannot leak into a new campaign.
-After 30 minutes without a measured page view or action, an untagged visit has no
-campaign attribution. A tagged URL can start it again. Reloads retain it; a
-separate tab normally has its own state (a tab opened with an opener can inherit
-its initial session storage). Blocked storage falls back to document memory.
+Attribution uses one consent-bound document controller in
+`lib/analytics-attribution.ts`, exposed by `lib/browser-attribution.ts` to both
+analytics and `AttributionLink`. Rendering reads a cached snapshot without
+initializing storage or writing `window.name`. Initialization occurs in effects
+or consented action dispatch. Pending or denied consent leaves outbound links
+unchanged. Withdrawal removes campaign storage (`recipes:campaign:v1` and the
+legacy `recipes:utm` key), clears the owned tab marker and memory, and invalidates
+old callbacks. Regrant uses only the then-current URL, without replaying an
+already recorded campaign entry or pre-consent actions.
+
+After consent, a validated external promotion navigation produces one PostHog
+`campaign_entry`; the first PostHog page view and subsequent actions carry the
+same source and `landing_path`. The landing path is a pathname without query or
+fragment. Ordinary internal navigation and reload/history restoration do not
+produce another campaign entry. When no saved source can be recovered, a
+reload/history restoration still reads valid UTM from the current URL for
+subsequent actions and forwarding. There is no inactivity expiry: continuing the
+tab on a later day retains its source while reporting ranges remain independent.
+A new promotion replaces the complete source, including absent fields.
+
+A local random tab marker and per-document ownership state distinguish supported tab
+continuations from inherited sessionStorage. New tabs without evidence of a
+source do not inherit it. BFCache restoration reconciles current storage and the
+current marker before writing. A confirmed BFCache return may adopt the latest
+validated session snapshot even when the browser restores a historical marker.
+It claims a local document owner before emitting events, so a delayed pagehide
+from another document cannot overwrite that claim. Unproven restores drop their
+stale local source. Both resume and delayed pagehide callbacks are
+prevented from overwriting an unproven newer owner. Missing lifecycle events,
+blocked storage and browser-specific marker behavior can prevent recovery;
+unrecoverable sources remain empty. Same-URL activations without new navigation
+evidence cannot be counted as a complete external-click ledger.
+
+Only catalog Demo anchors and the designated footer Console link forward UTM.
+They use the same consented snapshot as events, replace the entire target UTM set,
+and preserve functional query parameters and fragments. Source, share, original
+video and other links are unchanged. `landing_path` is never forwarded. No
+cross-site identity or successful downstream action is implied.
 
 This is event-scoped campaign context, independent of Topic membership and source
 Topic, not an authenticated identity or a cross-device first-touch profile. It
-does not claim to match a provider's session definition. Untagged visits have no
+does not claim to match a provider's session definition. Untagged visits without saved attribution have no
 inferred UTM source; that does not establish that they were direct traffic.
 PostHog's automatic campaign persistence is disabled, and stale SDK campaign
 super-properties are overridden by this shared contract.
@@ -431,14 +489,14 @@ counts; installed code and environment configuration are not evidence of ingesti
    breakdowns. Also confirm direct visits have no inferred source.
 6. Enter a tagged Topic link, navigate to a recipe and contribution, and verify
    the same campaign dimensions. Test an untagged route, reload, new campaign, and
-   30-minute inactivity boundary. Run a normal search, a zero-result search, a
+   continued use beyond 30 minutes without a new campaign entry. Run a normal search, a zero-result search, a
    sensitive-pattern search, and an immediate result click. Confirm matching
    `search_id` on search/open, normalized or redacted terms, and result position.
 7. Confirm local/development/preview visits send no events, including a copy of
    a production build served on localhost and the generated production deployment
    URL. Recheck Vercel collection
    alongside PostHog. Do not mark tracking Issue T5/T9 complete before real ingestion.
-8. Determine actual submissions and publications from GitHub Issues/PRs and release
+8. Determine actual submissions and publications from GitHub PRs and release
    links using the contribution SOP. No webhook, reporting database, or synthetic
    submission is needed for this phase.
 
@@ -451,3 +509,55 @@ References: [PostHog Next.js](https://posthog.com/docs/libraries/next-js),
 [anonymous events](https://posthog.com/docs/libraries/js/usage#anonymous-and-identified-events),
 [UTM traffic-source dimensions](https://support.google.com/analytics/answer/11242870),
 and [Vercel custom-event limits](https://vercel.com/docs/analytics/limits-and-pricing).
+
+## UTM regression verification
+
+Attribution changes preserve behavioral `measurement_version=3` and the separate
+aggregate tier (expanded anonymous counters use version 4),
+search measurements, separate GA4 consent and the existing basic-counter path.
+Full campaign context and `campaign_entry` go to PostHog. Vercel keeps its
+existing two-property action mapping and query-free page URLs; campaign fields
+and the new entry event are not added to Vercel.
+
+SDK initialization clears campaign keys from both ordinary persistence and
+session persistence. Each capture also supplies explicit null placeholders for
+absent campaign keys: SDK property merging skips undefined values, so undefined
+cannot reliably mask historical state. Final validation removes the null
+placeholders before delivery. Neither cleanup changes anonymous identity nor
+requires a new session ID.
+
+Run `node --test scripts/*.test.mjs`, `npm run lint`, `npm run build`, and
+`npx tsc --noEmit`. Tests include consent lifecycle, identical promotion entries,
+cloned tab state, source-only replacements, sensitive keywords, invalid ownership
+and a simulated marker reset before BFCache recovery. The installed PostHog SDK
+is used for an isolated real property-merge regression; network delivery is not
+part of that test. Production ingestion, target-site forwarding/ingestion and
+shared cross-site identity still require separate acceptance evidence.
+
+
+## Anonymous source and usage self-assessment
+
+The implementation reports counter dimensions and bounded campaign labels through the existing
+first-party endpoint and server-side PostHog adapter. It creates no visitor ID,
+per-tab source, browser persistence, fingerprint, exact client timestamp or
+visitor journey in the anonymous tier. Network/access logs are separate from
+these counters and must not be joined to them. The existing concise footer
+notice is retained; this document records the expanded source and event scope.
+Behavioral SDKs and outbound
+source retention remain behind the managed optional product-analytics choice.
+
+These measures minimize the data; they do not by themselves establish a legal
+consent exemption. The [EDPB technical-scope guidance](https://www.edpb.europa.eu/system/files/documents/2024-10/edpb_guidelines_202302_technical_scope_art_53_eprivacydirective_v2_en_0.pdf)
+includes URL tracking. The [ICO statistical-purpose guidance](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/what-are-the-exceptions/)
+allows some aggregate traffic-source measurement for service improvement,
+requires clear information and a simple, free means to object, and excludes
+online-advertising purposes. [CNIL's self-assessment resources](https://www.cnil.fr/fr/cookies-solutions-pour-les-outils-de-mesure-daudience)
+cover the conditions for an audience-measurement exemption.
+
+Before production release, record the applicable jurisdictions and purposes,
+align the managed notice and policy with this expanded collection, and resolve
+any required objection mechanism. The existing always-on baseline has no
+anonymous-counter opt-out. Advertising optimization, per-recipient email links,
+individual conversion tracking and cross-site matching are outside this
+anonymous implementation. No corporate policy, CMP configuration, data-processing
+agreement or deployment is changed by this code update.
