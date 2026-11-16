@@ -63,6 +63,7 @@ export function DesignSystemShowcase({ cardExamples }: { cardExamples: RecipeSum
     </section>
 
     <section aria-labelledby="ds-recipe-cards"><h2 id="ds-recipe-cards">Recipe cards and cover actions</h2><p>Actual cards with missing media, video, and live Demo destinations. Video posters open the on-site player; Open demo is a separate action. Demo-only covers open Demo, and titles open details.</p>
+      <div className="ds-row"><Badge variant="announcement" shape="ribbon">FEATURED</Badge><Badge>Popular Use Cases</Badge></div>
       <div className="showcase-grid" data-reference="recipe-cards">{cardExamples.map(recipe => <RecipeCard key={recipe.slug} recipe={recipe} />)}</div>
     </section>
 

@@ -86,6 +86,7 @@ function RecipeCover({ recipe, title, href }: { recipe: RecipeSummary; title: st
     {media?.videoUrl && <span className="recipe-cover__play" aria-hidden="true"><span className="recipe-cover__play-control"><GlassSurface material="liquid" className="ag-floating-control recipe-cover__play-material" /><Play fill="currentColor" className="recipe-cover__play-icon" /><span className="recipe-cover__play-caption"><Play fill="currentColor" /><span>{t("Watch video")}</span></span></span></span>}
   </div>
   return <div className="recipe-cover-frame" data-has-demo={Boolean(recipe.demoUrl) || undefined} onPointerEnter={startPreview} onPointerLeave={stopPreview} onPointerDown={stopPreview} onClick={stopPreview}>
+    {recipe.isPicked && <Badge variant="announcement" shape="ribbon" className="recipe-cover__pick">FEATURED</Badge>}
     {media?.videoUrl ? <DialogTrigger asChild><button type="button" className="recipe-cover-link" data-cover-action="video" aria-label={t("Watch {title} video", { title })}>{cover}</button></DialogTrigger> : recipe.demoUrl ? <AttributionLink href={recipe.demoUrl} className="recipe-cover-link" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}>{cover}</AttributionLink> : <Link prefetch={false} href={href} className="recipe-cover-link" aria-label={t("Open {title} recipe", { title })}>{cover}</Link>}
     {media?.videoUrl && recipe.demoUrl && <AttributionLink href={recipe.demoUrl} className="recipe-cover__demo-action" data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}><Badge className="ag-overlay">{t("Open demo")}</Badge></AttributionLink>}
   </div>
@@ -103,7 +104,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
     {recipe.demoUrl && <Button asChild variant="link" size="sm" className="recipe-demo-link"><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}><span className="recipe-demo-link__full">{t("Try demo")}</span><span className="recipe-demo-link__compact">{t("Demo")}</span></AttributionLink></Button>}
   </ButtonGroup>
 
-  const technology = <div className="recipe-technologies" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-technologies__difficulty">{t(recipe.difficulty)}</span>}</div>
+  const technology = <div className="recipe-technologies" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-technologies__difficulty">{t(recipe.difficulty)}</span>}{compact && recipe.isPopularUseCase && <Badge>Popular Use Cases</Badge>}</div>
 
   if (compact) return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className="recipe-result" data-recipe-slug={recipe.slug} data-compact>
@@ -124,8 +125,8 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
           <h3><span>{title}</span></h3>
           <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p>
         </Link>
-        {!featured && technology}
-        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{featured && label && <Badge>{t(label)}</Badge>}{previewActions}</div>
+        {(!featured || recipe.isPopularUseCase) && technology}
+        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{recipe.isPopularUseCase ? <Badge>Popular Use Cases</Badge> : featured && label && <Badge>{t(label)}</Badge>}{previewActions}</div>
       </div>
     </article>
   </RecipeVideoDialog>

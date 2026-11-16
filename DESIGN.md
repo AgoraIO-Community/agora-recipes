@@ -214,6 +214,8 @@ titles, navigation, buttons, and cards. Use size and spacing for hierarchy;
 reserve semibold for emphasis inside authored reading content. Do not reintroduce
 semibold interface labels when adding controls.
 Monospace is reserved for code and commands.
+The editorial FEATURED ribbon is the label exception: use weight 600 for its
+small diagonal text, with a solid coral fill and white ink in both appearances.
 Generated recipe posters use Jokker Bold, matching the share image; it is not an
 interface face.
 
@@ -490,7 +492,8 @@ extra introduction. Do not crop out essential content by zooming media on hover.
 Titles stay stationary; feedback uses the existing border and underline.
 Collection art can use a clear #Topic identity; it does not act as a technical
 tag. Keep the hackathon organizer poster and the adapted official iRTE2026 art.
-Recipe cards still contain no Topic names or membership badges. Activities shows
+Recipe cards expose only the Popular Use Cases collection label as metadata.
+Other Topic names and memberships stay off content cards. Activities shows
 ongoing and upcoming activities; Past activities shows completed activities only.
 All includes both groups and collections.
 
@@ -649,7 +652,8 @@ heading, with full option labels in the menu and the actual source language belo
   returns to idle after 2.5 seconds; failures remain available for retry.
 - Topic directory cards have one full-area link with a title-based accessible
   name. Keep every card and icon stationary; color, border, and underline carry
-  hover/focus feedback. Content cards still never carry Topic membership.
+  hover/focus feedback. Content cards show Popular Use Cases membership as a
+  noninteractive metadata label; other Topic memberships stay off content cards.
 - Contributions pair the AI PR prompt with the PR guide in one action row on
   desktop and one sequence on phones. Keep public-submission guidance visible,
   keep the prompt in a disclosure, and omit the footer's repeated submission
@@ -664,5 +668,6 @@ Do not commit during IME composition or restore old scroll snapshots while typin
 Show pending and failed guide-index states honestly; keep metadata search usable
 with a retry action. Guide-only matches can use two lines of attributed source
 excerpt within the selected card or result row. A sole compact phone result spans the
-available row and allows four excerpt lines; multiple results keep two columns. Topic search terms do not add membership
-badges or links to content cards.
+available row and allows four excerpt lines; multiple results keep two columns.
+Topic search terms do not themselves add badges or links to content cards;
+the Popular Use Cases label comes from explicit collection membership.

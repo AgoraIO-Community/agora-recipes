@@ -206,6 +206,7 @@
 .catalog-cards { display: grid; gap: 24px; }
 .showcase-card { display: flex; flex-direction: column; min-width: 0; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-surface); background: var(--card); transition: border-color var(--motion-control); }
 .recipe-cover-frame { position: relative; border-radius: 10px; }
+.recipe-cover__pick { position: absolute; top: -4px; right: -4px; z-index: 1; pointer-events: none; }
 .recipe-cover-link { position: relative; display: block; width: 100%; border-radius: inherit; text-align: left; }
 .recipe-cover { position: relative; aspect-ratio: 16/8.4; max-height: 240px; overflow: hidden; border-radius: inherit; color: var(--foreground); background: var(--secondary); }
 .recipe-cover::after, .detail-preview__cover::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--control-glass-edge); border-radius: inherit; pointer-events: none; }

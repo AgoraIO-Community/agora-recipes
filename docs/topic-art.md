@@ -75,12 +75,13 @@ Edit the provided official iRTE2026 conference poster. Preserve the original bla
 ```
 
 
-## Top-10 covers and membership
+## Popular Use Cases cover and membership
 
-The `top-10` collection follows the owner's ten supplied Community repositories
-and Demo URLs. Membership is explicit in `content/topics/top-10/topic.json`.
-Its directory card uses the existing branded fallback until a collection cover
-is supplied.
+The `popular-use-cases` collection follows the owner's supplied Community repositories
+and Demo URLs. Membership is explicit in `content/topics/popular-use-cases/topic.json`.
+Its directory card uses `public/topics/popular-use-cases-pixel-town.png`, preserving
+the town illustration with a new pixel-lettered Popular Use Cases title. The old
+collection route was retired without a redirect.
 
 The ten covers are owner-supplied ASCII illustrations received on 2026-11-11.
 They are theme artwork, not screenshots or recordings of running demos. Each

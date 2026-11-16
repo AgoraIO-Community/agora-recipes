@@ -186,6 +186,13 @@ geometry, rather than rendering a separate copy. Verify product routes too.
 
 ## Media placeholders
 
+`Badge variant="announcement"` uses a solid coral fill and contrasting white ink for
+editor-selected Featured cover labels. `shape="ribbon"` creates a static 45-degree
+corner ribbon with semibold (600) label weight, dark folded ends, reduced geometry on phones and no pointer
+interaction. Cover ribbons sit at the upper-right of the media frame. The recipe-card
+reference includes announcement and series badges together. `picked: true` in the
+recommendation list identifies editorial selections without a date-based expiry.
+
 `RecipeGeneratedCover` fills an existing bounded cover frame when a recipe has no
 usable image, sets `media.generatedCover`, or its image fails. It draws a poster
 from recipe metadata in one of three layouts chosen by a stable hash of the slug.

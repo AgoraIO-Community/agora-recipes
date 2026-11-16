@@ -23,6 +23,8 @@ export type RecipeSummary = Omit<RecipeMeta, "cli"> & {
   slug: string
   showcase?: Showcase
   recommendedOrder?: number
+  isPopularUseCase?: boolean
+  isPicked?: boolean
   githubStars?: number
   searchTerms?: string[]
   guideSearchText?: string
