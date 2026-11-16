@@ -1,7 +1,7 @@
 {
   "title": "Travel Booking Assistant",
   "tagline": "Plan a Bar Harbor trip and compare fictional hotels by voice.",
-  "description": "Discuss a Bar Harbor or Acadia trip, compare airport options and fictional hotels, then review a simulated booking. No real travel reservations or payments are made.",
+  "description": "A voice AI travel booking agent built with Next.js and Agora Conversational AI that plans a trip, compares airports and hotels, and reviews a booking by voice. The demo covers a Bar Harbor or Acadia trip with fictional hotels and a simulated booking. No real travel reservations or payments are made.",
   "tags": [
     "voice-ai"
   ],

@@ -1,7 +1,7 @@
 {
   "title": "Mandarin Speaking Coach",
   "tagline": "Practice Mandarin with English guidance and written pinyin.",
-  "description": "Practice short Mandarin role-plays and review vocabulary or grammar feedback based on recognized text. Includes written pinyin and English explanations, without pronunciation scoring or saved learning records.",
+  "description": "A voice AI Mandarin speaking coach built with Next.js and Agora Conversational AI for short role-plays with vocabulary and grammar feedback on what you said. Feedback is based on recognized text and includes written pinyin and English explanations, without pronunciation scoring or saved learning records.",
   "tags": [
     "voice-ai"
   ],

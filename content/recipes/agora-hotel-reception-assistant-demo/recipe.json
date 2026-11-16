@@ -1,7 +1,7 @@
 {
   "title": "Hotel Reception Assistant",
   "tagline": "Compare rooms and plan a simulated hotel stay by voice.",
-  "description": "Explore a fictional Boston hotel, compare rooms and review demo prices before confirming a simulated stay. The conversation does not create a real reservation or save booking records.",
+  "description": "A voice AI hotel receptionist built with Next.js and Agora Conversational AI that answers guest questions, compares rooms and reviews demo prices by voice. The hotel is a fictional Boston property, and the stay you confirm is simulated: the conversation does not create a real reservation or save booking records.",
   "tags": [
     "voice-ai"
   ],

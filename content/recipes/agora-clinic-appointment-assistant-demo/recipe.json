@@ -1,7 +1,7 @@
 {
   "title": "Clinic Appointment Assistant",
   "tagline": "Ask clinic questions and prepare your visit by voice.",
-  "description": "Ask about a fictional clinic, discuss preferred visit times and prepare questions for staff. This conversation-only demo does not book appointments or access patient records.",
+  "description": "A voice AI clinic receptionist built with Next.js and Agora Conversational AI that answers questions, discusses visit times and helps you prepare for a visit. The clinic is fictional, and this conversation-only demo does not book appointments or access patient records.",
   "tags": [
     "voice-ai"
   ],

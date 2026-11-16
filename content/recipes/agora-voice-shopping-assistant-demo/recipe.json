@@ -1,7 +1,7 @@
 {
   "title": "Voice Shopping Assistant",
   "tagline": "Find and compare Shopify products through a voice conversation.",
-  "description": "Search live Shopify Global Catalog listings by voice, compare products against a budget and visit merchant websites. Product discovery is read-only; the demo does not change carts, place orders or collect payments.",
+  "description": "A voice AI shopping assistant built with Next.js and Agora Conversational AI that searches live Shopify listings and compares products against your budget. You can visit merchant websites from the results. Product discovery is read-only; the demo does not change carts, place orders or collect payments.",
   "tags": [
     "voice-ai"
   ],
