@@ -1,7 +1,7 @@
 {
   "title": "Recruitment Screening Assistant",
   "tagline": "Practice a Support Engineer screening interview by voice.",
-  "description": "Answer role-specific questions, discuss incident evidence and request a verbal interview recap. This practice conversation does not submit applications or make hiring decisions.",
+  "description": "A voice AI recruitment screening agent built with Next.js and Agora Conversational AI that runs a practice Support Engineer interview and gives a verbal recap. It asks role-specific questions and discusses incident evidence. This practice conversation does not submit applications or make hiring decisions.",
   "tags": [
     "voice-ai"
   ],
@@ -22,7 +22,7 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/blob/main/RECIPE.md",
   "demoUrl": "https://agora-recruitment-screening-assista.vercel.app/",
   "author": "Agora",
-  "updated": "2026-11-12",
+  "updated": "2026-11-16",
   "difficulty": "Intermediate",
   "media": {
     "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-recruitment-screening-assistant-demo/main/docs/recipe-cover.webp",

@@ -39,5 +39,17 @@
     {
       "slug": "agora-voice-shopping-assistant-demo"
     }
+  ],
+  "sections": [
+    {
+      "title": "What you can build",
+      "language": "en",
+      "body": "Ten voice AI agent demos, one for each common business scenario: customer support, hotel reception, travel booking, course consultation, clinic appointments, language coaching, recruitment screening, event reminders, feedback surveys and voice shopping. Each has a live demo you can talk to, a source repository and an implementation guide. Bookings and other outcomes in the demos are simulated."
+    },
+    {
+      "title": "How the demos work",
+      "language": "en",
+      "body": "Every demo is a Next.js and TypeScript app built on Agora Conversational AI. The browser uses Agora RTC for audio and RTM for live transcripts, while server routes sign tokens and start or stop the managed voice agent. Each recipe page gives you a prompt for a coding agent such as Codex, Cursor or Claude Code, and an Agora CLI command that sets up the recipe with your own Agora project."
+    }
   ]
 }
