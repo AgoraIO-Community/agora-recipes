@@ -1,5 +1,5 @@
 import { StructuredData } from "@/components/structured-data"
-import { breadcrumbSchema } from "@/lib/structured-data"
+import { breadcrumbSchema, directorySchema } from "@/lib/structured-data"
 import { siteUrl } from "@/lib/site"
 import { pageAlternates } from "@/lib/seo"
 import { socialMetadata } from "@/lib/social"
@@ -35,6 +35,7 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   const entries = topic.members.map((member, index) => ({ ...allEntries.find(entry => entry.slug === member.slug)!, recommendedOrder: index }))
   const awards = topic.members.filter(member => member.award)
   return <article className="recipe-detail topic-detail">
+    <StructuredData value={directorySchema(siteUrl.href, localePath(`/topics/${slug}`, locale), t(topic.title), entries.map(entry => ({ title: entry.title, path: localePath(`/recipes/${entry.slug}`, locale) })))} />
     <StructuredData value={breadcrumbSchema(siteUrl.href, [{ name: t("Recipes"), path: localePath("/", locale) }, { name: t("Topics"), path: localePath("/topics", locale) }, { name: t(topic.title), path: localePath(`/topics/${slug}`, locale) }])} />
     <header className="detail-hero"><div className="shell">
       <Button asChild variant="ghost" size="sm" edge wrap className="detail-back"><Link href={localePath("/topics", locale)}><ArrowLeft aria-hidden="true" />{t("All Topics")}</Link></Button>

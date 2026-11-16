@@ -1,4 +1,5 @@
 import { pageAlternates } from "@/lib/seo"
+import { metaDescription } from "@/lib/meta-description"
 import { StructuredData } from "@/components/structured-data"
 import { breadcrumbSchema, recipeSchema } from "@/lib/structured-data"
 import { siteUrl } from "@/lib/site"
@@ -56,12 +57,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const selected = selectDocument(source, locale, documentLocale).document
   const unavailable = Boolean(documentLocale && !selected)
   const markdownUrl = selected && selected.rawUrl !== source.recipeDocument.rawUrl ? selected.rawUrl : `/recipes/${slug}/index.md`
+  const description = metaDescription(recipe.description || recipe.tagline)
   return {
     title: unavailable ? t("This guide version is unavailable") : recipe.title,
-    description: recipe.tagline,
+    description,
     ...(unavailable ? { robots: { index: false, follow: true } } : {}),
     alternates: pageAlternates(`/recipes/${slug}`, locale, recipe.recipeUrl && !unavailable ? markdownUrl : undefined),
-    ...socialMetadata({ title: recipe.title, description: recipe.tagline, path: localePath(`/recipes/${slug}`, locale), locale, image: recipe.media?.thumbnail, type: "article" }),
+    ...socialMetadata({ title: recipe.title, description, path: localePath(`/recipes/${slug}`, locale), locale, image: recipe.media?.thumbnail, type: "article" }),
   }
 }
 
