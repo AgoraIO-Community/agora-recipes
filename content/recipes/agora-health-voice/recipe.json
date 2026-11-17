@@ -1,0 +1,30 @@
+{
+  "title": "Agora Health Voice",
+  "tagline": "Explore voice access to health and fitness data through reusable provider adapters.",
+  "description": "Ask about sleep, heart rate, steps, distance and recent activities through authenticated tool calls. This TypeScript reference implementation pairs Agora Conversational AI Main v2, ARES STT, Agora-managed GPT-4o-mini and Murf Falcon TTS with a shared health-data provider interface: synthetic data is the default and powers the demo, and Garmin Personal API is the first validated live reference integration.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript",
+    "Web"
+  ],
+  "useCases": [
+    "Health & Wellness",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Tool Calling"
+  ],
+  "author": "Ranga Jagannath",
+  "updated": "2026-11-17",
+  "media": {
+    "videoUrl": "https://youtube.com/shorts/HLOF4W91mVI",
+    "demoNote": "Recorded demo uses synthetic data. Running voice sessions requires Node.js 24+, Agora Conversational AI Main v2 access, Murf credentials and an HTTPS callback origin. Garmin credentials are needed only for the optional live provider."
+  },
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-health-voice",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-health-voice/blob/main/README.md",
+  "difficulty": "Intermediate"
+}
