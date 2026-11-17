@@ -115,7 +115,6 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <p className="detail-description">{recipe.tagline}</p>
             <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={modified}>{t("Updated")} {new Date(modified.length === 10 ? `${modified}T00:00:00Z` : modified).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
             <div className="detail-actions detail-actions--recipe">
-              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} setup={source.setup} />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
                 {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></AttributionLink></IconButton>}
                 {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
@@ -129,6 +128,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
     </header>
     <div className="shell detail-layout">
       <div className="detail-main">{recipe.recipeUrl ? <>
+        <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} />
         <section id="recipe-markdown-heading" aria-labelledby="recipe-guide-heading" className="recipe-guide">
           <h2 id="recipe-guide-heading" className="sr-only">{t("Implementation guide")}</h2>
           {sections.length > 0 && <Disclosure className="mobile-guide-outline"><DisclosureTrigger>{t("In this guide")}</DisclosureTrigger><DisclosureContent asChild><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></DisclosureContent></Disclosure>}

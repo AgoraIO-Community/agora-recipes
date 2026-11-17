@@ -104,7 +104,7 @@ export function DesignSystemShowcase({ cardExamples }: { cardExamples: RecipeSum
 
     <section aria-labelledby="ds-reader"><h2 id="ds-reader">Reader and document tools</h2><p>The actual reader, prompt actions and shared disclosure used on recipe pages.</p>
       <div className="ds-row"><RecipeStartActions prompt="Use the recipe materials to build your project." command="agora init example --recipe example" /><ShareActions url="https://github.com/AgoraIO-Community/agora-recipes" title="Recipes example" /></div>
-      <div className="ds-row"><RecipeStartActions prompt={buildRecipePrompt(shoppingRecipe, { rawUrl: "https://raw.githubusercontent.com/AgoraIO-Community/agora-voice-shopping-assistant-demo/main/RECIPE.md" }, shoppingRecipe.setup.packageName)} setup={shoppingRecipe.setup} /></div>
+      <div className="ds-row"><RecipeStartActions prompt={buildRecipePrompt(shoppingRecipe, { rawUrl: "https://raw.githubusercontent.com/AgoraIO-Community/agora-voice-shopping-assistant-demo/main/RECIPE.md" }, shoppingRecipe.setup.packageName)} /></div>
       <RecipeDocument markdown="# Example recipe\n\nUse the guide or copy its Markdown." sourceUrl="https://github.com/AgoraIO-Community/agora-recipes/blob/staging/README.md"><div className="prose-recipe"><p>A reading plane with the same control bar as the real recipe.</p><CodePanel code="agora --help" label="Shell" /><Disclosure><DisclosureTrigger meta="2">Requirements and setup</DisclosureTrigger><DisclosureContent>Bring your project and a public repository.</DisclosureContent></Disclosure></div></RecipeDocument>
     </section>
 
