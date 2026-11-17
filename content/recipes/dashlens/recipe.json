@@ -9,7 +9,7 @@
   "mainRepoUrl": "https://github.com/shubhh00/DashLens",
   "recipeUrl": "https://github.com/shubhh00/DashLens/blob/main/docs/ai/RECIPE.md",
   "author": "Shubh Singh",
-  "updated": "2026-10-27",
+  "updated": "2026-11-17",
   "difficulty": "Intermediate",
   "cli": {
     "projectType": "android",
@@ -19,5 +19,17 @@
       "appIdKey": "AGORA_APP_ID",
       "appCertificateKey": "AGORA_APP_CERTIFICATE"
     }
+  },
+  "media": {
+    "title": "DashLens",
+    "compactTitle": "DashLens",
+    "summary": "Point your phone at the dashboard and ask what a light means. A vision voice agent answers from your car's own owner's manual and shows the roadside helpline when it's urgent.",
+    "compactSummary": "Ask your dashboard what that light means.",
+    "thumbnail": "/recipes/dashlens.jpg",
+    "thumbnailAlt": "DashLens on an Android phone: a red engine temperature warning on the camera view, a red stop card with the roadside helpline, and the agent's spoken answer as a caption",
+    "thumbnailSource": "https://github.com/user-attachments/assets/80ff3018-fe69-4890-bcfa-a65cb56e0650",
+    "demoNote": "Android app with a FastAPI server. Microphone and camera needed; requires your own Agora project and the server reachable over HTTPS.",
+    "labels": ["Android", "Vision"],
+    "searchTerms": ["car", "dashboard", "warning light", "owner's manual", "automotive", "vision", "camera", "android", "tool calling", "roadside assistance"]
   }
 }
