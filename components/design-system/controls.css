@@ -213,6 +213,17 @@
   .ag-badge-danger { color: var(--destructive); background: var(--destructive-surface); }
   .ag-badge-link { color: var(--signal-text); }
   .ag-badge-ghost { color: var(--muted-foreground); }
+  .ag-badge-announcement { color: var(--badge-announcement-ink,#ffffff); background: var(--badge-announcement-fill,#ce3f50); }
+  .ag-corner-ribbon { position: relative; display: block; flex: none; width: 84px; height: 84px; overflow: hidden; pointer-events: none; }
+  .ag-corner-ribbon .ag-badge-ribbon { position: absolute; display: block; top: 16px; left: -7px; width: 120px; max-width: none; min-height: 24px; padding: 3px 0; border: 0; border-radius: 0; font-weight: 600; line-height: 18px; text-align: center; transform: rotate(45deg); }
+  .ag-corner-ribbon::before, .ag-corner-ribbon::after { content: ""; position: absolute; background: color-mix(in srgb,var(--badge-announcement-fill,#ce3f50) 55%,#000); }
+  .ag-corner-ribbon::before { top: 0; left: 4px; width: 8px; height: 4px; clip-path: polygon(100% 0,100% 100%,0 100%); }
+  .ag-corner-ribbon::after { right: 0; bottom: 4px; width: 4px; height: 8px; clip-path: polygon(0 0,100% 0,0 100%); }
+  @media (max-width: 640px) {
+    .ag-corner-ribbon { width: 62px; height: 62px; }
+    .ag-corner-ribbon::before { left: 0; }
+    .ag-corner-ribbon .ag-badge-ribbon { top: 11px; left: -10px; width: 96px; min-height: 20px; padding: 1px 0; font-size: 10px; }
+  }
   .ag-overlay { color: #fcf9f8; background: rgb(10 12 14 / .9); border-color: rgb(255 255 255 / .18); }
   .ag-surface-solid, .ag-reading-plane { color: var(--foreground); background: var(--popover); border: 1px solid var(--border); border-radius: 10px; }
   .ag-selection-group { position: relative; isolation: isolate; }

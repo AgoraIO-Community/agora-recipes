@@ -136,7 +136,7 @@ until the visitor opens the dialog.
 
 Recommendation order is editorial. Prioritize usable materials, clear access requirements, useful guides, and a mix of use cases and platforms. Language alone does not determine the order. Do not describe editorial recommendations as popularity rankings without verified analytics.
 
-`content/showcase.json` contains only an ordered list of recommended `{ "slug": "..." }` references. Removing a recommendation does not remove its media or catalog entry. Do not duplicate media fields there. Content cards do not show Topic membership. Existing `?topic=` quick filters are catalog filters; they do not create curated Topics.
+`content/showcase.json` contains an ordered list of recommended `{ "slug": "..." }` references with optional `"picked": true` for persistent editorial FEATURED ribbons. Removing a recommendation does not remove its media or catalog entry. Do not duplicate media fields there. Content cards show only Popular Use Cases membership, linking to the localized collection page. Existing `?topic=` quick filters are catalog filters; they do not create curated Topics.
 
 ## Website Languages
 
@@ -189,7 +189,7 @@ catalog contribution cannot become a Topic member until it enters the catalog.
 
 Awards belong to a member within a specific activity edition, with a label and public `sourceUrl`. Label author-reported credit clearly; do not present it as an organizer-confirmed result. Keep completed activity pages and their materials. Registration, questions, and replays remain on existing external tools.
 
-Review Topic membership in the catalog PR. A Topic contribution link includes the existing Topic reference in the AI prompt for the catalog PR; it does not publish or create membership automatically. Content cards contain no Topic membership, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.
+Review Topic membership in the catalog PR. A Topic contribution link includes the existing Topic reference in the AI prompt for the catalog PR; it does not publish or create membership automatically. Content cards show only Popular Use Cases membership, linking to the localized collection page, including inside Topic lists. Associations appear on detail pages, and source-list return links preserve the Topic, filters, locale, expansion, and available scroll position.
 
 ## Catalog Search
 
@@ -255,7 +255,7 @@ After building, start the site and run `node scripts/check-llm-discovery.mjs htt
 - Each supplied material opens a real public destination.
 - Guide-relative links resolve from that guide's folder.
 - Original author credit and submissions remain intact.
-- Unavailable materials are omitted; content cards contain no Topic membership.
+- Unavailable materials are omitted; content cards link only Popular Use Cases membership to the localized collection page.
 - `npm run build` succeeds, plus lint and type checks for code changes.
 - The PR targets upstream `staging`, with an English title and description.
 - The description links the related implementation or Demo and lists verification commands.

@@ -53,6 +53,14 @@ test('default catalog includes every recipe with curated recommendations first',
   assert.deepEqual(results.slice(0, curated.length).map(recipe => recipe.slug), curated.map(entry => entry.slug))
   assert.ok(results.slice(curated.length).every(recipe => recipe.recommendedOrder === undefined))
 })
+test('Shopping and Support occupy the third and fourth recommendations in both catalog views', () => {
+  for (const view of ['cards', 'list']) {
+    assert.deepEqual(discoverRecipes(recipes, { ...defaultFilters, view }).slice(2, 4).map(recipe => recipe.slug), [
+      'agora-voice-shopping-assistant-demo',
+      'agora-customer-support-assistant-demo',
+    ])
+  }
+})
 test('list/card preference survives filtering, sorting, and shared URLs independently', () => {
   for (const sort of ['recommended', 'updated', 'title', 'stars']) {
     for (const view of ['cards', 'list']) {
@@ -114,12 +122,21 @@ test('explicit date and alphabetical sorts override pinned order', () => {
   const dates = search('', { sort: 'updated' }).map(recipe => recipe.updated)
   assert.deepEqual(dates, [...dates].sort().reverse())
 })
-test('all curated assets refer to known unique recipes, local posters, and canonical HTTPS media', () => {
+test('all curated assets refer to known unique recipes, local or HTTPS posters, and canonical HTTPS media', () => {
   assert.equal(new Set(curated.map(entry => entry.slug)).size, curated.length)
   for (const recommendation of curated) {
     const entry = { slug: recommendation.slug, ...recipes.find(recipe => recipe.slug === recommendation.slug).media }
     assert.ok(recipes.some(recipe => recipe.slug === entry.slug))
-    assert.ok(readFileSync(new URL(`../public${entry.thumbnail}`, import.meta.url)).length < 150_000)
+    if (entry.thumbnail.startsWith('/')) {
+      assert.ok(readFileSync(new URL(`../public${entry.thumbnail}`, import.meta.url)).length < 150_000)
+    } else {
+      const thumbnail = new URL(entry.thumbnail)
+      assert.equal(thumbnail.protocol, 'https:')
+      assert.equal(thumbnail.username, '')
+      assert.equal(thumbnail.password, '')
+      assert.equal(thumbnail.search, '')
+      assert.equal(new URL(entry.thumbnailSource).protocol, 'https:')
+    }
     for (const url of [entry.demoUrl, entry.videoUrl].filter(Boolean)) {
       assert.equal(new URL(url).protocol, 'https:')
       assert.equal(new URL(url).search, '')
