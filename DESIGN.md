@@ -501,10 +501,11 @@ All includes both groups and collections.
 
 Lead with the outcome, technology, author, and available Demo, GitHub and Share
 actions. Keep author, difficulty, and update date together in the hero metadata.
-Above the guide, show the Agora CLI initialization command in a CodePanel only
-when CLI metadata is present, with its adjacent command-copy action. Keep one
-labeled Copy prompt action in this area. Recipes without CLI support omit the
-command; neither layout uses setup tabs or a header prompt-copy shortcut.
+In the header action row, show the Agora CLI initialization command in an inline
+CodePanel to the left of GitHub and Share, with its adjacent command-copy action.
+Recipes without CLI support omit the command. Neither layout uses setup tabs or
+an extra prompt-copy button; retain the reader's existing Copy Markdown action.
+On phones, place the preview above the title and hide the tagline and media note.
 Keep existing CLI and setup metadata intact for prompt generation and API consumers.
 
 Inside the shared page shell, the desktop guide uses a 216px left contents rail

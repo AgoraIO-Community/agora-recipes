@@ -56,6 +56,8 @@ edges, long labels, field pickers and directory rows. InputGroup's search size
 owns hero search geometry. Tooltip adapters preserve the target's own slot and
 state attributes. Native Disclosure slots own host summary controls, including
 reader metadata, diagram source, filters and contribution disclosures.
+The inline CodePanel variant keeps a single-line command and its copy action
+together in a toolbar; long commands scroll within the code column.
 The embedded CodePanel variant belongs in a floating panel Body and delegates
 scrolling to that body. Its copy action sits beside the code at the top right,
 without a separate header or repeated label. A dedicated grid column keeps the
