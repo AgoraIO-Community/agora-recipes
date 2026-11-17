@@ -499,21 +499,15 @@ All includes both groups and collections.
 
 ## Recipe pages and reading
 
-Lead with the outcome, technology, author, and Copy recipe prompt action. Demo
-and source actions follow in priority. Use actual preview media and truthful
-setup requirements. The prompt copy action and its setup chevron form one primary split button.
-Keep author, difficulty, and update date together in the hero metadata; do not
-repeat them in a second About panel beside the same guide.
-The chevron opens a bounded Popover containing the prompt and, when supported,
-an Agora CLI tab. Top-10 recipes with setup metadata instead use an English
-Start building panel with AI Assistant and Manual Setup tabs. The AI prompt
-directs the coding assistant through recipe discovery, project confirmation,
-CLI initialization and the returned installation/start steps. Manual Setup
-shows versioned npm creation, credential configuration, installation and a
-scenario-specific voice test only for an available package; otherwise show a
-clear availability message directing users to AI Assistant. Keep existing CLI
-metadata intact for API consumers. Keep the complete GlassSurface with opaque code planes; do
-not add a separate setup link or accordion row below the buttons.
+Lead with the outcome, technology, author, and available Demo, GitHub and Share
+actions. Keep author, difficulty, and update date together in the hero metadata.
+In the header action row, show the Agora CLI initialization command in an inline
+CodePanel to the left of GitHub and Share, with its adjacent command-copy action.
+Recipes without CLI support omit the command. Neither layout uses setup tabs or
+an extra prompt-copy button; retain the reader's existing Copy Markdown action.
+On phones, place the preview above the title and hide the tagline and updated date.
+Do not show a caption beneath the detail preview.
+Keep existing CLI and setup metadata intact for prompt generation and API consumers.
 
 Inside the shared page shell, the desktop guide uses a 216px left contents rail
 and 48px gap. Reduce these at
@@ -523,13 +517,13 @@ shared moving selection underlay. Anchors must clear the sticky header.
 
 The recipe overview uses the full shared shell width and starts at the page gutter.
 On wide guide-only pages, place metadata at the left and primary actions at the
-right of the overview’s final row. Keep media previews in the existing right column.
+right of the overview’s final row. Media overviews use two equal columns: title,
+metadata and actions occupy the left half, and the preview fills the right half.
 
 The document is an opaque reading panel. Its header separates view choice from
 document actions: Guide / Markdown form a solid segmented tab group at the left;
-Copy Markdown and its source chevron form one split action at the right. The
-source menu contains View on GitHub and Open raw Markdown, with no generic More
-menu or standalone Raw control. Keep author-language selection with the document
+Copy Markdown sits at the right; GitHub remains in the overview actions.
+Keep author-language selection with the document
 actions and put fallback details in its tooltip. Preserve Radix tab semantics and
 keyboard navigation. Use the full available main column while constraining prose
 to 68ch inside the panel. Place
