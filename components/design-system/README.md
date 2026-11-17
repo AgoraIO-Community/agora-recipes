@@ -56,6 +56,8 @@ edges, long labels, field pickers and directory rows. InputGroup's search size
 owns hero search geometry. Tooltip adapters preserve the target's own slot and
 state attributes. Native Disclosure slots own host summary controls, including
 reader metadata, diagram source, filters and contribution disclosures.
+The inline CodePanel variant keeps a single-line command and its copy action
+together in a toolbar; long commands scroll within the code column.
 The embedded CodePanel variant belongs in a floating panel Body and delegates
 scrolling to that body. Its copy action sits beside the code at the top right,
 without a separate header or repeated label. A dedicated grid column keeps the
@@ -185,6 +187,15 @@ The reference opens the actual managed notice to expose wrapping and equal choic
 geometry, rather than rendering a separate copy. Verify product routes too.
 
 ## Media placeholders
+
+`Badge variant="announcement"` uses a solid coral fill and contrasting white ink for
+editor-selected Featured cover labels. `shape="ribbon"` creates a static 45-degree
+corner ribbon with semibold (600) label weight, dark folded ends, reduced geometry on phones and no pointer
+interaction. Cover ribbons sit at the upper-right of the media frame. The recipe-card
+reference includes an announcement ribbon and a collection link together. Collection
+labels use `Button asChild variant="link" size="sm" edge wrap` with a localized
+Next.js Link; metadata badges remain noninteractive. `picked: true` in the
+recommendation list identifies editorial selections without a date-based expiry.
 
 `RecipeGeneratedCover` fills an existing bounded cover frame when a recipe has no
 usable image, sets `media.generatedCover`, or its image fails. It draws a poster

@@ -11,7 +11,9 @@ export function getRecipeSummaries(locale: Locale = "en"): RecipeSummary[] {
   const entries = getAllEntries()
   const t = getT(locale)
   const topics = getAllTopics()
+  const popularUseCaseMembers = new Set(topics.find(topic => topic.slug === "popular-use-cases")?.members.map(member => member.slug))
   const order = new Map<string, number>()
+  const pickedEntries = new Set(recommendations.filter(entry => entry.picked).map(entry => entry.slug))
   recommendations.forEach(({ slug }, index) => {
     if (!entries.some(entry => entry.slug === slug) || order.has(slug)) throw new Error(`[showcase] Unknown or duplicate entry slug: ${slug}`)
     order.set(slug, index)
@@ -32,6 +34,6 @@ export function getRecipeSummaries(locale: Locale = "en"): RecipeSummary[] {
     const searchTerms = [entry.title, entry.tagline, entry.description, ...entrySearchTerms(entry.slug), ...topics.filter(topic => topic.members.some(member => member.slug === entry.slug)).flatMap(topic => [topic.slug, topic.title, topic.summary, ...locales.flatMap(language => [getT(language)(topic.title), getT(language)(topic.summary)])])]
     const repository = entry.mainRepoUrl?.replace(/^https:\/\/github.com\//i, "").replace(/\/$/, "").replace(/\.git$/, "").toLowerCase()
     const stars = repository ? (githubStars.repositories as Record<string, number>)[repository] : undefined
-    return { ...presentation, searchTerms, ...(stars !== undefined ? { githubStars: stars } : {}), ...(showcase ? { showcase } : {}), ...(order.has(entry.slug) ? { recommendedOrder: order.get(entry.slug)! } : {}) }
+    return { ...presentation, searchTerms, ...(pickedEntries.has(entry.slug) ? { isPicked: true } : {}), ...(popularUseCaseMembers.has(entry.slug) ? { isPopularUseCase: true } : {}), ...(stars !== undefined ? { githubStars: stars } : {}), ...(showcase ? { showcase } : {}), ...(order.has(entry.slug) ? { recommendedOrder: order.get(entry.slug)! } : {}) }
   })
 }

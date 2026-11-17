@@ -214,6 +214,8 @@ titles, navigation, buttons, and cards. Use size and spacing for hierarchy;
 reserve semibold for emphasis inside authored reading content. Do not reintroduce
 semibold interface labels when adding controls.
 Monospace is reserved for code and commands.
+The editorial FEATURED ribbon is the label exception: use weight 600 for its
+small diagonal text, with a solid coral fill and white ink in both appearances.
 Generated recipe posters use Jokker Bold, matching the share image; it is not an
 interface face.
 
@@ -490,27 +492,22 @@ extra introduction. Do not crop out essential content by zooming media on hover.
 Titles stay stationary; feedback uses the existing border and underline.
 Collection art can use a clear #Topic identity; it does not act as a technical
 tag. Keep the hackathon organizer poster and the adapted official iRTE2026 art.
-Recipe cards still contain no Topic names or membership badges. Activities shows
+Recipe cards expose only the Popular Use Cases collection label as a link to its localized collection page.
+Other Topic names and memberships stay off content cards. Activities shows
 ongoing and upcoming activities; Past activities shows completed activities only.
 All includes both groups and collections.
 
 ## Recipe pages and reading
 
-Lead with the outcome, technology, author, and Copy recipe prompt action. Demo
-and source actions follow in priority. Use actual preview media and truthful
-setup requirements. The prompt copy action and its setup chevron form one primary split button.
-Keep author, difficulty, and update date together in the hero metadata; do not
-repeat them in a second About panel beside the same guide.
-The chevron opens a bounded Popover containing the prompt and, when supported,
-an Agora CLI tab. Top-10 recipes with setup metadata instead use an English
-Start building panel with AI Assistant and Manual Setup tabs. The AI prompt
-directs the coding assistant through recipe discovery, project confirmation,
-CLI initialization and the returned installation/start steps. Manual Setup
-shows versioned npm creation, credential configuration, installation and a
-scenario-specific voice test only for an available package; otherwise show a
-clear availability message directing users to AI Assistant. Keep existing CLI
-metadata intact for API consumers. Keep the complete GlassSurface with opaque code planes; do
-not add a separate setup link or accordion row below the buttons.
+Lead with the outcome, technology, author, and available Demo, GitHub and Share
+actions. Keep author, difficulty, and update date together in the hero metadata.
+In the header action row, show the Agora CLI initialization command in an inline
+CodePanel to the left of GitHub and Share, with its adjacent command-copy action.
+Recipes without CLI support omit the command. Neither layout uses setup tabs or
+an extra prompt-copy button; retain the reader's existing Copy Markdown action.
+On phones, place the preview above the title and hide the tagline and updated date.
+Do not show a caption beneath the detail preview.
+Keep existing CLI and setup metadata intact for prompt generation and API consumers.
 
 Inside the shared page shell, the desktop guide uses a 216px left contents rail
 and 48px gap. Reduce these at
@@ -520,13 +517,13 @@ shared moving selection underlay. Anchors must clear the sticky header.
 
 The recipe overview uses the full shared shell width and starts at the page gutter.
 On wide guide-only pages, place metadata at the left and primary actions at the
-right of the overview’s final row. Keep media previews in the existing right column.
+right of the overview’s final row. Media overviews use two equal columns: title,
+metadata and actions occupy the left half, and the preview fills the right half.
 
 The document is an opaque reading panel. Its header separates view choice from
 document actions: Guide / Markdown form a solid segmented tab group at the left;
-Copy Markdown and its source chevron form one split action at the right. The
-source menu contains View on GitHub and Open raw Markdown, with no generic More
-menu or standalone Raw control. Keep author-language selection with the document
+Copy Markdown sits at the right; GitHub remains in the overview actions.
+Keep author-language selection with the document
 actions and put fallback details in its tooltip. Preserve Radix tab semantics and
 keyboard navigation. Use the full available main column while constraining prose
 to 68ch inside the panel. Place
@@ -649,7 +646,8 @@ heading, with full option labels in the menu and the actual source language belo
   returns to idle after 2.5 seconds; failures remain available for retry.
 - Topic directory cards have one full-area link with a title-based accessible
   name. Keep every card and icon stationary; color, border, and underline carry
-  hover/focus feedback. Content cards still never carry Topic membership.
+  hover/focus feedback. Content cards show Popular Use Cases membership as a
+  link to its localized collection page; other Topic memberships stay off content cards.
 - Contributions pair the AI PR prompt with the PR guide in one action row on
   desktop and one sequence on phones. Keep public-submission guidance visible,
   keep the prompt in a disclosure, and omit the footer's repeated submission
@@ -664,5 +662,6 @@ Do not commit during IME composition or restore old scroll snapshots while typin
 Show pending and failed guide-index states honestly; keep metadata search usable
 with a retry action. Guide-only matches can use two lines of attributed source
 excerpt within the selected card or result row. A sole compact phone result spans the
-available row and allows four excerpt lines; multiple results keep two columns. Topic search terms do not add membership
-badges or links to content cards.
+available row and allows four excerpt lines; multiple results keep two columns.
+Topic search terms do not themselves add badges or links to content cards;
+the Popular Use Cases label comes from explicit collection membership.

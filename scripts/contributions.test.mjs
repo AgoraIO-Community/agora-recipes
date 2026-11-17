@@ -9,6 +9,23 @@ const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.Modu
 const { contributionPath, contributionTopic, contributionMaterials } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 const topics = { 'voice-ai-in-practice': 'Voice AI in practice', 'voice-ai-hackathon-2026': 'Hackathon' }
 
+test('Popular Use Cases contributes under its new identity and retired Topic parameters are discarded', () => {
+  const renamed = { 'popular-use-cases': 'Popular Use Cases' }
+  assert.equal(contributionTopic('?topic=popular-use-cases', renamed), 'popular-use-cases')
+  assert.equal(contributionTopic('?topic=top-10', renamed), undefined)
+  for (const locale of ['en', 'ja', 'zh-Hans']) {
+    const prefix = locale === 'en' ? '' : `/${locale}`
+    const current = new URL(contributionPath(`${prefix}/topics/popular-use-cases`, '', locale, renamed), 'https://catalog.invalid')
+    assert.equal(current.searchParams.get('topic'), 'popular-use-cases')
+    assert.equal(current.searchParams.get('returnTo'), `${prefix}/topics/popular-use-cases#recipes`)
+    assert.equal(contributionPath(`${prefix}/topics/top-10`, '', locale, renamed), `${prefix}/contribute`)
+    const oldSource = new URLSearchParams({ returnTo: `${prefix}/topics/top-10` })
+    assert.equal(contributionPath(`${prefix}/recipes/example`, oldSource.toString(), locale, renamed), `${prefix}/contribute`)
+  }
+  const { prompt } = contributionMaterials('en', 'https://recipes.agora.io', 'popular-use-cases')
+  assert.ok(prompt.includes('Topic reference: https://recipes.agora.io/topics/popular-use-cases'))
+})
+
 test('contribution entries inherit the explicit Topic page or validated detail source', () => {
   const fromTopic = new URL(contributionPath('/zh-Hans/topics/voice-ai-in-practice', '?q=phone', 'zh-Hans', topics), 'https://catalog.invalid')
   assert.equal(fromTopic.searchParams.get('topic'), 'voice-ai-in-practice')

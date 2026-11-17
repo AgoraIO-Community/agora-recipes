@@ -31,19 +31,27 @@ const { Markdown } = await import(await componentModule("../components/markdown.
 const { RecipeDocument } = await import(await componentModule("../components/recipe-document.tsx"))
 const render = async (source, props = {}) => new Response(await renderToReadableStream(React.createElement(Markdown, { source, ...props }))).text()
 
-test("an unavailable guide keeps language recovery and source actions without empty document controls", async () => {
+test("an unavailable guide keeps language recovery without empty document controls", async () => {
   const html = await new Response(await renderToReadableStream(React.createElement(RecipeDocument, {
     markdown: "",
     rawUrl: "https://raw.githubusercontent.com/example/project/main/README.ja.md",
-    sourceUrl: "https://github.com/example/project/blob/main/README.ja.md",
     languageControl: React.createElement("button", { "aria-label": "Guide language" }, "日本語"),
   }, React.createElement("p", null, "The guide couldn’t be loaded")))).text()
   assert.match(html, /aria-label="Guide language"/)
   assert.match(html, /日本語/)
-  assert.match(html, /data-slot="dropdown-menu-trigger"/)
-  assert.match(html, /aria-label="Markdown source"/)
+  assert.doesNotMatch(html, /data-slot="dropdown-menu-trigger"|data-slot="button-group"/)
+  assert.match(html, /data-document-raw-url="https:\/\/raw.githubusercontent.com\/example\/project\/main\/README.ja.md"/)
   assert.match(html, /The guide couldn’t be loaded/)
   assert.doesNotMatch(html, /role="tablist"|aria-label="Copy Markdown"|data-slot="tabs-content"/)
+})
+
+test("an unavailable guide without language choices omits the empty toolbar", async () => {
+  const html = await new Response(await renderToReadableStream(React.createElement(RecipeDocument, {
+    markdown: "",
+    rawUrl: "https://raw.githubusercontent.com/example/project/main/README.md",
+  }, React.createElement("a", { href: "https://github.com/example/project/blob/main/README.md" }, "Open source guide")))).text()
+  assert.match(html, /Open source guide/)
+  assert.doesNotMatch(html, /data-slot="toolbar"|data-slot="button-group"|role="tablist"/)
 })
 
 test("an available guide retains its view switcher and copy action", async () => {
@@ -53,6 +61,7 @@ test("an available guide retains its view switcher and copy action", async () =>
   assert.match(html, /role="tablist"/)
   assert.match(html, /aria-label="Copy Markdown"/)
   assert.match(html, /Guide content/)
+  assert.doesNotMatch(html, /data-slot="dropdown-menu-trigger"/)
   const panels = html.match(/<div[^>]*role="tabpanel"[^>]*>/g)
   assert.ok(panels.some(panel => panel.includes('hidden=""')))
 })

@@ -19,7 +19,7 @@ import { Github, MonitorPlay } from "lucide-react"
 import { getAllEntries, getAllRecipes, getEntry, getEntryModified, getRelatedEntries, buildPrimaryPrompt } from "@/lib/recipes"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { RecipeBackLink } from "@/components/recipe-back-link"
-import { RecipeStartActions } from "@/components/recipe-start-actions"
+import { CodePanel } from "@/components/code-panel"
 import { RecipeDocument } from "@/components/recipe-document"
 import { Markdown } from "@/components/markdown"
 import { RecipePreview } from "@/components/recipe-preview"
@@ -115,7 +115,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
             <p className="detail-description">{recipe.tagline}</p>
             <div className="detail-meta detail-meta--recipe"><span>{recipe.platforms.join(" / ")}</span>{recipe.difficulty && <span>{t(recipe.difficulty)}</span>}<RecipeAuthor name={recipe.author} /><time dateTime={modified}>{t("Updated")} {new Date(modified.length === 10 ? `${modified}T00:00:00Z` : modified).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" })}</time></div>
             <div className="detail-actions detail-actions--recipe">
-              {recipe.recipeUrl && <RecipeStartActions prompt={recipe.primaryPrompt} command={recipe.cli ? command : undefined} setup={source.setup} />}
+              {recipe.recipeUrl && recipe.cli && <CodePanel code={command} label="Agora CLI" variant="inline" />}
               <ButtonGroup className="recipe-material-actions" aria-label={t("Available materials")}>
                 {recipe.demoUrl && <IconButton asChild variant="outline" label={t("Try demo (opens in a new tab)")}><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer"><MonitorPlay aria-hidden="true" /></AttributionLink></IconButton>}
                 {recipe.mainRepoUrl && <IconButton asChild variant="outline" label={t("Source on GitHub (opens in a new tab)")}><a href={recipe.mainRepoUrl} data-material="source" target="_blank" rel="noreferrer"><Github aria-hidden="true" /></a></IconButton>}
@@ -133,7 +133,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           <h2 id="recipe-guide-heading" className="sr-only">{t("Implementation guide")}</h2>
           {sections.length > 0 && <Disclosure className="mobile-guide-outline"><DisclosureTrigger>{t("In this guide")}</DisclosureTrigger><DisclosureContent asChild><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></DisclosureContent></Disclosure>}
           {(!selected.language || selected.language !== locale) && <p className="recipe-source-note" data-guide-language={selected.language ?? "und"}>{t("Document language: {language}", { language: t(languageName) })}{selected.language && !selected.manual ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}</p>}
-          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl} sourceUrl={recipe.recipeDocument.viewUrl}
+          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl}
             languageControl={options.length > 2 ? <DocumentLanguageSwitcher key="document-language" slug={slug} selected={selected.manual ? selected.key : "auto"} label={t(languageName)}
               description={`${t("Document language: {language}", { language: t(languageName) })}${!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}`} options={options} /> : undefined}>
 
