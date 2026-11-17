@@ -104,7 +104,9 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
     {recipe.demoUrl && <Button asChild variant="link" size="sm" className="recipe-demo-link"><AttributionLink href={recipe.demoUrl} data-material="demo" target="_blank" rel="noreferrer" aria-label={t("Try {title} demo (opens in a new tab)", { title })}><span className="recipe-demo-link__full">{t("Try demo")}</span><span className="recipe-demo-link__compact">{t("Demo")}</span></AttributionLink></Button>}
   </ButtonGroup>
 
-  const technology = <div className="recipe-technologies" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-technologies__difficulty">{t(recipe.difficulty)}</span>}{compact && recipe.isPopularUseCase && <Badge>Popular Use Cases</Badge>}</div>
+  const topicLink = recipe.isPopularUseCase && <Button asChild variant="link" size="sm" edge wrap className="recipe-topic-link"><Link prefetch={false} href={localePath("/topics/popular-use-cases", locale)}>Popular Use Cases</Link></Button>
+
+  const technology = <div className="recipe-technologies" role="group" aria-label={t("Technology and difficulty")}>{recipe.platforms.slice(0, 2).map(value => <span key={value}>{value}</span>)}{recipe.platforms.length > 2 && <span>+{recipe.platforms.length - 2}</span>}{recipe.difficulty && <span className="recipe-technologies__difficulty">{t(recipe.difficulty)}</span>}{compact && topicLink}</div>
 
   if (compact) return <RecipeVideoDialog recipe={recipe} detailHref={href}>
     <article className="recipe-result" data-recipe-slug={recipe.slug} data-compact>
@@ -126,7 +128,7 @@ export function RecipeCard({ recipe, compact = false, returnTo }: { recipe: Reci
           <p className="showcase-card__summary" data-guide-excerpt={recipe.searchExcerpt ? true : undefined}>{recipe.searchExcerpt ? <><span>{t("Guide excerpt")}: </span>{recipe.searchExcerpt}</> : media?.compactSummary ?? recipe.tagline}</p>
         </Link>
         {(!featured || recipe.isPopularUseCase) && technology}
-        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{recipe.isPopularUseCase ? <Badge>Popular Use Cases</Badge> : featured && label && <Badge>{t(label)}</Badge>}{previewActions}</div>
+        <div className="showcase-card__footer"><RecipeAuthor name={recipe.author} />{recipe.isPopularUseCase ? topicLink : featured && label && <Badge>{t(label)}</Badge>}{previewActions}</div>
       </div>
     </article>
   </RecipeVideoDialog>

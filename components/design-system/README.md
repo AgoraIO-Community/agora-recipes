@@ -190,7 +190,9 @@ geometry, rather than rendering a separate copy. Verify product routes too.
 editor-selected Featured cover labels. `shape="ribbon"` creates a static 45-degree
 corner ribbon with semibold (600) label weight, dark folded ends, reduced geometry on phones and no pointer
 interaction. Cover ribbons sit at the upper-right of the media frame. The recipe-card
-reference includes announcement and series badges together. `picked: true` in the
+reference includes an announcement ribbon and a collection link together. Collection
+labels use `Button asChild variant="link" size="sm" edge wrap` with a localized
+Next.js Link; metadata badges remain noninteractive. `picked: true` in the
 recommendation list identifies editorial selections without a date-based expiry.
 
 `RecipeGeneratedCover` fills an existing bounded cover frame when a recipe has no

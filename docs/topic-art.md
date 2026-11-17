@@ -81,7 +81,7 @@ The `popular-use-cases` collection follows the owner's supplied Community reposi
 and Demo URLs. Membership is explicit in `content/topics/popular-use-cases/topic.json`.
 Its directory card uses `public/topics/popular-use-cases-pixel-town.png`, preserving
 the town illustration with a new pixel-lettered Popular Use Cases title. The old
-collection route was retired without a redirect.
+collection route permanently redirects to the new route, preserving the locale and query string.
 
 The ten covers are owner-supplied ASCII illustrations received on 2026-11-11.
 They are theme artwork, not screenshots or recordings of running demos. Each

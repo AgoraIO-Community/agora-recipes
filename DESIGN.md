@@ -492,7 +492,7 @@ extra introduction. Do not crop out essential content by zooming media on hover.
 Titles stay stationary; feedback uses the existing border and underline.
 Collection art can use a clear #Topic identity; it does not act as a technical
 tag. Keep the hackathon organizer poster and the adapted official iRTE2026 art.
-Recipe cards expose only the Popular Use Cases collection label as metadata.
+Recipe cards expose only the Popular Use Cases collection label as a link to its localized collection page.
 Other Topic names and memberships stay off content cards. Activities shows
 ongoing and upcoming activities; Past activities shows completed activities only.
 All includes both groups and collections.
@@ -653,7 +653,7 @@ heading, with full option labels in the menu and the actual source language belo
 - Topic directory cards have one full-area link with a title-based accessible
   name. Keep every card and icon stationary; color, border, and underline carry
   hover/focus feedback. Content cards show Popular Use Cases membership as a
-  noninteractive metadata label; other Topic memberships stay off content cards.
+  link to its localized collection page; other Topic memberships stay off content cards.
 - Contributions pair the AI PR prompt with the PR guide in one action row on
   desktop and one sequence on phones. Keep public-submission guidance visible,
   keep the prompt in a disclosure, and omit the footer's repeated submission
