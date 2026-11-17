@@ -14,5 +14,5 @@ export function RecipeBackLink({ topics = {} }: { topics?: Record<string, string
   const label = topic && topics[topic] ? t("Back to {topic}", { topic: topics[topic] }) : t(new URLSearchParams(search).has("returnTo") ? "Back to results" : "Back to recipes")
   // A full navigation honors the saved query rather than a cached catalog
   // route's earlier filter state. The catalog restores its saved scroll position.
-  return <Button asChild variant="ghost" size="sm" edge wrap className="detail-back"><a href={href}><ArrowLeft aria-hidden="true" />{label}</a></Button>
+  return <Button asChild variant="ghost" size="sm" wrap className="detail-back"><a href={href}><ArrowLeft aria-hidden="true" />{label}</a></Button>
 }
