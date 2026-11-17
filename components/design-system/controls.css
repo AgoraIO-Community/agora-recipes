@@ -1,5 +1,49 @@
 /* Shared solid controls. Refractive floating surfaces live in glass.css.
    Control geometry stays fixed across hover, focus, and press. */
+/* External CMP controls cannot use our React primitives. This narrow adapter
+   applies the same tokens without replacing the managed action handlers. */
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cmp-pref-link, .cc-close) {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  min-height: var(--managed-control-size) !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 5px 12px !important;
+  border: 1px solid var(--input) !important;
+  border-radius: var(--radius) !important;
+  color: var(--foreground) !important;
+  background: var(--basic-fill) !important;
+  font: 400 13px/20px var(--font-sans) !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+:is(#page-top .cc-window.f-cc-pref-window .cc-close, #page-top #cookiePreferencesDialog .cmp-modal__close) { position: static !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0; box-sizing: border-box; height: var(--managed-control-size) !important; width: var(--managed-control-size) !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: var(--radius) !important; color: var(--foreground) !important; background: transparent !important; cursor: pointer; }
+#page-top #cookiePreferencesDialog .cmp-modal__close > svg { display: block; width: var(--icon-size); height: var(--icon-size); fill: currentColor !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close { color: inherit !important; outline: none !important; }
+#page-top #cookiePreferencesDialog .cmp-modal__close:focus-visible { outline: var(--focus-width) solid var(--ring) !important; outline-offset: var(--focus-offset) !important; }
+@media (hover: hover) and (pointer: fine) {
+  #page-top #cookiePreferencesDialog .cmp-modal__close:hover { color: var(--control-hover-ink) !important; background: var(--control-hover-fill) !important; border-color: var(--control-hover-edge) !important; }
+}
+#page-top #cookiePreferencesDialog .cmp-modal__close:active { background: var(--control-pressed-fill) !important; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link { justify-content: flex-start !important; padding-inline: 0 !important; border-color: transparent !important; background: transparent !important; text-align: start !important; }
+#page-top .cc-window.f-cc-pref-window .cc-link { color: var(--foreground) !important; opacity: 1 !important; font: inherit !important; text-underline-offset: 3px; }
+#page-top .cc-window.f-cc-pref-window .cc-message .cc-link { display: inline-block; margin: 0 !important; padding: 0 !important; text-decoration: underline; }
+#page-top .cc-window.f-cc-pref-window :is(.cc-close, .cmp-pref-link) svg { flex: none; width: var(--icon-size); height: var(--icon-size); fill: currentColor !important; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link svg [fill]:not([fill=none]) { fill: currentColor; }
+#page-top .cc-window.f-cc-pref-window .cmp-pref-link > span { min-width: 0; }
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-link, .cc-close):focus-visible { outline: var(--focus-width) solid var(--ring) !important; outline-offset: var(--focus-offset) !important; }
+@media (hover: hover) and (pointer: fine) {
+  #page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-close):hover { color: var(--control-hover-ink) !important; background: var(--control-hover-fill) !important; border-color: var(--control-hover-edge) !important; }
+  #page-top .cc-window.f-cc-pref-window .cc-link:hover { text-decoration: underline !important; }
+}
+#page-top .cc-window.f-cc-pref-window :is(.cc-btn, .cc-close):active { background: var(--control-pressed-fill) !important; }
 :root {
   --control-sm: 32px;
   --field-size: var(--control-sm);
@@ -169,6 +213,17 @@
   .ag-badge-danger { color: var(--destructive); background: var(--destructive-surface); }
   .ag-badge-link { color: var(--signal-text); }
   .ag-badge-ghost { color: var(--muted-foreground); }
+  .ag-badge-announcement { color: var(--badge-announcement-ink,#ffffff); background: var(--badge-announcement-fill,#ce3f50); }
+  .ag-corner-ribbon { position: relative; display: block; flex: none; width: 84px; height: 84px; overflow: hidden; pointer-events: none; }
+  .ag-corner-ribbon .ag-badge-ribbon { position: absolute; display: block; top: 16px; left: -7px; width: 120px; max-width: none; min-height: 24px; padding: 3px 0; border: 0; border-radius: 0; font-weight: 600; line-height: 18px; text-align: center; transform: rotate(45deg); }
+  .ag-corner-ribbon::before, .ag-corner-ribbon::after { content: ""; position: absolute; background: color-mix(in srgb,var(--badge-announcement-fill,#ce3f50) 55%,#000); }
+  .ag-corner-ribbon::before { top: 0; left: 4px; width: 8px; height: 4px; clip-path: polygon(100% 0,100% 100%,0 100%); }
+  .ag-corner-ribbon::after { right: 0; bottom: 4px; width: 4px; height: 8px; clip-path: polygon(0 0,100% 0,0 100%); }
+  @media (max-width: 640px) {
+    .ag-corner-ribbon { width: 62px; height: 62px; }
+    .ag-corner-ribbon::before { left: 0; }
+    .ag-corner-ribbon .ag-badge-ribbon { top: 11px; left: -10px; width: 96px; min-height: 20px; padding: 1px 0; font-size: 10px; }
+  }
   .ag-overlay { color: #fcf9f8; background: rgb(10 12 14 / .9); border-color: rgb(255 255 255 / .18); }
   .ag-surface-solid, .ag-reading-plane { color: var(--foreground); background: var(--popover); border: 1px solid var(--border); border-radius: 10px; }
   .ag-selection-group { position: relative; isolation: isolate; }
@@ -202,11 +257,24 @@
   .ag-disclosure[open]::details-content { height: auto; }
   .ag-disclosure > summary { color: var(--muted-foreground); transition: color var(--motion-control); }
   .ag-disclosure[open] > summary { color: var(--foreground); }
+  .facet-option { display: flex; align-items: center; gap: 8px; min-height: var(--field-size); padding: 6px 8px; border-radius: var(--radius); font-size: 13px; cursor: pointer; transition: background var(--motion-control),color var(--motion-control); }
   .facet-option:has([data-state=checked]) { background: var(--basic-selected); }
   .facet-option:has(:focus-visible) { outline: var(--focus-width) solid var(--ring); outline-offset: -2px; }
   .facet-option .ag-checkbox:focus-visible { outline: none; }
   .facet-option:is([data-disabled=true],:has(.ag-checkbox:disabled)) { opacity: .4; cursor: not-allowed; }
   .facet-option:is([data-disabled=true],:has(.ag-checkbox:disabled)) .ag-checkbox:disabled { opacity: 1; }
+.recipe-cover__demo { visibility: hidden; }
+.recipe-cover__demo-action { opacity: 0; pointer-events: none; }
+@media (min-width: 641px) and (pointer:fine) {
+  .recipe-cover-frame:focus-within .recipe-cover__demo { visibility: visible; }
+  .recipe-cover-frame:focus-within .recipe-cover__demo-action { opacity: 1; pointer-events: auto; }
+  .recipe-cover-frame[data-has-demo]:focus-within .recipe-cover__duration { visibility: hidden; }
+}
+@media (min-width: 641px) and (hover:hover) and (pointer:fine) {
+  .recipe-cover-frame:hover .recipe-cover__demo { visibility: visible; }
+  .recipe-cover-frame:hover .recipe-cover__demo-action { opacity: 1; pointer-events: auto; }
+  .recipe-cover-frame[data-has-demo]:hover .recipe-cover__duration { visibility: hidden; }
+}
 @media (hover:hover) and (pointer:fine) {
   .ag-button:hover:where(:not(:disabled):not([aria-disabled=true])) .ag-button-arrow > svg:first-child { transform: translate(var(--arrow-x),var(--arrow-y)); }
   .ag-button:hover:where(:not(:disabled):not([aria-disabled=true])) .ag-button-arrow > svg:last-child { transform: none; }

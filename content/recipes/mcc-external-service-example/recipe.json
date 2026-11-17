@@ -26,14 +26,9 @@
   "media": {
     "title": "MCC External Service Example",
     "summary": "Native Android and iOS Music Content Center external-service samples for music preload, playback and pitch scoring with RTC. Requires music-provider credentials and entitlement.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/Agora-MccExService-Example/tree/3116c79e9217bc9b5ead81c1e4a70fac7ebceca0",
     "labels": [
       "Android",
       "iOS"
-    ],
-    "thumbnail": "/recipes/mcc-external-service-example-illustration.webp",
-    "thumbnailAlt": "Conceptual illustration of MCC External Service Example; not an app screenshot",
-    "thumbnailFit": "contain",
-    "demoNote": "Recipe-specific HTML illustration, not a running app or verified session. Source inspected. Android SDK/emulator and/or Xcode simulators required by the native sample are unavailable. App not launched."
+    ]
   }
 }

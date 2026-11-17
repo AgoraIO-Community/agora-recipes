@@ -20,6 +20,6 @@ export function RecipeAuthor({ name }: { name: string }) {
   </>
 
   return profile ? (
-    <a href={profile.profileUrl} className="recipe-author" target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: `${name} · GitHub` })} title={name}>{content}</a>
+    <a href={profile.profileUrl} className="recipe-author" target="_blank" rel="noreferrer" aria-label={t("{label} (opens in a new tab)", { label: `${name} · GitHub` })} title={`${name} · GitHub`}>{content}</a>
   ) : <span className="recipe-author" title={name}>{content}</span>
 }

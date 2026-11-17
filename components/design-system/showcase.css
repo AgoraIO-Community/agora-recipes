@@ -12,4 +12,4 @@
 .ds-reading { padding: 16px; }
 @media (max-width: 640px) { .ds-columns, .ds-form-grid { grid-template-columns: minmax(0,1fr); } .ds-reference { padding-top: 24px; } }
 
-.ds-bar { margin-block: 12px; }
+.ds-bar { margin-block: 12px; flex-wrap: wrap; }

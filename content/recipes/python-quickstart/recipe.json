@@ -23,6 +23,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Python Quickstart",
     "summary": "Build a basic Agora Conversational AI agent in Python.",
     "thumbnail": "/recipes/python-quickstart-catalog-call.webp",

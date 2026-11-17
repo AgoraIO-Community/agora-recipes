@@ -11,6 +11,7 @@ export type Showcase = {
   thumbnailSource: string
   thumbnailScale?: number
   thumbnailOrigin?: string
+  generatedCover?: boolean
   videoUrl?: string
   videoDuration?: string
   demoNote: string
@@ -22,6 +23,8 @@ export type RecipeSummary = Omit<RecipeMeta, "cli"> & {
   slug: string
   showcase?: Showcase
   recommendedOrder?: number
+  isPopularUseCase?: boolean
+  isPicked?: boolean
   githubStars?: number
   searchTerms?: string[]
   guideSearchText?: string

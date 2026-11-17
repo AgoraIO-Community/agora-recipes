@@ -12,11 +12,11 @@ Open http://localhost:3000.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). A GitHub account is required. Submit existing materials with the GitHub Issue form, or fork this repository and send a metadata PR to upstream `staging`. Direct PRs do not require an Issue.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). A GitHub account is required. Fork this repository, branch from `staging`, and submit recipe metadata through a PR to upstream `staging`. The contribution page includes an AI prompt to prepare the JSON and PR. Issues are for bugs and questions, not recipe submissions.
 
 Keep entries in `content/recipes/<slug>/recipe.json`. Use `templates/recipe.json` for a guide or `templates/demo.json` for a Demo-only entry. Provide at least one material; do not invent missing materials or create a duplicate project record for an existing recipe.
 
-`npm run build` fetches only configured guide Markdown and writes `content/generated/recipes/`. GitHub activates Issue forms from the default branch, so the new form must pass through the normal release before the site handoff is live.
+`npm run build` fetches only configured guide Markdown and writes `content/generated/recipes/`. Run it before opening your PR; include generated guide artifacts when adding or changing a guide.
 
 ## Website Languages
 
@@ -30,7 +30,7 @@ Catalog detail links carry a validated `returnTo` address with the source locale
 
 Detail and Topic pages offer copy-link and suitable native/platform sharing handoffs. Canonical/social metadata uses the chosen website locale, actual media when available, and one statically built PNG fallback. List-return queries are excluded from shared URLs.
 
-The seven minimal event families use the existing Vercel SDK and project, only on actual Vercel production deployments. Raw searches, submissions, copied text, and account identity are excluded. Hover previews do not count as deliberate plays, and GitHub handoffs do not count as successful submissions. Actual dashboard ingestion and the live GitHub form remain release gates. See [verification and release notes](docs/phase-one-p0.md).
+The seven minimal event families use the existing Vercel SDK and project, only on actual Vercel production deployments. Raw searches, submissions, copied text, and account identity are excluded. Hover previews do not count as deliberate plays, and GitHub handoffs do not count as successful submissions. Actual dashboard ingestion remains a release gate. See [verification and release notes](docs/phase-one-p0.md).
 
 ## Recipes API
 

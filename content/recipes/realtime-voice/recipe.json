@@ -34,6 +34,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Real-time Voice (MLLM)",
     "summary": "Voice-to-voice with a realtime multimodal model.",
     "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-realtime/tree/ca970f95d34ef9592e877bc7113503b4dc96c764",

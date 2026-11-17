@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "MCP Tools",
     "summary": "Let Agora orchestrate tools on an MCP server.",
     "thumbnail": "/recipes/mcp-tools-clean-call.webp",

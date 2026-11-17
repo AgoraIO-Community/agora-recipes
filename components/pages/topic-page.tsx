@@ -1,3 +1,7 @@
+import { StructuredData } from "@/components/structured-data"
+import { breadcrumbSchema } from "@/lib/structured-data"
+import { siteUrl } from "@/lib/site"
+import { pageAlternates } from "@/lib/seo"
 import { socialMetadata } from "@/lib/social"
 import { absoluteUrl } from "@/lib/site"
 import { ShareActions } from "@/components/share-actions"
@@ -8,7 +12,7 @@ import { ArrowLeft } from "lucide-react"
 import { getAllTopics, getTopic, topicStatus } from "@/lib/topics"
 import { getRecipeSummaries } from "@/lib/showcase"
 import { getT } from "@/lib/i18n"
-import { locales, localePath, type Locale } from "@/lib/locales"
+import { localePath, type Locale } from "@/lib/locales"
 import { RecipeExplorer } from "@/components/recipe-explorer"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -20,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug, locale = "en" } = await params
   const topic = getTopic(slug)
   const t = getT(locale)
-  return topic ? { ...socialMetadata({ title: t(topic.title), description: t(topic.summary), path: localePath(`/topics/${slug}`, locale), locale, image: getRecipeSummaries(locale).find(entry => topic.members.some(member => member.slug === entry.slug) && entry.showcase?.thumbnail)?.showcase?.thumbnail }), title: t(topic.title), description: t(topic.summary), alternates: { canonical: localePath(`/topics/${slug}`, locale), languages: Object.fromEntries(locales.map(value => [value, localePath(`/topics/${slug}`, value)])) } } : { title: t("Topic not found") }
+  return topic ? { ...socialMetadata({ title: t(topic.title), description: t(topic.summary), path: localePath(`/topics/${slug}`, locale), locale, image: getRecipeSummaries(locale).find(entry => topic.members.some(member => member.slug === entry.slug) && entry.showcase?.thumbnail)?.showcase?.thumbnail }), title: t(topic.title), description: t(topic.summary), alternates: pageAlternates(`/topics/${slug}`, locale) } : { title: t("Topic not found") }
 }
 export default async function TopicPage({ params }: { params: Promise<Params> }) {
   const { slug, locale = "en" } = await params
@@ -31,6 +35,7 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   const entries = topic.members.map((member, index) => ({ ...allEntries.find(entry => entry.slug === member.slug)!, recommendedOrder: index }))
   const awards = topic.members.filter(member => member.award)
   return <article className="recipe-detail topic-detail">
+    <StructuredData value={breadcrumbSchema(siteUrl.href, [{ name: t("Recipes"), path: localePath("/", locale) }, { name: t("Topics"), path: localePath("/topics", locale) }, { name: t(topic.title), path: localePath(`/topics/${slug}`, locale) }])} />
     <header className="detail-hero"><div className="shell">
       <Button asChild variant="ghost" size="sm" edge wrap className="detail-back"><Link href={localePath("/topics", locale)}><ArrowLeft aria-hidden="true" />{t("All Topics")}</Link></Button>
       {topic.kind === "activity" && <div className="detail-meta"><Badge variant="outline">{t(topicStatus(topic))}</Badge>{topic.starts && <span>{topic.starts}{topic.ends && ` – ${topic.ends}`}</span>}</div>}

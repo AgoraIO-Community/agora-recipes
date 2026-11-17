@@ -23,6 +23,7 @@
     "runCommand": "pnpm run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "OpenAI GPT Live with Next.js",
     "summary": "Build a realtime GPT Live voice agent with Agora and Next.js.",
     "thumbnailSource": "https://github.com/AgoraIO-Community/OpenAI-Agora-Voice-Agents-NextJS/tree/f8ab691d523d91670b7047442e1b0a985f5aaa70",

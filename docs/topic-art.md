@@ -74,3 +74,23 @@ Use case: stylized-concept. Create one finished landscape 16:9 Topic cover for A
 Edit the provided official iRTE2026 conference poster. Preserve the original black background, pixelated violet globe, huge colorful iRTE lettering, little pixel icons, date 10.23–24, and all original art geometry, colors and pixel typography. Remove the Chinese phrase '实时智能大会' and its preceding slash after the smaller 'iRTE2026' wordmark, leaving 'iRTE2026' intact. Remove the entire venue callout: the English '>Location' label, its underline, and the black-backed Chinese venue text '北京悠唐皇冠假日酒店'. Seamlessly reconstruct any globe/background pixels behind that venue callout. Keep the '>Time' callout, the date, the English LIVE text, and both iRTE wordmarks. Do not add replacement text, logos, hashtags, new shapes, or redesign the event artwork. Retain the 16:9 landscape composition. The only semantic change is removal of the Chinese subtitle and location callout.
 ```
 
+
+## Popular Use Cases cover and membership
+
+The `popular-use-cases` collection follows the owner's supplied Community repositories
+and Demo URLs. Membership is explicit in `content/topics/popular-use-cases/topic.json`.
+Its directory card uses `public/topics/popular-use-cases-pixel-town.png`, preserving
+the town illustration with a new pixel-lettered Popular Use Cases title. The old
+collection route permanently redirects to the new route, preserving the locale and query string.
+
+The ten covers are owner-supplied ASCII illustrations received on 2026-11-11.
+They are theme artwork, not screenshots or recordings of running demos. Each
+entry's image alt text preserves that distinction. No video is claimed or
+synthesized.
+
+Each implementation repository owns its compressed display cover at
+`docs/recipe-cover.webp`. Recipe metadata references the image directly through
+an HTTPS `raw.githubusercontent.com` URL and records the corresponding GitHub
+file page in `media.thumbnailSource`. Recipes does not bundle copies of these
+covers under `public/recipes/`. The WebP display versions preserve the original
+image dimensions and artwork and are each below 150 KB.

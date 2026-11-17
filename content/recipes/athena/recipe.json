@@ -12,6 +12,7 @@
   "updated": "2026-09-07",
   "difficulty": "Advanced",
   "media": {
+    "generatedCover": true,
     "title": "Athena",
     "summary": "Highlight something you do not understand and ask about it out loud.",
     "thumbnail": "/recipes/athena-call.webp",

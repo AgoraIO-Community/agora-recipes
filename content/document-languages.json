@@ -1,1 +1,341 @@
-{}
+{
+  "ag-iot-ios-app": {
+    "originalLanguage": "en"
+  },
+  "agent-delegation": {
+    "originalLanguage": "en"
+  },
+  "agent-handoff": {
+    "originalLanguage": "en"
+  },
+  "agora-aigc-demo": {
+    "originalLanguage": "en"
+  },
+  "agora-arena": {
+    "originalLanguage": "en"
+  },
+  "agora-breath-companion": {
+    "originalLanguage": "en"
+  },
+  "agora-channel-management": {
+    "originalLanguage": "en"
+  },
+  "agora-drawguess": {
+    "originalLanguage": "en"
+  },
+  "agora-flutter-rtc-quickstart": {
+    "originalLanguage": "en"
+  },
+  "agora-gemini-mllm-go": {
+    "originalLanguage": "en"
+  },
+  "agora-gemini-mllm-nextjs": {
+    "originalLanguage": "en"
+  },
+  "agora-gemini-mllm-python": {
+    "originalLanguage": "en"
+  },
+  "agora-gemma-voice-coach": {
+    "originalLanguage": "en"
+  },
+  "agora-humming-service-example": {
+    "originalLanguage": "en"
+  },
+  "agora-ios-guide": {
+    "originalLanguage": "en"
+  },
+  "agora-matchcast": {
+    "originalLanguage": "en"
+  },
+  "agora-meeting-copilot": {
+    "originalLanguage": "en"
+  },
+  "agora-podcasts": {
+    "originalLanguage": "en"
+  },
+  "agora-python-rtc-quickstart": {
+    "originalLanguage": "en"
+  },
+  "agora-rn-rtc-quickstart": {
+    "originalLanguage": "en"
+  },
+  "agora-rotary-dial-phone": {
+    "originalLanguage": "en"
+  },
+  "agora-rtc-signaling": {
+    "originalLanguage": "en"
+  },
+  "agora-spatial-voice-chat-tutorial": {
+    "originalLanguage": "en"
+  },
+  "agora-stt": {
+    "originalLanguage": "en"
+  },
+  "agora-voice-web-navigator": {
+    "originalLanguage": "en"
+  },
+  "aigc-service-example-rtc": {
+    "originalLanguage": "en"
+  },
+  "android-autopilot-voice-agent": {
+    "originalLanguage": "en"
+  },
+  "android-iot-video-calling-app": {
+    "originalLanguage": "en"
+  },
+  "android-quickstart": {
+    "originalLanguage": "en"
+  },
+  "android-transcription-widget": {
+    "originalLanguage": "en"
+  },
+  "aria-coteacher": {
+    "originalLanguage": "en"
+  },
+  "aria-voice-sales-agent": {
+    "originalLanguage": "en"
+  },
+  "athena": {
+    "originalLanguage": "en"
+  },
+  "babylonjs-rtc-demo": {
+    "originalLanguage": "en"
+  },
+  "bhaasha-agora": {
+    "originalLanguage": "en"
+  },
+  "cloud-gaming-rtc-example": {
+    "originalLanguage": "en"
+  },
+  "content-filter": {
+    "originalLanguage": "en"
+  },
+  "cross-session-memory": {
+    "originalLanguage": "en"
+  },
+  "csharp-rtc-quickstart": {
+    "originalLanguage": "en"
+  },
+  "custom-llm": {
+    "originalLanguage": "en"
+  },
+  "custom-modalities": {
+    "originalLanguage": "en"
+  },
+  "daily-mandir-ai": {
+    "originalLanguage": "en"
+  },
+  "desktop-pet": {
+    "originalLanguage": "en",
+    "versions": {
+      "zh-Hans": "https://github.com/SyunWong/desktop-pet/blob/main/README.zh-CN.md"
+    }
+  },
+  "dumpling-booth": {
+    "originalLanguage": "en"
+  },
+  "dynamic-instructions": {
+    "originalLanguage": "en"
+  },
+  "dynamic-tools": {
+    "originalLanguage": "en"
+  },
+  "echo-panel-voice-ai": {
+    "originalLanguage": "en"
+  },
+  "esp32-iot-callkit-demo": {
+    "originalLanguage": "en"
+  },
+  "esp32-iot-device-demo": {
+    "originalLanguage": "en"
+  },
+  "event-observability": {
+    "originalLanguage": "en"
+  },
+  "filler-free-live": {
+    "originalLanguage": "en"
+  },
+  "filler-words": {
+    "originalLanguage": "en"
+  },
+  "flutter-call-subtitles": {
+    "originalLanguage": "en"
+  },
+  "flutter-quickstart": {
+    "originalLanguage": "en"
+  },
+  "gemini-agora-agentic-video-nextjs": {
+    "originalLanguage": "en"
+  },
+  "gemini-agora-voice-agents-go": {
+    "originalLanguage": "en"
+  },
+  "gemini-agora-voice-agents-nextjs": {
+    "originalLanguage": "en"
+  },
+  "gemini-agora-voice-agents-python": {
+    "originalLanguage": "en"
+  },
+  "golang-quickstart": {
+    "originalLanguage": "en"
+  },
+  "group-video-chat": {
+    "originalLanguage": "en"
+  },
+  "hello-agora-vision": {
+    "originalLanguage": "en"
+  },
+  "interruptions": {
+    "originalLanguage": "en"
+  },
+  "ios-iot-callkit-app": {
+    "originalLanguage": "en"
+  },
+  "ios-live-shopping-reference-app": {
+    "originalLanguage": "en"
+  },
+  "ios-lyrics-view-rtc-media": {
+    "originalLanguage": "en"
+  },
+  "ios-transcription-widget": {
+    "originalLanguage": "en"
+  },
+  "iot-callkit-device-demo": {
+    "originalLanguage": "en"
+  },
+  "jev-vad": {
+    "originalLanguage": "en"
+  },
+  "kaun-katega-taarpati": {
+    "originalLanguage": "en"
+  },
+  "labspark-ai": {
+    "originalLanguage": "en"
+  },
+  "live-video-react-app": {
+    "originalLanguage": "en"
+  },
+  "m5-sticks3-voice-agent": {
+    "originalLanguage": "en"
+  },
+  "mcc-external-service-example": {
+    "originalLanguage": "en"
+  },
+  "mcp-tools": {
+    "originalLanguage": "en"
+  },
+  "mediaio-camera": {
+    "originalLanguage": "en"
+  },
+  "moodlens-voice-journal": {
+    "originalLanguage": "en"
+  },
+  "muse-ai": {
+    "originalLanguage": "en"
+  },
+  "nextjs-quickstart": {
+    "originalLanguage": "en"
+  },
+  "openai-gpt-live-go": {
+    "originalLanguage": "en"
+  },
+  "openai-gpt-live-nextjs": {
+    "originalLanguage": "en"
+  },
+  "openai-gpt-live-python": {
+    "originalLanguage": "en"
+  },
+  "pause-with-agora": {
+    "originalLanguage": "en"
+  },
+  "pillion": {
+    "originalLanguage": "en"
+  },
+  "push-to-talk": {
+    "originalLanguage": "en"
+  },
+  "python-quickstart": {
+    "originalLanguage": "en"
+  },
+  "rag": {
+    "originalLanguage": "en"
+  },
+  "real-time-transcription-demo": {
+    "originalLanguage": "en"
+  },
+  "realtime-translator": {
+    "originalLanguage": "en"
+  },
+  "realtime-vision": {
+    "originalLanguage": "en"
+  },
+  "realtime-voice": {
+    "originalLanguage": "en"
+  },
+  "recipe-agent-langchain": {
+    "originalLanguage": "en"
+  },
+  "rn-quickstart": {
+    "originalLanguage": "en"
+  },
+  "rtc-custom-camera": {
+    "originalLanguage": "en"
+  },
+  "rust-rtc-quickstart": {
+    "originalLanguage": "en"
+  },
+  "speaker-lock": {
+    "originalLanguage": "en"
+  },
+  "swiftui-quickstart": {
+    "originalLanguage": "en"
+  },
+  "thymia-biomarkers": {
+    "originalLanguage": "en"
+  },
+  "tool-calling": {
+    "originalLanguage": "en"
+  },
+  "trak-voice-ai": {
+    "originalLanguage": "en"
+  },
+  "trick-or-take": {
+    "originalLanguage": "en"
+  },
+  "unity-spatial-audio-spaces": {
+    "originalLanguage": "en"
+  },
+  "unity-virtual-camera-demos": {
+    "originalLanguage": "en"
+  },
+  "unity-virtual-camera-prefab": {
+    "originalLanguage": "en"
+  },
+  "vision": {
+    "originalLanguage": "en"
+  },
+  "visionos-rtc-quickstart": {
+    "originalLanguage": "en"
+  },
+  "voice-rpg": {
+    "originalLanguage": "en"
+  },
+  "watchwise-ai": {
+    "originalLanguage": "en"
+  },
+  "web-spatial-audio-demo": {
+    "originalLanguage": "en"
+  },
+  "webhooks": {
+    "originalLanguage": "en"
+  },
+  "webxr-rtc-demo": {
+    "originalLanguage": "en"
+  },
+  "wellness-coach": {
+    "originalLanguage": "en"
+  },
+  "worldcupvoice": {
+    "originalLanguage": "en"
+  }
+}

@@ -23,6 +23,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Gemini Agora Voice Agents for Python",
     "summary": "Build a Gemini-powered voice agent with Python and Agora.",
     "thumbnail": "/recipes/gemini-agora-voice-agents-python-gemini-call.webp",

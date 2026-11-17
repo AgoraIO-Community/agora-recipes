@@ -23,6 +23,7 @@
     "runCommand": "pnpm run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Delegated Reasoning",
     "summary": "Keep a voice agent responsive while a second model reasons.",
     "thumbnailSource": "https://github.com/AgoraIO-Conversational-AI/recipe-agent-delegation/tree/429bd34c72e4647a0e47f1beb4771dcb553d77aa",

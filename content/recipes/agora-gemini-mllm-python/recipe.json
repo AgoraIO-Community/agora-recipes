@@ -23,6 +23,7 @@
     "runCommand": "bun run dev:parallel"
   },
   "media": {
+    "generatedCover": true,
     "title": "Gemini MLLM Voice Agent for Python",
     "summary": "Build a Gemini Live voice agent with Python and Agora.",
     "thumbnail": "/recipes/agora-gemini-mllm-python.webp",

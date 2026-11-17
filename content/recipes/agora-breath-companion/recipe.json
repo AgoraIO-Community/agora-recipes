@@ -12,6 +12,7 @@
   "updated": "2026-06-22",
   "difficulty": "Intermediate",
   "media": {
+    "generatedCover": true,
     "title": "Breath Companion",
     "summary": "A guided breathing and voice-agent experience with Agora.",
     "thumbnail": "/recipes/agora-breath-companion-catalog-call.webp",

@@ -36,6 +36,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Real-time Translator",
     "summary": "Speak in one language and hear another in real time.",
     "thumbnail": "/recipes/realtime-translator-catalog-call.webp",

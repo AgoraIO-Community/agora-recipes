@@ -1,0 +1,43 @@
+{
+  "title": "Popular Use Cases",
+  "summary": "Explore practical Voice AI use cases for customer support, hospitality, travel, education, healthcare, language learning, recruitment, events, feedback and shopping. Try the demos and build your own.",
+  "compactSummary": "Practical Voice AI use cases to try and build.",
+  "kind": "collection",
+  "cover": {
+    "src": "/topics/popular-use-cases-pixel-town.png",
+    "alt": "Popular Use Cases pixel-art town with shops, a learning center, a clinic and a hotel connected by cyan voice waves.",
+    "sourceUrl": "https://github.com/AgoraIO-Community/agora-recipes"
+  },
+  "members": [
+    {
+      "slug": "agora-voice-shopping-assistant-demo"
+    },
+    {
+      "slug": "agora-customer-support-assistant-demo"
+    },
+    {
+      "slug": "agora-hotel-reception-assistant-demo"
+    },
+    {
+      "slug": "agora-travel-booking-assistant-demo"
+    },
+    {
+      "slug": "agora-course-consultation-assistant-demo"
+    },
+    {
+      "slug": "agora-clinic-appointment-assistant-demo"
+    },
+    {
+      "slug": "agora-speaking-coach-demo"
+    },
+    {
+      "slug": "agora-recruitment-screening-assistant-demo"
+    },
+    {
+      "slug": "agora-event-reminder-assistant-demo"
+    },
+    {
+      "slug": "agora-service-feedback-survey-demo"
+    }
+  ]
+}

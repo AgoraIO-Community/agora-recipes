@@ -12,6 +12,7 @@
   "updated": "2026-06-25",
   "difficulty": "Beginner",
   "media": {
+    "generatedCover": true,
     "title": "Daily Mandir AI",
     "summary": "A devotional voice companion for daily temple guidance.",
     "thumbnail": "/recipes/daily-mandir-ai-catalog-call.webp",

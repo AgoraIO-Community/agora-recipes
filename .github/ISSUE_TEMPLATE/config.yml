@@ -1,1 +1,5 @@
 blank_issues_enabled: true
+contact_links:
+  - name: Submit a recipe (pull request)
+    url: https://github.com/AgoraIO-Community/agora-recipes/blob/staging/CONTRIBUTING.md
+    about: Submit recipe metadata through a PR to staging. Use Issues for bugs and questions.

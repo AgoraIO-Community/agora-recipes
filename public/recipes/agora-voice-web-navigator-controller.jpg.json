@@ -1,0 +1,7 @@
+{
+  "kind": "local-app-screenshot",
+  "source": "https://github.com/Thanoj-developer/ARGUS_WITH_AGORA/tree/e9c9756ccdcf130f05257990576a3fbc786e3b6c",
+  "capturedAt": "2026-11-11",
+  "notes": "Browser-control interface after running a navigation preset. Voice control requires its separate service configuration.",
+  "captureState": "Initial app or browser-navigation state; voice and RTC sessions were not started."
+}

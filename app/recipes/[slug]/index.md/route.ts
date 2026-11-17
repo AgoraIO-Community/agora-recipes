@@ -14,5 +14,5 @@ export async function GET(
   const { slug } = await params
   const recipe = getRecipe(slug)
   if (!recipe) return new Response("Recipe not found\n", { status: 404 })
-  return markdownResponse(recipeMarkdown(recipe))
+  return markdownResponse(recipeMarkdown(recipe), `/recipes/${slug}`)
 }

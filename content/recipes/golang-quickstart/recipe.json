@@ -23,6 +23,7 @@
     "runCommand": "make dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Golang Quickstart",
     "summary": "Build a basic Agora Conversational AI agent in Go.",
     "thumbnail": "/recipes/golang-quickstart-clean-call.webp",

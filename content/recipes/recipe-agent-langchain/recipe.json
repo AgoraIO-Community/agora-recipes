@@ -12,6 +12,7 @@
   "updated": "2026-06-24",
   "difficulty": "Intermediate",
   "media": {
+    "generatedCover": true,
     "title": "LangChain Voice Agent",
     "summary": "Connect a LangChain agent to an Agora voice session.",
     "thumbnail": "/recipes/recipe-agent-langchain-clean-call.webp",

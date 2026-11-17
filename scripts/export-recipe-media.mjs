@@ -20,7 +20,7 @@ await fs.mkdir(path.join(destination, "images"), { recursive: true })
 for (const slug of (await fs.readdir(path.join(root, "content/recipes"))).filter(s => !s.startsWith(".")).sort()) {
   const recipe = JSON.parse(await fs.readFile(path.join(root, "content/recipes", slug, "recipe.json"), "utf8"))
   const media = recipe.media
-  if (!media?.thumbnail) throw new Error(`Missing active thumbnail: ${slug}`)
+  if (!media?.thumbnail) continue // Text covers have no image to export.
   let bytes
   let extension
   if (media.thumbnail.startsWith("/recipes/")) {

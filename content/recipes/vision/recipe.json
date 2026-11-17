@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Vision (Camera Input)",
     "summary": "Let the agent see the user's camera.",
     "thumbnail": "/recipes/vision-catalog-call.webp",

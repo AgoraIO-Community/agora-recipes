@@ -40,4 +40,5 @@ jobs:
             sleep 1
           done
           node scripts/check-llm-discovery.mjs http://localhost:3000
+          node scripts/check-search-discovery.mjs http://localhost:3000
           node scripts/check-phase-one.mjs http://localhost:3000

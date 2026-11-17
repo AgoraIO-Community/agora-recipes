@@ -23,6 +23,7 @@
     "runCommand": "pnpm dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "NextJS Quickstart",
     "summary": "A basic Agora Conversational AI agent with Next.js.",
     "thumbnail": "/recipes/nextjs-quickstart-catalog-call.webp",

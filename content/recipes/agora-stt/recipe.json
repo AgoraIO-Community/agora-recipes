@@ -24,6 +24,7 @@
   "updated": "2026-10-21",
   "difficulty": "Intermediate",
   "media": {
+    "generatedCover": true,
     "title": "Speech-to-Text with Agora RTC",
     "summary": "Transcribe Agora RTC audio with a speech-to-text workflow.",
     "thumbnail": "/recipes/agora-stt.webp",

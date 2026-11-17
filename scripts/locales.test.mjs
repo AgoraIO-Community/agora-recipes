@@ -61,3 +61,10 @@ test('Topic return targets retain the exact source list and reject lookalike or 
     for (const bad of ['/entopics/voice-ai', '/topics/a/b', '/ja/topics/../contribute', '/ja/topics/a%2fb', '//example.com/topics/a']) assert.equal(catalogReturnPath(bad, locale), `${localePath('/', locale)}#recipes`)
   }
 })
+
+test('the complete directory is a valid return target without allowing recipe detail redirects', () => {
+  for (const locale of locales) {
+    assert.equal(catalogReturnPath(localePath('/recipes', locale), locale), `${localePath('/recipes', locale)}#recipes`)
+    assert.equal(catalogReturnPath(localePath('/recipes/desktop-pet', locale), locale), `${localePath('/', locale)}#recipes`)
+  }
+})

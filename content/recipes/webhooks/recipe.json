@@ -35,6 +35,7 @@
     "runCommand": "bun run dev"
   },
   "media": {
+    "generatedCover": true,
     "title": "Server-side Webhooks",
     "summary": "Receive Agora lifecycle events on your server.",
     "thumbnail": "/recipes/webhooks-catalog-call.webp",

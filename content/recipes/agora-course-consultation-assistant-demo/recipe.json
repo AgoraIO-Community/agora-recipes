@@ -1,0 +1,50 @@
+{
+  "title": "Course Consultation Assistant",
+  "tagline": "Explore a youth basketball trial through a voice consultation.",
+  "description": "Ask about a fictional Austin basketball trial, discuss a child's needs and review a session and example fee. Enrollment is simulated within the conversation and is not saved.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Education",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-course-consultation-assistant-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-course-consultation-assistant-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-course-consultation-assistant.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-12",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-course-consultation-assistant-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "ASCII illustration for Course Consultation Assistant; supplied cover artwork, not a demo screenshot",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-course-consultation-assistant-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  },
+  "setup": {
+    "packageName": "agora-course-consultation-assistant-demo",
+    "packageVersion": "0.1.0",
+    "npmAvailable": true,
+    "directory": "my-course-app",
+    "testRequest": "What should I know before choosing a basketball trial class for my child?"
+  }
+}

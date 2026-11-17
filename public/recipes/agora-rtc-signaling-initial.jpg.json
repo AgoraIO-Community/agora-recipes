@@ -1,0 +1,7 @@
+{
+  "kind": "local-app-screenshot",
+  "source": "https://github.com/AgoraIO-Community/agora-rtc-signaling/tree/56c2af4acead964db9303c5c06c1454707c67801",
+  "capturedAt": "2026-11-11",
+  "notes": "Initial interface. Configure Agora credentials and log in to join a channel.",
+  "captureState": "Initial app or browser-navigation state; voice and RTC sessions were not started."
+}
