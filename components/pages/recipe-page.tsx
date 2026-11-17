@@ -133,7 +133,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           <h2 id="recipe-guide-heading" className="sr-only">{t("Implementation guide")}</h2>
           {sections.length > 0 && <Disclosure className="mobile-guide-outline"><DisclosureTrigger>{t("In this guide")}</DisclosureTrigger><DisclosureContent asChild><nav aria-label={t("Guide contents on mobile")}>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}</nav></DisclosureContent></Disclosure>}
           {(!selected.language || selected.language !== locale) && <p className="recipe-source-note" data-guide-language={selected.language ?? "und"}>{t("Document language: {language}", { language: t(languageName) })}{selected.language && !selected.manual ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}</p>}
-          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl} sourceUrl={recipe.recipeDocument.viewUrl}
+          <RecipeDocument markdown={recipe.recipeDocument.markdown} rawUrl={recipe.recipeDocument.rawUrl}
             languageControl={options.length > 2 ? <DocumentLanguageSwitcher key="document-language" slug={slug} selected={selected.manual ? selected.key : "auto"} label={t(languageName)}
               description={`${t("Document language: {language}", { language: t(languageName) })}${!selected.manual && selected.language && selected.language !== locale ? ` · ${t("The requested language is unavailable; showing the available author version.")}` : ""}`} options={options} /> : undefined}>
 

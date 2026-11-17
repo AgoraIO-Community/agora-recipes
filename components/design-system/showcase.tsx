@@ -101,7 +101,7 @@ export function DesignSystemShowcase({ cardExamples }: { cardExamples: RecipeSum
 
     <section aria-labelledby="ds-reader"><h2 id="ds-reader">Reader and document tools</h2><p>The actual reader, CLI command and shared disclosure used on recipe pages.</p>
       <div className="ds-row"><CodePanel code="agora init example --recipe example" label="Agora CLI" variant="inline" /><ShareActions url="https://github.com/AgoraIO-Community/agora-recipes" title="Recipes example" /></div>
-      <RecipeDocument markdown="# Example recipe\n\nUse the guide or copy its Markdown." sourceUrl="https://github.com/AgoraIO-Community/agora-recipes/blob/staging/README.md"><div className="prose-recipe"><p>A reading plane with the same control bar as the real recipe.</p><CodePanel code="agora --help" label="Shell" /><Disclosure><DisclosureTrigger meta="2">Requirements and setup</DisclosureTrigger><DisclosureContent>Bring your project and a public repository.</DisclosureContent></Disclosure></div></RecipeDocument>
+      <RecipeDocument markdown="# Example recipe\n\nUse the guide or copy its Markdown."><div className="prose-recipe"><p>A reading plane with the same control bar as the real recipe.</p><CodePanel code="agora --help" label="Shell" /><Disclosure><DisclosureTrigger meta="2">Requirements and setup</DisclosureTrigger><DisclosureContent>Bring your project and a public repository.</DisclosureContent></Disclosure></div></RecipeDocument>
     </section>
 
     <section aria-labelledby="ds-surfaces"><h2 id="ds-surfaces">Floating surfaces</h2><p>Menus share the optical surface. Forms and reading content stay solid.</p><div className="ds-row">
