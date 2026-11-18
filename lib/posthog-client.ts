@@ -78,7 +78,7 @@ export function capturePosthog(event: string, properties: Record<string, unknown
       api_transport: "fetch",
       disable_beacon: true,
       fetch_options: transport.options,
-      save_referrer: false,
+      save_referrer: true,
       save_campaign_params: false,
       before_send: event => analyticsConsent.isGranted() ? sanitizePosthogEvent(event) : null,
     })

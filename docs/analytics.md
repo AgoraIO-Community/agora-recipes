@@ -443,6 +443,32 @@ component instrumentation. Check actual ingestion in both destinations after rel
 
 ## Data boundary
 
+### Built-in traffic sources
+
+After product-analytics consent, PostHog's `save_referrer` stores its built-in
+source context and supplies `$referrer` and `$referring_domain` to page views
+and actions. The final event boundary allows these two properties: `$referrer`
+accepts HTTP(S) URLs with credentials, query strings and fragments removed;
+`$referring_domain` accepts only a host, including an optional port. The SDK's
+`$direct` sentinel is preserved. It means no referrer was available, not proof
+that the visitor typed the address. Missing fields remain unknown.
+
+The SDK owns source persistence; it is separate from the application's UTM tab
+controller and does not promise that every external re-entry replaces the source.
+`save_campaign_params` remains disabled. SDK source storage can contain the
+original browser-provided referrer; the cleanup above applies to outgoing events.
+Existing consent gates and withdrawal cleanup cover Recipes SDK persistence.
+No custom entry-source property, initial-person source fields, search keywords,
+extra events or outbound referrer parameters are introduced. Basic counters,
+Vercel and GA4 keep their existing contracts.
+
+For source reporting, filter `app=recipes`, `environment=production` and
+`measurement_tier=behavioral`, then break down page views or Demo handoffs by
+`$referring_domain`. Browsers and upstream sites can omit sources or expose only
+an origin. A Google domain alone cannot distinguish organic search from an
+untagged ad, and Google search terms are usually unavailable. Historical missing
+properties cannot be reconstructed. Verify actual ingestion after release.
+
 Native video `play` events and the official YouTube IFrame API's PLAYING state
 feed the same bounded `video_play` event, once per dialog opening. Opening a
 dialog, initializing the embedded player, a provider error, and muted hover

@@ -121,6 +121,7 @@ test('production queues first events into one configured project with forced app
   assert.equal(client.state.options.disable_session_recording, true)
   assert.equal(client.state.options.advanced_disable_flags, true)
   assert.equal(client.state.options.save_campaign_params, false)
+  assert.equal(client.state.options.save_referrer, true)
   assert.equal(client.state.options.opt_out_capturing_by_default, true)
   assert.equal(client.state.options.opt_out_persistence_by_default, true)
   assert.equal(client.state.options.cross_subdomain_cookie, false)
