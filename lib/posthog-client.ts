@@ -9,7 +9,6 @@ import { createConsentTransport } from "./analytics-transport"
 let client: Promise<typeof import("posthog-js/dist/module.slim").default | undefined> | undefined
 let transport: ReturnType<typeof createConsentTransport> | undefined
 let appliedTransport: typeof transport
-const sourceKeys = ["$referrer", "$referring_domain", "$initial_referrer", "$initial_referring_domain", "$initial_current_url", "$initial_referrer_info", "$initial_campaign_params", "$initial_person_info", "ph_keyword", "$search_engine", "$client_session_props"]
 
 function clearRecipesPersistence() {
   if (typeof window === "undefined") return
@@ -40,13 +39,7 @@ export function syncPosthogConsent() {
     clearRecipesPersistence()
   }
   void client?.then(posthog => {
-    if (posthog && !analyticsConsent.isGranted()) {
-      posthog.opt_out_capturing()
-      for (const key of sourceKeys) {
-        posthog.unregister(key)
-        posthog.unregister_for_session(key)
-      }
-    }
+    if (posthog && !analyticsConsent.isGranted()) posthog.opt_out_capturing()
   }).catch(() => {})
 }
 
@@ -92,16 +85,7 @@ export function capturePosthog(event: string, properties: Record<string, unknown
       save_campaign_params: false,
       before_send: event => analyticsConsent.isGranted() ? sanitizePosthogEvent(event) : null,
     })
-    // SDK 1.439 also writes raw session-entry URLs with save_referrer disabled.
-    // Filter its automatic source properties before register can persist them.
-    for (const persistence of new Set([posthog.persistence, posthog.sessionPersistence])) {
-      if (!persistence) continue
-      const register = persistence.register.bind(persistence)
-      persistence.register = (properties, days) => register(Object.fromEntries(
-        Object.entries(properties).filter(([key]) => !sourceKeys.includes(key)),
-      ), days)
-    }
-    for (const key of [...campaignKeys, ...sourceKeys]) {
+    for (const key of campaignKeys) {
       posthog.unregister(key)
       posthog.unregister_for_session(key)
     }

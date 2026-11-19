@@ -464,14 +464,9 @@ Withdrawal clears the domain and prevents the same document's referrer from bein
 restored on regrant. Consent after a SPA path change does not reuse its original
 referrer. Blocked storage falls back to consented document memory.
 
-`save_referrer` and `save_campaign_params` are disabled. SDK 1.439.0 still attempts
-to register raw session-entry URLs and search keywords independently of these
-switches. A narrow persistence-register filter drops those automatic source
-properties before storage; initialization and withdrawal also unregister legacy
-source values from both SDK stores. Verify this adapter when upgrading the SDK.
-Only the application domain snapshot is retained, with no referrer path, query,
-fragment or port. No new events are introduced. Basic counters, Vercel and GA4
-keep their existing contracts.
+`save_referrer` and `save_campaign_params` remain disabled. Events use the domain
+from the application snapshot, which contains no referrer path, query, fragment
+or port.
 
 For source reporting, filter `app=recipes`, `environment=production` and
 `measurement_tier=behavioral`, then break down page views or Demo handoffs by

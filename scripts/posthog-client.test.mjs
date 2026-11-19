@@ -207,16 +207,15 @@ test('initialization clears both SDK campaign stores and every capture explicitl
   client.capturePosthog('material_open', {action:'demo',utm_source:'x',landing_path:'/'}, 'https://recipes.agora.io')
   await new Promise(resolve=>setImmediate(resolve))
   const keys=['utm_source','utm_medium','utm_campaign','utm_id','utm_content','utm_term']
-  assert.deepEqual(client.state.unregistered.slice(0,keys.length),keys)
-  assert.ok(client.state.unregistered.includes("$initial_person_info"))
-  assert.deepEqual(client.state.sessionUnregistered,client.state.unregistered)
+  assert.deepEqual(client.state.unregistered,keys)
+  assert.deepEqual(client.state.sessionUnregistered,keys)
   const properties=client.state.events[0].properties
   assert.equal(properties.utm_source,'x')
   for (const key of keys.filter(key=>key!=='utm_source')) assert.equal(properties[key],undefined,key)
 })
 
 
-test('captures use the consented domain and override legacy or caller sources; withdrawal cleans both SDK stores', async () => {
+test('captures use the consented domain and ignore stale source fields after withdrawal and regrant', async () => {
   const client = await fixture('https://recipes.agora.io/')
   client.state.domain = 'b.example'
   client.capturePosthog('material_open', {action:'demo', $referring_domain:'a.example', $referrer:'https://a.example/private?token=secret'}, 'https://recipes.agora.io')
@@ -227,8 +226,8 @@ test('captures use the consented domain and override legacy or caller sources; w
   client.state.consent=false
   client.syncPosthogConsent()
   await new Promise(resolve=>setImmediate(resolve))
-  assert.ok(client.state.unregistered.slice(count).includes('$referring_domain'))
-  assert.ok(client.state.sessionUnregistered.slice(count).includes('$initial_person_info'))
+  assert.equal(client.state.unregistered.length,count)
+  assert.equal(client.state.sessionUnregistered.length,count)
   client.state.domain=undefined
   client.state.consent=true
   client.capturePosthog('material_open', {action:'demo', $referring_domain:'a.example'}, 'https://recipes.agora.io')
