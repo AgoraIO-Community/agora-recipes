@@ -31,8 +31,8 @@
     "compactTitle": "Alibai",
     "compactSummary": "Interrogate a live AI suspect.",
     "thumbnail": "/recipes/alibai.webp",
-    "thumbnailAlt": "Alibai landing page from the live demo: the title Interrogate the Agent above two detectives at an interrogation table, with the Start Investigation button.",
-    "thumbnailSource": "https://alibai-game.vercel.app/",
+    "thumbnailAlt": "Alibai title card: the word Alibai and the line Interrogate the agent beside a glowing voice waveform, over the game's interrogation room with two detectives at a lamp-lit table.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/alibai-game/blob/main/public/images/interrogation-room.webp",
     "demoNote": "Google sign-in and a microphone needed. English only.",
     "labels": [
       "Voice AI",
