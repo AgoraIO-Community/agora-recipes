@@ -62,7 +62,7 @@ The managed popup and corporate policy have not yet been updated to describe
 the expanded anonymous source and usage scope.
 
 The browser sends a small, cookie-free request to the first-party
-`POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
+`POST /api/analytics/basic` endpoint. It omits credentials and the HTTP referrer header, creates no
 visitor/session/search ID, accesses no browser storage, and sends no URL,
 account, consent status, device attributes, or timestamp. The three bounded
 campaign fields below retain their original values. A pathname
@@ -98,7 +98,7 @@ cannot recognize every possible personal identifier. Campaign publishers must
 not use recipient or visitor identifiers as UTM labels. Each anonymous field is
 independent, so a campaign-only URL still retains its campaign. Repeated
 parameters use their first value, following `URLSearchParams.get`.
-`utm_content`, `utm_term`, `utm_id`, click IDs, complete URLs and referrers never
+`utm_content`, `utm_term`, `utm_id`, click IDs, and full referrer URLs never
 enter the anonymous request. Untagged navigation has no retained anonymous
 source.
 This tier measures tagged page/use counts, including reloads, rather than
@@ -243,6 +243,11 @@ Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
 `measurement_tier=aggregate`, and `measurement_version=4`. Use **sum of count**:
 Version 3 historical counters cover page/search counts without campaign dimensions.
 
+- External entries use `metric=page_view` with `$referring_domain` set. Sum
+  `count` by domain. The initial page of a new external document navigation
+  can carry one validated hostname, regardless of analytics consent. SPA
+  navigation, reload, and history restoration do not add an external entry.
+  The hostname is sent on the existing page count and is not saved in browser storage.
 - Page/content popularity: `metric=page_view`, broken down by `page_type` and
   `content_slug` or `topic_slug`, grouped by `day`.
 - Known popular searches: `metric=search`, broken down by `search_term`. The
@@ -442,6 +447,33 @@ so future destinations can implement their own projection without changing
 component instrumentation. Check actual ingestion in both destinations after release.
 
 ## Data boundary
+
+### Built-in traffic sources
+
+After product-analytics consent, the application extracts only a validated external
+HTTP(S) hostname from `document.referrer`. It sends `$referring_domain` on page
+views and actions; `$referrer`, initial-source fields and search keywords are
+excluded. Missing or hidden sources remain unknown, without a `$direct` sentinel.
+
+The existing tab controller stores the domain separately from campaign values.
+Internal navigation and reload inherit a verified tab snapshot; a new external
+entry replaces the domain. History/BFCache restoration adopts the latest snapshot
+rather than the old document's source. A new UTM-only entry clears the previous
+domain. Domain changes do not modify the existing UTM contract or outbound links.
+Withdrawal clears the domain and prevents the same document's referrer from being
+restored on regrant. Consent after a SPA path change does not reuse its original
+referrer. Blocked storage falls back to consented document memory.
+
+`save_referrer` and `save_campaign_params` remain disabled. Events use the domain
+from the application snapshot, which contains no referrer path, query, fragment
+or port.
+
+For source reporting, filter `app=recipes`, `environment=production` and
+`measurement_tier=behavioral`, then break down page views or Demo handoffs by
+`$referring_domain`. Browsers and upstream sites can omit sources or expose only
+an origin. A Google domain alone cannot distinguish organic search from an
+untagged ad, and Google search terms are usually unavailable. Historical missing
+properties cannot be reconstructed. Verify actual ingestion after release.
 
 Native video `play` events and the official YouTube IFrame API's PLAYING state
 feed the same bounded `video_play` event, once per dialog opening. Opening a

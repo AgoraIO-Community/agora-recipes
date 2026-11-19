@@ -4,9 +4,11 @@ import test from 'node:test'
 import ts from 'typescript'
 
 async function load(file) {
+  const { basicUrl, attributionUrl } = await import('./analytics-test-modules.mjs')
   const source = readFileSync(new URL(`../lib/${file}.ts`, import.meta.url), 'utf8')
     .replace('"./analytics-events"', JSON.stringify(new URL('../lib/analytics-events.ts', import.meta.url).href))
-    .replace('"./basic-analytics"', JSON.stringify((await import('./analytics-test-modules.mjs')).basicUrl))
+    .replace('"./basic-analytics"', JSON.stringify(basicUrl))
+    .replace('"./analytics-attribution"', JSON.stringify(attributionUrl))
   const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext } }).outputText
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 }
@@ -17,6 +19,24 @@ const config = { enabled: true, origin: 'https://recipes.example.com', token: 'p
 const page = { metric: 'page_view', page_type: 'recipe', content_slug: 'meeting-copilot' }
 const search = { metric: 'search', page_type: 'catalog', search_term: 'react', zero_results: false }
 const request = (count, headers = {}, url = config.origin + '/api/analytics/basic') => new Request(url, { method: 'POST', headers: { origin: config.origin, 'content-type': 'application/json', ...headers }, body: JSON.stringify(count) })
+
+test('collector forwards a domain on the existing page increment and rejects full URLs, own domains and usage sources', async () => {
+  const sent = []
+  const count = { ...page, $referring_domain: 'github.com' }
+  const result = await recordBasicCount(request(count), config, async (url, options) => {
+    sent.push(JSON.parse(options.body))
+    return new Response(null, { status: 204 })
+  })
+  assert.equal(result.status, 204)
+  assert.deepEqual(sent.map(event => [event.event, event.properties.count, event.properties.$referring_domain]),
+    [['recipes_basic_count', 1, 'github.com']])
+  for (const invalid of [
+    { ...page, $referring_domain: config.origin },
+    { ...page, $referring_domain: 'recipes.example.com' },
+    { ...page, $referring_domain: 'github.com/path?private=1' },
+    { ...search, $referring_domain: 'github.com' },
+  ]) assert.equal(validBasicCount(invalid, config), undefined)
+})
 
 test('basic searches emit only approved public labels, including recipe aliases; private and unknown text becomes other', () => {
   for (const [input, expected] of [[' REACT ', 'react'], ['ＴｙｐｅＳｃｒｉｐｔ', 'typescript'], ['meeting-copilot', 'meeting-copilot'], ['Meeting Copilot', 'meeting-copilot'], ['Transcription', 'transcription']]) assert.equal(basicSearchTerm(input, vocabulary), expected)

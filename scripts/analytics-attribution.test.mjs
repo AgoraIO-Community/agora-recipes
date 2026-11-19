@@ -258,3 +258,45 @@ test('a restored document claims ownership before the newer document releases, s
   assert.equal(tab.state.value,claimed)
   assert.equal(JSON.parse(claimed).released,false)
 })
+
+
+test('external sources replace domains, internal navigation and reload inherit, and storage contains no referrer URL', () => {
+  const tab=fixture()
+  let page=tab.open('/?invite=abc','navigate','https://a.example/private?secret=value#fragment')
+  assert.equal(page.getReferringDomain(),'a.example')
+  assert.doesNotMatch(tab.state.value,/invite|secret|fragment|https:/)
+  assert.equal(page.get(),undefined)
+  page.release()
+  page=tab.open('/recipes/example','navigate',origin+'/')
+  assert.equal(page.getReferringDomain(),'a.example')
+  page.release()
+  page=tab.open('/','navigate','https://b.example/elsewhere')
+  assert.equal(page.getReferringDomain(),'b.example')
+  page.release()
+  page=tab.open('/','reload','https://a.example/')
+  assert.equal(page.getReferringDomain(),'b.example')
+  page.clear()
+  assert.equal(page.getReferringDomain(),undefined)
+  assert.equal(tab.state.value,null)
+})
+
+test('BFCache adopts the latest domain and stale documents cannot overwrite it', () => {
+  const tab=fixture()
+  const old=tab.open('/','navigate','https://a.example/')
+  old.release()
+  const newer=tab.open('/','navigate','https://b.example/')
+  old.release()
+  assert.equal(JSON.parse(tab.state.value).referringDomain,'b.example')
+  newer.release()
+  old.resume(true)
+  assert.equal(old.getReferringDomain(),'b.example')
+})
+
+test('invalid, same-site, restored and unowned sources do not invent external domains', () => {
+  for(const referrer of ['',origin+'/?secret=x','javascript:alert(1)','https://u:p@a.example/','http://127.0.0.1/','https://localhost/']) {
+    assert.equal(fixture().open('/','navigate',referrer).getReferringDomain(),undefined,referrer)
+  }
+  for(const type of ['reload','back_forward']) assert.equal(fixture().open('/',type,'https://a.example/').getReferringDomain(),undefined)
+  const tab=fixture({blocked:true})
+  assert.equal(tab.open('/','navigate','https://a.example/').getReferringDomain(),'a.example')
+})

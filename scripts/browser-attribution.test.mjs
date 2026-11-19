@@ -89,3 +89,27 @@ test('startup pending does not erase previously consented attribution before the
   f.choose('granted')
   assert.equal(f.store.getSnapshot().utm_source,'x')
 })
+
+
+test('only consented domains are recorded; withdrawal and regrant never resurrect document referrer', async () => {
+  const f=await fixture()
+  f.document.referrer='https://a.example/private?secret=value'
+  f.store.start()
+  assert.equal(f.store.getReferringDomain(),undefined)
+  f.choose('granted')
+  assert.equal(f.store.getReferringDomain(),'a.example')
+  assert.doesNotMatch([...f.state.stored.values()].join(''),/private|secret/)
+  f.choose('denied')
+  assert.equal(f.store.getReferringDomain(),undefined)
+  f.choose('granted')
+  assert.equal(f.store.getReferringDomain(),undefined)
+})
+
+test('delayed consent after SPA navigation does not assign the old document source', async () => {
+  const f=await fixture()
+  f.document.referrer='https://a.example/'
+  f.store.start()
+  f.window.location=new URL('https://recipes.agora.io/recipes/example')
+  f.choose('granted')
+  assert.equal(f.store.getReferringDomain(),undefined)
+})
