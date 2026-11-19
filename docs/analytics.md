@@ -62,7 +62,7 @@ The managed popup and corporate policy have not yet been updated to describe
 the expanded anonymous source and usage scope.
 
 The browser sends a small, cookie-free request to the first-party
-`POST /api/analytics/basic` endpoint. It omits credentials and referrers, creates no
+`POST /api/analytics/basic` endpoint. It omits credentials and the HTTP referrer header, creates no
 visitor/session/search ID, accesses no browser storage, and sends no URL,
 account, consent status, device attributes, or timestamp. The three bounded
 campaign fields below retain their original values. A pathname
@@ -98,7 +98,7 @@ cannot recognize every possible personal identifier. Campaign publishers must
 not use recipient or visitor identifiers as UTM labels. Each anonymous field is
 independent, so a campaign-only URL still retains its campaign. Repeated
 parameters use their first value, following `URLSearchParams.get`.
-`utm_content`, `utm_term`, `utm_id`, click IDs, complete URLs and referrers never
+`utm_content`, `utm_term`, `utm_id`, click IDs, and full referrer URLs never
 enter the anonymous request. Untagged navigation has no retained anonymous
 source.
 This tier measures tagged page/use counts, including reloads, rather than
@@ -243,6 +243,11 @@ Filter `event=recipes_basic_count`, `app=recipes`, `environment=production`,
 `measurement_tier=aggregate`, and `measurement_version=4`. Use **sum of count**:
 Version 3 historical counters cover page/search counts without campaign dimensions.
 
+- External entries use `metric=page_view` with `$referring_domain` set. Sum
+  `count` by domain. The initial page of a new external document navigation
+  can carry one validated hostname, regardless of analytics consent. SPA
+  navigation, reload, and history restoration do not add an external entry.
+  The hostname is sent on the existing page count and is not saved in browser storage.
 - Page/content popularity: `metric=page_view`, broken down by `page_type` and
   `content_slug` or `topic_slug`, grouped by `day`.
 - Known popular searches: `metric=search`, broken down by `search_term`. The

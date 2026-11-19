@@ -42,11 +42,12 @@ export function referringDomain(value: unknown): string | undefined {
   return domain.split(".").every(label => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label)) ? domain : undefined
 }
 
-function externalDomain(referrer: string, current: URL) {
+export function externalDomain(referrer: string, current: URL) {
   try {
     const url = new URL(referrer)
-    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || url.hostname === current.hostname) return undefined
-    return referringDomain(url.hostname)
+    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) return undefined
+    const domain = referringDomain(url.hostname)
+    return domain === referringDomain(current.hostname) ? undefined : domain
   } catch { return undefined }
 }
 

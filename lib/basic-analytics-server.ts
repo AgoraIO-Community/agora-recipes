@@ -1,9 +1,10 @@
 import { campaignText } from "./analytics-events"
+import { referringDomain } from "./analytics-attribution"
 import { basicCampaignKeys, isBasicUsage, type BasicCount } from "./basic-analytics"
 
-type Catalog = { recipes: ReadonlySet<string>; topics: ReadonlySet<string>; terms: ReadonlySet<string> }
-type Configuration = Catalog & { enabled: boolean; origin: string; token?: string; host?: string }
-const fields = new Set(["metric", "page_type", "content_slug", "topic_slug", "search_term", "zero_results", "action", ...basicCampaignKeys])
+type Catalog = { recipes: ReadonlySet<string>; topics: ReadonlySet<string>; terms: ReadonlySet<string>; origin: string }
+type Configuration = Catalog & { enabled: boolean; token?: string; host?: string }
+const fields = new Set(["metric", "page_type", "content_slug", "topic_slug", "search_term", "zero_results", "action", "$referring_domain", ...basicCampaignKeys])
 const response = (status: number) => new Response(null, { status, headers: { "Cache-Control": "no-store" } })
 
 export function validBasicCount(input: unknown, catalog: Catalog): BasicCount | undefined {
@@ -11,6 +12,10 @@ export function validBasicCount(input: unknown, catalog: Catalog): BasicCount | 
   const value = input as Record<string, unknown>
   if (Object.keys(value).some(key => !fields.has(key))) return
   if (typeof value.metric !== "string") return
+  if (value.$referring_domain !== undefined) {
+    const domain = referringDomain(value.$referring_domain)
+    if (value.metric !== "page_view" || !domain || domain !== value.$referring_domain || domain === referringDomain(new URL(catalog.origin).hostname)) return
+  }
   const usage = isBasicUsage(value.metric, value.action)
   if (!["page_view", "search"].includes(value.metric) && !usage) return
   if (!usage && value.action !== undefined) return
