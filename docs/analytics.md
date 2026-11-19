@@ -445,22 +445,28 @@ component instrumentation. Check actual ingestion in both destinations after rel
 
 ### Built-in traffic sources
 
-After product-analytics consent, PostHog's `save_referrer` stores its built-in
-source context and supplies `$referrer` and `$referring_domain` to page views
-and actions. The final event boundary allows these two properties: `$referrer`
-accepts HTTP(S) URLs with credentials, query strings and fragments removed;
-`$referring_domain` accepts only a host, including an optional port. The SDK's
-`$direct` sentinel is preserved. It means no referrer was available, not proof
-that the visitor typed the address. Missing fields remain unknown.
+After product-analytics consent, the application extracts only a validated external
+HTTP(S) hostname from `document.referrer`. It sends `$referring_domain` on page
+views and actions; `$referrer`, initial-source fields and search keywords are
+excluded. Missing or hidden sources remain unknown, without a `$direct` sentinel.
 
-The SDK owns source persistence; it is separate from the application's UTM tab
-controller and does not promise that every external re-entry replaces the source.
-`save_campaign_params` remains disabled. SDK source storage can contain the
-original browser-provided referrer; the cleanup above applies to outgoing events.
-Existing consent gates and withdrawal cleanup cover Recipes SDK persistence.
-No custom entry-source property, initial-person source fields, search keywords,
-extra events or outbound referrer parameters are introduced. Basic counters,
-Vercel and GA4 keep their existing contracts.
+The existing tab controller stores the domain separately from campaign values.
+Internal navigation and reload inherit a verified tab snapshot; a new external
+entry replaces the domain. History/BFCache restoration adopts the latest snapshot
+rather than the old document's source. A new UTM-only entry clears the previous
+domain. Domain changes do not modify the existing UTM contract or outbound links.
+Withdrawal clears the domain and prevents the same document's referrer from being
+restored on regrant. Consent after a SPA path change does not reuse its original
+referrer. Blocked storage falls back to consented document memory.
+
+`save_referrer` and `save_campaign_params` are disabled. SDK 1.439.0 still attempts
+to register raw session-entry URLs and search keywords independently of these
+switches. A narrow persistence-register filter drops those automatic source
+properties before storage; initialization and withdrawal also unregister legacy
+source values from both SDK stores. Verify this adapter when upgrading the SDK.
+Only the application domain snapshot is retained, with no referrer path, query,
+fragment or port. No new events are introduced. Basic counters, Vercel and GA4
+keep their existing contracts.
 
 For source reporting, filter `app=recipes`, `environment=production` and
 `measurement_tier=behavioral`, then break down page views or Demo handoffs by

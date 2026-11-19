@@ -1,12 +1,12 @@
 import { analyticsText, analyticsUrl, campaignKeys, campaignProperties, eventActions } from "./analytics-events"
-import { sanitizeAttribution } from "./analytics-attribution"
+import { referringDomain, sanitizeAttribution } from "./analytics-attribution"
 import { applicationProperties } from "./analytics-context"
 
 // Keep anonymous transport/session identity and bounded measurements. Discard SDK
 // profile updates, DOM text, arbitrary query strings, and clipboard data.
 const allowedProperties = new Set([
   "token", "distinct_id", "$device_id", "$session_id", "$window_id", "$lib", "$lib_version", "$insert_id", "$time",
-  "$is_identified", "$process_person_profile", "$current_url", "$pathname", "$host", "$browser", "$browser_version", "$os", "$os_version", "$device_type", "$referrer", "$referring_domain",
+  "$is_identified", "$process_person_profile", "$current_url", "$pathname", "$host", "$browser", "$browser_version", "$os", "$os_version", "$device_type", "$referring_domain",
   "app", "site", "environment", "measurement_version", "measurement_tier", "locale", "page_type", "content_slug", "topic_slug", "source_topic_slug", "action", "placement", "result_count", "is_recipe_use", "recipe_use_kind", "is_topic_engagement",
   ...campaignKeys, "search_term", "search_term_redacted", "search_status", "search_id", "result_position", "landing_path",
 ])
@@ -14,22 +14,9 @@ export function sanitizePosthogEvent<T extends { event: string; properties: Reco
   if (event.event !== "$pageview" && event.event !== "campaign_entry" && !Object.hasOwn(eventActions, event.event)) return null
   const properties = Object.fromEntries(Object.entries(event.properties).filter(([key]) => allowedProperties.has(key)))
   if (typeof properties.$current_url === "string") properties.$current_url = analyticsUrl(properties.$current_url)
-  const referrer = properties.$referrer
-  delete properties.$referrer
-  if (referrer === "$direct") properties.$referrer = referrer
-  else if (typeof referrer === "string") {
-    const cleaned = analyticsUrl(referrer)
-    if (cleaned) properties.$referrer = cleaned
-  }
-  const domain = properties.$referring_domain
+  const domain = referringDomain(properties.$referring_domain)
   delete properties.$referring_domain
-  if (domain === "$direct") properties.$referring_domain = domain
-  else if (typeof domain === "string") {
-    try {
-      const url = new URL(`https://${domain}`)
-      if (url.host === domain.toLowerCase() && !url.username && !url.password && url.pathname === "/" && !url.search && !url.hash) properties.$referring_domain = url.host
-    } catch { /* Invalid SDK or persisted source values are not reportable. */ }
-  }
+  if (domain) properties.$referring_domain = domain
   for (const key of campaignKeys) delete properties[key]
   Object.assign(properties, campaignProperties(event.properties))
   if ("landing_path" in event.properties) {

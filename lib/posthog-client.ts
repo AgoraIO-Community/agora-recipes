@@ -3,11 +3,13 @@
 import { sanitizePosthogEvent } from "./posthog-events"
 import { analyticsOriginAllowed, campaignKeys } from "./analytics-events"
 import { analyticsConsent } from "./analytics-consent"
+import { attributionStore } from "./browser-attribution"
 import { createConsentTransport } from "./analytics-transport"
 
 let client: Promise<typeof import("posthog-js/dist/module.slim").default | undefined> | undefined
 let transport: ReturnType<typeof createConsentTransport> | undefined
 let appliedTransport: typeof transport
+const sourceKeys = ["$referrer", "$referring_domain", "$initial_referrer", "$initial_referring_domain", "$initial_current_url", "$initial_referrer_info", "$initial_campaign_params", "$initial_person_info", "ph_keyword", "$search_engine", "$client_session_props"]
 
 function clearRecipesPersistence() {
   if (typeof window === "undefined") return
@@ -38,7 +40,13 @@ export function syncPosthogConsent() {
     clearRecipesPersistence()
   }
   void client?.then(posthog => {
-    if (posthog && !analyticsConsent.isGranted()) posthog.opt_out_capturing()
+    if (posthog && !analyticsConsent.isGranted()) {
+      posthog.opt_out_capturing()
+      for (const key of sourceKeys) {
+        posthog.unregister(key)
+        posthog.unregister_for_session(key)
+      }
+    }
   }).catch(() => {})
 }
 
@@ -49,6 +57,8 @@ export function capturePosthog(event: string, properties: Record<string, unknown
   if (!token) return
   if (!transport || transport.aborted) transport = createConsentTransport(analyticsConsent.isGranted)
   const grant = transport
+  attributionStore.start()
+  const domain = attributionStore.getReferringDomain()
   // Both the server deployment gate and the browser origin gate must pass
   // before loading the SDK, including its initialization requests.
   client ??= import("posthog-js/dist/module.slim").then(({ default: posthog }) => {
@@ -78,11 +88,20 @@ export function capturePosthog(event: string, properties: Record<string, unknown
       api_transport: "fetch",
       disable_beacon: true,
       fetch_options: transport.options,
-      save_referrer: true,
+      save_referrer: false,
       save_campaign_params: false,
       before_send: event => analyticsConsent.isGranted() ? sanitizePosthogEvent(event) : null,
     })
-    for (const key of campaignKeys) {
+    // SDK 1.439 also writes raw session-entry URLs with save_referrer disabled.
+    // Filter its automatic source properties before register can persist them.
+    for (const persistence of new Set([posthog.persistence, posthog.sessionPersistence])) {
+      if (!persistence) continue
+      const register = persistence.register.bind(persistence)
+      persistence.register = (properties, days) => register(Object.fromEntries(
+        Object.entries(properties).filter(([key]) => !sourceKeys.includes(key)),
+      ), days)
+    }
+    for (const key of [...campaignKeys, ...sourceKeys]) {
       posthog.unregister(key)
       posthog.unregister_for_session(key)
     }
@@ -98,6 +117,6 @@ export function capturePosthog(event: string, properties: Record<string, unknown
     if (!posthog || !analyticsConsent.isGranted() || transport !== grant || grant.aborted) return
     if (appliedTransport !== grant) { posthog.set_config({ fetch_options: grant.options }); appliedTransport = grant }
     if (!posthog.has_opted_in_capturing()) posthog.opt_in_capturing({ captureEventName: false })
-    posthog.capture(event, { ...campaignDefaults, ...properties })
+    posthog.capture(event, { ...campaignDefaults, ...properties, $referring_domain: domain ?? null })
   }).catch(() => {})
 }

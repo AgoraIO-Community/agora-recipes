@@ -13,6 +13,7 @@ const clientSource = readFileSync(new URL('../lib/posthog-client.ts', import.met
   .replace('"./posthog-events"', JSON.stringify(eventsModule))
   .replace('"./analytics-events"', JSON.stringify(analyticsModule))
   .replace('"./analytics-transport"', JSON.stringify(new URL('../lib/analytics-transport.ts', import.meta.url).href))
+  .replace('import { attributionStore } from "./browser-attribution"', '')
   .replace('import { analyticsConsent } from "./analytics-consent"', '')
 const clientModule = compile(clientSource).replace('import("posthog-js/dist/module.slim")', 'loadSDK()')
 
@@ -22,6 +23,7 @@ async function fixture(href, token = 'phc_target_project_fixture', host, consent
     const process = { env: ${JSON.stringify({ NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN: token, NEXT_PUBLIC_POSTHOG_HOST: host })} };
     export const state = { imports: 0, inits: 0, events: [], token: null, options: null, consent: ${JSON.stringify(consent)}, optIns: 0, optOuts: 0, optedIn: false, unregistered: [], sessionUnregistered: [] };
     const analyticsConsent = { isGranted: () => state.consent };
+    const attributionStore = { start() {}, getReferringDomain: () => state.consent ? state.domain : undefined };
     state.localStore = new Map(); state.sessionStore = new Map(); state.cookies = new Map();
     const storage = values => ({
       get length() { return values.size; }, key: index => [...values.keys()][index],
@@ -121,7 +123,7 @@ test('production queues first events into one configured project with forced app
   assert.equal(client.state.options.disable_session_recording, true)
   assert.equal(client.state.options.advanced_disable_flags, true)
   assert.equal(client.state.options.save_campaign_params, false)
-  assert.equal(client.state.options.save_referrer, true)
+  assert.equal(client.state.options.save_referrer, false)
   assert.equal(client.state.options.opt_out_capturing_by_default, true)
   assert.equal(client.state.options.opt_out_persistence_by_default, true)
   assert.equal(client.state.options.cross_subdomain_cookie, false)
@@ -205,9 +207,31 @@ test('initialization clears both SDK campaign stores and every capture explicitl
   client.capturePosthog('material_open', {action:'demo',utm_source:'x',landing_path:'/'}, 'https://recipes.agora.io')
   await new Promise(resolve=>setImmediate(resolve))
   const keys=['utm_source','utm_medium','utm_campaign','utm_id','utm_content','utm_term']
-  assert.deepEqual(client.state.unregistered,keys)
-  assert.deepEqual(client.state.sessionUnregistered,keys)
+  assert.deepEqual(client.state.unregistered.slice(0,keys.length),keys)
+  assert.ok(client.state.unregistered.includes("$initial_person_info"))
+  assert.deepEqual(client.state.sessionUnregistered,client.state.unregistered)
   const properties=client.state.events[0].properties
   assert.equal(properties.utm_source,'x')
   for (const key of keys.filter(key=>key!=='utm_source')) assert.equal(properties[key],undefined,key)
+})
+
+
+test('captures use the consented domain and override legacy or caller sources; withdrawal cleans both SDK stores', async () => {
+  const client = await fixture('https://recipes.agora.io/')
+  client.state.domain = 'b.example'
+  client.capturePosthog('material_open', {action:'demo', $referring_domain:'a.example', $referrer:'https://a.example/private?token=secret'}, 'https://recipes.agora.io')
+  await new Promise(resolve=>setImmediate(resolve))
+  assert.equal(client.state.events[0].properties.$referring_domain,'b.example')
+  assert.equal(client.state.events[0].properties.$referrer,undefined)
+  const count = client.state.unregistered.length
+  client.state.consent=false
+  client.syncPosthogConsent()
+  await new Promise(resolve=>setImmediate(resolve))
+  assert.ok(client.state.unregistered.slice(count).includes('$referring_domain'))
+  assert.ok(client.state.sessionUnregistered.slice(count).includes('$initial_person_info'))
+  client.state.domain=undefined
+  client.state.consent=true
+  client.capturePosthog('material_open', {action:'demo', $referring_domain:'a.example'}, 'https://recipes.agora.io')
+  await new Promise(resolve=>setImmediate(resolve))
+  assert.equal(client.state.events[1].properties.$referring_domain,undefined)
 })

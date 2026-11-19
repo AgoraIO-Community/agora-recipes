@@ -6,6 +6,8 @@ import { attributionStorageKey, createAttributionController, tabPrefix } from ".
 let controller: ReturnType<typeof createAttributionController> | undefined
 let started = false
 let entryRecorded = false
+let referrerAllowed = true
+let initialPath: string | undefined
 const listeners = new Set<() => void>()
 const emit = () => { for (const listener of listeners) listener() }
 
@@ -14,6 +16,7 @@ function sync(navigationType?: string) {
     // Startup is pending until PrivacyProvider restores the saved choice.
     // Do not erase a previously consented source during that initialization.
     const clear = Boolean(controller) || analyticsConsent.getSnapshot() === "denied"
+    if (clear) referrerAllowed = false
     controller?.clear()
     controller = undefined
     if (clear) {
@@ -25,7 +28,7 @@ function sync(navigationType?: string) {
   } else if (!controller) {
     controller = createAttributionController({
       url: window.location.href,
-      referrer: document.referrer,
+      referrer: referrerAllowed && window.location.pathname === initialPath ? document.referrer : "",
       navigationType: navigationType ?? (performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined)?.type ?? "navigate",
       restoredFromBFCache: navigationType === "back_forward",
       isGranted: analyticsConsent.isGranted,
@@ -45,9 +48,11 @@ function sync(navigationType?: string) {
 export const attributionStore = {
   subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener) } },
   getSnapshot: () => analyticsConsent.isGranted() ? controller?.get() : undefined,
+  getReferringDomain: () => analyticsConsent.isGranted() ? controller?.getReferringDomain() : undefined,
   start() {
     if (typeof window === "undefined" || started) return
     started = true
+    initialPath = window.location.pathname
     analyticsConsent.subscribe(() => sync())
     window.addEventListener("pagehide", () => controller?.release())
     window.addEventListener("pageshow", event => { sync(event.persisted ? "back_forward" : undefined); if (event.persisted) controller?.resume(true); emit() })
