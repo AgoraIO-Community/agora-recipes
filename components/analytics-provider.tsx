@@ -9,6 +9,7 @@ import { useCatalogSearch } from "@/hooks/use-catalog-location"
 import { analyticsOriginAllowed, analyticsUrl, createAnalyticsEvent, vercelProperties, type AnalyticsEvent, type EventDimensions } from "@/lib/analytics-events"
 import { pageContext, analyticsProperties } from "@/lib/analytics-context"
 import { attributionStore } from "@/lib/browser-attribution"
+import { externalDomain } from "@/lib/analytics-attribution"
 import { capturePosthog, syncPosthogConsent } from "@/lib/posthog-client"
 import { analyticsConsent, ga4Consent } from "@/lib/analytics-consent"
 import { basicCampaignProperties, basicPageCount, basicUsageCount, sendBasicCount, type BasicCount } from "@/lib/basic-analytics"
@@ -30,6 +31,9 @@ export function useBasicAnalytics() {
   }, [basicEnabled])
 }
 
+// One external entry per document, including across component remounts.
+let entrySourceCounted = false
+
 function BasicPageAnalytics() {
   const pathname = usePathname() ?? "/"
   const capture = useBasicAnalytics()
@@ -37,7 +41,18 @@ function BasicPageAnalytics() {
   useEffect(() => {
     if (previousPath.current === pathname) return
     const count = basicPageCount(pathname)
-    if (count && capture(count)) previousPath.current = pathname
+    if (!count) return
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined
+    const current = new URL(window.location.href)
+    const isEntry = !entrySourceCounted && navigation?.type === "navigate" && new URL(navigation.name).pathname === current.pathname
+    if (isEntry) {
+      const domain = externalDomain(document.referrer, current)
+      if (domain) count.$referring_domain = domain
+    }
+    if (capture(count)) {
+      previousPath.current = pathname
+      entrySourceCounted ||= isEntry
+    }
   }, [pathname, capture])
   return null
 }

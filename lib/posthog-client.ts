@@ -3,6 +3,7 @@
 import { sanitizePosthogEvent } from "./posthog-events"
 import { analyticsOriginAllowed, campaignKeys } from "./analytics-events"
 import { analyticsConsent } from "./analytics-consent"
+import { attributionStore } from "./browser-attribution"
 import { createConsentTransport } from "./analytics-transport"
 
 let client: Promise<typeof import("posthog-js/dist/module.slim").default | undefined> | undefined
@@ -49,6 +50,8 @@ export function capturePosthog(event: string, properties: Record<string, unknown
   if (!token) return
   if (!transport || transport.aborted) transport = createConsentTransport(analyticsConsent.isGranted)
   const grant = transport
+  attributionStore.start()
+  const domain = attributionStore.getReferringDomain()
   // Both the server deployment gate and the browser origin gate must pass
   // before loading the SDK, including its initialization requests.
   client ??= import("posthog-js/dist/module.slim").then(({ default: posthog }) => {
@@ -98,6 +101,6 @@ export function capturePosthog(event: string, properties: Record<string, unknown
     if (!posthog || !analyticsConsent.isGranted() || transport !== grant || grant.aborted) return
     if (appliedTransport !== grant) { posthog.set_config({ fetch_options: grant.options }); appliedTransport = grant }
     if (!posthog.has_opted_in_capturing()) posthog.opt_in_capturing({ captureEventName: false })
-    posthog.capture(event, { ...campaignDefaults, ...properties })
+    posthog.capture(event, { ...campaignDefaults, ...properties, $referring_domain: domain ?? null })
   }).catch(() => {})
 }

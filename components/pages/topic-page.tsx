@@ -37,7 +37,7 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   return <article className="recipe-detail topic-detail">
     <StructuredData value={breadcrumbSchema(siteUrl.href, [{ name: t("Recipes"), path: localePath("/", locale) }, { name: t("Topics"), path: localePath("/topics", locale) }, { name: t(topic.title), path: localePath(`/topics/${slug}`, locale) }])} />
     <header className="detail-hero"><div className="shell">
-      <Button asChild variant="ghost" size="sm" edge wrap className="detail-back"><Link href={localePath("/topics", locale)}><ArrowLeft aria-hidden="true" />{t("All Topics")}</Link></Button>
+      <Button asChild variant="ghost" size="sm" wrap className="detail-back"><Link href={localePath("/topics", locale)}><ArrowLeft aria-hidden="true" />{t("All Topics")}</Link></Button>
       {topic.kind === "activity" && <div className="detail-meta"><Badge variant="outline">{t(topicStatus(topic))}</Badge>{topic.starts && <span>{topic.starts}{topic.ends && ` – ${topic.ends}`}</span>}</div>}
       <h1 className="hero-title">{t(topic.title)}</h1><p className="detail-description">{t(topic.summary)}</p>
       <div className="detail-actions"><TopicContributionLink slug={topic.slug}>{t(topic.kind === "activity" && topicStatus(topic) === "Completed" ? "Share related work" : "Contribute to this Topic")}</TopicContributionLink>

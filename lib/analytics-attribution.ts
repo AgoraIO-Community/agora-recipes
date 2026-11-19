@@ -35,7 +35,23 @@ export function attributedDestination(value: string, attribution?: Attribution):
   } catch { return value }
 }
 
-type StoredAttribution = { tab: string; owner?: string; released: boolean; attribution?: Attribution }
+export function referringDomain(value: unknown): string | undefined {
+  if (typeof value !== "string" || value.length > 253) return undefined
+  const domain = value.toLowerCase().replace(/\.$/, "")
+  if (!domain.includes(".") || /^[\d.]+$/.test(domain)) return undefined
+  return domain.split(".").every(label => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label)) ? domain : undefined
+}
+
+export function externalDomain(referrer: string, current: URL) {
+  try {
+    const url = new URL(referrer)
+    if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) return undefined
+    const domain = referringDomain(url.hostname)
+    return domain === referringDomain(current.hostname) ? undefined : domain
+  } catch { return undefined }
+}
+
+type StoredAttribution = { tab: string; owner?: string; released: boolean; attribution?: Attribution; referringDomain?: string }
 export type AttributionEnvironment = {
   url: string
   referrer: string
@@ -56,6 +72,7 @@ export function createAttributionController(env: AttributionEnvironment) {
   let tab = ""
   let owner = ""
   let attribution: Attribution | undefined
+  let domain: string | undefined
   let pendingEntry: Attribution | undefined
   let writable = false
   let cleared = false
@@ -71,7 +88,7 @@ export function createAttributionController(env: AttributionEnvironment) {
       if (env.getTabName() !== tab) return
       const latest = readStored()
       if (!latest || latest.tab !== tab || latest.owner !== owner) return
-      env.write(JSON.stringify({ tab, owner, released, attribution }))
+      env.write(JSON.stringify({ tab, owner, released, attribution, referringDomain: domain }))
     } catch { /* Current-document memory remains usable with blocked storage. */ }
   }
   if (env.isGranted()) {
@@ -84,6 +101,7 @@ export function createAttributionController(env: AttributionEnvironment) {
       try { env.setTabName(tab) } catch { /* Memory attribution remains usable. */ }
     }
     attribution = ownsTab && stored?.attribution ? sanitizeAttribution(stored.attribution) : undefined
+    domain = ownsTab ? referringDomain(stored?.referringDomain) : undefined
     if (!ownsTab) {
       tab = tabPrefix + env.newToken()
       try { env.setTabName(tab) } catch { /* Keep current-document attribution only. */ }
@@ -93,16 +111,20 @@ export function createAttributionController(env: AttributionEnvironment) {
     let internal = false
     try { internal = new URL(env.referrer).origin === url.origin } catch { /* No internal-navigation evidence. */ }
     const restoring = ["reload", "back_forward"].includes(env.navigationType)
+    const external = externalDomain(env.referrer, url)
+    if (!restoring && external) domain = external
     const entry = Boolean(campaign && !restoring && !(ownsTab && internal))
     if (campaign && (entry || !attribution)) attribution = sanitizeAttribution({ ...campaign, landing_path: url.pathname })
+    if (entry && !external) domain = undefined
     pendingEntry = entry ? attribution : undefined
     writable = true
     // This document may replace inherited state after validating ownership.
-    try { env.write(JSON.stringify({ tab, owner, released: false, attribution })) } catch { /* Memory fallback. */ }
+    try { env.write(JSON.stringify({ tab, owner, released: false, attribution, referringDomain: domain })) } catch { /* Memory fallback. */ }
   }
 
   return {
     get: () => !cleared && env.isGranted() ? attribution : undefined,
+    getReferringDomain: () => !cleared && env.isGranted() ? domain : undefined,
     takeEntry() {
       if (cleared || !env.isGranted()) return undefined
       const entry = pendingEntry; pendingEntry = undefined; return entry
@@ -121,11 +143,13 @@ export function createAttributionController(env: AttributionEnvironment) {
           tab = latest.tab
           if (currentTab !== tab) env.setTabName(tab)
           attribution = latest.attribution && sanitizeAttribution(latest.attribution)
+          domain = referringDomain(latest.referringDomain)
           writable = true
           // Claim this snapshot before a previous document's delayed release.
-          env.write(JSON.stringify({ tab, owner, released: false, attribution }))
+          env.write(JSON.stringify({ tab, owner, released: false, attribution, referringDomain: domain }))
         } else {
           attribution = undefined
+          domain = undefined
           writable = false
         }
       } catch { /* Retain memory on read failure; persist still checks ownership. */ }
@@ -134,6 +158,7 @@ export function createAttributionController(env: AttributionEnvironment) {
     clear() {
       cleared = true
       attribution = undefined
+      domain = undefined
       pendingEntry = undefined
       writable = false
       try { env.remove() } catch { /* Withdrawal cannot depend on storage access. */ }

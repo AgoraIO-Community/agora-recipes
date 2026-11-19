@@ -36,6 +36,7 @@ export type BasicCount = BasicCampaign & {
   search_term?: string
   zero_results?: boolean
   action?: string
+  $referring_domain?: string
 }
 
 type PublicEntry = { slug: string; title: string; platforms: readonly string[]; useCases: readonly string[]; capabilities: readonly string[] }
@@ -85,7 +86,7 @@ export function basicUsageCount(pathname: string, metric: AnalyticsEvent, proper
 }
 
 export function sendBasicCount(count: BasicCount, send: typeof fetch = fetch) {
-  // Do not attach cookies, referrers, a timestamp, a consent value, or any ID.
+  // Do not attach cookies, full referrer URLs, timestamps, consent or IDs.
   // Best-effort delivery has no retry or per-visitor deduplication token.
   void send("/api/analytics/basic", {
     method: "POST", headers: { "Content-Type": "application/json" },

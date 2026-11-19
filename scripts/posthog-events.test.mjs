@@ -76,8 +76,43 @@ test('SDK boundary preserves required anonymous transport fields and removes pro
   assert.equal(result.properties.$session_id, 'session')
   assert.equal(result.properties.$process_person_profile, false)
   assert.equal(result.properties.$current_url, 'https://recipes.agora.io/contribute')
-  assert.doesNotMatch(JSON.stringify(result), /private|secret|email|clipboard/)
+  assert.equal(result.properties.$referrer, undefined)
+  assert.doesNotMatch(JSON.stringify(result), /secret|email|clipboard/)
   for (const event of ['$autocapture', '$snapshot', '$exception', 'submission_success']) assert.equal(sanitizePosthogEvent({ event, properties: {} }), null)
+})
+
+test('domain-only sources survive page views and actions while full referrers are removed', () => {
+  for (const event of ['$pageview', 'material_open', 'content_copy', 'campaign_entry']) {
+    const { properties } = sanitizePosthogEvent({ event, properties: {
+      $referrer: 'https://user:password@www.google.com/search?q=voice&token=secret#private',
+      $referring_domain: 'www.google.com', utm_source: 'newsletter',
+      $initial_referrer: 'https://private.example/', $initial_referring_domain: 'private.example', ph_keyword: 'private',
+    } })
+    assert.equal(properties.$referrer, undefined)
+    assert.equal(properties.$referring_domain, 'www.google.com')
+    assert.equal(properties.utm_source, 'newsletter')
+    assert.doesNotMatch(JSON.stringify(properties), /password|secret|private|ph_keyword|\$initial_/)
+  }
+})
+
+test('sources allow valid domains while SDK direct and invalid values are omitted', () => {
+  for (const domain of ['github.com', 'www.bing.com', 'WWW.LINKEDIN.COM']) {
+    const { properties } = sanitizePosthogEvent({ event: '$pageview', properties: { $referring_domain: domain } })
+    assert.equal(properties.$referring_domain, domain.toLowerCase())
+    assert.equal(properties.$referrer, undefined)
+  }
+  const direct = sanitizePosthogEvent({ event: '$pageview', properties: { $referrer: '$direct', $referring_domain: '$direct' } }).properties
+  assert.equal(direct.$referrer, undefined)
+  assert.equal(direct.$referring_domain, undefined)
+  for (const value of [undefined, null, '', 42, [], {}, 'javascript:alert(1)', '/relative']) {
+    const { properties } = sanitizePosthogEvent({ event: '$pageview', properties: { $referrer: value, $referring_domain: value } })
+    assert.equal(Object.hasOwn(properties, '$referrer'), false)
+    assert.equal(Object.hasOwn(properties, '$referring_domain'), false)
+  }
+  for (const domain of ['example.com:8443', '127.0.0.1', 'localhost', 'https://github.com', 'user@example.com', 'github.com/path', 'github.com?secret=value', 'github.com#private', 'example.com\\evil']) {
+    const { properties } = sanitizePosthogEvent({ event: '$pageview', properties: { $referring_domain: domain } })
+    assert.equal(Object.hasOwn(properties, '$referring_domain'), false, domain)
+  }
 })
 
 test('shared measurement payload joins campaign, content and search without treating result opens as recipe use', () => {

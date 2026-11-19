@@ -32,9 +32,54 @@ const fixtureUrl = url(`
   export const Analytics = 'Analytics';
 `)
 let source = compile(readFileSync(new URL('../components/analytics-provider.tsx', import.meta.url), 'utf8') + '\nexport { BasicPageAnalytics, PageAnalytics, LinkAnalytics };')
-source = source.replace(/from "([^"]+)"/g, (match, specifier) => `from ${JSON.stringify(specifier === '@/lib/analytics-events' ? eventsUrl : specifier === '@/lib/analytics-context' ? contextUrl : fixtureUrl)}`)
+const modules = { '@/lib/analytics-events': eventsUrl, '@/lib/analytics-context': contextUrl, '@/lib/analytics-attribution': attributionUrl }
+source = source.replace(/from "([^"]+)"/g, (match, specifier) => `from ${JSON.stringify(modules[specifier] ?? fixtureUrl)}`)
 const provider = await import(url(source))
 const { state } = await import(fixtureUrl)
+
+test('anonymous source counts once on the external landing across SPA navigation and consent changes', async () => {
+  const landing = 'https://recipes.agora.io/?utm_source=partner'
+  const navigation = { name: landing, type: 'navigate' }
+  globalThis.window = { location: new URL(landing) }
+  globalThis.document = { referrer: 'https://github.com/org/project?private=1' }
+  const mockNavigation = test.mock.method(performance, 'getEntriesByType', () => [navigation])
+  const render = (instance = provider) => {
+    state.cursor = 0
+    instance.BasicPageAnalytics()
+    state.effects.splice(0).forEach(effect => effect())
+  }
+  try {
+    state.refs = []; state.basic = []; state.consent = false; state.pathname = '/'
+    render()
+    render()
+    state.consent = true
+    render()
+    state.pathname = '/recipes/example'
+    window.location = new URL(state.pathname, landing)
+    render()
+    state.pathname = '/'
+    window.location = new URL(landing)
+    render()
+    assert.deepEqual(state.basic.map(count => count.$referring_domain), ['github.com', undefined, undefined])
+    assert.equal(state.basic[0].utm_source, 'partner')
+    assert.doesNotMatch(JSON.stringify(state.basic), /private|project/)
+
+    for (const [type, expected] of [['reload', undefined], ['back_forward', undefined], ['navigate', 'github.com']]) {
+      state.refs = []; state.basic = []
+      state.pathname = '/recipes/example'
+      window.location = new URL(state.pathname, landing)
+      Object.assign(navigation, { type, name: window.location.href })
+      const freshDocument = await import(url(source + '\n// ' + type))
+      render(freshDocument)
+      assert.deepEqual(state.basic.map(count => count.$referring_domain), [expected])
+    }
+  } finally {
+    mockNavigation.mock.restore()
+    state.refs = []; state.enabled = true; state.pathname = '/'
+    delete globalThis.document
+    delete globalThis.window
+  }
+})
 
 function renderPage(component = provider.PageAnalytics) {
   state.cursor = 0
