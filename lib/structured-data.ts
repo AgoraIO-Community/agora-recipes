@@ -4,13 +4,14 @@ type Crumb = { name: string; path: string }
 const schema = "https://schema.org"
 const languages = new Set(["TypeScript", "JavaScript", "Python", "Go", "Rust", "Swift", "Kotlin", "Java", "C", "C#", "C++", "Dart"])
 const url = (origin: string, path: string) => new URL(path, origin).href
+const publisher = { "@type": "Organization", name: "Agora", url: "https://www.agora.io/" }
 
 export function serializeStructuredData(value: unknown): string {
   return JSON.stringify(value).replace(/</g, "\\u003c").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029")
 }
 
 export function websiteSchema(origin: string) {
-  return { "@context": schema, "@type": "WebSite", "@id": url(origin, "/#website"), url: url(origin, "/"), name: "Agora Recipes", alternateName: "Agora Voice AI Recipes" }
+  return { "@context": schema, "@type": "WebSite", "@id": url(origin, "/#website"), url: url(origin, "/"), name: "Agora Recipes", alternateName: "Agora Voice AI Recipes", publisher }
 }
 
 export function breadcrumbSchema(origin: string, crumbs: Crumb[]) {
@@ -27,8 +28,12 @@ export function recipeSchema(origin: string, path: string, entry: CatalogEntry, 
   const codeId = url(origin, `/recipes/${entry.slug}#source-code`)
   const author = { "@type": entry.author === "Agora" ? "Organization" : "Person", name: entry.author }
   const guide = Boolean(entry.recipeUrl && entry.recipeDocument.markdown && !entry.recipeDocument.fetchError)
+  const keywords = [...new Set([...entry.useCases, ...entry.capabilities])]
   const page = { "@type": guide ? "TechArticle" : "WebPage", "@id": pageUrl, url: pageUrl, name: entry.title, headline: entry.title,
-    description: entry.description, author, dateModified: modified,
+    description: entry.description, author, publisher, dateModified: modified,
+    ...(entry.media?.thumbnail ? { image: url(origin, entry.media.thumbnail) } : {}),
+    ...(keywords.length ? { keywords } : {}),
+    ...(guide && entry.difficulty ? { proficiencyLevel: entry.difficulty } : {}),
     ...(language && guide ? { inLanguage: language } : {}),
     ...(entry.mainRepoUrl ? { about: { "@id": codeId } } : {}) }
   return { "@context": schema, "@graph": [page, ...(entry.mainRepoUrl ? [{ "@type": "SoftwareSourceCode", "@id": codeId, name: entry.title, codeRepository: entry.mainRepoUrl,
