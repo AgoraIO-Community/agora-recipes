@@ -30,9 +30,9 @@
   "media": {
     "compactTitle": "Alibai",
     "compactSummary": "Interrogate a live AI suspect.",
-    "thumbnail": "/recipes/alibai.webp",
-    "thumbnailAlt": "Alibai title card: the word Alibai and the line Grill AI suspects. Crack the case. beside a glowing voice waveform, over the game's interrogation room with two detectives at a lamp-lit table.",
-    "thumbnailSource": "https://github.com/AgoraIO-Community/alibai-game/blob/main/public/images/interrogation-room.webp",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/alibai-game/40c6ab9a997ef5f16387c242f321099b98537ee3/public/images/interrogation-room.webp",
+    "thumbnailAlt": "Two detectives seated across an interrogation table in a dimly lit room, from the Alibai live website.",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/alibai-game/blob/40c6ab9a997ef5f16387c242f321099b98537ee3/public/images/interrogation-room.webp",
     "demoNote": "Google sign-in and a microphone needed. English only.",
     "labels": [
       "Voice AI",
