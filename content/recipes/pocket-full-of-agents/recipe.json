@@ -1,0 +1,27 @@
+{
+  "title": "PocketFullOfAgents",
+  "tagline": "Choose a voice agent on an M5StickS3 and hold the front button to talk.",
+  "description": "Create agents in a Next.js dashboard, give each one a voice and a greeting, and choose which ones appear on the Stick. Test an agent in the browser or select it on the device. The Stick streams microphone and speaker audio directly through Agora RTC.",
+  "tags": [
+    "voice-ai",
+    "rtc"
+  ],
+  "platforms": [
+    "Web"
+  ],
+  "useCases": [
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent"
+  ],
+  "demoUrl": "https://pocketfullofagents.vercel.app",
+  "author": "digitallysavvy",
+  "updated": "2026-11-20",
+  "media": {
+    "thumbnail": "/showcase/pocket-full-of-agents.webp",
+    "thumbnailAlt": "PocketFullOfAgents landing page showing an M5StickS3 and the steps to choose an agent and talk.",
+    "thumbnailSource": "https://pocketfullofagents.vercel.app"
+  }
+}
