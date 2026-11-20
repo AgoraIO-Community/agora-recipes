@@ -20,8 +20,8 @@
   "author": "digitallysavvy",
   "updated": "2026-11-20",
   "media": {
-    "thumbnail": "/showcase/pocket-full-of-agents.webp",
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/m5-voice-platform/main/.github/images/landing-page.png",
     "thumbnailAlt": "PocketFullOfAgents landing page showing an M5StickS3 and the steps to choose an agent and talk.",
-    "thumbnailSource": "https://pocketfullofagents.vercel.app"
+    "thumbnailSource": "https://github.com/AgoraIO-Community/m5-voice-platform/blob/main/.github/images/landing-page.png"
   }
 }
