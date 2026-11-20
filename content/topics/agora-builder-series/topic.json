@@ -5,6 +5,7 @@
   "kind": "collection",
   "sourceUrl": "https://github.com/AgoraIO-Community/agora-recipes/pulls?q=is%3Apr+is%3Amerged+author%3Aanandwana001",
   "members": [
+    {"slug": "pocket-full-of-agents"},
     { "slug": "pause-with-agora" },
     { "slug": "agora-breath-companion" },
     { "slug": "bhaasha-agora" },
