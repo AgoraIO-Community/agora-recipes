@@ -31,13 +31,11 @@
     "Three.js"
   ],
   "mainRepoUrl": "https://github.com/DarshanKrishna-DK/MedSim",
-  "demoUrl": "https://medsim-0cla.onrender.com",
   "author": "Darshan Krishna N",
   "updated": "2026-11-23",
   "media": {
     "thumbnail": "https://raw.githubusercontent.com/DarshanKrishna-DK/MedSim/main/media/trailer-poster.jpg",
     "thumbnailAlt": "MedSim title card from the project trailer: a red medical cross with a pulse line above the words MedSim and Talk. Order. Get graded.",
-    "thumbnailSource": "https://github.com/DarshanKrishna-DK/MedSim/blob/main/media/trailer-poster.jpg",
-    "demoNote": "Microphone recommended; typing also works. The free-tier host sleeps when idle, so the first load can take about 50 seconds."
+    "thumbnailSource": "https://github.com/DarshanKrishna-DK/MedSim/blob/main/media/trailer-poster.jpg"
   }
 }
