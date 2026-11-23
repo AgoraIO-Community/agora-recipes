@@ -1,0 +1,41 @@
+{
+  "title": "MedSim",
+  "tagline": "Practice clinical consults by voice in a 3D Indian hospital.",
+  "description": "MedSim is a voice-first clinical training simulator for Indian medical students. Learners walk through a 3D hospital, talk to AI patients in seven Indian languages, speak orders that Nurse Asha carries out with tool calls such as drug-interaction checks, and receive a graded debrief. It uses Agora Conversational AI with Sarvam and Murf, React Three Fiber and a FastAPI backend. It is a training simulator, not medical advice, and its cases are synthetic.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript",
+    "Python",
+    "Web"
+  ],
+  "useCases": [
+    "Healthcare",
+    "Education",
+    "Multi-Agent",
+    "Tool Use",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "RTM",
+    "Custom LLM",
+    "Tool Calling",
+    "STT",
+    "TTS",
+    "FastAPI",
+    "React",
+    "Three.js"
+  ],
+  "mainRepoUrl": "https://github.com/DarshanKrishna-DK/MedSim",
+  "author": "Darshan Krishna N",
+  "updated": "2026-11-23",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/DarshanKrishna-DK/MedSim/main/media/trailer-poster.jpg",
+    "thumbnailAlt": "MedSim title card from the project trailer: a red medical cross with a pulse line above the words MedSim and Talk. Order. Get graded.",
+    "thumbnailSource": "https://github.com/DarshanKrishna-DK/MedSim/blob/main/media/trailer-poster.jpg"
+  }
+}
