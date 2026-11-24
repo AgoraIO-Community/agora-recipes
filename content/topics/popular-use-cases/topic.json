@@ -1,6 +1,6 @@
 {
   "title": "Popular Use Cases",
-  "summary": "Explore practical Voice AI use cases for customer support, hospitality, travel, education, healthcare, language learning, recruitment, events, feedback and shopping. Try the demos and build your own.",
+  "summary": "Try Voice AI demos for customer support, travel, housing, healthcare, language learning, recruiting, shopping and more. Explore each recipe to build your own.",
   "compactSummary": "Practical Voice AI use cases to try and build.",
   "kind": "collection",
   "cover": {
@@ -22,7 +22,7 @@
       "slug": "agora-travel-booking-assistant-demo"
     },
     {
-      "slug": "agora-course-consultation-assistant-demo"
+      "slug": "agora-rental-follow-up-demo"
     },
     {
       "slug": "agora-clinic-appointment-assistant-demo"
@@ -34,10 +34,19 @@
       "slug": "agora-recruitment-screening-assistant-demo"
     },
     {
-      "slug": "agora-event-reminder-assistant-demo"
+      "slug": "agora-dental-reminder-demo"
     },
     {
       "slug": "agora-service-feedback-survey-demo"
+    },
+    {
+      "slug": "agora-vehicle-service-demo"
+    },
+    {
+      "slug": "agora-restaurant-ordering-demo"
+    },
+    {
+      "slug": "agora-financial-verification-demo"
     }
   ]
 }

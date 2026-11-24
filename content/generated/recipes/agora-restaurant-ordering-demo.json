@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "slug": "agora-restaurant-ordering-demo",
+  "generatedAt": "2026-11-24T09:11:31.537Z",
+  "source": {
+    "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo",
+    "recipeUrl": "https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/RECIPE.md",
+    "recipeRawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/agora-restaurant-ordering-demo/main/RECIPE.md"
+  },
+  "recipeDocument": {
+    "rawUrl": "https://raw.githubusercontent.com/AgoraIO-Community/agora-restaurant-ordering-demo/main/RECIPE.md",
+    "viewUrl": "https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/RECIPE.md",
+    "markdown": "# Agora Takeout & Delivery Ordering Demo\n\n## 1. What you build\n\nExplore a sample menu and build a pickup or delivery order draft.\n\n## 2. Prerequisites\n\nUse Node.js 24, pnpm 9.15.9 and an Agora project with Conversational AI enabled.\n\n## 3. Configure the app\n\nCopy `env.local.example` to `.env.local`. Enter the App ID and App Certificate in the fields listed in [README.md](https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/README.md).\n\n## 4. Run the app\n\nRun `pnpm install --frozen-lockfile` and `pnpm dev`. Open the local page and allow microphone access.\n\n## 5. Try a conversation\n\nSay “I would like two Garden Pizzas for delivery.” Then say “Change that to one Garden Pizza and make it pickup.” Ask for a recap of the corrected draft.\n\n## 6. Understand the boundary\n\nThe browser session uses fictional reference data and a spoken draft. Do not collect a delivery address, phone number or payment details. Do not quote an all-in total, claim delivery coverage or promise allergen safety. Do not claim an order was submitted, paid for or sent to the kitchen.\n\n## 7. Customize the scenario\n\nEdit [the workflow](https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/lib/agent-config.ts), [the fictional reference](https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/lib/scenario-knowledge.ts) or [the UI copy](https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/lib/presentation.ts).\n\n## 8. Verify\n\nRun `pnpm run verify`. Exercise the initial request and correction in a real browser call to validate speech behavior.\n"
+  },
+  "primaryPrompt": "You are implementing the \"Takeout & Delivery Ordering\" recipe in this project.\n\nRead the recipe markdown first:\nhttps://raw.githubusercontent.com/AgoraIO-Community/agora-restaurant-ordering-demo/main/RECIPE.md\n\nUse the source repository for cross-reference:\nhttps://github.com/AgoraIO-Community/agora-restaurant-ordering-demo\n\nBuild this recipe into the user's app using the markdown as the implementation guide. Inspect related source files through the repository links when the recipe points to them. Ask before installing new dependencies.",
+  "contentUpdatedAt": "2026-11-24"
+}

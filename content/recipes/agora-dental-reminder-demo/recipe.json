@@ -1,0 +1,43 @@
+{
+  "title": "Dental Appointment Reminder Assistant",
+  "tagline": "Try a voice reminder for a fictional dental appointment.",
+  "description": "Hear a sample appointment reminder, then practice confirming attendance, asking to cancel or discussing a new time. Your response stays in the conversation.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Healthcare",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-dental-reminder-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-dental-reminder-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-dental-reminder-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-24",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-dental-reminder-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "Illustration for Dental Appointment Reminder Assistant",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-dental-reminder-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}
