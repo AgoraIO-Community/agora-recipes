@@ -1,0 +1,28 @@
+{
+  "title": "Android Compose RTC Examples",
+  "tagline": "Explore Agora calling and media workflows in Jetpack Compose.",
+  "description": "Run a Compose sample app with focused examples for joining audio and video channels, live streaming, screen sharing, custom media, and other Agora RTC workflows. Follow the linked setup guide and sample catalog to find each implementation.",
+  "tags": [
+    "rtc"
+  ],
+  "platforms": [
+    "Android",
+    "Kotlin"
+  ],
+  "useCases": [
+    "Quickstart",
+    "Video Calling",
+    "Custom Media"
+  ],
+  "capabilities": [
+    "Agora RTC",
+    "Jetpack Compose",
+    "Screen Sharing",
+    "Custom Video Source"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/agora-android-compose-examples",
+  "recipeUrl": "https://github.com/anandwana001/agora-android-compose-examples/blob/main/README.md",
+  "author": "anandwana001",
+  "updated": "2026-10-23",
+  "difficulty": "Intermediate"
+}

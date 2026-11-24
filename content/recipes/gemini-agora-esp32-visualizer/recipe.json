@@ -1,0 +1,27 @@
+{
+  "title": "Talk to Hardware",
+  "tagline": "Explore a 3D ESP32 teardown through a live voice conversation.",
+  "description": "Build a browser-based hardware learning experience where users inspect an ESP32-S3 model, ask an Agora voice assistant questions, and use spoken commands to focus components, explode the device, or show the audio flow.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Education",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Gemini",
+    "Next.js",
+    "Three.js"
+  ],
+  "mainRepoUrl": "https://github.com/anandwana001/gemini-agora-esp32-visualizer",
+  "recipeUrl": "https://github.com/anandwana001/gemini-agora-esp32-visualizer/blob/main/docs/ai/RECIPE.md",
+  "author": "anandwana001",
+  "updated": "2026-10-23",
+  "difficulty": "Intermediate"
+}
