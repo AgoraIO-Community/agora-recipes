@@ -1,0 +1,25 @@
+{
+  "title": "Agora Reachy Voice AI Companion",
+  "tagline": "Give Pollen Robotics Reachy Mini a multilingual voice with Agora Conversational AI.",
+  "description": "Build a multilingual friendly AI companion for Reachy Mini with live transcripts, Murf speech, and safe voice-triggered gestures, dances, and expressions. The guide covers local USB development, Agora ARES, managed OpenAI, hosted Reachy deployment, and public-demo controls.",
+  "tags": ["voice-ai", "rtc"],
+  "platforms": ["TypeScript"],
+  "useCases": ["Voice AI", "Conversational AI", "Robotics"],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Next.js",
+    "Multilingual",
+    "Physical AI"
+  ],
+  "demoUrl": "https://huggingface.co/spaces/rrsa12/agora-reachy-voice-ai-companion",
+  "mainRepoUrl": "https://huggingface.co/spaces/rrsa12/agora-reachy-voice-ai-companion",
+  "recipeUrl": "https://huggingface.co/spaces/rrsa12/agora-reachy-voice-ai-companion/resolve/main/docs/RECIPE.md",
+  "author": "Rishi Raj Singh Ahluwalia — Director of Solutions Architecture at Agora",
+  "updated": "2026-11-23",
+  "difficulty": "Advanced",
+  "media": {
+    "demoNote": "Requires a Hugging Face account and a Pollen Robotics Reachy Mini associated with that account and online in Reachy Mini Control. The hosted community instance provides a limited daily conversation allowance.",
+    "labels": ["Reachy Mini", "Multilingual voice AI", "Physical AI"]
+  }
+}
