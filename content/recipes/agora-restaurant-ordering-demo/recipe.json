@@ -1,0 +1,43 @@
+{
+  "title": "Takeout & Delivery Ordering",
+  "tagline": "Build a pickup or delivery order with a voice agent.",
+  "description": "Browse a fictional menu, specify quantities, switch between pickup and delivery and review your revised order draft.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Commerce",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-restaurant-ordering-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-24",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-restaurant-ordering-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "Illustration for Takeout & Delivery Ordering",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-restaurant-ordering-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

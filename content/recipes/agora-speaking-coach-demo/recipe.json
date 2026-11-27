@@ -1,7 +1,7 @@
 {
-  "title": "Mandarin Speaking Coach",
-  "tagline": "Practice Mandarin with English guidance and written pinyin.",
-  "description": "Practice short Mandarin role-plays and review vocabulary or grammar feedback based on recognized text. Includes written pinyin and English explanations, without pronunciation scoring or saved learning records.",
+  "title": "Multilingual Speaking Coach",
+  "tagline": "Practice speaking Spanish, French or German with English guidance.",
+  "description": "Try short role-plays in Spanish, French or German with English explanations, or ask for immersion in your selected language. Get vocabulary and grammar feedback based on the transcript.",
   "tags": [
     "voice-ai"
   ],
@@ -22,11 +22,11 @@
   "recipeUrl": "https://github.com/AgoraIO-Community/agora-speaking-coach-demo/blob/main/RECIPE.md",
   "demoUrl": "https://agora-speaking-coach-demo.vercel.app/",
   "author": "Agora",
-  "updated": "2026-11-12",
+  "updated": "2026-11-24",
   "difficulty": "Intermediate",
   "media": {
     "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-speaking-coach-demo/main/docs/recipe-cover.webp",
-    "thumbnailAlt": "ASCII illustration for Mandarin Speaking Coach; supplied cover artwork, not a demo screenshot",
+    "thumbnailAlt": "Speaking Coach illustration with Hola, Bonjour and Hallo speech bubbles",
     "thumbnailSource": "https://github.com/AgoraIO-Community/agora-speaking-coach-demo/blob/main/docs/recipe-cover.webp"
   },
   "cli": {
@@ -42,9 +42,9 @@
   },
   "setup": {
     "packageName": "agora-speaking-coach-demo",
-    "packageVersion": "0.1.0",
+    "packageVersion": "0.1.3",
     "npmAvailable": true,
     "directory": "my-speaking-app",
-    "testRequest": "Help me practice ordering coffee in Mandarin, with English guidance, and give me feedback."
+    "testRequest": "Help me practice ordering coffee in Spanish and give me feedback in English."
   }
 }

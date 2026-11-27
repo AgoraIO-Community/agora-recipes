@@ -1,0 +1,43 @@
+{
+  "title": "Financial Verification Assistant",
+  "tagline": "Rehearse a card services conversation with a voice agent.",
+  "description": "Use a public practice phrase to simulate verification, then rehearse reporting an unfamiliar charge or asking to lock a fictional card.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Financial Services",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-financial-verification-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-financial-verification-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-financial-verification-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-24",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-financial-verification-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "Illustration for Financial Verification Assistant",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-financial-verification-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}

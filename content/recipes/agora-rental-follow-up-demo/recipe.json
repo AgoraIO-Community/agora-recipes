@@ -1,0 +1,43 @@
+{
+  "title": "Real Estate Follow-Up Assistant",
+  "tagline": "Compare sample Austin rentals and discuss a viewing by voice.",
+  "description": "Share your budget, commute and move-in preferences, compare fictional rental listings and review a simulated viewing request.",
+  "tags": [
+    "voice-ai"
+  ],
+  "platforms": [
+    "TypeScript"
+  ],
+  "useCases": [
+    "Customer Support",
+    "Voice AI"
+  ],
+  "capabilities": [
+    "Conversational AI",
+    "Voice Agent",
+    "Agora RTC",
+    "Next.js"
+  ],
+  "mainRepoUrl": "https://github.com/AgoraIO-Community/agora-rental-follow-up-demo",
+  "recipeUrl": "https://github.com/AgoraIO-Community/agora-rental-follow-up-demo/blob/main/RECIPE.md",
+  "demoUrl": "https://agora-rental-follow-up-demo.vercel.app/",
+  "author": "Agora",
+  "updated": "2026-11-24",
+  "difficulty": "Intermediate",
+  "media": {
+    "thumbnail": "https://raw.githubusercontent.com/AgoraIO-Community/agora-rental-follow-up-demo/main/docs/recipe-cover.webp",
+    "thumbnailAlt": "Illustration for Real Estate Follow-Up Assistant",
+    "thumbnailSource": "https://github.com/AgoraIO-Community/agora-rental-follow-up-demo/blob/main/docs/recipe-cover.webp"
+  },
+  "cli": {
+    "projectType": "nextjs",
+    "env": {
+      "examplePath": "env.local.example",
+      "targetPath": ".env.local",
+      "appIdKey": "NEXT_PUBLIC_AGORA_APP_ID",
+      "appCertificateKey": "NEXT_AGORA_APP_CERTIFICATE"
+    },
+    "installCommand": "pnpm install --frozen-lockfile",
+    "runCommand": "pnpm run dev"
+  }
+}
