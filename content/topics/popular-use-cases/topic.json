@@ -16,6 +16,12 @@
       "slug": "agora-customer-support-assistant-demo"
     },
     {
+      "slug": "agora-clinic-appointment-assistant-demo"
+    },
+    {
+      "slug": "agora-restaurant-ordering-demo"
+    },
+    {
       "slug": "agora-hotel-reception-assistant-demo"
     },
     {
@@ -23,9 +29,6 @@
     },
     {
       "slug": "agora-rental-follow-up-demo"
-    },
-    {
-      "slug": "agora-clinic-appointment-assistant-demo"
     },
     {
       "slug": "agora-speaking-coach-demo"
@@ -41,9 +44,6 @@
     },
     {
       "slug": "agora-vehicle-service-demo"
-    },
-    {
-      "slug": "agora-restaurant-ordering-demo"
     },
     {
       "slug": "agora-financial-verification-demo"
